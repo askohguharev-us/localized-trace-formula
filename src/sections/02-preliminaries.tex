@@ -1,22 +1,41 @@
-% src/sections/02-preliminaries.tex
 \section{Preliminaries}\label{sec:prelim}
 
-Let $X=\Gamma\backslash\HH$ be a finite–area hyperbolic surface with $m$ cusps.
-We use the hyperbolic measure $d\mu=y^{-2}\,dx\,dy$ and the (positive) Laplacian $-\Lap$.
-The cuspidal spectrum consists of eigenpairs $(-\Lap)\psi_j=\lambda_j\psi_j$ with $\lambda_j=\tfrac14+r_j^2$.
-We also write $L^2(X)$ for the Hilbert space with norm $\|\cdot\|$.
+\subsection{Geometry and spectrum.}
+Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$
+cusps. We use coordinates $z=x+iy$ on $\HH$ and the measure
+$d\mu=y^{-2}\,dx\,dy$. The (positive) Laplacian is $-\Lap$.
+We denote cuspidal eigenpairs by $(-\Lap)\psi_j=\lambda_j\psi_j$ with
+$\lambda_j=\tfrac14+r_j^2$ and $\|\psi_j\|_{L^2(X)}=1$; continuous spectrum
+is handled by Eisenstein series but will be suppressed in Block~0.
 
-\paragraph{Test functions.}
-Fix $h\in\mathcal S(\RR)$ even; write $h_R(t):=h(t/R)$.
-Let $\chi_Y$ be a smooth phase–space or spatial cutoff (to be specified), depending on a parameter $Y$.
+\subsection{Cutoffs and test functions.}
+Fix a smooth cutoff $\chi_Y\in C_c^\infty(X)$ which equals $1$ on the
+compact core and removes the cuspidal region above height $Y\gg1$.
+Let $h\in\mathcal{S}(\RR)$ be even with compactly supported Fourier
+transform $\widehat{h}$; for $R\ge1$ put $h_R(r)=h(r/R)$.
 
-\paragraph{Localized trace functional.}
-We consider
+\begin{definition}
+The \emph{localized trace distribution} is
 \[
-  \TR = \sum_j h_R(r_j)\,\langle \chi_Y \psi_j,\psi_j\rangle,
+  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2
+  \;+\; \mathsf{G}_R(\chi_Y),
 \]
-and, when convenient, its decomposition into continuous/cuspidal parts.
+where $\mathsf{G}_R(\chi_Y)$ denotes the geometric contribution obtained
+from the localized kernel (the precise formula is deferred to later blocks).
+\end{definition}
 
-\paragraph{Notation.}
-We write $\injrad(x)$ for the injectivity radius, $\vol(\cdot)$ for volume,
-and use the standard big-O and $\ll$ conventions, allowing constants to depend on fixed background data.
+\begin{lemma}[Windowed Plancherel, skeleton]\label{lem:planch}
+For even $h\in\mathcal{S}(\RR)$ with compactly supported $\widehat{h}$ one
+has a decomposition
+\[
+  \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2}^2
+  \;=\; \int_X \chi_Y(z)\,K_R(z,z)\,d\mu(z) \;+\; O(R^{-\infty}),
+\]
+where $K_R$ is the kernel of the spectral projector associated with $h_R$.
+\end{lemma}
+
+\begin{remark}
+The implied $O(R^{-\infty})$ hides smoothing errors from cutting off both
+in space and frequency; in the final proof one balances $Y=Y(R)$ with the
+support of $\widehat{h}$.
+\end{remark}
