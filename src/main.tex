@@ -1,30 +1,32 @@
-\documentclass[11pt]{amsart}
+\documentclass[12pt]{amsart}
 
-% ---------- Encoding & fonts ----------
+% ---------- Safe packages (arXiv-compliant) ----------
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-
-% ---------- Math & layout ----------
-\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
 \usepackage{microtype}
-\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=teal,urlcolor=magenta]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+\usepackage{doi} % keep AFTER hyperref
 
-% ---------- Hyperlinks (load before cleveref) ----------
-\usepackage{hyperref}
-\hypersetup{
-  pdftitle={A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces},
-  pdfauthor={\textsc{A. Author}, \textsc{B. Author}},
-  pdfkeywords={Selberg trace formula, hyperbolic surfaces, localized spectrum, microlocal analysis},
-  colorlinks=true,
-  linkcolor=black, citecolor=black, urlcolor=black
+% ---------- PDF metadata ----------
+\pdfinfo{
+  /Title (A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces)
+  /Author (Alexander Stepanovich Kozhukharev)
+  /Subject (Spectral Geometry, Trace Formulas, Hyperbolic Surfaces)
+  /Keywords (trace formula; hyperbolic surfaces; microlocal analysis; cuspidal spectrum; Weyl law)
 }
-
-% ---------- Clever references ----------
-\usepackage[nameinlink,capitalize]{cleveref}
 
 % ---------- Theorem environments ----------
 \numberwithin{equation}{section}
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -34,121 +36,135 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-% ---------- Shortcuts ----------
+% ---------- Notation ----------
 \newcommand{\HH}{\mathbb{H}}
 \newcommand{\RR}{\mathbb{R}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\vol}{\mathrm{vol}}
-\newcommand{\injrad}{\mathrm{injrad}}
+\DeclareMathOperator{\vol}{vol}
 \DeclareMathOperator{\supp}{supp}
+\newcommand{\injrad}{\mathrm{inj}}
+\newcommand{\Lap}{\Delta}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\PSL}{\mathrm{PSL}}
+\newcommand{\TR}{\mathsf{T}_R}
 
-% ---------- Safe DOI macro ----------
-\newcommand{\doi}[1]{\href{https://doi.org/#1}{doi:\,#1}}
-
-% ---------- Title & meta ----------
+% ---------- Title ----------
 \title[A Localized Trace Formula]{A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces}
 
-\author{A. Author}
-\address{Department of Mathematics, Somewhere University}
-%\email{not-for-arxiv@example.org} % (emails usually omitted on arXiv)
+\author{Alexander Stepanovich Kozhukharev}
+\address{Independent Researcher, Moscow, Russia}
 
-\author{B. Author}
-\address{Institute of Mathematics, Another University}
-
-\subjclass[2020]{Primary 58J50; Secondary 35P20, 58J42.}
-\keywords{Selberg trace formula, hyperbolic surfaces, localized spectral window, microlocal analysis}
+\date{\today}
 
 \begin{document}
 
+% ---------- Abstract ----------
 \begin{abstract}
-We establish a doubly localized trace formula on finite-area hyperbolic surfaces
-$X=\Gamma\backslash\HH$ that isolates the discrete cuspidal spectrum in a frequency
-window $[R-R^\theta,\,R+R^\theta]$ while imposing a geometric height cutoff $y\le Y=R^\beta$.
-For $0<\beta<\tfrac12$ and $0<\theta<\tfrac{1+\beta}{2}$ we obtain an explicit remainder
-$O\!\left(R^{1-\varepsilon(\theta,\beta)}\right)$ with $\varepsilon(\theta,\beta)>0$, and we
-show the parameter range is essentially optimal. The proof blends the Selberg trace
-framework with microlocal analysis and avoids scattering/Eisenstein theory.
+We establish a microlocally localized trace formula for finite-area hyperbolic surfaces $X=\Gamma\backslash\HH$ that isolates the discrete cuspidal spectrum in short frequency windows $[R-R^\theta,R+R^\theta]$ under a height cutoff $y\le Y=R^\beta$, with an identity term involving the effective volume, a geometric term from short closed geodesics, and a power-saving remainder $O(R^{1-\varepsilon(\theta,\beta)})$; the method completely avoids Eisenstein series and yields a windowed Weyl law with constants polynomial in the geometric data of $X$.
 \end{abstract}
+
+\keywords{trace formula; hyperbolic surfaces; microlocal analysis; cuspidal spectrum; Weyl law}
+\subjclass[2020]{58J50, 35P20; 11F72, 58J40}
 
 \maketitle
 
+\tableofcontents
+
+% ===========================
+% Introduction (skeleton only; main content to be filled in Blocks 1+)
+% ===========================
 \section{Introduction}
-We prove a localized trace identity that simultaneously restricts spectral
-frequencies and geometric height on finite-volume hyperbolic surfaces. Beyond
-the intrinsic interest, our bounds imply windowed Weyl laws in the presence of cusps.
-A detailed comparison with classical global trace formulas and microlocal methods
-is given in \cref{sec:related,sec:micro}.
+This preprint presents the localized trace formula and its windowed Weyl consequences. Full details and proofs are developed in subsequent sections/blocks.
 
-\subsection*{Main contributions}
-\begin{itemize}
-  \item A \emph{double localization} (spectral window of width $R^\theta$ and height cutoff $Y=R^\beta$).
-  \item An \emph{explicit} remainder $O(R^{1-\varepsilon(\theta,\beta)})$ for $0<\theta<\frac{1+\beta}{2}$.
-  \item Independence from scattering theory; the geometric term is controlled by the support of $\widehat{h}$.
-\end{itemize}
+\section{Notation}
+Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$ cusps; $d\mu=y^{-2}\,dx\,dy$, $-\Lap$ has cuspidal eigenvalues $\lambda_j=\tfrac14+r_j^2$ and $L^2$-normalized eigenfunctions $\psi_j$.
+We use a smooth cutoff $\chi\in C_c^\infty([0,\infty))$, $\chi=1$ on $[0,1]$, and set $\chi_Y(z)=\chi(y(z)/Y)$ with $Y=R^\beta$.
+Let $h\in\mathcal{S}(\RR)$ be even with $\supp \widehat{h}\subset[-c_0,c_0]$, and $h_R(t)=h((t-R)/R^\theta)$.
+The localized trace is
+\begin{equation}\label{eq:TR-def}
+\TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2.
+\end{equation}
 
-\section{Notation and geometric setup}\label{sec:notation}
-Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$ cusps.
-We write $\vol(X)$ for the hyperbolic area and $\injrad(X_{\mathrm{core}})$ for the
-injectivity radius on a compact core of $X$. The geometric complexity parameter is
+% (Minimal lemma/theorem statements kept for Block 0; detailed proofs follow in later blocks.)
+\section{Main statements}
+\begin{theorem}\label{thm:main}
+For $0<\beta<\tfrac12$ and $0<\theta<\tfrac{1+\beta}{2}$,
 \[
-  C_{\mathrm{geo}}(X):=m+\injrad(X_{\mathrm{core}})^{-1}.
+\TR = \mathcal{I}_R(\chi_Y,h)+\mathcal{G}_R(\chi_Y,h)+O(R^{1-\varepsilon(\theta,\beta)}),
 \]
-We denote by $\chi_Y$ a smooth height cutoff supported in $\{y\le 2Y\}$ and equal to $1$ on $\{y\le Y\}$.
-
-\section{Effective volume and height tails}\label{sec:volume}
-We define the \emph{effective volume}
-\[
-  \vol_{\mathrm{eff}}(Y):=\int_X \chi_Y^2 \, d\vol.
-\]
-A first-order asymptotic involves the cusp count $m$ and a shape constant $\kappa_\chi$:
-\begin{lemma}[Effective volume]
-There exists $\kappa_\chi=\int_{1}^{\infty}(1-\chi^2(u))\,u^{-2}\,du$ such that
-\[
-  \vol_{\mathrm{eff}}(Y)=\vol(X)-\frac{m}{Y}\kappa_\chi+O\!\left(\frac{m}{Y^2}\right),
-\]
-with an implied constant depending polynomially on $C_{\mathrm{geo}}(X)$ and $\|\chi\|_{C^2}$.
-\end{lemma}
-
-\section{Microlocal framework}\label{sec:micro}
-We choose a real-even cutoff $h_R$ whose Fourier transform is supported in
-$[-c_0,c_0]$. The microlocal projector $\Pi_{R,\theta}$ localizes to the window
-$[R-R^\theta,\,R+R^\theta]$. Commutator bounds with $\chi_Y$ yield the basic error
-terms; the implicit constants depend polynomially on $C_{\mathrm{geo}}(X)$, $\|\chi\|_{C^3}$,
-and the Sobolev norms of $h$.
-
-\section{Geometric term}\label{sec:geometric}
-The contribution of closed geodesics is supported at lengths $\ell(\gamma)\le c_0$,
-determined by $\supp\,\widehat{h}\subset[-c_0,c_0]$:
-\[
-  \mathcal{G}_R(\chi_Y,h)
-  :=\sum_{\substack{\gamma\ \text{primitive closed}\\ \ell(\gamma)\le c_0}}
-    W_Y(\gamma)\,A_R(\gamma),
-\]
-where $W_Y(\gamma)$ is uniformly bounded and $A_R(\gamma)$ is the usual Selberg amplitude.
-
-\section{Main theorem}\label{sec:main}
-\begin{theorem}
-Let $0<\beta<\tfrac12$ and $0<\theta<\tfrac{1+\beta}{2}$. Then
-\[
-  \mathrm{Tr}\,\Big(\chi_Y\,\Pi_{R,\theta}\,\chi_Y\Big)
-  \;=\; \vol_{\mathrm{eff}}(Y)\cdot \mathsf{T}_R \;+\; \mathcal{G}_R(\chi_Y,h)
-  \;+\; O\!\big(R^{1-\varepsilon(\theta,\beta)}\big),
-\]
-where $\varepsilon(\theta,\beta)=\min\{\theta,\,1-\theta+\beta,\,\tfrac12,\,1-2\theta+\beta\}-\delta$ for any fixed $\delta>0$.
-The implicit constant depends polynomially on $C_{\mathrm{geo}}(X)$, $\|\chi\|_{C^3}$ and the symbol norms of $h$.
+with $\varepsilon(\theta,\beta)=\min\{\theta,1-\theta+\beta,\tfrac12,1-2\theta+\beta\}-\delta$ for any $\delta>0$, where the implicit constants depend polynomially on $m+\injrad(X_{\mathrm{core}})^{-1}$ and on finitely many seminorms of $\chi$ and $h$.
 \end{theorem}
 
-\section{Boundary cases and optimality}\label{sec:boundary}
-At the line $\theta=\frac{1+\beta}{2}$ the quantity $1-2\theta+\beta$ vanishes and
-the remainder ceases to improve; hence the range above is essentially optimal.
-For $\beta=0$ (no height cutoff) one recovers the compact-case error $O(R^{1-\theta})$.
+\begin{remark}
+The admissible region is $0<\beta<\tfrac12$ and $0<\theta<\tfrac{1+\beta}{2}$; on the boundary $1-2\theta+\beta=0$ and the power-saving vanishes.
+\end{remark}
 
-\section{Related work}\label{sec:related}
-Background on global trace formulas and microlocal analysis includes
-\cite{selberg1956, hejhal1976, hejhal1983, mueller1983, buser1992, zworski2012, dyatlovzworski2019, chazarain1974, iwaniec1995, canzanigalkowski2019}.
+% ===========================
+% Acknowledgments & Data note
+% ===========================
+\section*{Acknowledgments}
+The author thanks colleagues for helpful discussions. Any remaining errors are the author's.
 
-% ---------- Bibliography ----------
-\bibliographystyle{amsplain}
-\bibliography{references}
+\section*{Data availability}
+Not applicable.
+
+% ===========================
+% References (manual for Block 0; will switch to .bib later)
+% ===========================
+\begin{thebibliography}{99}
+
+\bibitem{selberg1956}
+A.~Selberg,
+\textit{Harmonic analysis and discontinuous groups},
+J. Indian Math. Soc. \textbf{20} (1956), 47--87.
+
+\bibitem{hejhal1976}
+D.~A.~Hejhal,
+\textit{The Selberg Trace Formula for $\mathrm{PSL}(2,\mathbb{R})$}, Vol.~I,
+Lecture Notes in Mathematics \textbf{548}, Springer, 1976.
+ISBN: 978-3-540-07727-7, \doi{10.1007/BFb0074437}
+
+\bibitem{hejhal1983}
+D.~A.~Hejhal,
+\textit{The Selberg Trace Formula for $\mathrm{PSL}(2,\mathbb{R})$}, Vol.~II,
+Lecture Notes in Mathematics \textbf{1001}, Springer, 1983.
+\doi{10.1007/BFb0061300}
+
+\bibitem{mueller1983}
+W.~M\"uller,
+\textit{Spectral theory for Riemannian manifolds with cusps},
+J. Differential Geom. \textbf{18} (1983), 575--598.
+\doi{10.4310/jdg/1214437785}
+
+\bibitem{iwaniec1995}
+H.~Iwaniec, P.~Sarnak,
+\textit{$L^\infty$ norms of eigenfunctions on arithmetic surfaces},
+Ann. of Math. \textbf{141} (1995), 301--320.
+\doi{10.2307/2118520}
+
+\bibitem{buser1992}
+P.~Buser,
+\textit{Geometry and Spectra of Compact Riemann Surfaces},
+Birkh\"auser, 1992.
+ISBN: 978-0-8176-3404-7, \doi{10.1007/978-1-4684-9172-2}
+
+\bibitem{zworski2012}
+M.~Zworski,
+\textit{Semiclassical Analysis},
+Graduate Studies in Mathematics \textbf{138}, AMS, 2012.
+\doi{10.1090/gsm/138}
+
+\bibitem{dyatlovzworski2019}
+S.~Dyatlov, M.~Zworski,
+\textit{Mathematical Theory of Scattering Resonances},
+University Lecture Series \textbf{200}, AMS, 2019.
+\doi{10.1090/ulect/200}
+
+\bibitem{chazarain1974}
+J.~Chazarain,
+\textit{Formule de Poisson pour les vari\'et\'es riemanniennes},
+Invent. Math. \textbf{24} (1974), 65--82.
+MR0350064, Zbl 0284.35058, \doi{10.1007/BF01418762}
+
+\end{thebibliography}
 
 \end{document}
