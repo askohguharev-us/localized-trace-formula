@@ -1,14 +1,15 @@
 {
-  "title": "A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces",
+  "title": "A Localized Trace Formula (Block 0)",
   "upload_type": "publication",
-  "publication_type": "article",
+  "publication_type": "preprint",
+  "description": "Block 0 (front matter): title, abstract, metadata. arXiv-ready layout; GitHub Actions PDF.",
   "creators": [
     {
       "name": "Kozhukharev, Alexander Stepanovich",
       "affiliation": "Independent Researcher, Moscow, Russia"
     }
   ],
-  "description": "Block 0 (front matter) of a localized trace formula preprint; arXiv-ready. Includes abstract, metadata, and references with DOIs. Subsequent blocks will add full proofs and appendices.",
+  "language": "eng",
   "keywords": [
     "trace formula",
     "hyperbolic surfaces",
@@ -16,7 +17,11 @@
     "cuspidal spectrum",
     "Weyl law"
   ],
-  "license": "cc-by-4.0",
-  "notes": "This JSON helps Zenodo metadata when creating a DOI on release.",
-  "access_right": "open"
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/askohguharev-us/localized-trace-formula/releases/tag/v0.1.2",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-preprint"
+    }
+  ]
 }
