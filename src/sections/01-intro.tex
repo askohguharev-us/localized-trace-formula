@@ -1,3 +1,27 @@
-\section{Introduction}\label{sec:intro}
-This preprint presents the doubly localized trace formula. 
-(Short roadmap goes here; to be filled in Block~1.)
+% src/sections/01-intro.tex
+\section{Introduction}
+
+% Context/motivation
+The classical Selberg trace formula relates the Laplace spectrum on a finite-area hyperbolic surface to lengths of closed geodesics.  
+This preprint initiates a \emph{localized} (windowed/microlocal) variant adapted to spectral windows and test functions supported near prescribed regions in phase space.
+
+% Main idea (one–two sentences, rough)
+Our approach uses a phase–space cut-off $\chi_Y$ and a smoothing kernel $h\in\mathcal S(\RR)$ to define a localized trace
+\[
+  \TR := \sum_j h_R(r_j)\,\langle \chi_Y \psi_j,\psi_j\rangle,
+\]
+and proves an expansion uniform in the window parameters.
+
+% Contributions (bullets -> ты отредактируешь)
+\paragraph{Contributions.}
+\begin{itemize}
+  \item Formulation of a microlocally localized trace identity for finite-area hyperbolic surfaces;
+  \item Admissible range for $(\theta,\beta)$ and explicit error terms;
+  \item Windowed Weyl law consequences.
+\end{itemize}
+
+% Roadmap (структура работы)
+\paragraph{Organization.}
+Section~\ref{sec:prelim} fixes notation and recalls spectral facts.
+The main localized identity and its admissible range are stated in Section~\ref{sec:main}.
+Proofs and refinements are deferred to subsequent blocks.
