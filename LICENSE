@@ -1,7 +1,42 @@
-Dual license notice
+---
 
-Text and figures (paper content): CC BY 4.0 — see LICENSE-CC-BY-4.0
-Code, scripts and workflows:     MIT — see LICENSE-MIT
-
-This repository may contain both kinds of files. Unless stated otherwise
-in a file header, textual content is CC BY 4.0 and code is MIT.
+# .zenodo.json (целиком)
+```json
+{
+  "title": "A Localized Trace Formula (Block 0)",
+  "description": "Block 0 (front matter) of a localized trace formula preprint. Includes title, abstract, metadata, and references; subsequent blocks will add full proofs and appendices.",
+  "creators": [
+    {
+      "name": "Kozhukharev, Alexander Stepanovich",
+      "affiliation": "Independent Researcher, Moscow, Russia"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "language": "eng",
+  "keywords": [
+    "trace formula",
+    "hyperbolic surfaces",
+    "microlocal analysis",
+    "Weyl law",
+    "spectral geometry"
+  ],
+  "version": "v0.2.0",
+  "doi": "10.5281/zenodo.16808781",
+  "publication_date": "2025-08-11",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/askohguharev-us/localized-trace-formula/releases/tag/v0.2.0",
+      "scheme": "url"
+    },
+    {
+      "relation": "isVersionOf",
+      "identifier": "10.5281/zenodo.16798535",
+      "scheme": "doi"
+    }
+  ],
+  "contributors": [],
+  "communities": []
+}
