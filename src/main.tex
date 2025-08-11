@@ -1,1 +1,59 @@
+\documentclass[11pt,reqno]{amsart}
 
+% Encoding + fonts
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Math & layout
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+
+% Hyper/cross-refs & DOI
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{doi}
+
+% Metadata (arXiv-friendly)
+\pdfinfo{
+  /Title (A Localized Trace Formula — Block 0 Skeleton)
+  /Author (Your Name)
+  /Keywords (trace formula; hyperbolic surfaces; spectral theory)
+}
+
+% Theorem styles
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[A Localized Trace Formula — Block 0]{A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces}
+\author{Your Name}
+\address{Your Affiliation}
+\email{you@example.com} % можно удалить перед arXiv
+\date{\today}
+\subjclass[2020]{Primary 58J50; Secondary 11F72}
+\keywords{trace formula, hyperbolic surfaces, cusps, spectral localization}
+
+\begin{document}
+\begin{abstract}
+This is a temporary smoke-test skeleton for CI.
+The full Block~0 content will replace this stub.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction (stub)}
+We test CI pipeline only. See \Cref{sec:main} for a placeholder lemma.
+
+\section{Main placeholder}\label{sec:main}
+\begin{lemma}
+For all $x\in\mathbb{R}$, we have $x^2\ge 0$.
+\end{lemma}
+\begin{proof}
+Trivial; included only to exercise theorem environments.
+\end{proof}
+
+\bibliographystyle{amsalpha}
+\bibliography{references}
+\end{document}
