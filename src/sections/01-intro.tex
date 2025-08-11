@@ -1,27 +1,50 @@
-% src/sections/01-intro.tex
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 
-% Context/motivation
-The classical Selberg trace formula relates the Laplace spectrum on a finite-area hyperbolic surface to lengths of closed geodesics.  
-This preprint initiates a \emph{localized} (windowed/microlocal) variant adapted to spectral windows and test functions supported near prescribed regions in phase space.
+This preprint develops a localized (microlocal) version of the Selberg trace
+formula on a finite-area hyperbolic surface
+$X=\Gamma\backslash\HH$, with an emphasis on \emph{windowed} counting of
+spectral data. The localization is achieved by inserting smooth
+cutoffs both in configuration and spectral variables, thus producing a
+trace distribution $\TR$ adapted to a prescribed microlocal region.
 
-% Main idea (one–two sentences, rough)
-Our approach uses a phase–space cut-off $\chi_Y$ and a smoothing kernel $h\in\mathcal S(\RR)$ to define a localized trace
+\smallskip
+\noindent\textbf{Motivation.}
+In problems of spectral counting one often requires information restricted
+to a phase-space window (e.g. near a geodesic segment or in a fixed
+angular sector). Classical trace formulae \cite{selberg1956,hejhal1976}
+capture global information; a localized variant fits naturally with ideas
+from semiclassical and microlocal analysis
+\cite{zworski2012,dyatlovzworski2019}.
+
+\smallskip
+\noindent\textbf{Informal statement.}
+Let $-\Lap$ be the Laplacian on $X$ with cuspidal eigenvalues
+$\lambda_j=\tfrac14+r_j^2$ and eigenfunctions $\psi_j$.
+Let $\chi_Y$ be a smooth spatial cutoff (removing cuspidal regions above
+height $Y$) and let $h\in\mathcal{S}(\RR)$ be an even test function with
+compactly supported Fourier transform. The localized trace distribution is
 \[
-  \TR := \sum_j h_R(r_j)\,\langle \chi_Y \psi_j,\psi_j\rangle,
+  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2 \;+\; \text{(geometric side)},
 \]
-and proves an expansion uniform in the window parameters.
+where $h_R(r):=h(r/R)$ controls the width of the spectral window. We show
+that for admissible $(\theta,\beta)$ (precise ranges below) one obtains an
+asymptotic expansion whose main term matches the expected (windowed) Weyl
+law, together with power saving remainders.
 
-% Contributions (bullets -> ты отредактируешь)
-\paragraph{Contributions.}
+\smallskip
+\noindent\textbf{Contributions.}
 \begin{itemize}
-  \item Formulation of a microlocally localized trace identity for finite-area hyperbolic surfaces;
-  \item Admissible range for $(\theta,\beta)$ and explicit error terms;
-  \item Windowed Weyl law consequences.
+  \item A microlocally localized trace identity intertwining the spectral
+        window $h_R$ with spatial truncation $\chi_Y$;
+  \item Precise ranges of admissible parameters $(\theta,\beta)$ dictated
+        by stationary phase and decay of the Selberg transform;
+  \item A windowed Weyl law with error $O(R^{1-\varepsilon(\theta,\beta)})$,
+        where $\varepsilon(\theta,\beta)=\min\{\theta,1-\tfrac12\beta\}$.
 \end{itemize}
 
-% Roadmap (структура работы)
-\paragraph{Organization.}
-Section~\ref{sec:prelim} fixes notation and recalls spectral facts.
-The main localized identity and its admissible range are stated in Section~\ref{sec:main}.
-Proofs and refinements are deferred to subsequent blocks.
+\smallskip
+\noindent\textbf{Organization.}
+Section~\ref{sec:prelim} records geometric and analytic preliminaries,
+cutoff conventions and normalizations of transforms.
+The main localized identity is proved in later blocks; here we state the
+minimal skeleton needed for cross-referencing.
