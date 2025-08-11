@@ -1,12 +1,13 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "A Localized Trace Formula (Block 0)"
-version: v0.2.0
+version: "v0.2.0"
 doi: 10.5281/zenodo.16808781
 date-released: 2025-08-11
 authors:
   - family-names: Kozhukharev
     given-names: Alexander Stepanovich
 license: CC-BY-4.0
-repository: https://github.com/askohguharev-us/localized-trace-formula
 type: article
+url: https://doi.org/10.5281/zenodo.16808781
+repository-code: https://github.com/askohguharev-us/localized-trace-formula
