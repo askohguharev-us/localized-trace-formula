@@ -4,16 +4,14 @@
 
 # A Localized Trace Formula (Block 0)
 
-**Status:** Block 0 skeleton finalized — `v0.3.0`  
-**PDF:** built by GitHub Actions (see Releases / latest asset)
+**Status:** Block 0 finalized — `v0.3.0`  
+**PDF:** built by GitHub Actions (see Releases / latest artifact)
 
 ## What is here
 - Title, metadata, abstract (≤200 words), keywords, MSC.
-- Sections split into `src/sections/01-intro.tex` and `src/sections/02-preliminaries.tex` and included via `\input`.
-- Acknowledgments + Data availability added to ToC.
-- arXiv-safe LaTeX stack; vector TikZ; working bibliography.
-- Dual license: **CC BY 4.0** (text & figures) + **MIT** (code/scripts). See `LICENSE`, `LICENSE-CC-BY-4.0`, `LICENSE-MIT`.
-- `CITATION.cff` with DOI.
+- Author affiliation: *Independent Researcher, Moscow, Russia*.
+- Minimal statements for reference (Block 0).
+- arXiv-safe LaTeX stack; vector TikZ; working CI.
 
 ## How to build locally
 Requirements: TeX Live 2023+ or MiKTeX with `latexmk`.
