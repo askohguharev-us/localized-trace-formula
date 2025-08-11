@@ -1,42 +1,27 @@
 ---
 
-# .zenodo.json (целиком)
-```json
-{
-  "title": "A Localized Trace Formula (Block 0)",
-  "description": "Block 0 (front matter) of a localized trace formula preprint. Includes title, abstract, metadata, and references; subsequent blocks will add full proofs and appendices.",
-  "creators": [
-    {
-      "name": "Kozhukharev, Alexander Stepanovich",
-      "affiliation": "Independent Researcher, Moscow, Russia"
-    }
-  ],
-  "license": "cc-by-4.0",
-  "upload_type": "publication",
-  "publication_type": "article",
-  "language": "eng",
-  "keywords": [
-    "trace formula",
-    "hyperbolic surfaces",
-    "microlocal analysis",
-    "Weyl law",
-    "spectral geometry"
-  ],
-  "version": "v0.2.0",
-  "doi": "10.5281/zenodo.16808781",
-  "publication_date": "2025-08-11",
-  "related_identifiers": [
-    {
-      "relation": "isSupplementTo",
-      "identifier": "https://github.com/askohguharev-us/localized-trace-formula/releases/tag/v0.2.0",
-      "scheme": "url"
-    },
-    {
-      "relation": "isVersionOf",
-      "identifier": "10.5281/zenodo.16798535",
-      "scheme": "doi"
-    }
-  ],
-  "contributors": [],
-  "communities": []
-}
+# 2) CITATION.cff — замени содержимое целиком (валидный YAML)
+
+```yaml
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "A Localized Trace Formula (Block 0)"
+version: v0.2.0
+doi: 10.5281/zenodo.16808781
+date-released: 2025-08-11
+authors:
+  - family-names: Kozhukharev
+    given-names: Alexander Stepanovich
+license: CC-BY-4.0
+type: article
+url: https://doi.org/10.5281/zenodo.16808781
+repository-code: https://github.com/askohguharev-us/localized-trace-formula
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Kozhukharev
+      given-names: Alexander Stepanovich
+  title: "A Localized Trace Formula (Block 0)"
+  year: 2025
+  doi: 10.5281/zenodo.16808781
+  url: https://doi.org/10.5281/zenodo.16808781
