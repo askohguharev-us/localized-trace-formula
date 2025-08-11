@@ -8,6 +8,14 @@ authors:
   - family-names: Kozhukharev
     given-names: Alexander Stepanovich
 license: CC-BY-4.0
-type: article
 url: https://doi.org/10.5281/zenodo.16808781
 repository-code: https://github.com/askohguharev-us/localized-trace-formula
+preferred-citation:
+  type: article
+  title: "A Localized Trace Formula (Block 0)"
+  authors:
+    - family-names: Kozhukharev
+      given-names: Alexander Stepanovich
+  year: 2025
+  journal: "Zenodo"
+  doi: 10.5281/zenodo.16808781
