@@ -1,1 +1,37 @@
+name: Build LaTeX PDF
 
+on:
+  push:
+    paths:
+      - ".github/workflows/archaios.yml"
+      - "src/**"
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build PDF (latexmk)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: src
+          latexmk_use_biber: false
+          latexmk_shell_escape: false
+          extra_fonts: |
+            # no extra fonts; rely on lmodern
+          pre_compile: |
+            echo "Pre-compile check:"
+            ls -la
+          post_compile: |
+            echo "Post-compile done."
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper
+          path: src/main.pdf
