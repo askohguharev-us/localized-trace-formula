@@ -1,1 +1,11 @@
+---
 
+# CHANGELOG.md (новый файл)
+
+```markdown
+# Changelog
+
+## v0.1.0 — 2025-08-11
+- Block 0 finalized: front matter, abstract, metadata, references (with DOIs/ISBN/MR/Zbl).
+- Author set to "Independent Researcher, Moscow, Russia"; email removed.
+- Added README, CITATION.cff, .zenodo.json, ARCHAIOS compliance note (ancillary).
