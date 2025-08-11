@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16798535.svg)](https://doi.org/10.5281/zenodo.16798535)
+
+**Latest PDF:** see [Releases → latest](../../releases/latest)
 # A Localized Trace Formula (Block 0)
 
 **Status:** Block 0 (front matter) finalized — `v0.1.0`  
