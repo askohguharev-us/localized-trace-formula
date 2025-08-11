@@ -1,28 +1,31 @@
 {
   "title": "A Localized Trace Formula (Block 0)",
-  "description": "Block 0 (front matter) of a localized trace formula preprint, arXiv-ready: includes title, abstract, metadata, and curated references with DOIs. Subsequent blocks will add full proofs and appendices.",
+  "description": "Block 0 (front matter) of a localized trace formula preprint. Includes title, abstract, metadata, and references; subsequent blocks will add full proofs and appendices.",
   "creators": [
     {
       "name": "Kozhukharev, Alexander Stepanovich",
       "affiliation": "Independent Researcher, Moscow, Russia"
     }
   ],
-  "license": { "id": "cc-by-4.0" },
+  "license": "cc-by-4.0",
   "upload_type": "publication",
-  "publication_type": "preprint",
+  "publication_type": "article",
+  "language": "eng",
   "keywords": [
     "trace formula",
-    "spectral theory",
     "hyperbolic surfaces",
     "microlocal analysis",
-    "localized windows"
+    "Weyl law",
+    "spectral geometry"
   ],
-  "language": "eng",
+  "version": "v0.2.0",
+  "doi": "10.5281/zenodo.16808781",
+  "publication_date": "2025-08-11",
   "related_identifiers": [
     {
       "relation": "isSupplementTo",
-      "identifier": "https://github.com/askohguharev-us/localized-trace-formula"
+      "identifier": "https://github.com/askohguharev-us/localized-trace-formula/releases/tag/v0.2.0",
+      "scheme": "url"
     }
-  ],
-  "notes": "Code and workflows are MIT-licensed; paper text and figures are CC BY 4.0."
+  ]
 }
