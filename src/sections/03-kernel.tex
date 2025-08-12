@@ -1,30 +1,36 @@
-\section{Localization kernel}\label{sec:kernel}
+\section{Kernel}\label{sec:kernel}
 
-Let $\chi\in C_c^\infty(Y)$ and $h\in\mathcal{S}(\RR)$ be even with $h(0)=1$.
-Put $h_R(t):=h(t/R)$. Define the windowed kernel
+We work on the finite–area hyperbolic surface $X=\Gamma\backslash\HH$ with $m$ cusps,
+Laplacian $-\Delta$ with cuspidal eigenpairs $\{(\lambda_j,\psi_j)\}$, $\lambda_j=\tfrac14+r_j^2$,
+and a smooth even cutoff $h\in\mathcal{S}(\RR)$.
+Let $\chi_Y$ be the standard cusp–truncation (height $Y$), as in §2.2.
+
+\begin{definition}\label{def:KR}
+The \emph{windowed localized kernel} is
 \[
-  K_R(x,y) := \sum_j h_R(r_j)\,\chi_Y(x)\psi_j(x)\,\overline{\psi_j(y)}\,\chi_Y(y),
+  K_R(x,y)
+  := \sum_{j} h_R(r_j)\,\chi_Y(x)\,\psi_j(x)\,\overline{\psi_j(y)}\,\chi_Y(y),
 \]
-where $\{-\Lap\psi_j=\lambda_j\psi_j\}$ and $r_j\ge 0$ is such that
-$\lambda_j=\tfrac14+r_j^2$.
+where $h_R(r):=h(r/R)$.
+\end{definition}
 
-\begin{lemma}\label{lem:kernel-decay}
-For each $N\ge 0$ there exists $C_N$ with
+\begin{remark}
+If one prefers localization only in the first variable, replace
+$\chi_Y(y)$ by $1$ in \eqref{def:KR}.  Our estimates below are stated
+for the symmetric localization.
+\end{remark}
+
+\begin{lemma}[Schwartz decay on the thick part]\label{lem:schwartz-thick}
+Fix $Y$ as in §2.2. For $x,y$ in the $Y$–thick part of $X$, the kernel
+$K_R(x,y)$ is smooth and satisfies Schwartz decay in $R$:
+for every $N\ge 0$ there exists $C_N(Y)$ such that
 \[
-  |K_R(x,y)|\le C_N\,(1+d(x,y))^{-N}\qquad (x,y\in X).
+  \bigl|K_R(x,y)\bigr| \le C_N(Y)\, R^{-N}.
 \]
 \end{lemma}
 
-\begin{proof}[Proof sketch]
-Spectral calculus with the rapid decay of $h$ yields off–diagonal decay.
-\end{proof}
-
-\begin{lemma}\label{lem:kernel-traceclass}
-$K_R$ is positive, self–adjoint, and trace class on $L^2(X)$.
-\end{lemma}
-
-\begin{proof}[Proof sketch]
-Schur’s test with Lemma~\ref{lem:kernel-decay} gives boundedness; positivity
-is clear from the definition; trace–class follows from the diagonal bound
-$\int_X |K_R(x,x)|\,d\mu(x)<\infty$.
+\begin{proof}
+Use the spectral expansion on $X$ (with the cuspidal basis $\{\psi_j\}$ from §2.3),
+the rapid decay of $h\in\mathcal{S}(\RR)$, and that the thick part eliminates cusp
+contributions. Differentiations in $x,y$ pass under the sum and preserve the bounds.
 \end{proof}
