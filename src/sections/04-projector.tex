@@ -1,47 +1,74 @@
-\section{Projector and stability}\label{sec:projector}
+\section{Windowed projector and commutator bounds}\label{sec:proj-comm}
 
-With $K_R$ from Definition~\ref{def:KR}, define a truncated
-trace–type functional
-\begin{definition}\label{def:TR}
+Fix $\phi\in\mathcal{S}(\RR)$, even, nonnegative, with $\phi\equiv1$ on $[-1,1]$ and $\supp \widehat{\phi}\subset[-c_0,c_0]$ (the same $c_0$ as in \S\ref{sec:kernel}). For $R\gg1$ and $0<\theta<1$ define the smoothed spectral projector
 \[
-  \TR(\chi_Y,h) \;:=\; \int_X K_R(x,x)\,d\mu(x).
+\Pi_{R,\theta}:=\phi\!\left(\frac{\sqrt{-\Lap}-R}{R^\theta}\right).
 \]
-\end{definition}
+Then $\Pi_{R,\theta}$ microlocalizes to the frequency window $[R-R^\theta,R+R^\theta]$ and admits the time representation
+\[
+\Pi_{R,\theta}=\int_{\RR}\eta_R(t)\, k_{R,\theta}(t)\, U(t)\,dt + \mathcal{R}_R,
+\quad
+k_{R,\theta}(t):=R^\theta e^{iRt}\check{\phi}(R^\theta t),
+\]
+with $\|\mathcal{R}_R\|_{L^2\to L^2}=O_N(R^{-N})$ for any $N$, and $\eta_R$ as in \S\ref{sec:kernel}.
 
-\begin{lemma}[Stability of the truncation]\label{lem:stability}
-Let $0<Y<\widetilde{Y}$ be truncation heights as in §2.2.
-Then
+\begin{lemma}[Commutator bound]\label{lem:comm}
+Let $Y=R^\beta$ with $0<\beta<\tfrac12$ and $\chi_Y(z)=\chi(y(z)/Y)$, $\chi\in C_c^\infty$, $0\le \chi\le1$. Then
 \[
-  \TR(\chi_{\widetilde{Y}},h) - \TR(\chi_Y,h) \;=\; O(R^{-\infty}) ,
+\big\|[\Pi_{R,\theta},\chi_Y]\big\|_{L^2\to L^2}
+\;\lesssim\; R^{-1+\theta}\,Y^{-1}\,\|\nabla\chi\|_{L^\infty},
 \]
-i.e. the difference decays faster than any power of $R$.
+with the implied constant depending polynomially on $C_{\mathrm{geo}}(X)$ and finitely many seminorms of~$\phi$.
 \end{lemma}
 
-\begin{proof}
-Write the difference as the integral of $K_R(x,x)$ over the collar region
-$\{x:\, Y\le \operatorname{ht}(x)\le \widetilde{Y}\}$. On that region the factor
-$\chi_{\widetilde{Y}}-\chi_Y$ is supported inside the cusp, while by
-Lemma~\ref{lem:schwartz-thick} and the bounds for the cusp cutoffs (see §2.2–2.3),
-$K_R(x,x)$ enjoys $O(R^{-\infty})$ decay. The volume of the collar is $O(1)$ in $R$,
-hence the claim.
+\begin{proof}[Proof sketch]
+Write $[\Pi_{R,\theta},\chi_Y]=\int \eta_R(t)k_{R,\theta}(t)[U(t),\chi_Y]\,dt+\mathcal{R}_R'$. By Duhamel,
+\[
+[U(t),\chi_Y]=\int_0^t U(t-s)\,[\sqrt{-\Lap},\chi_Y]\,\sin(s\sqrt{-\Lap})\,ds,
+\]
+so $\|[U(t),\chi_Y]\|_{L^2\to L^2}\lesssim |t|\,\|\nabla\chi_Y\|_\infty \lesssim |t|\,Y^{-1}\|\nabla\chi\|_\infty$.
+On the support of $\eta_R$, $|t|\lesssim R^{-1}$. Using $k_{R,\theta}(t)=R^\theta e^{iRt}\check\phi(R^\theta t)$ and integrating by parts once in $t$ against $e^{iRt}$ yields an extra $R^{-1}$, while the $R^\theta$ amplitude cancels the $R^{-\theta}$ scale of $\check\phi(R^\theta t)$ over the $t$-window. Altogether
+\[
+\int | \eta_R(t) k_{R,\theta}(t)|\,|t|\,dt \;\lesssim\; R^{-1+\theta},
+\]
+hence the stated bound; the remainder $\mathcal{R}_R'$ is super-polynomially small by the same argument as in Lemma~\ref{lem:time-local}.
 \end{proof}
 
-\begin{theorem}[Main skeleton]\label{thm:main}
-Under the assumptions of §2, there is a decomposition
+\begin{lemma}[Effective rank]\label{lem:rank}
+With $\Pi_{R,\theta}$ as above,
 \[
-  \TR(\chi_Y,h) \;=\; \mathcal{I}_R(\chi_Y,h) \;+\; \mathcal{G}_R(\chi_Y,h),
+\Tr\big(\chi_Y \Pi_{R,\theta}\chi_Y\big)
+= \frac{\vol_{\mathrm{eff}}(Y)}{4\pi}\int_{\RR}\phi\!\left(\frac{r-R}{R^\theta}\right)\, r\,\tanh(\pi r)\,dr + O(R^{\theta}),
 \]
-where $\mathcal{I}_R$ is the geometric (identity/orbital) contribution and
-$\mathcal{G}_R$ is the cuspidal/globally small remainder.
-Moreover, for $0<\theta<\tfrac12$ and $0<\beta<\infty$ in the admissible region,
-\[
-  \mathcal{G}_R(\chi_Y,h) \;=\; O\!\bigl(R^{-\varepsilon(\theta,\beta)}\bigr),
-  \qquad \varepsilon(\theta,\beta)=\min\!\Bigl\{\theta,\; 1-\tfrac{1}{2\beta}\Bigr\}.
-\]
-\end{theorem}
+and in particular $\Tr(\chi_Y \Pi_{R,\theta}\chi_Y) \asymp \vol_{\mathrm{eff}}(Y)\,R^{1+\theta}$.
+\end{lemma}
 
-\begin{remark}
-The proof will be completed in Block~2.
-Lemma~\ref{lem:stability} shows that the left–hand side is stable under increasing $Y$
-(up to $O(R^{-\infty})$), so the choice of $\chi_Y$ is inessential at the stated precision.
-\end{remark}
+\begin{proof}[Proof sketch]
+Diagonalize in the spectral variable and use the same Plancherel measure as in Proposition~\ref{prop:identity}, noting that the window has effective width $R^\theta$ and center $R$; the $O(R^\theta)$ error follows from a single integration by parts in $r$.
+\end{proof}
+
+\begin{proposition}[Geometric term at short times]\label{prop:geom}
+Let $\widehat h_R(\ell):=\int_{\RR}e^{-it\ell}\, \eta_R(t) g_R(t)\,dt$ be the time-side weight from \S\ref{sec:kernel}.
+Then the off-diagonal contribution to $\Tr(\chi_Y h_R(\sqrt{-\Lap})\chi_Y)$ equals
+\[
+\mathcal{G}_R(\chi_Y,h)
+=\sum_{\substack{\gamma\ \mathrm{primitive\ closed}\\ \ell(\gamma)\le c_0}}
+\frac{\ell(\gamma_{\mathrm{prim}})}{2\sinh(\ell(\gamma)/2)}\,
+W_Y(\gamma)\,\widehat h_R\!\big(\ell(\gamma)\big),
+\]
+where $W_Y(\gamma)=\int_0^1 \chi\!\big(y(\gamma(s))/Y\big)\,ds$ and $|W_Y(\gamma)|\le \|\chi\|_{L^\infty}\le1$. Here the same constant $c_0$ appears as in $\supp\widehat h\subset[-c_0,c_0]$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Insert the short-time parametrix for $U(t;z,z')$ into the pretrace formula, sum over $\Gamma$, and use that the support of $\eta_R$ restricts to $|t|\le c_0/R$, which only reaches closed geodesics with $\ell(\gamma)\le c_0$ at the level of the Selberg kernel. The height weight $W_Y(\gamma)$ comes from averaging $\chi_Y$ along $\gamma$.
+\end{proof}
+
+Combining Lemmas~\ref{lem:comm} and~\ref{lem:rank} with Proposition~\ref{prop:geom} and Proposition~\ref{prop:identity} gives the decomposition
+\[
+\TR=\mathcal{I}_R(\chi_Y,h)+\mathcal{G}_R(\chi_Y,h)+O\!\big(R^{1-\varepsilon(\theta,\beta)}\big),
+\]
+with
+\[
+\varepsilon(\theta,\beta)=\min\Big\{\theta,\ 1-\theta+\beta,\ \tfrac12,\ 1-2\theta+\beta\Big\}-\delta,\quad \forall\,\delta>0,
+\]
+and all constants depending polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $\chi$ and $h$.
