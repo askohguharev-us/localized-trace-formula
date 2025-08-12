@@ -1,0 +1,18 @@
+name: godel-yaml-checks
+on:
+  push:
+    paths:
+      - "archaios/godel/**/*.yaml"
+      - ".github/workflows/godel.yml"
+  pull_request:
+    paths:
+      - "archaios/godel/**/*.yaml"
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pipx install yamllint
+      - name: Lint Gödel YAML
+        run: yamllint archaios/godel
