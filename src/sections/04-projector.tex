@@ -1,25 +1,47 @@
-\section{Windowed spectral projector}\label{sec:projector}
+\section{Projector and stability}\label{sec:projector}
 
-Define the operator
+With $K_R$ from Definition~\ref{def:KR}, define a truncated
+trace–type functional
+\begin{definition}\label{def:TR}
 \[
-  P_{Y,h,R} f(x) := \int_X K_R(x,y)\,f(y)\,d\mu(y) ,
+  \TR(\chi_Y,h) \;:=\; \int_X K_R(x,x)\,d\mu(x).
 \]
-where $K_R$ is from Section~\ref{sec:kernel}.
+\end{definition}
 
-\begin{proposition}\label{prop:proj-kernel}
-$P_{Y,h,R}$ is bounded on $L^2(X)$ and
+\begin{lemma}[Stability of the truncation]\label{lem:stability}
+Let $0<Y<\widetilde{Y}$ be truncation heights as in §2.2.
+Then
 \[
-  \Tr(P_{Y,h,R}) = \int_X K_R(x,x)\,d\mu(x).
+  \TR(\chi_{\widetilde{Y}},h) - \TR(\chi_Y,h) \;=\; O(R^{-\infty}) ,
 \]
-\end{proposition}
+i.e. the difference decays faster than any power of $R$.
+\end{lemma}
 
-\begin{proof}[Proof sketch]
-Boundedness: Schur test using Lemma~\ref{lem:kernel-decay}.
-For positive trace–class kernels the trace equals the integral of the
-diagonal; apply Lemma~\ref{lem:kernel-traceclass}.
+\begin{proof}
+Write the difference as the integral of $K_R(x,x)$ over the collar region
+$\{x:\, Y\le \operatorname{ht}(x)\le \widetilde{Y}\}$. On that region the factor
+$\chi_{\widetilde{Y}}-\chi_Y$ is supported inside the cusp, while by
+Lemma~\ref{lem:schwartz-thick} and the bounds for the cusp cutoffs (see §2.2–2.3),
+$K_R(x,x)$ enjoys $O(R^{-\infty})$ decay. The volume of the collar is $O(1)$ in $R$,
+hence the claim.
 \end{proof}
 
+\begin{theorem}[Main skeleton]\label{thm:main}
+Under the assumptions of §2, there is a decomposition
+\[
+  \TR(\chi_Y,h) \;=\; \mathcal{I}_R(\chi_Y,h) \;+\; \mathcal{G}_R(\chi_Y,h),
+\]
+where $\mathcal{I}_R$ is the geometric (identity/orbital) contribution and
+$\mathcal{G}_R$ is the cuspidal/globally small remainder.
+Moreover, for $0<\theta<\tfrac12$ and $0<\beta<\infty$ in the admissible region,
+\[
+  \mathcal{G}_R(\chi_Y,h) \;=\; O\!\bigl(R^{-\varepsilon(\theta,\beta)}\bigr),
+  \qquad \varepsilon(\theta,\beta)=\min\!\Bigl\{\theta,\; 1-\tfrac{1}{2\beta}\Bigr\}.
+\]
+\end{theorem}
+
 \begin{remark}
-This realizes the localized trace $\TR$ that appears in
-Theorem~\ref{thm:main}.
+The proof will be completed in Block~2.
+Lemma~\ref{lem:stability} shows that the left–hand side is stable under increasing $Y$
+(up to $O(R^{-\infty})$), so the choice of $\chi_Y$ is inessential at the stated precision.
 \end{remark}
