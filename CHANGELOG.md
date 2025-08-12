@@ -1,4 +1,9 @@
 # Changelog
+## v0.5.0 — Kernel fix + stability
+- Kernel section cleaned and stabilized.
+- Projector scaffolding kept.
+- Gödel YAML checks green for Block 0/1.
+- DOI: 10.5281/zenodo.16810648.
 ## v0.5.0 — Kernel fix + stability (Block 1 skeleton)
 - Fix: symmetric localized kernel definition in §3 (added `\chi_Y(y)`).
 - New: labels `\label{def:KR}`, `\label{lem:schwartz-thick}`, `\label{def:TR}`, `\label{lem:stability}`, `\label{thm:main}`.
