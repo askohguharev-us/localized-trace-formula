@@ -18,3 +18,6 @@ Requirements: TeX Live 2023+ or MiKTeX with `latexmk`.
 
 ```bash
 latexmk -pdf -interaction=nonstopmode main.tex
+## Cite
+
+If you use this work, please cite:
