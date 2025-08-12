@@ -1,1 +1,19 @@
+\section{Localized projector and bookkeeping}\label{sec:projector}
 
+Define the localized trace (Block~0 normalisation)
+\[
+  \TR := \sum_{j} h_R(r_j)\,\|\chi_Y \psi_j\|_{L^2}^2\,.
+\]
+Formally, $\TR = \mathsf{I}_R(\chi_Y,h)+\mathsf{G}_R(\chi_Y,h)$ with terms described
+in \S\ref{sec:mainstatements}. In later blocks we compute the geometric side
+via Selberg’s pre-trace formula with the window $h$.
+
+\begin{lemma}[Stability under refinement]\label{lem:proj-stability}
+If $\chi_Y\prec \widetilde{\chi}_Y$ are compatible cutoffs on the thick part,
+then $\TR(\widetilde{\chi}_Y,h)-\TR(\chi_Y,h)=O(R^{-\infty})$.
+\end{lemma}
+
+\begin{remark}
+The lemma is a direct corollary of Lemma~\ref{lem:kernel-decay} and yields that
+$\TR$ depends only on $Y$ up to $O(R^{-\infty})$.
+\end{remark}
