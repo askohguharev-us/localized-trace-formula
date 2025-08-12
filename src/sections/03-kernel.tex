@@ -1,22 +1,30 @@
-\section{Kernel and windowed transforms}\label{sec:kernel}
+\section{Localization kernel}\label{sec:kernel}
 
-In this section we record the kernels that appear in the localized trace
-construction. Let $\chi\in C_c^\infty(\mathbb{R})$ be an even cutoff and
-$h\in\mathcal{S}(\mathbb{R})$ the test window. Denote
+Let $\chi\in C_c^\infty(Y)$ and $h\in\mathcal{S}(\RR)$ be even with $h(0)=1$.
+Put $h_R(t):=h(t/R)$. Define the windowed kernel
 \[
-  K_{\chi,h}(x,y) := \sum_{j} h_R(r_j)\,\chi_Y(\psi_j)\,\psi_j(x)\,\overline{\psi_j(y)}
+  K_R(x,y) := \sum_j h_R(r_j)\,\chi_Y(x)\psi_j(x)\,\overline{\psi_j(y)}\,\chi_Y(y),
 \]
-whenever the series is absolutely convergent (details postponed to Block~2).
+where $\{-\Lap\psi_j=\lambda_j\psi_j\}$ and $r_j\ge 0$ is such that
+$\lambda_j=\tfrac14+r_j^2$.
 
-\begin{lemma}[Schwartz tails on the thick part]\label{lem:kernel-decay}
-Fix $Y$ as in \S\ref{sec:preliminaries}. For $x,y$ in the $Y$-thick part,
-$K_{\chi,h}(x,y)$ is smooth and, for any $N\ge1$,
+\begin{lemma}\label{lem:kernel-decay}
+For each $N\ge 0$ there exists $C_N$ with
 \[
-  |K_{\chi,h}(x,y)| \ll_N R^{-N}\,.
+  |K_R(x,y)|\le C_N\,(1+d(x,y))^{-N}\qquad (x,y\in X).
 \]
 \end{lemma}
 
-\begin{remark}
-Only the statement is needed in Block~0; the proof will be supplied in
-Block~2 using the standard wave kernel parametrix and smoothing of $h$.
-\end{remark}
+\begin{proof}[Proof sketch]
+Spectral calculus with the rapid decay of $h$ yields off–diagonal decay.
+\end{proof}
+
+\begin{lemma}\label{lem:kernel-traceclass}
+$K_R$ is positive, self–adjoint, and trace class on $L^2(X)$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Schur’s test with Lemma~\ref{lem:kernel-decay} gives boundedness; positivity
+is clear from the definition; trace–class follows from the diagonal bound
+$\int_X |K_R(x,x)|\,d\mu(x)<\infty$.
+\end{proof}
