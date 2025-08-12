@@ -1,32 +1,32 @@
 ---
 block: 1
-title: "Kernel + projector → localized trace"
+title: 'Kernel + projector → localized trace'
 goals:
   - id: main-thm
-    statement: "TR = 𝓘_R(χ_Y,h) + 𝓖_R(χ_Y,h)"
+    statement: 'TR = I_R(χ_Y,h) + G_R(χ_Y,h)'
 assumptions:
-  - "@block0:A1"
-  - "@block0:A2"
-  - "@block0:A3"
+  - '@block0:A1'
+  - '@block0:A2'
+  - '@block0:A3'
 definitions:
-  - D1: "K_R(x,y) := Σ_j h_R(r_j) χ_Y(x)ψ_j(x)\overline{ψ_j(y)}χ_Y(y)"
+  - D1: 'K_R(x,y) := Σ_j h_R(r_j) χ_Y(x)ψ_j(x)\overline{ψ_j(y)} χ_Y(y)'
 claims:
   - id: C1
-    text: "K_R is self-adjoint and trace-class on L^2(X)."
-    uses: [D1, "@block0:A1", "@block0:A2"]
-    link: "src/sections/03-kernel.tex#lem:kernel-traceclass"
+    text: 'K_R is self-adjoint and trace-class on L^2(X).'
+    uses: [D1, '@block0:A1', '@block0:A2']
+    link: 'src/sections/03-kernel.tex#lem:kernel-traceclass'
   - id: C2
-    text: "Schur decay for K_R(x,y) off the diagonal."
+    text: 'Schwartz off-diagonal decay for K_R(x,y).'
     uses: [D1]
-    link: "src/sections/03-kernel.tex#lem:kernel-decay"
+    link: 'src/sections/03-kernel.tex#lem:kernel-decay'
   - id: C3
-    text: "Tr(P_{Y,h,R}) = ∫_X K_R(x,x) dμ(x)."
+    text: 'Tr(P_{Y,h,R}) = ∫_X K_R(x,x) dμ(x).'
     uses: [C1]
-    link: "src/sections/04-projector.tex#prop:proj-kernel"
+    link: 'src/sections/04-projector.tex#prop:proj-kernel'
   - id: C4
-    text: "This quantity equals the localized trace TR."
+    text: 'This equals the localized trace TR.'
     uses: [C3]
-    link: "src/sections/04-projector.tex"
+    link: 'src/sections/04-projector.tex'
 concludes:
   - to: main-thm
     via: [C2, C3, C4]
