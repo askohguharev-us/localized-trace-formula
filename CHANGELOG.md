@@ -1,4 +1,9 @@
 # Changelog
+## v0.5.0 — Kernel fix + stability (Block 1 skeleton)
+- Fix: symmetric localized kernel definition in §3 (added `\chi_Y(y)`).
+- New: labels `\label{def:KR}`, `\label{lem:schwartz-thick}`, `\label{def:TR}`, `\label{lem:stability}`, `\label{thm:main}`.
+- Text: clarified cross-references to §2.2/§2.3.
+- Notation: $\varepsilon(\theta,\beta)=\min\{\theta,1-1/(2\beta)\}$.
 
 ## v0.5.0 — Kernel fix + labels + stability (Block 1 skeleton)
 - Fix: symmetric localized kernel definition in §3 (added `\chi_Y(y)`).
