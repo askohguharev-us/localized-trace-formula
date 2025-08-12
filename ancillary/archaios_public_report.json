@@ -1,0 +1,23 @@
+{
+  "version": "public-1.0",
+  "generated_at": "2025-08-12T21:00:00Z",
+  "document": {
+    "title": "A Localized Trace Formula (Block 0)",
+    "block": "0",
+    "repo_release": "v0.6.0",
+    "doi": "10.5281/zenodo.16813138"
+  },
+  "metrics": {
+    "KPD": 58.7,
+    "KGD": 62.3,
+    "KSD": 59.8,
+    "KSR": 54.1,
+    "KFZ": 76.0,
+    "KKA": 68.2
+  },
+  "composite": {
+    "score": 63.2,
+    "conf": 0.74,
+    "notes": "Public flavor: metrics only."
+  }
+}
