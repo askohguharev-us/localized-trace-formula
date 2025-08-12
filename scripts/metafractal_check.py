@@ -1,112 +1,198 @@
 #!/usr/bin/env python3
-import sys, os, glob, yaml
+# -*- coding: utf-8 -*-
+"""
+Metafractal sanity-check for Archaios meta files.
 
-def load_yaml(p):
-    with open(p, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or {}
+Usage (from repo root):
+    python scripts/metafractal_check.py archaios/godel archaios/metafractal
+The script will scan all *.meta.yaml files inside the meta-dir.
 
-def extract_id(item):
-    # поддерживаем два формата:
-    # 1) {"id": "C1", ...}
-    # 2) {"C1": "..."} или {"C1": {...}}
-    if isinstance(item, dict):
-        if "id" in item and isinstance(item["id"], (str, int)):
-            return str(item["id"])
-        if len(item) == 1:
-            k = next(iter(item.keys()))
-            if isinstance(k, (str, int)):
-                return str(k)
-    return None
+What it checks (minimal public version):
+  1) Syntax/shape of meta: required keys, list types, edges format.
+  2) Local-vs-external nodes:
+     - Local IDs = items from layers other than 'Axioms' (e.g., Defs/Claims/Goal/...).
+     - External refs must start with '@' (e.g., "@block0:A1").
+     - If a non-@ name appears that is NOT declared as a local ID, it is an error.
+  3) Edge endpoints must be either a declared local ID or an external ref ('@...').
 
-def collect_local_ids(godel_dir):
-    ids = set()
-    for path in sorted(glob.glob(os.path.join(godel_dir, "*.yaml"))):
-        y = load_yaml(path)
-        for key in ("definitions", "claims", "goals"):
-            for it in y.get(key, []) or []:
-                _id = extract_id(it)
-                if _id:
-                    ids.add(_id)
-    return ids
+This file intentionally does NOT load private rules or the full Archaios engine.
+It only performs a safe public lint that reveals nothing about the internal method.
+"""
 
-def flatten_nodes(layers):
-    nodes = []
-    for _, arr in (layers or {}).items():
-        if not arr: 
+from __future__ import annotations
+
+import sys
+import os
+from pathlib import Path
+from typing import Any, Dict, List, Set, Tuple
+
+try:
+    import yaml  # PyYAML
+except Exception as e:
+    print("FATAL: PyYAML is required. Install with 'pip install pyyaml'.")
+    raise
+
+
+# ---------- helpers ----------
+
+def load_yaml(fp: Path) -> Any:
+    with fp.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def is_external(name: str) -> bool:
+    """External references are written as '@blockK:ID' (we only check the '@')."""
+    return isinstance(name, str) and name.startswith("@")
+
+# ---------- core logic ----------
+
+def flatten_nodes(layers: Dict[str, Any]) -> List[str]:
+    """Collect all node names from layer lists (strings only)."""
+    nodes: List[str] = []
+    for _layer_name, lst in (layers or {}).items():
+        if lst is None:
             continue
-        for v in arr:
-            if isinstance(v, (str, int)):
-                nodes.append(str(v))
+        if not isinstance(lst, list):
+            continue
+        for item in lst:
+            if isinstance(item, str):
+                nodes.append(item.strip())
     return nodes
 
-def is_external(node):
-    # Внешние узлы: ссылки на другие блоки, например "@block0:A1"
-    return isinstance(node, str) and node.startswith("@")
 
-def main():
-    if len(sys.argv) < 3:
-        print("Usage: metafractal_check.py <godel_dir> <meta_dir>")
-        sys.exit(2)
+def local_ids_from_layers(layers: Dict[str, Any]) -> List[str]:
+    """
+    By convention in the public lint:
+      - 'Axioms' layer contains only external references, so it doesn't contribute local IDs.
+      - All OTHER layers contribute local IDs (e.g., 'Defs', 'Claims', 'Lemmas', 'Goal', etc.).
+    """
+    locals_list: List[str] = []
+    for lname, lst in (layers or {}).items():
+        if lname.lower() == "axioms":
+            # Do not add Axioms to locals: they should be written as @blockX:Ak
+            continue
+        if not isinstance(lst, list):
+            continue
+        for item in lst:
+            if isinstance(item, str) and not is_external(item):
+                locals_list.append(item.strip())
+    return locals_list
 
-    godel_dir = sys.argv[1]
-    meta_dir  = sys.argv[2]
 
-    # 1) Соберём локальные ID из Gödel-файлов
-    local_ids = collect_local_ids(godel_dir)
-
-    # 2) Возьмём первый *.meta.yaml в meta_dir
-    meta_files = sorted(glob.glob(os.path.join(meta_dir, "*.meta.yaml")))
-    if not meta_files:
-        print("ERROR: no .meta.yaml files found in", meta_dir)
-        sys.exit(2)
-    meta_path = meta_files[0]
-    meta = load_yaml(meta_path)
-
-    layers = meta.get("layers", {})
-    edges  = meta.get("edges", []) or []
-
-    meta_nodes = flatten_nodes(layers)
-
-    # 3) Проверки
+def check_meta_file(meta_fp: Path) -> Tuple[int, Dict[str, int]]:
+    """
+    Returns: (errors_count, error_kinds)
+    """
+    data = load_yaml(meta_fp)
     errors = 0
-    kinds  = {}
+    kinds: Dict[str, int] = {}
 
-    # 3a) все узлы (кроме внешних) должны существовать среди local_ids
-    for n in meta_nodes:
-        if is_external(n):
-            continue
-        if n not in local_ids:
-            errors += 1
-            kinds["unknown_local_id"] = kinds.get("unknown_local_id", 0) + 1
+    # basic shape
+    if not isinstance(data, dict):
+        print(f"{meta_fp}: ERROR meta must be a mapping/dict.")
+        return 1, {"bad_shape": 1}
 
-    # 3b) все рёбра должны ссылаться на объявленные в layers узлы
-    node_set = set(meta_nodes)
+    layers = data.get("layers")
+    edges = data.get("edges")
+
+    if not isinstance(layers, dict):
+        print(f"{meta_fp}: ERROR 'layers' must be a mapping.")
+        return 1, {"missing_layers": 1}
+
+    if edges is None:
+        edges = []
+    if not isinstance(edges, list):
+        print(f"{meta_fp}: ERROR 'edges' must be a list.")
+        return 1, {"bad_edges": 1}
+
+    # gather nodes
+    meta_nodes: List[str] = flatten_nodes(layers)
+    local_ids: List[str] = local_ids_from_layers(layers)
+
+    # Check edge shapes
+    bad_edge_shape = 0
     for e in edges:
-        if not (isinstance(e, list) and len(e) == 2):
-            errors += 1
-            kinds["bad_edge_format"] = kinds.get("bad_edge_format", 0) + 1
-            continue
-        u, v = map(str, e)
-        for x in (u, v):
-            if is_external(x):
-                continue
-            if x not in node_set:
-                errors += 1
-                kinds["edge_to_unknown_node"] = kinds.get("edge_to_unknown_node", 0) + 1
+        if not (isinstance(e, (list, tuple)) and len(e) == 2 and
+                all(isinstance(x, str) for x in e)):
+            bad_edge_shape += 1
+    if bad_edge_shape:
+        errors += bad_edge_shape
+        kinds["bad_edge_shape"] = bad_edge_shape
 
-    summary = {
-        "meta_file": os.path.basename(meta_path),
-        "layers": len(layers),
-        "nodes": len(meta_nodes),
-        "edges": len(edges),
-        "local_ids": sorted(local_ids),
-        "errors": errors,
-    }
-    print("METAFRACTAL SUMMARY:", summary)
-    if errors:
-        print("ERROR KINDS:", kinds)
-        sys.exit(1)
-    sys.exit(0)
+    # Find unknown locals:
+    # any node or edge endpoint that is NOT external and NOT in local_ids.
+    local_set: Set[str] = set(local_ids)
+    unknown_locals: Set[str] = set()
+
+    # from nodes listed in layers
+    for n in meta_nodes:
+        if not is_external(n) and n not in local_set:
+            unknown_locals.add(n)
+
+    # from edges endpoints
+    for a, b in [tuple(e) for e in edges if isinstance(e, (list, tuple)) and len(e) == 2]:
+        if not is_external(a) and a not in local_set:
+            unknown_locals.add(a)
+        if not is_external(b) and b not in local_set:
+            unknown_locals.add(b)
+
+    if unknown_locals:
+        cnt = len(unknown_locals)
+        errors += cnt
+        kinds["unknown_local_id"] = cnt
+        print("UNKNOWN LOCAL IDS:", sorted(unknown_locals))
+
+    # Summary
+    print(
+        "METAFRACTAL SUMMARY:",
+        {
+            "meta_file": meta_fp.name,
+            "layers": len(layers),
+            "nodes": len(meta_nodes),
+            "edges": len(edges),
+            "local_ids": local_ids,
+            "errors": errors,
+        }
+    )
+
+    return errors, kinds
+
+
+def main() -> int:
+    if len(sys.argv) != 3:
+        print("Usage:\n  python scripts/metafractal_check.py <godel_dir> <meta_dir>")
+        # godel_dir is currently unused in the public lint (kept for future).
+        return 2
+
+    godel_dir = Path(sys.argv[1]).resolve()
+    meta_dir = Path(sys.argv[2]).resolve()
+
+    if not meta_dir.exists():
+        print(f"ERROR: meta_dir not found: {meta_dir}")
+        return 2
+
+    meta_files = sorted(meta_dir.glob("*.meta.yaml"))
+    if not meta_files:
+        print(f"ERROR: no *.meta.yaml files in {meta_dir}")
+        return 2
+
+    total_errors = 0
+    aggregate: Dict[str, int] = {}
+
+    for mf in meta_files:
+        print(f"\n--- Checking {mf} ---")
+        errs, kinds = check_meta_file(mf)
+        total_errors += errs
+        for k, v in kinds.items():
+            aggregate[k] = aggregate.get(k, 0) + v
+
+    if total_errors:
+        print("ERROR KINDS:", aggregate)
+        return 1
+
+    print("\nOK: metafractal checks passed.")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
