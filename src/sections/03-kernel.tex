@@ -1,0 +1,22 @@
+\section{Kernel and windowed transforms}\label{sec:kernel}
+
+In this section we record the kernels that appear in the localized trace
+construction. Let $\chi\in C_c^\infty(\mathbb{R})$ be an even cutoff and
+$h\in\mathcal{S}(\mathbb{R})$ the test window. Denote
+\[
+  K_{\chi,h}(x,y) := \sum_{j} h_R(r_j)\,\chi_Y(\psi_j)\,\psi_j(x)\,\overline{\psi_j(y)}
+\]
+whenever the series is absolutely convergent (details postponed to Block~2).
+
+\begin{lemma}[Schwartz tails on the thick part]\label{lem:kernel-decay}
+Fix $Y$ as in \S\ref{sec:preliminaries}. For $x,y$ in the $Y$-thick part,
+$K_{\chi,h}(x,y)$ is smooth and, for any $N\ge1$,
+\[
+  |K_{\chi,h}(x,y)| \ll_N R^{-N}\,.
+\]
+\end{lemma}
+
+\begin{remark}
+Only the statement is needed in Block~0; the proof will be supplied in
+Block~2 using the standard wave kernel parametrix and smoothing of $h$.
+\end{remark}
