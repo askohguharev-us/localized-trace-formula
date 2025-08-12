@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16808989.svg)](https://doi.org/10.5281/zenodo.16808989)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16810648.svg)](https://doi.org/10.5281/zenodo.16810648)
 
 **Latest PDF:** see [Releases → latest](../../releases/latest)
 
