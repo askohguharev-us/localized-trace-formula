@@ -1,46 +1,14 @@
 ---
-version: 0.1
 block: 0
-title: "Block 0: front matter and minimal statements"
-status: draft
-
-claims:
-  - id: B0-defs
-    name: Basic-setup
-    text: >
-      X = Γ\H is a finite-area hyperbolic surface with m cusps.
-      We fix an orthonormal cuspidal basis {ψ_j} of eigenfunctions
-      with eigenvalues λ_j = 1/4 + r_j^2.
-
-  - id: B0-cutoff
-    name: Thick-part-cutoff
-    text: >
-      Choose Y large. Let χ_Y be a smooth cutoff supported on the
-      Y-thick part and equal to 1 on the Y/2-thick part.
-
-  - id: B0-window
-    name: Window-and-test-function
-    text: >
-      h ∈ 𝒮(ℝ) is even; χ ∈ C_c^∞(ℝ) is even. Set h_R(t) = h(t/R).
-
-  - id: B0-TR
-    name: Localized-trace-definition
-    text: >
-      Define TR := Σ_j h_R(r_j) ||χ_Y ψ_j||^2_{L^2}. This is the
-      quantity estimated and compared to the geometric side
-      in later blocks.
-
+title: "Front matter + standing assumptions"
 assumptions:
-  - A1: Spectral expansion holds; Maass cusp forms form an ONB.
-  - A2: Standard growth bounds on eigenfunctions on thick parts.
-
-checks:
-  format: minimal
-  completeness:
-    required_fields: [version, block, title, status, claims]
-
-meta:
-  reviewers: []
-  notes: >
-    Skeleton for machine-readable dependencies. Proofs appear
-    in Blocks 1 and 2.
+  - A1: "X = Γ\\H has finite area; −Δ has discrete cuspidal spectrum."
+  - A2: "h ∈ S(R) is even; h(0)=1; h_R(t)=h(t/R)."
+  - A3: "χ ∈ C_c^∞(Y) with Y ⊂ X relatively compact."
+references:
+  title: "src/main.tex"
+  labels:
+    - thm:main
+notes:
+  - "Block 0 fixes notation and states the main theorem."
+status: stable
