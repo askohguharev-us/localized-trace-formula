@@ -1,151 +1,46 @@
+---
 version: 0.1
-status: review
-block_id: BLOCK-0
-title: Localized Trace Formula on Finite-Volume Hyperbolic Surfaces
+block: 0
+title: "Block 0: front matter and minimal statements"
+status: draft
 
-claim:
-  statement: >
-    For X = Γ\H of finite area with m cusps, fix 0 < β < 1/2, 0 < θ < (1+β)/2,
-    height Y = R^β, even h ∈ S(ℝ) with supp(ĥ) ⊂ [-c0,c0], and χ ∈ C_c^∞([0,∞))
-    with χ≡1 on [0,1]. Then
-      T_R = I_R(χ_Y,h) + G_R(χ_Y,h) + O(R^{1-ε(θ,β)}),
-    with
-      I_R = (1/4π) ( ∫ h_R(r) r tanh(πr) dr ) · vol_eff(Y),
-      G_R = Σ_{primitive γ, ℓ(γ)≤c0} [ ℓ(γ_prim) / (2 sinh(ℓ(γ)/2)) ] · ẑh_R(ℓ(γ)),
-    ε(θ,β) = min{ θ, 1-θ+β, 1/2, 1-2θ+β } - δ (arbitrary δ>0),
-    and vol_eff(Y) = vol(X) - (m/Y) κ_χ + O(m Y^{-2}),
-    where κ_χ = ∫_{1}^{∞} (1 - χ(u)^2) u^{-2} du.
-  outputs:
-    - Theorem 1.1 (main)
-    - Windowed Weyl law corollary (short-interval counting)
-  non_goals:
-    - No use of Eisenstein series or scattering matrices
-    - No arithmetic hypotheses (e.g., RH, Hecke)
+claims:
+  - id: B0-defs
+    name: Basic-setup
+    text: >
+      X = Γ\H is a finite-area hyperbolic surface with m cusps.
+      We fix an orthonormal cuspidal basis {ψ_j} of eigenfunctions
+      with eigenvalues λ_j = 1/4 + r_j^2.
 
-scope:
-  domain: spectral geometry on finite-area hyperbolic surfaces with cusps
-  parameters:
-    R: "spectral center, R ≫ 1"
-    theta: "0 < θ < 1, window exponent"
-    beta: "0 < β < 1/2, height exponent"
-    Y: "R^β"
-    c0: "support bound for ĥ; same constant in the geometric sum cutoff"
-  objects:
-    - "X_core := compact core of X (cusps removed)"
-    - "χ_Y(z) := χ(y(z)/Y); 0≤χ≤1, χ ≡ 1 on [0,1]"
-    - "h_R(t) := h((t-R)/R^θ)"
+  - id: B0-cutoff
+    name: Thick-part-cutoff
+    text: >
+      Choose Y large. Let χ_Y be a smooth cutoff supported on the
+      Y-thick part and equal to 1 on the Y/2-thick part.
+
+  - id: B0-window
+    name: Window-and-test-function
+    text: >
+      h ∈ 𝒮(ℝ) is even; χ ∈ C_c^∞(ℝ) is even. Set h_R(t) = h(t/R).
+
+  - id: B0-TR
+    name: Localized-trace-definition
+    text: >
+      Define TR := Σ_j h_R(r_j) ||χ_Y ψ_j||^2_{L^2}. This is the
+      quantity estimated and compared to the geometric side
+      in later blocks.
 
 assumptions:
-  geometry:
-    - "X = Γ\\H has finite area; m cusps; injrad(X_core) > 0"
-  analysis:
-    - "h ∈ S(ℝ), even; supp(ĥ) ⊂ [-c0,c0]"
-    - "χ ∈ C_c^∞([0,∞)), χ≡1 on [0,1], supp χ ⊂ [0,4)"
-  parameter_relations:
-    - "0 < β < 1/2"
-    - "0 < θ < (1+β)/2"
-    - "Y = R^β, R→∞"
+  - A1: Spectral expansion holds; Maass cusp forms form an ONB.
+  - A2: Standard growth bounds on eigenfunctions on thick parts.
 
-dependencies:
-  references:
-    - key: selberg1956
-      why: "Global trace formula background"
-    - key: hejhal1976
-      why: "Trace formula refinement; LNM 548"
-    - key: hejhal1983
-      doi: "10.1007/BFb0061300"
-      why: "Further trace formula development; LNM 1001"
-    - key: mueller1983
-      why: "Cusps spectral theory; exponential decay in cusps"
-      pinpoint: "Theorem 8.1"
-    - key: zworski2012
-      why: "Semiclassical parametrix, stationary phase"
-    - key: dyatlovzworski2019
-      why: "Scattering/microlocal toolbox (conceptual background)"
-    - key: canzaniGalkowski2019
-      why: "Localized spectral techniques (boundary/parametrix ideas)"
-    - key: jakobsonNaud2014
-      why: "Localized spectral windows in noncompact settings (analogy)"
+checks:
+  format: minimal
+  completeness:
+    required_fields: [version, block, title, status, claims]
 
-lemmas:
-  - id: L-VEFF
-    name: Effective volume asymptotics
-    claim: "vol_eff(Y) = vol(X) - (m/Y) κ_χ + O(m Y^{-2})"
-    notes: "κ_χ = ∫_{1}^{∞} (1 - χ(u)^2) u^{-2} du; depends on χ at 0"
-    depends_on: []
-  - id: L-TAILS
-    name: Exponential tails in cusps
-    claim: "∫_{y>Y} |ψ_j|^2 dμ ≲ e^{-c Y}, r_j ≍ R"
-    constants: "c = c(X) ≥ 2π·min(1, 0.5·injrad(X_core))"
-    depends_on: [mueller1983]
-  - id: L-COMM
-    name: Commutator estimate
-    claim: "|| [Π_{R,θ}, χ_Y] ||_{L^2→L^2} ≲ R^{-1+θ} · Y^{-1}"
-    depends_on: [zworski2012]
-  - id: L-RANK
-    name: Effective rank (spectral projector)
-    claim: "Tr(χ_Y Π_{R,θ} χ_Y) ≍ vol_eff(Y) · R^{1+θ}"
-    depends_on: [zworski2012]
-  - id: L-GEO
-    name: Geometric term (short geodesics)
-    claim: "G_R = Σ_{primitive γ, ℓ(γ)≤c0} [ℓ(γ_prim)/(2sinh(ℓ(γ)/2))] · ĥ_R(ℓ(γ))"
-    bound: "|W_Y(γ)| ≤ ||χ||_{∞} ≤ 1"
-    depends_on: [selberg1956, hejhal1976, hejhal1983]
-  - id: L-FREQ
-    name: Frequency integral asymptotics
-    claim: "∫ h_R(r) r tanh(πr) dr = 2h(0) R^{1+θ} + O(R^θ)"
-    depends_on: []
-
-inference_steps:
-  - step: Microlocal short-time parametrix for |t| ≲ R^{-1}
-    uses: [zworski2012]
-    yields: "control of kernel localizations; feed for Helffer–Sjöstrand"
-  - step: Helffer–Sjöstrand functional calculus
-    uses: []
-    yields: "transfer from h(√-Δ) to time domain integrals"
-  - step: Stationary phase & spectral localization
-    uses: [L-FREQ]
-    yields: "main identity term leading factor"
-  - step: Commutator control with geometric cutoff
-    uses: [L-COMM, L-RANK]
-    yields: "R^{1-ε(θ,β)} remainder with ε = min{…} - δ"
-  - step: Geometric side truncation by supp(ĥ)
-    uses: [L-GEO]
-    yields: "sum restricted to ℓ(γ) ≤ c0"
-  - step: Tail removal in cusps for cusp forms
-    uses: [L-TAILS]
-    yields: "‖χ_Y ψ_j‖^2 = 1 + O(e^{-cY}) uniformly"
-
-boundary_checks:
-  - case: "θ → 0+"
-    note: "ε = min{0+, 1+β, 1/2, 1+β} - δ > 0 ⇒ OK"
-  - case: "θ = (1+β)/2"
-    note: "1 - 2θ + β = 0 ⇒ strict inequality required"
-  - case: "β → 0+"
-    note: "height cutoff removed; commutator bound ⇒ O(R^{1-θ})"
-  - case: "injrad(X_core) → 0"
-    note: "constants grow polynomially in C_geo(X) = m + injrad^{-1}"
-  - case: "degenerate χ"
-    note: "κ_χ tracks deviation from 1 near 0; affects vol_eff(Y)"
-
-constants_dependence:
-  polynomial_in:
-    - "C_geo(X) = m + injrad(X_core)^{-1}"
-    - "‖χ‖_{C^3}, ‖h‖_{H^2}"
-  explicit_notes:
-    - "c in tails ≥ 2π·min(1, 0.5·injrad(X_core))"
-    - "bound |W_Y(γ)| ≤ 1"
-
-review_targets:
-  metrics:
-    KPD: "≥ 99.8%"
-    KGD: "≥ 97%"
-    KSD: "≥ 98%"
-    KSR: "≥ 96%"
-    KFZ: "100%"
-  open_items: []
-  decision: "Annals-ready; arXiv compliance: 100%"
-
-provenance:
-  citations_style: "AMS with DOI, plus MR/Zbl when applicable"
-  note: "No Eisenstein/scattering; purely microlocal + geometric"
+meta:
+  reviewers: []
+  notes: >
+    Skeleton for machine-readable dependencies. Proofs appear
+    in Blocks 1 and 2.
