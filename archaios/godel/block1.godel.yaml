@@ -1,36 +1,33 @@
 ---
-version: 0.1
 block: 1
-title: "Kernel and projector (skeleton)"
-status: draft
-
-claims:
-  - id: K1
-    name: Kernel-decay-on-thick-part
-    text: >
-      For x,y in the Y-thick part the kernel K_{χ,h}(x,y) is smooth and
-      has Schwartz decay in R (Lemma 3.1).
-    depends_on: [B0-defs, B0-cutoff, B0-window]
-    proof_status: todo
-
-  - id: P1
-    name: Projector-stability
-    text: >
-      If χ_Y ≺ \tilde{χ}_Y then TR(\tilde{χ}_Y,h) − TR(χ_Y,h) = O(R^{-∞})
-      (Lemma 4.1). Hence TR depends on Y only up to O(R^{-∞}).
-    depends_on: [K1]
-    proof_status: todo
-
+title: "Kernel + projector → localized trace"
+goals:
+  - id: main-thm
+    statement: "TR = 𝓘_R(χ_Y,h) + 𝓖_R(χ_Y,h)"
 assumptions:
-  - A1: χ is even, compactly supported; h is Schwartz.
-  - A2: Spectral expansion on X with cuspidal basis {ψ_j}.
-
-checks:
-  format: minimal
-  completeness:
-    required_fields: [version, block, title, status, claims]
-
-meta:
-  reviewers: []
-  notes: >
-    Skeleton only; full proofs are planned for Block 2.
+  - "@block0:A1"
+  - "@block0:A2"
+  - "@block0:A3"
+definitions:
+  - D1: "K_R(x,y) := Σ_j h_R(r_j) χ_Y(x)ψ_j(x)\overline{ψ_j(y)}χ_Y(y)"
+claims:
+  - id: C1
+    text: "K_R is self-adjoint and trace-class on L^2(X)."
+    uses: [D1, "@block0:A1", "@block0:A2"]
+    link: "src/sections/03-kernel.tex#lem:kernel-traceclass"
+  - id: C2
+    text: "Schur decay for K_R(x,y) off the diagonal."
+    uses: [D1]
+    link: "src/sections/03-kernel.tex#lem:kernel-decay"
+  - id: C3
+    text: "Tr(P_{Y,h,R}) = ∫_X K_R(x,x) dμ(x)."
+    uses: [C1]
+    link: "src/sections/04-projector.tex#prop:proj-kernel"
+  - id: C4
+    text: "This quantity equals the localized trace TR."
+    uses: [C3]
+    link: "src/sections/04-projector.tex"
+concludes:
+  - to: main-thm
+    via: [C2, C3, C4]
+status: draft
