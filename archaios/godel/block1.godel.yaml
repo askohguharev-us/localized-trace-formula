@@ -1,32 +1,36 @@
+---
 version: 0.1
 block: 1
-title: "Kernel + Localized projector (skeleton)"
+title: "Kernel and projector (skeleton)"
 status: draft
+
 claims:
   - id: K1
     name: Kernel-decay-on-thick-part
-    text: |
-      For x,y in the Y-thick part the kernel K_{chi,h}(x,y) is smooth and
+    text: >
+      For x,y in the Y-thick part the kernel K_{χ,h}(x,y) is smooth and
       has Schwartz decay in R (Lemma 3.1).
-    depends_on:
-      - B0:definitions
-      - B0:regularity-setup
+    depends_on: [B0-defs, B0-cutoff, B0-window]
     proof_status: todo
+
   - id: P1
     name: Projector-stability
-    text: |
-      If chi_Y \prec chi_Y~ then TR(chi_Y~,h)-TR(chi_Y,h)=O(R^{-∞})
-      (Lemma 4.1), hence TR depends on Y only up to O(R^{-∞}).
-    depends_on:
-      - K1
+    text: >
+      If χ_Y ≺ \tilde{χ}_Y then TR(\tilde{χ}_Y,h) − TR(χ_Y,h) = O(R^{-∞})
+      (Lemma 4.1). Hence TR depends on Y only up to O(R^{-∞}).
+    depends_on: [K1]
     proof_status: todo
+
 assumptions:
-  - A1: "chi is even, compactly supported; h is Schwartz."
-  - A2: "Spectral expansion on X with cuspidal basis {psi_j}."
+  - A1: χ is even, compactly supported; h is Schwartz.
+  - A2: Spectral expansion on X with cuspidal basis {ψ_j}.
+
 checks:
   format: minimal
   completeness:
     required_fields: [version, block, title, status, claims]
+
 meta:
   reviewers: []
-  notes: "Skeleton only; full proofs enter in Block 2."
+  notes: >
+    Skeleton only; full proofs are planned for Block 2.
