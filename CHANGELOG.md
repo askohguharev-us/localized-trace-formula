@@ -1,4 +1,15 @@
 # Changelog
+## v0.6.0 — Metafractal checks online + Block 1 scaffolding polish (2025-08-12)
+**Added**
+- Metafractal CI: private meta repo + public lint runner; green checks on push.
+- Minimal public checker (`scripts/metafractal_check.py`) with local/externals split.
+
+**Changed**
+- Block 1 YAML: normalized local IDs (C1, C2, C3, C4, D1, main-thm).
+- LaTeX metadata bumped to v0.6.0.
+
+**Infrastructure**
+- `.github/workflows/metafractal.yml` wired to `META_TOKEN` and private meta.
 ## v0.5.0 — Kernel fix + stability
 - Kernel section cleaned and stabilized.
 - Projector scaffolding kept.
