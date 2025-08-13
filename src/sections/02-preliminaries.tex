@@ -4,7 +4,7 @@
 Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$ cusps.
 We write $z=x+iy$ on $\HH$, use the hyperbolic measure $d\mu=y^{-2}\,dx\,dy$, and take the (positive) Laplacian to be $-\Lap$.
 Denote normalized cuspidal eigenpairs by $(-\Lap)\psi_j=\lambda_j\psi_j$ with $\lambda_j=\tfrac14+r_j^2$ and $\|\psi_j\|_{L^2(X)}=1$.
-The continuous spectrum is treated via Eisenstein series but will be \emph{suppressed in Block~0} (only cuspidal contributions are kept).
+The continuous spectrum is treated via Eisenstein series but is suppressed in Block~0 (we keep only cuspidal contributions).
 
 We set
 \[
@@ -18,45 +18,44 @@ C_{\mathrm{geo}}(X):=m+\injrad(X_{\mathrm{core}})^{-1},
 which controls polynomially all implicit constants below.
 
 \subsection{Cutoffs, windows, and parameter regime.}
-Fix $\chi\in C_c^\infty([0,\infty))$ such that $\chi\equiv1$ on $[0,1]$ and $\supp\chi\subset[0,4)$.
+Fix $\chi\in C_c^\infty([0,\infty))$ such that $\chi\equiv 1$ on $[0,1]$ and $\supp\chi\subset[0,4)$.
 For a height scale $Y>0$ define the spatial cutoff
 \[
 \chi_Y(z):=\chi\!\big(y(z)/Y\big).
 \]
 Throughout Block~0 we couple $Y$ to the spectral scale via
 \[
-Y=R^\beta,\qquad R\gg1,\quad 0<\beta<\tfrac12.
+Y=R^\beta,\qquad R\gg 1,\qquad 0<\beta<\tfrac12.
 \]
 
-Let $h\in\mathcal{S}(\RR)$ be even with compactly supported Fourier transform.
-We fix a constant $c_0\in\big(0,\tfrac{\log 2}{2}\big)$ and assume
-\[
-\supp \widehat{h}\subset[-c_0,c_0].
-\]
+Let $h\in\mathcal{S}(\RR)$ be even with compactly supported Fourier transform, and fix a constant
+$c_0\in\big(0,\tfrac{\log 2}{2}\big)$ so that $\supp \widehat{h}\subset[-c_0,c_0]$.
 For a window exponent $0<\theta<1$ we localize in frequency by
 \[
 h_R(t):=h\!\left(\frac{t-R}{R^\theta}\right),
 \]
-so $h_R$ selects the spectral window $[R-R^\theta,R+R^\theta]$ centered at $R$ with width $R^\theta$.
-In the main estimates we will work in the admissible range
+so $h_R$ selects the spectral window $[R-R^\theta,\,R+R^\theta]$ centered at $R$ with width $R^\theta$.
+In the estimates we work in the admissible range
 \[
-0<\beta<\tfrac12,\qquad 0<\theta<\tfrac{1+\beta}{2},
+0<\beta<\tfrac12,\qquad 0<\theta<\tfrac{1+\beta}{2}.
 \]
-which will be seen to be optimal at the level of the error exponent.
 
 \begin{definition}[Localized trace]\label{def:TR}
-The \emph{localized trace distribution} is
+The localized trace distribution is
 \[
   \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2.
 \]
-\emph{Remark.} In later sections we prove a decomposition of the form
+\end{definition}
+
+\begin{remark}
+Later we prove the decomposition
 \[
 \TR \;=\; \mathcal{I}_R(\chi_Y,h)\;+\;\mathcal{G}_R(\chi_Y,h)\;+\;O\!\big(R^{1-\varepsilon(\theta,\beta)}\big),
 \]
-where $\mathcal{I}_R$ is the identity contribution, $\mathcal{G}_R$ is a geometric sum over short closed geodesics (with the \emph{same} $c_0$ as above), and $\varepsilon(\theta,\beta)>0$ on the stated admissible region.
-\end{definition}
+where $\mathcal{I}_R$ is the identity contribution and $\mathcal{G}_R$ is a geometric sum over short closed geodesics (with the same $c_0$), and $\varepsilon(\theta,\beta)>0$ on the above region.
+\end{remark}
 
-\begin{lemma}[Windowed Plancherel: skeleton]\label{lem:planch}
+\begin{lemma}[Windowed Plancherel]\label{lem:planch}
 Let $h\in\mathcal{S}(\RR)$ be even with $\supp\widehat{h}\subset[-c_0,c_0]$.
 Then
 \[
@@ -64,20 +63,15 @@ Then
   \;=\; \int_X \chi_Y(z)\,K_R(z,z)\,d\mu(z) \;+\; O_N(R^{-N})\quad\forall N,
 \]
 where $K_R$ is the Schwartz kernel of the spectral multiplier $h_R(\sqrt{-\Lap})$.
-The remainder $O_N(R^{-N})$ depends polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $h$ and $\chi$.
+The remainder depends polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $h$ and $\chi$.
 \end{lemma}
 
-\begin{remark}[Effective volume and normalizations]
-The effective volume is defined by
+\begin{remark}[Effective volume]
+The effective volume is
 \[
-\vol_{\mathrm{eff}}(Y):=\int_X \chi_Y^2\,d\mu,
-\]
-and satisfies (see Appendix~\ref{app:effvol})
-\[
-\vol_{\mathrm{eff}}(Y)=\vol(X)-\frac{m}{Y}\,\kappa_\chi+O(mY^{-2}),
+\vol_{\mathrm{eff}}(Y):=\int_X \chi_Y^2\,d\mu
+=\vol(X)-\frac{m}{Y}\,\kappa_\chi+O(mY^{-2}),
 \qquad
 \kappa_\chi:=\int_1^\infty (1-\chi(u)^2)\,u^{-2}\,du\in(0,\tfrac12].
 \]
-Our Fourier transform and Plancherel conventions match those used in \S\ref{sec:kernel} and \S\ref{sec:proj-comm}; in particular the Plancherel measure is $\tfrac{1}{2\pi}\,r\tanh(\pi r)\,dr$.
 \end{remark}
-```0
