@@ -15,7 +15,7 @@ FIGS_DIR  := figs
 VERSION   ?= 0.3.1
 
 LATEXMK   := latexmk
-LATEXFLAGS := -pdf -interaction=nonstopmode
+LATEXFLAGS := -pdf -interaction=nonstopmode -f
 
 .PHONY: all pdf clean distclean anc-pack help
 
