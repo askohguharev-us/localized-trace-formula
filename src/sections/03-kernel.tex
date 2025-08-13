@@ -1,63 +1,89 @@
 \section{Short-time kernel and identity contribution}\label{sec:kernel}
 
-Throughout this section $h\in\mathcal{S}(\RR)$ is even with $\supp \widehat{h}\subset[-c_0,c_0]$, $0<c_0<\tfrac{\log 2}{2}$ fixed, and for $R\gg1$, $0<\theta<1$ we set
+Throughout this section $h\in\mathcal{S}(\RR)$ is even with
+$\supp \widehat{h}\subset[-c_0,c_0]$ for some fixed $0<c_0<\tfrac{\log 2}{2}$.
+For $R\gg1$ and $0<\theta<1$ set
 \[
-h_R(t):=h\!\left(\frac{t-R}{R^\theta}\right),\qquad
-g_R(t):=\frac{1}{2\pi}\int_{\RR}e^{it\xi}h_R(\xi)\,d\xi
-=R^\theta e^{iRt}\check h(R^\theta t),
+  h_R(t):=h\!\left(\frac{t-R}{R^\theta}\right),\qquad
+  g_R(t):=\frac{1}{2\pi}\int_{\RR}e^{it\xi}\,h_R(\xi)\,d\xi
+  \;=\;R^\theta e^{iRt}\,\check h(R^\theta t),
 \]
-where $\check h$ is the inverse Fourier transform of $h$.
-Note that $g_R$ is rapidly decaying for $|t|\gtrsim R^{-\theta}$.
-Fix $\eta\in C_c^\infty(\RR)$, even, $\eta\equiv1$ on $[-\tfrac{c_0}{2},\tfrac{c_0}{2}]$ and $\supp\eta\subset[-c_0,c_0]$, and define the short-time cutoff
+where $\check h$ denotes the inverse Fourier transform of $h$. In particular
+$g_R$ is rapidly decaying for $|t|\gtrsim R^{-\theta}$.
+Fix $\eta\in C_c^\infty(\RR)$, even, with $\eta\equiv1$ on
+$[-\tfrac{c_0}{2},\tfrac{c_0}{2}]$ and $\supp\eta\subset[-c_0,c_0]$, and define the
+short-time cutoff
 \[
-\eta_R(t):=\eta(Rt),\qquad \supp \eta_R \subset \{|t|\le c_0 R^{-1}\}.
+  \eta_R(t):=\eta(Rt),
+  \qquad \supp \eta_R \subset \{\,|t|\le c_0 R^{-1}\,\}.
 \]
-We will use the (cosine) wave group $U(t):=\cos\!\big(t\sqrt{-\Lap}\big)$.
+We write $U(t):=\cos\!\big(t\sqrt{-\Lap}\big)$ for the (even) wave group.
 
 \begin{lemma}[Effective time localization]\label{lem:time-local}
 For any $N\ge1$,
 \[
-h_R(\sqrt{-\Lap})=\int_{\RR} \eta_R(t)\, g_R(t)\, U(t)\,dt + \mathcal{E}_R,
-\qquad \|\mathcal{E}_R\|_{L^2\to L^2}=O_N(R^{-N}),
+  h_R(\sqrt{-\Lap})
+  \;=\;\int_{\RR} \eta_R(t)\, g_R(t)\, U(t)\,dt \;+\; \mathcal{E}_R,
+  \qquad \|\mathcal{E}_R\|_{L^2\to L^2}=O_N(R^{-N}),
 \]
-with the $O_N$ depending polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $h$ and~$\eta$.
+with implied constants depending polynomially on $C_{\mathrm{geo}}(X)$ and on
+finitely many seminorms of $h$ and $\eta$.
 \end{lemma}
 
 \begin{proof}[Proof sketch]
-Use the Helffer--Sj\"ostrand functional calculus to represent $h_R(\sqrt{-\Lap})$ and then pass to a Fourier representation; insert the cutoff $\eta_R$ in time and integrate by parts in $t$ on the complement using the rapid decay of $g_R$ together with finite propagation speed for $U(t)$. The remainder is super-polynomially small in~$R$.
+Represent $h_R(\sqrt{-\Lap})$ via Helffer--Sj\"ostrand and pass to a Fourier
+integral; insert $\eta_R$ in time. On the complement of $\supp\eta_R$, integrate
+by parts in $t$ using the rapid decay of $g_R$ and finite propagation speed for
+$U(t)$. This yields a remainder super-polynomially small in $R$.
 \end{proof}
 
-Applying Lemma~\ref{lem:time-local} under the microlocal height cutoff $\chi_Y$ we write the localized trace
+Applying Lemma~\ref{lem:time-local} under the microlocal height cutoff $\chi_Y$ we
+obtain the localized trace
 \[
-\TR=\Tr\!\left(\chi_Y h_R(\sqrt{-\Lap}) \chi_Y\right)
-= \int_{\RR}\eta_R(t)\, g_R(t)\, \Tr\!\left(\chi_Y U(t)\chi_Y\right)\,dt + O(R^{-N}).
+  \TR=\Tr\!\big(\chi_Y h_R(\sqrt{-\Lap}) \chi_Y\big)
+  \;=\; \int_{\RR}\eta_R(t)\, g_R(t)\, \Tr\!\big(\chi_Y U(t)\chi_Y\big)\,dt
+  \;+\; O(R^{-N}).
 \]
-By the pretrace/trace mechanism on hyperbolic surfaces the short-time diagonal contribution yields the identity term; see, e.g., \cite{hejhal1976,hejhal1983}.
+By the standard pretrace/trace mechanism on hyperbolic surfaces, the short-time
+diagonal contribution produces the identity term
+(see, e.g., \cite{hejhal1976,hejhal1983}).
 
 \begin{proposition}[Identity contribution]\label{prop:identity}
-With $\vol_{\mathrm{eff}}(Y)=\int_X \chi_Y^2\,d\mu$,
+Let $\vol_{\mathrm{eff}}(Y):=\int_X \chi_Y^2\,d\mu$. Then
 \[
-\mathcal{I}_R(\chi_Y,h)=\frac{1}{4\pi}\Big(\int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr\Big)\,\vol_{\mathrm{eff}}(Y),
+  \mathcal{I}_R(\chi_Y,h)
+  \;=\; \frac{1}{4\pi}\!\left(\int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr\right)\,
+        \vol_{\mathrm{eff}}(Y),
 \]
 and
 \[
-\int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr
-= 2h(0)\,R^{1+\theta}+O(R^\theta).
+  \int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr
+  \;=\; 2\,h(0)\,R^{1+\theta} \;+\; O(R^\theta).
 \]
-The implied constants depend polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $h$.
+The implied constants depend polynomially on $C_{\mathrm{geo}}(X)$ and on finitely
+many seminorms of $h$.
 \end{proposition}
 
 \begin{proof}[Proof sketch]
-Use the spectral decomposition of the even wave kernel and the Plancherel measure $d\mu_{\rm spec}(r)=\frac{1}{2\pi}r\tanh(\pi r)\,dr$ for $\PSL(2,\RR)$; the cutoffs $\eta_R$ and $\chi_Y$ do not affect the identity term. The $r$-integral is a one-dimensional stationary phase at $r=R$ after the change of variables implicit in $h_R$; expanding $\tanh(\pi r)=1+O(e^{-2\pi r})$ gives the stated asymptotics uniformly in $R$.
+Use the spectral decomposition of the even wave kernel with Plancherel measure
+$d\mu_{\rm spec}(r)=\frac{1}{2\pi}r\tanh(\pi r)\,dr$ for $\PSL(2,\RR)$. The
+cutoffs $\eta_R$ and $\chi_Y$ do not affect the identity piece. The $r$-integral
+is an application of stationary phase around $r=R$ after the change of variables
+implicit in $h_R$. Since $\tanh(\pi r)=1+O(e^{-2\pi r})$ for $r\gtrsim R$, the
+exponentially small tail gives the stated $O(R^\theta)$-remainder uniformly in $R$.
 \end{proof}
 
 \begin{remark}[Effective volume]\label{rem:veff}
-As $Y\to\infty$, for $m$ cusps and any $\chi\in C_c^\infty([0,\infty))$ with $\chi\equiv1$ near $0$,
+As $Y\to\infty$, for $m$ cusps and any $\chi\in C_c^\infty([0,\infty))$ with
+$\chi\equiv1$ near $0$,
 \[
-\vol_{\mathrm{eff}}(Y)=\vol(X)-\frac{m}{Y}\kappa_\chi+O(mY^{-2}),
-\qquad
-\kappa_\chi:=\int_1^\infty \big(1-\chi(u)^2\big)u^{-2}\,du\in(0,\tfrac12].
+  \vol_{\mathrm{eff}}(Y)
+  \;=\; \vol(X)-\frac{m}{Y}\,\kappa_\chi+O(mY^{-2}),
+  \qquad
+  \kappa_\chi:=\int_1^\infty \big(1-\chi(u)^2\big)u^{-2}\,du \in (0,\tfrac12].
 \]
 \end{remark}
 
-The geometric contribution $\mathcal{G}_R$ will be extracted in \S\ref{sec:proj-comm} from off-diagonal terms using the short-time parametrix together with the support condition $\supp \widehat{h}\subset[-c_0,c_0]$.
+The geometric contribution $\mathcal{G}_R$ will be extracted in
+\S\ref{sec:projector} from off-diagonal terms using the short-time parametrix
+together with the support condition $\supp \widehat{h}\subset[-c_0,c_0]$.
