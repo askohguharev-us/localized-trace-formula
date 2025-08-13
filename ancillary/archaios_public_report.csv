@@ -1,2 +1,7 @@
-version,generated_at,title,block,repo_release,doi,KPD,KGD,KSD,KSR,KFZ,KKA,composite,conf
-public-1.0,2025-08-12T21:00:00Z,"A Localized Trace Formula (Block 0)",0,v0.6.0,10.5281/zenodo.16813138,58.7,62.3,59.8,54.1,76.0,68.2,63.2,0.74
+coefficient,score
+KPD — Proof plausibility,28.0
+KGD — Logical coherence,40.0
+KSD — Structural depth,31.8
+KSR — Source robustness,28.0
+KFZ — Formal compliance,36.5
+KKA — Clarity & accessibility,66.8

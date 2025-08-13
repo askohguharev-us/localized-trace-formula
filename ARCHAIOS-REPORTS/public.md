@@ -1,8 +1,8 @@
 # ARCHAIOS — Public Assessment
 
-*Timestamp:* 2025-08-12T20:41:40Z
+*Timestamp:* 2025-08-13T10:54:59Z
 
-Meta: {"title":"A Localized Trace Formula (Block 0)","block":0,"repo_release":"v0.7.0","doi":"10.5281/zenodo.16837383"}
+*Meta:* {"domain": "math", "year": 2025, "lang": "en", "title": "A Localized Trace Formula (Block 0)", "source": "v0.6.0 PDF abstract"}
 
 | Coefficient | Score | Rationale |
 |-|-:|-|
