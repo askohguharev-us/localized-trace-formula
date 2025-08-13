@@ -1,50 +1,81 @@
 \section{Introduction}\label{sec:intro}
 
 This preprint develops a localized (microlocal) version of the Selberg trace
-formula on a finite-area hyperbolic surface
-$X=\Gamma\backslash\HH$, with an emphasis on \emph{windowed} counting of
-spectral data. The localization is achieved by inserting smooth
-cutoffs both in configuration and spectral variables, thus producing a
-trace distribution $\TR$ adapted to a prescribed microlocal region.
+formula on a finite-area hyperbolic surface $X=\Gamma\backslash\HH$, with an
+emphasis on \emph{windowed} counting of spectral data. The localization is
+achieved by inserting smooth cutoffs both in configuration and spectral variables,
+thus producing a trace distribution $\TR$ adapted to a prescribed microlocal region.
 
 \smallskip
 \noindent\textbf{Motivation.}
-In problems of spectral counting one often requires information restricted
-to a phase-space window (e.g. near a geodesic segment or in a fixed
-angular sector). Classical trace formulae \cite{selberg1956,hejhal1976}
-capture global information; a localized variant fits naturally with ideas
-from semiclassical and microlocal analysis
-\cite{zworski2012,dyatlovzworski2019}.
+In spectral counting problems one often seeks information restricted to a
+phase-space window (e.g.\ near a geodesic segment or within a fixed angular sector).
+Classical trace formulae \cite{selberg1956,hejhal1976} capture global information;
+a localized variant aligns naturally with tools of semiclassical and microlocal
+analysis \cite{zworski2012,dyatlovzworski2019}, while avoiding the need to invoke
+the full scattering theory in the cusps.
 
 \smallskip
 \noindent\textbf{Informal statement.}
-Let $-\Lap$ be the Laplacian on $X$ with cuspidal eigenvalues
-$\lambda_j=\tfrac14+r_j^2$ and eigenfunctions $\psi_j$.
-Let $\chi_Y$ be a smooth spatial cutoff (removing cuspidal regions above
-height $Y$) and let $h\in\mathcal{S}(\RR)$ be an even test function with
-compactly supported Fourier transform. The localized trace distribution is
+Let $-\Lap$ be the Laplacian on $X$, with cuspidal eigenvalues
+$\lambda_j=\tfrac14+r_j^2$ and $L^2$-normalized eigenfunctions $\psi_j$.
+Fix a smooth spatial cutoff $\chi_Y(z):=\chi\!\big(y(z)/Y\big)$ with $Y=R^\beta$,
+where $0<\beta<\tfrac12$, and let $h\in\mathcal{S}(\RR)$ be even with
+$\supp\widehat{h}\subset[-c_0,c_0]$ for some $c_0>0$. For a spectral center
+$R\gg1$ and a window exponent $0<\theta<1$, set
 \[
-  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2 \;+\; \text{(geometric side)},
+  h_R(t):=h\!\left(\frac{t-R}{R^\theta}\right),
+  \qquad
+  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2.
 \]
-where $h_R(r):=h(r/R)$ controls the width of the spectral window. We show
-that for admissible $(\theta,\beta)$ (precise ranges below) one obtains an
-asymptotic expansion whose main term matches the expected (windowed) Weyl
-law, together with power saving remainders.
+Then for the admissible range
+\[
+  0<\beta<\tfrac12,
+  \qquad
+  0<\theta<\tfrac{1+\beta}{2},
+\]
+we establish a localized trace identity of the schematic form
+\[
+  \TR \;=\; \underbrace{\mathcal{I}_R(\chi_Y,h)}_{\text{identity / effective volume}}
+  \;+\;
+  \underbrace{\mathcal{G}_R(\chi_Y,h)}_{\substack{\text{sum over primitive closed}\\\text{geodesics }\ell(\gamma)\le c_0}}
+  \;+\;
+  O\!\big(R^{\,1-\varepsilon(\theta,\beta)}\big),
+\]
+with an explicit positive exponent
+\[
+  \varepsilon(\theta,\beta)=\EpsDef \;>\; 0,
+\]
+and with constants depending polynomially on the geometric complexity
+$C_{\mathrm{geo}}(X):=m+\injrad(X_{\mathrm{core}})^{-1}$ and on finitely many
+$C^k$-seminorms of $\chi$ and $h$.
+The identity term $\mathcal{I}_R$ features the \emph{effective volume}
+$\int_X \chi_Y^2\,d\mu$, which admits a cusp-expansion with a shape-constant
+$\kappa_\chi$, while $\mathcal{G}_R$ is a geometric sum over primitive closed
+geodesics with $\ell(\gamma)\le c_0$ determined by $\supp\widehat{h}$.
+As a consequence, one obtains a windowed Weyl law with power-saving error.
 
 \smallskip
-\noindent\textbf{Contributions.}
+\noindent\textbf{Contributions (Block 0 skeleton).}
 \begin{itemize}
-  \item A microlocally localized trace identity intertwining the spectral
-        window $h_R$ with spatial truncation $\chi_Y$;
-  \item Precise ranges of admissible parameters $(\theta,\beta)$ dictated
-        by stationary phase and decay of the Selberg transform;
-  \item A windowed Weyl law with error $O(R^{1-\varepsilon(\theta,\beta)})$,
-        where $\varepsilon(\theta,\beta)=\min\{\theta,1-\tfrac12\beta\}$.
+  \item A microlocally localized trace identity intertwining the spectral window
+        $h_R$ and the spatial truncation $\chi_Y$, stated with explicit admissible
+        ranges $0<\beta<\tfrac12$ and $0<\theta<\tfrac{1+\beta}{2}$;
+  \item An identity term controlled by the effective volume
+        $\vol_{\mathrm{eff}}(Y)=\int_X \chi_Y^2\,d\mu$ and its cusp asymptotics
+        (with a shape-constant $\kappa_\chi$);
+  \item A geometric term $\mathcal{G}_R$ summing over \emph{primitive} closed
+        geodesics with $\ell(\gamma)\le c_0$ (the support bound for $\widehat{h}$);
+  \item A power-saving remainder $O(R^{1-\EpsDef})$, with constants polynomial in
+        $C_{\mathrm{geo}}(X)$ and in finitely many seminorms of $\chi,h$;
+  \item A windowed Weyl law as an immediate corollary.
 \end{itemize}
 
 \smallskip
 \noindent\textbf{Organization.}
-Section~\ref{sec:prelim} records geometric and analytic preliminaries,
-cutoff conventions and normalizations of transforms.
-The main localized identity is proved in later blocks; here we state the
-minimal skeleton needed for cross-referencing.
+\Cref{sec:preliminaries} records geometric and analytic preliminaries,
+cutoff conventions and transform normalizations. The kernel and projector
+localization appear in \S\S\ref{sec:kernel}--\ref{sec:projector}, while
+microlocal and geometric contributions are outlined in
+\S\ref{sec:microlocal}--\ref{sec:geometric}. Full proofs are deferred to later
+blocks; Block~0 contains the minimal skeleton needed for cross-referencing.
