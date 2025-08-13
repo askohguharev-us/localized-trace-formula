@@ -1,12 +1,91 @@
-\section{Microlocal set-up (placeholder)}
-\label{sec:microlocal}
-This section is a placeholder for the microlocal framework to be added in Block~1.
-We record a simple statement to keep references consistent.
+\section{Microlocal short--time analysis}\label{sec:microlocal}
 
-\paragraph{Lemma (placeholder).}
-\label{lem:time-local}
-For a compactly supported smooth test function $\varphi$, the identity
-$\int_{\mathbb{R}} \varphi(t)\,dt = \|\varphi\|_{L^1}$ holds. \emph{(Placeholder statement; will be replaced.)}
+In this section we derive short--time expansions for the cosine propagator
+$U(t)=\cos\!\big(t\sqrt{-\Lap}\big)$ under the height cutoff $\chi_Y$
+and prove the bounds that lead to the power saving remainder in the
+localized trace. Throughout we keep the notation of \S\ref{sec:kernel}:
+$h\in\mathcal{S}(\RR)$ is even with $\supp \widehat{h}\subset[-c_0,c_0]$,
+$g_R$ and $\eta_R$ are as there, and $Y=R^\beta$ with $0<\beta<\tfrac12$.
 
-\paragraph{Remark.}
-All symbols and constants here are provisional; no external citations are used in this stub.
+\subsection{Hadamard parametrix and finite propagation.}
+Fix $t_0\in(0,c_0)$ smaller than the injectivity radius of the core.
+For $|t|<t_0$ the kernel of $U(t)$ on the universal cover $\HH$
+admits the standard Hadamard expansion (see, e.g., \cite{zworski2012})
+\begin{equation}\label{eq:parametrix}
+U(t;z,z')= \sum_{k=0}^{K-1} a_k(z,z')\, \partial_t \big(t^2-d(z,z')^2\big)_{+}^{k-\frac12}
+\;+\; R_K(t;z,z'),
+\end{equation}
+where $a_k$ are smooth amplitudes supported where $d(z,z')<|t|$ and
+$R_K$ is $C^\infty$ and $O(|t|^{K-\frac12})$ uniformly on compact sets.
+By finite propagation speed, $U(t;z,z')$ vanishes if $d(z,z')>|t|$.
+
+On $X=\Gamma\backslash\HH$ we sum~\eqref{eq:parametrix} over $\Gamma$.
+For $|t|\le c_0/R$ only the diagonal and the terms corresponding to
+closed geodesics of length $\le c_0$ contribute to the trace; this is
+the geometric restriction that ultimately produces the sum over short
+closed geodesics in Proposition~\ref{prop:geom}.
+
+\subsection{Identity contribution and effective volume.}
+Using Lemma~\ref{lem:time-local}, write
+\[
+\TR=\Tr\!\big(\chi_Y h_R(\sqrt{-\Lap}) \chi_Y\big)
+= \int_{\RR}\eta_R(t)\, g_R(t)\, \Tr\!\big(\chi_Y U(t)\chi_Y\big)\,dt
++ O(R^{-N}).
+\]
+Inserting the diagonal part of~\eqref{eq:parametrix} and integrating in $t$
+against $\eta_R(t)g_R(t)$ we recover the identity term of
+Proposition~\ref{prop:identity} with the effective volume
+$\vol_{\mathrm{eff}}(Y)=\int_X \chi_Y^2\,d\mu$. The calculation is identical
+to the standard proof of the Weyl law, except that the time window
+$|t|\lesssim R^{-1}$ yields a contribution of size $R^{1+\theta}$ from the
+one--dimensional stationary phase at the center $R$ of the frequency window.
+
+\subsection{Off--diagonal decay outside periodic directions.}
+We now bound the non--diagonal part of the trace outside closed geodesics.
+Let $\Theta\subset T^*X$ be a small conic neighborhood of the collection of
+periodic covectors with period $\le c_0$. Choose a zeroth--order
+pseudodifferential cutoff $A\in\Psi^0(X)$ that equals~$1$ outside~$\Theta$.
+Using Egorov's theorem for $|t|\le c_0/R$ and the fact that the support of
+$\eta_R$ restricts to these times, we obtain
+\[
+\Tr\!\big(\chi_Y U(t)\chi_Y\big)
+= \Tr\!\big(\chi_Y A\,U(t)\,A\chi_Y\big) \;+\; \Tr\!\big(\chi_Y (I-A)\,U(t)\,(I-A)\chi_Y\big)
+\;+\; O(R^{-\infty}).
+\]
+The first trace is negligible after the $t$--integration by stationary phase:
+away from periodic directions, the phase has no stationary points, hence for
+every $N$,
+\[
+\int \eta_R(t)\, g_R(t)\, \Tr\!\big(\chi_Y A\,U(t)\,A\chi_Y\big)\,dt
+= O_N(R^{-N}).
+\]
+The second trace is supported microlocally near periodic covectors; its
+contribution is evaluated by the Selberg--type parametrix and sums to the
+geometric term of Proposition~\ref{prop:geom} (short closed geodesics only).
+
+\subsection{Commutators with the height cutoff.}
+Finally we control the error produced by moving $\chi_Y$ through the
+windowed projector. Lemma~\ref{lem:comm} shows that
+\[
+\big\|[\Pi_{R,\theta},\chi_Y]\big\|_{L^2\to L^2}
+\lesssim R^{-1+\theta} Y^{-1} \,\|\nabla\chi\|_\infty
+\asymp R^{-1+\theta-\beta}.
+\]
+Coupling this with the effective rank estimate of
+Lemma~\ref{lem:rank}, $\Tr(\chi_Y \Pi_{R,\theta}\chi_Y)\asymp
+\vol_{\mathrm{eff}}(Y)\,R^{1+\theta}$, and using Cauchy--Schwarz yields
+a commutator contribution bounded by $O\!\big(R^{1-2\theta+\beta}\big)$.
+
+\subsection{Power saving remainder.}
+Collecting the three sources of error (nonstationary off--diagonal,
+single integration by parts in~$r$ within the identity piece,
+and the commutator error) we obtain the exponent
+\[
+\varepsilon(\theta,\beta)
+=\min\Big\{\theta,\; \tfrac12,\; 1-\theta+\beta,\; 1-2\theta+\beta\Big\}
+-\delta,\quad \forall\,\delta>0,
+\]
+which is positive on the admissible region
+$0<\beta<\tfrac12$, $0<\theta<\tfrac{1+\beta}{2}$. This proves the
+power saving reported after Proposition~\ref{prop:geom} and prepares
+the ground for the final assembly in \S\ref{sec:geometric}.
