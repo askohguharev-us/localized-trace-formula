@@ -1,40 +1,40 @@
----
+cff-version: 1.2.0
+message: "If you use this work, please cite it."
+title: "A Localized Trace Formula (Block 0)"
+authors:
+  - family-names: Kozhukharev
+    given-names: Alexander Stepanovich
+    affiliation: Independent Researcher, Moscow, Russia
+version: "v0.7.0"
+date-released: "2025-08-13"
+doi: "10.5281/zenodo.16837383"
+url: "https://github.com/askoghuharev-us/localized-trace-formula"
+repository-code: "https://github.com/askoghuharev-us/localized-trace-formula"
+license: CC-BY-4.0
+abstract: >
+  We develop a microlocally localized trace formula on finite-area hyperbolic
+  surfaces that isolates the discrete cuspidal spectrum in short frequency
+  windows under a height cutoff, with an identity term, a geometric short-geodesic
+  term, and a power-saving remainder. The method avoids scattering theory and
+  yields a windowed Weyl law with constants polynomial in the geometric data.
+keywords:
+  - trace formula
+  - hyperbolic surfaces
+  - microlocal analysis
+  - spectral geometry
+  - cuspidal spectrum
+  - Weyl law
 
-## 3) Полный `CHANGELOG.md` (под замену в публичном репозитории)
-
-```markdown
-# Changelog
-
-## v0.7.0 — Core §§5–6 completed; ancillary wiring (2025-08-13)
-**Added**
-- Sections §5 (Microlocal framework) and §6 (Geometric term) — stable draft.
-- Public ARCHAIOS artifacts: `ARCHAIOS-REPORTS/public.md`, `ancillary/*.json/*.csv`.
-
-**Changed**
-- README: clarified public-only ARCHAIOS policy (no methodology, no recommendations).
-- Workflows: publish guard (denylist + allowlist).
-
-**Fixed**
-- Appendix header duplication; consistent TOC.
-- Minor typos and cross-refs.
-
-## v0.6.0 — Metafractal checks online + Block 1 scaffolding (2025-08-12)
-**Added**
-- Metafractal CI: private meta repo + public lint runner; green checks on push.
-- Minimal public checker (`scripts/metafractal_check.py`) with local/externals split.
-
-**Changed**
-- Block 1 YAML normalized; LaTeX metadata → v0.6.0.
-
-**Infrastructure**
-- `.github/workflows/metafractal.yml` wired to `META_TOKEN`.
-
-## v0.5.0 — Kernel fix + stability
-- Kernel section cleaned and stabilized.
-- Projector scaffolding kept; Gödel YAML checks green for Block 0/1.
-- DOI: 10.5281/zenodo.16810648.
-
-## v0.2.0 — Initial structure (2025-08-11)
-- Sections `01-intro`, `02-preliminaries`.
-- Long-form CC BY 4.0, dual-license note, valid CFF with preferred-citation.
-- README links to Releases/DOI; TOC anchors.
+preferred-citation:
+  type: report
+  title: "A Localized Trace Formula (Block 0)"
+  authors:
+    - family-names: Kozhukharev
+      given-names: Alexander Stepanovich
+      affiliation: Independent Researcher, Moscow, Russia
+  year: 2025
+  month: 8
+  publisher: Zenodo
+  institution: Independent Researcher
+  doi: "10.5281/zenodo.16837383"
+  url: "https://doi.org/10.5281/zenodo.16837383"
