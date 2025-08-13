@@ -1,40 +1,23 @@
-cff-version: 1.2.0
-message: "If you use this work, please cite the Zenodo record below."
+cff-version: "1.2.0"
+message: "If you use this work, please cite the release below."
 title: "A Localized Trace Formula (Block 0)"
-abstract: >
-  Microlocally localized (windowed) variant of the Selberg trace formula on
-  finite-area hyperbolic surfaces, isolating the discrete cuspidal spectrum
-  in short frequency windows and providing an effective identity term via the
-  effective volume together with a geometric term from short closed geodesics.
 authors:
   - family-names: Kozhukharev
     given-names: Alexander Stepanovich
-keywords:
-  - trace formula
-  - hyperbolic surfaces
-  - spectral theory
-  - microlocal analysis
-  - Selberg trace formula
-license: MIT
-repository-code: "https://github.com/askohguharev-us/localized-trace-formula"
-repository-artifact: "https://doi.org/10.5281/zenodo.16837383"
-doi: "10.5281/zenodo.16837383"
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.16837383
-    description: "Archival record for v0.7.0 on Zenodo"
+
 version: "v0.7.0"
+doi: "10.5281/zenodo.16837383"
 date-released: "2025-08-13"
+repository-code: "https://github.com/askohguharev-us/localized-trace-formula"
+license: "CC-BY-4.0"
 
 preferred-citation:
-  type: software
+  type: report
   title: "A Localized Trace Formula (Block 0)"
   authors:
     - family-names: Kozhukharev
       given-names: Alexander Stepanovich
   version: "v0.7.0"
-  year: 2025
   doi: "10.5281/zenodo.16837383"
+  date-released: "2025-08-13"
   url: "https://doi.org/10.5281/zenodo.16837383"
-  notes: "Text/PDF figures are under CC BY 4.0; repository code is MIT-licensed."
-```0
