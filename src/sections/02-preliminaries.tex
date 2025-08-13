@@ -1,41 +1,83 @@
 \section{Preliminaries}\label{sec:prelim}
 
-\subsection{Geometry and spectrum.}
-Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$
-cusps. We use coordinates $z=x+iy$ on $\HH$ and the measure
-$d\mu=y^{-2}\,dx\,dy$. The (positive) Laplacian is $-\Lap$.
-We denote cuspidal eigenpairs by $(-\Lap)\psi_j=\lambda_j\psi_j$ with
-$\lambda_j=\tfrac14+r_j^2$ and $\|\psi_j\|_{L^2(X)}=1$; continuous spectrum
-is handled by Eisenstein series but will be suppressed in Block~0.
+\subsection{Geometry and notation.}
+Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $m$ cusps.
+We write $z=x+iy$ on $\HH$, use the hyperbolic measure $d\mu=y^{-2}\,dx\,dy$, and take the (positive) Laplacian to be $-\Lap$.
+Denote normalized cuspidal eigenpairs by $(-\Lap)\psi_j=\lambda_j\psi_j$ with $\lambda_j=\tfrac14+r_j^2$ and $\|\psi_j\|_{L^2(X)}=1$.
+The continuous spectrum is treated via Eisenstein series but will be \emph{suppressed in Block~0} (only cuspidal contributions are kept).
 
-\subsection{Cutoffs and test functions.}
-Fix a smooth cutoff $\chi_Y\in C_c^\infty(X)$ which equals $1$ on the
-compact core and removes the cuspidal region above height $Y\gg1$.
-Let $h\in\mathcal{S}(\RR)$ be even with compactly supported Fourier
-transform $\widehat{h}$; for $R\ge1$ put $h_R(r)=h(r/R)$.
+We set
+\[
+X_{\mathrm{core}}:=X\setminus\{\text{cuspidal ends}\},\qquad
+\injrad(X_{\mathrm{core}}):=\inf_{z\in X_{\mathrm{core}}}\injrad(z),
+\]
+and use the geometric size parameter
+\[
+C_{\mathrm{geo}}(X):=m+\injrad(X_{\mathrm{core}})^{-1},
+\]
+which controls polynomially all implicit constants below.
 
-\begin{definition}
+\subsection{Cutoffs, windows, and parameter regime.}
+Fix $\chi\in C_c^\infty([0,\infty))$ such that $\chi\equiv1$ on $[0,1]$ and $\supp\chi\subset[0,4)$.
+For a height scale $Y>0$ define the spatial cutoff
+\[
+\chi_Y(z):=\chi\!\big(y(z)/Y\big).
+\]
+Throughout Block~0 we couple $Y$ to the spectral scale via
+\[
+Y=R^\beta,\qquad R\gg1,\quad 0<\beta<\tfrac12.
+\]
+
+Let $h\in\mathcal{S}(\RR)$ be even with compactly supported Fourier transform.
+We fix a constant $c_0\in\big(0,\tfrac{\log 2}{2}\big)$ and assume
+\[
+\supp \widehat{h}\subset[-c_0,c_0].
+\]
+For a window exponent $0<\theta<1$ we localize in frequency by
+\[
+h_R(t):=h\!\left(\frac{t-R}{R^\theta}\right),
+\]
+so $h_R$ selects the spectral window $[R-R^\theta,R+R^\theta]$ centered at $R$ with width $R^\theta$.
+In the main estimates we will work in the admissible range
+\[
+0<\beta<\tfrac12,\qquad 0<\theta<\tfrac{1+\beta}{2},
+\]
+which will be seen to be optimal at the level of the error exponent.
+
+\begin{definition}[Localized trace]\label{def:TR}
 The \emph{localized trace distribution} is
 \[
-  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2
-  \;+\; \mathsf{G}_R(\chi_Y),
+  \TR := \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2.
 \]
-where $\mathsf{G}_R(\chi_Y)$ denotes the geometric contribution obtained
-from the localized kernel (the precise formula is deferred to later blocks).
+\emph{Remark.} In later sections we prove a decomposition of the form
+\[
+\TR \;=\; \mathcal{I}_R(\chi_Y,h)\;+\;\mathcal{G}_R(\chi_Y,h)\;+\;O\!\big(R^{1-\varepsilon(\theta,\beta)}\big),
+\]
+where $\mathcal{I}_R$ is the identity contribution, $\mathcal{G}_R$ is a geometric sum over short closed geodesics (with the \emph{same} $c_0$ as above), and $\varepsilon(\theta,\beta)>0$ on the stated admissible region.
 \end{definition}
 
-\begin{lemma}[Windowed Plancherel, skeleton]\label{lem:planch}
-For even $h\in\mathcal{S}(\RR)$ with compactly supported $\widehat{h}$ one
-has a decomposition
+\begin{lemma}[Windowed Plancherel: skeleton]\label{lem:planch}
+Let $h\in\mathcal{S}(\RR)$ be even with $\supp\widehat{h}\subset[-c_0,c_0]$.
+Then
 \[
-  \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2}^2
-  \;=\; \int_X \chi_Y(z)\,K_R(z,z)\,d\mu(z) \;+\; O(R^{-\infty}),
+  \sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2
+  \;=\; \int_X \chi_Y(z)\,K_R(z,z)\,d\mu(z) \;+\; O_N(R^{-N})\quad\forall N,
 \]
-where $K_R$ is the kernel of the spectral projector associated with $h_R$.
+where $K_R$ is the Schwartz kernel of the spectral multiplier $h_R(\sqrt{-\Lap})$.
+The remainder $O_N(R^{-N})$ depends polynomially on $C_{\mathrm{geo}}(X)$ and on finitely many seminorms of $h$ and $\chi$.
 \end{lemma}
 
-\begin{remark}
-The implied $O(R^{-\infty})$ hides smoothing errors from cutting off both
-in space and frequency; in the final proof one balances $Y=Y(R)$ with the
-support of $\widehat{h}$.
+\begin{remark}[Effective volume and normalizations]
+The effective volume is defined by
+\[
+\vol_{\mathrm{eff}}(Y):=\int_X \chi_Y^2\,d\mu,
+\]
+and satisfies (see Appendix~\ref{app:effvol})
+\[
+\vol_{\mathrm{eff}}(Y)=\vol(X)-\frac{m}{Y}\,\kappa_\chi+O(mY^{-2}),
+\qquad
+\kappa_\chi:=\int_1^\infty (1-\chi(u)^2)\,u^{-2}\,du\in(0,\tfrac12].
+\]
+Our Fourier transform and Plancherel conventions match those used in \S\ref{sec:kernel} and \S\ref{sec:proj-comm}; in particular the Plancherel measure is $\tfrac{1}{2\pi}\,r\tanh(\pi r)\,dr$.
 \end{remark}
+```0
