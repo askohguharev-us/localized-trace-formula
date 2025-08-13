@@ -20,13 +20,12 @@
 
 % ---------- PDF metadata ----------
 \pdfinfo{
-  /Title (A Localized Trace Formula for Block 0 — v0.6.0)
+  /Title (A Localized Trace Formula for Block 0 — v0.7.0)
   /Author (Alexander Stepanovich Kozhukharev)
   /Subject (Spectral Geometry, Trace Formula)
   /Keywords (trace formula; hyperbolic surfaces; microlocal analysis)
 }
-% необязательно, но удобно в начале документа:
-%\thanks{DOI: \href{https://doi.org/10.5281/zenodo.16810648}{10.5281/zenodo.16810648}}
+% \thanks{DOI: \href{https://doi.org/10.5281/zenodo.16813138}{10.5281/zenodo.16813138}}
 
 % ---------- Theorem environments ----------
 \numberwithin{equation}{section}
@@ -51,13 +50,16 @@
 \newcommand{\PSL}{\mathrm{PSL}}
 \newcommand{\TR}{\mathsf{T}_R}
 
+% Unified epsilon-exponent macro (use this in the text)
+\newcommand{\EpsDef}{\min\{\theta,\,1-\theta+\beta,\,\tfrac{1}{2},\,1-2\theta+\beta\}-\delta}
+
 % ---------- Title ----------
 \title[A Localized Trace Formula]{A Localized Trace Formula for the Discrete Cuspidal Spectrum on Finite-Volume Hyperbolic Surfaces}
 
 \author{Alexander Stepanovich Kozhukharev}
 \address{Independent Researcher, Moscow, Russia}
 
-\date{August 11, 2025}
+\date{August 12, 2025}
 
 \begin{document}
 
@@ -72,13 +74,14 @@ We establish a microlocally localized trace formula for finite-area hyperbolic s
 \maketitle
 
 \tableofcontents
-% === Block 1 sections (included from files) ===
-\input{sections/01-intro}
-\input{sections/02-preliminaries}
+
+% === Block 0 sections (included from files) ===
+\input{sections/01-intro}          % <-- в Contributions используем \EpsDef
+\input{sections/02-preliminaries}  %     и в §3 правим ссылку: Lemma 5 -> Lemma 3.1
 \input{sections/03-kernel}
 \input{sections/04-projector}
-\input{sections/05-microlocal}  % <-- теперь безопасная заглушка
-\input{sections/06-geometric}   % <-- безопасная заглушка
+\input{sections/05-microlocal}     % полноц. текст (не placeholder)
+\input{sections/06-geometric}      % полноц. текст (не placeholder)
 
 % ==============================
 % Acknowledgments & Data note
@@ -90,13 +93,16 @@ The author thanks colleagues for helpful discussions.
 Not applicable.
 
 % ===========================
-% References (manual for Block 0; will switch to .bib later)
+% Appendices
 % ===========================
 \clearpage
 \appendix
 \input{appendices/A-effvol}
-% \input{appendices/B-archaios}  % ← убрать/закомментировать
+% \input{appendices/B-archaios}  % keep ancillary metrics outside the main PDF
 
+% ===========================
+% References
+% ===========================
 \begin{thebibliography}{99}
 
 \bibitem{selberg1956}
@@ -153,6 +159,8 @@ Invent. Math. \textbf{24} (1974), 65--82.
 MR0350064, Zbl 0284.35058, \doi{10.1007/BF01418762}
 
 \end{thebibliography}
+
 \section*{Ancillary material}
-Public ARCHAIOS assessment (JSON/CSV) is provided under the arXiv ancillary directory \texttt{anc/}.
+Public ARCHAIOS assessment files (JSON/CSV) are provided under the arXiv ancillary directory \texttt{anc/}.
+
 \end{document}
