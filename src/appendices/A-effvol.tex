@@ -1,4 +1,69 @@
-\section*{Appendix A: Effective volume normalizations (placeholder)}
-\addcontentsline{toc}{section}{Appendix A: Effective volume normalizations}
-We record the conventions for Haar measures and volume normalizations used in Block~0.
-This appendix is a short placeholder and contains no cross-references.
+% ===== Appendix A (file: src/appendices/A-effvol.tex) =====
+\section{Effective volume normalizations}
+\label{app:effvol}
+
+This appendix fixes the volume and Fourier–Plancherel normalizations used
+throughout the note.  We keep the setup minimal so that it is compatible
+with the arXiv-compliant preamble of the main text.
+
+\subsection*{A.1. Measure on $X$ and $T^*X$}
+Let $(X,g)$ be a smooth $n$–dimensional Riemannian manifold.
+The Riemannian volume on $X$ is denoted by $\mathrm{d}V_g$.
+On the cotangent bundle $T^*X$ we use the Liouville (symplectic) measure
+$\mathrm{d}\mu_{\mathrm{Liou}}$, i.e.
+\[
+  \mathrm{d}\mu_{\mathrm{Liou}}
+  = \frac{\omega^n}{n!},
+\]
+where $\omega$ is the canonical symplectic form on $T^*X$.
+For $x\in X$ and $r>0$ we write
+$B_X(x,r)$ for the geodesic ball in $X$ and
+$B^*_x(r) \subset T^*_xX$ for the Euclidean ball in the cotangent fiber.
+The product box has volume
+\[
+  \mathrm{Vol}\big(B_X(x,r)\times B^*_x(R)\big)
+  = \int_{B_X(x,r)}\!\!\int_{B^*_x(R)} \mathrm{d}\mu_{\mathrm{Liou}}.
+\]
+
+\subsection*{A.2. Fourier transform}
+For $f\in \mathcal{S}(\mathbb{R}^n)$ we use the unitary convention
+\[
+  \widehat{f}(\xi)
+  = \int_{\mathbb{R}^n} f(x)\,e^{-2\pi i\, x\cdot \xi}\, \mathrm{d}x,
+  \qquad
+  f(x)
+  = \int_{\mathbb{R}^n} \widehat{f}(\xi)\,e^{2\pi i\, x\cdot \xi}\, \mathrm{d}\xi.
+\]
+With this choice, Plancherel holds in the form
+$\|f\|_{L^2(\mathbb{R}^n)}=\|\widehat{f}\|_{L^2(\mathbb{R}^n)}$.
+
+\subsection*{A.3. Effective local volume}
+For a measurable $E\subset T^*X$ we set
+\[
+  \mathrm{vol}_{\mathrm{eff}}(E)
+  := \frac{1}{\mathrm{Vol}(X)} \int_E \mathrm{d}\mu_{\mathrm{Liou}}
+  \quad \text{when $\mathrm{Vol}(X)<\infty$.}
+\]
+If $\mathrm{Vol}(X)=\infty$, we use a tempered exhaustion
+$X=\bigcup_{j} \Omega_j$ with $\mathrm{Vol}(\Omega_j)\to\infty$ and define
+\[
+  \mathrm{vol}_{\mathrm{eff}}(E)
+  := \lim_{j\to\infty}
+     \frac{1}{\mathrm{Vol}(\Omega_j)}
+     \int_{E\cap T^*\!\Omega_j} \mathrm{d}\mu_{\mathrm{Liou}},
+\]
+whenever the limit exists.  This normalization is the one implicitly used
+in the localized trace identities of the main text and matches the
+microlocal counting interpretation for compactly supported test symbols.
+
+\subsection*{A.4. A scaling sanity check}
+Let $a\in C_c^\infty(T^*X)$ and, for $\lambda>0$, define
+$a_\lambda(x,\xi)=a(x,\xi/\lambda)$.
+Then
+\[
+  \int_{T^*X} a_\lambda\,\mathrm{d}\mu_{\mathrm{Liou}}
+  = \lambda^n \int_{T^*X} a\,\mathrm{d}\mu_{\mathrm{Liou}},
+\]
+so that $\mathrm{vol}_{\mathrm{eff}}$ scales like $\lambda^n$ in the
+covariable, consistent with the principal symbol calculus used in the
+localized trace formula.
