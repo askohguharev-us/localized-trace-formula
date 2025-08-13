@@ -1,29 +1,4 @@
-\appendix
-\section{Effective volume: general constant and examples}\label{app:effvol}
-Recall
-\[
-\vol_{\mathrm{eff}}(Y)=\int_X \chi_Y^2\,d\mu
-=\vol(X) - \frac{m}{Y}\,\kappa_\chi + O(mY^{-2}),\qquad
-\kappa_\chi:=\int_{1}^{\infty} \bigl(1-\chi(u)^2\bigr)\,u^{-2}\,du .
-\]
-Here $\kappa_\chi\ge 0$, with $\kappa_\chi= \tfrac12$ for the sharp cutoff $\chi=\mathbf{1}_{[0,1]}$.
-
-\begin{proof}[Derivation]
-In a cusp $\mathcal{C}\simeq (\mathbb{R}/\mathbb{Z})\times [1,\infty)$,
-\[
-\int_{\mathcal{C}} \chi_Y^2\,d\mu
-= \int_{1}^\infty \chi^2(y/Y)\,y^{-2}\,dy
-= Y^{-1}\!\int_{1/Y}^{\infty} \chi(u)^2\,u^{-2}\,du
-= 1 - Y^{-1}\kappa_\chi + O(Y^{-2}),
-\]
-using $\chi(0)=1$, $\chi'(0)=0$ and Taylor expansion near $u=0$. Summing over $m$ cusps gives the claim, with the $O(\cdot)$ uniform in $X$ polynomially in $C_{\mathrm{geo}}(X)$.
-\end{proof}
-
-\begin{example}[Linear taper]
-For $\chi(u)=\max(0,2-u)$ on $[0,\infty)$ one computes
-\[
-\kappa_\chi=\int_1^\infty\!\bigl(1-\chi(u)^2\bigr)u^{-2}du
-=\int_1^2 \!\bigl(1-(2-u)^2\bigr)u^{-2}du
-= -\frac34 + \ln 4 \approx 0.3863 .
-\]
-\end{example}
+\section*{Appendix A: Effective volume normalizations (placeholder)}
+\addcontentsline{toc}{section}{Appendix A: Effective volume normalizations}
+We record the conventions for Haar measures and volume normalizations used in Block~0.
+This appendix is a short placeholder and contains no cross-references.
