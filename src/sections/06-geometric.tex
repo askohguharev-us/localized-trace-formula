@@ -1,4 +1,79 @@
-\section{Geometric input (placeholder)}
-\label{sec:geometric}
-This is a minimal, citation-free scaffold for the geometric ingredient.
-Definitions and references will be supplied in the next block.
+\section{Geometric term and final assembly}\label{sec:geometric}
+
+We now evaluate the contribution coming from closed geodesics with
+length $\ell(\gamma)\le c_0$ and complete the proof of the localized
+trace formula stated in the introduction.
+
+\subsection{Short closed geodesics.}
+Let $\Gamma_{\le c_0}$ be the (finite) set of primitive closed geodesics on
+$X$ with length at most $c_0$.
+For $\gamma\in\Gamma_{\le c_0}$ we denote by $\ell(\gamma)$ its length and
+by $\gamma_{\mathrm{prim}}$ the associated primitive element.
+Define the height weight
+\[
+W_Y(\gamma):=\int_0^1 \chi\!\big(y(\gamma(s))/Y\big)\,ds,\qquad |W_Y(\gamma)|\le 1.
+\]
+As shown in Proposition~\ref{prop:geom},
+\begin{equation}\label{eq:geom-term}
+\mathcal{G}_R(\chi_Y,h)
+=\sum_{\gamma\in\Gamma_{\le c_0}}
+\frac{\ell(\gamma_{\mathrm{prim}})}{2\sinh(\ell(\gamma)/2)}\,
+W_Y(\gamma)\;\widehat h_R\!\big(\ell(\gamma)\big),
+\end{equation}
+where $\widehat h_R(\ell)=\int e^{-it\ell}\eta_R(t)g_R(t)\,dt$ is rapidly
+decaying in $\ell$ on the scale $R^{-\theta}$, uniformly in $R$.
+
+\subsection{Main localized identity.}
+Combining \eqref{eq:geom-term} with the identity contribution of
+Proposition~\ref{prop:identity} and the microlocal error analysis of
+\S\ref{sec:microlocal} yields our block--level statement.
+
+\begin{theorem}[Localized trace formula, Block~0]\label{thm:main}
+Let $X$ be a finite--area hyperbolic surface and let $h\in\mathcal{S}(\RR)$
+be even with $\supp \widehat{h}\subset[-c_0,c_0]$ for some
+$c_0\in(0,\tfrac{\log 2}{2})$.
+Fix $R\gg1$, $0<\beta<\tfrac12$, $0<\theta<\tfrac{1+\beta}{2}$ and set
+$Y=R^\beta$.
+Then the localized trace
+\[
+\TR=\sum_j h_R(r_j)\,\|\chi_Y\psi_j\|_{L^2(X)}^2
+\]
+admits the decomposition
+\[
+\TR
+=\underbrace{\frac{\vol_{\mathrm{eff}}(Y)}{4\pi}
+\int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr}_{\mathcal{I}_R(\chi_Y,h)}
+\;+\;
+\underbrace{\mathcal{G}_R(\chi_Y,h)}_{\text{short closed geodesics}}
+\;+\; O\!\big(R^{1-\varepsilon(\theta,\beta)}\big),
+\]
+where $\mathcal{G}_R$ is given by \eqref{eq:geom-term} and
+\[
+\varepsilon(\theta,\beta)
+=\min\Big\{\theta,\; \tfrac12,\; 1-\theta+\beta,\; 1-2\theta+\beta\Big\}
+-\delta\quad \text{for any }\delta>0.
+\]
+All implied constants depend polynomially on $C_{\mathrm{geo}}(X)$ and on
+finitely many seminorms of $\chi$ and $h$.
+\end{theorem}
+
+\begin{corollary}[Windowed Weyl law]\label{cor:weyl}
+With the notation of Theorem~\ref{thm:main},
+\[
+\sum_j h_R(r_j)
+=\frac{\vol(X)}{4\pi}\int_{\RR} h_R(r)\, r\,\tanh(\pi r)\,dr
+\;+\; O\!\big(R^{1-\min\{\theta,\frac12\}}\big),
+\]
+and, in particular, for fixed even $h$ with $\widehat h$ compactly supported,
+\[
+\sum_{|r_j-R|\le R^\theta} 1
+=\frac{\vol(X)}{2\pi}\, h(0)\, R^{1+\theta} \;+\; O(R^{1-\min\{\theta,\frac12\}}).
+\]
+\end{corollary}
+
+\begin{remark}[Ancillary data]
+The public ARCHAIOS metrics (JSON/CSV) corresponding to this block are
+distributed as arXiv ancillary files under the directory \texttt{anc/}.
+They are not used in the mathematical proof and are separated from the
+main text to keep arXiv compliance.
+\end{remark}
