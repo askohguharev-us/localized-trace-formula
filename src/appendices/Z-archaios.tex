@@ -1,5 +1,55 @@
-\section*{Appendix Z: ARCHAIOS scoring note (public flavor)}
-\addcontentsline{toc}{section}{Appendix Z: ARCHAIOS scoring note (public flavor)}
-This appendix briefly documents the public ARCHAIOS assessment pipeline used for this draft:
-metrics only (no recommendations). Ancillary files include a one-row CSV and a JSON
-with coefficients (KPD, KGD, KSD, KSR, KFZ, KKA), the composite score and confidence.
+% ===== Appendix Z (file: src/appendices/Z-archaios.tex) =====
+\section{ARCHAIOS scoring note (public flavor)}
+\label{app:archaios}
+
+This appendix briefly documents the public (non-proprietary) metrics
+reported by the ARCHAIOS pipeline for the current version of the note.
+The public flavor exposes \emph{metric values only}
+(with a short rationale); private recommendations are intentionally omitted.
+
+\subsection*{Z.1. Reported coefficients}
+The following six coefficients are computed from the LaTeX/PDF artifact
+using structural and textual cues:
+\begin{itemize}
+  \item \textbf{KPD} — Proof plausibility;
+  \item \textbf{KGD} — Logical coherence;
+  \item \textbf{KSD} — Structural depth;
+  \item \textbf{KSR} — Source robustness;
+  \item \textbf{KFZ} — Formal compliance;
+  \item \textbf{KKA} — Clarity \& accessibility.
+\end{itemize}
+A composite confidence score accompanies the metrics.
+
+\subsection*{Z.2. Where the numbers come from}
+The exact values are saved by CI to the ancillary folder as JSON and CSV:
+\begin{center}
+  \texttt{ancillary/archaios\_public\_report.json},\quad
+  \texttt{ancillary/archaios\_public\_report.csv}.
+\end{center}
+These files are generated from the rendered public report (\texttt{public.md})
+in the private evaluation job and copied to this repository during the
+\texttt{archaios-publish} workflow.
+
+\subsection*{Z.3. Minimal preview table}
+For convenience we include a one-row preview (rounded to one decimal).
+Values below are illustrative; the canonical source of truth is the
+CSV/JSON files mentioned above.
+\begin{center}
+\begin{tabular}{l|r}
+\hline
+Metric & Score (\%) \\
+\hline
+KPD &  \,– \\
+KGD &  \,– \\
+KSD &  \,– \\
+KSR &  \,– \\
+KFZ &  \,– \\
+KKA &  \,– \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Z.4. Notes}
+(1) Public flavor never emits prescriptive edits.  
+(2) Metric definitions are stable across versions; the extraction
+heuristics may evolve, which is reflected in the ancillary version history.
