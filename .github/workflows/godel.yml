@@ -1,7 +1,10 @@
 name: godel-verify
 on:
   push:
-    paths: ["src/**/*.tex", "tools/godel_*.py", ".github/workflows/godel.yml"]
+    paths:
+      - "src/**/*.tex"
+      - "archaios/godel/**"
+      - ".github/workflows/godel.yml"
   workflow_dispatch: {}
 
 jobs:
@@ -9,14 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Python
         uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
+        with:
+          python-version: "3.11"
+
       - name: Run Gödel extractor
-        run: python tools/godel_extract.py
+        run: python archaios/godel/extract.py
+
       - name: Run Gödel checks
-        run: python tools/godel_check.py
-      - name: Upload artifacts
+        run: python archaios/godel/check.py
+
+      - name: Upload Gödel artifacts
         uses: actions/upload-artifact@v4
         with:
           name: godel-artifacts
