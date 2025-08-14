@@ -20,7 +20,10 @@
 - Human-readable: [`ARCHAIOS-REPORTS/public.md`](ARCHAIOS-REPORTS/public.md)  
 - Machine-readable: JSON [`ancillary/archaios_public_report.json`](ancillary/archaios_public_report.json) •
   CSV [`ancillary/archaios_public_report.csv`](ancillary/archaios_public_report.csv)
-
+## Gödel validation (MVP)
+We extract labeled math entities (definitions, lemmas, theorems) and build a
+dependency graph from LaTeX `\ref{}` links. The checker flags broken references,
+missing proof blocks, and cycles. Reports: `ancillary/godel_report.md` and `.csv`.
 > **Policy:** Public flavor contains *metrics only*.  
 > No proprietary methodology or recommendations are published here.
 
