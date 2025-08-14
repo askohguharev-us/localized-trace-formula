@@ -1,78 +1,62 @@
 # -*- coding: utf-8 -*-
-import re, os, json, hashlib, pathlib
+"""
+Простой извлекатель «графа ссылок» из LaTeX.
+Сканирует src/**/*.tex, тащит \label{..} и \ref/\eqref{..},
+пишет ancillary/godel_graph.json (и не падает, если ничего не найдено).
+"""
+from __future__ import annotations
+import os, re, json, glob, pathlib, datetime
 
-SRC_DIR = pathlib.Path("src")
-OUT_JSON = pathlib.Path("ancillary/godel_graph.json")
-OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+ROOT = pathlib.Path(__file__).resolve().parents[2]  # .../localized-trace-formula
+SRC  = ROOT / "src"
+OUTD = ROOT / "ancillary"
+OUTD.mkdir(parents=True, exist_ok=True)
+OUT_JSON = OUTD / "godel_graph.json"
 
-# environments to capture
-KINDS = ["definition","lemma","proposition","theorem","corollary","remark"]
+tex_files = sorted(glob.glob(str(SRC / "**" / "*.tex"), recursive=True))
+labels = {}
+refs   = []
+dups   = set()
 
-env_re = re.compile(
-    r"\\begin\{(" + "|".join(KINDS) + r")\}([\s\S]*?)\\end\{\1\}",
-    re.M
-)
-label_re = re.compile(r"\\label\{([^\}]+)\}")
-title_re = re.compile(r"\\(begin\{.*?\}|textbf|emph)\{(.*?)\}")
-ref_re = re.compile(r"\\ref\{([^\}]+)\}")
+lab_re  = re.compile(r"\\label\{([^}]+)\}")
+ref_re  = re.compile(r"\\(?:ref|eqref)\{([^}]+)\}")
 
-def norm_text(s: str) -> str:
-    s = re.sub(r"%.*", "", s)              # drop comments
-    s = re.sub(r"\\cite\{.*?\}", "", s)
-    s = re.sub(r"\\[a-zA-Z]+\*?(?:\[[^\]]*\])?(?:\{[^\}]*\})*", "", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+for path in tex_files:
+    try:
+        txt = pathlib.Path(path).read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        continue
 
-def sha256(s: str) -> str:
-    return hashlib.sha256(s.encode("utf-8")).hexdigest()
-
-entities = []
-edges = []
-
-for tex in SRC_DIR.rglob("*.tex"):
-    txt = tex.read_text(encoding="utf-8", errors="ignore")
-    # entities
-    for m in env_re.finditer(txt):
-        kind = m.group(1)
-        block = m.group(2)
-        # label inside the block
-        lab = label_re.search(block)
-        if not lab:  # allow unlabeled but mark with synthetic id
-            eid = f"{kind}:{tex.name}:{m.start()}"
+    # метим все label'ы
+    for m in lab_re.finditer(txt):
+        lab = m.group(1).strip()
+        if lab in labels:
+            dups.add(lab)
         else:
-            eid = lab.group(1)
-        # poor man's title: first bold/emph or first sentence
-        title = ""
-        t = title_re.search(block)
-        title = t.group(2) if t else norm_text(block)[:120]
-        h = sha256(norm_text(block)[:1000])
-        # line number
-        line = txt[:m.start()].count("\n") + 1
-        entities.append({
-            "id": eid, "kind": kind, "title": title,
-            "file": str(tex), "line": line, "hash": h
-        })
-    # refs (global, we’ll bind source later by nearest env)
+            labels[lab] = {"file": os.path.relpath(path, ROOT)}
+
+    # собираем ссылки
     for m in ref_re.finditer(txt):
-        rid = m.group(1)
-        line = txt[:m.start()].count("\n") + 1
-        edges.append({
-            "from": None, "to": rid, "file": str(tex), "line": line,
-            "context": "ref"
-        })
+        lab = m.group(1).strip()
+        refs.append({"file": os.path.relpath(path, ROOT), "label": lab})
 
-# map refs to nearest preceding entity in the same file (heuristic)
-by_file = {}
-for e in entities:
-    by_file.setdefault(e["file"], []).append(e)
-for lst in by_file.values():
-    lst.sort(key=lambda x: x["line"])
+# метрики
+dangling = [r for r in refs if r["label"] not in labels]
+stats = {
+    "timestamp": datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+    "files_scanned": len(tex_files),
+    "labels": len(labels),
+    "refs": len(refs),
+    "duplicate_labels": sorted(list(dups)),
+    "dangling_refs": len(dangling),
+}
 
-for ed in edges:
-    lst = by_file.get(ed["file"], [])
-    prev = [e for e in lst if e["line"] <= ed["line"]]
-    ed["from"] = prev[-1]["id"] if prev else "(doc)"
+graph = {
+    "version": "godel-graph-0.1",
+    "stats": stats,
+    "labels": [{"id": k, **v} for k, v in labels.items()],
+    "refs": refs,
+}
 
-graph = {"entities": entities, "refs": edges}
 OUT_JSON.write_text(json.dumps(graph, ensure_ascii=False, indent=2), encoding="utf-8")
-print(f"Wrote {OUT_JSON}")
+print(f"[godel:extract] wrote {OUT_JSON} (files={len(tex_files)}, labels={len(labels)}, refs={len(refs)})")
