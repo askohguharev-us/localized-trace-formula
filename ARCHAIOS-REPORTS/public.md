@@ -1,6 +1,6 @@
 # ARCHAIOS — Public Assessment
 
-*Timestamp:* 2025-08-13T13:49:48Z
+*Timestamp:* 2025-08-14T09:13:31Z
 
 *Meta:* {"domain": "math", "year": 2025, "lang": "en", "title": "A Localized Trace Formula (Block 0)", "source": "v0.6.0 PDF abstract"}
 
