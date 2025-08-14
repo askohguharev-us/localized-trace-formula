@@ -1,11 +1,11 @@
-  cff-version: 1.2.0
+cff-version: 1.2.0
 message: "If you use this work, please cite it."
 title: "A Localized Trace Formula (Block 0)"
 authors:
   - family-names: Kozhukharev
     given-names: Alexander Stepanovich
-    affiliation: Independent Researcher, Moscow, Russia
-version: "v0.7.1"
+    affiliation: "Independent Researcher, Moscow, Russia"
+version: "0.7.1"
 date-released: "2025-08-14"
 doi: "10.5281/zenodo.16877265"
 url: "https://github.com/askoghuharev-us/localized-trace-formula"
@@ -17,13 +17,6 @@ abstract: >
   windows under a height cutoff, with an identity term, a geometric short-geodesic
   term, and a power-saving remainder. The method avoids scattering theory and
   yields a windowed Weyl law with constants polynomial in the geometric data.
-keywords:
-  - trace formula
-  - hyperbolic surfaces
-  - microlocal analysis
-  - spectral geometry
-  - cuspidal spectrum
-  - Weyl law
 
 preferred-citation:
   type: report
@@ -31,10 +24,7 @@ preferred-citation:
   authors:
     - family-names: Kozhukharev
       given-names: Alexander Stepanovich
-      affiliation: Independent Researcher, Moscow, Russia
   year: 2025
   month: 8
-  publisher: Zenodo
-  institution: Independent Researcher
   doi: "10.5281/zenodo.16877265"
   url: "https://doi.org/10.5281/zenodo.16877265"
