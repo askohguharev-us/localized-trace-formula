@@ -1,18 +1,26 @@
-name: godel-yaml-checks
+name: godel-verify
 on:
   push:
-    paths:
-      - "archaios/godel/**/*.yaml"
-      - ".github/workflows/godel.yml"
-  pull_request:
-    paths:
-      - "archaios/godel/**/*.yaml"
+    paths: ["src/**/*.tex", "tools/godel_*.py", ".github/workflows/godel.yml"]
+  workflow_dispatch: {}
+
 jobs:
-  yamllint:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install yamllint
-        run: pipx install yamllint
-      - name: Lint Gödel YAML
-        run: yamllint archaios/godel
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Run Gödel extractor
+        run: python tools/godel_extract.py
+      - name: Run Gödel checks
+        run: python tools/godel_check.py
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: godel-artifacts
+          path: |
+            ancillary/godel_graph.json
+            ancillary/godel_report.csv
+            ancillary/godel_report.md
