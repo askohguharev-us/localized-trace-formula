@@ -1,0 +1,45 @@
+name: release-9
+on:
+  push:
+    tags: ["v9.*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install TeXLive + Python deps
+    # минимальный набор под arXiv-совместимые пакеты (без minted/shell-escape)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full python3 python3-pip
+        pip3 install --upgrade pip
+
+    - name: Build pdf + ancillary + arxiv
+      run: make release
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: archaios-9.0-artifacts
+        path: |
+          build/paper.pdf
+          ancillary/**
+          arxiv.tar.gz
+
+  github-release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: archaios-9.0-artifacts
+        path: dist
+    - uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          dist/paper.pdf
+          dist/arxiv.tar.gz
+        draft: false
+        prerelease: false
