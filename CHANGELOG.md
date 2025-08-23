@@ -1,9 +1,8 @@
-## [9.0.0] - 2025-08-23
-- Unified repo: ancillary moved internal; CI builds PDF, ancillary, arxiv bundle.
-- Public redaction pipeline (%%%BEGIN/END_PRIVATE) for arXiv-safe sources.
-- Proof hardening: hypotheses box; normalization checklist; uniform remainder bounds.
-- Release artifacts: build/paper.pdf, ancillary/*, arxiv.tar.gz; Zenodo metadata unchanged.
-- removed metafractal_check.py and workflows/metafractal.yml (private research keys, not part of final proof)
+## [9.0] - 2025-08-23
+- Finalized proof (spectral trace formula).
+- Integrated ancillary into public repo.
+- Removed metafractal keys (scripts/workflows).
+- Ready for arXiv submission.
 
 # Changelog
 All notable changes to this project will be documented in this file.
