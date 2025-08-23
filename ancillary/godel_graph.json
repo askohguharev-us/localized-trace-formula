@@ -1,10 +1,10 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-23T16:45:53Z",
+    "timestamp": "2025-08-23T17:34:56Z",
     "files_scanned": 8,
-    "labels": 19,
-    "refs": 32,
+    "labels": 18,
+    "refs": 28,
     "duplicate_labels": [],
     "dangling_refs": 0
   },
@@ -12,10 +12,6 @@
     {
       "id": "app:effvol",
       "file": "src/appendices/A-effvol.tex"
-    },
-    {
-      "id": "sec:intro",
-      "file": "src/sections/01-intro.tex"
     },
     {
       "id": "sec:prelim",
@@ -87,22 +83,6 @@
     }
   ],
   "refs": [
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:kernel"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:projector"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:microlocal"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:geometric"
-    },
     {
       "file": "src/sections/03-kernel.tex",
       "label": "lem:time-local"
