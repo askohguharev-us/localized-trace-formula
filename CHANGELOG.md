@@ -3,6 +3,7 @@
 - Public redaction pipeline (%%%BEGIN/END_PRIVATE) for arXiv-safe sources.
 - Proof hardening: hypotheses box; normalization checklist; uniform remainder bounds.
 - Release artifacts: build/paper.pdf, ancillary/*, arxiv.tar.gz; Zenodo metadata unchanged.
+- removed metafractal_check.py and workflows/metafractal.yml (private research keys, not part of final proof)
 
 # Changelog
 All notable changes to this project will be documented in this file.
