@@ -1,60 +1,37 @@
-# Root Makefile for building PDF and arXiv bundle
+# ==== PDF ====
+BUILD=build
+SRC=src/main.tex
+SECTIONS=src/sections/*.tex
+APPENDICES=src/appendices/*.tex
 
-SRC_DIR   := src
-SECT_DIR  := $(SRC_DIR)/sections
-OUT       := build
-PDF       := $(OUT)/main.pdf
-
-TEX_MAIN  := $(SRC_DIR)/main.tex
-SECTIONS  := $(SECT_DIR)/01-intro.tex \
-             $(SECT_DIR)/02-preliminaries.tex \
-             $(SECT_DIR)/03-kernel.tex \
-             $(SECT_DIR)/04-projector.tex
-
-FIGS_DIR  := figs
-VERSION   ?= 0.3.1
-
-LATEXMK   := latexmk
-LATEXFLAGS := -pdf -interaction=nonstopmode -f
-
-.PHONY: all pdf clean distclean anc-pack help
-
-all: pdf
-
-$(OUT):
-	@mkdir -p $(OUT)
-
-pdf: $(OUT) $(TEX_MAIN) $(SECTIONS)
-	@cd $(SRC_DIR) && $(LATEXMK) $(LATEXFLAGS) main.tex
-	@mkdir -p $(OUT)
-	@cp $(SRC_DIR)/main.pdf $(PDF)
-	@echo "PDF -> $(PDF)"
+pdf: $(BUILD)/paper.pdf
+$(BUILD)/paper.pdf: $(SRC) $(SECTIONS) $(APPENDICES) src/references.bib
+	@mkdir -p $(BUILD)
+	latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=$(BUILD) $(SRC)
 
 clean:
-	-@cd $(SRC_DIR) 2>/dev/null && $(LATEXMK) -C || true
-	-@rm -rf $(OUT)
+	latexmk -C -outdir=$(BUILD)
+	rm -rf $(BUILD) arxiv.tar.gz public-src
 
-distclean: clean
-	-@rm -rf dist
+# ==== Ancillary ====
+ancillary:
+	python3 scripts/metafractal_check.py --out ancillary/archaios_public_report.json --csv ancillary/archaios_public_report.csv || true
+	python3 archaios/godel/extract.py --in src --out ancillary/godel_graph.json || true
+	python3 archaios/godel/check.py   --in archaios/godel --out ancillary/godel_report.csv --md ancillary/godel_report.md || true
 
-# -------- arXiv ancillary pack (создаёт dist/arxiv-src.zip)
-anc-pack:
-	@echo ">> Building arXiv source with anc/"
-	@rm -rf dist/arxiv-src && mkdir -p dist/arxiv-src/anc
-	# исходники статьи
-	@rsync -a --exclude '.git' --exclude '.github' --exclude 'dist' \
-	      --exclude 'ARCHAIOS-REPORTS' --exclude 'ancillary' \
-	      ./ dist/arxiv-src/
-	# ancillary (переименуем README в ARCHAIOS_README.md)
-	@cp -f ancillary/archaios_public_report.json dist/arxiv-src/anc/ 2>/dev/null || true
-	@cp -f ancillary/archaios_public_report.csv  dist/arxiv-src/anc/ 2>/dev/null || true
-	@cp -f ancillary/README.md                   dist/arxiv-src/anc/ARCHAIOS_README.md 2>/dev/null || true
-	@cd dist && zip -rq arxiv-src.zip arxiv-src
-	@echo ">> Done: dist/arxiv-src.zip"
+# ==== Публичная редакция (арxiv) ====
+PUBLIC_TAG ?= PUBLIC
+redact:
+	@rm -rf public-src && mkdir -p public-src/sections public-src/appendices
+	python3 scripts/redact.py --tag $(PUBLIC_TAG) --in src/sections    --out public-src/sections
+	python3 scripts/redact.py --tag $(PUBLIC_TAG) --in src/appendices  --out public-src/appendices
+	cp src/main.tex public-src/main.tex
+	cp src/references.bib public-src/references.bib
 
-help:
-	@echo "Targets:"
-	@echo "  pdf        - build $(PDF)"
-	@echo "  anc-pack   - make arXiv bundle with anc/ (dist/arxiv-src.zip)"
-	@echo "  clean      - clean LaTeX intermediates"
-	@echo "  distclean  - clean + remove dist/"
+# ==== arXiv bundle ====
+arxiv: redact
+	tar -czf arxiv.tar.gz -C public-src .
+
+# ==== всё для релиза ====
+release: pdf ancillary arxiv
+	@echo "Artifacts ready: $(BUILD)/paper.pdf, ancillary/*, arxiv.tar.gz"
