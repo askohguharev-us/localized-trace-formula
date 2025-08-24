@@ -1,9 +1,9 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-24T07:50:00Z",
+    "timestamp": "2025-08-24T08:36:38Z",
     "files_scanned": 9,
-    "labels": 18,
+    "labels": 19,
     "refs": 28,
     "duplicate_labels": [],
     "dangling_refs": 0
@@ -12,6 +12,10 @@
     {
       "id": "app:effvol",
       "file": "src/appendices/A-effvol.tex"
+    },
+    {
+      "id": "sec:intro",
+      "file": "src/sections/01-intro.tex"
     },
     {
       "id": "sec:prelim",
