@@ -1,7 +1,7 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-24T10:50:56Z",
+    "timestamp": "2025-08-24T12:15:36Z",
     "files_scanned": 9,
     "labels": 25,
     "refs": 28,
@@ -17,35 +17,35 @@
     },
     {
       "id": "sec:intro",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:history",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:difficulties",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:results",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "thm:main",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:novelty",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:applications",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "subsec:outline",
-      "file": "src/sections/01-intro.tex"
+      "file": "src/sections/01-introduction.tex"
     },
     {
       "id": "sec:prelim",
