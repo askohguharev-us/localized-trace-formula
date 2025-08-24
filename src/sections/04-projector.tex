@@ -14,6 +14,8 @@ Let $f\in L^2(X)$, where $X=\Gamma\backslash\HH$ is a finite-area hyperbolic sur
 By construction, $\TR$ is a self-adjoint, positive operator. The integral kernel $K_R^Y$ is smooth, compactly supported in both variables modulo $\Gamma$, and enjoys the decay properties recorded in Section~\ref{sec:kernel}. Thus $\TR$ is bounded on $L^2(X)$ and on Sobolev spaces $H^s(X)$, with bounds depending polynomially on $R$.
 
 \subsection{Spectral decomposition of $\TR$}\label{subsec:proj-spectrum}
+\paragraph{Context and related constructions.}
+Our projector belongs to the general class of microlocal spectral multipliers and Fourier integral operators projecting onto thin frequency bands; see the foundational microlocal framework in \cite{hormander1994III} and the classical trace/dynamics interface in \cite{duistermaatguillemin1975}. For band-limited projectors on manifolds, standard Gaussian or Paley--Wiener mollifiers are often used to control tails of the spectral measure and wave kernels; cf.\ the spectral multiplier machinery and kernel bounds in \cite[Ch.~5--6]{sogge1993}. The novelty here is the simultaneous (\emph{i}) short-window scaling $R^\theta$ with explicit constants and (\emph{ii}) compatibility with cusp truncation, which forces a two-parameter balance between frequency and height cutoffs not present in the compact case.
 
 Let $(\varphi_j)_j$ be an orthonormal basis of cuspidal eigenfunctions with spectral parameters $t_j$, and let $E(z,1/2+it)$ be the Eisenstein series forming the continuous spectrum. By unfolding the kernel expansion \eqref{eq:KR-spectral} with cutoff $\chi_Y$, we obtain
 \[
@@ -239,6 +241,9 @@ Each generalization requires balancing localization with cusp cutoff and effecti
 \item Microlocal in action, preserving wave packet structure.
 \item Effective, with explicit polynomial dependence on geometry.
 \item Applicable to problems in spectral geometry, quantum chaos, and analytic number theory.
+\paragraph{Bibliographic note.}
+The operator-theoretic properties proved above---approximate idempotence, almost-orthogonality and trace stability under short-time propagation---are consistent with the general picture of spectral projectors as Fourier integral operators attached to the geodesic flow for very short times; compare \cite{hormander1994III,sogge1993} for abstract FIO bounds and $L^2\!\to\!L^2$ stability, and \cite{duistermaatguillemin1975} for the role of short closed trajectories in trace expansions. Our contribution is to adapt these mechanisms to finite-area hyperbolic surfaces with cusps and to quantify the dependence of all constants on the geometric data and the window parameters $(\theta,\beta)$.
+
 \end{itemize}
 
 This completes the operator-theoretic foundation of the localized trace formula. The next step, undertaken in Section~\ref{sec:microlocal}, is to refine the microlocal analysis and quantify error terms in geometric expansions of the trace.
