@@ -1,12 +1,12 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-24T09:27:27Z",
+    "timestamp": "2025-08-24T09:43:03Z",
     "files_scanned": 9,
-    "labels": 20,
-    "refs": 35,
+    "labels": 22,
+    "refs": 46,
     "duplicate_labels": [],
-    "dangling_refs": 2
+    "dangling_refs": 0
   },
   "labels": [
     {
@@ -19,6 +19,14 @@
     },
     {
       "id": "thm:intro",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "eq:intro-trace",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "eq:intro-amp",
       "file": "src/sections/01-intro.tex"
     },
     {
@@ -93,7 +101,43 @@
   "refs": [
     {
       "file": "src/sections/01-intro.tex",
-      "label": "sec:mainresults"
+      "label": "sec:kernel"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:geometric"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "app:effvol"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:geometric"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-trace"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-trace"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "app:effvol"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-amp"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:geometric"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-trace"
     },
     {
       "file": "src/sections/01-intro.tex",
@@ -113,11 +157,19 @@
     },
     {
       "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-trace"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
       "label": "sec:geometric"
     },
     {
       "file": "src/sections/01-intro.tex",
-      "label": "sec:mainresults"
+      "label": "app:effvol"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "eq:intro-trace"
     },
     {
       "file": "src/sections/03-kernel.tex",
