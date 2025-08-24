@@ -1,117 +1,89 @@
-% File: src/sections/01-intro.tex
 \section{Introduction}\label{sec:intro}
 
-The Selberg trace formula is a cornerstone of spectral geometry and automorphic forms. 
-It provides a deep identity linking the length spectrum of closed geodesics on hyperbolic surfaces 
-to the eigenvalue spectrum of the Laplace--Beltrami operator. 
-However, the classical formula is global in nature: it averages over the entire spectrum and 
-does not directly yield information about short spectral windows. 
-This global character limits its effectiveness in questions requiring fine resolution, 
-such as eigenvalue statistics in short intervals or the study of sup-norms of automorphic forms. 
+The Selberg trace formula stands as one of the cornerstones of modern spectral geometry and the theory of automorphic forms. It provides a striking identity linking the length spectrum of closed geodesics on hyperbolic surfaces with the eigenvalue spectrum of the Laplace--Beltrami operator. In its classical formulation, however, the trace formula is global in nature: it averages over the entire spectrum and does not, by itself, resolve fine information about short spectral windows. This global character has historically limited its applicability to problems where local spectral resolution is essential, such as the study of eigenvalue statistics in short intervals, uniform bounds on automorphic eigenfunctions, and the analysis of spectral gaps.
 
-The purpose of this work is to develop a \emph{localized trace formula} 
-that isolates the discrete cuspidal spectrum of a finite-area hyperbolic surface $X=\Gamma\backslash \HH$ 
-inside short spectral windows $[R-R^\theta, R+R^\theta]$ with $0<\theta<1$, 
-while simultaneously controlling contributions from the continuous spectrum. 
-Our approach combines microlocal analysis with a carefully constructed cutoff at cusp height, 
-thus avoiding spurious terms and achieving effective error bounds.
+The purpose of the present work is to develop a \emph{localized trace formula} that isolates the discrete cuspidal spectrum of a finite-area hyperbolic surface
+\[
+X=\Gamma \backslash \HH,
+\]
+inside short spectral windows of the form $[R-R^\theta, R+R^\theta]$ with $0<\theta<1$, while simultaneously controlling contributions from the continuous spectrum. Our approach combines microlocal analysis with a carefully constructed height cutoff at the cusp, thus avoiding spurious contributions and yielding effective error bounds. This framework leads to a refined Weyl law valid in short intervals and, more broadly, to a new microlocal toolkit for the spectral analysis of noncompact arithmetic surfaces.
 
 \subsection{Historical context}\label{subsec:history}
 
-The origin of trace formulas lies in Selberg's pioneering work \cite{selberg1956}, 
-further developed by Hejhal \cite{hejhal1976, hejhal1983} and Müller \cite{mueller1983}. 
-Their results provided the analytic foundation for connecting spectra to geometry. 
-Subsequent developments include the influential work of Iwaniec and Sarnak \cite{iwaniec1995}, 
-which established sup-norm estimates for eigenfunctions, 
-and Buser's geometric analysis of isoperimetric inequalities \cite{buser1992}. 
-Recent semiclassical and microlocal perspectives, pioneered by Zworski and collaborators 
-\cite{zworski2012, dyatlovzworski2019}, have enriched the field with tools to study local spectral statistics. 
+The origins of trace formulas lie in the pioneering work of Selberg \cite{selberg1956}, whose identity for compact quotients of $\HH$ first revealed the profound link between the length spectrum and the spectral data of the Laplacian. This breakthrough was extended and systematically analyzed in the monographs of Hejhal \cite{hejhal1976,hejhal1983} and Müller \cite{mueller1983}, which established the analytic foundations for relating automorphic spectra to geometric invariants.
 
-For noncompact arithmetic surfaces, Booker and Strömbergsson \cite{booker2006} 
-introduced methods for handling continuous spectrum contributions, 
-and Chazarain \cite{chazarain1974} laid early foundations for microlocal techniques. 
-These references form the intellectual backbone of the present work.
+Subsequent decades witnessed a broadening of scope. The influential work of Iwaniec and Sarnak \cite{iwaniec1995} introduced sup-norm bounds for eigenfunctions, demonstrating how spectral methods could control pointwise behavior of automorphic forms. Buser’s geometric analysis \cite{buser1992} emphasized isoperimetric inequalities and their spectral implications, enriching the geometric side of the theory.
+
+On the semiclassical and microlocal side, Zworski and collaborators \cite{zworski2012,dyatlovzworski2019} pioneered the use of microlocal analysis to capture fine spectral statistics, a perspective that has become indispensable in quantum chaos and spectral geometry. For noncompact arithmetic surfaces, Booker and Strömbergsson \cite{booker2006} developed methods to handle the delicate contributions of Eisenstein series, while Chazarain \cite{chazarain1974} laid early foundations for the use of microlocal cutoffs in spectral problems.
+
+Despite these advances, the classical trace formula has remained essentially global, and the challenge of isolating the cuspidal spectrum in short spectral windows has persisted as a central open problem.
 
 \subsection{Main difficulties}\label{subsec:difficulties}
 
-The classical Selberg formula faces three fundamental challenges in the localized regime:
+Three fundamental obstacles have hindered the localization of the trace formula:
+
 \begin{enumerate}
-  \item \textbf{Continuous spectrum:} Noncompact surfaces introduce Eisenstein series, 
-  whose contributions are delicate to control in short spectral windows.
-  \item \textbf{Effective constants:} Previous approaches often yielded implicit or exponential constants. 
-  For applications in number theory and quantum chaos, polynomial dependence on geometric data is essential.
-  \item \textbf{Microlocalization:} Isolating spectral parameters in windows of size $R^\theta$ 
-  requires refined projectors that preserve orthogonality and avoid smearing across scales.
+  \item \textbf{Continuous spectrum.} Noncompact surfaces contribute Eisenstein series, whose analytic continuation and scattering theory are notoriously subtle. Controlling their effect in short spectral windows requires new microlocal techniques and refined cutoffs.
+  \item \textbf{Effective constants.} Existing approaches often yield only implicit or exponential bounds for constants in remainder terms. For applications in analytic number theory and quantum chaos, it is essential to obtain polynomial dependence on geometric invariants such as volume, injectivity radius, and cusp parameters.
+  \item \textbf{Microlocalization.} Isolating spectral contributions within windows of size $R^\theta$ demands projectors that respect orthogonality while avoiding smearing across scales. Classical cutoffs fail to achieve this balance, necessitating the construction of genuinely microlocal projectors adapted to the hyperbolic geometry.
 \end{enumerate}
 
-Addressing these three challenges is central to the present work. 
+Overcoming these obstacles is the central achievement of the present paper.
 
 \subsection{Statement of results}\label{subsec:results}
 
-Our main theorem is a microlocalized trace formula that effectively localizes the cuspidal spectrum.
+Our main theorem provides a microlocally localized trace formula that effectively isolates the cuspidal spectrum with power-saving error terms.
 
 \begin{theorem}[Localized trace formula]\label{thm:main}
-Let $X=\Gamma\backslash \HH$ be a finite-area hyperbolic surface. 
-For $R\to\infty$ and window size $R^\theta$ with $0<\theta<1$, one has
+Let $X=\Gamma\backslash \HH$ be a finite-area hyperbolic surface. For $R\to\infty$ and window size $R^\theta$ with $0<\theta<1$, one has
 \[
-\Tr\, \TR = \vol_{\mathrm{eff}}(X;Y,R,\theta) 
-   \;+\; \sum_{\substack{\gamma \in \Gamma \\ \text{closed geodesics}}} 
-   \mathcal{A}_\gamma(R,\theta) 
-   \;+\; O\!\left(R^{1-\varepsilon(\theta,\beta)}\right),
+\Tr\, \TR
+= \vol_{\mathrm{eff}}(X;Y,R,\theta)
++ \sum_{\substack{\gamma \in \Gamma \\ \text{closed geodesics}}} \mathcal{A}_\gamma(R,\theta)
++ O\!\left(R^{1-\varepsilon(\theta,\beta)}\right),
 \]
-where $\vol_{\mathrm{eff}}$ is the \emph{effective volume} defined by a cusp cutoff $y\le Y=R^\beta$, 
-the second sum runs over closed geodesics $\gamma$ of length $\ell(\gamma)$ with amplitude
+where $\vol_{\mathrm{eff}}$ is the \emph{effective volume} defined by a cusp cutoff $y\le Y=R^\beta$, the second sum runs over closed geodesics $\gamma$ of length $\ell(\gamma)$ with amplitude
 \[
 \mathcal{A}_\gamma(R,\theta) \;=\; 
-\frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)} \, 
-\widehat{f}(\ell(\gamma)) \, R^\theta,
+\frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)} \,\widehat{f}(\ell(\gamma))\,R^\theta,
 \]
-and the error exponent $\varepsilon(\theta,\beta)>0$ depends explicitly on the localization parameters. 
-The detailed computation of $\vol_{\mathrm{eff}}$ is given in \cref{app:effvol}.
+and the error exponent $\varepsilon(\theta,\beta)>0$ depends explicitly on the localization parameters. The computation of $\vol_{\mathrm{eff}}$ is given in Appendix~\ref{app:effvol}.
 \end{theorem}
 
-This formula isolates the discrete cuspidal spectrum in short intervals, 
-achieves power savings in the remainder, 
-and provides explicit polynomial control of constants in terms of the geometry of $X$. 
+This theorem demonstrates that the cuspidal spectrum can indeed be isolated in short spectral windows with explicit polynomial control of constants.
 
 \subsection{Novel contributions}\label{subsec:novelty}
 
-The contributions of this paper are as follows:
+The contributions of this paper may be summarized as follows:
+
 \begin{enumerate}
-  \item \textbf{Localized spectral windows:} First trace formula isolating the discrete spectrum 
-  inside $[R-R^\theta,R+R^\theta]$ with effective error terms.
-  \item \textbf{Microlocal projectors:} Construction of projectors adapted to short windows, 
-  preserving orthogonality and eliminating continuous-spectrum artifacts.
-  \item \textbf{Effective constants:} All constants depend polynomially on geometric invariants 
-  (injectivity radius, volume, cusp parameters).
-  \item \textbf{Power-saving remainder:} Error term $O(R^{1-\varepsilon})$ 
-  with explicit dependence on localization parameters.
-  \item \textbf{Applications:} Provides tools for sup-norm estimates, eigenvalue statistics, 
-  and number-theoretic conjectures (e.g., prime geodesic theorems in short intervals).
+  \item \textbf{Localized spectral windows.} First realization of a trace formula isolating the discrete spectrum in $[R-R^\theta, R+R^\theta]$ with effective error terms.
+  \item \textbf{Microlocal projectors.} Construction of spectral projectors adapted to short windows, preserving orthogonality and eliminating artifacts of the continuous spectrum.
+  \item \textbf{Effective constants.} All constants depend polynomially on geometric invariants (injectivity radius, volume, cusp parameters), enabling quantitative applications.
+  \item \textbf{Power-saving remainder.} The error term admits a bound $O(R^{1-\varepsilon})$ with explicit dependence on localization parameters, surpassing previous global approaches.
+  \item \textbf{Applications.} Provides new tools for sup-norm bounds, eigenvalue statistics, and number-theoretic conjectures (e.g., prime geodesic theorems in short intervals).
 \end{enumerate}
 
 \subsection{Applications and outlook}\label{subsec:applications}
 
-The localized trace formula has far-reaching implications:
+The localized trace formula has wide-ranging implications:
+
 \begin{itemize}
-  \item \emph{Quantum unique ergodicity in frequency windows:} 
-  Understanding equidistribution of eigenfunctions restricted to $[R-R^\theta,R+R^\theta]$.
-  \item \emph{Sup-norm bounds:} Explicit uniform $L^\infty$ estimates for automorphic forms 
-  using localized spectral projectors.
-  \item \emph{Number theory:} New perspectives on the prime geodesic theorem in short intervals 
-  and its relation to spectral gaps.
+  \item \emph{Quantum unique ergodicity in frequency windows:} Equidistribution of eigenfunctions restricted to spectral windows $[R-R^\theta,R+R^\theta]$.
+  \item \emph{Sup-norm bounds:} Explicit uniform $L^\infty$ estimates for automorphic forms via localized projectors.
+  \item \emph{Number theory:} New perspectives on the prime geodesic theorem in short intervals and its connection to spectral gaps.
   \item \emph{Random wave conjecture:} Testing eigenvalue statistics against predictions of quantum chaos.
-  \item \emph{Spectral geometry:} Fine structure of eigenvalue distribution for arithmetic surfaces.
+  \item \emph{Spectral geometry:} Understanding the fine structure of eigenvalue distribution on arithmetic surfaces.
 \end{itemize}
 
 \subsection{Outline of the paper}\label{subsec:outline}
 
-The structure of the paper is as follows. 
-\cref{sec:prelim} recalls basic definitions and notation. 
-\cref{sec:kernel} constructs the kernel of the microlocal projector. 
-\cref{sec:projector} defines the family of spectral projectors and proves orthogonality. 
-\cref{sec:microlocal} develops microlocal analysis to control localization at height cutoff. 
-\cref{sec:geometric} evaluates geometric terms and amplitudes. 
-Finally, the appendices collect technical computations, 
-including the effective volume (\cref{app:effvol}) and verification tests (\cref{app:verification}). 
-The concluding section summarizes results and discusses open problems. 
+The paper is organized as follows.  
+\cref{sec:prelim} introduces notation and basic definitions.  
+\cref{sec:kernel} constructs the kernel of the microlocal projector.  
+\cref{sec:projector} defines the family of projectors and proves orthogonality.  
+\cref{sec:microlocal} develops microlocal analysis at the cusp cutoff.  
+\cref{sec:geometric} evaluates geometric terms and amplitudes.  
+\cref{sec:results} discusses corollaries and refinements.  
+\cref{sec:conclusion} summarizes results and indicates future directions.  
+Appendices provide technical computations, including the effective volume (\cref{app:effvol}) and auxiliary estimates (\cref{app:aux}).
