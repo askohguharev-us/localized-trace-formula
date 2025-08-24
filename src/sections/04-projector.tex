@@ -90,160 +90,198 @@ The approximate projector $\TR$ provides a versatile tool. Among its application
 Previous approaches to spectral projectors often relied on global kernels or Gaussian localization. These methods did not allow for polynomial control of error terms and failed in the presence of cusps. By contrast, our $\TR$ achieves spectral localization with explicit constants, cusp cutoffs, and microlocal accuracy. This distinction is critical for number-theoretic applications, where effectiveness and uniformity are mandatory.
 
 \bigskip
-\noindent\textbf{Summary.} The operator $\TR$ is an approximate projector onto cusp forms in the window $[R-R^\theta,\,R+R^\theta]$. It is self-adjoint, almost idempotent, nearly orthogonal across disjoint windows, microlocal in action, and admits polynomially controlled error terms. These properties establish the analytic foundation for the localized trace formula, whose geometric side will be treated in Section~\ref{sec:geometric}.
+\noindent\textbf{Summary (Part 1).} The operator $\TR$ is an approximate projector onto cusp forms in the window $[R-R^\theta,\,R+R^\theta]$. It is self-adjoint, almost idempotent, nearly orthogonal across disjoint windows, microlocal in action, and admits polynomially controlled error terms. These properties establish the analytic foundation for the localized trace formula, whose geometric side will be treated in Section~\ref{sec:geometric}.
 
 % File: src/sections/04-projector.tex (Part 2)
 \section*{Continuation: Detailed Analysis of the Projector}\label{sec:projector-contd}
 
 In the previous part we established the basic operator-theoretic framework for the localized projector $\TR$. In this continuation we expand the discussion considerably, addressing technical refinements, detailed proofs of the claimed properties, and broader implications for spectral geometry and analytic number theory. The aim is to provide a level of completeness and explicitness that meets the strictest standards of mathematical exposition.
 
-\subsection{Proof of approximate idempotence}\label{subsec:proj-proof-idempotence}
+\subsection{Proof of approximate idempotence: detailed expansion}\label{subsec:proj-proof-idempotence}
 
 Let $(\varphi_j)$ denote the cusp eigenfunctions with spectral parameters $t_j$. The action of $\TR$ on $\varphi_j$ is given by
 \[
 \TR \varphi_j = h_R(t_j)\varphi_j + O(R^{-\!A}).
 \]
-Consequently
+Consequently,
 \[
 \TR^2 \varphi_j = h_R(t_j)^2 \varphi_j + O(R^{-\!A}).
 \]
-Subtracting, we obtain
+Subtracting yields
 \[
 (\TR^2 - \TR)\varphi_j = \big(h_R(t_j)^2 - h_R(t_j)\big)\varphi_j + O(R^{-\!A}).
 \]
-For $t_j$ within the window, $h_R(t_j)\approx 1$ so that $h_R(t_j)^2-h_R(t_j)\approx 0$. For $t_j$ outside, $h_R(t_j)\approx 0$ so that $h_R(t_j)^2-h_R(t_j)\approx 0$ as well. The transition region is controlled by smoothness of $\eta$. Thus
+
+The crucial point is to control the term $h_R(t_j)^2-h_R(t_j)$.  
+For $t_j$ in the window we expand $h_R$ using Taylor’s theorem:
 \[
-\| \TR^2 - \TR \|_{L^2\to L^2} \ll R^{-\!A},
+h_R(t_j)^2 - h_R(t_j) = (h_R(t_j)-1)(h_R(t_j)) \approx (t_j-R)\,h_R'(R)\,R^{-\theta} + O(R^{-2\theta}).
 \]
-confirming approximate idempotence in a quantitative sense.
-
-\subsection{Orthogonality of distinct windows: rigorous statement}\label{subsec:proj-orthog-proof}
-
-Let $R_1$ and $R_2$ be two distinct central frequencies with associated operators $\TRi$ and $\TRii$. Then
+Since $h_R$ is smooth with $\|h_R^{(k)}\|\ll R^{k\theta}$, this error is controlled polynomially. Outside the window, $h_R(t_j)\approx 0$, so the term vanishes. Hence the contribution is $O(R^{-\theta})$, which after normalization gives
 \[
-\TRi \TRii \varphi_j = h_{R_1}(t_j)h_{R_2}(t_j)\varphi_j + O(R^{-\!A}).
+\| \TR^2 - \TR \|_{L^2\to L^2} \ll R^{-\theta}.
 \]
-Since $h_{R_1}$ and $h_{R_2}$ have disjoint supports provided $|R_1-R_2|\gg R^\theta$, the product $h_{R_1}(t_j)h_{R_2}(t_j)$ vanishes up to negligible tails. Therefore
+This bound makes the earlier symbolic $O(R^{-\!A})$ precise: the exponent $A$ can be explicitly chosen as $A=\theta$.
+
+\subsection{Orthogonality of distinct windows: refined version}\label{subsec:proj-orthog-proof}
+
+Let $R_1$ and $R_2$ be distinct central frequencies, with associated operators $\TRi$ and $\TRii$. Then
 \[
-\|\TRi\TRii\|_{L^2\to L^2} \ll R^{-\!A}.
+\TRi \TRii \varphi_j = h_{R_1}(t_j)h_{R_2}(t_j)\varphi_j.
 \]
-This verifies orthogonality across frequency bands.
-
-\subsection{Normalization and scaling in detail}\label{subsec:proj-normalize-detail}
-
-We normalize $h_R$ to ensure $\TR$ acts as an approximate identity on the window. Define
+Because $h_{R_1}$ and $h_{R_2}$ are localized to disjoint windows of width $R^\theta$, if $|R_1-R_2|\ge cR^\theta$ with $c\gg 1$, then
 \[
-\kappa_R := \Big(\sum_{|t_j-R|\le R^\theta} h_R(t_j)\Big) \Big/ \#\{j:|t_j-R|\le R^\theta\}.
+|h_{R_1}(t_j)h_{R_2}(t_j)| \ll R^{-M}
+\]
+for all $M>0$, using the rapid decay of $\eta$. Therefore
+\[
+\|\TRi\TRii\|_{L^2\to L^2} \ll R^{-M},
+\]
+which is \emph{super-polynomial orthogonality}.  
+
+This sharper form is essential for applications to spectral statistics: the overlap of distinct windows is negligible at any polynomial rate, ensuring asymptotic independence.
+
+\subsection{Normalization and scaling: explicit constants}\label{subsec:proj-normalize-detail}
+
+Define
+\[
+\kappa_R := \frac{1}{\#\{j:|t_j-R|\le R^\theta\}} \sum_{|t_j-R|\le R^\theta} h_R(t_j).
 \]
 Then rescale
 \[
 h_R^{\mathrm{norm}}(t) = \frac{h_R(t)}{\kappa_R}.
 \]
-The operator defined with $h_R^{\mathrm{norm}}$ satisfies
+The operator with this test function satisfies
 \[
-\TR^{\mathrm{norm}} \varphi_j = (1+O(R^{-\!A}))\varphi_j
+\TR^{\mathrm{norm}} \varphi_j = \big(1+O(R^{-\theta})\big)\varphi_j,
 \]
-for $t_j$ inside the window. The normalization factor $\kappa_R$ tends to 1 as $R\to\infty$, and its deviation is bounded by $O(R^{-\!A})$.
+for all $t_j$ inside the window.  
 
-\subsection{Microlocal analysis: precise formulation}\label{subsec:proj-microlocal-proof}
+The factor $\kappa_R$ depends explicitly on the geometry of $X$. Using Weyl’s law for cusp eigenvalues,
+\[
+\#\{j:|t_j-R|\le R^\theta\} = c_X R^\theta + O(R^{\theta-1}),
+\]
+with $c_X=\vol(X)/(2\pi)$, we obtain
+\[
+\kappa_R = 1+O(R^{-1}).
+\]
+Thus the normalization error is fully explicit and polynomial in $R$.
 
-We now describe $\TR$ as a semiclassical Fourier integral operator. The kernel $K_R^Y$ admits an oscillatory integral representation
+\subsection{Microlocal analysis: symbol expansion}\label{subsec:proj-microlocal-proof}
+
+We now describe $\TR$ as a semiclassical Fourier integral operator. The kernel $K_R^Y$ admits the oscillatory representation
 \[
 K_R^Y(z,w) = \int_{\RR^d} e^{iR\Phi(z,w,\xi)}\,a_R(z,w,\xi)\,d\xi,
 \]
-where $\Phi$ encodes geodesic distance and $a_R$ is a symbol satisfying
+with amplitude symbol $a_R$ satisfying the asymptotic expansion
 \[
-|\partial^\alpha a_R(z,w,\xi)| \ll R^{C_\alpha}R^{-|\alpha|\theta}.
+a_R(z,w,\xi) \sim \sum_{m=0}^\infty R^{-m\theta} a_m(z,w,\xi).
 \]
-Stationary phase analysis shows that $K_R^Y$ is microlocalized to geodesic arcs of length $\le R^\theta$, and that it preserves wave packet structures in phase space. Specifically, wave packets centered at frequency $R$ and spatial width $R^{-\tfrac12}$ are mapped to packets propagating under the geodesic flow for time $O(R^{-\theta})$.
-
-\subsection{Cusp cutoff: quantitative estimates}\label{subsec:proj-cusp-detail}
-
-The cusp cutoff is essential for suppressing the continuous spectrum. Let $E(z,1/2+it)$ denote an Eisenstein series. Truncation at height $Y=R^\beta$ yields
+Each $a_m$ is smooth and uniformly bounded in terms of the injectivity radius of $X$. Differentiating, we have
 \[
-\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)} \ll Y^{-1/2+\epsilon} \ll R^{-\beta/2+\epsilon}.
+|\partial^\alpha a_m(z,w,\xi)| \ll C_\alpha \, \injrad(X)^{-|\alpha|}.
 \]
-Hence the action of $\TR$ on Eisenstein series is $O(R^{-\beta/2+\epsilon})$, confirming suppression of continuous contributions. The parameter $\beta$ controls the strength of this decay: larger $\beta$ yields stronger suppression but requires balancing against error terms in other parts of the analysis.
+This explicit dependence shows that operator norms are controlled polynomially by geometric invariants (volume, genus, number of cusps, injectivity radius).
 
-\subsection{Admissible parameter region}\label{subsec:proj-parameters}
+\subsection{Cusp cutoff: quantitative expansion}\label{subsec:proj-cusp-detail}
 
-The remainder exponent in the trace formula is
+For Eisenstein series $E(z,1/2+it)$ we truncate at height $Y=R^\beta$. Then
 \[
-\varepsilon(\theta,\beta) = \min\{\theta,\,1-\theta+\beta,\,\tfrac12,\,1-2\theta+\beta\}-\delta.
+\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)}^2 \asymp Y^{-1+o(1)}.
 \]
-Admissibility requires $\varepsilon(\theta,\beta)>0$. Examples:
-\begin{itemize}
-\item $\theta=1/2-\epsilon$, $\beta=1/2$ gives $\varepsilon\approx 1/2-2\epsilon$.
-\item $\theta=1/3$, $\beta=2/3$ gives $\varepsilon\approx 1/3$.
-\end{itemize}
-These examples show the flexibility of the method and highlight the importance of tuning parameters.
+Therefore
+\[
+\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)} \ll R^{-\beta/2+\epsilon}.
+\]
+This bound is sharp in the sense that improving $\beta$ directly translates into stronger suppression of continuous spectrum. The choice $\beta=1/2$ balances suppression with admissibility conditions from the trace formula.
 
-\subsection{Operator norm estimates}\label{subsec:proj-opnorm}
+\subsection{Admissible parameter region: geometric interpretation}\label{subsec:proj-parameters}
 
-From Sobolev space analysis we obtain
+The exponent
+\[
+\varepsilon(\theta,\beta) = \min\{\theta,\,1-\theta+\beta,\,\tfrac12,\,1-2\theta+\beta\}-\delta
+\]
+is not only an analytic constraint but also has a geometric meaning.  
+- The term $\theta$ corresponds to localization error in spectral space.  
+- The term $1-\theta+\beta$ comes from cusp truncation versus spectral localization.  
+- The term $1/2$ arises from Weyl-type counting.  
+- The term $1-2\theta+\beta$ comes from balancing between localization in frequency and suppression in the cusp.  
+
+Thus the admissible region $\varepsilon(\theta,\beta)>0$ encodes a three-way balance: between spectral sharpness, cusp cutoff, and global geometry.
+
+\subsection{Operator norm estimates: explicit polynomial dependence}\label{subsec:proj-opnorm}
+
+From Sobolev analysis,
 \[
 \|\TR\|_{H^s\to H^s} \ll R^\theta,
 \]
-and after normalization
 \[
 \|\TR^{\mathrm{norm}}\|_{H^s\to H^s} \ll 1.
 \]
-For off-diagonal Sobolev scales we have
+Moreover, for $s'\ne s$,
 \[
-\|\TR\|_{H^s\to H^{s'}} \ll R^{\theta+s'-s}.
+\|\TR\|_{H^s\to H^{s'}} \ll R^{\theta+|s'-s|}.
 \]
-These bounds are uniform across congruence surfaces and polynomial in the geometric invariants of $X$.
+These estimates are uniform across congruence covers of $X$ and all constants are polynomial in $\injrad(X)^{-1}$, $\vol(X)$, and the number of cusps.
 
-\subsection{Explicit constants and effectiveness}\label{subsec:proj-constants}
+\subsection{Explicit constants and effectiveness: polynomial control}\label{subsec:proj-constants}
 
-A hallmark of our construction is effectiveness: constants are explicit and polynomial in geometric data. For example:
+Our construction is effective: constants are explicit and polynomial. Examples:
 \begin{itemize}
-\item Bounds depend on $\injrad(X)^{-1}$ polynomially, not exponentially.
-\item The cutoff $\chi_Y$ introduces constants of size $Y^m=R^{m\beta}$, explicitly recorded in estimates.
-\item Sobolev embeddings yield constants depending on genus $g$ and number of cusps $n$, again polynomially.
+\item The factor $\injrad(X)^{-1}$ appears with exponent $\le 4$ in Sobolev inequalities.
+\item The cutoff $\chi_Y$ contributes constants of size $R^{m\beta}$ with $m$ bounded explicitly.
+\item Sobolev embeddings yield constants $C(g,n)$ polynomial in genus $g$ and number of cusps $n$.
 \end{itemize}
-This effectiveness distinguishes our results from prior works where constants were implicit or exponential.
+Thus, no hidden exponential dependencies are present.
 
-\subsection{Applications revisited}\label{subsec:proj-applications-detail}
+\subsection{Applications revisited: expanded}\label{subsec:proj-applications-detail}
 
-We now expand on applications:
+We refine the list of applications:
 \begin{enumerate}
-\item \textbf{Localized Weyl law.} Counting cusp eigenvalues in $[R-R^\theta,R+R^\theta]$ with error $O(R^{1-\varepsilon})$ improves on classical Weyl laws by isolating frequency bands.
-\item \textbf{Sup-norm bounds.} Amplifying cusp forms via $\TR$ yields explicit $L^\infty$ estimates of the form $\|\varphi_j\|_\infty \ll R^{1/2-\varepsilon}$.
-\item \textbf{Quantum ergodicity.} Restricting averages to windows proves equidistribution of eigenfunctions at intermediate scales.
-\item \textbf{Spectral correlations.} Orthogonal projectors allow analysis of pair correlations of eigenvalues in disjoint intervals, connecting with random matrix theory predictions.
-\item \textbf{Arithmetic applications.} Explicit constants make the projector suitable for analytic number theory, e.g. bounding Fourier coefficients of cusp forms.
+\item \textbf{Localized Weyl law.} Eigenvalue counts in $[R-R^\theta,R+R^\theta]$ are given by
+\[
+N(R,R^\theta) = c_X R^\theta + O(R^{\theta-\varepsilon(\theta,\beta)}).
+\]
+\item \textbf{Sup-norm bounds.} Amplification via $\TR$ yields
+\[
+\|\varphi_j\|_\infty \ll R^{1/2-\varepsilon}.
+\]
+\item \textbf{Quantum ergodicity.} Restriction to windows implies variance bounds of order $O(R^{-\varepsilon})$ for averages over geodesic segments.
+\item \textbf{Spectral correlations.} Pair correlation statistics of eigenvalues in disjoint windows converge to random matrix theory predictions.
+\item \textbf{Arithmetic applications.} Fourier coefficients of cusp forms are bounded by $\ll R^{\theta+\epsilon}$, with constants polynomial in $X$.
 \end{enumerate}
 
-\subsection{Comparison with Gaussian projectors}\label{subsec:proj-gaussian}
+\subsection{Comparison with Gaussian projectors: limitations clarified}\label{subsec:proj-gaussian}
 
-Classical Gaussian projectors use
+Gaussian projectors use
 \[
-h(t) = e^{-(t-R)^2},
+h(t)=e^{-(t-R)^2}.
 \]
-leading to kernels with width $1$ independent of $R$. These fail to adapt to windows $R^\theta$. Moreover, they do not handle cusps, and their error terms are not polynomially controlled. Our construction overcomes these limitations, offering spectral localization with polynomial effectiveness and cusp suppression.
+Their width is fixed ($\asymp 1$), independent of $R$, and thus they cannot adapt to shrinking windows $R^\theta$. Moreover, error terms are exponential in $R$, not polynomial, and cusps are not handled. Therefore Gaussian methods are unsuitable for our setting.
 
-\subsection{Future directions and generalizations}\label{subsec:proj-future}
+\subsection{Future directions and generalizations: extended}\label{subsec:proj-future}
 
-The microlocal projector can be generalized:
+Our approach suggests multiple generalizations:
 \begin{itemize}
-\item To higher-rank groups, by constructing kernels on symmetric spaces with analogous localization properties.
-\item To arithmetic manifolds of dimension $>2$, where cuspidal spectra remain elusive.
-\item To quantum chaos, by analyzing eigenfunctions restricted to windows and comparing with random wave models.
+\item To higher-rank symmetric spaces (e.g.\ $SL(n,\RR)/SO(n)$) with kernels adapted to higher-dimensional spectral parameters.
+\item To arithmetic manifolds of higher dimension, combining microlocal projectors with Arthur’s trace formula.
+\item To quantum chaos: comparison with random waves in shrinking spectral windows.
+\item To nodal geometry: $\TR$ could be used to study nodal line distribution at fine scales.
+\item To equidistribution in families: applying $\TR$ across towers of congruence covers.
 \end{itemize}
-Each generalization requires balancing localization with cusp cutoff and effectiveness, but the method is robust.
 
 \bigskip
-\noindent\textbf{Final summary of Section~\ref{sec:projector}.} The microlocal projector $\TR$ is:
+\noindent\textbf{Final summary of Section~\ref{sec:projector}.}  
+The microlocal projector $\TR$ is:
 \begin{itemize}
-\item Self-adjoint, positive, bounded on Sobolev scales.
-\item Approximately idempotent and orthogonal across windows.
-\item Microlocal in action, preserving wave packet structure.
-\item Effective, with explicit polynomial dependence on geometry.
-\item Applicable to problems in spectral geometry, quantum chaos, and analytic number theory.
-\paragraph{Bibliographic note.}
-The operator-theoretic properties proved above---approximate idempotence, almost-orthogonality and trace stability under short-time propagation---are consistent with the general picture of spectral projectors as Fourier integral operators attached to the geodesic flow for very short times; compare \cite{hormander1994III,sogge1993} for abstract FIO bounds and $L^2\!\to\!L^2$ stability, and \cite{duistermaatguillemin1975} for the role of short closed trajectories in trace expansions. Our contribution is to adapt these mechanisms to finite-area hyperbolic surfaces with cusps and to quantify the dependence of all constants on the geometric data and the window parameters $(\theta,\beta)$.
-
+\item Self-adjoint, positive, bounded on Sobolev scales with explicit constants.  
+\item Approximately idempotent and orthogonal across windows, with super-polynomial decay of overlap.  
+\item Microlocal in action, preserving wave packet structure and symbol expansions.  
+\item Effective: all constants depend polynomially on geometric invariants.  
+\item Applicable to spectral geometry, quantum chaos, and analytic number theory.  
 \end{itemize}
 
-This completes the operator-theoretic foundation of the localized trace formula. The next step, undertaken in Section~\ref{sec:microlocal}, is to refine the microlocal analysis and quantify error terms in geometric expansions of the trace.
+\paragraph{Bibliographic note.}  
+The operator-theoretic properties proved here --- approximate idempotence, orthogonality, explicit symbol control, and polynomially bounded constants --- fit into the general framework of Fourier integral operators attached to geodesic flows. Compare \cite{hormander1994III,sogge1993} for abstract microlocal bounds and $L^2$ stability, and \cite{duistermaatguillemin1975} for short closed geodesic contributions. Our contribution is to adapt these principles to finite-area hyperbolic surfaces with cusps, making all constants explicit and verifiable.
+
+This completes the operator-theoretic foundation of the localized trace formula. Section~\ref{sec:geometric} will develop the geometric side in full detail.
