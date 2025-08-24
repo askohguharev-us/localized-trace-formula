@@ -1,11 +1,13 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-24T09:43:03Z",
+    "timestamp": "2025-08-24T10:50:56Z",
     "files_scanned": 9,
-    "labels": 22,
-    "refs": 46,
-    "duplicate_labels": [],
+    "labels": 25,
+    "refs": 28,
+    "duplicate_labels": [
+      "thm:main"
+    ],
     "dangling_refs": 0
   },
   "labels": [
@@ -18,15 +20,31 @@
       "file": "src/sections/01-intro.tex"
     },
     {
-      "id": "thm:intro",
+      "id": "subsec:history",
       "file": "src/sections/01-intro.tex"
     },
     {
-      "id": "eq:intro-trace",
+      "id": "subsec:difficulties",
       "file": "src/sections/01-intro.tex"
     },
     {
-      "id": "eq:intro-amp",
+      "id": "subsec:results",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "thm:main",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "subsec:novelty",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "subsec:applications",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "subsec:outline",
       "file": "src/sections/01-intro.tex"
     },
     {
@@ -90,87 +108,11 @@
       "file": "src/sections/06-geometric.tex"
     },
     {
-      "id": "thm:main",
-      "file": "src/sections/06-geometric.tex"
-    },
-    {
       "id": "cor:weyl",
       "file": "src/sections/06-geometric.tex"
     }
   ],
   "refs": [
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:kernel"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:geometric"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "app:effvol"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:geometric"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-trace"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-trace"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "app:effvol"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-amp"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:geometric"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-trace"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:prelim"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:kernel"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:projector"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:microlocal"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-trace"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "sec:geometric"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "app:effvol"
-    },
-    {
-      "file": "src/sections/01-intro.tex",
-      "label": "eq:intro-trace"
-    },
     {
       "file": "src/sections/03-kernel.tex",
       "label": "lem:time-local"
