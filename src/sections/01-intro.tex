@@ -1,68 +1,95 @@
 \section{Introduction}\label{sec:intro}
 
-The study of spectral geometry on finite-area hyperbolic surfaces lies at the intersection of analysis, geometry, and number theory. 
-One of the most fundamental tools in this area is the Selberg trace formula, which provides an identity connecting spectral data of the Laplacian to geometric data of closed geodesics. 
-While immensely powerful, the classical trace formula captures the spectrum as a whole and is not designed to resolve spectral information in narrow frequency windows. 
-In many analytic and arithmetic applications, however, one requires such localized information: asymptotics for eigenvalues restricted to short intervals, behavior of eigenfunctions at specific scales, or fine comparison of discrete and continuous contributions. 
-This motivates the development of a \emph{localized trace formula} capable of isolating the discrete cuspidal spectrum within controlled windows.
+The theory of trace formulas stands at the very core of modern spectral geometry and global analysis. 
+Since the pioneering work of Selberg in the 1950s, the Selberg trace formula has served as a central tool for connecting spectral data of Laplace--Beltrami operators on hyperbolic surfaces with the geometry of closed geodesics. 
+The standard trace formula provides a global identity involving the full spectrum, continuous and discrete alike, together with the geometric side consisting of identity, hyperbolic, and parabolic contributions. 
+It has become indispensable in the analysis of automorphic forms, the distribution of Laplace eigenvalues, and applications to analytic number theory.
+
+Despite its fundamental power, the classical trace formula is not adapted to situations in which one wishes to probe spectral data only in \emph{short frequency windows}. 
+In many analytic and arithmetic applications, one is not interested in the entire spectrum but rather in localized portions, such as eigenvalues in a window $[R-R^{\theta},R+R^{\theta}]$ with $0<\theta<1$. 
+Such localization arises naturally in the study of the fine structure of eigenvalue distributions, the equidistribution of eigenfunctions, quantum unique ergodicity, and problems involving sup-norm bounds. 
+For compact hyperbolic surfaces, windowed versions of the Weyl law have been studied using microlocal analysis, semiclassical techniques, and the thermodynamic formalism. 
+For finite-volume non-compact surfaces, however, the situation is substantially more delicate due to the presence of continuous spectrum and Eisenstein series.
+
+The present work develops a \emph{localized trace formula} that isolates the discrete cuspidal spectrum of finite-volume hyperbolic surfaces in short windows while avoiding explicit use of Eisenstein series. 
+This represents a substantial technical advance: the continuous spectrum, which has traditionally complicated the analysis, is completely sidestepped by our method. 
+Instead, we introduce microlocal projectors adapted to frequency cutoffs and height restrictions, yielding an identity in which the spectral side is concentrated on the desired window and the geometric side involves only effective, explicitly controlled contributions.
 
 \subsection{Historical context}
-The original form of the trace formula, due to Selberg~\cite{selberg1956}, established a profound duality between eigenvalues of the Laplacian on a hyperbolic surface $X=\Gamma\backslash\HH$ and lengths of closed geodesics on $X$. 
-Subsequent developments by Hejhal~\cite{hejhal1976,hejhal1983}, M\"uller~\cite{mueller1983}, and many others extended the method to include cusp forms, Eisenstein series, and scattering theory. 
-These advances created the modern framework of spectral theory for non-compact Riemannian manifolds of finite volume. 
-Nevertheless, the classical trace formula always appears in a ``global'' guise: one sums over the full spectrum or integrates over the entire continuous part. 
-In contrast, applications in analytic number theory often demand information restricted to short spectral intervals $[R-R^\theta,R+R^\theta]$. 
-A major difficulty arises because continuous-spectrum contributions, especially those from Eisenstein series, interact delicately with any truncation in frequency. 
-Until recently, it remained unclear how to isolate the discrete cuspidal spectrum without reintroducing unwanted continuous terms.
 
-The desire for such localization is not new. 
-Already in the work of Iwaniec–Sarnak~\cite{iwaniec1995}, questions of $L^\infty$ norms and QUE (Quantum Unique Ergodicity) naturally led to considerations of how to ``zoom in'' on spectral clusters. 
-Later, semiclassical approaches, microlocal analysis, and scattering theory~\cite{zworski2012,dyatlovzworski2019} provided new tools, but a direct and robust \emph{localized trace identity} for finite-volume hyperbolic surfaces remained elusive. 
-This paper provides such an identity.
+Selberg's original formula \cite{selberg1956} remains the archetype of trace identities in spectral geometry. 
+Hejhal's two-volume monograph \cite{hejhal1976,hejhal1983} systematized its analytic theory and provided applications to the distribution of zeros of $L$-functions and the study of Maass forms. 
+M\"uller's seminal paper \cite{mueller1983} extended the spectral theory to manifolds with cusps, developing analytic tools that have since become standard in the field. 
+Later, Iwaniec and Sarnak \cite{iwaniec1995} employed the trace formula to bound $L^\infty$ norms of eigenfunctions, while Buser \cite{buser1992} offered a geometric viewpoint linking the spectrum to the length spectrum of closed geodesics.
+
+At the semiclassical interface, Zworski \cite{zworski2012} and Dyatlov--Zworski \cite{dyatlovzworski2019} developed scattering and microlocal frameworks that clarified the role of resonances and provided refined propagation estimates. 
+Chazarain's Poisson formula \cite{chazarain1974} introduced microlocal ideas that later inspired many developments in spectral asymptotics. 
+More recent works on arithmetic surfaces (e.g. Booker--Str\"ombergsson) highlighted the importance of effective constants and the need for windowed trace identities suitable for explicit estimates. 
+However, a full-fledged localized trace formula for finite-volume non-compact hyperbolic surfaces had not yet been achieved.
 
 \subsection{Main difficulties}
-The challenge of isolating discrete cuspidal eigenvalues lies in several layers. 
-First, the spectral decomposition involves Eisenstein series, whose contribution to the trace formula is typically global and resists restriction to windows. 
-Second, hyperbolic geometry introduces infinitely many closed geodesics; controlling their contributions in short spectral bands requires delicate estimates. 
-Third, one must achieve not only qualitative but also quantitative results, with explicit remainder terms and power savings, in order for the formula to be useful for analytic applications. 
-Finally, the localization procedure must remain stable with respect to the geometric invariants of $X$, so that the constants in the resulting asymptotics are explicit and effective.
 
-\subsection{Our approach}
-We introduce a height cutoff $y\leq Y=R^\beta$ in the cuspidal regions and construct a family of microlocal projectors adapted to spectral windows of size $R^\theta$. 
-These projectors isolate contributions of Laplace eigenfunctions with eigenvalue parameter $r_j\in[R-R^\theta,R+R^\theta]$, while suppressing the continuous spectrum. 
-The localization is implemented at the operator level, using semiclassical pseudodifferential calculus to track phase space propagation and to control error terms. 
-By combining these ingredients with a refined analysis of the geometric side, we obtain a new trace identity in which the main terms are explicit and the remainder enjoys power-saving decay.
+Several fundamental obstacles have prevented the localization of the Selberg trace formula in non-compact settings:
 
-\begin{theorem}[Localized trace formula]\label{thm:main}
-For any finite-area hyperbolic surface $X=\Gamma\backslash\HH$, any $R\gg 1$, and parameters $0<\theta<1$, $\beta>0$, there exists a family of microlocal projectors $\TR$ such that
-\[
-\Tr \,\TR \;=\; \vol_{\mathrm{eff}}(X;Y)\,R^\theta
-\;+\; \sum_{\substack{\gamma\in\Gamma \\ \ell(\gamma)\leq c\log R}}
-\mathcal{A}_\gamma(R,\theta)
-\;+\; O\!\left(R^{1-\varepsilon(\theta,\beta)}\right),
-\]
-where $\vol_{\mathrm{eff}}$ denotes an effective volume cutoff at height $Y=R^\beta$, the sum runs over primitive closed geodesics of length $\ell(\gamma)$ up to a logarithmic threshold, and the error exponent $\varepsilon(\theta,\beta)>0$ is uniform in $X$.
-\end{theorem}
-
-This theorem demonstrates that one can recover the discrete spectrum in short windows with a remainder strictly smaller than the trivial bound. 
-The effective volume term replaces the global volume appearing in Selberg’s formula, and the geometric sum involves only short geodesics. 
-The error term provides a power-saving improvement, establishing a genuine \emph{windowed Weyl law} for hyperbolic surfaces.
-
-\subsection{Contributions and novelty}
-The contributions of this paper can be summarized as follows:
 \begin{itemize}
-  \item We establish the first microlocally localized trace formula for finite-volume hyperbolic surfaces that isolates the discrete cuspidal spectrum without Eisenstein terms.
-  \item We achieve a power-saving error term $O(R^{1-\varepsilon})$, improving upon previous approaches where only logarithmic or qualitative bounds were available.
-  \item We express the main term using an explicit effective volume, allowing direct comparison across different surfaces and enabling quantitative applications.
-  \item The geometric side of the formula is confined to closed geodesics of length $\ell(\gamma)\leq c\log R$, ensuring that only short orbits contribute.
-  \item Our construction is robust: all constants in the formula depend polynomially on the geometric invariants of $X$.
+  \item \textbf{Continuous spectrum:} Finite-volume hyperbolic surfaces possess Eisenstein series and scattering poles, whose contributions are difficult to truncate in short frequency windows.
+  \item \textbf{Microlocal control:} Localization requires sharp projectors on frequency bands, but such projectors must be constructed in a way compatible with the geometry of cusps and the hyperbolic Laplacian.
+  \item \textbf{Effective constants:} For applications, it is essential to obtain bounds whose constants depend at most polynomially on the geometric invariants of the surface, such as volume, systole, and injectivity radius. Achieving such effective control has remained a longstanding challenge.
 \end{itemize}
 
-\subsection{Outline of the paper}
-Section~\ref{sec:prelim} recalls basic spectral and geometric preliminaries. 
-Section~\ref{sec:kernel} constructs the kernel underlying the microlocal projectors. 
-Section~\ref{sec:projector} defines the localization operators and proves their mapping properties. 
-Section~\ref{sec:microlocal} develops the pseudodifferential analysis necessary for the error estimates. 
-Section~\ref{sec:geometric} analyzes the geometric side, including contributions from closed geodesics. 
-Finally, the appendices collect effective volume computations and technical verifications. 
-The concluding section summarizes results and discusses directions for future research.
+Our approach introduces a novel microlocal cutoff depending both on frequency and on height in the cusp regions. 
+This cutoff simultaneously restricts to a window $[R-R^{\theta},R+R^{\theta}]$ and enforces $y\le Y=R^\beta$, thereby eliminating contributions of Eisenstein series and yielding an identity involving only the cuspidal spectrum. 
+The geometric side of the formula then consists of three parts: an identity term depending on an \emph{effective volume}, a contribution from closed geodesics of length $\le R^{\theta}$, and an error term with a power saving.
+
+\subsection{Statement of the main result}
+
+We now state the principal theorem of this article in simplified form. 
+A complete version with all technical conditions will be presented in Section~\ref{sec:mainresults}.
+
+\begin{theorem}[Localized trace formula]\label{thm:intro}
+Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface. 
+Fix parameters $0<\theta<1$ and $\beta>0$, and define the spectral window $I_R=[R-R^{\theta},R+R^{\theta}]$ with height cutoff $y\le Y=R^\beta$. 
+Then, for suitable test functions $f$, one has the identity
+\[
+\Tr(\mathsf{T}_R f) \;=\; \vol_{\mathrm{eff}}(X,R,\beta)\, \hat{f}(0) \;+\; \sum_{\ell(\gamma)\le R^{\theta}} \mathcal{A}_\gamma(R,\theta) \, \hat{f}(\ell(\gamma)) \;+\; O(R^{1-\varepsilon(\theta,\beta)}),
+\]
+where:
+\begin{itemize}
+  \item $\vol_{\mathrm{eff}}(X,R,\beta)$ denotes the effective volume under the cusp cutoff $y\le Y$,
+  \item the sum runs over primitive closed geodesics $\gamma$ with length $\ell(\gamma)\le R^{\theta}$,
+  \item $\mathcal{A}_\gamma(R,\theta)$ are explicit amplitude factors depending on $\gamma$ and the window parameters,
+  \item the error term admits a power saving $R^{1-\varepsilon(\theta,\beta)}$ with $\varepsilon(\theta,\beta)>0$.
+\end{itemize}
+\end{theorem}
+
+This theorem encapsulates the essence of our contribution: a localized identity that isolates the cuspidal spectrum, has explicit and effective geometric terms, and achieves a power-saving error bound.
+
+\subsection{Novelty and contributions}
+
+The contributions of this paper can be summarized as follows:
+
+\begin{enumerate}
+  \item \textbf{First localized trace formula for non-compact hyperbolic surfaces:} To our knowledge, this is the first construction that completely avoids Eisenstein series while isolating short spectral windows.
+  \item \textbf{Microlocal projectors:} We introduce projectors adapted simultaneously to frequency and cusp geometry, a new tool that may find further applications.
+  \item \textbf{Effective constants:} All constants are polynomially bounded in geometric invariants, ensuring applicability to quantitative problems.
+  \item \textbf{Power-saving error:} The remainder term achieves a power saving uniform in $\theta,\beta$, extending known results from the compact case.
+  \item \textbf{Windowed Weyl law:} As a corollary, we obtain a Weyl law in short intervals with effective error bounds.
+\end{enumerate}
+
+These contributions address long-standing gaps in the literature and provide a framework for further developments in spectral theory, automorphic forms, and mathematical physics.
+
+\subsection{Structure of the paper}
+
+The remainder of this article is organized as follows:
+
+\begin{itemize}
+  \item Section~\ref{sec:prelim} recalls the necessary preliminaries on hyperbolic surfaces, the Laplacian, and the Selberg trace formula.
+  \item Section~\ref{sec:kernel} introduces the localized kernel and its microlocal properties.
+  \item Section~\ref{sec:projector} develops the microlocal projectors adapted to frequency and height cutoffs.
+  \item Section~\ref{sec:microlocal} proves the microlocal decomposition underlying the main theorem.
+  \item Section~\ref{sec:geometric} analyzes the geometric side, including effective volume and short closed geodesics.
+  \item Section~\ref{sec:mainresults} collects the full statements of results and discusses corollaries.
+  \item Appendices provide technical estimates and supporting computations.
+\end{itemize}
+
+This completes the introduction. The localized trace formula developed herein provides a new paradigm for analyzing spectral windows on non-compact hyperbolic surfaces, bridging microlocal analysis and classical trace identities while ensuring effective, polynomially controlled constants.
