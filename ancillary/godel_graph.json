@@ -1,11 +1,13 @@
 {
   "version": "godel-graph-0.1",
   "stats": {
-    "timestamp": "2025-08-24T08:36:38Z",
+    "timestamp": "2025-08-24T09:01:52Z",
     "files_scanned": 9,
     "labels": 19,
-    "refs": 28,
-    "duplicate_labels": [],
+    "refs": 33,
+    "duplicate_labels": [
+      "thm:main"
+    ],
     "dangling_refs": 0
   },
   "labels": [
@@ -15,6 +17,10 @@
     },
     {
       "id": "sec:intro",
+      "file": "src/sections/01-intro.tex"
+    },
+    {
+      "id": "thm:main",
       "file": "src/sections/01-intro.tex"
     },
     {
@@ -78,15 +84,31 @@
       "file": "src/sections/06-geometric.tex"
     },
     {
-      "id": "thm:main",
-      "file": "src/sections/06-geometric.tex"
-    },
-    {
       "id": "cor:weyl",
       "file": "src/sections/06-geometric.tex"
     }
   ],
   "refs": [
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:prelim"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:kernel"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:projector"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:microlocal"
+    },
+    {
+      "file": "src/sections/01-intro.tex",
+      "label": "sec:geometric"
+    },
     {
       "file": "src/sections/03-kernel.tex",
       "label": "lem:time-local"
