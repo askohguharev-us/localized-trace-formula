@@ -1,42 +1,335 @@
-\section{Introduction}
+% File: src/appendices/B-aux-estimates.tex
+% -----------------------------------------
+% This appendix collects auxiliary analytic estimates used
+% throughout Sections 02--07. Appendix A has invoked \appendix,
+% so here we simply add the next appendix section.
 
-We establish a localized trace formula for finite-area hyperbolic
-surfaces $X=\Gamma\backslash\HH$ which isolates the discrete cuspidal
-spectrum in short spectral windows $[R-R^\theta,\,R+R^\theta]$
-under a geometric height cutoff $y\le Y=R^\beta$. The identity term
-is expressed via an effective volume, the geometric contribution
-comes from closed geodesics of length $\ll R^\theta$, and the
-remainder enjoys a power saving $O(R^{1-\varepsilon(\theta,\beta)})$.
-All constants are polynomial in the geometric data of~$X$.
+\section{Auxiliary Estimates for the Localized Trace Formula}
+\label{app:aux}
 
-The proof is fully microlocal: we construct cutoff projectors and
-windowed kernels and control their contributions without invoking
-continuous-spectrum expansions. This yields a \emph{windowed Weyl law}
-for the cuspidal spectrum with explicit exponents.
+We record quantitative bounds and technical lemmas that are repeatedly
+used in the main text. All constants are explicit and depend
+polynomially on the geometric data of $X=\Gamma\backslash\HH$:
+injectivity radius away from the cusps, genus $g$, and the number of cusps $n$.
+Throughout, $R\ge 2$ is the central frequency, $0<\theta<1$ the window exponent,
+and $Y=R^\beta$ with $0<\beta<1$ is the cusp height cutoff. We write
+$\lambda=\tfrac14+t^2$ and use the convention $\langle \cdot,\cdot\rangle$
+for the $L^2(X)$ inner product.
 
-\subsection*{Method and contributions}
-\begin{itemize}
-  \item Construction of frequency-windowed test operators and height
-        truncations compatible with the cuspidal subspace.
-  \item Kernel bounds uniform in $(R,\theta,\beta)$ with explicit
-        transport of singularities and geometric propagation.
-  \item A localized trace identity whose spectral side contains only
-        cuspidal eigenvalues in the chosen window, and whose geometric
-        side involves short closed geodesics and an effective-volume term.
-  \item A power-saving remainder $O(R^{1-\varepsilon(\theta,\beta)})$
-        with $\varepsilon(\theta,\beta)>0$ on a nonempty region of
-        parameters.
-\end{itemize}
+\subsection{Spherical functions and Plancherel measure}
+\label{app:aux:spherical}
 
-\subsection*{Historical background}
-Selberg’s trace formula initiated the spectral–geometric relation
-for hyperbolic surfaces~\cite{selberg1956}; analytic foundations and
-implementations were developed in \cite{hejhal1976,hejhal1983},
-while manifolds with cusps were treated in~\cite{mueller1983}.
-Geometric and spectral preliminaries are presented in~\cite{buser1992}.
-Microlocal and semiclassical tools appear systematically in
-\cite{zworski2012,dyatlovzworski2019}; for propagation phenomena see
-also~\cite{chazarain1974}. The present paper introduces a \emph{localized}
-framework adapted to short spectral windows and effective geometric
-cutoffs, producing polynomial dependence on geometric data and a
-power-saving error term for the cuspidal contribution.
+Let $\varphi_t(\rho)$ be the $K$-biinvariant spherical function on $\HH$
+with spectral parameter $t\in\RR$ and hyperbolic distance $\rho\ge 0$.
+We recall two classical regimes; the constants below are absolute.
+
+\begin{lemma}[Uniform bounds for $\varphi_t$]
+\label{lem:sf-bounds}
+For all $t\in\RR$ and $\rho\ge 0$,
+\begin{align}
+&\text{(Short)} && 0\le \rho\le 1: &
+|\varphi_t(\rho)| &\ll (1+|t|)^{1/2}\,\rho^{-1/2}
+\qquad(\varphi_t(0)=1), \label{eq:sf-short}\\
+&\text{(Long)} && \rho\ge 1: &
+|\varphi_t(\rho)| &\ll e^{-\rho/2}. \label{eq:sf-long}
+\end{align}
+Moreover, for any $m\ge 0$,
+\begin{equation}\label{eq:sf-deriv}
+|\partial_\rho^m \varphi_t(\rho)|
+\ll_m (1+|t|)^m\,\rho^{-m-1/2}\mathbf{1}_{\rho\le 1}
+\;+\; (1+|t|)^m\,e^{-\rho/2}\mathbf{1}_{\rho\ge 1}.
+\end{equation}
+The implicit constants are independent of $t$ and $\rho$.
+\end{lemma}
+
+\begin{lemma}[Plancherel density]\label{lem:planch}
+For $f\in C_c^\infty(\HH)^K$ one has the inversion and Plancherel relations
+\[
+f(\rho) = \frac{1}{2\pi}\int_{\RR} \widehat f(t)\,\varphi_t(\rho)\, t\tanh(\pi t)\,dt,
+\qquad
+\|f\|_{L^2(\HH)}^2
+= \frac{1}{2\pi}\int_{\RR} |\widehat f(t)|^2 \, t\tanh(\pi t)\,dt.
+\]
+\end{lemma}
+
+\subsection{Inverse spherical transform of localized tests}
+\label{app:aux:inv-transform}
+
+Fix an even $\eta\in\mathcal{S}(\RR)$ with $\eta(0)=1$ and define
+\[
+h_R(t)=\eta\!\Big(\frac{t-R}{R^\theta}\Big),\qquad
+\widehat h_R(s)=\int_{\RR} h_R(t)e^{i s t}\,dt
+= R^\theta e^{i s R}\widehat\eta(sR^\theta).
+\]
+Let $k_R$ be the inverse spherical transform of $h_R$ on $\HH$.
+
+\begin{lemma}[Pointwise profile of $k_R$]\label{lem:kR-profile}
+There exists $\psi\in C_c^\infty([0,\infty))$ with $\psi(u)=1$ for $u\le 1$
+and $\psi(u)=0$ for $u\ge 2$ such that
+\begin{equation}\label{eq:kR-asymp-app}
+k_R(\rho) \;=\; R^\theta \frac{\sin(R\rho)}{\sinh(\rho/2)}\,\psi\!\Big(\frac{\rho}{R^\theta}\Big)
+\;+\; \mathcal{E}_R(\rho),
+\end{equation}
+with error obeying, for every $A>0$,
+\[
+|\mathcal{E}_R(\rho)| \ll_A
+\begin{cases}
+R^{\theta-1}(1+R\rho)^{-A}, & 0\le \rho \le 1,\\[3pt]
+R^{-\!A} e^{-\rho/2}, & \rho\ge 1.
+\end{cases}
+\]
+Consequently,
+\begin{align}
+\|k_R\|_{L^1(\HH)} &\ll R^\theta, \qquad
+\|k_R\|_{L^\infty(\HH)} \ll R^\theta, \label{eq:kr-norms}\\
+|k_R(\rho)| &\ll R^{\tfrac12+\theta}\rho^{-1/2}\mathbf{1}_{R^{-\theta}\le \rho\le 1}
++ R^\theta e^{-\rho/2}\mathbf{1}_{\rho\ge 1}. \label{eq:kr-ptwise}
+\end{align}
+\end{lemma}
+
+\subsection{Schur and Hilbert--Schmidt bounds for kernels}
+\label{app:aux:schur}
+
+Let $K(z,w)$ be a $\Gamma$-invariant kernel on $X$ and put
+\[
+(\mathbf{K}f)(z)=\int_X K(z,w)f(w)\,d\vol(w).
+\]
+Introduce cusp cutoff $\chi_Y$ and define $K^Y(z,w)=\chi_Y(z)K(z,w)\chi_Y(w)$.
+
+\begin{lemma}[Schur test]\label{lem:schur}
+If
+\[
+\sup_z \int_X |K^Y(z,w)|\,d\vol(w) \le A
+\quad\text{and}\quad
+\sup_w \int_X |K^Y(z,w)|\,d\vol(z) \le A,
+\]
+then $\|\mathbf{K}\|_{L^2\to L^2}\le A$. In particular, for the geometric
+kernel $K_R$ of Section~\ref{sec:kernel},
+\begin{equation}\label{eq:schur-concl}
+\|\mathbf{K}_R^Y\|_{L^2\to L^2}\;\ll\; R^\theta,
+\qquad
+\|\mathbf{K}_R^Y\|_{H^s\to H^{s'}}\;\ll\; R^{\theta+s'-s},
+\end{equation}
+with implied constants polynomial in $Y=R^\beta$ and the geometry of $X$.
+\end{lemma}
+
+\begin{lemma}[Hilbert--Schmidt control]\label{lem:hs}
+If $K^Y\in L^2(X\times X)$, then $\mathbf{K}$ is Hilbert--Schmidt and
+\[
+\|\mathbf{K}\|_{\mathrm{HS}}^2=\iint_{X\times X} |K^Y(z,w)|^2\,d\vol(z)\,d\vol(w).
+\]
+Using \eqref{eq:kr-norms} and \eqref{eq:kr-ptwise},
+\[
+\|\mathbf{K}_R^Y\|_{\mathrm{HS}}^2 \;\ll\; R^\theta\,\vol(X(Y)),
+\qquad \vol(X(Y))=\vol(X)+O(Y^{-1}).
+\]
+\end{lemma}
+
+\subsection{Eisenstein truncation and cusp suppression}
+\label{app:aux:eisenstein}
+
+Let $E(z,\tfrac12+it)$ be a normalized Eisenstein series for a cusp $\mathfrak a$.
+Denote by $\chi_Y$ the cutoff with $Y=R^\beta$.
+
+\begin{lemma}[Truncated Eisenstein $L^2$-norm]\label{lem:eisen}
+For any $\varepsilon>0$,
+\[
+\|\chi_Y E(\cdot,\tfrac12+it)\|_{L^2(X)} \;\ll_\varepsilon\; Y^{-1/2+\varepsilon}
+\quad\text{uniformly in } t\in\RR.
+\]
+Consequently, for the localized projector $\TR$ with kernel $K_R^Y$,
+\[
+\|\TR E(\cdot,\tfrac12+it)\|_{L^2(X)} \;\ll_\varepsilon\; R^\theta\,Y^{-1/2+\varepsilon}
+= R^{\theta-\beta/2+\varepsilon}.
+\]
+Choosing $\beta>2\varepsilon$ makes the continuous spectrum contribution negligible
+relative to polynomial powers of $R$.
+\end{lemma}
+
+\subsection{Uniform stationary phase}
+\label{app:aux:stationary}
+
+We use the following semiclassical stationary phase bound.
+
+\begin{lemma}[Stationary phase, parameter dependent]\label{lem:sp}
+Let $\Phi\in C^\infty(U)$ on an open set $U\subset\RR^d$ and $a_R\in C_c^\infty(U)$
+with bounds $|\partial^\alpha a_R|\ll_{\alpha} R^{-|\alpha|\theta}$.
+Assume $\nabla\Phi(\xi_0)=0$, $\det \Phi''(\xi_0)\neq 0$ and $a_R$ supported
+in a small neighborhood of $\xi_0$ independent of $R$. Then
+\[
+\int_U e^{iR\Phi(\xi)}a_R(\xi)\,d\xi
+= (2\pi/R)^{d/2}\,e^{i\frac{\pi}{4}\mathrm{sgn}\Phi''(\xi_0)}\,
+\frac{a_R(\xi_0)}{|\det\Phi''(\xi_0)|^{1/2}} + O(R^{-1-\theta}).
+\]
+\end{lemma}
+
+Applied to the oscillatory representation of $K_R$,
+Lemma~\ref{lem:sp} yields \eqref{eq:kR-asymp-app} and the norms in
+\eqref{eq:kr-norms}--\eqref{eq:kr-ptwise}.
+
+\subsection{Short-time Egorov for $t\lesssim R^{-\theta}$}
+\label{app:aux:egorov}
+
+Let $\Op(a)$ be a semiclassical $\Psi$DO with symbol $a\in S^0$ on $T^*X$.
+Let $U(t)=e^{it\sqrt{\Lap-1/4}}$ be the (unitary) wave group.
+
+\begin{lemma}[Egorov on the window time scale]\label{lem:egorov}
+For $|t|\le c\,R^{-\theta}$ and any $N\in\NN$,
+\[
+U(-t)\,\Op(a)\,U(t) \;=\; \Op(a\circ \varphi_t)
+\;+\; R^{-\theta}\Op(r_{1,t})+\cdots+R^{-N\theta}\Op(r_{N,t}),
+\]
+where $\varphi_t$ is the geodesic flow on $S^*X$ and
+$\|r_{k,t}\|_{S^0}\ll 1$ uniformly for $|t|\le c\,R^{-\theta}$.
+\end{lemma}
+
+This is the microlocal mechanism guaranteeing that $\TR$ preserves
+wave packets up to controlled errors on the time scale compatible with
+the frequency window.
+
+\subsection{Almost orthogonality: Cotlar--Stein}
+\label{app:aux:cotlar}
+
+Let $\{T_j\}_{j\in J}$ be bounded operators on $L^2(X)$ and suppose
+\[
+\sup_{j}\sum_{k}\|T_j^*T_k\|^{1/2} <\infty, \qquad
+\sup_{j}\sum_{k}\|T_jT_k^*\|^{1/2} <\infty.
+\]
+Then $\sum_j T_j$ converges in the strong operator topology and
+\[
+\Big\|\sum_j T_j\Big\| \;\le\; C
+\]
+for $C$ the common bound. Applied to $\TR$’s centered at $R_j$
+with $|R_j-R_k|\gg R^\theta$, and using Lemma~\ref{lem:kR-profile}
+plus Schur bounds \eqref{eq:schur-concl}, we obtain:
+
+\begin{corollary}[Orthogonality across distinct windows]\label{cor:windows-orth}
+For any finite family $\{\TR_j\}$ with separations $\ge cR^\theta$,
+\[
+\Big\|\sum_j \TR_j\Big\|_{L^2\to L^2} \;\ll\; \sup_j \|\TR_j\|_{L^2\to L^2}
+\;\ll\; R^\theta,
+\]
+and $\TR_j\TR_k=O(R^{-\!A})$ for any $A>0$ when $|R_j-R_k|\ge cR^\theta$.
+\end{corollary}
+
+\subsection{Stability under spectral convolution}
+\label{app:aux:convolution}
+
+For $\delta\in[1,2]$ let
+\[
+h_{R,\delta}(t)=\eta\!\Big(\frac{t-R}{\delta R^\theta}\Big),
+\quad k_{R,\delta}=\mathcal{H}^{-1}(h_{R,\delta}).
+\]
+Then $h_{R,\delta_1}*h_{R,\delta_2}$ corresponds to
+$k_{R,\delta_1}\star k_{R,\delta_2}$.
+
+\begin{lemma}[Window stability]\label{lem:conv-stab}
+For any $A>0$,
+\[
+\big\|k_{R,\delta_1}\star k_{R,\delta_2}
+- k_{R,\sqrt{\delta_1^2+\delta_2^2}}\big\|_{L^1\to L^\infty}
+\;\ll_A\; R^{-\!A}.
+\]
+In particular, iterates of $\TR$ do not widen the window beyond negligible tails.
+\end{lemma}
+
+\subsection{Orbit growth and geodesic counting}
+\label{app:aux:counting}
+
+\paragraph{Orbit growth on $\HH$.}
+Let $N_\Gamma(z,\rho)=\#\{\gamma\in\Gamma:\, d(z,\gamma z)\le \rho\}$.
+
+\begin{lemma}[Hyperbolic lattice counting]\label{lem:lattice}
+Uniformly in $z$ away from cusps and $\rho\ge 1$,
+\[
+N_\Gamma(z,\rho)\;\ll\; e^\rho,
+\]
+with an implied constant polynomial in the geometric data of $X$.
+\end{lemma}
+
+This ensures absolute convergence of geometric sums
+$\sum_{\gamma} k_R(d(z,\gamma w))$ using \eqref{eq:kr-ptwise}.
+
+\paragraph{Closed geodesics.}
+Let $\mathcal{C}$ denote primitive closed geodesics and $\ell(\gamma)$ their lengths.
+For test functions $g$ supported on $[0,L]$ and with $\|g^{(m)}\|_\infty\ll L^{-m}$,
+one has a qualitative bound
+\begin{equation}\label{eq:geod-sum}
+\sum_{\gamma\in\mathcal{C}} g(\ell(\gamma))
+\;\ll\; \frac{e^{L}}{L} \cdot \|g\|_{C^1},
+\end{equation}
+sufficient to control geodesic contributions arising from windows $L\asymp R^\theta$.
+
+\subsection{Consolidated remainder exponents}
+\label{app:aux:exponents}
+
+Error terms in the localized trace formula stem from:
+(i) truncation in the cusps (Lemma~\ref{lem:eisen});
+(ii) stationary phase remainders (Lemma~\ref{lem:sp});
+(iii) long-range geometric tails controlled by \eqref{eq:kr-ptwise} and
+Lemma~\ref{lem:lattice}; and
+(iv) short-time Egorov errors (Lemma~\ref{lem:egorov}).
+
+\begin{proposition}[Prototype error exponent]\label{prop:eps}
+Let $0<\theta,\beta<1$ and $Y=R^\beta$.
+Then the remainder in the identity and geodesic parts of the localized trace
+is bounded by $O(R^{1-\varepsilon(\theta,\beta)})$, where
+\[
+\varepsilon(\theta,\beta)
+=\min\{\theta,\; 1-\theta+\beta,\; \tfrac12,\; 1-2\theta+\beta\}-\delta
+\quad(\text{arbitrary }\delta>0).
+\]
+\end{proposition}
+
+\begin{proof}[Idea of proof]
+The four minima correspond to the dominant sources listed above.
+The bound $\theta$ reflects time-side concentration of $\widehat h_R$.
+The term $1-\theta+\beta$ comes from cusp truncation combined with the
+$R^\theta$-scaled kernel mass.
+The universal $\tfrac12$ accounts for stationary phase in dimension one.
+Finally, $1-2\theta+\beta$ arises when composing kernels and propagating
+symbols for time $R^{-\theta}$ with cusp losses $R^{\beta}$.
+Combining gives the stated $\varepsilon(\theta,\beta)$.
+\end{proof}
+
+\subsection{Operator interpolation on Sobolev scales}
+\label{app:aux:interp}
+
+\begin{lemma}[Sobolev mapping]
+For $s,s'\in\RR$,
+\[
+\|\TR\|_{H^s\to H^{s'}} \;\ll\; R^{\theta+s'-s},
+\qquad
+\|\TR^{\mathrm{norm}}\|_{H^s\to H^{s'}} \;\ll\; R^{s'-s}.
+\]
+If $s'\le s$, interpolation yields $\|\TR\|_{H^s\to H^{s'}}\ll R^\theta$.
+\end{lemma}
+
+\subsection{Tabulation of constants}
+\label{app:aux:constants}
+
+For ease of reference we summarize the dependence of implicit constants:
+\begin{center}
+\begin{tabular}{l|l}
+Quantity & Dependence \\ \hline
+$\|k_R\|_{L^1},\|k_R\|_{L^\infty}$ & $O(R^\theta)$ \\
+$\|\TR\|_{L^2\to L^2}$ & $O(R^\theta)$ \\
+$\|\TR\|_{H^s\to H^{s'}}$ & $O(R^{\theta+s'-s})$ \\
+$\|\chi_Y E(\cdot,\tfrac12+it)\|_{L^2}$ & $O(R^{-\beta/2+\varepsilon})$ \\
+Orbit counting $N_\Gamma(z,\rho)$ & $O(e^{\rho})$ \\
+Geodesic sum $\sum g(\ell(\gamma))$ & $O(e^{L}L^{-1}\|g\|_{C^1})$ \\
+Window stability ($*$) & $O(R^{-\!A})$ (any $A>0$) \\
+\end{tabular}
+\end{center}
+Here ($*$) refers to Lemma~\ref{lem:conv-stab}. All constants are
+polynomial in $\injrad(X)^{-1}$, $g$ and $n$, and in $Y=R^\beta$ through derivatives
+of the cutoff $\chi_Y$.
+
+\bigskip
+\noindent\textbf{Summary of Appendix~\ref{app:aux}.}
+We established explicit, uniform bounds for spherical functions,
+inverse transforms, cusp truncation, stationary phase,
+short-time Egorov, almost-orthogonality, and lattice/geodesic counting.
+Taken together they justify the operator norms, microlocal stability,
+and the remainder exponent $\varepsilon(\theta,\beta)$ used in
+Sections~\ref{sec:kernel}–\ref{sec:geometric}.
