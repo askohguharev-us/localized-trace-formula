@@ -13,18 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install full TeX Live (+latexmk)
+      # Надёжно: полный TeX Live + latexmk
+      - name: Install TeX Live (full)
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends texlive-full latexmk
 
-      - name: Build (pdflatex → bibtex → pdflatex ×2)
+      # Сборка одной командой; latexmk сам сделает bibtex и нужные прогоны
+      - name: Build PDF with latexmk (BibTeX-aware)
         working-directory: src
         run: |
-          pdflatex -interaction=nonstopmode -file-line-error main.tex
-          bibtex main
-          pdflatex -interaction=nonstopmode -file-line-error main.tex
-          pdflatex -interaction=nonstopmode -file-line-error main.tex
+          latexmk -pdf -bibtex -interaction=nonstopmode -file-line-error main.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
