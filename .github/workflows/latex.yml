@@ -1,27 +1,42 @@
-name: Build LaTeX PDF
+name: build_latex
 
 on:
   push:
     branches: [ main ]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install LaTeX
-        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended latexmk
-
-      - name: Build PDF
+      - name: Install TeX Live (minimal + bibtex/biber/tools)
         run: |
-          cd src
-          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive texlive-latex-extra texlive-fonts-recommended \
+            texlive-bibtex-extra biber latexmk ghostscript
+
+      - name: Build PDF with latexmk (BibTeX/Biber aware)
+        working-directory: src
+        env:
+          LATEXMKOPTS: "-pdf -interaction=nonstopmode -halt-on-error -file-line-error -bibtex"
+        run: |
+          # 1-й прогон (создаст aux/bcf)
+          latexmk $LATEXMKOPTS main.tex
+          # Если используешь biblatex+biber, этот вызов запустится автоматически,
+          # но на всякий случай пробуем явно:
+          if [ -f main.bcf ]; then biber main || true; fi
+          # Финальные прогоны для стабилизации ссылок/цитат:
+          latexmk $LATEXMKOPTS main.tex
+          latexmk $LATEXMKOPTS main.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper
+          name: paper-pdf
           path: src/main.pdf
+          if-no-files-found: error
