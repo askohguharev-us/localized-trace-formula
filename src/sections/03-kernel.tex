@@ -2,6 +2,7 @@
 
 The cornerstone of the localized trace formula is the construction of a microlocal kernel that serves as the building block for the spectral projector onto short frequency windows. Unlike the global Selberg kernel, which averages over the entire spectral decomposition, our kernel must be adapted to spectral intervals of width $R^\theta$ and at the same time respect the geometry of finite-area hyperbolic surfaces. In this section we provide the analytic construction of such a kernel, explain its localization properties, and derive estimates that will later feed into the microlocal projector analysis. Throughout we write $X=\Gamma\backslash\HH$ and parametrize the spectrum by $\lambda=\tfrac14+r^2$; the large parameter $R\to\infty$ designates the center of the spectral window and $0<\theta<1$ the localization exponent.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation and general setup}\label{subsec:kernel-setup}
 The Laplace--Beltrami operator $\Lap$ on $X$ admits the spectral resolution
 \[
@@ -16,6 +17,7 @@ K_R(z,w)
 \end{equation}
 The goal is to suppress the continuous contribution and isolate the cuspidal part inside the window $|r-R|\lesssim R^\theta$. This requires a refined cutoff both in the spectral variable and in the cusp region of $X$, and it forces us to analyze \eqref{eq:KR-spectral} not only spectrally but also microlocally in $(z,w)$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Choice and normalization of the test function}\label{subsec:testfunction}
 We fix a nonnegative even Schwartz function $\eta$ with $\eta(0)=1$ and define
 \begin{equation}\label{eq:hR-def}
@@ -32,13 +34,14 @@ We also impose a normalization that matches the size of the spectral window,
 \int_{\RR} h_R(r)\,dr \;=\; c_\eta\,R^\theta,
 \quad c_\eta := \int_{\RR}\eta(u)\,du,
 \end{equation}
-and record the behavior of the (cosh)–Fourier transform
+and record the behavior of the Fourier--cosh transform
 \begin{equation}\label{eq:hhat}
 \widehat{h}_R(t) := \int_{\RR} h_R(r)\, e^{i t r}\,dr
 = R^\theta\,\widehat{\eta}(t\,R^\theta)\,e^{i t R},
 \end{equation}
 which is essentially supported on $|t|\lesssim R^{-\theta}$. The time-side localization \eqref{eq:hhat} is responsible for geometric concentration of the kernel at distances $\rho\lesssim R^\theta$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Geometric expansion via the spherical transform}\label{subsec:geometric-kernel}
 Let $k_R$ be the inverse spherical transform of $h_R$ on $\HH$. For admissible $h_R$ one has the standard geometric expansion
 \begin{equation}\label{eq:geom-sum}
@@ -54,11 +57,12 @@ k_R(\rho) \;=\; R^\theta\, \frac{\sin(R\rho)}{\sinh(\rho/2)} \,\psi\!\left(\frac
 \end{equation}
 where $\psi$ is a fixed smooth cutoff with rapid decay and the error $\mathcal{E}_R$ is negligible in the ranges relevant for the trace. The factor $\sinh(\rho/2)^{-1}$ reflects curvature $-1$ and enforces exponential decay for large $\rho$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Pointwise bounds for the kernel}\label{subsec:kernel-estimates}
 From \eqref{eq:kR-asymp} and classical estimates for spherical functions we obtain the following bounds, uniform in $R\ge 2$:
 \begin{align}
 &\textbf{Short range } (0\le \rho \le R^{-\theta})\!:\quad
-|k_R(\rho)| \;\ll\; R^\theta, \label{eq:short}\\[3pt]
+|k_R(\rho)| \;\ll\; R^\theta, \label{eq:short}\3pt]
 &\textbf{Intermediate } (R^{-\theta}\le \rho \le 1)\!:\quad
 |k_R(\rho)| \;\ll\; R^{\tfrac12+\theta}\,\rho^{-\tfrac12}, \label{eq:intermediate}\\[3pt]
 &\textbf{Long range } (\rho\ge 1)\!:\quad
@@ -66,13 +70,15 @@ From \eqref{eq:kR-asymp} and classical estimates for spherical functions we obta
 \end{align}
 In particular, \eqref{eq:long} yields absolute convergence of \eqref{eq:geom-sum} and allows one to isolate the identity contribution and the sum over short closed geodesics in the geometric side of the trace. The intermediate estimate \eqref{eq:intermediate} is a standard stationary-phase gain and will later be used to majorize nonidentity conjugacy classes whose translation length stays away from zero.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Microlocal viewpoint and wave propagation}\label{subsec:microlocal-perspective}
 The bounds above control $K_R$ as a function of distance, but localization in a window of width $R^\theta$ mandates control in phase space. Interpreting $K_R$ as a Fourier integral operator on $T^*X$, one writes
 \[
 K_R(z,w) \;=\; \int_{\RR^2} e^{i R \Phi(z,w,\xi)}\, a_R(z,w,\xi)\, d\xi,
-\]
+
 where $\Phi$ is a geodesic phase and $a_R$ is a classical symbol whose derivatives are bounded by powers of $R^{-\theta}$. The critical points of $\Phi$ correspond to geodesic segments from $w$ to $z$; the localization of $\widehat{h}_R$ in \eqref{eq:hhat} microlocalizes these segments to lengths $\lesssim R^\theta$. In particular, wave packets of frequency $\sim R$ and spatial width $\sim R^{-\tfrac12}$ are mapped by $K_R$ to wave packets whose centers propagate along the geodesic flow for time $\lesssim R^{-\theta}$, which is precisely the time scale compatible with the frequency window.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cusp cutoff and effective volume}\label{subsec:cusp-cutoff}
 On noncompact $X$ the continuous spectrum produces contributions that are not negligible unless one truncates near the cusps. We fix a height parameter $Y=R^\beta$ with $0<\beta<1$ and choose a smooth cutoff $\chi_Y(y)$ such that $\chi_Y(y)=1$ for $y\le Y$ and $\chi_Y(y)=0$ for $y\ge 2Y$, with uniform bounds on derivatives $\partial_y^m\chi_Y \ll Y^{-m}$. We then define the truncated kernel
 \begin{equation}\label{eq:truncated-kernel}
@@ -84,6 +90,7 @@ This suppresses the Eisenstein contribution and replaces the geometric identity 
 \]
 which will appear explicitly in the identity side of the trace. Since $Y=R^\beta$, we retain polynomial control in $R$ and can track the dependence of constants on geometric data of $X$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spectral isolation on cuspidal states}\label{subsec:spectral-isolation}
 Let $\Pi_{\mathrm{cusp}}$ denote the orthogonal projection onto the cuspidal subspace. The operator $K_R^Y$ defined in \eqref{eq:truncated-kernel} acts almost diagonally on cuspidal eigenfunctions: for each eigenpair $(\varphi_j,r_j)$ one has
 \begin{equation}\label{eq:diagonal}
@@ -92,105 +99,11 @@ Let $\Pi_{\mathrm{cusp}}$ denote the orthogonal projection onto the cuspidal sub
 \end{equation}
 for any fixed $A>0$, provided the parameters $(\theta,\beta)$ stay in the admissible region specified later. Cross terms between $\varphi_j$ and Eisenstein series are negligible by rapid decay of $\chi_Y$-truncated Eisenstein series and the short-time nature of the kernel. Thus $K_R^Y$ effectively isolates the discrete spectrum inside the prescribed window.
 
-\subsection{Comparison with global Selberg kernels}\label{subsec:comparison}
-It is instructive to contrast the localized kernel with the classical kernel used in the global Selberg trace formula. In the latter one chooses a test function $h$ with fixed compact support in $r$ independent of $R$. Consequently, the associated geometric kernel $k$ enjoys fixed-scale decay and does not adapt to shrinking windows. Our choice \eqref{eq:hR-def} forces both spectral and geometric concentration: as $R$ grows and the window width $R^\theta$ shrinks, the factor $\psi(\rho/R^\theta)$ squeezes the kernel to geodesic segments of length $\lesssim R^\theta$, while the oscillation $\sin(R\rho)$ keeps track of the carrier frequency. This dual localization is precisely what enables the power-saving remainder in the trace.
-\section{Kernel of the localized projector}\label{sec:kernel}
-
-The cornerstone of the localized trace formula is the construction of a microlocal kernel that serves as the building block for the spectral projector onto short frequency windows. Unlike the global Selberg kernel, which averages over the entire spectral decomposition, our kernel must be adapted to spectral intervals of width $R^\theta$ and at the same time respect the geometry of finite-area hyperbolic surfaces. In this section we provide the analytic construction of such a kernel, explain its localization properties, and derive estimates that will later feed into the microlocal projector analysis. Throughout we write $X=\Gamma\backslash\HH$ and parametrize the spectrum by $\lambda=\tfrac14+r^2$; the large parameter $R\to\infty$ designates the center of the spectral window and $0<\theta<1$ the localization exponent.
-
-\subsection{Motivation and general setup}\label{subsec:kernel-setup}
-The Laplace--Beltrami operator $\Lap$ on $X$ admits the spectral resolution
-\[
-f(z)=\sum_j \langle f,\varphi_j\rangle \varphi_j(z)
-\;+\;\frac{1}{4\pi}\int_{-\infty}^{\infty} \langle f,E(\cdot,1/2+ir)\rangle \, E(z,1/2+ir)\,dr,
-\]
-where $(\varphi_j)_j$ is an orthonormal basis of cuspidal eigenfunctions and $E(\cdot,1/2+ir)$ are normalized Eisenstein series. For localization we introduce a smooth bump $h_R:\RR\to\RR$ centered at $R$ with effective support of size $R^\theta$. Formally, the associated kernel is
-\begin{equation}\label{eq:KR-spectral}
-K_R(z,w)
-= \sum_{j} h_R(r_j) \, \varphi_j(z)\overline{\varphi_j(w)}
-+ \frac{1}{4\pi}\int_{-\infty}^{\infty} h_R(r) \, E(z,1/2+ir)\overline{E(w,1/2+ir)} \, dr.
-\end{equation}
-The goal is to suppress the continuous contribution and isolate the cuspidal part inside the window $|r-R|\lesssim R^\theta$. This requires a refined cutoff both in the spectral variable and in the cusp region of $X$, and it forces us to analyze \eqref{eq:KR-spectral} not only spectrally but also microlocally in $(z,w)$.
-
-\subsection{Choice and normalization of the test function}\label{subsec:testfunction}
-We fix a nonnegative even Schwartz function $\eta$ with $\eta(0)=1$ and define
-\begin{equation}\label{eq:hR-def}
-h_R(r) \;=\; \eta\!\left(\frac{r-R}{R^\theta}\right).
-\end{equation}
-This guarantees rapid decay outside $|r-R|\le 2 R^\theta$ and uniform control of derivatives:
-\[
-|h_R^{(m)}(r)|
-\;\ll_m\; R^{-m\theta}\,\Big(1+\frac{|r-R|}{R^\theta}\Big)^{-A}
-\qquad\text{for any }A>0.
-\]
-We also impose a normalization that matches the size of the spectral window,
-\begin{equation}\label{eq:normalization}
-\int_{\RR} h_R(r)\,dr \;=\; c_\eta\,R^\theta,
-\quad c_\eta := \int_{\RR}\eta(u)\,du,
-\end{equation}
-and record the behavior of the (cosh)–Fourier transform
-\begin{equation}\label{eq:hhat}
-\widehat{h}_R(t) := \int_{\RR} h_R(r)\, e^{i t r}\,dr
-= R^\theta\,\widehat{\eta}(t\,R^\theta)\,e^{i t R},
-\end{equation}
-which is essentially supported on $|t|\lesssim R^{-\theta}$. The time-side localization \eqref{eq:hhat} is responsible for geometric concentration of the kernel at distances $\rho\lesssim R^\theta$.
-
-\subsection{Geometric expansion via the spherical transform}\label{subsec:geometric-kernel}
-Let $k_R$ be the inverse spherical transform of $h_R$ on $\HH$. For admissible $h_R$ one has the standard geometric expansion
-\begin{equation}\label{eq:geom-sum}
-K_R(z,w) \;=\; \sum_{\gamma\in\Gamma} k_R\!\big(d(z,\gamma w)\big),
-\end{equation}
-where $d(\cdot,\cdot)$ denotes hyperbolic distance. The function $k_R(\rho)$ can be represented by the Harish--Chandra transform
-\[
-k_R(\rho) \;=\; \frac{1}{2\pi}\int_{-\infty}^{\infty} h_R(r)\,\varphi_r(\rho)\, r \tanh(\pi r)\, dr,
-\]
-with $\varphi_r$ the spherical function on $\HH$. Applying stationary phase with \eqref{eq:hR-def}--\eqref{eq:hhat} gives the oscillatory structure
-\begin{equation}\label{eq:kR-asymp}
-k_R(\rho) \;=\; R^\theta\, \frac{\sin(R\rho)}{\sinh(\rho/2)} \,\psi\!\left(\frac{\rho}{R^\theta}\right) \;+\; \mathcal{E}_R(\rho),
-\end{equation}
-where $\psi$ is a fixed smooth cutoff with rapid decay and the error $\mathcal{E}_R$ is negligible in the ranges relevant for the trace. The factor $\sinh(\rho/2)^{-1}$ reflects curvature $-1$ and enforces exponential decay for large $\rho$.
-
-\subsection{Pointwise bounds for the kernel}\label{subsec:kernel-estimates}
-From \eqref{eq:kR-asymp} and classical estimates for spherical functions we obtain the following bounds, uniform in $R\ge 2$:
-\begin{align}
-&\textbf{Short range } (0\le \rho \le R^{-\theta})\!:\quad
-|k_R(\rho)| \;\ll\; R^\theta, \label{eq:short}\\[3pt]
-&\textbf{Intermediate } (R^{-\theta}\le \rho \le 1)\!:\quad
-|k_R(\rho)| \;\ll\; R^{\tfrac12+\theta}\,\rho^{-\tfrac12}, \label{eq:intermediate}\\[3pt]
-&\textbf{Long range } (\rho\ge 1)\!:\quad
-|k_R(\rho)| \;\ll\; R^\theta\, e^{-\rho/2}. \label{eq:long}
-\end{align}
-In particular, \eqref{eq:long} yields absolute convergence of \eqref{eq:geom-sum} and allows one to isolate the identity contribution and the sum over short closed geodesics in the geometric side of the trace. The intermediate estimate \eqref{eq:intermediate} is a standard stationary-phase gain and will later be used to majorize nonidentity conjugacy classes whose translation length stays away from zero.
-
-\subsection{Microlocal viewpoint and wave propagation}\label{subsec:microlocal-perspective}
-The bounds above control $K_R$ as a function of distance, but localization in a window of width $R^\theta$ mandates control in phase space. Interpreting $K_R$ as a Fourier integral operator on $T^*X$, one writes
-\[
-K_R(z,w) \;=\; \int_{\RR^2} e^{i R \Phi(z,w,\xi)}\, a_R(z,w,\xi)\, d\xi,
-\]
-where $\Phi$ is a geodesic phase and $a_R$ is a classical symbol whose derivatives are bounded by powers of $R^{-\theta}$. The critical points of $\Phi$ correspond to geodesic segments from $w$ to $z$; the localization of $\widehat{h}_R$ in \eqref{eq:hhat} microlocalizes these segments to lengths $\lesssim R^\theta$. In particular, wave packets of frequency $\sim R$ and spatial width $\sim R^{-\tfrac12}$ are mapped by $K_R$ to wave packets whose centers propagate along the geodesic flow for time $\lesssim R^{-\theta}$, which is precisely the time scale compatible with the frequency window.
-
-\subsection{Cusp cutoff and effective volume}\label{subsec:cusp-cutoff}
-On noncompact $X$ the continuous spectrum produces contributions that are not negligible unless one truncates near the cusps. We fix a height parameter $Y=R^\beta$ with $0<\beta<1$ and choose a smooth cutoff $\chi_Y(y)$ such that $\chi_Y(y)=1$ for $y\le Y$ and $\chi_Y(y)=0$ for $y\ge 2Y$, with uniform bounds on derivatives $\partial_y^m\chi_Y \ll Y^{-m}$. We then define the truncated kernel
-\begin{equation}\label{eq:truncated-kernel}
-K_R^Y(z,w) \;=\; \chi_Y(y_z)\, K_R(z,w)\, \chi_Y(y_w).
-\end{equation}
-This suppresses the Eisenstein contribution and replaces the geometric identity term by an \emph{effective volume}
-\[
-\vol_{\mathrm{eff}}(X;Y) \;=\; \int_X \chi_Y(y)\, d\vol(z),
-\]
-which will appear explicitly in the identity side of the trace. Since $Y=R^\beta$, we retain polynomial control in $R$ and can track the dependence of constants on geometric data of $X$.
-
-\subsection{Spectral isolation on cuspidal states}\label{subsec:spectral-isolation}
-Let $\Pi_{\mathrm{cusp}}$ denote the orthogonal projection onto the cuspidal subspace. The operator $K_R^Y$ defined in \eqref{eq:truncated-kernel} acts almost diagonally on cuspidal eigenfunctions: for each eigenpair $(\varphi_j,r_j)$ one has
-\begin{equation}\label{eq:diagonal}
-\langle K_R^Y \varphi_j,\varphi_j\rangle
-\;=\; h_R(r_j)\;+\;O(R^{-\!A}),
-\end{equation}
-for any fixed $A>0$, provided the parameters $(\theta,\beta)$ stay in the admissible region specified later. Cross terms between $\varphi_j$ and Eisenstein series are negligible by rapid decay of $\chi_Y$-truncated Eisenstein series and the short-time nature of the kernel. Thus $K_R^Y$ effectively isolates the discrete spectrum inside the prescribed window.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with global Selberg kernels}\label{subsec:comparison}
 It is instructive to contrast the localized kernel with the classical kernel used in the global Selberg trace formula. In the latter one chooses a test function $h$ with fixed compact support in $r$ independent of $R$. Consequently, the associated geometric kernel $k$ enjoys fixed-scale decay and does not adapt to shrinking windows. Our choice \eqref{eq:hR-def} forces both spectral and geometric concentration: as $R$ grows and the window width $R^\theta$ shrinks, the factor $\psi(\rho/R^\theta)$ squeezes the kernel to geodesic segments of length $\lesssim R^\theta$, while the oscillation $\sin(R\rho)$ keeps track of the carrier frequency. This dual localization is precisely what enables the power-saving remainder in the trace.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Parametrix on the universal cover}\label{subsec:parametrix}
 For several estimates it is convenient to start on the universal cover $\HH$ and then descent to $X$ by summation over $\Gamma$. Let $\mathcal{K}_R$ be the radial kernel on $\HH$ with profile $k_R(\rho)$ from \eqref{eq:kR-asymp}. A Hadamard parametrix for $\mathcal{K}_R$ can be written as a finite oscillatory sum
 \[
@@ -198,6 +111,7 @@ For several estimates it is convenient to start on the universal cover $\HH$ and
 \]
 where $b_\pm$ are classical amplitudes supported where the hyperbolic distance $\rho(z,w)\approx t$ and obey symbol bounds $|\partial^\alpha b_\pm|\ll_\alpha R^{\theta+|\alpha|\theta} e^{-\rho(z,w)/2}$. Pushing this parametrix through the $\Gamma$-sum yields \eqref{eq:geom-sum} together with the global estimates \eqref{eq:short}–\eqref{eq:long}. The parametrix also clarifies the microlocal support: it lies on the canonical relation of the geodesic flow for times $|t|\lesssim R^{-\theta}$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spherical transform and positivity}\label{subsec:positivity}
 Because $\eta$ is even and nonnegative, the spherical transform preserves positivity in the sense that $k_R(0)\asymp R^\theta$ and $|k_R(\rho)|\le k_R(0)$ for all $\rho\ge 0$. Moreover, the Plancherel identity gives
 \[
@@ -205,6 +119,7 @@ Because $\eta$ is even and nonnegative, the spherical transform preserves positi
 \]
 uniformly in $w$; after summation over $\Gamma$ and truncation by $\chi_Y$ this furnishes Hilbert–Schmidt bounds for $K_R^Y$ that will be used to control off-diagonal contributions in the trace.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Approximate identity and stability under convolution}\label{subsec:approx-id}
 Let $h_{R,\delta}(r):=\eta\!\big((r-R)/(\delta R^\theta)\big)$ for $1\le \delta\le 2$ and let $k_{R,\delta}$ be its inverse spherical transform. Then $h_{R,\delta_1}*h_{R,\delta_2}$ (spectral convolution) corresponds to the geometric convolution $k_{R,\delta_1}\star k_{R,\delta_2}$. Because both functions are localized on the same frequency scale and time scale, one has the stability estimate
 \[
@@ -213,6 +128,7 @@ Let $h_{R,\delta}(r):=\eta\!\big((r-R)/(\delta R^\theta)\big)$ for $1\le \delta\
 \]
 for any $A>0$. In particular, repeated application of the kernel will not smear the window beyond negligible tails, an input that will be exploited in the projector construction in Section~\ref{sec:projector}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Operator bounds in Sobolev scales}\label{subsec:sobolev}
 Let $H^s(X)$ denote the standard Sobolev spaces defined by $(1+\Lap)^{s/2}$. Since $h_R(r)$ is supported where $|r-R|\lesssim R^\theta$, functional calculus yields
 \begin{equation}\label{eq:sobolev-bound}
@@ -220,17 +136,22 @@ Let $H^s(X)$ denote the standard Sobolev spaces defined by $(1+\Lap)^{s/2}$. Sin
 \end{equation}
 uniformly in $Y=R^\beta$. In particular $K_R^Y$ is bounded on $L^2(X)$ with norm $\ll R^\theta$, and after normalization by $R^{-\theta}$ it is uniformly bounded on every $H^s$. The derivative bounds on $\chi_Y$ introduce only polynomial losses $R^{m\beta}$ that are harmless as long as $\beta<1$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Uniformity in families and dependence on geometry}\label{subsec:uniformity}
 All constants implicit in \eqref{eq:short}–\eqref{eq:sobolev-bound} may be taken polynomial in the relevant geometric data of $X$: injectivity radius away from cusps, the number of cusps, and the height parameter $Y=R^\beta$. This uniformity ultimately descends from polynomial control of: (i) the growth of the $\Gamma$-orbit in balls of radius $\rho$; (ii) the derivatives of the cutoff $\chi_Y$; and (iii) the Plancherel density $r\tanh(\pi r)$. Such polynomial dependence is essential for applications to families of congruence surfaces and to quantitative variants of the Weyl law in windows.
 
-\subsection{Notation summary for the kernel}\label{subsec:notation}
-We summarize the standing notation introduced so far for later reference:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Admissible parameters and limitations}\label{subsec:admissible}
+The localization exponents $\theta,\beta$ cannot be chosen arbitrarily. Admissibility requires:
 \begin{itemize}
-\item $R\to\infty$ is the central frequency; $0<\theta<1$ is the window exponent; $0<\beta<1$ is the cusp exponent with $Y=R^\beta$.
-\item $h_R(r)=\eta((r-R)/R^\theta)$ is the spectral test function; $\widehat{h}_R(t)=R^\theta \widehat{\eta}(tR^\theta)e^{itR}$.
-\item $k_R(\rho)$ is the inverse spherical transform with profile \eqref{eq:kR-asymp}.
-\item $K_R(z,w)=\sum_{\gamma\in\Gamma} k_R(d(z,\gamma w))$ and $K_R^Y=\chi_Y K_R \chi_Y$ is the truncated kernel.
-\item Bounds: \eqref{eq:short}, \eqref{eq:intermediate}, \eqref{eq:long} (pointwise); \eqref{eq:sobolev-bound} (Sobolev); \eqref{eq:diagonal} (almost diagonal action on cuspidal eigenfunctions).
+\item $\theta>0$ to ensure decay of $\widehat{h}_R$;  
+\item $\theta<1$ so that the window width $R^\theta$ grows sublinearly;  
+\item $\beta<1$ to guarantee polynomial control of cusp cutoffs;  
+\item $\theta+\beta<1$ to balance remainder terms.  
 \end{itemize}
+These conditions are compatible with the range needed for applications in quantum chaos and number theory.
 
-The ingredients assembled in this section form the analytic backbone for two subsequent developments. First, in Section~\ref{sec:projector} we use $K_R^Y$ to define a family of microlocal projectors adapted to the window $[R-R^\theta,R+R^\theta]$, and we prove approximate idempotence and orthogonality. Second, in Section~\ref{sec:geometric} we evaluate the trace of $K_R^Y$ on $X$ by separating the identity term, the contribution of closed geodesics, and the negligible remainder. The estimates recorded above guarantee that each term contributes on its natural scale and that all constants remain explicitly and polynomially controlled across families of surfaces.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Remarks and related work}\label{subsec:remarks}
+\begin{itemize}
+\item Our kernel contrasts with Gaussian projectors (e.g.\ in semiclassical analysis), where tails in phase space limit uniformity. Here
