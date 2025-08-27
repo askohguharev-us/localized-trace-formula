@@ -11,28 +11,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Самый надёжный экшен для LaTeX
-      - name: Build with TeX Live (scheme-full)
-        uses: xu-cheng/latex-action@v3
-        with:
-          working_directory: src
-          root_file: main.tex
-          # Ставим ПОЛНЫЙ TeX Live, чтобы не было "lmodern.sty not found" и пр.
-          extra_packages: scheme-full
-          # Оставляем pdfLaTeX (нам не нужен xelatex/luatex)
-          latexmk_use_xelatex: false
-          # Если BibTeX/Biber ругнётся — не валим сборку, дойдём до PDF
-          continue_on_error: true
+      # Ставим полную TeX Live
+      - name: Install TeX Live full
+        run: sudo apt-get update && sudo apt-get install -y texlive-full
 
-      # На всякий случай дожимаем bibtex и ещё два прохода — и не падаем
-      - name: BibTeX pass (safe)
+      # Собираем PDF (сначала pdflatex, потом bibtex, потом дважды pdflatex)
+      - name: Build PDF
+        working-directory: src
         run: |
-          cd src
-          (bibtex main || true)
-          (pdflatex -interaction=nonstopmode -file-line-error main.tex || true)
-          (pdflatex -interaction=nonstopmode -file-line-error main.tex || true)
+          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
+          bibtex main || true
+          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
+          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
 
-      # Загружаем PDF как артефакт — теперь он точно будет
+      # Загружаем PDF как артефакт
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
