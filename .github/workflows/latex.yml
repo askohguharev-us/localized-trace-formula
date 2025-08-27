@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install TeX Live (full set for fonts + bibtex/biber/tools)
+      - name: Install TeX Live + tools
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -27,12 +27,21 @@ jobs:
             lmodern \
             ghostscript
 
-      - name: Build PDF with latexmk
+      # Если ты используешь классическую схему BibTeX (\bibliographystyle + \bibliography)
+      - name: Build PDF with latexmk (BibTeX-aware)
         working-directory: src
         run: |
-          latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error main.tex
-          # bibtex/biber при необходимости подтянутся автоматически
-          latexmk -pdf main.tex
+          # 1-й прогон (с принудительным продолжением даже при ошибках)
+          latexmk -pdf -bibtex -f -interaction=nonstopmode -halt-on-error -file-line-error main.tex
+          # 2-й прогон, чтобы устаканить ссылки/кросс-рефы
+          latexmk -pdf -bibtex -f main.tex
+
+      # --- Альтернатива: если перейдёшь на biblatex/biber, поменяй верхний шаг на этот:
+      # - name: Build PDF with latexmk (Biber-aware)
+      #   working-directory: src
+      #   run: |
+      #     latexmk -pdf -pdflatex="pdflatex %O %S" -use-biber -f -interaction=nonstopmode -halt-on-error -file-line-error main.tex
+      #     latexmk -pdf -use-biber -f main.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
