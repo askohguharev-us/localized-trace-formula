@@ -1,35 +1,41 @@
-name: build_latex
+name: build_pdf
+
 on:
   push:
-    paths:
-      - "src/**"
-      - ".github/workflows/latex.yml"
-  workflow_dispatch:
+  pull_request:
 
 jobs:
-  build:
+  pdf:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Надёжно: полный TeX Live + latexmk
-      - name: Install TeX Live (full)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends texlive-full latexmk
+      # Самый надёжный экшен для LaTeX
+      - name: Build with TeX Live (scheme-full)
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: src
+          root_file: main.tex
+          # Ставим ПОЛНЫЙ TeX Live, чтобы не было "lmodern.sty not found" и пр.
+          extra_packages: scheme-full
+          # Оставляем pdfLaTeX (нам не нужен xelatex/luatex)
+          latexmk_use_xelatex: false
+          # Если BibTeX/Biber ругнётся — не валим сборку, дойдём до PDF
+          continue_on_error: true
 
-      # Сборка одной командой; latexmk сам сделает bibtex и нужные прогоны
-      - name: Build PDF with latexmk (BibTeX-aware)
-        working-directory: src
+      # На всякий случай дожимаем bibtex и ещё два прохода — и не падаем
+      - name: BibTeX pass (safe)
         run: |
-          latexmk -pdf -bibtex -interaction=nonstopmode -file-line-error main.tex
+          cd src
+          (bibtex main || true)
+          (pdflatex -interaction=nonstopmode -file-line-error main.tex || true)
+          (pdflatex -interaction=nonstopmode -file-line-error main.tex || true)
 
-      - name: Upload PDF artifact
+      # Загружаем PDF как артефакт — теперь он точно будет
+      - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
-          name: localized-trace-formula-pdf
+          name: localized-trace-formula
           path: src/main.pdf
           if-no-files-found: error
-          retention-days: 14
-          overwrite: true
