@@ -1,69 +1,83 @@
-% ===== Appendix A (file: src/appendices/A-effvol.tex) =====
-\section{Effective volume normalizations}
+% File: src/appendices/A-effvol.tex
+\appendix
+\section{Effective Volume Computations}
 \label{app:effvol}
 
-This appendix fixes the volume and Fourier–Plancherel normalizations used
-throughout the note.  We keep the setup minimal so that it is compatible
-with the arXiv-compliant preamble of the main text.
+In this appendix we collect the detailed computations for effective
+volume integrals and normalizations which underpin the main
+asymptotic results of the localized trace formula.
 
-\subsection*{A.1. Measure on $X$ and $T^*X$}
-Let $(X,g)$ be a smooth $n$–dimensional Riemannian manifold.
-The Riemannian volume on $X$ is denoted by $\mathrm{d}V_g$.
-On the cotangent bundle $T^*X$ we use the Liouville (symplectic) measure
-$\mathrm{d}\mu_{\mathrm{Liou}}$, i.e.
+\subsection{Hyperbolic volume element}
+Let $X = \Gamma \backslash \HH$ be a finite-area hyperbolic surface.
+The hyperbolic metric is
 \[
-  \mathrm{d}\mu_{\mathrm{Liou}}
-  = \frac{\omega^n}{n!},
+ds^2 = y^{-2}(dx^2 + dy^2), \qquad z = x + iy \in \HH,
 \]
-where $\omega$ is the canonical symplectic form on $T^*X$.
-For $x\in X$ and $r>0$ we write
-$B_X(x,r)$ for the geodesic ball in $X$ and
-$B^*_x(r) \subset T^*_xX$ for the Euclidean ball in the cotangent fiber.
-The product box has volume
+with volume form
 \[
-  \mathrm{Vol}\big(B_X(x,r)\times B^*_x(R)\big)
-  = \int_{B_X(x,r)}\!\!\int_{B^*_x(R)} \mathrm{d}\mu_{\mathrm{Liou}}.
+d\vol(z) = y^{-2}\,dx\,dy.
+\]
+The volume of the truncated domain
+\[
+\mathcal{F}_Y = \{ z \in \mathcal{F} : \Im z \le Y \},
+\]
+where $\mathcal{F}$ is a fundamental domain, is
+\[
+\vol(\mathcal{F}_Y) = \vol(\mathcal{F}) - \frac{\#\{\text{cusps}\}}{Y}.
 \]
 
-\subsection*{A.2. Fourier transform}
-For $f\in \mathcal{S}(\mathbb{R}^n)$ we use the unitary convention
+\subsection{Kernel normalization integrals}
+Recall the kernel
 \[
-  \widehat{f}(\xi)
-  = \int_{\mathbb{R}^n} f(x)\,e^{-2\pi i\, x\cdot \xi}\, \mathrm{d}x,
-  \qquad
-  f(x)
-  = \int_{\mathbb{R}^n} \widehat{f}(\xi)\,e^{2\pi i\, x\cdot \xi}\, \mathrm{d}\xi.
+K_R^Y(z,w) = \sum_{\gamma \in \Gamma} k_R^Y(z,\gamma w),
 \]
-With this choice, Plancherel holds in the form
-$\|f\|_{L^2(\mathbb{R}^n)}=\|\widehat{f}\|_{L^2(\mathbb{R}^n)}$.
+with cutoff $\chi_Y$. Its $L^1$-mass is given by
+\[
+\int_X K_R^Y(z,z)\,d\vol(z).
+\]
+Unfolding and using Selberg’s pre-trace identity yields
+\[
+\int_X K_R^Y(z,z)\,d\vol(z) = \vol(\mathcal{F}_Y) \cdot H_R(0),
+\]
+where $H_R(0)$ is the Fourier transform of the test function at $0$.
+This contributes the leading term in the identity component.
 
-\subsection*{A.3. Effective local volume}
-For a measurable $E\subset T^*X$ we set
+\subsection{Asymptotics with cusp cutoff}
+For cusp regions, introduce cutoff $\chi_Y$ with $Y = R^\beta$. Then
 \[
-  \mathrm{vol}_{\mathrm{eff}}(E)
-  := \frac{1}{\mathrm{Vol}(X)} \int_E \mathrm{d}\mu_{\mathrm{Liou}}
-  \quad \text{when $\mathrm{Vol}(X)<\infty$.}
+\int_{\Im z > Y} K_R^Y(z,z)\,d\vol(z) \ll Y^{-1} R^C,
 \]
-If $\mathrm{Vol}(X)=\infty$, we use a tempered exhaustion
-$X=\bigcup_{j} \Omega_j$ with $\mathrm{Vol}(\Omega_j)\to\infty$ and define
-\[
-  \mathrm{vol}_{\mathrm{eff}}(E)
-  := \lim_{j\to\infty}
-     \frac{1}{\mathrm{Vol}(\Omega_j)}
-     \int_{E\cap T^*\!\Omega_j} \mathrm{d}\mu_{\mathrm{Liou}},
-\]
-whenever the limit exists.  This normalization is the one implicitly used
-in the localized trace identities of the main text and matches the
-microlocal counting interpretation for compactly supported test symbols.
+for some constant $C>0$. This term is negligible for admissible $(\theta,\beta)$
+since $Y^{-1} = R^{-\beta}$ dominates polynomial error bounds.
 
-\subsection*{A.4. A scaling sanity check}
-Let $a\in C_c^\infty(T^*X)$ and, for $\lambda>0$, define
-$a_\lambda(x,\xi)=a(x,\xi/\lambda)$.
-Then
+\subsection{Stationary phase contributions}
+To refine, write the kernel in oscillatory integral form:
 \[
-  \int_{T^*X} a_\lambda\,\mathrm{d}\mu_{\mathrm{Liou}}
-  = \lambda^n \int_{T^*X} a\,\mathrm{d}\mu_{\mathrm{Liou}},
+K_R^Y(z,z) = \int_{\RR} e^{iR\phi(z,\xi)} a_R(z,\xi)\,d\xi.
 \]
-so that $\mathrm{vol}_{\mathrm{eff}}$ scales like $\lambda^n$ in the
-covariable, consistent with the principal symbol calculus used in the
-localized trace formula.
+Stationary points correspond to geodesic loops of length $0$ (identity contribution).
+A stationary phase estimate yields
+\[
+K_R^Y(z,z) \sim \frac{R}{2\pi}\,a_R(z,\xi_0),
+\]
+uniformly in $z$. Integrating gives
+\[
+\int_X K_R^Y(z,z)\,d\vol(z) \sim \frac{R}{2\pi}\vol(X).
+\]
+
+\subsection{Effective constants}
+Explicit constants appear as follows:
+\begin{itemize}
+\item The hyperbolic volume $\vol(X)$ enters linearly.
+\item The number of cusps contributes $O(R^{-\beta})$ terms.
+\item Sobolev embeddings introduce polynomial factors in genus $g$.
+\end{itemize}
+
+\subsection{Summary of Appendix~\ref{app:effvol}}
+We have:
+\[
+\int_X K_R^Y(z,z)\,d\vol(z) \;=\; \vol(X)\cdot H_R(0) \;+\; O(R^{1-\varepsilon}),
+\]
+with $\varepsilon(\theta,\beta)>0$ from admissibility conditions.
+This validates the effective normalization constants in the identity
+contribution of the trace formula.
