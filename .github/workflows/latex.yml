@@ -9,19 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install TeX Live (minimal + needed pkgs)
+      - name: Install full TeX Live (+latexmk)
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            texlive-base texlive-latex-base texlive-latex-recommended \
-            texlive-latex-extra texlive-fonts-recommended \
-            texlive-binaries texlive-science texlive-bibtex-extra \
-            latexmk ghostscript
+          sudo apt-get install -y --no-install-recommends texlive-full latexmk
 
       - name: Build (pdflatex → bibtex → pdflatex ×2)
         working-directory: src
