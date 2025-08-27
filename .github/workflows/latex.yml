@@ -1,18 +1,27 @@
 name: Build LaTeX PDF
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
 
 jobs:
-  build:
+  build_latex:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install TeX Live
-        run: sudo apt-get update && sudo apt-get install -y texlive-full latexmk
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended latexmk
+
       - name: Build PDF
-        run: latexmk -pdf -output-directory=build src/main.tex
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        run: |
+          cd src
+          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
         with:
           name: paper
-          path: build/main.pdf
+          path: src/main.pdf
