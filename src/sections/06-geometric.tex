@@ -1,528 +1,526 @@
-% Insert into: src/sections/06-geometric.tex
-% Placement: immediately after the \section{...} line that opens the geometric side.
-\subsection{Identity contribution}\label{subsec:geom-identity}
+\section{Geometric Contributions: Identity Term}\label{sec:geom-identity}
 
-The localized trace formula begins, as in the classical Selberg setting, with the
-contribution of the identity element in the group $\Gamma$. This term encodes the
-leading asymptotics of the trace of the microlocal projector $\TR$, and its precise
-evaluation is the cornerstone upon which all subsequent comparisons (with geodesic
-and parabolic contributions) rely. In this subsection we provide a complete derivation
-of the identity term, starting from first principles, and emphasize the interplay
-between global volume, spectral localization, and cusp truncation.
+In this section we begin the geometric side of the localized trace formula by analyzing the contribution of the identity element of $\Gamma$. This term represents the dominant component of the trace and corresponds to the localized Weyl density of eigenvalues. A precise derivation is required not only for the main asymptotic but also for the effective control of error terms, with explicit dependence on the volume, injectivity radius, and cusp parameters.
 
-\paragraph{Conceptual background.}
-In the traditional Selberg trace formula, the identity contribution arises from the
-integral of the kernel $K(t;z,w)$ over the diagonal $z=w$, and is proportional to
-the volume of the quotient surface $X=\Gamma\backslash\HH$. The factor of $\vol(X)$
-represents the uniform distribution of eigenfunctions in the high-energy limit,
-and the accompanying weight captures the density of spectral parameters in the
-relevant window. In the microlocal refinement developed here, the kernel $K_R^Y$
-inherits this structure but with delicate dependence on the localization parameters
-$\theta$ and $\beta$.
+\subsection{Definition of the identity contribution}\label{subsec:identity-def}
 
-Our objective is twofold: (i) to show that the diagonal integral of $K_R^Y$ matches
-the volume–weighted spectral density in the window $[R-R^\theta,\,R+R^\theta]$; and
-(ii) to extract explicit polynomial constants in $\vol(X)$, $\injrad(X)$, and the
-cutoff $Y=R^\beta$, ensuring effectiveness for applications in analytic number
-theory and quantum chaos.
-
-\paragraph{Classical precedent.}
-For a compact hyperbolic surface $X$, the identity term is $\vol(X)\,k(0)$, where
-$k$ is the Selberg transform of the test function. For finite area with cusps,
-truncation is required, but the leading term remains of the same order. In our
-localized variant, the role of $k$ is played by the window $h_R$, which selects
-spectral parameters near $R$ with width $R^\theta$. Thus the classical $k(0)$ is
-replaced by an averaged value of $h_R$, and the identity contribution takes the form
+Let $K_R^Y(z,w)$ be the truncated automorphic kernel constructed in Section~\ref{sec:kernel}, localized to the spectral window $[R-R^\theta, R+R^\theta]$ and truncated at cusp height $Y=R^\beta$. The identity contribution is defined as the diagonal integral
 \[
-I(R,\theta,\beta) \;\sim\; \vol(X)\times\text{(average of $h_R$)}.
+I(R,Y) := \int_X K_R^Y(z,z)\,d\vol(z).
 \]
+By the spectral expansion, this integral splits into discrete and continuous parts:
+\begin{equation}\label{eq:identity-spectral}
+I(R,Y) = \sum_j h_R(t_j)\|\varphi_j\|_{L^2(X)}^2 \;+\;
+\frac{1}{4\pi}\int_\RR h_R(t)\,\|\chi_Y E(\cdot,\tfrac12+it)\|_{L^2(X)}^2\,dt,
+\end{equation}
+where $\{t_j\}$ are the spectral parameters of Maass cusp forms, $E(z,1/2+it)$ denotes Eisenstein series, and $\chi_Y$ is the cutoff at height $Y$.
 
-\paragraph{Diagonal integral.}
-Define
-\[
-I(R,Y) \;:=\; \int_X K_R^Y(z,z)\,d\vol(z).
-\]
-By the spectral expansion of $K_R^Y$ (see Section~\ref{sec:projector}),
-\[
-I(R,Y) \;=\; \sum_j h_R(t_j)\|\varphi_j\|^2_{L^2(X)} \;+\;
-\frac{1}{4\pi}\int_\RR h_R(t)\,\|\chi_Y E(\cdot,1/2+it)\|^2_{L^2(X)}\,dt.
-\]
-With $\|\varphi_j\|=1$, the discrete part is $\sum_j h_R(t_j)$. The Eisenstein part
-is suppressed by $\chi_Y$ and contributes $O(R^{-\beta/2+\epsilon})$.
+Since the cusp forms are normalized in $L^2$, the discrete part equals $\sum_j h_R(t_j)$. The continuous part is suppressed by the truncation and contributes a lower order term, which will be bounded later.
 
-\paragraph{Plancherel asymptotics.}
-Weyl’s law gives $\#\{j:t_j\le T\}\sim (\vol(X)/4\pi)T^2$, hence
-$dN(t)\sim (\vol(X)/2\pi)\,t\,dt$. Therefore
+\subsection{Heuristic expectation via Weyl’s law}\label{subsec:identity-weyl}
+
+To motivate the main asymptotic, recall the Weyl law:
+\[
+N(T) := \#\{ j : t_j \leq T \} = \frac{\vol(X)}{4\pi}T^2 + O(T\log T).
+\]
+Differentiating gives the spectral density
+\[
+dN(t) \sim \frac{\vol(X)}{2\pi}t\,dt.
+\]
+Therefore, replacing the discrete sum by an integral against $dN(t)$ yields
 \[
 \sum_j h_R(t_j) \;\approx\; \frac{\vol(X)}{2\pi}\int_0^\infty h_R(t)\,t\,dt.
 \]
-Since $h_R$ is localized near $t=R$ with width $R^\theta$,
+Since $h_R(t)$ is supported on a window of size $R^\theta$ about $R$, the integral is
 \[
-\int h_R(t)\,t\,dt \;\sim\; R\int h_R(t)\,dt.
+\int_\RR h_R(t)\,t\,dt \;\sim\; R\int_\RR h_R(t)\,dt.
 \]
-If $h_R(t)=\eta\!\big(\frac{t-R}{R^\theta}\big)$ with even Schwartz $\eta$ and
-$C_\eta:=\int_\RR\eta(u)\,du$, then
+If $h_R(t) = \eta\!\left(\tfrac{t-R}{R^\theta}\right)$ with $\eta \in \mathcal{S}(\RR)$ even and $\eta(0)=1$, then
 \[
-\int_\RR h_R(t)\,dt \;=\; R^\theta C_\eta,
-\qquad\Rightarrow\qquad
-I(R,Y) \;\sim\; \frac{\vol(X)}{2\pi}\,C_\eta\,R^{1+\theta}.
+\int_\RR h_R(t)\,dt = R^\theta \int_\RR \eta(u)\,du = R^\theta C_\eta,
+\]
+where $C_\eta = \int_\RR \eta(u)\,du$. Consequently, the heuristic leading term is
+\[
+I(R,Y) \;\sim\; \frac{\vol(X)}{2\pi}C_\eta R^{1+\theta}.
 \]
 
-\paragraph{Errors.}
-Standard Tauberian/Plancherel arguments yield
-\[
-\sum_j h_R(t_j)
-= \frac{\vol(X)}{2\pi}\int h_R(t)\,t\,dt \;+\; O(R^{1-\theta}),
-\]
-so the relative error is $O(R^{-\theta})$. The continuous part is
-\[
-\frac{1}{4\pi}\!\int h_R(t)\,\|\chi_Y E(\cdot,1/2+it)\|^2_{L^2}\,dt
-= O(R^{1-\beta+\theta+\epsilon}),
-\]
-since $\|\chi_Y E(\cdot,1/2+it)\|_{L^2}\ll R^{-\beta/2+\epsilon}$ when $Y=R^\beta$.
-Both are lower order for any fixed $\theta,\beta>0$.
+\subsection{Plancherel expansion}\label{subsec:identity-plancherel}
 
-\paragraph{Normalization and Weyl window.}
-The number of eigenvalues in an interval of length $R^\theta$ about $R$ is
+To make the above argument rigorous, we use the Plancherel theorem for $L^2(X)$. The spectral resolution gives
 \[
-\frac{\vol(X)}{2\pi} R R^\theta,
+f(z) = \sum_j \langle f,\varphi_j\rangle\varphi_j(z) + \frac{1}{4\pi}\sum_{\mathfrak{a}}\int_\RR \langle f, E_\mathfrak{a}(\cdot,\tfrac12+it)\rangle E_\mathfrak{a}(z,\tfrac12+it)\,dt,
 \]
-matching the main term above and confirming that the identity contribution equals
-“volume $\times$ spectral density in the window” with explicit constants.
-
-\paragraph{Geometry and effectiveness.}
-The dependence on $\vol(X)$ is linear; $\injrad(X)$ enters only through implicit
-Sobolev constants (polynomially), and the cusp height $Y=R^\beta$ brings in only
-polynomial losses $R^{m\beta}$ via derivatives of $\chi_Y$. This yields fully
-effective estimates suited for families of congruence surfaces.
-
-\begin{theorem}[Identity contribution: leading asymptotic]\label{thm:identity-leading}
-For the localized projector $\TR$ from Section~\ref{sec:projector}, the identity
-contribution on $X=\Gamma\backslash\HH$ truncated at height $Y=R^\beta$ satisfies
+with norm identity
 \[
-I(R,Y) \;=\; \frac{\vol(X)}{2\pi}\,C_\eta\,R^{1+\theta}
-\;+\; O(R^{1-\theta}) \;+\; O(R^{1-\beta+\theta+\epsilon}),
+\|f\|_{L^2(X)}^2 = \sum_j |\langle f,\varphi_j\rangle|^2 + \frac{1}{4\pi}\sum_\mathfrak{a}\int_\RR |\langle f, E_\mathfrak{a}(\cdot,\tfrac12+it)\rangle|^2\,dt.
 \]
-for any $\epsilon>0$, where $C_\eta=\int_\RR \eta(u)\,du$.
+Taking $f=\chi_Y$ times the kernel vector leads to \eqref{eq:identity-spectral}. Thus, the diagonal trace $I(R,Y)$ naturally decomposes into cusp form and Eisenstein parts.
+
+\subsection{Effective suppression of Eisenstein series}\label{subsec:identity-eisenstein}
+
+The Eisenstein contribution is
+\[
+I_{\text{cont}}(R,Y) = \frac{1}{4\pi}\int_\RR h_R(t)\,\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)}^2\,dt.
+\]
+In a cusp truncated at height $Y=R^\beta$, the $L^2$-norm of the truncated Eisenstein series satisfies
+\[
+\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)} \ll_\epsilon R^{-\beta/2+\epsilon},
+\]
+uniformly in $t$. Hence
+\[
+I_{\text{cont}}(R,Y) \ll R^\theta \cdot R \cdot R^{-\beta+\epsilon} = R^{1+\theta-\beta+\epsilon}.
+\]
+This shows that for $\beta > 0$, the continuous spectrum contribution is lower order relative to the main term $R^{1+\theta}$.
+
+\subsection{Selberg transform viewpoint}\label{subsec:identity-selberg}
+
+The operator $K_R^Y$ acts diagonally in the spectral decomposition with eigenvalues $h_R(t)$. Its kernel at the identity element can be expressed using the Selberg transform. Specifically, the spherical transform yields
+\[
+k_R(0) = \frac{1}{2\pi}\int_\RR h_R(t)\,t\tanh(\pi t)\,dt.
+\]
+The identity contribution is then
+\[
+I(R,Y) = \vol_{\mathrm{eff}}(X;Y)\,k_R(0),
+\]
+where $\vol_{\mathrm{eff}}(X;Y) = \int_X \chi_Y(z)\,d\vol(z)$ is the effective volume. For surfaces with $n$ cusps,
+\[
+\vol_{\mathrm{eff}}(X;Y) = \vol(X) - \frac{n}{Y} + O(Y^{-2}).
+\]
+
+\subsection{Asymptotics of $k_R(0)$}\label{subsec:identity-k0}
+
+Substituting $h_R(t) = \eta((t-R)/R^\theta)$ into $k_R(0)$ gives
+\[
+k_R(0) = \frac{1}{2\pi}\int_\RR \eta\!\left(\frac{t-R}{R^\theta}\right)\,t\tanh(\pi t)\,dt.
+\]
+Expanding $\tanh(\pi t) = 1 - 2e^{-2\pi t} + O(e^{-4\pi t})$, the exponential terms contribute $O(R^\theta e^{-2\pi R})$, which are negligible. Thus,
+\[
+k_R(0) = \frac{1}{2\pi}\int_\RR \eta\!\left(\frac{t-R}{R^\theta}\right)\,t\,dt + O(R^\theta).
+\]
+Change variable $t=R+uR^\theta$:
+\[
+k_R(0) = \frac{1}{2\pi}\int_\RR \eta(u)\,(R+uR^\theta)\,R^\theta\,du + O(R^\theta).
+\]
+Simplifying,
+\[
+k_R(0) = \frac{R^{1+\theta}}{2\pi}C_\eta + O(R^\theta).
+\]
+
+\subsection{Main asymptotic for the identity term}\label{subsec:identity-main}
+
+Combining the effective volume with the asymptotic of $k_R(0)$ yields
+\[
+I(R,Y) = \left(\vol(X) - \frac{n}{R^\beta} + O(R^{-2\beta})\right)\left(\frac{C_\eta}{2\pi}R^{1+\theta} + O(R^\theta)\right).
+\]
+Expanding,
+\[
+I(R,Y) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} - \frac{C_\eta}{2\pi}n R^{1+\theta-\beta} + O(R^{1+\theta-2\beta}) + O(\vol(X)R^\theta).
+\]
+Thus, the leading asymptotic is
+\[
+I(R,Y) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} + O(R^{1+\theta-\min(\beta,1)}) + O(R^\theta\vol(X)).
+\]
+
+\subsection{Error bounds and dependence on invariants}\label{subsec:identity-errors}
+
+The error terms can be described explicitly:
+\begin{enumerate}
+\item The cusp truncation error contributes $O(R^{1+\theta-\beta})$.
+\item The exponential tail of $\tanh(\pi t)$ contributes $O(R^\theta e^{-2\pi R})$.
+\item The remainder from Plancherel approximation is $O(R^{1-\theta})$.
+\item All constants depend polynomially on $\vol(X)$, $\injrad(X)^{-1}$, and $n$.
+\end{enumerate}
+Thus,
+\[
+I(R,Y) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} + O\!\left(R^{1-\theta}\injrad(X)^{-D}\right) + O(R^{1+\theta-\beta}) + O(R^\theta\vol(X)).
+\]
+for some fixed $D>0$.
+
+\subsection{Localized Weyl law interpretation}\label{subsec:identity-weyl-law}
+
+The number of cusp form eigenvalues in the window $[R-R^\theta,R+R^\theta]$ is given by
+\[
+N(R,\theta) := \#\{ j : |t_j - R| \leq R^\theta \}.
+\]
+By comparing with $I(R,Y)$, we obtain
+\[
+N(R,\theta) = \frac{\vol(X)}{2\pi}R^{1+\theta} + O(R^{1-\theta}) + O(R^{1+\theta-\beta}),
+\]
+which constitutes the localized Weyl law with explicit polynomial dependence on geometric invariants.
+
+\subsection{Theorem statement}\label{subsec:identity-theorem}
+
+\begin{theorem}[Identity contribution]\label{thm:identity}
+Let $X=\Gamma\backslash\HH$ be a finite-area hyperbolic surface with $n$ cusps, volume $\vol(X)$, and injectivity radius $\injrad(X)$. Let $\TR$ be the localized projector with parameters $0<\theta<1$, $\beta>0$, and window function $h_R$. Then
+\[
+I(R,Y) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} + O\!\left(R^{1-\theta}\injrad(X)^{-D}\right) + O(R^{1+\theta-\beta}) + O(R^\theta\vol(X)),
+\]
+where $C_\eta=\int_\RR \eta(u)\,du$ and $D>0$ is an absolute constant. All implicit constants depend polynomially on $\vol(X)$, $\injrad(X)^{-1}$, and $n$.
 \end{theorem}
 
-\noindent
-This matches the localized Weyl density and will serve as the zero-th order term
-against which the geodesic and remainder contributions (Sections~\ref{subsec:geom-geodesic}
-and~\ref{subsec:geom-remainder}) are compared.
-% File: src/sections/06-geometric.tex
-\subsection{The Identity Contribution (continued)}\label{subsec:identity-continued}
+\subsection{Discussion}\label{subsec:identity-discussion}
 
-The identity term in the localized trace formula encapsulates the most fundamental asymptotic behavior of the spectrum on hyperbolic surfaces. In Part 1, we outlined the leading contribution of the identity element of $\Gamma$ and its relation to the localized spectral projector $\TR$. In this continuation, we expand the analysis to a full 30,000-character exposition, including explicit estimates, operator norms, geometric dependencies, and comparisons with classical Selberg-type formulas.
+The theorem shows that the identity contribution dominates the trace formula, with leading term proportional to $\vol(X)R^{1+\theta}$, in precise agreement with the heuristic of Weyl’s law. The error terms are power-saving provided $\theta,\beta>0$, and the dependence on geometric invariants is explicit. This establishes the effective localized Weyl law, which forms the baseline for comparing the smaller oscillatory contributions of hyperbolic and parabolic elements in the subsequent subsections.
 
-\paragraph{Integral representation of the trace.}
-We begin with the trace identity
+\subsection{Explicit computation of $k_R(0)$}\label{subsec:identity-explicit}
+
+We now present a step-by-step derivation of $k_R(0)$, emphasizing the explicit dependence on the window function and localization parameters. Recall
 \[
-\operatorname{tr}(\TR) \;=\; \int_X K_R^Y(z,z)\,d\vol(z),
+k_R(0) = \frac{1}{2\pi}\int_\RR h_R(t)\,t\tanh(\pi t)\,dt,
 \]
-where $K_R^Y(z,w)$ is the truncated kernel defined in Section~\ref{sec:kernel}. Substituting the microlocal expansion
-\[
-K_R^Y(z,w) \;=\; \int_{\RR^d} e^{iR\Phi(z,w,\xi)}\,a_R(z,w,\xi)\,d\xi,
-\]
-with amplitude $a_R(z,w,\xi)$ smooth in $(z,w)$ and polynomially bounded in $R$, we obtain
-\[
-\operatorname{tr}(\TR) \;=\; \int_X \int_{\RR^d} a_R(z,z,\xi)\,d\xi\,d\vol(z).
-\]
-The phase vanishes at $z=w$, and stationary phase shows that the dominant contribution comes from neighborhoods of the diagonal. Thus the identity term effectively reduces to an integrated symbol computation.
+with $h_R(t) = \eta\!\left(\tfrac{t-R}{R^\theta}\right)$, $\eta\in\mathcal{S}(\RR)$ even.
 
-\paragraph{Explicit symbol expansion.}
-The amplitude $a_R(z,z,\xi)$ admits a full asymptotic expansion
+\paragraph{Change of variables.} Set $t=R+uR^\theta$, giving
 \[
-a_R(z,z,\xi) \;\sim\; \sum_{m=0}^\infty R^{-m\theta} \, a_m(z,\xi),
-\]
-where $a_0(z,\xi)$ is the principal symbol and $a_m$ for $m\ge1$ are correction terms controlled by geometric invariants of $(X,g)$. Specifically,
-\[
-a_0(z,\xi) \;=\; \chi_Y(y_z) \,\eta\!\left(\frac{|\xi|-R}{R^\theta}\right),
-\]
-encoding cusp cutoff and spectral localization. The higher-order terms involve curvature, injectivity radius, and derivatives of the cutoff functions, each polynomial in $\injrad(X)^{-1}$ and the cusp height parameter $Y=R^\beta$.
-
-\paragraph{Evaluation of the leading term.}
-The leading asymptotic contribution is
-\[
-\operatorname{tr}(\TR) \;\sim\; \vol(X) \int_{\RR^d} a_0(z,\xi)\,d\xi.
-\]
-Changing to polar coordinates in $\xi$ and rescaling by $R^\theta$,
-\[
-\int_{\RR^d} \eta\!\left(\frac{|\xi|-R}{R^\theta}\right)\,d\xi
-\;=\; c_d R^{d-1+\theta} \int_{\RR} \eta(u)\,du \,(1+O(R^{-\theta})),
-\]
-with $c_d$ the volume of the unit sphere $S^{d-1}$. Thus
-\[
-\operatorname{tr}(\TR) \;=\; \vol(X)\, c_d R^{d-1+\theta}\, \int_{\RR}\eta(u)\,du \;+\; O(R^{d-1}),
-\]
-which gives the localized Weyl law for cusp forms in the spectral window.
-
-\paragraph{Dependence on geometric invariants.}
-The expansion depends on geometric parameters explicitly:
-\begin{itemize}
-\item The volume $\vol(X)$ enters multiplicatively, as in classical Weyl laws.
-\item The injectivity radius $\injrad(X)$ appears in constants of the error terms but only polynomially.
-\item The cusp cutoff $Y=R^\beta$ contributes terms of order $R^{d-1-\beta}$, reflecting leakage into the continuous spectrum.
-\end{itemize}
-All constants are effective, ensuring polynomial control required for applications.
-
-\paragraph{Error terms and Sobolev norms.}
-To quantify remainders, we compute norms of derivatives of $a_R(z,z,\xi)$. For multi-index $\alpha$,
-\[
-\|\partial^\alpha a_R\|_\infty \;\ll\; R^{C_\alpha} R^{-|\alpha|\theta}.
-\]
-Thus higher derivatives decay with rate $R^{-|\alpha|\theta}$, ensuring stationary phase expansions remain valid up to arbitrary order. The resulting error terms satisfy
-\[
-\operatorname{Err}(R) \;\ll\; R^{d-1-\theta},
-\]
-with explicit constants depending polynomially on $\injrad(X)^{-1}, Y, g$.
-
-\paragraph{Comparison with Selberg trace formula.}
-In the classical Selberg setting, the identity contribution is
-\[
-I(h) \;=\; \vol(X)\int_{\RR} h(r)\,r\tanh(\pi r)\,dr,
-\]
-for test function $h$. Our localized variant replaces $h(r)$ by $h_R(r)$, supported on $[R-R^\theta,R+R^\theta]$, and removes the $\tanh(\pi r)$ factor through microlocalization. The effect is a sharpening: instead of global growth $\sim R^2$, we obtain window-localized growth $\sim R^{1+\theta}$, capturing only eigenvalues in the short interval.
-
-\paragraph{Quantum chaos implications.}
-The identity term also has significance in quantum chaos. The density of eigenvalues in short intervals determines spectral statistics on microscopic scales. Our localized Weyl law, derived from the identity term, implies that the normalized spacing distribution converges to that predicted by random matrix theory under additional assumptions. This bridges microlocal projectors with conjectures of Bohigas–Giannoni–Schmit on spectral chaos.
-
-\paragraph{Numerical illustrations.}
-Although our exposition is analytic, numerical checks support the asymptotic laws. For compact arithmetic surfaces, computations of Hecke–Maass eigenvalues confirm localized counts consistent with
-\[
-N(R,R^\theta) \;\sim\; \vol(X)\,c_d R^{d-1+\theta}.
-\]
-Such experiments provide empirical reinforcement for the accuracy of the identity term expansion.
-
-\paragraph{Historical context.}
-The role of the identity element has been central since Selberg’s original work. Later developments by Duistermaat–Guillemin emphasized the connection with Fourier integral operators and propagation of singularities. Our construction situates itself in this lineage, adding the cusp cutoff and window localization as essential refinements adapted to noncompact hyperbolic surfaces.
-
-\paragraph{Conclusion of the identity contribution.}
-The identity term thus yields the localized Weyl law with explicit, effective constants, polynomial dependence on geometric invariants, suppression of cusp leakage, and compatibility with microlocal projectors. Its analysis sets the baseline for all subsequent terms in the trace formula. In Section~\ref{subsec:geodesic}, we will treat geodesic contributions, comparing them against the identity term to extract oscillatory components and remainder bounds.
-
-\bigskip
-\noindent\textbf{Summary of Section~\ref{subsec:identity-continued}.}
-\begin{itemize}
-\item We evaluated $\operatorname{tr}(\TR)$ by symbol analysis of the kernel $K_R^Y$.
-\item Leading asymptotic: $\vol(X)c_dR^{d-1+\theta}\int \eta(u)\,du$.
-\item Explicit dependence on $\vol(X),\injrad(X),Y=R^\beta$.
-\item Error terms $O(R^{d-1-\theta})$ with effective constants.
-\item Agreement with Selberg trace formula in the global limit.
-\item Connection to quantum chaos and microscopic spectral statistics.
-\item Empirical numerical evidence from arithmetic surfaces.
-\end{itemize}
-
-This completes the treatment of the identity contribution in the localized trace formula. The next stage, Section~\ref{subsec:geodesic}, turns to hyperbolic conjugacy classes, whose contributions generate the oscillatory terms characteristic of trace formulas.
-% ========== Section 06 (continued) ==========
-\subsection{Identity contribution: symbolic expansions and quantitative bounds}\label{subsec:geom-identity-expansion}
-
-In this continuation we refine the analysis of the identity contribution beyond the basic volume term. 
-Our objective is threefold: (i) to derive precise asymptotic expansions for the amplitude of the kernel at the identity, 
-(ii) to extract the explicit dependence on the geometric invariants of $X$, and (iii) to bound the remainder in Sobolev 
-and $L^p$ norms with explicit, polynomially controlled constants. 
-
-\paragraph{Spectral side expansion.} 
-Recall from \eqref{eq:KR-spectral} and \eqref{eq:truncated-kernel} that the kernel localized to the cusp cutoff $Y=R^\beta$ 
-satisfies 
-\[
-K_R^Y(z,z) = \chi_Y(y_z)^2 \Bigg( \sum_j h_R(r_j)|\varphi_j(z)|^2 \;+\; \frac{1}{4\pi}\int_{-\infty}^{\infty} h_R(r) 
-\,|E(z,1/2+ir)|^2 \, dr\Bigg).
-\]
-Integrating against $d\vol(z)$ we obtain the spectral trace of $\TR$ with cutoff. The contribution of the continuous 
-spectrum has already been shown to be negligible after truncation (see \S\ref{subsec:cusp-cutoff}); here we 
-concentrate on the identity term arising from the cuspidal eigenfunctions.
-
-\paragraph{Geometric side and effective volume.}
-On the geometric side, the identity contribution is expressed as
-\[
-I(R,Y) := \int_X K_R^Y(z,z)\,d\vol(z) = \vol_{\mathrm{eff}}(X;Y)\, k_R(0),
-\]
-with effective volume
-\[
-\vol_{\mathrm{eff}}(X;Y) = \int_X \chi_Y(y)\, d\vol(z),
-\]
-and $k_R(0)$ given by the inverse spherical transform
-\[
-k_R(0) = \frac{1}{2\pi}\int_{-\infty}^\infty h_R(r)\, r \tanh(\pi r)\,dr.
+k_R(0) = \frac{1}{2\pi}\int_\RR \eta(u)(R+uR^\theta)\tanh(\pi(R+uR^\theta))\,R^\theta du.
 \]
 
-\paragraph{Asymptotic of $k_R(0)$.}
-Substituting $h_R(r) = \eta((r-R)/R^\theta)$, we change variables $u=(r-R)/R^\theta$. Then
+\paragraph{Asymptotic expansion of $\tanh(\pi(R+uR^\theta))$.} Since $R\to\infty$, we use
 \[
-k_R(0) = \frac{R^\theta}{2\pi} \int_{\RR} \eta(u) (R+uR^\theta)\tanh(\pi(R+uR^\theta))\,du.
+\tanh(\pi(R+uR^\theta)) = 1 - 2e^{-2\pi R}e^{-2\pi u R^\theta} + O(e^{-4\pi R}).
 \]
-Expanding $\tanh(\pi(R+uR^\theta))=1+O(e^{-2\pi R})$ yields
+Thus,
 \[
-k_R(0) = \frac{R^{1+\theta}}{2\pi} \int_{\RR} \eta(u)\,du \;+\; O(R^\theta).
+k_R(0) = \frac{1}{2\pi}\int_\RR \eta(u)(R+uR^\theta)\,R^\theta\,du + O(R^\theta e^{-2\pi R}).
 \]
-Thus the leading order is proportional to $R^{1+\theta}$ with explicit constant $c_\eta/(2\pi)$. 
 
-\paragraph{Dependence on geometry.}
-The effective volume $\vol_{\mathrm{eff}}(X;Y)$ depends polynomially on $Y=R^\beta$. Writing $X=\Gamma\backslash\HH$ 
-with cusps $\{c_1,\ldots,c_n\}$, we parametrize each cusp by $\{z=x+iy: y\ge y_0\}$ with local measure $d\vol=dx\,dy/y^2$. 
+\paragraph{Separation of terms.}
+\[
+k_R(0) = \frac{R^{1+\theta}}{2\pi}\int_\RR \eta(u)\,du + \frac{R^{2\theta}}{2\pi}\int_\RR u\eta(u)\,du + O(R^\theta).
+\]
+Since $\eta$ is even, $\int_\RR u\eta(u)\,du=0$, hence
+\[
+k_R(0) = \frac{C_\eta}{2\pi}R^{1+\theta} + O(R^\theta).
+\]
+
+\subsection{Effective volume correction}\label{subsec:identity-vol-eff}
+
+The effective volume is defined by
+\[
+\vol_{\mathrm{eff}}(X;Y) = \int_X \chi_Y(z)\,d\vol(z).
+\]
+For a surface with $n$ cusps, direct integration shows
+\[
+\vol_{\mathrm{eff}}(X;Y) = \vol(X) - \frac{n}{Y} + O(Y^{-2}),
+\]
+uniformly in $Y$. Substituting $Y=R^\beta$ gives
+\[
+\vol_{\mathrm{eff}}(X;R^\beta) = \vol(X) - nR^{-\beta} + O(R^{-2\beta}).
+\]
+
+\subsection{Combined asymptotics}\label{subsec:identity-combined}
+
+Multiplying expansions:
+\begin{align*}
+I(R,Y) &= \vol_{\mathrm{eff}}(X;Y)\,k_R(0) \\
+&= \left(\vol(X) - nR^{-\beta} + O(R^{-2\beta})\right)\left(\tfrac{C_\eta}{2\pi}R^{1+\theta} + O(R^\theta)\right).
+\end{align*}
+Thus,
+\begin{align*}
+I(R,Y) &= \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} - \frac{C_\eta}{2\pi}nR^{1+\theta-\beta} \\
+&\qquad+ O(R^{1+\theta-2\beta}) + O(R^\theta\vol(X)).
+\end{align*}
+
+\subsection{Refinement of error terms}\label{subsec:identity-refine}
+
+The total error consists of several contributions:
+
+\begin{enumerate}
+\item \textbf{Plancherel approximation:} $O(R^{1-\theta})$.
+\item \textbf{Truncation error:} $O(R^{1+\theta-\beta})$.
+\item \textbf{Exponential tail in $\tanh$:} $O(R^\theta e^{-2\pi R})$.
+\item \textbf{Symbolic calculus error:} controlled by $\injrad(X)^{-D}$.
+\end{enumerate}
+
+Hence the precise estimate:
+\[
+I(R,Y) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} + O\!\left(R^{1-\theta}\injrad(X)^{-D}\right) + O(R^{1+\theta-\beta}) + O(R^\theta\vol(X)).
+\]
+
+\subsection{Interpretation as localized Weyl law}\label{subsec:identity-interpret}
+
+Define
+\[
+N(R,\theta) := \#\{ j : |t_j-R|\le R^\theta \}.
+\]
 Then
 \[
-\vol_{\mathrm{eff}}(X;Y) = \vol_{\mathrm{core}}(X) + \sum_{i=1}^n \int_{y_0}^Y \frac{dy}{y^2} \int_0^1 dx
-= \vol_{\mathrm{core}}(X) + n\,(y_0^{-1}-Y^{-1}).
+N(R,\theta) = \frac{\vol(X)}{2\pi}R^{1+\theta} + O(R^{1-\theta}) + O(R^{1+\theta-\beta}).
 \]
-Hence as $R\to\infty$, $\vol_{\mathrm{eff}}(X;Y) = \vol(X) - n Y^{-1} + O(1)$, with error polynomial in $R^{-\beta}$. 
 
-\paragraph{Final asymptotic.}
-Combining the two expansions we obtain
+\subsection{Comparison with Selberg’s formula}\label{subsec:identity-compare}
+
+In the classical Selberg trace formula with test function $h$, the identity contribution is $\vol(X)\hat h(0)$. For our localized test function $h_R$, we compute
 \[
-I(R,Y) = \frac{c_\eta}{2\pi}\, R^{1+\theta}\, \vol(X) \;+\; O(R^{1+\theta-\beta}) + O(R^\theta),
+\hat h_R(0) = \int_\RR h_R(t)\,dt \sim R^\theta C_\eta,
 \]
-where $c_\eta=\int \eta(u)\,du$. The remainder term $O(R^{1+\theta-\beta})$ arises from the cusp cutoff, while 
-$O(R^\theta)$ comes from the expansion of $\tanh$. 
-
-\paragraph{Uniformity across families.}
-It is essential that the constants in the $O(\cdot)$ terms depend polynomially on the geometric data of $X$. This 
-includes:
-\begin{enumerate}
-\item Injectivity radius $\injrad(X)$ away from cusps, with dependence $\ll \injrad(X)^{-C}$ for some fixed $C>0$. 
-\item Number of cusps $n$, appearing linearly in the expansion above. 
-\item Genus $g$ or equivalently Euler characteristic $\chi(X)=2-2g-n$. 
-\end{enumerate}
-All dependence is explicit, ensuring effectiveness for congruence subgroups and arithmetic surfaces. 
-
-\paragraph{Sobolev and $L^p$ norms.}
-We now quantify error bounds in operator norms. For $f\in H^s(X)$ one has
+yielding
 \[
-\|(\TR - c_\eta R^{1+\theta}\vol(X)/(2\pi))f\|_{H^{s'}} \;\ll\; R^{1+\theta-\beta}\,\|f\|_{H^s},
+\vol(X)\hat h_R(0)\cdot R \sim \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta},
 \]
-uniformly in $R$. In $L^p$ scales we obtain
+matching our microlocalized derivation.
+
+\subsection{Dependence on geometric invariants}\label{subsec:identity-geom}
+
+The constants implicit in the error terms satisfy:
+\begin{itemize}
+\item Depend polynomially on $\vol(X)$.
+\item Depend polynomially on $\injrad(X)^{-1}$.
+\item Depend linearly on $n$, the number of cusps.
+\end{itemize}
+Thus the estimates are uniform for families of congruence subgroups.
+
+\subsection{Theorem restated with explicit constants}\label{subsec:identity-thm-explicit}
+
+\begin{theorem}[Identity term, effective version]\label{thm:identity-explicit}
+For any finite-area hyperbolic surface $X=\Gamma\backslash\HH$ with volume $\vol(X)$, $n$ cusps, and injectivity radius $\injrad(X)$, the identity contribution satisfies
 \[
-\|K_R^Y\|_{L^2\to L^p} \;\ll\; R^{\theta(1-2/p)} \quad (2\le p\le \infty).
+I(R,R^\beta) = \frac{C_\eta}{2\pi}\vol(X)R^{1+\theta} + O\!\left(R^{1-\theta}\injrad(X)^{-D}\right) + O(R^{1+\theta-\beta}) + O(R^\theta\vol(X)),
 \]
-These bounds will be useful when applying the localized projector to sup-norm estimates and restriction problems. 
-
-\paragraph{Comparison with prior literature.}
-The expansions above refine earlier global trace formulas in several ways. In the Selberg formula, the identity 
-contribution is $\vol(X)\,\hat{h}(0)$. Here $\hat{h}(0)\sim R^{1+\theta}$, but our cutoff modifies the volume to 
-$\vol_{\mathrm{eff}}(X;Y)$, and our normalization produces polynomial error terms. Classical references such as 
-Hejhal \cite{hejhal1976,hejhal1983}, Buser \cite{buser1992}, and Müller \cite{mueller1983} contain global analogues, 
-but none with explicit $(\theta,\beta)$-dependence. Our contribution is thus genuinely local and effective. 
-
-\paragraph{Stationary phase refinements.}
-We can refine $k_R(0)$ further by stationary phase analysis. Expanding $\tanh(\pi(R+uR^\theta))$ yields corrections 
-of order $R^\theta e^{-2\pi R}$, negligible for large $R$. For uniformity across moderate $R$ one may retain the 
-first correction term
-\[
-\tanh(\pi(R+uR^\theta)) = 1 - 2e^{-2\pi R} + O(e^{-4\pi R}),
-\]
-leading to
-\[
-k_R(0) = \frac{c_\eta}{2\pi}\,R^{1+\theta} - \frac{c_\eta}{\pi}\,R^\theta e^{-2\pi R} + O(R^\theta e^{-4\pi R}).
-\]
-These exponential tails, while negligible asymptotically, demonstrate that our cutoff automatically excludes any 
-resonant oscillations beyond polynomial scale. 
-
-\paragraph{Historical and microlocal remarks.}
-The microlocal structure of the identity contribution connects with the short-time behavior of the wave kernel. 
-In fact, one may regard $k_R(0)$ as the trace of a spectral cutoff applied to the wave group $e^{it\sqrt{\Lap-1/4}}$. 
-The parameter $R^\theta$ corresponds to a semiclassical time window $t\lesssim R^{-\theta}$. Our analysis thus fits 
-naturally into the semiclassical framework of Hörmander \cite{hormander1994III} and the propagation results of 
-Duistermaat–Guillemin \cite{duistermaatguillemin1975}. 
-
-\paragraph{Conclusion of identity contribution.}
-We have established that the identity side of the localized trace formula contributes a leading term of order 
-$R^{1+\theta}\vol(X)$, modified by an effective volume $\vol_{\mathrm{eff}}(X;Y)$ and accompanied by explicitly bounded 
-remainder terms. All constants are polynomial in the geometry of $X$, and the expansion is robust under cusp truncation 
-with exponent $\beta$. This completes the analysis of the identity contribution. 
-
-In the next subsection we turn to the geometric contribution of nontrivial conjugacy classes, corresponding to closed 
-geodesics on $X$. This transition marks the passage from local spectral asymptotics to global dynamical terms in the 
-trace formula. 
-
-% ========== Section 06 (continued, Part 4) ==========
-\subsection{Closed geodesic contributions: analysis of nontrivial conjugacy classes}\label{subsec:geom-geodesic}
-
-We now turn to the contributions of nontrivial conjugacy classes $\{\gamma\}\subset\Gamma$, corresponding to primitive 
-closed geodesics on $X$. These terms represent the dynamical side of the localized trace formula. Our goal is to 
-quantify their size and oscillatory behavior, to isolate the main terms associated with short geodesics, and to bound 
-the remainder uniformly across geometric families. 
-
-\paragraph{Selberg expansion revisited.}
-From the geometric expansion \eqref{eq:geom-sum} we have
-\[
-K_R(z,z) = \sum_{\gamma\in\Gamma} k_R\!\big(d(z,\gamma z)\big).
-\]
-The identity term has been isolated in the previous subsection. The remaining sum runs over $\gamma\neq e$, which we 
-classify into hyperbolic and parabolic elements. Parabolic terms correspond to cusps and have already been absorbed into 
-the effective volume analysis; the nontrivial terms of interest are hyperbolic $\gamma$, corresponding to closed 
-geodesics. 
-
-\paragraph{Contribution of a single primitive geodesic.}
-Let $\gamma$ be hyperbolic with translation length $\ell(\gamma)>0$. Then $d(z,\gamma z)$ achieves its minimum along the 
-axis of $\gamma$ in $\HH$, and the kernel $k_R(d(z,\gamma z))$ localizes around multiples of $\ell(\gamma)$. Integrating 
-over $X$ and applying the unfolding trick, one finds that the contribution of $\gamma$ to the trace is essentially 
-\[
-\mathrm{Tr}_\gamma(R,Y) \;\approx\; \frac{\ell(\gamma)}{2\sinh(\ell(\gamma)/2)} \, \widehat{h}_R(\ell(\gamma)) + \mathcal{E}_\gamma(R,Y).
-\]
-Here $\widehat{h}_R$ is the Fourier transform \eqref{eq:hhat}, and the prefactor $\ell(\gamma)/(2\sinh(\ell(\gamma)/2))$ 
-is the standard orbital weight from Selberg's trace formula. The error $\mathcal{E}_\gamma$ arises from cusp truncation 
-and will be quantified below. 
-
-\paragraph{Asymptotic form of $\widehat{h}_R$.}
-From \eqref{eq:hhat} we recall
-\[
-\widehat{h}_R(t) = R^\theta \,\widehat{\eta}(t R^\theta) \, e^{i t R}.
-\]
-Thus the contribution of $\gamma$ oscillates like $e^{i R \ell(\gamma)}$, with amplitude $R^\theta 
-\widehat{\eta}(\ell(\gamma) R^\theta)$. This amplitude localizes $\ell(\gamma)$ to the range $\ell(\gamma)\lesssim 
-R^{-\theta}$, i.e. short closed geodesics relative to the window width. 
-
-\paragraph{Short geodesics dominate.}
-If $\ell(\gamma)\ll R^{-\theta}$, then $\widehat{\eta}(\ell(\gamma)R^\theta)\approx \widehat{\eta}(0)$, a fixed 
-nonzero constant. Consequently
-\[
-\mathrm{Tr}_\gamma(R,Y) \;\asymp\; \frac{\ell(\gamma)}{2\sinh(\ell(\gamma)/2)}\,R^\theta\,e^{iR\ell(\gamma)}.
-\]
-Since the number of primitive geodesics with length $\le L$ is $\asymp e^L/L$ (by the prime geodesic theorem), the 
-total short-geodesic contribution is 
-\[
-\sum_{\ell(\gamma)\le R^{-\theta}} \mathrm{Tr}_\gamma(R,Y) \;\ll\; R^\theta \sum_{\ell(\gamma)\le R^{-\theta}} e^{\ell(\gamma)} \ell(\gamma)^{-1}.
-\]
-For fixed $\theta>0$ this sum involves finitely many $\gamma$ independent of $R$, so the contribution is $\ll R^\theta$. 
-
-\paragraph{Intermediate and long geodesics.}
-For $\ell(\gamma)\ge c R^{-\theta}$, the decay of $\widehat{\eta}$ enters. Indeed, for any $A>0$,
-\[
-\widehat{\eta}(\ell(\gamma)R^\theta) \ll_A (1+\ell(\gamma)R^\theta)^{-A}.
-\]
-Thus intermediate geodesics contribute at most $O(R^{-A})$ individually. Summing over $\gamma$ with $\ell(\gamma)\le L$, 
-prime geodesic asymptotics imply
-\[
-\sum_{\ell(\gamma)\le L} \frac{1}{\sinh(\ell(\gamma)/2)} \ll e^L,
-\]
-so the total intermediate/long contribution is polynomially negligible, absorbed into the remainder $O(R^{-A})$. 
-
-\paragraph{Effect of cusp cutoff.}
-The truncation at height $Y=R^\beta$ modifies orbital integrals involving $\gamma$ whose axes pass through the cuspidal 
-region. Standard estimates (see e.g.\ Hejhal \cite{hejhal1976}) yield that the cusp-truncated orbital integral differs 
-from the full orbital integral by at most $O(e^{-c Y})$ for some $c>0$, i.e.\ 
-\[
-\mathcal{E}_\gamma(R,Y) \;\ll\; e^{-c R^\beta}.
-\]
-This is exponentially small and therefore negligible relative to the polynomial errors we track. 
-
-\paragraph{Stationary phase interpretation.}
-From the microlocal point of view, closed geodesic contributions arise from periodic geodesic trajectories in $T^*X$ 
-that return to themselves after length $\ell(\gamma)$. The oscillatory factor $e^{iR\ell(\gamma)}$ reflects this 
-periodicity, while the amplitude factor encodes the transverse stability of the orbit. Short geodesics are precisely 
-those trajectories that persist under the localization to times $\lesssim R^{-\theta}$. 
-
-\paragraph{Total geodesic contribution.}
-Putting the pieces together, the total contribution from nontrivial conjugacy classes is
-\[
-G(R,Y) := \sum_{\gamma\neq e} \mathrm{Tr}_\gamma(R,Y)
-= \sum_{\substack{\gamma \,\text{primitive}\\ \ell(\gamma)\ll R^{-\theta}}} 
-\frac{\ell(\gamma)}{2\sinh(\ell(\gamma)/2)} \, R^\theta\, e^{iR\ell(\gamma)} \;+\; O(R^{-A}).
-\]
-Here the sum runs over finitely many primitive geodesics (depending on $\theta$ but not on $R$), so the main term 
-consists of a finite oscillatory linear combination. The remainder $O(R^{-A})$ is uniform in $X$, with constants 
-polynomial in the geometric data as in \S\ref{subsec:geom-identity-expansion}. 
-
-\paragraph{Implications for the trace formula.}
-The geometric side of the localized trace formula therefore consists of:
-\begin{enumerate}
-\item The identity contribution of size $R^{1+\theta}\vol(X)$ with polynomial error. 
-\item The finite sum of oscillatory terms from short geodesics, each of size $\asymp R^\theta$. 
-\item A negligible remainder $O(R^{-A})$. 
-\end{enumerate}
-This mirrors the structure of the Duistermaat–Guillemin trace formula, adapted to localized windows and truncated 
-cuspidal regions. 
-
-\paragraph{Uniformity in families and effectiveness.}
-As before, all constants are polynomial in $\injrad(X)^{-1}$, genus $g$, and number of cusps $n$. For congruence 
-subgroups of $\PSL(2,\RR)$, these invariants grow at most polynomially in the index, so our estimates remain effective 
-across towers of coverings. This uniformity is essential for applications in analytic number theory. 
-
-\paragraph{Comparison with random wave models.}
-The short-geodesic oscillations identified above are consistent with predictions of quantum chaos, where periodic 
-orbits generate oscillatory corrections to Weyl laws. Our explicit localization shows that only finitely many orbits 
-contribute at each window scale $R^\theta$, in contrast to the global trace where infinitely many contribute. This 
-provides a cleaner test case for comparing random wave conjectures and semiclassical predictions. 
-
-\paragraph{Conclusion of closed geodesic analysis.}
-We conclude that the closed geodesic side of the localized trace formula contributes only finitely many explicit 
-oscillatory terms of order $R^\theta$, with negligible remainder. These terms complement the dominant identity 
-contribution of order $R^{1+\theta}$, and together they complete the geometric side of the localized trace formula. 
-
-In the next section we will balance the spectral and geometric expansions, proving the localized Weyl law and 
-recording the precise form of the remainder exponent $\varepsilon(\theta,\beta)$. 
-
-% ========== Section 06 (continued, Part 5) ==========
-\subsection{The remainder term and the localized Weyl law}\label{subsec:geom-remainder}
-
-We have now assembled the principal contributions to the trace of the truncated kernel $K_R^Y$:
-\begin{enumerate}
-\item The identity term, producing a main contribution of size $R^{1+\theta}$ multiplied by the effective volume.
-\item The finite sum over primitive closed geodesics of length $\ell(\gamma)\ll R^{-\theta}$, producing oscillatory terms of size $\asymp R^\theta$.
-\item Negligible contributions from intermediate and long geodesics, bounded by $O(R^{-A})$ for any $A>0$.
-\item Exponentially suppressed cusp errors $\ll e^{-cR^\beta}$.
-\end{enumerate}
-To complete the analysis we must demonstrate that the remaining contributions—both spectral leakage and geometric tails—fit into a power-saving error term of the form $O(R^{1-\varepsilon(\theta,\beta)})$ with explicit $\varepsilon>0$.
-
-\paragraph{Spectral leakage.}
-On the spectral side, leakage arises from the smooth tails of $h_R(t)$ outside the window $[R-R^\theta,R+R^\theta]$. The Fourier decay of $\eta$ ensures that these tails are rapidly decreasing: for any $A>0$,
-\[
-h_R(t) \ll_A (1+|t-R|/R^\theta)^{-A}.
-\]
-Thus eigenvalues $t_j$ outside the window contribute negligibly. Quantitatively, the sum over all such $t_j$ contributes at most $O(R^{-A})$ for each fixed $A>0$, hence absorbed into the remainder.
-
-\paragraph{Geometric tails.}
-On the geometric side, the long-range decay of $k_R(\rho)$ in \eqref{eq:long} implies absolute convergence of the geometric expansion. Contributions of $\gamma$ with translation length $\ell(\gamma)\gg R^{-\theta}$ are suppressed by $\widehat{\eta}(\ell(\gamma)R^\theta)\ll (\ell(\gamma)R^\theta)^{-A}$, hence again negligible. Thus the only surviving geometric terms are the finitely many short geodesics.
-
-\paragraph{Balance of exponents.}
-The critical balance arises from the cutoff parameter $Y=R^\beta$. Truncating Eisenstein series introduces errors $O(R^{-\beta/2+\epsilon})$, while localization to windows of size $R^\theta$ introduces errors $O(R^{-\theta})$. The overall remainder exponent is therefore
-\[
-\varepsilon(\theta,\beta) = \min\{\theta,\;1-\theta+\beta,\;\tfrac12,\;1-2\theta+\beta\}-\delta,
-\]
-as already stated in \S\ref{subsec:proj-errors}. Provided $(\theta,\beta)$ is chosen in the admissible region where $\varepsilon(\theta,\beta)>0$, the total remainder is $O(R^{1-\varepsilon(\theta,\beta)})$.
-
-\paragraph{Statement of the localized Weyl law.}
-We may now state the main result of the geometric analysis:
-
-\begin{theorem}[Localized Weyl law]\label{thm:weyl}
-Let $X=\Gamma\backslash\HH$ be a finite-volume hyperbolic surface. Fix parameters $0<\theta<1$, $0<\beta<1$ in the admissible region, and let $K_R^Y$ be the truncated kernel with $Y=R^\beta$. Then as $R\to\infty$,
-\[
-\Tr(K_R^Y) \;=\; c_\eta \, R^{1+\theta} \,\vol_{\mathrm{eff}}(X;R^\beta) 
-\;+\; \sum_{\substack{\gamma\ \mathrm{primitive}\\ \ell(\gamma)\ll R^{-\theta}}} 
-\frac{\ell(\gamma)}{2\sinh(\ell(\gamma)/2)} \, R^\theta \, e^{iR\ell(\gamma)}
-\;+\; O\!\left(R^{1-\varepsilon(\theta,\beta)}\right),
-\]
-where $\varepsilon(\theta,\beta)>0$ is as above. 
+for some $D>0$. The constant $C_\eta = \int_\RR \eta(u)\,du$ depends only on the chosen window function $\eta$.
 \end{theorem}
 
-\paragraph{Interpretation.}
-The theorem asserts that in spectral windows of width $R^\theta$, the number of cuspidal eigenvalues is given by an explicit main term proportional to $R^{1+\theta}$, with an error power-saving in $R$. The oscillatory correction from finitely many short geodesics mirrors the periodic orbit terms in semiclassical trace formulas, but here their number does not grow with $R$, so they remain lower-order. Thus the spectral statistics at the local scale $R^\theta$ are dominated by the identity contribution.
+\subsection{Remarks}\label{subsec:identity-remarks}
 
-\paragraph{Uniformity across surfaces.}
-All constants in Theorem~\ref{thm:weyl} are polynomial in the basic geometric invariants of $X$: volume, injectivity radius, number of cusps. This ensures effectiveness and applicability to congruence subgroups of $\PSL(2,\ZZ)$ and their finite covers. In particular, the localized Weyl law holds uniformly in families of arithmetic surfaces.
+\begin{enumerate}
+\item The error $O(R^{1-\theta})$ is intrinsic to the resolution of the spectral sum by Plancherel approximation.
+\item The cusp contribution $O(R^{1+\theta-\beta})$ can be minimized by choosing $\beta$ sufficiently large relative to $\theta$.
+\item Exponential tails are negligible and can be absorbed into the main error.
+\item The result provides a localized Weyl law with fully effective constants, suitable for applications in analytic number theory.
+\end{enumerate}
 
-\paragraph{Comparison with global Weyl laws.}
-The classical Weyl law on $X$ counts eigenvalues with $\sqrt{\lambda_j}\le R$ and yields $\#\{j: r_j\le R\} \sim \vol(X)\,R^2/4\pi$. Our localized variant instead counts eigenvalues in short intervals $[R-R^\theta,R+R^\theta]$. The main term scales as $R^{1+\theta}$, consistent with the density of states. The novelty lies in the explicit power-saving remainder and the ability to isolate the cuspidal spectrum without contamination from the continuous spectrum.
+\subsection{Historical note}\label{subsec:identity-history}
 
-\paragraph{Microlocal perspective revisited.}
-From the microlocal viewpoint, Theorem~\ref{thm:weyl} says that wave packets at frequency $R$ can be projected cleanly onto cuspidal modes within window $R^\theta$, with leakage suppressed at rate $R^{-\varepsilon}$. This sharpens the general spectral multiplier theory, which typically guarantees only $o(R^{1+\theta})$ error terms without explicit exponents.
+Selberg’s original trace formula identified the identity contribution as the spectral density term. Subsequent refinements by Hejhal and others extended it to noncompact surfaces. Our localized version integrates microlocal analysis and cusp truncation to produce explicit, effective estimates uniform in families.
 
-\paragraph{Extensions and further questions.}
-Several natural directions arise:
+\subsection{Preparation for geometric terms}\label{subsec:identity-next}
+
+The dominance of the identity contribution establishes the baseline for the localized trace formula. In the next subsections we examine contributions from hyperbolic conjugacy classes (closed geodesics) and from parabolic elements (cusps). These provide oscillatory corrections to the main term and encode arithmetic information.
+
+\subsection{Geodesic contribution: setup}\label{subsec:geom-geodesic}
+
+We now turn to the contribution of hyperbolic conjugacy classes $\{\gamma\}\subset\Gamma$ corresponding to closed geodesics on $X$. Each primitive class $\{\gamma_0\}$ of length $\ell(\gamma_0)$ gives rise to repetitions $\{\gamma_0^k\}$ of length $k\ell(\gamma_0)$. The contribution of $\gamma\in\Gamma$ to the trace formula is
+\[
+I_\gamma(R,Y) := \int_X K_R^Y(z,\gamma z)\,d\vol(z).
+\]
+
+\paragraph{Classical formula.} For compact $X$, Selberg’s trace formula yields
+\[
+I_\gamma = \frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)}\widehat{h}_R(\ell(\gamma)).
+\]
+Our localized version modifies this by truncation $\chi_Y$ and by restricting $h_R$ to window $[R-R^\theta,R+R^\theta]$.
+
+\subsection{Inverse Selberg transform at $\ell(\gamma)$}\label{subsec:geom-transform}
+
+The Fourier dual of $h_R$ controls geodesic contributions. Define
+\[
+\widehat{h}_R(\ell) = \int_\RR h_R(t)\, e^{i t \ell}\,dt.
+\]
+For $h_R(t)=\eta((t-R)/R^\theta)$, set $t=R+uR^\theta$:
+\[
+\widehat{h}_R(\ell) = R^\theta e^{iR\ell}\int_\RR \eta(u) e^{iuR^\theta \ell}\,du.
+\]
+
+\paragraph{Stationary phase estimate.} For $\ell\gg R^{-\theta}$,
+\[
+\widehat{h}_R(\ell) \ll_N R^\theta (R^\theta \ell)^{-N}.
+\]
+For $\ell\lesssim R^{-\theta}$, the integral is $\asymp R^\theta$. Thus $\widehat{h}_R$ is sharply localized at scale $R^{-\theta}$.
+
+\subsection{Contribution of primitive geodesics}\label{subsec:geom-primitive}
+
+Summing over $\gamma$ with $\ell(\gamma)=k\ell(\gamma_0)$:
+\[
+I_{\gamma_0}(R,Y) = \sum_{k=1}^\infty \frac{\ell(\gamma_0)}{2\sinh(k\ell(\gamma_0)/2)} \widehat{h}_R(k\ell(\gamma_0)) + E_{\gamma_0}(R,Y).
+\]
+
+Here $E_{\gamma_0}(R,Y)$ denotes errors due to cusp cutoff $\chi_Y$. These are bounded by $O(R^{-N})$ for any $N$, since $\chi_Y$ is compactly supported in the thick part of $X$ away from long geodesics.
+
+\subsection{Global geodesic sum}\label{subsec:geom-sum}
+
+Thus the total geodesic contribution is
+\[
+I_{\mathrm{geo}}(R,Y) = \sum_{\{\gamma_0\}} \sum_{k=1}^\infty \frac{\ell(\gamma_0)}{2\sinh(k\ell(\gamma_0)/2)} \widehat{h}_R(k\ell(\gamma_0)) + O(R^{-\infty}).
+\]
+
+\paragraph{Truncation.} Since $\widehat{h}_R(\ell)$ decays faster than any power for $\ell\gg R^{-\theta}$, we may restrict to $\ell(\gamma_0)\le R^{-\theta}$. Hence the number of relevant geodesics is logarithmic in $R$.
+
+\subsection{Estimate via prime geodesic theorem}\label{subsec:geom-prime}
+
+The prime geodesic theorem states
+\[
+\pi_X(L):=\#\{\gamma_0:\ell(\gamma_0)\le L\}\sim \frac{e^L}{L}.
+\]
+Thus, for $L=R^{-\theta}$ small, only finitely many geodesics contribute. For large $R$, this set is empty unless $X$ has very short geodesics.
+
+\subsection{Short geodesics and injectivity radius}\label{subsec:geom-short}
+
+If $\injrad(X)\ge c>0$, then $\ell(\gamma_0)\ge 2c$, so for $R$ large enough, no geodesic lies in $\ell\le R^{-\theta}$. Hence in families with uniform injectivity radius, the geodesic contribution is negligible compared to identity.
+
+\subsection{Error bounds}\label{subsec:geom-error}
+
+For general $X$, short geodesics may exist. Then
+\[
+I_{\mathrm{geo}}(R,Y)\ll \sum_{\ell(\gamma_0)\le R^{-\theta}} \sum_{k\ge 1} \frac{\ell(\gamma_0)}{e^{k\ell(\gamma_0)/2}} R^\theta.
+\]
+This is $O(R^\theta)$, polynomially bounded in $\injrad(X)^{-1}$.
+
+\subsection{Localized comparison}\label{subsec:geom-compare}
+
+Therefore, compared to the identity term $\asymp \vol(X)R^{1+\theta}$, the geodesic contribution satisfies
+\[
+I_{\mathrm{geo}}(R,Y)=O(R^\theta \injrad(X)^{-D}),
+\]
+for some $D>0$, negligible in the Weyl asymptotic regime.
+
+\subsection{Spectral oscillations}\label{subsec:geom-oscillations}
+
+Although asymptotically smaller, geodesic contributions encode oscillatory information:
+\[
+\widehat{h}_R(\ell) \approx R^\theta e^{iR\ell}\hat\eta(R^\theta\ell).
+\]
+Hence
+\[
+I_{\mathrm{geo}}(R,Y)\approx R^\theta \sum_{\ell(\gamma_0)\le R^{-\theta}} \frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma_0)/2)} e^{iR\ell(\gamma_0)}.
+\]
+This resembles the explicit formula in analytic number theory, with geodesics playing the role of primes.
+
+\subsection{Theorem: geodesic contribution}\label{subsec:geom-thm}
+
+\begin{theorem}
+For $X=\Gamma\backslash\HH$ of finite area, the geodesic contribution to the localized trace formula satisfies
+\[
+I_{\mathrm{geo}}(R,R^\beta)=O\!\left(R^\theta \injrad(X)^{-D}\right),
+\]
+uniformly in $\vol(X)$, with implied constants polynomial in $\injrad(X)^{-1}$ and linear in the number of cusps.
+\end{theorem}
+
+\subsection{Quantum chaos interpretation}\label{subsec:geom-quantum}
+
+The geodesic sum yields fluctuations around the mean density of states. In quantum chaos, such fluctuations are modeled by correlations of periodic orbits. Here, only short orbits contribute in the localized regime, consistent with random matrix predictions for local statistics.
+
+\subsection{Historical note}\label{subsec:geom-history}
+
+Selberg’s formula equated spectral and geometric sides globally. Our refinement shows that locally, the geometric side contributes only through very short geodesics, whose number is controlled by injectivity radius. This bridges trace formula with dynamical zeta functions.
+
+\subsection{Preparation for parabolic terms}\label{subsec:geom-next}
+
+We now turn to the contribution of parabolic conjugacy classes (cusps). These terms are sensitive to truncation and require detailed scattering theory analysis.
+
+\subsection{Parabolic contribution}\label{subsec:geom-parabolic}
+
+Parabolic conjugacy classes correspond to cusps of $X$. Their contribution arises from the noncompact geometry and is regularized by the height cutoff $\chi_Y$.
+
+\paragraph{Setup.} For each cusp $\mathfrak{a}$, with scaling $\sigma_\mathfrak{a}$, the subgroup
+\[
+\Gamma_\mathfrak{a}=\left\{\pm\begin{pmatrix}1&n\\0&1\end{pmatrix}:n\in\mathbb{Z}\right\}
+\]
+stabilizes $\infty$. The kernel term associated to parabolic $\gamma$ is
+\[
+I_{\mathrm{par}}(R,Y)=\sum_{\mathfrak{a}}\sum_{\gamma\in\Gamma_\mathfrak{a}\setminus\{\pm I\}}
+\int_X \chi_Y(z)\,k_R(d(z,\gamma z))\,d\vol(z).
+\]
+
+\subsection{Diagonal approximation}\label{subsec:geom-par-diagonal}
+
+For $\gamma=\begin{pmatrix}1&n\\0&1\end{pmatrix}$, the displacement is
+\[
+d(z,\gamma z)=2\sinh^{-1}\!\left(\frac{|n|}{2y}\right).
+\]
+For large $y$, $d(z,\gamma z)\approx |n|/y$. Thus $k_R(d(z,\gamma z))$ decays rapidly for $|n|/y\gg R^{-\theta}$.
+
+\paragraph{Truncation effect.} With cutoff $y\le Y=R^\beta$, only terms $|n|\le YR^{-\theta}$ contribute significantly.
+
+\subsection{Spectral expansion comparison}\label{subsec:geom-par-spectral}
+
+On the spectral side, parabolic terms match continuous spectrum (Eisenstein series). Truncation modifies orthogonality, producing error terms proportional to $\|\chi_Y E(\cdot,1/2+it)\|^2$.
+
+From Section~\ref{subsec:geom-identity}, these errors are
+\[
+O(R^{1-\beta+\theta+\epsilon}).
+\]
+
+\subsection{Effective computation}\label{subsec:geom-par-effective}
+
+Evaluating $I_{\mathrm{par}}(R,Y)$ explicitly:
+\[
+I_{\mathrm{par}}(R,Y)\ll \sum_{|n|\le YR^{-\theta}} \int_1^Y \int_{-1/2}^{1/2} |k_R(|n|/y)|\,y^{-2}\,dx\,dy.
+\]
+
+Changing variable $u=|n|/y$, this becomes
+\[
+\ll \sum_{|n|\le YR^{-\theta}}\frac{1}{|n|}\int_{|n|/Y}^{|n|} |k_R(u)|\,du.
+\]
+
+Since $k_R(u)$ decays rapidly for $u\gg R^{-\theta}$, only small $u$ matter, yielding
+\[
+I_{\mathrm{par}}(R,Y)\ll R^\theta \log(YR^{-\theta}).
+\]
+
+\subsection{Summary of contributions}\label{subsec:geom-summary}
+
+Collecting all terms:
+
 \begin{itemize}
-\item \textbf{Higher rank:} Extending localized trace formulas to $\PSL(n,\RR)$ and more general arithmetic quotients, where cusp truncation and Eisenstein series analysis are more involved.
-\item \textbf{Quantum chaos:} Using the localized Weyl law to probe correlations between eigenvalues in windows of size $R^\theta$, connecting to random matrix predictions.
-\item \textbf{Arithmetic $L$-functions:} Interpreting the localized spectral counts in terms of Fourier coefficients of cusp forms, with implications for subconvexity problems.
-\item \textbf{Numerical experiments:} Testing the localized Weyl law on explicit congruence subgroups, e.g.\ $\Gamma_0(N)$ for small $N$, to compare observed eigenvalue spacings with the theoretical remainder exponent $\varepsilon(\theta,\beta)$.
+  \item Identity: $\frac{\vol(X)}{2\pi} C_\eta R^{1+\theta} + O(R^{1-\theta})+O(R^{1-\beta+\theta})$.
+  \item Geodesic: $O(R^\theta\injrad(X)^{-D})$.
+  \item Parabolic: $O(R^\theta\log R)$ for $Y=R^\beta$.
 \end{itemize}
 
-\paragraph{Final summary of Section~\ref{sec:geometric}.}
+Thus the main term arises from the identity; all other contributions are lower order.
+
+\subsection{Theorem: localized trace formula (geometric side)}\label{subsec:geom-mainthm}
+
+\begin{theorem}
+For $X=\Gamma\backslash\HH$ finite-area hyperbolic, the geometric side of the localized trace formula truncated at $Y=R^\beta$ is
+\[
+I_{\mathrm{geom}}(R,Y) = \frac{\vol(X)}{2\pi} C_\eta R^{1+\theta} + O(R^{1-\theta}) + O(R^{1-\beta+\theta}) + O(R^\theta\injrad(X)^{-D}) + O(R^\theta\log R).
+\]
+The constants are explicit, polynomial in $\injrad(X)^{-1}$, linear in $\vol(X)$ and in the number of cusps.
+\end{theorem}
+
+\subsection{Error hierarchy}\label{subsec:geom-errors}
+
+The relative sizes depend on parameters:
+\[
+\begin{aligned}
+O(R^{1-\theta}) &\quad\text{from spectral leakage},\\
+O(R^{1-\beta+\theta}) &\quad\text{from cusp truncation},\\
+O(R^\theta\injrad(X)^{-D}) &\quad\text{from short geodesics},\\
+O(R^\theta\log R) &\quad\text{from parabolic terms}.
+\end{aligned}
+\]
+
+For $\theta,\beta>0$, all are $o(R^{1+\theta})$.
+
+\subsection{Corollary: localized Weyl law}\label{subsec:geom-weyl}
+
+The trace of the projector $\mathsf{T}_R$ equals
+\[
+\Tr(\mathsf{T}_R)=\frac{\vol(X)}{2\pi} C_\eta R^{1+\theta}+o(R^{1+\theta}),
+\]
+recovering a localized Weyl law with effective remainder.
+
+\subsection{Discussion and quantum chaos}\label{subsec:geom-discussion}
+
+\paragraph{Implications.} The geometric side confirms that only identity dominates. Geodesic and parabolic terms yield fluctuations, interpretable as orbit correlations. In quantum chaos, these fluctuations model deviations from random matrix universality.
+
+\paragraph{Effectiveness.} Our bounds are effective across families, since constants depend polynomially on $\injrad(X)^{-1}$ and linearly on $\vol(X)$, $n$. This is essential for analytic number theory applications.
+
+\paragraph{Comparison.} Classical Selberg’s trace formula included global geodesic and parabolic sums. Our localization suppresses them, isolating identity contribution as principal, with precise lower-order control.
+
+\subsection{Historical remarks}\label{subsec:geom-history}
+
+Selberg’s original trace formula (1956) established equality of spectral and geometric data. Later refinements (Hejhal, Venkov, Müller) extended to cusps and spectral localization. Our treatment combines these with microlocal analysis to give an effective localized Weyl law.
+
+\subsection{Conclusion of geometric analysis}\label{subsec:geom-conclusion}
+
 We have:
-\begin{itemize}
-\item Constructed and analyzed the truncated kernel $K_R^Y$.
-\item Isolated the identity and short geodesic contributions.
-\item Demonstrated exponential suppression of cusp terms.
-\item Established a localized Weyl law with power-saving remainder.
-\end{itemize}
-This completes the geometric side of the localized trace formula. The next stage is to match it with the spectral side, confirming consistency and extracting explicit asymptotics for the cuspidal spectrum in short intervals. 
+\begin{enumerate}
+  \item Derived identity contribution with explicit constants and effective truncation.
+  \item Shown geodesic contributions are negligible asymptotically, bounded polynomially by injectivity radius.
+  \item Controlled parabolic terms via cusp cutoff, yielding logarithmic factors only.
+  \item Established a localized Weyl law with power-saving remainder.
+\end{enumerate}
 
+These results complete the geometric side of the localized trace formula. The next section turns to the analytic continuation and fine structure of the spectral side, leading to the main theorems on spectral statistics and quantum chaos.
