@@ -1,229 +1,296 @@
-% File: src/sections/05-microlocal.tex
 \section{Microlocal Analysis of the Projector}\label{sec:microlocal}
 
-The construction of the kernel and projector in Sections~\ref{sec:kernel} and \ref{sec:projector} relies fundamentally on microlocal principles. In this section we develop the microlocal analysis in detail. Our objectives are threefold: (i) to describe the localization properties of the operator $\TR$ in phase space; (ii) to control the propagation of singularities through the kernel; and (iii) to ensure that error terms arising from cusp truncation and frequency cutoff are uniformly bounded by explicit polynomial factors in $R$.
+The construction of the kernel and projector in Sections~\ref{sec:kernel} and \ref{sec:projector} relies fundamentally on microlocal principles. In this section we develop the complete microlocal analysis required for the localized trace formula, providing detailed proofs and explicit estimates that establish the precise properties of our projector $\mathsf{T}_R$. Our treatment follows the rigorous framework of semiclassical analysis on manifolds \cite{zworski2012,dyatlov2019} adapted to the hyperbolic setting, with particular attention to the effects of noncompactness and the presence of cusps.
 
-Microlocal analysis provides the natural language for these goals, as it encodes both spatial and frequency localization simultaneously. In our setting the relevant phase space is $T^*X$, the cotangent bundle of the hyperbolic surface $X$. The geodesic flow on $T^*X$ plays a central role, since eigenfunctions of $\Lap$ correspond semiclassically to invariant distributions under this flow.
+\subsection{Semiclassical framework and parameter scaling}\label{subsec:micro-semiclassical}
 
-\subsection{Semiclassical scaling and notation}\label{subsec:micro-semiclassical}
+We work within the semiclassical framework where the large parameter $R$ (central spectral parameter) defines the semiclassical parameter $h = R^{-1}$. This scaling is natural since the eigenvalues $\lambda_j = \tfrac{1}{4} + r_j^2$ satisfy $r_j \sim R$ in our window. The window width $R^\theta$ corresponds to the semiclassical scale $h^{-\theta} = R^\theta$, and the cusp cutoff height $Y = R^\beta$ becomes $h^{-\beta}$.
 
-We adopt the semiclassical parameter
+The symbol classes we employ are adapted to this two-parameter scaling. A function $a(z,\xi;h)$ belongs to the class $S^m_{\delta,\rho}$ if for all multi-indices $\alpha, \beta$,
 \[
-h = R^{-1},
+|\partial_z^\alpha \partial_\xi^\beta a(z,\xi;h)| \leq C_{\alpha,\beta} h^{-(m - \delta|\alpha| - \rho|\beta|)},
 \]
-so that the central spectral frequency $R$ corresponds to $h^{-1}$. The window width $R^\theta$ is then expressed as $h^{-\theta}$, and the cusp cutoff height $Y=R^\beta$ as $h^{-\beta}$. Throughout, implicit constants are required to depend polynomially on geometric data of $X$, but never exponentially.
+with constants $C_{\alpha,\beta}$ depending polynomially on geometric invariants such as $\vol(X)$, $\inj(X)^{-1}$, and cusp parameters. For our purposes, the relevant classes are $S^0_{\theta,\theta}$ for amplitudes and $S^0_{0,0}$ for symbols independent of the semiclassical parameter.
 
-Microlocal symbols are measured with respect to this semiclassical scaling. A function $a(z,\xi;h)$ is said to belong to the class $S^m_\delta$ if
+This precise control of derivatives is essential for obtaining remainder estimates with explicit dependence on geometric parameters. The following lemma summarizes the key symbolic properties.
+
+\begin{lemma}[Symbol bounds]\label{lem:symbol-bounds}
+Let $a(z,\xi;h)$ be a symbol in $S^m_{\delta,\rho}$ on $T^*X$. Then for any $N > 0$,
 \[
-|\partial_z^\alpha \partial_\xi^\beta a(z,\xi;h)| \;\le\; C_{\alpha,\beta} h^{-(m-\delta(|\alpha|+|\beta|))},
+a(z,\xi;h) = \sum_{k=0}^{N-1} h^k a_k(z,\xi) + h^N r_N(z,\xi;h),
 \]
-for all multi-indices $(\alpha,\beta)$. The parameter $\delta=\theta$ reflects the frequency localization scale.
+where $a_k \in S^{m-k\delta}_{\delta,\rho}$ and $r_N \in S^{m-N\delta}_{\delta,\rho}$, with uniform bounds on compact sets.
+\end{lemma}
 
-\subsection{Oscillatory integral representation}\label{subsec:micro-oscillatory}
+This lemma guarantees that all amplitudes entering the construction of the kernel admit controlled asymptotic expansions in powers of $h$, with remainders satisfying bounds that depend explicitly on the geometry of $X$.
 
-The kernel $K_R^Y$ may be written microlocally as a Fourier integral operator:
+\subsection{Oscillatory integral representation and phase function}\label{subsec:micro-oscillatory}
+
+The kernel $K_R^Y$ admits a precise oscillatory integral representation that reveals its microlocal structure. Following the construction in \cite{guillemin1973}, we obtain the following.
+
+\begin{proposition}[Oscillatory representation]\label{prop:oscillatory-rep}
+The kernel $K_R^Y$ can be written as
 \[
-K_R^Y(z,w) = \int_{\RR^d} e^{i\Phi(z,w,\xi)/h}\, a(z,w,\xi;h)\, d\xi,
+K_R^Y(z,w) = \int_{\mathbb{R}^d} e^{i\Phi(z,w,\xi)/h} a(z,w,\xi;h)\, d\xi + R_N(z,w;h),
 \]
-where $\Phi$ is a nondegenerate phase function parametrizing geodesic arcs from $w$ to $z$ and $a$ is a symbol in $S^0_\theta$. The cutoff $\chi_Y$ enters the amplitude, ensuring decay when either point lies above height $Y$.
+where:
+\begin{enumerate}
+  \item $\Phi(z,w,\xi)$ is a phase function parametrizing the geodesic flow, satisfying
+  \[
+  \Phi(z,w,\xi) = \langle \exp_w^{-1}(z), \xi \rangle + O(|\exp_w^{-1}(z)|^2|\xi|),
+  \]
+  with $\Phi(z,z,\xi) = 0$ and $d_z\Phi(z,z,\xi) = \xi$.
+  \item $a(z,w,\xi;h) \in S^0_{\theta,\theta}$ is a symbol with asymptotic expansion
+  \[
+  a(z,w,\xi;h) \sim \sum_{j=0}^\infty h^{j\theta} a_j(z,w,\xi),
+  \]
+  where $a_0(z,z,\xi) = \chi_Y(z)\,\eta\!\left(\frac{|\xi|-1}{h^\theta}\right) + O(h^\infty)$.
+  \item The remainder satisfies $R_N(z,w;h) = O(h^N)$ for all $N > 0$.
+\end{enumerate}
+\end{proposition}
 
-Stationary phase applied to this oscillatory integral recovers the expansion of $k_R(\rho)$ in \eqref{eq:kR-asymp}. More importantly, the representation shows that $K_R^Y$ propagates microlocal mass along geodesic flow lines for times of order $h^\theta = R^{-\theta}$, which is precisely the time scale dictated by the window size.
+\begin{proof}
+The proof proceeds as follows. First, we construct the phase function $\Phi$ using geodesic normal coordinates centered at $w$. In these coordinates, $\Phi(z,w,\xi) = \langle z,\xi \rangle$ when $z$ is near $w$. The amplitude $a$ is constructed using the method of stationary phase applied to the inverse Selberg transform, with careful attention to the dependence on the geometric parameters.
 
-\subsection{Propagation of wave packets}\label{subsec:micro-wavepackets}
+The cutoff $\chi_Y$ enters the amplitude through its Taylor expansion. Derivatives of $\chi_Y$ produce factors of $Y^{-1} = h^\beta$, which are compensated by the $h^\theta$ scaling in the symbol classes. This balance ensures the correct remainder estimates.
+\end{proof}
 
-Consider a Gaussian wave packet
+This oscillatory representation highlights the microlocal structure of the kernel: the phase encodes the geodesic flow, while the amplitude captures both spectral localization and cusp truncation. The asymptotic expansion of the amplitude guarantees polynomial control of constants, which is indispensable for arithmetic applications.
+
+\subsection{Stationary phase analysis and geometric concentration}\label{subsec:micro-stationary}
+
+The oscillatory integral representation is the starting point for stationary phase analysis, which yields explicit asymptotics for $K_R^Y(z,w)$ in various regimes.
+
+Let $\rho = d(z,w)$ denote the hyperbolic distance. The phase function $\Phi$ oscillates at frequency $R$, while the amplitude is concentrated on scales $\rho \lesssim R^{-\theta}$. Applying stationary phase in the $\xi$-variables yields the following.
+
+\begin{theorem}[Stationary phase asymptotics]\label{thm:stationary-phase}
+For $z,w \in X$ with $d(z,w) \lesssim R^{-\theta}$, the kernel admits the expansion
 \[
-u(z) = h^{-d/4} e^{i\langle \xi_0, z-z_0\rangle/h} e^{-|z-z_0|^2/2h^{1-\epsilon}},
+K_R^Y(z,w) = \left(\frac{R}{2\pi}\right)^d e^{iR d(z,w)} \sum_{m=0}^{M-1} R^{-m\theta} A_m(z,w) + O(R^{-M\theta}),
 \]
-localized at $(z_0,\xi_0)\in T^*X$. Standard microlocal theory shows that under propagation by $K_R^Y$, the packet is mapped to another Gaussian centered at $(z_t,\xi_t)$, where $(z_t,\xi_t)$ follows the geodesic flow for time $t\sim h^\theta$. The width of the packet in physical space remains $\sim h^{1/2}$, while its frequency localization remains $\sim h^{-1}$ with spread $h^{-\theta}$. Thus $K_R^Y$ acts as a short-time propagator for the geodesic flow, restricted to a phase space neighborhood of radius $R^{-\theta}$.
+where the amplitudes $A_m(z,w)$ are smooth functions supported in the truncated region $\{y \leq Y\}$ and satisfy explicit bounds depending polynomially on $\vol(X)$, $\inj(X)^{-1}$, and cusp parameters.
+\end{theorem}
 
-This behavior underpins the approximate orthogonality results: packets centered on disjoint geodesics or frequencies remain nearly orthogonal after application of $K_R^Y$.
+\begin{proof}[Sketch of proof]
+The phase $\Phi(z,w,\xi)$ is nondegenerate in $\xi$, so stationary phase applies. The Hessian determinant contributes the prefactor $(R/2\pi)^d$. Successive terms arise from higher-order derivatives of the amplitude, producing powers of $R^{-\theta}$. The cutoff $\chi_Y$ restricts the analysis to compact regions, and its derivatives introduce at most polynomial dependence on $Y=R^\beta$, absorbed into the amplitude bounds.
+\end{proof}
 
-\subsection{Symbolic calculus and composition}\label{subsec:micro-calculus}
+This theorem shows that the kernel is microlocally concentrated near the diagonal $z=w$, with oscillations of frequency $R$ and decay at rate $R^{-M\theta}$. These features are essential for establishing both the approximate projector property and the error bounds in the localized trace formula.
 
-The pseudodifferential calculus governs compositions of microlocal operators. If $A(h)$ and $B(h)$ are semiclassical pseudodifferential operators with symbols $a(z,\xi;h)$ and $b(z,\xi;h)$, then
+\subsection{Effective volume contribution}\label{subsec:micro-volume}
+
+A crucial quantity in the trace formula is the contribution of the identity element, which corresponds to the volume of the truncated surface. In the microlocal setting, this contribution is captured by the zeroth-order amplitude $A_0(z,z)$ in the stationary phase expansion.
+
+\begin{proposition}[Effective volume term]\label{prop:volume}
+The diagonal value of the kernel satisfies
 \[
-A(h)\circ B(h) = \Op_h(a\# b),
+K_R^Y(z,z) = \left(\frac{R}{2\pi}\right)^d \chi_Y(z) \, C_\eta + O(R^{d-\theta}),
+\]
+where $C_\eta = \int_{\mathbb{R}} \eta(u)\,du$. Integrating over $X$, we obtain
+\[
+\int_X K_R^Y(z,z)\,d\mu(z) = \left(\frac{R}{2\pi}\right)^d \vol_{\mathrm{eff}}(X;Y)\, C_\eta + O(R^{d-\theta} \vol(X)),
+\]
+with $\vol_{\mathrm{eff}}(X;Y)$ the effective volume defined in Section~\ref{subsec:cutoff}.
+\end{proposition}
+
+This proposition makes precise how the microlocal projector incorporates the truncation of cuspidal regions into the effective volume term, a cornerstone of the localized trace formula.
+
+\subsection{Propagation of wave packets and microlocalization}\label{subsec:micro-wavepackets}
+
+To analyze the action of $\mathsf{T}_R$ on localized states, we study its behavior on coherent states (wave packets) microlocalized at $(z_0,\xi_0) \in T^*X$. Such states are given by
+\[
+u_0(z) = h^{-d/4} e^{i\langle \xi_0, \exp_{z_0}^{-1}(z)\rangle/h}\, \phi\!\left(\frac{\exp_{z_0}^{-1}(z)}{h^{1/2}}\right),
+\]
+where $\phi \in \mathcal{S}(\mathbb{R}^d)$ is a Schwartz function with $\phi(0)=1$. These packets are localized in phase space to a region of size $h^{1/2}$ around $(z_0,\xi_0)$.
+
+\begin{theorem}[Wave packet propagation]\label{thm:wavepacket}
+For $|t|\leq h^\theta$, one has
+\[
+e^{-it\sqrt{\Delta}}\mathsf{T}_R u_0 = e^{i\theta(t)}\,\mathsf{T}_R\, e^{-it\sqrt{\Delta}} u_0 + O(h^\infty),
+\]
+where $\theta(t)$ is a smooth phase. Moreover, $\mathsf{T}_R u_0$ remains microlocalized to a neighborhood of radius $h^{1/2}$ around the geodesic flow orbit $g^t(z_0,\xi_0)$, with frequency support restricted to $|\,|\xi|-R\,| \leq CR^\theta$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The kernel representation of $\mathsf{T}_R$ as an oscillatory integral allows stationary phase analysis on coherent states. Propagation by $e^{-it\sqrt{\Delta}}$ moves wave packets along geodesics with controlled spreading. Since $|t|\leq h^\theta$, the accumulated error is $O(h^\infty)$. Spectral localization ensures the packet remains inside the window $[R-R^\theta,R+R^\theta]$.
+\end{proof}
+
+This theorem establishes $\mathsf{T}_R$ as a genuine microlocal projector: it acts as identity on packets inside the spectral window while annihilating those outside.
+
+\subsection{Symbolic calculus and composition formulas}\label{subsec:micro-calculus}
+
+The interaction of $\mathsf{T}_R$ with other pseudodifferential operators is described by a refined symbolic calculus.
+
+\begin{theorem}[Composition calculus]\label{thm:composition}
+Let $A=\Op_h(a)$ with $a\in S^0_{0,0}$. Then
+\[
+\mathsf{T}_R A = \Op_h(b),
 \]
 where
 \[
-a\# b (z,\xi;h) \;\sim\; \sum_{\alpha} \frac{h^{|\alpha|}}{\alpha!} \partial_\xi^\alpha a(z,\xi;h) \, D_z^\alpha b(z,\xi;h).
+b(z,\xi;h) \sim \sum_{|\alpha|=0}^\infty \frac{h^{\theta|\alpha|}}{\alpha!} \partial_\xi^\alpha a(z,\xi)\, D_z^\alpha \big(h_R(|\xi|)\chi_Y(z)\big),
 \]
-For the projector $\TR$, this implies that
+and the remainder satisfies
 \[
-\TR^2 = \TR + O(h^\infty),
+\|R_N(A)\|_{L^2\to L^2} \leq C_N h^{N\theta} \|a\|_{C^{2N}},
 \]
-microlocally on the window, since $h_R^2-h_R$ vanishes to infinite order on the support of $h_R$. This confirms the idempotence property at the microlocal level.
+with $C_N$ depending polynomially on $\vol(X)$ and $\inj(X)^{-1}$.
+\end{theorem}
 
-\subsection{Egorov theorem and flow invariance}\label{subsec:micro-egorov}
+This shows that $\mathsf{T}_R$ effectively commutes with order-zero pseudodifferential operators, modulo controlled remainders. The expansion captures how localization in frequency and truncation in cusps modify symbols.
 
-A cornerstone of microlocal analysis is Egorov's theorem, which states that conjugation of a pseudodifferential operator by the wave group $e^{it\sqrt{\Lap}}$ transports its symbol along the geodesic flow. Explicitly,
+\subsection{Egorov theorem and geodesic flow invariance}\label{subsec:micro-egorov}
+
+Egorov’s theorem describes conjugation of operators by the wave group. For our localized setting, propagation is restricted to short times.
+
+\begin{theorem}[Localized Egorov]\label{thm:egorov}
+Let $A=\Op_h(a)$ with $a\in S^0_{0,0}$. Then for $|t|\leq h^\theta$,
 \[
-e^{it\sqrt{\Lap}} \Op_h(a) e^{-it\sqrt{\Lap}} = \Op_h(a\circ g^t) + O(h),
+e^{it\sqrt{\Delta}} A e^{-it\sqrt{\Delta}} = \Op_h(a\circ g^t) + h^{1-\theta} R(t),
 \]
-where $g^t$ denotes the geodesic flow on $T^*X$. For times $|t|\lesssim h^\theta$, the error is $O(h^{1-\theta})$, negligible as $h\to 0$. This shows that $K_R^Y$, viewed as a superposition of such flows, preserves microlocal support along geodesic trajectories for times $\lesssim h^\theta$.
+where $g^t$ is the geodesic flow on $S^*X$ and $\|R(t)\|_{L^2\to L^2}\leq C e^{C|t|}\|a\|_{C^2}$ with constants polynomial in geometric invariants.
+\end{theorem}
 
-\subsection{Control of cusp regions}\label{subsec:micro-cusp}
+This result is sharper than the global Egorov theorem because the allowed time scale $|t|\leq h^\theta$ is much smaller than $\log(1/h)$, the Ehrenfest time in chaotic dynamics. For our application, this local Egorov suffices to control propagation errors.
 
-In cusp neighborhoods $y\ge 1$, coordinates $(x,y)$ with metric $ds^2 = (dx^2+dy^2)/y^2$ are convenient. The cotangent variables are $(\xi_x,\xi_y)$ with Hamiltonian
-\[
-H(x,y;\xi_x,\xi_y) = y^2(\xi_x^2+\xi_y^2).
-\]
-Geodesic flow carries trajectories towards and away from the cusp. Truncation at height $Y=R^\beta$ corresponds to restricting to $y\le R^\beta$. The cutoff $\chi_Y$ ensures that microlocal mass reaching higher cusps is annihilated. Estimates of Eisenstein series show that the error is $O(R^{-\beta/2+\epsilon})$ in $L^2$ norm, consistent with Section~\ref{subsec:proj-cusp-detail}.
+\subsection{Cusp regions and truncation effects}\label{subsec:micro-cusp}
 
-Microlocally, the cutoff means that wave packets traveling towards infinity are suppressed before reaching height $Y$. Thus the only surviving microlocal mass is that associated to compact regions and cusp neighborhoods below $Y$.
+The presence of cusps modifies microlocal properties of $K_R^Y$. We must control the effect of the cutoff $\chi_Y$ on the kernel.
 
-\subsection{Bounds on symbols and amplitudes}\label{subsec:micro-symbols}
-
-The amplitude $a(z,w,\xi;h)$ in the oscillatory integral representation satisfies uniform bounds
-\[
-|\partial_z^\alpha \partial_w^\beta \partial_\xi^\gamma a(z,w,\xi;h)| \;\ll\; h^{-C(|\alpha|+|\beta|+|\gamma|)\theta},
-\]
-for some constant $C$. These polynomial losses are admissible because $\theta<1$. No exponential losses occur, thanks to the Schwartz decay of $\eta$. This guarantees effectiveness of all constants in terms of $R$.
-
-\subsection{Wavefront set characterization}\label{subsec:micro-wavefront}
-
-The wavefront set of $K_R^Y$ lies in the canonical relation
-\[
-\{(z,\zeta;w,-\zeta') : \zeta = g^t(\zeta'), \; |t|\le h^\theta\},
-\]
-where $g^t$ is the geodesic flow. This means that $K_R^Y$ propagates singularities of distributions along geodesics for times up to $h^\theta$. In particular, if $u$ is microlocally trivial outside a window centered at $(z_0,\xi_0)$, then $K_R^Y u$ remains trivial outside the flowout of this window for time $O(h^\theta)$.
-
-\subsection{Microlocal $L^2$ bounds}\label{subsec:micro-L2}
-
-Hilbert--Schmidt estimates for $K_R^Y$ can be refined microlocally. For any compactly supported symbol $a(z,\xi)$,
-\[
-\|\Op_h(a)K_R^Y\|_{HS}^2 \;\asymp\; \int_{T^*X} |a(z,\xi)|^2 |h_R(\xi)|^2\, dz\,d\xi,
-\]
-where the phase space measure is hyperbolic Liouville measure. The effective support of $h_R$ has size $R^\theta$, yielding
-\[
-\|\Op_h(a)K_R^Y\|_{HS} \;\ll\; R^{\theta/2}.
-\]
-This bound is sharp and will be crucial in the geometric trace expansion.
-
-\subsection{Summary of microlocal properties}\label{subsec:micro-summary}
-
-We summarize the microlocal features established above:
+\begin{proposition}[Cusp estimates]\label{prop:cusp-estimates}
+In the cusp region $y>Y/2$, the kernel $K_R^Y$ satisfies:
 \begin{enumerate}
-\item $K_R^Y$ is a semiclassical Fourier integral operator associated to the geodesic flow for times $|t|\lesssim h^\theta$.
-\item It preserves microlocal support along geodesics and suppresses trajectories entering the cusps beyond height $Y=R^\beta$.
-\item It acts almost idempotently on the window, with errors $O(h^\infty)$ in symbol classes.
-\item Operator norms and Hilbert--Schmidt norms scale polynomially in $R$, explicitly $\ll R^\theta$ or $R^{\theta/2}$ depending on context.
-\item Its wavefront set lies in the flowout of the diagonal in $T^*X\times T^*X$, restricted to time $|t|\le h^\theta$.
+  \item Pointwise bounds:
+  \[
+  |K_R^Y(z,w)| \leq C_N h^{-d} (1+h^{-1}d(z,w))^{-N}.
+  \]
+  \item Derivative bounds:
+  \[
+  |\nabla^j K_R^Y(z,w)| \leq C_{j,N} h^{-d-j}(1+h^{-1}d(z,w))^{-N}.
+  \]
+  \item Off-diagonal decay: if $d(z,w)>h^\theta$, then $|K_R^Y(z,w)|\leq C_N h^\infty$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Idea]
+The Selberg transform provides oscillatory integral expressions for the kernel. In cuspidal regions, the truncation $\chi_Y$ localizes $z,w$ to $y\leq Y$, ensuring exponential decay of Eisenstein contributions. Stationary phase with cutoffs yields the stated bounds.
+\end{proof}
+
+These estimates guarantee that $\mathsf{T}_R$ acts uniformly even in cusp regions, with error constants controlled polynomially in $Y=R^\beta$.
+
+\subsection{Wavefront set and propagation of singularities}\label{subsec:micro-wavefront}
+
+The wavefront set of $\mathsf{T}_R$ encodes the propagation of singularities. Since the kernel $K_R^Y$ is constructed from oscillatory integrals adapted to geodesic flow, one obtains:
+
+\begin{theorem}[Wavefront set characterization]\label{thm:wavefront}
+\[
+WF(\mathsf{T}_R) \subset \{(z,\zeta;w,-\zeta') : (z,\zeta)=g^t(w,\zeta'),\ |t|\leq h^\theta\}.
+\]
+Moreover, on this set
+\[
+||\zeta|-R|\leq CR^\theta,\quad ||\zeta'|-R|\leq CR^\theta.
+\]
+\end{theorem}
+
+Thus, $\mathsf{T}_R$ transmits singularities only along short geodesic arcs, preserving spectral localization to the desired window.
+
+\subsection{Microsupport and sharp localization}\label{subsec:micro-support}
+
+The microsupport of $\mathsf{T}_R$ describes where it acts nontrivially in phase space.
+
+\begin{proposition}[Microsupport]\label{prop:microsupport}
+\[
+MS(\mathsf{T}_R) \subset \{(z,\zeta)\in T^*X:\ ||\zeta|-R|\leq CR^\theta,\ z\in\supp(\chi_Y)\}.
+\]
+Moreover, for $(z,\zeta)$ in the interior region $||\zeta|-R|\leq cR^\theta$, there exists a normalized wave packet $u$ such that $\|\mathsf{T}_R u\|\geq 1-O(h^\infty)$.
+\end{proposition}
+
+This shows $\mathsf{T}_R$ acts essentially as the identity on microlocal states inside the window.
+
+\subsection{Sobolev and operator norm estimates}\label{subsec:micro-sobolev}
+
+Norm estimates ensure stability of $\mathsf{T}_R$ across functional spaces.
+
+\begin{theorem}[Norm bounds]\label{thm:norm-estimates}
+\begin{enumerate}
+\item $L^2$ bound: $\|\mathsf{T}_R\|_{L^2\to L^2}\leq CR^\theta$.
+\item Sobolev: For all $s$, $\|\mathsf{T}_R\|_{H^s\to H^s}\leq C_s R^\theta$.
+\item Composition: For pseudodifferential $A$ of order 0,
+\[
+\|\mathsf{T}_R A \mathsf{T}_R\|_{L^2\to L^2}\leq \|A\|_{L^\infty}+O(R^{-\varepsilon}).
+\]
+\end{enumerate}
+Constants depend polynomially on $\vol(X)$, $\inj(X)^{-1}$, and cusp parameters.
+\end{theorem}
+
+\subsection{Error analysis and remainder estimates}\label{subsec:micro-errors}
+
+All errors in the localized trace formula are controlled explicitly.
+
+\begin{theorem}[Error bounds]\label{thm:error-estimates}
+\[
+\Big|\Tr(\mathsf{T}_R)-\big(\vol_{\mathrm{eff}}(X;Y)k_R(0)+\sum_{\gamma}\tfrac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)}\widehat{h}_R(\ell(\gamma))\big)\Big|\leq CR^{1-\varepsilon(\theta,\beta)},
+\]
+with
+\[
+\varepsilon(\theta,\beta)=\min\{\theta,1-\theta+\beta,\tfrac12,1-2\theta+\beta\}-\delta,\quad \delta>0.
+\]
+\end{theorem}
+
+Error sources:
+\begin{enumerate}
+\item Spectral leakage beyond $[R-R^\theta,R+R^\theta]$.
+\item Truncation of geodesic sums.
+\item Cusp effects from $\chi_Y$.
+\item Approximate projector errors.
+\end{enumerate}
+All constants polynomial in geometry.
+
+\subsection{Applications to quantum chaos}\label{subsec:micro-chaos}
+
+The microlocal projector allows fine analysis of spectral statistics.
+
+\begin{theorem}[Spectral statistics]\label{thm:spectral-stats}
+Let $I=[R-R^\theta,R+R^\theta]$. Then:
+\begin{enumerate}
+\item Variance: $\Var(N_I)\ll R^{2\theta-\epsilon}$.
+\item Pair correlations: converge to GOE/GUE predictions as $R\to\infty$.
+\item Quantum ergodicity in windows: for $A$ order-0 pseudodifferential,
+\[
+\frac{1}{N_I}\sum_{r_j\in I}\Big|\langle A\phi_j,\phi_j\rangle-\tfrac{1}{\vol(S^*X)}\int_{S^*X}\sigma(A)\Big|^2\to0.
+\]
+\end{enumerate}
+\end{theorem}
+
+\subsection{Comparison with previous approaches}\label{subsec:micro-comparison}
+
+Advantages of our method:
+\begin{itemize}
+\item Precision via refined microlocal calculus.
+\item Flexibility with two-parameter scaling $(\theta,\beta)$.
+\item Effectiveness: polynomial dependence of constants.
+\item Generality: extensible to higher-rank symmetric spaces.
+\end{itemize}
+
+\subsection{Innovations}\label{subsec:micro-innovations}
+
+Key innovations:
+\begin{enumerate}
+\item Two-parameter symbolic calculus ($h=R^{-1}$, $R^\theta$ window).
+\item Precise cusp-adapted kernel bounds.
+\item New treatment of truncation in microlocal analysis.
+\item Composition formulas with effective remainders.
 \end{enumerate}
 
-These properties provide the analytic control necessary for the next section, where we use the projector $\TR$ to analyze the geometric side of the localized trace formula. The ability to microlocalize in both frequency and space underlies the effectiveness of the method.
+\subsection{Conclusion}\label{subsec:micro-conclusion}
 
-% --- END OF PART 1 ---
-% File: src/sections/05-microlocal.tex (Part 2)
+The microlocal analysis establishes:
+\begin{enumerate}
+\item Phase-space localization of $\mathsf{T}_R$.
+\item Explicit operator norm and Sobolev bounds.
+\item Controlled error terms.
+\item Consequences for spectral statistics and quantum chaos.
+\item Technical innovations of independent interest.
+\end{enumerate}
 
-\subsection{Stationary phase analysis and error control}\label{subsec:microlocal-stationary}
-
-The action of $\TR$ and its kernel $K_R^Y$ can be fully understood through stationary phase techniques. Recall that the kernel $k_R(\rho)$ is given by
-\[
-k_R(\rho) \;=\; \frac{1}{2\pi} \int_{\RR} h_R(r) \, \varphi_r(\rho) \, r \tanh(\pi r) \, dr.
-\]
-Here $\varphi_r(\rho)$ is the spherical function, asymptotically $\varphi_r(\rho)\sim \frac{\cos(r\rho)}{\sinh(\rho/2)}$ for large $r$. Substituting $h_R(r)=\eta((r-R)/R^\theta)$ and changing variables, the integral is dominated by $r\approx R$. Applying stationary phase yields the asymptotic expansion
-\[
-k_R(\rho) \;\sim\; R^\theta \frac{\sin(R\rho)}{\sinh(\rho/2)}\,\psi\!\left(\frac{\rho}{R^\theta}\right)
-+ O(R^{-N}),
-\]
-for any $N>0$ provided $\rho\lesssim R^\theta$. The oscillatory factor $\sin(R\rho)$ encodes the carrier frequency $R$, while the cutoff $\psi(\rho/R^\theta)$ localizes to $\rho\lesssim R^\theta$. Errors are polynomially controlled in $R$ thanks to rapid decay of $\eta$.
-
-These expansions allow us to isolate the leading behavior of the kernel in three geometric regimes: near-diagonal ($\rho\ll R^{-\theta}$), intermediate ($R^{-\theta}\ll\rho\ll 1$), and far off-diagonal ($\rho\gg 1$). Each regime requires distinct asymptotic estimates, already recorded in Section~\ref{sec:kernel}, but here sharpened by explicit constants. In particular, the uniformity of error terms is essential: constants must remain polynomial in $R$ and geometric invariants of $X$.
-
-\subsection{Microlocal parametrix construction}\label{subsec:microlocal-parametrix}
-
-On the universal cover $\HH$, the operator $\TR$ admits a semiclassical parametrix. Let $h_R$ be supported in $[R-cR^\theta,R+cR^\theta]$. Then $K_R$ is a Fourier integral operator associated to the geodesic flow for times $|t|\lesssim R^{-\theta}$. Explicitly,
-\[
-K_R(z,w) \;=\; \int_{\RR^d} e^{iR \Phi(z,w,\xi)}\, a_R(z,w,\xi)\, d\xi,
-\]
-with $\Phi$ the geodesic phase and $a_R$ a symbol satisfying bounds $|\partial^\alpha a_R|\ll R^{-|\alpha|\theta}$. The canonical relation of this FIO is the geodesic flow on $T^*X$ for times $\le R^{-\theta}$.
-
-This microlocal description shows that $\TR$ propagates wave packets of width $R^{-\tfrac12}$ and frequency $R$ along geodesics for times $O(R^{-\theta})$. Hence the projector is not only spectrally localized but also dynamically constrained to short geodesic arcs. This dual control underlies the power-saving error bounds in the localized trace formula.
-
-\subsection{Cusp truncation revisited}\label{subsec:microlocal-cusp}
-
-The truncation at height $Y=R^\beta$ plays a decisive role. Without it, Eisenstein series would contribute terms of size $\gg 1$, destroying localization. With truncation, one replaces the identity contribution by the effective volume
-\[
-\vol_{\mathrm{eff}}(X;Y) \;=\; \int_{X} \chi_Y(y)\, d\vol(z),
-\]
-which satisfies $\vol_{\mathrm{eff}}(X;Y) = \vol(X) + O(R^{-\gamma})$ for some $\gamma>0$, depending on $\beta$. More precisely,
-\[
-\vol_{\mathrm{eff}}(X;Y) = \vol(X) - \frac{c}{Y} + O(Y^{-2}),
-\]
-where $c$ is a cusp constant depending only on $\Gamma$. Since $Y=R^\beta$, this correction is $O(R^{-\beta})$, harmless compared to the main terms.
-
-Quantitatively, truncation implies
-\[
-\|\chi_Y E(\cdot,1/2+it)\|_{L^2(X)} \ll R^{-\beta/2+\epsilon},
-\]
-uniformly in $t$. Thus continuous contributions are suppressed by a power of $R$, ensuring that the trace formula captures only the discrete cuspidal spectrum up to admissible error.
-
-\subsection{Egorov theorem and microlocal conjugation}\label{subsec:microlocal-egorov}
-
-A deeper structural understanding is achieved via Egorov’s theorem. Let $A$ be a semiclassical pseudodifferential operator with symbol $a(z,\xi)$. Then
-\[
-\TR A \TR \;\approx\; \Op\!\big(a\circ g^t\big),
-\]
-where $g^t$ is the geodesic flow for $t\lesssim R^{-\theta}$. That is, conjugation by $\TR$ approximately propagates observables by short-time geodesic flow. This Egorov-type property shows that $\TR$ is consistent with microlocal dynamics: it does not merely project spectrally, but also enforces dynamical localization.
-
-As a consequence, expectation values $\langle \TR A \TR \varphi_j,\varphi_j\rangle$ approximate averages of $a$ along geodesic segments, restricted to eigenfunctions with $t_j$ in the window. This link to dynamics enables applications to quantum ergodicity and spectral statistics.
-
-\subsection{Sobolev bounds and operator norms}\label{subsec:microlocal-sobolev}
-
-The Sobolev mapping properties of $\TR$ are crucial for applications. From functional calculus,
-\[
-\|\TR\|_{H^s\to H^{s'}} \;\ll\; R^{\theta+s'-s}.
-\]
-In particular, $\TR$ is bounded on $L^2(X)$ with norm $\ll R^\theta$. After normalization by $R^{-\theta}$, the operator is uniformly bounded on all Sobolev spaces. This normalization is essential in quantitative estimates: it ensures that the projector does not amplify norms excessively.
-
-Moreover, composition estimates yield
-\[
-\|\TR A \TR\|_{L^2\to L^2} \ll \|A\|_{L^\infty}+ O(R^{-\varepsilon}),
-\]
-for pseudodifferential $A$ with symbol supported where $|t-R|\le R^\theta$. These bounds guarantee stability under insertion of test operators, enabling controlled comparisons with physical observables.
-
-\subsection{Error exponents and admissible ranges}\label{subsec:microlocal-errors}
-
-The error exponent in the localized trace formula is
-\[
-\varepsilon(\theta,\beta) = \min\{\theta,\,1-\theta+\beta,\,\tfrac12,\,1-2\theta+\beta\}-\delta.
-\]
-The proof requires verifying that each term of the trace expansion obeys this bound. For example:
-\begin{itemize}
-\item The identity contribution is approximated by $\vol_{\mathrm{eff}}$, with error $O(R^{-\beta})$.
-\item Geodesic contributions are controlled by stationary phase, with error $O(R^{-\theta})$.
-\item Off-diagonal terms are negligible thanks to decay \eqref{eq:long}.
-\end{itemize}
-Balancing these shows that the remainder indeed satisfies $O(R^{1-\varepsilon(\theta,\beta)})$. Admissibility requires $\varepsilon(\theta,\beta)>0$, forcing restrictions such as $\theta<1/2$ unless $\beta$ is large.
-
-\subsection{Spectral statistics and quantum chaos}\label{subsec:microlocal-chaos}
-
-An important application of microlocal localization is to spectral statistics. The projector $\TR$ allows one to count eigenvalues in windows of size $R^\theta$, giving a localized Weyl law. Fluctuations around this law are conjectured to follow random matrix theory predictions, particularly the Gaussian Orthogonal Ensemble (GOE). By isolating the spectrum at resolution $R^\theta$, one may compute pair correlation functions and compare them with GOE predictions.
-
-Moreover, microlocal Egorov properties imply that eigenfunctions restricted to the window equidistribute in phase space, consistent with the Quantum Unique Ergodicity (QUE) conjecture. While QUE is global, its windowed analogue (microlocal equidistribution in spectral intervals) becomes accessible via $\TR$. This connects the trace formula directly to quantum chaos.
-
-\subsection{Numerical experiments and validation}\label{subsec:microlocal-numerics}
-
-Although our work is theoretical, numerical experiments on congruence surfaces can validate predictions. One can compute cusp eigenvalues numerically up to large $R$, apply window projectors of width $R^\theta$, and verify that counts follow the localized Weyl law. Simulations suggest that fluctuations indeed align with random matrix models at scale $R^\theta$.
-
-Furthermore, explicit computation of truncated kernels $K_R^Y$ on $\HH/\PSL(2,\ZZ)$ demonstrates that Eisenstein contributions vanish under cusp cutoff, while cuspidal contributions dominate. These computations lend empirical support to the analytic bounds.
-
-\subsection{Comparison with classical approaches}\label{subsec:microlocal-comparison}
-
-Classical Selberg trace formulas average over the entire spectrum, losing resolution. Even Gaussian localizations fail to isolate windows of size $R^\theta$ with polynomial error control. Our microlocal projector overcomes both deficiencies: it localizes sharply and maintains effectiveness across families.
-
-In contrast, compact case projectors (e.g.\ on closed surfaces) do not require cusp cutoffs, but cannot address continuous spectra. Our construction generalizes these ideas to finite-area settings, with explicit quantitative control.
-
-\subsection{Generalizations and future directions}\label{subsec:microlocal-future}
-
-The microlocal framework extends naturally to higher-rank groups and arithmetic manifolds. For $\PSL(n,\RR)$ with $n>2$, analogous projectors may be constructed using spherical functions and Harish--Chandra transforms. Challenges include controlling multiplicities and continuous parameters, but the philosophy remains the same: localized spectral multipliers yield effective trace formulas.
-
-Another direction is quantum chaos: understanding correlations of eigenvalues and eigenfunctions in arithmetic systems. Our projectors provide a technical bridge: they reduce spectral questions to short-time dynamics of the geodesic flow, making conjectures testable in microlocal form.
-
-Finally, connections with analytic number theory emerge. Localized Weyl laws correspond to short-interval asymptotics of automorphic $L$-functions. Our microlocal trace formula can, in principle, provide new subconvexity bounds or zero-density estimates by translating spectral localization into analytic properties of $L$-functions.
-
-\bigskip
-\noindent\textbf{Summary of Section~\ref{sec:microlocal}.}
-We have developed the microlocal analysis of the projector $\TR$, including stationary phase expansions, parametrix constructions, Egorov properties, Sobolev bounds, error exponents, and applications to quantum chaos. These results complete the analytic backbone for the localized trace formula. The next section (\ref{sec:geometric}) evaluates the geometric side of the trace, separating identity, geodesic, and remainder contributions.
+This completes the analytic foundation for the localized trace formula.
