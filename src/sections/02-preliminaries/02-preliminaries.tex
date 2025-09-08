@@ -1,1 +1,162 @@
+\section{Preliminaries}
 
+% ---------------------------------------------------------------------
+% Chapter Goals
+% ---------------------------------------------------------------------
+% This chapter fixes the analytic and geometric setting, normalizations,
+% and persistent invariants used throughout the monograph. We also record
+% explicit dependencies of constants and the precise meaning of all
+% asymptotic notations. The intent is to give a self-contained reference
+% that can be cited from later chapters without repeating conventions.
+
+\subsection*{Chapter Goals}
+
+\begin{itemize}[leftmargin=2em]
+  \item[\textbf{(G1)}] Specify the geometric background: the upper half-plane
+  $\mathbb{H}$ with the hyperbolic metric $ds^2=\frac{dx^2+dy^2}{y^2}$,
+  the area element $d\mu(z)=\frac{dx\,dy}{y^2}$, and the finite-area
+  quotient $M=\Gamma\backslash\mathbb{H}$ by a cofinite Fuchsian group
+  $\Gamma\subset\mathrm{PSL}_2(\mathbb{R})$.
+
+  \item[\textbf{(G2)}] Fix the sign and normalization of the Laplace--Beltrami
+  operator: $\Delta\ge 0$ on $M$, with spectral parameterization
+  $\lambda=\frac14+r^2$, $r\in[0,\infty)$.
+
+  \item[\textbf{(G3)}] Describe cuspidal regions and height truncations
+  $M(Y)$, including canonical horocyclic coordinates and the relation of
+  $Y$ to cusp widths.
+
+  \item[\textbf{(G4)}] Record the spectral decomposition on $L^2(M)$, including
+  discrete eigenfunctions $\{\varphi_j\}$ and Eisenstein series
+  $E_{\mathfrak a}(z,\frac12+ir)$ for each cusp $\mathfrak a$ with
+  Plancherel measure $dr/(4\pi)$.
+
+  \item[\textbf{(G5)}] Define the Selberg/Harish–Chandra transform of radial
+  kernels, with conventions compatible with Chapters~3–6.
+
+  \item[\textbf{(G6)}] Establish uniform Sobolev bounds and function space
+  norms used in error estimates and stationary phase arguments.
+
+  \item[\textbf{(G7)}] State explicit dependency rules for constants and error
+  terms; fix the notation $O_{\Gamma,\beta}(\cdot)$, where $\beta$ denotes
+  a lower bound for the spectral gap.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Invariants and dependency ledger
+% ---------------------------------------------------------------------
+\subsection*{Invariants and dependency ledger}
+
+\begin{itemize}[leftmargin=2em]
+  \item[\textbf{(I1)}] \textit{Surface and volume.} $M=\Gamma\backslash\mathbb{H}$,
+  $\vol(M)\in(0,\infty)$.
+
+  \item[\textbf{(I2)}] \textit{Cuspidal data.} Number of cusps $h$, cusp widths
+  $(w_1,\dots,w_h)$, standard scaling matrices; all cusp-dependent constants
+  are functions of this tuple only.
+
+  \item[\textbf{(I3)}] \textit{Spectral gap.} $\beta\in(0,\tfrac14]$ is a fixed
+  lower bound on $r_j^2$ for nontrivial discrete spectrum; constants that may
+  depend on $\beta$ are written $O_{\Gamma,\beta}(\cdot)$.
+
+  \item[\textbf{(I4)}] \textit{Normalization of Eisenstein series.} Continuous
+  spectrum is integrated with measure $dr/(4\pi)$; constant terms use the
+  standard scattering matrix conventions.
+
+  \item[\textbf{(I5)}] \textit{Asymptotic notation.}
+  $A\lesssim B$ means $A\le C\,B$ for some absolute $C>0$;
+  $A\asymp B$ means $A\lesssim B$ and $B\lesssim A$;
+  $O_X(\cdot)$ indicates dependence on $X$ only.
+
+  \item[\textbf{(I6)}] \textit{Propagation scale.} The geometric comparison
+  time is $T\asymp\log\lambda$; proportionality constants are fixed once
+  and for all (Chapter~5) and do not affect the order bounds.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Organization of the chapter (reader-facing map)
+% ---------------------------------------------------------------------
+\subsection*{Organization}
+
+This chapter consists of self-contained building blocks that establish the
+geometric, spectral, and transform-theoretic infrastructure. Each block
+closes with an internal consistency check; the chapter concludes with an
+audit summarizing dependencies and forward links.
+
+\begin{itemize}[leftmargin=2em]
+  \item Geometry of the hyperbolic plane and of the quotient surface:
+  metric, distance, injectivity considerations, volume conventions.
+  (Input: \texttt{02b-geometry.tex})
+
+  \item Cuspidal structure and height truncation:
+  model neighborhoods, cusp parameters, and truncation sets $M(Y)$.
+  (Input: \texttt{02b-cusps.tex})
+
+  \item Selberg/Harish–Chandra transform for radial kernels:
+  normalization, inversion, and compatibility with later kernels.
+  (Input: \texttt{02b-selberg-transform.tex})
+
+  % Future extension points (to be added as separate blocks as needed):
+  % \item Uniform Sobolev bounds and mapping properties.
+  % \item Spectral decomposition bookkeeping and Plancherel identities.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Inputs: technical blocks for Chapter 2
+% ---------------------------------------------------------------------
+
+% Geometry block: metric, distance, volume, injectivity considerations.
+\input{sections/02-preliminaries/blocks/02b-geometry.tex}
+
+% Cuspidal analysis: coordinates, truncation, scattering data conventions.
+\input{sections/02-preliminaries/blocks/02b-cusps.tex}
+
+% Selberg/Harish–Chandra transform: test functions and radial kernels.
+\input{sections/02-preliminaries/blocks/02b-selberg-transform.tex}
+
+% ---------------------------------------------------------------------
+% Chapter Audit
+% ---------------------------------------------------------------------
+\subsection*{Chapter Audit}
+
+\noindent\textbf{Scope and coverage.}
+The geometric model $(\mathbb{H},ds^2)$, the quotient $M=\Gamma\backslash\mathbb{H}$,
+and the finite-area assumption have been fixed. Cuspidal neighborhoods and
+height truncations $M(Y)$ are defined with explicit dependence on cusp widths.
+The sign and parameterization of the Laplacian are fixed once and for all.
+
+\medskip
+\noindent\textbf{Spectral conventions.}
+The spectral decomposition on $L^2(M)$ is recorded in the standard form with
+discrete eigenfunctions $\{\varphi_j\}$ and Eisenstein series
+$E_{\mathfrak a}(z,\tfrac12+ir)$, normalized so that the Plancherel measure
+is $dr/(4\pi)$. The spectral parameter is $\lambda=\frac14+r^2$.
+
+\medskip
+\noindent\textbf{Transform conventions.}
+For radial kernels, the Selberg/Harish–Chandra transform, its inversion, and
+normalization choices are fixed and aligned with the kernel constructions of
+Chapters~3–4 and the microlocal analysis of Chapter~5.
+
+\medskip
+\noindent\textbf{Dependencies of constants.}
+All error terms and implied constants are annotated as $O_{\Gamma,\beta}(\cdot)$
+whenever dependence on the Fuchsian group and on a lower bound for the spectral
+gap is relevant. No constant introduced in this chapter depends on the spectral
+window parameters $(\lambda,\eta)$; such dependencies first appear with the
+localized projector in Chapter~4.
+
+\medskip
+\noindent\textbf{Forward links.}
+The geometric and cuspidal conventions feed directly into the truncated kernel
+of Chapter~3. Transform normalizations and test-function conventions feed into
+the spectral projector of Chapter~4 and the semiclassical parametrix in
+Chapter~5. The propagation time scale $T\asymp\log\lambda$ is carried forward
+to the geometric expansion of Chapter~6.
+
+\medskip
+\noindent\textbf{Consistency checks.}
+Notation agrees with the global glossary; Laplacian sign and Plancherel
+normalization are consistent with the bibliography standards (e.g., Selberg,
+Iwaniec, Buser). Cusp-related constants are functions only of the cusp data
+(number and widths). These checks complete the audit for Chapter~2.
