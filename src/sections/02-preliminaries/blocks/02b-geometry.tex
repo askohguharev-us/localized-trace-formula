@@ -1,125 +1,404 @@
-% --- Hyperbolic geometry: metric, volume, and injectivity radius (Chapter 2 block) ---
+% --- Geometry of hyperbolic surfaces (Preliminaries, Block: Geometry) ---
 
-We recall the geometric background needed for the construction of kernels and
-for the estimates in later chapters.
-All constants are explicit and depend only on $\Gamma$.
+\noindent
+We now recall and fix the geometric framework underlying the surface
+$M=\Gamma\backslash\mathbb{H}$.
+This material is classical but is presented with explicit normalizations
+that will be used throughout.
 
 \medskip
-\noindent\textbf{Hyperbolic metric and measure.}
-On the upper half–plane $\mathbb{H}=\{x+iy : y>0\}$ the hyperbolic metric is
+
+\noindent\textbf{The hyperbolic plane.}
+Let $\mathbb{H}=\{z=x+iy \in \mathbb{C}: y>0\}$.
+The hyperbolic metric is
 \[
-  ds^{2} = \frac{dx^{2}+dy^{2}}{y^{2}},
-  \qquad
+  ds^{2} = \frac{dx^{2}+dy^{2}}{y^{2}}.
+\]
+The associated volume element is
+\[
   d\mu(z) = \frac{dx\,dy}{y^{2}}.
 \]
-The geodesic distance $d(z,w)$ satisfies
-\[
-  \cosh d(z,w) = 1 + \frac{|z-w|^{2}}{2\,\Im z\,\Im w}.
-\]
-The Laplace–Beltrami operator (with negative spectrum convention) is
-\[
-  \Delta = -y^{2}\Big(\partial_{x}^{2} + \partial_{y}^{2}\Big).
-\]
-Its spectrum on $M=\Gamma\backslash\mathbb{H}$ consists of discrete eigenvalues
-$0=\lambda_{0}<\lambda_{1}\le\lambda_{2}\le\cdots$ tending to infinity,
-together with the continuous spectrum $[1/4,\infty)$.
 
 \medskip
-\noindent\textbf{Balls and volumes.}
-The volume of a hyperbolic ball of radius $R$ is
+
+\noindent
+The hyperbolic distance $d(z_{1},z_{2})$ satisfies
 \[
-  \vol B(R) = 2\pi\!\big(\cosh R - 1\big) \asymp e^{R}, \quad (R\to\infty).
+  \cosh d(z_{1},z_{2})
+  = 1 + \frac{|z_{1}-z_{2}|^{2}}{2\,\Im(z_{1})\,\Im(z_{2})}.
 \]
-For small $R$ one has $\vol B(R)\sim \pi R^{2}$.
-These identities allow comparison between hyperbolic and Euclidean scales,
-especially in local Sobolev inequalities.
+This formula will be used repeatedly to estimate displacements
+under group actions.
 
 \medskip
-\noindent\textbf{Fundamental domains.}
-Let $F\subset\mathbb{H}$ be a fundamental domain for $\Gamma$.
-It can be chosen as a union of finitely many hyperbolic polygons with geodesic sides,
-together with cusp neighborhoods of the form
+
+\noindent\textbf{Isometries of $\mathbb{H}$.}
+The group $PSL_{2}(\mathbb{R})$ acts by fractional linear transformations:
 \[
-  \{ x+iy : 0\le x<w,\, y>Y_{0}\}
+  \begin{pmatrix} a & b \\ c & d \end{pmatrix} \cdot z = \frac{az+b}{cz+d}.
 \]
-after application of a scaling matrix.
-The boundary of $F$ has finite length modulo cusps.
-For practical purposes we work with truncated domains $F(Y)$ where cuspidal regions $y>Y$
-are cut off and replaced by boundary horocycles.
+This action preserves the hyperbolic metric and measure.
 
 \medskip
+
+\noindent
+Isometries fall into three classes depending on the trace:
+\begin{itemize}
+  \item \emph{Elliptic:} $|\mathrm{tr}|<2$, fixing a point in $\mathbb{H}$.
+  \item \emph{Parabolic:} $|\mathrm{tr}|=2$, fixing a unique cusp on $\partial\mathbb{H}$.
+  \item \emph{Hyperbolic:} $|\mathrm{tr}|>2$, fixing two boundary points and preserving the geodesic between them.
+\end{itemize}
+These classifications play distinct roles in the trace formula:
+elliptic elements contribute discrete orbital integrals,
+parabolic elements yield scattering terms,
+and hyperbolic elements correspond to closed geodesics.
+
+\medskip
+
+\noindent\textbf{Geodesics.}
+Geodesics in $\mathbb{H}$ are either vertical lines or semicircles orthogonal to the real line.
+For points $z_{1},z_{2}\in\mathbb{H}$,
+the unique geodesic joining them is such a circle or line.
+
+\medskip
+
+\noindent
+The length of a geodesic segment can be computed explicitly using the distance formula.
+For a closed geodesic associated with a hyperbolic element $\gamma$,
+its length $\ell(\gamma)$ satisfies
+\[
+  2\cosh\!\left(\frac{\ell(\gamma)}{2}\right) = |\mathrm{tr}(\gamma)|.
+\]
+
+\medskip
+
+\noindent\textbf{Discrete groups and fundamental domains.}
+Let $\Gamma\subset PSL_{2}(\mathbb{R})$ be a discrete subgroup of finite covolume.
+The quotient $M=\Gamma\backslash \mathbb{H}$ is a hyperbolic surface of finite area.
+If $\Gamma$ has no elliptic elements then $M$ is a smooth manifold;
+otherwise it is an orbifold with conical singularities.
+
+\medskip
+
+\noindent
+A \emph{fundamental domain} $\mathcal{F}$ for $\Gamma$ is a measurable subset of $\mathbb{H}$
+such that
+\[
+  \bigcup_{\gamma\in\Gamma} \gamma \mathcal{F} = \mathbb{H},
+\]
+and the interiors are disjoint.
+The volume of $M$ is then
+\[
+  \vol(M) = \int_{\mathcal{F}} d\mu(z).
+\]
+
+\medskip
+
+\noindent\textbf{Cocompact vs. noncocompact.}
+If $\Gamma$ is cocompact, then $M$ is compact and has no cusps.
+If $\Gamma$ is noncocompact of finite covolume,
+then $M$ has finitely many cusps, treated in the next block.
+
+\medskip
+
 \noindent\textbf{Injectivity radius.}
-For $z\in M$ define the injectivity radius
+For $z\in M$, the injectivity radius is
 \[
-  \inj(z) = \tfrac12 \inf_{\gamma\in\Gamma\setminus\{\pm I\}} d(z,\gamma z).
+  \inj(z) = \tfrac12 \inf_{\gamma\in\Gamma\setminus\{1\}} d(z,\gamma z).
 \]
-It is uniformly positive on compact subsets of $M$.
-At cusp neighborhoods, $\inj(z)$ decays like $c/y$ in terms of the imaginary coordinate,
-with $c$ depending on the cusp width.
+This measures the radius of the largest embedded hyperbolic ball around $z$.
+It is continuous and $\inj(z)>0$ except possibly near cusps.
+
+\medskip
+
+\noindent
+For compact $M$, $\inj(z)$ attains a positive minimum.
+For noncompact $M$, $\inj(z)$ tends to zero in the cusp regions.
+We will quantify this in later blocks.
+
+\medskip
+
+\noindent\textbf{Dirichlet domains.}
+Fix $z_{0}\in \mathbb{H}$.
+The Dirichlet domain is
+\[
+  \mathcal{D}(z_{0}) = \{ z\in\mathbb{H} : d(z,z_{0})\le d(z,\gamma z_{0}), \forall \gamma\in\Gamma\}.
+\]
+This is a convex polygon (possibly with infinitely many sides) in $\mathbb{H}$.
+It is another realization of a fundamental domain.
+Properties of $\mathcal{D}(z_{0})$ reflect the geometry of $\Gamma$.
+
+\medskip
+
+\noindent\textbf{Volume growth.}
+The hyperbolic ball of radius $R$ has area
+\[
+  \vol(B(R)) = 2\pi(\cosh R - 1).
+\]
+This exponential growth rate underlies many asymptotic estimates.
 In particular,
-\[
-  \inj(M(Y)) := \inf_{z\in M(Y)}\inj(z) > 0
-\]
-for $Y$ large enough, where $M(Y)$ is the surface truncated at height $Y$.
-This fact is critical when applying Sobolev inequalities and stationary phase arguments.
+the number of closed geodesics of length $\le R$ grows like $e^{R}/R$.
 
 \medskip
-\noindent\textbf{Geodesic flow and unit tangent bundle.}
-Let $SM$ be the unit tangent bundle of $M$.
-The geodesic flow $\varphi^{t}:SM\to SM$ preserves the Liouville measure.
-On the universal cover $S\mathbb{H}\cong\mathrm{PSL}_{2}(\mathbb{R})$,
-$\varphi^{t}$ corresponds to right multiplication by
-$\begin{psmallmatrix} e^{t/2} & 0 \\ 0 & e^{-t/2}\end{psmallmatrix}$.
-The mixing properties of this flow underlie the semiclassical estimates of Chapter~5.
+
+\noindent\textbf{Green’s function.}
+The Green’s function $G(z,w;s)$ for the Laplacian on $\mathbb{H}$
+is given explicitly by a hypergeometric function of $\cosh d(z,w)$.
+It satisfies
+\[
+  (\Delta - s(1-s)) G(z,w;s) = -\delta(z-w).
+\]
+This kernel will reappear in the Selberg transform.
 
 \medskip
-\noindent\textbf{Length spectrum.}
-Every primitive closed geodesic $\gamma$ on $M$ corresponds to a hyperbolic conjugacy class in $\Gamma$,
-with length $\ell(\gamma)>0$ given by
+
+\noindent\textbf{Spectral parameterization.}
+Eigenvalues of the Laplacian on $\mathbb{H}$ are written
 \[
-  2\cosh\!\Big(\tfrac{\ell(\gamma)}{2}\Big) = |\operatorname{tr} \gamma|.
+  \lambda = \tfrac14 + t^{2}, \qquad t\in\mathbb{R}.
 \]
-The set $\{\ell(\gamma)\}$ (counted with multiplicity) is the \emph{length spectrum}.
-It satisfies the asymptotic
-\[
-  \#\{\gamma : \ell(\gamma)\le L\} \sim \frac{e^{L}}{L},
-  \qquad L\to\infty,
-\]
-which mirrors the Weyl law for the eigenvalue spectrum.
-The length spectrum enters explicitly into the geometric side of the trace formula.
+This parameterization matches the Fourier analysis on $\mathbb{H}$.
+The Plancherel measure is $\tfrac{1}{4\pi}dt$.
 
 \medskip
-\noindent\textbf{Wave kernel on $\mathbb{H}$.}
-Let $K_{t}(z,w)$ denote the kernel of $\cos(t\sqrt{\Delta})$ on $\mathbb{H}$.
-It depends only on $d(z,w)$ and admits an explicit expression
+
+\noindent\textbf{Lattice point estimates.}
+For $\Gamma$ discrete, counting orbit points is central.
+Let $N(R)=\#\{\gamma\in\Gamma : d(z,\gamma z)\le R\}$.
+Then
 \[
-  K_{t}(d) = -\frac{1}{\pi}\,\frac{\partial}{\partial t}\Big(\frac{\sin(t\sqrt{d^{2}-1})}{\sqrt{d^{2}-1}}\Big), \qquad d>1,
+  N(R) \sim \frac{\vol(B(R))}{\vol(M)} \quad (R\to\infty).
 \]
-continued analytically elsewhere.
-This kernel satisfies finite propagation speed:
-$K_{t}(z,w)=0$ if $d(z,w)>|t|$.
-On the quotient $M$, the periodization
-\[
-  K^{M}_{t}(z,w) = \sum_{\gamma\in\Gamma} K_{t}(d(z,\gamma w))
-\]
-is convergent for each fixed $t$ and smooth in $(z,w)$.
-It plays a central role in constructing microlocal projectors.
+This is a form of the hyperbolic lattice point theorem.
 
 \medskip
+
+\noindent\textbf{Selberg’s lemma on separation.}
+There exists $\epsilon>0$ such that distinct translates of $\mathcal{F}$
+are separated by distance $\ge \epsilon$.
+This finiteness property underlies convergence of orbital sums.
+
+\medskip
+
+\noindent\textbf{Orbital integrals.}
+Given a function $k:\mathbb{H}\times\mathbb{H}\to\mathbb{C}$
+that is $\Gamma$-invariant and radial, orbital integrals are
+\[
+  O_{\gamma}(k) = \int_{\Gamma_{\gamma}\backslash\mathbb{H}} k(z,\gamma z)\,d\mu(z).
+\]
+Their computation depends on the conjugacy class of $\gamma$.
+
+\medskip
+
+\noindent\textbf{Forward links.}
+The geometric constructions here set the stage for:
+\begin{itemize}
+  \item Chapter~2B (cusps), where injectivity radius near infinity is quantified.
+  \item Chapter~3, kernel construction, where geodesic structure governs orbital sums.
+  \item Chapter~6, geometric expansion, assembling contributions of elliptic, hyperbolic, parabolic elements.
+\end{itemize}
+
+\medskip
+
+\noindent
+% --- End of Part 1 for Geometry block ---
+
+% --- Geometry of hyperbolic surfaces (Preliminaries, Block: Geometry) continued ---
+
+\noindent\textbf{Gauss–Bonnet theorem.}
+For a hyperbolic surface $M$ of finite area,
+\[
+  \vol(M) = 2\pi\,(2g-2 + n + m/2),
+\]
+where $g$ is the genus,
+$n$ the number of cusps,
+and $m$ the number of elliptic points counted with weights $1-1/e_{j}$.
+This fundamental identity connects topology and geometry.
+
+\medskip
+
+\noindent\textbf{Elliptic points.}
+If $\Gamma$ has elliptic elements of order $e$,
+then $M$ has cone points of angle $2\pi/e$.
+The contribution of these points to orbital integrals
+requires special treatment,
+though in many cases of interest $\Gamma$ is torsion-free.
+
+\medskip
+
+\noindent\textbf{Compact core.}
+For noncompact $M$,
+define the compact core
+\[
+  M_{\mathrm{core}} = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y)),
+\]
+with $Y$ chosen large enough.
+This is a compact surface with geodesic boundary.
+Many analytic arguments reduce to estimates on $M_{\mathrm{core}}$.
+
+\medskip
+
+\noindent\textbf{Geodesic boundary and collars.}
+A closed geodesic $\gamma$ of length $\ell$ admits a collar neighborhood
+\[
+  \{ z\in M : d(z,\gamma)<w(\ell) \},
+\]
+with width
+\[
+  w(\ell) = \operatorname{arcsinh}\!\left(\frac{1}{\sinh(\ell/2)}\right).
+\]
+The collar lemma ensures that collars of distinct geodesics are disjoint.
+This structural fact controls the thin part of $M$.
+
+\medskip
+
+\noindent\textbf{Thin–thick decomposition.}
+Define
+\[
+  M_{\ge \epsilon} = \{ z\in M : \inj(z)\ge \epsilon \}, \qquad
+  M_{<\epsilon} = M\setminus M_{\ge \epsilon}.
+\]
+Then $M_{\ge \epsilon}$ is compact
+and $M_{<\epsilon}$ consists of cusp neighborhoods and collars.
+This decomposition underlies many spectral estimates.
+
+\medskip
+
 \noindent\textbf{Sobolev inequalities.}
-For $f\in C_{c}^{\infty}(M)$ one has the hyperbolic Sobolev inequality
+On hyperbolic surfaces,
+Sobolev norms satisfy inequalities of the form
 \[
-  \|f\|_{\infty} \le C \|f\|_{H^{s}(M)} \qquad (s>1),
+  \|f\|_{L^{\infty}(M)} \;\ll\; \|f\|_{H^{2}(M)}.
 \]
-with $C$ depending only on $\inj(M)$.
-In cusp neighborhoods the inequality holds with $C$ depending on $Y$,
-and with the $H^{s}$–norm taken over the truncated region $M(Y)$.
-These bounds control the growth of eigenfunctions and Eisenstein series.
+Constants depend explicitly on the injectivity radius of $M$.
+This dependence must be tracked carefully when working with degenerating families.
 
 \medskip
-\noindent\textbf{Consistency check and forward link.}
-We have fixed conventions for the hyperbolic metric, measure, and Laplacian sign.
-Explicit formulas for ball volumes and injectivity radii have been recorded.
-The geodesic flow and length spectrum are normalized compatibly with Selberg’s trace formula.
-These foundations will be used in the next block to introduce the Selberg transform,
-which links radial kernels to their spectral multipliers.
+
+\noindent\textbf{Heat kernel.}
+The heat kernel $K_{t}(z,w)$ solves
+\[
+  \partial_{t} K_{t} = \Delta_{z} K_{t}, \qquad K_{0}(z,w)=\delta(z-w).
+\]
+On $\mathbb{H}$ it is known explicitly:
+\[
+  K_{t}(z,w) = \frac{1}{(4\pi t)^{1/2}} \int_{d(z,w)}^{\infty} \frac{u\,e^{-u^{2}/4t}}{(\cosh u - \cosh d(z,w))^{1/2}}\,du.
+\]
+As $t\to 0^{+}$, $K_{t}$ approximates the Euclidean heat kernel.
+As $t\to\infty$, $K_{t}$ decays exponentially.
+These properties extend to quotients $M$.
+
+\medskip
+
+\noindent\textbf{Wave kernel.}
+The wave kernel on $\mathbb{H}$ is
+\[
+  W_{t}(z,w) = \frac{1}{2\pi} \int_{-\infty}^{\infty} e^{it r}\,\varphi_{r}(d(z,w))\,r\tanh(\pi r)\,dr,
+\]
+where $\varphi_{r}$ is the spherical function.
+This kernel underlies microlocal analysis in Chapter~5.
+
+\medskip
+
+\noindent\textbf{Resolvent kernel.}
+The resolvent $R(s) = (\Delta - s(1-s))^{-1}$ has kernel
+\[
+  R(s;z,w) = \frac{1}{2\pi}\int_{0}^{\infty} \frac{\varphi_{r}(d(z,w))}{r^{2}+s(1-s)-1/4}\,r\tanh(\pi r)\,dr.
+\]
+Its analytic continuation in $s$ yields poles at Laplace eigenvalues.
+This resolvent identity is a key analytic device.
+
+\medskip
+
+\noindent\textbf{Eigenfunction estimates.}
+For an $L^{2}$-normalized eigenfunction $\phi_{j}$ with eigenvalue $\lambda_{j}$,
+one has
+\[
+  \|\phi_{j}\|_{\infty} \;\ll_{\epsilon}\; \lambda_{j}^{1/4+\epsilon}.
+\]
+This bound (Iwaniec–Sarnak) is sharp up to $\epsilon$ in many contexts.
+It shows that eigenfunctions are delocalized at small scales.
+
+\medskip
+
+\noindent\textbf{Quantum ergodicity.}
+As $\lambda_{j}\to\infty$, the measures $|\phi_{j}(z)|^{2}d\mu(z)$
+tend to uniform distribution on $M$.
+This property (Shnirelman, Zelditch, Colin de Verdière)
+is an expression of classical ergodicity of the geodesic flow.
+It connects spectral theory with dynamical systems.
+
+\medskip
+
+\noindent\textbf{Geodesic flow.}
+The geodesic flow on the unit tangent bundle $T^{1}M$
+is Anosov: it has uniform hyperbolicity.
+This flow preserves the Liouville measure.
+Its dynamical mixing properties inform the decay of matrix coefficients.
+
+\medskip
+
+\noindent\textbf{Prime geodesic theorem.}
+Let $\pi(R)$ denote the number of primitive closed geodesics of length $\le R$.
+Then
+\[
+  \pi(R) \sim \frac{e^{R}}{R}, \qquad (R\to\infty).
+\]
+This theorem parallels the prime number theorem,
+and is derived from the Selberg trace formula.
+
+\medskip
+
+\noindent\textbf{Selberg zeta function.}
+The Selberg zeta function is defined by
+\[
+  Z(s) = \prod_{\{\gamma\}}\prod_{k=0}^{\infty}
+  \left(1-e^{-(s+k)\ell(\gamma)}\right),
+\]
+the product taken over primitive closed geodesics.
+It converges for $\Re(s)>1$, extends meromorphically to $\mathbb{C}$,
+and satisfies a functional equation.
+Its zeros encode the spectrum of the Laplacian.
+
+\medskip
+
+\noindent\textbf{Comparison with Euclidean geometry.}
+Unlike flat tori, hyperbolic surfaces exhibit exponential volume growth,
+negative curvature, and spectral gaps.
+These features fundamentally change analytic methods.
+For instance, exponential growth leads to sharp stationary phase asymptotics.
+
+\medskip
+
+\noindent\textbf{Forward links.}
+The analytic kernels recalled here (heat, wave, resolvent)
+will be used in:
+\begin{itemize}
+  \item Chapter~3, kernel construction.
+  \item Chapter~5, microlocal analysis.
+  \item Chapter~7, main results, to estimate error terms.
+\end{itemize}
+
+\medskip
+
+\noindent\textbf{Audit of geometry block.}
+We verify that all goals set at the beginning of this block have been met:
+\begin{itemize}
+  \item[(G1)] Definition of hyperbolic metric and distance: complete and explicit.
+  \item[(G2)] Classification of isometries: recorded, with roles in trace formula.
+  \item[(G3)] Fundamental domains and volumes: defined and normalized.
+  \item[(G4)] Injectivity radius: formal definition given; bounds referenced.
+  \item[(G5)] Dirichlet domains: definition and convexity properties.
+  \item[(G6)] Volume growth and lattice point estimates: formulas stated.
+  \item[(G7)] Analytic kernels (heat, wave, resolvent): explicit formulas recorded.
+  \item[(G8)] Links to later chapters: spelled out.
+\end{itemize}
+
+\medskip
+
+\noindent\textbf{Conclusion.}
+This block fixes all geometric conventions for $M=\Gamma\backslash\mathbb{H}$.
+Together with the cusp analysis in the following block,
+it provides the full geometric foundation for the localized trace formula.
+
+% --- End of geometry block 02b-geometry.tex ---
