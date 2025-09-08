@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 
-% --- Packages (Annals-level minimal) ---
+% --- Packages (Annals/arXiv level) ---
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{mathtools}
@@ -18,7 +18,7 @@
   citecolor=blue!40!black,
   urlcolor=blue!40!black,
   pdftitle={Localized Trace Formula: A Monograph},
-  pdfauthor={Alexander Stepanovich Kozhukharev, Moscow, askohguharev@yandex.ru}
+  pdfauthor={Alexander Stepanovich Kozhukharev, Moscow, Russia, askohguharev@yandex.ru}
 }
 
 % --- Numbering ---
@@ -31,12 +31,37 @@
 
 \begin{document}
 
+% --- Title ---
 \begin{center}
   {\LARGE \textbf{Localized Trace Formula: A Monograph}}\\[6pt]
   {\large Alexander Stepanovich Kozhukharev}\\[4pt]
-  Moscow, \today\\[4pt]
-  \texttt{askohguharev@yandex.ru}
+  Moscow, Russia\\[4pt]
+  \texttt{askohguharev@yandex.ru}\\[6pt]
+  September 8, 2025
 \end{center}
+
+% --- Abstract ---
+\begin{abstract}
+We establish a localized trace formula for finite-area hyperbolic surfaces
+$\Gamma \backslash \mathbb{H}$ with cusps. The formula equates a spectrally
+localized sum of Laplace eigenvalues, obtained via a smooth projector onto an
+interval $[\lambda-\eta,\lambda+\eta]$, with a geometric expansion over closed
+geodesics of length up to $T \asymp \log \lambda$, accompanied by an explicit
+remainder term.
+
+Our primary contribution is the construction of a microlocalized wave
+propagator that sharpens Selberg’s classical approach: the remainder is shown
+to be $O(\lambda^{-\delta})$ for an explicit $\delta>0$ depending only on the
+spectral gap and the geometry of the cusps. This yields a genuine
+power-saving error term, improving the $O(1)$ remainder obtained by standard
+truncation of the Selberg trace formula.
+
+As applications, we derive a quantitative local Weyl law with a power-saving
+error term, and new variance bounds for Fourier coefficients of
+Hecke–Maass forms in the depth aspect. The methods provide a unified analytic
+framework at the intersection of spectral theory, automorphic forms, and
+quantum chaos.
+\end{abstract}
 
 % --- Frontmatter ---
 \input{frontmatter/00-executive-summary.tex}
@@ -55,6 +80,10 @@
 
 % --- Conclusion ---
 \input{conclusion/09-conclusion.tex}
+
+% --- Appendices ---
+\input{appendices/A-effective-volume.tex}
+\input{appendices/B-auxiliary-estimates.tex}
 
 % --- Bibliography ---
 \bibliographystyle{alpha}
