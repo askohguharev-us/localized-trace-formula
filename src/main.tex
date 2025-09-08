@@ -1,0 +1,63 @@
+\documentclass[11pt]{article}
+
+% --- Packages (Annals-level minimal) ---
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{url}
+
+% --- Metadata ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!40!black,
+  citecolor=blue!40!black,
+  urlcolor=blue!40!black,
+  pdftitle={Localized Trace Formula: A Monograph},
+  pdfauthor={Alexander Stepanovich Kozhukharev, Moscow, askohguharev@yandex.ru}
+}
+
+% --- Numbering ---
+\numberwithin{equation}{section}
+
+% --- Custom macros ---
+\input{macros/environments.tex}
+\input{macros/operators.tex}
+\input{macros/house-style.tex}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{Localized Trace Formula: A Monograph}}\\[6pt]
+  {\large Alexander Stepanovich Kozhukharev}\\[4pt]
+  Moscow, \today\\[4pt]
+  \texttt{askohguharev@yandex.ru}
+\end{center}
+
+% --- Frontmatter ---
+\input{frontmatter/00-executive-summary.tex}
+\input{frontmatter/00-readers-roadmap.tex}
+\input{frontmatter/00-notation-glossary.tex}
+
+% --- Sections ---
+\input{sections/01-introduction.tex}
+\input{sections/02-preliminaries/02-preliminaries.tex}
+\input{sections/03-kernel.tex}
+\input{sections/04-projector.tex}
+\input{sections/05-microlocal.tex}
+\input{sections/06-geometric.tex}
+\input{sections/07-main-results.tex}
+\input{sections/08-applications.tex}
+
+% --- Conclusion ---
+\input{conclusion/09-conclusion.tex}
+
+% --- Bibliography ---
+\bibliographystyle{alpha}
+\bibliography{bib/references}
+
+\end{document}
