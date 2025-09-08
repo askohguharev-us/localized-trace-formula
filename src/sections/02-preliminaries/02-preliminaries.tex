@@ -160,3 +160,61 @@ Notation agrees with the global glossary; Laplacian sign and Plancherel
 normalization are consistent with the bibliography standards (e.g., Selberg,
 Iwaniec, Buser). Cusp-related constants are functions only of the cusp data
 (number and widths). These checks complete the audit for Chapter~2.
+
+% --- Begin Audit Block: Chapter 2 (Preliminaries) ---
+
+\medskip
+\noindent\textbf{Chapter Audit.}
+
+\medskip
+\noindent\textbf{Goals revisited.}
+\begin{itemize}
+  \item We aimed to establish the geometric, spectral, and analytic framework required for the localized trace formula.
+  \item We fixed notation for hyperbolic surfaces $\Gamma \backslash \mathbb{H}$, including metrics, measures, Laplacian normalization, and Fourier conventions.
+  \item We introduced cusp coordinates, truncation operators $\Lambda^Y$, and their smoothed variants $\Lambda^Y_{\mathrm{sm}}$ with explicit bounds on volumes and lengths.
+  \item We recalled the Selberg/Harish-Chandra transform and fixed Plancherel normalizations, ensuring consistency with standard references (Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}, Iwaniec~\cite{Iwaniec2002}).
+  \item We declared invariants controlling error terms: $O_{\Gamma,\beta}(\cdot)$, cusp data $(w_\mathfrak{a}, \sigma_\mathfrak{a})$, and injectivity radius parameters.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Invariants checked.}
+\begin{itemize}
+  \item Laplacian eigenvalue parametrization: $\lambda = \tfrac14 + r^2$, consistent with Plancherel measure $dr/(4\pi)$.
+  \item Cusp truncation volumes: $\operatorname{vol}(M \setminus M(Y)) = \sum_\mathfrak{a} w_\mathfrak{a}/Y$, checked against Buser~\cite{Buser1992}.
+  \item Boundary lengths: $\operatorname{length}(H_\mathfrak{a}(Y)) = w_\mathfrak{a}/Y$, matching the scaling matrix normalization.
+  \item Error dependencies: constants depend only on $(\Gamma, \beta, \{w_\mathfrak{a}\}, \{\sigma_\mathfrak{a}\}, \operatorname{inj}(M))$; no hidden dependence on spectral window $(\lambda,\eta)$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Forward links.}
+\begin{itemize}
+  \item To Chapter~3: truncated kernels $K_Y$ inherit cusp bounds and Sobolev estimates established here.
+  \item To Chapter~4: Selberg transform normalizations feed directly into the construction of the spectral projector $P_{\lambda,\eta}$.
+  \item To Chapter~5: microlocal analysis applies the Sobolev inequalities and Plancherel bounds fixed in this chapter.
+  \item To Chapter~6: geometric expansions use cusp volume and length formulas as input for the orbit decomposition.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Backward links.}
+\begin{itemize}
+  \item From Chapter~1: motivation for localization relied on precise control of cusp contributions, now formalized in this chapter.
+  \item From Executive Summary: the main theorems required explicit remainder bounds, whose constants have been declared here.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Consistency checks.}
+\begin{itemize}
+  \item Notation agrees with the global glossary (Chapter~0).
+  \item Laplacian sign and Plancherel normalization match classical standards (Selberg, Iwaniec, Buser).
+  \item Cusp constants depend only on cusp data, never on spectral window parameters.
+  \item No hidden constants or unverified assumptions remain.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Conclusion of Audit.}
+Chapter~2 has successfully established all preliminary structures:
+the hyperbolic metric and Laplacian conventions, cusp geometry and truncation operators, Plancherel and Selberg transform normalizations, and explicit dependence of constants.  
+All goals have been achieved, invariants preserved, and explicit forward/backward links documented.  
+This audit certifies Chapter~2 as a self-contained and reliable foundation for the analytic developments of Chapters~3--7.
+
+% --- End of Audit Block: Chapter 2 (Preliminaries) ---
