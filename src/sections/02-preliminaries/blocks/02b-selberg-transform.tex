@@ -1,1 +1,98 @@
+% --- Selberg transform and radial kernels (Chapter 2 block) ---
 
+We now review the Selberg transform, which connects radial kernels on
+the hyperbolic plane with multipliers acting on the spectral side.
+This device is indispensable for formulating and analyzing the trace formula.
+
+\medskip
+\noindent\textbf{Radial kernels.}
+Let $k:\mathbb{R}_{\ge0}\to\mathbb{C}$ be a smooth compactly supported function,
+and define a $\mathrm{PSL}_{2}(\mathbb{R})$–invariant kernel on $\mathbb{H}$ by
+\[
+  K(z,w) = k\!\big(d(z,w)\big).
+\]
+Such kernels are central objects in harmonic analysis on $\mathbb{H}$.
+They descend to automorphic kernels on $M=\Gamma\backslash\mathbb{H}$ via
+\[
+  K^{M}(z,w) = \sum_{\gamma\in\Gamma} k\!\big(d(z,\gamma w)\big).
+\]
+This series converges absolutely for compactly supported $k$ and defines a bounded
+operator on $L^{2}(M)$.
+
+\medskip
+\noindent\textbf{Spectral action.}
+The kernel $K$ acts diagonally on eigenfunctions.
+For $\phi$ satisfying $\Delta\phi=\big(\tfrac14+t^{2}\big)\phi$ one has
+\[
+  \int_{M} K^{M}(z,w)\,\phi(w)\,d\mu(w)
+  \;=\; h(t)\,\phi(z),
+\]
+where $h(t)$ is the \emph{Selberg transform} of $k$.
+Thus $K^{M}$ corresponds to the spectral multiplier $h(t)$.
+
+\medskip
+\noindent\textbf{Definition of the transform.}
+Given $k$, define
+\[
+  h(t) = \int_{0}^{\infty} k(r)\,\varphi_{t}(r)\,\sinh r\,dr,
+\]
+where
+\[
+  \varphi_{t}(r) = \frac{\sin(t r)}{t\sinh r}.
+\]
+The function $h(t)$ is even, real for real $t$, and rapidly decaying when $k$
+is smooth and compactly supported.
+The inversion formula states that
+\[
+  k(r) = \frac{1}{2\pi}\int_{-\infty}^{\infty} h(t)\,\varphi_{t}(r)\,t\tanh(\pi t)\,dt.
+\]
+
+\medskip
+\noindent\textbf{Analytic properties.}
+The transform $h(t)$ extends holomorphically to $t\in\mathbb{C}$
+with exponential type determined by the support of $k$.
+If $k$ is supported in $[0,R]$, then $h(t)$ grows at most like $e^{R|\,\Im t\,|}$.
+This Paley–Wiener type property is essential for localization in the spectral parameter.
+
+\medskip
+\noindent\textbf{Relation to spherical functions.}
+The kernel $\varphi_{t}(r)$ is the elementary spherical function on $\mathbb{H}$,
+satisfying
+\[
+  \Delta_{z}\,\varphi_{t}(d(z,w)) = \Big(\tfrac14+t^{2}\Big)\varphi_{t}(d(z,w)).
+\]
+Thus the Selberg transform is nothing but the spherical Fourier transform
+for radial functions on $\mathbb{H}$.
+This places the trace formula within the general framework of non–Euclidean
+harmonic analysis.
+
+\medskip
+\noindent\textbf{Automorphic kernels.}
+For $f\in C_{c}^{\infty}(\mathbb{R})$ one defines the automorphic kernel
+\[
+  K_{f}(z,w) = \sum_{\gamma\in\Gamma} k_{f}\!\big(d(z,\gamma w)\big),
+\]
+where $k_{f}$ is the radial kernel corresponding to spectral multiplier $f(t)$.
+Then
+\[
+  \langle K_{f}\phi,\phi\rangle = f(t)\,\|\phi\|^{2}
+\]
+for each eigenfunction $\phi$ of spectral parameter $t$.
+This correspondence $f \mapsto k_{f}$ is a bijection between admissible multipliers
+and radial kernels.
+
+\medskip
+\noindent\textbf{Normalization conventions.}
+We adopt the convention that the Plancherel measure on the spectral side is
+\[
+  d\mu_{\mathrm{pl}}(t) = \frac{1}{2\pi}\,t\tanh(\pi t)\,dt,
+\]
+so that the inversion formula above holds.
+This normalization is standard (cf. Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}).
+
+\medskip
+\noindent\textbf{Consistency check and forward link.}
+We have defined the Selberg transform, its inversion formula, and analytic properties.
+We fixed the Plancherel normalization and spherical function conventions.
+These elements establish the spectral dictionary needed for Chapter~3,
+where the truncated kernel will be introduced and analyzed.
