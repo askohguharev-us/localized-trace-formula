@@ -1,1 +1,88 @@
+\section*{Notation and Glossary}
 
+This section fixes all symbols, normalizations, and dependencies used throughout the monograph. All constants are explicit and their dependencies are stated.
+
+\subsection*{General conventions}
+\begin{itemize}
+  \item $\mathbb{N}=\{1,2,\dots\}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
+  \item $A\lesssim B$ means $A\le C\,B$ for an absolute constant $C>0$; $A\asymp B$ means $A\lesssim B$ and $B\lesssim A$.
+  \item $O_X(\cdot)$ indicates that the implied constant may depend on the parameter(s) $X$ only.
+  \item For a function $f$, $\supp f$ is its support. For a set $S$, $\mathbf{1}_S$ is its indicator.
+  \item Fourier transform on $\mathbb{R}$: $\widehat{f}(\xi)=\int_{\mathbb{R}} f(t)\,e^{-i t \xi}\,dt$.
+\end{itemize}
+
+\subsection*{Geometry and groups}
+\begin{itemize}
+  \item $\mathbb{H}=\{x+iy\in\mathbb{C}: y>0\}$ with metric $ds^2=\frac{dx^2+dy^2}{y^2}$ and area element $d\mu(z)=\frac{dx\,dy}{y^2}$.
+  \item $\Gamma\subset \mathrm{PSL}_2(\mathbb{R})$ a cofinite Fuchsian group with cusps; the surface is $M=\Gamma\backslash\mathbb{H}$ of finite area $\vol(M)$.
+  \item A \emph{cusp} is a $\Gamma$-equivalence class of parabolic fixed points; near a cusp we use standard coordinates with height $y$.
+  \item Height truncation: for $Y>0$, $M(Y)$ denotes the subset obtained by removing the cusp regions $\{y>Y\}$ in standard horocyclic coordinates.
+  \item Injectivity radius: $\inj(x)$ for $x\in M$; we write $\inj(M)=\inf_{x\in M}\inj(x)$.
+  \item Closed geodesics: $\gamma$ denotes a primitive closed geodesic on $M$, with length $\ell(\gamma)>0$; write $N(\gamma)=e^{\ell(\gamma)}$.
+\end{itemize}
+
+\subsection*{Laplace operator and spectrum}
+\begin{itemize}
+  \item Laplace--Beltrami operator: $\Delta$ is the nonnegative Laplacian on $M$.
+  \item Discrete spectrum: $\{\lambda_j\}_{j\ge 0}$ with $0=\lambda_0<\lambda_1\le \lambda_2\le\cdots$, eigenfunctions $\{\varphi_j\}$ forming an orthonormal basis of $L^2_{\mathrm{disc}}(M)$.
+  \item Spectral parameter: $\lambda_j=\tfrac{1}{4}+r_j^2$, $r_j\in[0,\infty)$.
+  \item Continuous spectrum: Eisenstein series $E_{\mathfrak{a}}(z,\tfrac{1}{2}+ir)$ attached to each cusp $\mathfrak{a}$, normalized so that the spectral decomposition on $L^2(M)$ reads
+  \[
+    f=\sum_j \langle f,\varphi_j\rangle \varphi_j \;+\; \sum_{\mathfrak{a}}\frac{1}{4\pi}\int_{-\infty}^{\infty} \langle f,E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\rangle E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\,dr.
+  \]
+  \item Spectral gap: denote by $\beta\in(0,\tfrac{1}{4}]$ a lower bound on the gap to $\tfrac{1}{4}$ (e.g. $\min\{r_j^2:\lambda_j\ne 0\}\ge \beta$); all gap-dependent constants are recorded as $O_{\Gamma,\beta}(\cdot)$.
+\end{itemize}
+
+\subsection*{Localization parameters and projectors}
+\begin{itemize}
+  \item Central frequency: $\lambda\ge 1$.
+  \item Window width: $\eta=\eta(\lambda)$ with $\lambda^{-\theta}\le \eta\le 1$ for a fixed $0<\theta<\theta_0$, where $\theta_0>0$ depends only on the cusp geometry.
+  \item Spectral projector: $P_{\lambda,\eta}$ is a smooth projector localizing to $[\lambda-\eta,\lambda+\eta]$ (precise construction given in the main text).
+  \item Propagation time: $T\asymp \log \lambda$ arises from the geometric side of the trace formula.
+\end{itemize}
+
+\subsection*{Kernels, transforms, and microlocal tools}
+\begin{itemize}
+  \item Radial kernel on $\mathbb{H}$: $k=d(z,w)\mapsto k(d(z,w))$; its Selberg/Harish–Chandra transform is denoted $h(r)$.
+  \item Wave group: $U(t)=\cos\!\big(t\sqrt{\Delta}\big)$ acting on $L^2(M)$.
+  \item Pseudodifferential calculus: $\Op(\cdot)$ denotes a standard quantization; symbol classes and semiclassical parameter choices are specified where used.
+\end{itemize}
+
+\subsection*{Counting functions and geometric data}
+\begin{itemize}
+  \item Localized counting function: $N(\lambda,\eta)$ is the number of Laplace eigenvalues in $[\lambda-\eta,\lambda+\eta]$ (counted with multiplicity).
+  \item Geometric amplitudes: $A_\gamma(\lambda,\eta)$ are explicit weights attached to closed geodesics $\gamma$, computable from the geometry of $M$ and the test data.
+\end{itemize}
+
+\subsection*{Norms and function spaces}
+\begin{itemize}
+  \item $L^2(M)$ inner product: $\langle f,g\rangle=\int_M f\overline{g}\,d\mu$.
+  \item Sobolev norms: $H^s(M)$ with $\|f\|_{H^s}=\|(1+\Delta)^{s/2}f\|_{L^2}$.
+\end{itemize}
+
+\subsection*{Asymptotic notation and limits}
+\begin{itemize}
+  \item All limits are taken as $\lambda\to\infty$, unless otherwise stated.
+  \item Error terms: $O(\lambda^{-\delta})$ (power saving) with $\delta>0$ explicit; when dependence matters we write $O_{\Gamma,\beta}(\lambda^{-\delta})$.
+  \item For windowed quantities, errors such as $O(\lambda^{1-\delta})$ are interpreted relative to the main term scale $\lambda\eta$ and carry the dependence $O_{\Gamma,\beta}(\cdot)$ unless indicated.
+\end{itemize}
+
+\subsection*{Constants and dependency recording}
+\begin{itemize}
+  \item A constant $C$ is \emph{explicit} if it is given by a closed-form expression in geometric/spectral invariants of $M$ (e.g. $\vol(M)$, cusp data, $\beta$).
+  \item We write $C=C(\Gamma,\beta,\text{cusp data},\inj(M))$ to indicate its full dependency; no constant depends on $\lambda$ or $\eta$ unless explicitly stated.
+\end{itemize}
+
+\subsection*{Labeling and cross-references}
+\begin{itemize}
+  \item Sections/lemmas/theorems are labeled by descriptive tags (e.g. \texttt{sec:preliminaries}, \texttt{thm:localized-trace}, \texttt{lem:volume-tail}).
+  \item Figures and tables are indexed by chapter with short mnemonic labels.
+\end{itemize}
+
+\subsection*{Normalization choices (fixed once and for all)}
+\begin{itemize}
+  \item Laplacian sign: $\Delta\ge 0$.
+  \item Eisenstein series normalization: continuous spectrum measure is $dr/(4\pi)$.
+  \item Geodesic length: $\ell(\gamma)$ is the hyperbolic length on $M$; primitive geodesics are used unless otherwise specified.
+  \item Time scale: $T$ is chosen proportional to $\log \lambda$ with a fixed absolute proportionality constant, the choice of which is immaterial for stated orders.
+\end{itemize}
