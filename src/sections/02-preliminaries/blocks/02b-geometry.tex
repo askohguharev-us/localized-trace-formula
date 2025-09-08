@@ -1,1 +1,125 @@
+% --- Hyperbolic geometry: metric, volume, and injectivity radius (Chapter 2 block) ---
 
+We recall the geometric background needed for the construction of kernels and
+for the estimates in later chapters.
+All constants are explicit and depend only on $\Gamma$.
+
+\medskip
+\noindent\textbf{Hyperbolic metric and measure.}
+On the upper half–plane $\mathbb{H}=\{x+iy : y>0\}$ the hyperbolic metric is
+\[
+  ds^{2} = \frac{dx^{2}+dy^{2}}{y^{2}},
+  \qquad
+  d\mu(z) = \frac{dx\,dy}{y^{2}}.
+\]
+The geodesic distance $d(z,w)$ satisfies
+\[
+  \cosh d(z,w) = 1 + \frac{|z-w|^{2}}{2\,\Im z\,\Im w}.
+\]
+The Laplace–Beltrami operator (with negative spectrum convention) is
+\[
+  \Delta = -y^{2}\Big(\partial_{x}^{2} + \partial_{y}^{2}\Big).
+\]
+Its spectrum on $M=\Gamma\backslash\mathbb{H}$ consists of discrete eigenvalues
+$0=\lambda_{0}<\lambda_{1}\le\lambda_{2}\le\cdots$ tending to infinity,
+together with the continuous spectrum $[1/4,\infty)$.
+
+\medskip
+\noindent\textbf{Balls and volumes.}
+The volume of a hyperbolic ball of radius $R$ is
+\[
+  \vol B(R) = 2\pi\!\big(\cosh R - 1\big) \asymp e^{R}, \quad (R\to\infty).
+\]
+For small $R$ one has $\vol B(R)\sim \pi R^{2}$.
+These identities allow comparison between hyperbolic and Euclidean scales,
+especially in local Sobolev inequalities.
+
+\medskip
+\noindent\textbf{Fundamental domains.}
+Let $F\subset\mathbb{H}$ be a fundamental domain for $\Gamma$.
+It can be chosen as a union of finitely many hyperbolic polygons with geodesic sides,
+together with cusp neighborhoods of the form
+\[
+  \{ x+iy : 0\le x<w,\, y>Y_{0}\}
+\]
+after application of a scaling matrix.
+The boundary of $F$ has finite length modulo cusps.
+For practical purposes we work with truncated domains $F(Y)$ where cuspidal regions $y>Y$
+are cut off and replaced by boundary horocycles.
+
+\medskip
+\noindent\textbf{Injectivity radius.}
+For $z\in M$ define the injectivity radius
+\[
+  \inj(z) = \tfrac12 \inf_{\gamma\in\Gamma\setminus\{\pm I\}} d(z,\gamma z).
+\]
+It is uniformly positive on compact subsets of $M$.
+At cusp neighborhoods, $\inj(z)$ decays like $c/y$ in terms of the imaginary coordinate,
+with $c$ depending on the cusp width.
+In particular,
+\[
+  \inj(M(Y)) := \inf_{z\in M(Y)}\inj(z) > 0
+\]
+for $Y$ large enough, where $M(Y)$ is the surface truncated at height $Y$.
+This fact is critical when applying Sobolev inequalities and stationary phase arguments.
+
+\medskip
+\noindent\textbf{Geodesic flow and unit tangent bundle.}
+Let $SM$ be the unit tangent bundle of $M$.
+The geodesic flow $\varphi^{t}:SM\to SM$ preserves the Liouville measure.
+On the universal cover $S\mathbb{H}\cong\mathrm{PSL}_{2}(\mathbb{R})$,
+$\varphi^{t}$ corresponds to right multiplication by
+$\begin{psmallmatrix} e^{t/2} & 0 \\ 0 & e^{-t/2}\end{psmallmatrix}$.
+The mixing properties of this flow underlie the semiclassical estimates of Chapter~5.
+
+\medskip
+\noindent\textbf{Length spectrum.}
+Every primitive closed geodesic $\gamma$ on $M$ corresponds to a hyperbolic conjugacy class in $\Gamma$,
+with length $\ell(\gamma)>0$ given by
+\[
+  2\cosh\!\Big(\tfrac{\ell(\gamma)}{2}\Big) = |\operatorname{tr} \gamma|.
+\]
+The set $\{\ell(\gamma)\}$ (counted with multiplicity) is the \emph{length spectrum}.
+It satisfies the asymptotic
+\[
+  \#\{\gamma : \ell(\gamma)\le L\} \sim \frac{e^{L}}{L},
+  \qquad L\to\infty,
+\]
+which mirrors the Weyl law for the eigenvalue spectrum.
+The length spectrum enters explicitly into the geometric side of the trace formula.
+
+\medskip
+\noindent\textbf{Wave kernel on $\mathbb{H}$.}
+Let $K_{t}(z,w)$ denote the kernel of $\cos(t\sqrt{\Delta})$ on $\mathbb{H}$.
+It depends only on $d(z,w)$ and admits an explicit expression
+\[
+  K_{t}(d) = -\frac{1}{\pi}\,\frac{\partial}{\partial t}\Big(\frac{\sin(t\sqrt{d^{2}-1})}{\sqrt{d^{2}-1}}\Big), \qquad d>1,
+\]
+continued analytically elsewhere.
+This kernel satisfies finite propagation speed:
+$K_{t}(z,w)=0$ if $d(z,w)>|t|$.
+On the quotient $M$, the periodization
+\[
+  K^{M}_{t}(z,w) = \sum_{\gamma\in\Gamma} K_{t}(d(z,\gamma w))
+\]
+is convergent for each fixed $t$ and smooth in $(z,w)$.
+It plays a central role in constructing microlocal projectors.
+
+\medskip
+\noindent\textbf{Sobolev inequalities.}
+For $f\in C_{c}^{\infty}(M)$ one has the hyperbolic Sobolev inequality
+\[
+  \|f\|_{\infty} \le C \|f\|_{H^{s}(M)} \qquad (s>1),
+\]
+with $C$ depending only on $\inj(M)$.
+In cusp neighborhoods the inequality holds with $C$ depending on $Y$,
+and with the $H^{s}$–norm taken over the truncated region $M(Y)$.
+These bounds control the growth of eigenfunctions and Eisenstein series.
+
+\medskip
+\noindent\textbf{Consistency check and forward link.}
+We have fixed conventions for the hyperbolic metric, measure, and Laplacian sign.
+Explicit formulas for ball volumes and injectivity radii have been recorded.
+The geodesic flow and length spectrum are normalized compatibly with Selberg’s trace formula.
+These foundations will be used in the next block to introduce the Selberg transform,
+which links radial kernels to their spectral multipliers.
