@@ -1,1 +1,67 @@
+\section*{Executive Summary}
 
+This monograph develops a localized form of the Selberg trace formula for
+finite-area hyperbolic surfaces with cusps. The central achievement is the
+construction of a microlocalized wave propagator that refines the spectral–
+geometric correspondence and produces effective, computable bounds.
+
+\medskip
+
+\noindent \textbf{Main Results.} The two principal theorems are:
+
+\begin{theorem}[Localized Trace Formula]\label{thm:localized-trace}
+Let $\Gamma \backslash \mathbb{H}$ be a finite-area hyperbolic surface with
+cusps. Fix $0<\theta<\theta_0$, where $\theta_0>0$ depends only on the
+geometry of the cusps. For each $\lambda \geq 1$ and localization window
+$\eta=\eta(\lambda)$ satisfying $\lambda^{-\theta}\leq \eta \leq 1$, there
+exists a smooth spectral projector $P_{\lambda,\eta}$ such that
+\[
+  \Tr(P_{\lambda,\eta})
+  \;=\;
+  \sum_{\substack{\text{closed geodesics } \gamma \\ \ell(\gamma)\leq T}}
+  A_\gamma(\lambda,\eta)\,e^{i\lambda \ell(\gamma)}
+  \;+\;
+  O\!\left(\lambda^{-\delta}\right),
+\]
+where $T \asymp \log \lambda$, the amplitudes $A_\gamma$ are explicitly
+computable in terms of the geometry of $\Gamma$, and $\delta>0$ is an explicit
+constant depending only on a lower bound for the spectral gap of $\Gamma$ and
+the cusp geometry, but independent of $\lambda$ and $\eta$.
+\end{theorem}
+
+\begin{theorem}[Quantitative Local Weyl Law]\label{thm:local-weyl}
+For $\lambda \to \infty$, the number $N(\lambda,\eta)$ of Laplace eigenvalues
+in $[\lambda-\eta,\lambda+\eta]$ satisfies
+\[
+  N(\lambda,\eta)
+  \;=\; \frac{\vol(\Gamma \backslash \mathbb{H})}{4\pi}\,\lambda \eta
+  \;+\; O\!\left(\lambda^{1-\delta}\right),
+\]
+where $\delta>0$ is as in \cref{thm:localized-trace}, and the implicit constant
+in the error term depends only on $\Gamma$. This yields a genuine power-saving
+error term relative to the length of the spectral window, improving upon what
+would be obtained by a direct application of the classical Selberg trace
+formula.
+\end{theorem}
+
+\medskip
+
+\noindent \textbf{Applications.}
+\begin{itemize}
+  \item Variance bounds for Fourier coefficients of Hecke–Maass forms in the
+  depth aspect, obtained by projecting onto the spectral window
+  $[\lambda-\eta,\lambda+\eta]$ and analyzing the resulting geometric sums via
+  the localized trace formula.
+  \item Uniform spectral estimates relevant to problems in quantum chaos,
+  including quantitative refinements of quantum unique ergodicity and the study
+  of scarring phenomena.
+  \item A general analytic framework connecting spectral localization with
+  automorphic forms.
+\end{itemize}
+
+\medskip
+
+The methods unify microlocal analysis, spectral projectors, and geometric
+expansions into a consistent structure, with explicit constants at every stage.
+Each chapter is designed with stated goals and a final audit to ensure clarity
+and reproducibility.
