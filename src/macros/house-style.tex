@@ -1,1 +1,246 @@
+% house-style.tex
+% Global house style for the monograph
+% Author: A. S. Kozhukharev
 
+% --- Core packages (assumed loaded in main preamble if needed) ---
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{mathtools,amsmath,amssymb}
+\usepackage{bm}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% --- Hyperref colors (discreet, print-safe) ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdfauthor={A. S. Kozhukharev (askohguharev@yandex.ru)},
+  pdftitle={Localized Trace Formula: A Monograph},
+  pdfsubject={Spectral Theory and Microlocal Analysis},
+  pdfcreator={LaTeX}
+}
+
+% --- Microtype tweaks for math ---
+\microtypecontext{spacing=nonfrench}
+\SetProtrusion{encoding={*},family={*},series={*},size={-}}{%
+  % Light protrusion for punctuation
+  . = { , , 0.200 } ,
+  , = { , , 0.200 } ,
+  : = { , , 0.200 } ,
+  ; = { , , 0.200 }
+}
+
+% --- Mathtools: paired delimiters & extras ---
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\brak}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\ang}{\langle}{\rangle}
+
+% Resizeable forms when starred: \abs*{...}, etc.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+% --- Display math spacing policy ---
+% No automatic equation numbering reset beyond \numberwithin in environments.tex
+\allowdisplaybreaks[2]
+
+% --- Textual micro-macros (non-math) ---
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\etal}{et~al.\@\xspace}
+\newcommand{\cf}{cf.\@\xspace}
+\newcommand{\wrt}{w.r.t.\@\xspace}
+\newcommand{\resp}{resp.\@\xspace}
+\newcommand{\dash}{\,--\,}
+\newcommand{\qqtext}[1]{\quad\text{#1}\quad}
+
+% --- Consistent small vertical skips used across the monograph ---
+\newcommand{\smallskippara}{\par\smallskip}
+\newcommand{\medskippara}{\par\medskip}
+\newcommand{\bigskippara}{\par\bigskip}
+
+% --- Figure/Table captions (Annals-like plain style) ---
+\captionsetup{
+  labelfont=bf,
+  font=small,
+  width=0.92\linewidth,
+  tableposition=top
+}
+
+% --- Tables: column types and spacing ---
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+
+% --- Enumerations: compact, aligned, with labels (a), (i) ---
+\setlist[itemize]{leftmargin=2.0em,label=--,topsep=2pt,itemsep=2pt}
+\setlist[enumerate]{leftmargin=2.0em,label=(\roman*),topsep=2pt,itemsep=2pt}
+\newlist{tightenum}{enumerate}{3}
+\setlist[tightenum]{leftmargin=2.0em,label=(\alph*),topsep=1pt,itemsep=1pt,parsep=0pt}
+
+% --- Cleveref names (singular/plural) ---
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Section}{Sections}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{claim}{Claim}{Claims}
+\crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\crefname{equation}{Eq.}{Eqs.}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{appendix}{Appendix}{Appendices}
+
+% --- Big-O and comparison notation with explicit dependencies ---
+% Math relation shorthands; operator names should live in operators.tex,
+% but notational wrappers for dependencies are part of house style.
+\newcommand{\asympX}{\asymp}
+\newcommand{\llX}{\ll}
+\newcommand{\ggX}{\gg}
+\newcommand{\Oof}[1]{O\!\paren*{#1}}
+\newcommand{\oof}[1]{o\!\paren*{#1}}
+% With explicit dependency tags:
+\newcommand{\Odep}[2]{O_{#1}\!\paren*{#2}}     % O_{deps}(expr)
+\newcommand{\odep}[2]{o_{#1}\!\paren*{#2}}     % o_{deps}(expr)
+\newcommand{\llDep}[1]{\ll_{#1}}
+\newcommand{\ggDep}[1]{\gg_{#1}}
+
+% Standard dependency bundles used throughout:
+\newcommand{\DepsG}{\Gamma}
+\newcommand{\DepsGb}{\Gamma,\beta}
+\newcommand{\DepsGeom}{\Gamma,\text{cusp data},\inj(M)}
+\newcommand{\DepsSpect}{\Gamma,\beta,\text{cusp data}}
+% Shorthands for frequently used forms:
+\newcommand{\Ogb}[1]{\Odep{\DepsGb}{#1}}
+\newcommand{\Ogeom}[1]{\Odep{\DepsGeom}{#1}}
+\newcommand{\Ospect}[1]{\Odep{\DepsSpect}{#1}}
+
+% --- Window parameters & semiclassical scaling (uniform notation) ---
+\newcommand{\paramlam}{\lambda}
+\newcommand{\parameta}{\eta}
+\newcommand{\paramh}{h}
+\newcommand{\paramt}{t}
+\newcommand{\paramT}{T}
+\newcommand{\parambeta}{\beta}
+\newcommand{\paramdelta}{\delta}
+% Conventions used in text:
+\newcommand{\Window}{\brak*{\paramlam-\parameta,\;\paramlam+\parameta}}
+\newcommand{\hdef}{\paramh \coloneqq \paramlam^{-1}}
+\newcommand{\Tdef}{\paramT \asymp \log \paramlam}
+
+% --- Cusp truncation macros (consistent across the text) ---
+\newcommand{\YY}{Y}                 % truncation height
+\newcommand{\MYY}{M(\YY)}           % truncated manifold
+\newcommand{\LamY}{\Lambda^\YY}     % sharp truncation operator
+\newcommand{\LamsmY}{\Lambda^\YY_{\mathrm{sm}}} % smoothed truncation
+
+% --- Spectral projector notation (central object) ---
+\newcommand{\Pwin}{P_{\paramlam,\parameta}}
+\newcommand{\Kwin}{K_{\paramlam,\parameta}}
+\newcommand{\Uwave}{U(t)}
+\newcommand{\CutT}{\chi_{\paramT}}
+\newcommand{\Bump}{\widehat{\chi}_{\parameta}}
+
+% --- Consistency text markers (used in audits) ---
+\newcommand{\Consist}{\textit{Consistency:}\xspace}
+\newcommand{\Forward}{\textit{Forward link:}\xspace}
+\newcommand{\Backward}{\textit{Backward link:}\xspace}
+
+% --- Mathematical punctuation and spacing helpers ---
+\newcommand{\st}{\;\text{s.t.}\;}
+\newcommand{\suchthat}{\;\text{such that}\;}
+\newcommand{\where}{\;\text{where}\;}
+\newcommand{\for}{\;\text{for}\;}
+\newcommand{\when}{\;\text{when}\;}
+\newcommand{\with}{\;\text{with}\;}
+\newcommand{\ands}{\;\text{and}\;}
+\newcommand{\ors}{\;\text{or}\;}
+\newcommand{\ifftext}{\;\text{iff}\;}
+
+% --- Theorem header tags for quick cross-reference (lightweight badge) ---
+\newcommand{\thmbadge}[1]{\textnormal{\scriptsize[\textsf{#1}]}\xspace}
+% Usage example in a theorem heading:
+% \begin{theorem}[\thmbadge{Core} Localized trace formula]\label{thm:ltf}
+% ...
+
+% --- Figure & table referencing helpers (plain English) ---
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+
+% --- Bibliography citation style notes (author-year or numeric agnostic) ---
+% We rely on \cite, \citep, \citet if natbib is used; default \cite otherwise.
+% Always cite with page/section when relevant: \cite[Thm.~X.Y]{AuthorYear}.
+
+% --- Boxed panels: subtle gray rule via tabulars defined in environments.tex ---
+% Here we only provide consistent paragraph spacing commands around them.
+\newcommand{\PanelTop}{\medskippara}
+\newcommand{\PanelBottom}{\medskippara}
+
+% --- Margin notes (optional; kept silent by default) ---
+\newif\ifshowmargin
+\showmarginfalse
+\ifshowmargin
+  \usepackage{marginnote}
+  \renewcommand*{\marginfont}{\footnotesize}
+  \newcommand{\mnote}[1]{\marginnote{\emph{#1}}}
+\else
+  \newcommand{\mnote}[1]{}
+\fi
+
+% --- Proof QED alignment already set in environments.tex; keep style unified ---
+% Additional end-of-proof variants:
+\newcommand{\qedclaim}{\hfill\(\triangle\)}
+\newcommand{\qedremark}{\hfill\(\circ\)}
+
+% --- Equation tagging helpers for long displays with comments ---
+\newcommand{\tagandname}[2]{\tag{#1}\label{#2}}
+
+% --- Draft switches (kept off for submission) ---
+\newif\ifshowkeys
+\showkeysfalse
+\ifshowkeys
+  \usepackage[notref,notcite]{showkeys}
+\fi
+
+% --- Submission toggles for arXiv/Annals (single source) ---
+\newif\ifarxiv
+\arxivtrue % set to \arxivfalse for journal copy if needed
+
+\ifarxiv
+  % arXiv-friendly: avoid exotic fonts/features; keep images as PDF/PNG
+  \hypersetup{pdfproducer={arXiv-ready build}}
+\else
+  % Journal tweaks can go here if copy-editing requires
+\fi
+
+% --- Safe line breaks for math-heavy paragraphs (gentle hyphenation) ---
+\emergencystretch=1.2em
+
+% --- End of house-style.tex ---
