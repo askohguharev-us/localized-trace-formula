@@ -1,358 +1,330 @@
-\section*{Appendix F. Implementation Notes}
+\section*{Appendix F. Reproducibility and Implementation Standard}
+\addcontentsline{toc}{section}{Appendix F. Reproducibility and Implementation Standard}
 
-\noindent This appendix collects the structural and technical conventions underlying the preparation of this monograph. 
-Its purpose is to ensure that the mathematical results are reproducible, verifiable, and maintainable in the long term, 
-without introducing new assumptions or relying on hidden heuristics. 
-All statements in this appendix are methodological rather than mathematical, 
-and are included to make the document fully transparent for reviewers, archivists, and future researchers.
-
-\subsection*{F.1. Structural Conventions and Repository Synchronization}
-
-\noindent \textbf{Goal.} The aim of this section is to make explicit the conventions governing file structure, cross-references, and the interaction between the source repository and the compiled PDF. This guarantees reproducibility and prevents divergence between the text as written and the text as archived.
+\noindent
+This appendix specifies the semantic structure, labeling discipline, deterministic build requirements,
+automated verification criteria, and archival audit format for the monograph. All statements below are
+methodological (non-mathematical) and \emph{testable}. “CI” denotes Continuous Integration.
 
 \medskip
-\noindent \textbf{Motivation.} In any long mathematical document, especially one involving deep analytic arguments, consistency of notation, references, and file boundaries is as important as correctness of the theorems. A minor drift in macros or mislabeled cross-reference may cascade into major ambiguities. The structural conventions recorded here form the backbone of the "Diamond Standard" for mathematical monographs.
+\noindent\textbf{Date:} 2025-09-09 \qquad \textbf{Contact:} \texttt{askohguharev@yandex.ru}
 
-\medskip
-\noindent \textbf{Invariant F1.} Each \texttt{.tex} file corresponds to a well-defined semantic block (chapter, appendix, or major subsection). No file mixes unrelated content.  
-\textbf{Invariant F2.} All references (\texttt{\textbackslash ref}, \texttt{\textbackslash cite}) point to existing, uniquely labeled targets. There are no dangling or ambiguous labels.  
-\textbf{Invariant F3.} Repository and compiled PDF remain synchronized. Continuous integration (CI) checks that every commit produces a valid PDF with identical content across environments.  
-\textbf{Invariant F4.} All constants, parameters, and conditions stated in lemmas, propositions, and theorems appear with their explicit dependencies documented in the surrounding text.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.0 Scope and Normative Paths
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\medskip
-\noindent \textbf{Repository Layout.} The repository follows the structure established in the main body of the monograph:
+\subsection*{F.0. Scope and Normative Paths}
+
+\noindent
+The following paths are normative and must exist in the repository. A path listed here is a \emph{contract}:
+its presence, purpose, and semantic contents are enforced by CI and by the audit in \S F.7.
+
 \begin{itemize}
-  \item \texttt{src/frontmatter/}: title, abstract, executive summary, roadmap, glossary.
-  \item \texttt{src/sections/}: chapters 1--9, each as a separate \texttt{.tex} file with clearly delineated blocks.
-  \item \texttt{src/appendices/}: appendices A--F (and beyond if required), each appendix stored in its own file.
-  \item \texttt{src/macros/}: macros for mathematical notation, theorem environments, and block templates.
-  \item \texttt{bib/references.bib}: the unified bibliography file.
-  \item \texttt{figures/}, \texttt{tables/}: all graphical and tabular material with explicit cross-references.
+  \item \texttt{src/main.tex} — master file; includes frontmatter, sections, appendices, bibliography.
+  \item \texttt{src/frontmatter/00-executive-summary.tex} — executive summary (results first).
+  \item \texttt{src/frontmatter/00-readers-roadmap.tex} — roadmap (structure and dependencies).
+  \item \texttt{src/frontmatter/00-notation-glossary.tex} — notation, normalizations, asymptotic conventions.
+  \item \texttt{src/sections/01-introduction.tex} — introduction (history, motivation, main theorems).
+  \item \texttt{src/sections/02-preliminaries/02-preliminaries.tex} — preliminaries (global).
+  \item \texttt{src/sections/02-preliminaries/blocks/02b-geometry.tex} — geometric conventions.
+  \item \texttt{src/sections/02-preliminaries/blocks/02b-cusps.tex} — cusp structure, truncation, Eisenstein data.
+  \item \texttt{src/sections/02-preliminaries/blocks/02b-selberg-transform.tex} — Selberg transform, spherical kernel normalizations.
+  \item \texttt{src/sections/03-kernel.tex} — truncated kernel construction (global).
+  \item \texttt{src/sections/04-projector.tex} — spectral projector $P_{\lambda,\eta}$ (approximate idempotence and orthogonality).
+  \item \texttt{src/sections/05-microlocal.tex} — semiclassical parametrix, Egorov, stationary phase, error hierarchy.
+  \item \texttt{src/sections/06-geometric.tex} — identity/geodesic/parabolic expansions, assembly.
+  \item \texttt{src/sections/07-main-results.tex} — localized trace formula and quantitative local Weyl law.
+  \item \texttt{src/sections/08-applications.tex} — Weyl windows, variance bounds, QUE-scale consequences.
+  \item \texttt{src/conclusion/09-conclusion.tex} — conclusion and perspectives (bridges, error-budget map).
+  \item \texttt{src/appendices/A-effective-volume.tex} — effective volume and truncation geometry.
+  \item \texttt{src/appendices/B-auxiliary-estimates.tex} — analytic and geometric auxiliary estimates.
+  \item \texttt{src/appendices/C-bridges-roadmap.tex} — bridges and roadmap (safe forwards, no hidden keys).
+  \item \texttt{src/appendices/D-tauberian.tex} — extended Tauberian estimates (quantitative forms).
+  \item \texttt{src/appendices/E-verification-tables.tex} — verification tables (explicit constants, dependencies).
+  \item \texttt{src/appendices/F-reproducibility-standard.tex} — this appendix (methodology and checks).
+  \item \texttt{src/macros/environments.tex} — theorem/lemma/proposition/corollary environments.
+  \item \texttt{src/macros/operators.tex} — operators, function spaces, asymptotic symbols.
+  \item \texttt{src/macros/house-style.tex} — house style (equation numbering, references, typography).
+  \item \texttt{bib/references.bib} — \emph{single} bibliography file; source of truth.
+  \item \texttt{figures/}, \texttt{tables/} — assets with stable labels and captions.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Continuous Integration (CI).}  
-Every commit triggers an automated workflow:
+\noindent\textbf{Invariant F0.1 (Path reality).} Every path above exists at build time; missing paths cause CI failure.\\
+\textbf{Invariant F0.2 (Single source).} There is exactly one \texttt{.bib} file: \texttt{bib/references.bib}.\\
+\textbf{Invariant F0.3 (No mixed files).} A file carries one semantic unit (chapter or appendix). No mixing.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.1 Labeling Discipline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.1. Labeling Discipline (Semantic and Stable)}
+
+\noindent
+Labels are semantic, globally unique, and stable once introduced. Prefixes:
+
+\begin{center}
+\begin{tabular}{ll}
+\texttt{sec:} & sections/subsections, e.g. \texttt{sec:05:parametrix}, \texttt{sec:06:geodesic-assembly} \\
+\texttt{thm:} & theorems, e.g. \texttt{thm:07:localized-trace}, \texttt{thm:08:local-weyl} \\
+\texttt{lem:} & lemmas, e.g. \texttt{lem:05:egorov}, \texttt{lem:06:geodesic-cutoff} \\
+\texttt{prop:} & propositions, e.g. \texttt{prop:04:approx-idempotence}, \texttt{prop:06:parabolic-regularization} \\
+\texttt{cor:} & corollaries, e.g. \texttt{cor:05:stationary-phase} \\
+\texttt{eq:} & equations, e.g. \texttt{eq:trace-localized}, \texttt{eq:weyl-window} \\
+\texttt{fig:}, \texttt{tab:} & figures/tables with stable captions \\
+\texttt{app:} & appendix sections, e.g. \texttt{app:B:oscillatory}, \texttt{app:D:ikehara} \\
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Rules.}
 \begin{enumerate}
-  \item Run \texttt{pdflatex} and \texttt{bibtex} twice to ensure all references are resolved.
-  \item Verify absence of errors or warnings in the log (unresolved references, missing citations).
-  \item Compare the resulting PDF against the previous version using checksum. If identical, the commit is marked as "no-content-change"; if different, the differences are logged.
-  \item Ensure that the compiled PDF is uploaded to the repository’s artifact store, making it accessible for verification.
+  \item \emph{Uniqueness:} No duplicate label keys across the project.
+  \item \emph{Stability:} Published labels are immutable; renaming requires synchronized updates.
+  \item \emph{Granularity:} Cite-only equations carry \texttt{eq:...}; otherwise they remain unnumbered.
+  \item \emph{Reference type:} Use \verb|\eqref| for equations; \verb|\ref| for theorems, lemmas, sections, figures, tables.
 \end{enumerate}
 
-\medskip
-\noindent \textbf{Lemma F.1 (Repository Consistency).}  
-\emph{If Invariants F1--F3 hold, then for each commit the repository and the compiled PDF encode identical mathematical content, up to typographic differences invisible to the mathematical meaning.}  
+\noindent\textbf{Invariant F1.1 (Resolvable refs).} Every \verb|\ref|/\verb|\eqref| resolves at build time.\\
+\textbf{Invariant F1.2 (No orphans).} Every \verb|\label| is referenced at least once outside its defining environment.\\
+\textbf{Invariant F1.3 (Counter discipline).} \verb|\numberwithin{equation}{section}| holds; equation indices reset per section.
 
-\begin{proof}  
-Invariant F1 ensures that semantic structure is preserved across commits. Invariant F2 guarantees that all cross-references are resolved uniquely, so that the logical web of references is stable. Invariant F3 enforces synchronization through CI: no commit can be merged without producing a valid PDF. Together, these conditions imply that no mathematical statement is "lost" or "dangling."  
-\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.2 Deterministic Build
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\medskip
-\noindent \textbf{Remark.} The lemma does not assert immutability of style (e.g., spacing, fonts) but immutability of substance: all theorems, proofs, constants, and dependencies are guaranteed to be identical across the source and the compiled artifact.
+\subsection*{F.2. Deterministic Build (Engine, Passes, Parity)}
 
-\medskip
-\noindent \textbf{Corollary F.2.} \emph{Reviewers and archivists may trust that the PDF reflects exactly the current repository state; any discrepancy indicates a failed CI check and thus cannot persist in the main branch.}
-
-\medskip
-\noindent \textbf{Forward Links.}  
-\begin{itemize}
-  \item To Appendix~F.2: detailed notes on CI pipeline design.  
-  \item To Appendix~F.3: explicit tests for synchronization and error budgets.  
-  \item To Chapter~9: methodological manifesto tying these conventions into the "Diamond Standard."  
-\end{itemize}
-
-\medskip
-\noindent \textbf{Backward Links.}  
-\begin{itemize}
-  \item From Chapter~3: kernel construction depends on consistent macros.  
-  \item From Chapter~5: microlocal analysis requires reproducible operator normalizations.  
-  \item From Appendix~B: auxiliary estimates reference stable lemma labels; this relies on invariant F2.  
-\end{itemize}
-
-\medskip
-\noindent \textbf{Audit of Block F.1.}  
-\begin{itemize}
-  \item \emph{Goal F1:} Define structural invariants. \textbf{Verified}.  
-  \item \emph{Goal F2:} Document repository layout. \textbf{Verified}.  
-  \item \emph{Goal F3:} Prove consistency lemma. \textbf{Verified}.  
-  \item \emph{Goal F4:} Establish forward and backward links. \textbf{Verified}.  
-\end{itemize}
-
-\medskip
-\noindent \textbf{Conclusion.}  
-Block F.1 codifies the structural backbone of the monograph. By explicitly documenting invariants, repository layout, CI synchronization, and cross-references, it prevents structural drift and ensures that the mathematical content remains verifiable across time. This establishes trust in the reproducibility of the results, both for current reviewers and for the mathematical community at large.
-
-\subsection*{F.2. Continuous Integration Pipeline and Error Detection}
-
-\noindent \textbf{Goal.} This section records the design principles and technical details of the continuous integration (CI) system underlying the monograph. The purpose is to guarantee that every commit of the repository is automatically validated, compiled, and checked for logical consistency, so that no drift between source and compiled PDF can occur.
-
-\medskip
-\noindent \textbf{Motivation.} In mathematical writing, reproducibility means more than being able to follow proofs; it means that the document itself can be recompiled from source without manual interventions, hidden assumptions, or platform-dependent hacks. Continuous integration is the methodological safeguard that enforces this standard. Without it, even a single missing label or unresolved citation could propagate unnoticed until submission, undermining the credibility of the work. With it, every change is stress-tested.
-
-\medskip
-\noindent \textbf{Invariant F5.} Every commit to the main branch must produce a PDF identical in structure and content to the source, with no missing references or unresolved bibliography entries.  
-\textbf{Invariant F6.} Compilation warnings are treated as errors. No unresolved reference, overfull box, or missing citation may persist.  
-\textbf{Invariant F7.} CI logs are artifacts: each run produces a verifiable record of success or failure, archived alongside the PDF.  
-\textbf{Invariant F8.} The CI system is platform-agnostic: compilation must succeed identically on Linux, macOS, and Windows environments, ensuring portability.  
-
-\medskip
-\noindent \textbf{Pipeline Stages.} The CI workflow is divided into four main stages:
-
-\begin{enumerate}
-  \item \emph{Checkout and environment setup.} The repository is cloned, and a standardized \LaTeX\ environment is initialized (TeX Live 2025 or equivalent). All required packages are pre-installed.
-  \item \emph{Build and compile.} The document is compiled using \texttt{pdflatex} and \texttt{bibtex} in multiple passes: \texttt{pdflatex} $\to$ \texttt{bibtex} $\to$ \texttt{pdflatex} $\to$ \texttt{pdflatex}. This ensures that all cross-references and citations are fully resolved.
-  \item \emph{Validation.} The log file is scanned automatically for errors and warnings. Any instance of “LaTeX Warning: Reference undefined” or “Citation undefined” triggers a build failure. Overfull boxes beyond 5pt are also treated as errors.
-  \item \emph{Artifact archiving.} The compiled PDF and the full log files are stored as build artifacts. A checksum is computed and compared with the previous commit; if no substantive changes are detected, the build is marked as “no-content-change.”
-\end{enumerate}
-
-\medskip
-\noindent \textbf{Lemma F.3 (CI Reliability).}  
-\emph{If Invariants F5–F8 are satisfied, then the CI pipeline guarantees that any mathematical inconsistency at the structural level (missing references, broken citations, mis-synchronization between source and PDF) is detected before publication.}
-
-\begin{proof}  
-Invariant F5 ensures that no commit passes without complete compilation. Invariant F6 eliminates the possibility of warnings being ignored. Invariant F7 archives logs, preventing silent failures. Invariant F8 ensures reproducibility across platforms, which means that environment-specific bugs cannot hide errors. Together, these invariants imply that any structural inconsistency is caught deterministically by the pipeline.  
-\end{proof}
-
-\medskip
-\noindent \textbf{Corollary F.4.} \emph{The compiled PDF stored in the repository artifacts can be trusted as the canonical version of the monograph at that commit. Any discrepancy is immediately flagged and rejected by CI.}
-
-\medskip
-\noindent \textbf{Implementation Details.}
+\noindent
+Builds are deterministic: same engine, same major package versions, same outputs (up to timestamps).
 
 \begin{itemize}
-  \item \textbf{Automated log parser.} A script checks the \texttt{.log} file for specific patterns (undefined references, missing labels, overfull boxes). Failure is triggered if any pattern is found.
-  \item \textbf{Checksum comparison.} The compiled PDF is hashed (SHA-256) and compared to the previous version. If hashes match, the CI notes “no content change,” preventing redundant uploads. This ensures efficiency while preserving accountability.
-  \item \textbf{Branch protections.} The main branch is protected: no merge is possible unless CI passes. Experimental branches may fail, but cannot be merged into main until fixed.
-  \item \textbf{Bibliography enforcement.} Every citation in the text must correspond to an entry in \texttt{references.bib}. CI runs \texttt{bibtex} and fails if unresolved citations remain.
-  \item \textbf{Cross-platform builds.} The pipeline is replicated on Linux and macOS runners. Successful builds must occur on both; if discrepancies arise, the commit is rejected.
+  \item \textbf{Engine:} TeX~Live~2025 (fixed); \texttt{pdflatex} $\to$ \texttt{bibtex} $\to$ multi-pass \texttt{pdflatex} until labels/citations stabilize.
+  \item \textbf{Parity:} Cross-platform runs (Linux, macOS) must agree on pass/fail and on checksum of the final PDF artifact.
+  \item \textbf{Artifacts:} PDF and logs are archived with SHA-256.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Remark.} The CI pipeline does not only check technical correctness of compilation, it enforces the methodological culture of this monograph: precision, reproducibility, and transparency. Any drift, however small, is caught before it can propagate.
+\noindent\textbf{Invariant F2.1 (Engine immutability).} The engine and major packages are pinned per release.\\
+\textbf{Invariant F2.2 (Cross parity).} Linux and macOS builds are identical in status and checksum.\\
+\textbf{Invariant F2.3 (Multi-pass closure).} The build completes with no “undefined reference/citation” warnings.
 
-\medskip
-\noindent \textbf{Forward Links.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.3 CI Pass/Fail Specification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.3. CI Pass/Fail Specification (Objective Patterns)}
+
+\noindent
+CI enforces pass/fail by log patterns. In particular:
+
+\paragraph{Critical (must be zero).}
 \begin{itemize}
-  \item To Appendix~F.3: explicit tests and error budgets tied to CI output.  
-  \item To Appendix~F.4: audit of implementation notes.  
-  \item To Chapter~9: meta-level manifesto emphasizing reproducibility.  
+  \item “\texttt{LaTeX Warning: Reference ... undefined}”
+  \item “\texttt{LaTeX Warning: Citation ... undefined}”
+  \item “\texttt{Label ... multiply defined}”
+  \item “\texttt{BibTeX failed}” or missing \texttt{.bbl}
 \end{itemize}
 
-\medskip
-\noindent \textbf{Backward Links.}
+\paragraph{Warnings (must be zero).}
 \begin{itemize}
-  \item From Appendix~F.1: structural conventions and repository synchronization.  
-  \item From Chapter~4: kernel normalization tests rely on automated build logs.  
-  \item From Appendix~B: projector bounds must be verified via successful compilation of cross-references.  
+  \item “\texttt{Underfull \hbox in display math}”
+  \item Any “\texttt{Overfull \hbox}” exceeding 5pt
 \end{itemize}
 
-\medskip
-\noindent \textbf{Audit of Block F.2.}
+\paragraph{Cosmetic allowance.}
 \begin{itemize}
-  \item \emph{Goal F5:} Ensure every commit produces valid PDF. \textbf{Verified}.  
-  \item \emph{Goal F6:} Treat warnings as errors. \textbf{Verified}.  
-  \item \emph{Goal F7:} Archive CI logs. \textbf{Verified}.  
-  \item \emph{Goal F8:} Cross-platform consistency. \textbf{Verified}.  
+  \item Overfull boxes $\le 5$pt are counted; total count $E_o \le 5$ per full build.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Conclusion.}  
-Block F.2 formalizes the continuous integration system that underpins the monograph. By enforcing invariants F5–F8, it guarantees that every commit yields a valid, reproducible, and verifiable artifact. This makes the document resilient against hidden errors and establishes a methodological standard for mathematical writing in the digital age.
+\noindent\textbf{Invariant F3.1 (Zero tolerance).} Critical and warning budgets are zero: $E_c=0$, $E_w=0$.\\
+\textbf{Invariant F3.2 (Tight cosmetics).} Cosmetic budget $E_o\le 5$.
 
-\subsection*{F.3. Explicit Tests and Error Budgets}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.4 Concrete Verification Tasks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\noindent \textbf{Goal.} This block establishes the framework of explicit tests that the continuous integration (CI) pipeline must execute at every commit. It also introduces the concept of an \emph{error budget}, a quantitative measure of allowable deviation, to guarantee that the document maintains mathematical and structural integrity.
+\subsection*{F.4. Concrete Verification Tasks (What is Checked)}
 
-\medskip
-\noindent \textbf{Motivation.} The main body of the monograph relies heavily on intricate cross-referencing, precise numbering of theorems, lemmas, and corollaries, and exact consistency across chapters and appendices. Any drift, even a single broken reference, can undermine the credibility of the work. To preempt such risks, we formalize a battery of tests, each with strict pass/fail criteria, and allocate an error budget that is identically zero for critical checks and tightly bounded for cosmetic issues.
+\paragraph{F4.a — Labels and Refs.} 
+Enumerate all \verb|\label| keys from \texttt{.aux}; enumerate all \verb|\ref|/\verb|\eqref| targets; 
+check surjectivity both ways (no undefined refs; no orphans).
 
-\medskip
-\noindent \textbf{Invariant F9.} Every label introduced in the document must be referenced at least once, ensuring no orphaned labels.  
-\textbf{Invariant F10.} Every reference in the document must point to a valid label; no undefined reference may appear.  
-\textbf{Invariant F11.} Bibliographic references must match exactly with entries in \texttt{references.bib}. No “missing citation” warning is tolerated.  
-\textbf{Invariant F12.} All equations must be sequentially numbered and consistent with the chapter-based numbering scheme (\texttt{\textbackslash numberwithin\{equation\}\{section\}}).  
+\paragraph{F4.b — Equations.}
+Verify per-section numbering; any cited equation has an \texttt{eq:...} label; no duplicate equation labels.
 
-\medskip
-\noindent \textbf{Definition (Error Budget).} An \emph{error budget} is a vector $(E_c, E_w, E_o)$, where:
+\paragraph{F4.c — Bibliography.}
+Every \verb|\cite{key}| matches an entry in \texttt{bib/references.bib}; \texttt{.bbl} is present and complete.
+
+\paragraph{F4.d — Cross-platform parity.}
+Status and checksum coincide between Linux and macOS.
+
+\paragraph{F4.e — Artifacts.}
+Archive PDF and logs; record SHA-256; store counts $(E_c,E_w,E_o)$.
+
+\noindent\textbf{Invariant F4.1 (Objective audit).} CI decides pass/fail solely by these measurable results.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.5 Semantic Link Registry
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.5. Semantic Link Registry (Forward/Backward, Named)}
+
+\noindent
+The registry lists \emph{expected} semantic targets (file and label names). 
+This appendix does not use \verb|\ref| here to avoid hard failures if labels are renamed;
+instead it declares the contract that CI validates.
+
+\paragraph{Forward (from Appendix F to main text).}
 \begin{itemize}
-  \item $E_c = 0$: critical errors (compilation failures, missing references, undefined citations) are not allowed.
-  \item $E_w = 0$: warnings (overfull boxes $>5$pt, unresolved labels) are not allowed.
-  \item $E_o \leq 5$: cosmetic overfull boxes $<5$pt may occur at most five times in the entire document, each documented with coordinates and page numbers.
+  \item \texttt{src/sections/05-microlocal.tex}: \texttt{sec:05:parametrix}, \texttt{lem:05:egorov}, \texttt{cor:05:stationary-phase}.
+  \item \texttt{src/sections/06-geometric.tex}: \texttt{sec:06:geodesic}, \texttt{lem:06:geodesic-cutoff}, \texttt{prop:06:parabolic-regularization}, \texttt{thm:06:assembly}.
+  \item \texttt{src/sections/07-main-results.tex}: \texttt{thm:07:localized-trace}, \texttt{cor:07:error-hierarchy}.
+  \item \texttt{src/sections/08-applications.tex}: \texttt{thm:08:local-weyl}, \texttt{prop:08:variance}, \texttt{cor:08:que-scale}.
 \end{itemize}
-This design reflects an absolute intolerance for logical errors and a tightly bounded tolerance for layout imperfections.
 
-\medskip
-\noindent \textbf{Test Categories.}
-
-\begin{enumerate}
-  \item \emph{Structural Integrity Tests.}  
-  \begin{itemize}
-    \item Verify that each \texttt{\textbackslash label} has a corresponding \texttt{\textbackslash ref} or \texttt{\textbackslash eqref}.  
-    \item Verify that no \texttt{\textbackslash ref} points to an undefined label.  
-    \item Verify that all theorem-like environments (theorem, lemma, corollary, proposition) follow sequential numbering within each section.  
-  \end{itemize}
-  \item \emph{Bibliography Consistency Tests.}  
-  \begin{itemize}
-    \item Verify that every \texttt{\textbackslash cite\{...\}} matches an entry in \texttt{references.bib}.  
-    \item Verify that no unused entry exists in \texttt{references.bib} (bibliography hygiene).  
-  \end{itemize}
-  \item \emph{Equation Tests.}  
-  \begin{itemize}
-    \item Verify that every equation environment produces a numbered equation unless explicitly marked with \texttt{\textbackslash nonumber}.  
-    \item Verify that equation numbering restarts correctly at each new section, following the chapter-based scheme.  
-  \end{itemize}
-  \item \emph{Typographic Tests.}  
-  \begin{itemize}
-    \item Parse the log file for “Overfull” or “Underfull” warnings.  
-    \item Count instances where overfull boxes exceed 5pt. If $E_o > 5$, the build fails.  
-  \end{itemize}
-  \item \emph{Cross-File Consistency Tests.}  
-  \begin{itemize}
-    \item Verify that files in \texttt{sections/} include at least one \texttt{\textbackslash section} environment.  
-    \item Verify that appendices in \texttt{appendices/} follow sequential lettering (Appendix A, B, C, ...).  
-    \item Verify that every appendix has an audit block summarizing goals, invariants, forward and backward links.  
-  \end{itemize}
-\end{enumerate}
-
-\medskip
-\noindent \textbf{Lemma F.5 (Completeness of Test Suite).}  
-\emph{If all Structural Integrity, Bibliography, Equation, Typographic, and Cross-File Consistency tests pass, then the document satisfies Invariants F9–F12, and the error budget is respected.}
-
-\begin{proof}  
-The Structural Integrity Tests guarantee F9 and F10 by ensuring every label is used and every reference is defined. The Bibliography Tests enforce F11 by rejecting undefined citations and unused bibliography entries. The Equation Tests ensure F12 by maintaining consistent numbering. The Typographic Tests guarantee that $E_w=0$ and $E_o \leq 5$. Finally, Cross-File Consistency ensures that all parts of the document are properly integrated. Therefore, if all tests pass, all invariants hold and the error budget is satisfied.  
-\end{proof}
-
-\medskip
-\noindent \textbf{Corollary F.6.} \emph{If the CI pipeline reports success, the compiled PDF is free from broken references, undefined citations, numbering errors, and uncontrolled typographic flaws.}
-
-\medskip
-\noindent \textbf{Implementation of Error Budgets.}
-
+\paragraph{Backward (from main text to Appendix F).}
 \begin{itemize}
-  \item Each test generates a numerical score.  
-  \item The global error vector $(E_c, E_w, E_o)$ is accumulated at the end of the pipeline.  
-  \item The pipeline enforces $E_c = 0$, $E_w = 0$, $E_o \leq 5$.  
-  \item If $E_o > 5$, the build is rejected, and offending lines are reported.  
+  \item \texttt{src/conclusion/09-conclusion.tex}: pointer to this appendix as the reproducibility standard.
+  \item \texttt{src/appendices/B-auxiliary-estimates.tex}: cross-reference to F.3 budgets and F.4 checks.
+  \item \texttt{src/frontmatter/00-readers-roadmap.tex}: reference to this appendix in the methodology line.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Proposition F.7 (Drift Detection).}  
-\emph{Suppose the error budget $(E_c, E_w, E_o)$ is satisfied for commit $n$ but violated for commit $n+1$. Then the CI system provides a minimal counterexample (list of failing labels, citations, or equations), guaranteeing detection of drift.}
+\noindent\textbf{Invariant F5.1 (Named links).} Links are named by file paths and label keys, not by ordinals like “Chapter N”.
 
-\begin{proof}  
-Drift means that an invariant that previously held has been violated. The CI tests are exhaustive for Invariants F9–F12. Hence, if drift occurs, the failing component is necessarily recorded. The minimal counterexample is given by the first failing test.  
-\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.6 Error Budget: Definitions and Measurement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\medskip
-\noindent \textbf{Remark.} The notion of error budget is borrowed from systems engineering but here it is repurposed for mathematical writing. It quantifies tolerance while maintaining strictness. The zero tolerance for logical errors reflects the nature of mathematics; the tiny allowance for cosmetic errors acknowledges practical typesetting realities.
+\subsection*{F.6. Error Budget (Definitions and Measurement)}
 
-\medskip
-\noindent \textbf{Forward Links.}
+\noindent
+Budget vector $(E_c,E_w,E_o)$ is computed from \texttt{.log} by exact patterns:
 \begin{itemize}
-  \item To Appendix~F.4: audit of implementation notes and methodological manifesto.  
-  \item To Chapter~9: discussion of reproducibility standards and methodological rigor.  
-  \item To Appendices B–D: verification of cross-references and bibliography hygiene.  
+  \item \textbf{Critical ($E_c$):} undefined reference/citation; multiply defined label; BibTeX failure.
+  \item \textbf{Warnings ($E_w$):} underfull in displays; overfull $>5$pt.
+  \item \textbf{Cosmetic ($E_o$):} overfull $\le 5$pt (counted).
 \end{itemize}
+\noindent\textbf{Invariant F6.1 (Objective patterns).} Only explicit pattern counts determine the status.
 
-\medskip
-\noindent \textbf{Backward Links.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.7 Audit Record (Archival)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.7. Audit Record (Archival Metadata and Counters)}
+
+\noindent
+Each passing build archives an audit record with:
+
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Field} & \textbf{Meaning} \\
+\hline
+Commit & VCS hash (source identity) \\
+Engine & TeX engine and version (e.g., pdfTeX/TeX Live 2025) \\
+Passes & \# of \LaTeX/\texttt{bibtex} passes to stabilize references \\
+Labels & total labels; orphan count (must be $0$) \\
+Refs & total refs; undefined count (must be $0$) \\
+Citations & total cites; undefined count (must be $0$) \\
+Eq. counters & per-section resets verified (yes/no) \\
+Overfull (cosmetic) & count $\le 5$ \\
+Warnings & non-cosmetic warnings (must be $0$) \\
+Checksum & SHA-256 of PDF artifact \\
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Invariant F7.1 (Completeness).} A build without a complete audit record is not “passing”.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.8 Responsibilities and Change Control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.8. Responsibilities and Change Control}
+
+\paragraph{Labels.} Introducing, renaming, or deleting label keys must be atomic with synchronized reference updates; otherwise CI fails on unresolved refs.
+
+\paragraph{Bibliography.} A new \texttt{.bib} entry must be cited in the same or a subsequent commit; stale entries are removed periodically.
+
+\paragraph{Macros and environments.} All theorem and macro changes live in \texttt{src/macros/}; chapter files contain mathematical content only.
+
+\noindent\textbf{Invariant F8.1 (Atomic refactoring).} Protected branches never contain half-consistent states.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.9 Minimal Worked Examples (Concrete, Non-Executable)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.9. Minimal Worked Examples (Concrete Targets)}
+
+\noindent
+The following named items \emph{must} exist in the indicated files. They are exemplary; CI validates existence
+(and uniqueness) of these label keys. This list is intentionally concrete to avoid abstraction drift.
+
+\paragraph{File: \texttt{src/sections/05-microlocal.tex}}
 \begin{itemize}
-  \item From Appendix~F.2: CI pipeline execution guarantees test automation.  
-  \item From Chapter~3: definitions of notation and label conventions.  
-  \item From Chapter~5: stationary phase lemmas cited in Appendix B.  
+  \item \texttt{sec:05:parametrix} — section heading for the semiclassical parametrix (small times).
+  \item \texttt{lem:05:egorov} — Egorov lemma (quantitative form with time scale $c\log(1/h)$).
+  \item \texttt{cor:05:stationary-phase} — stationary phase bound for oscillatory kernels.
+  \item \texttt{eq:05:parametrix-kernel} — display equation for the kernel expansion with phase/amplitude.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Audit of Block F.3.}
+\paragraph{File: \texttt{src/sections/06-geometric.tex}}
 \begin{itemize}
-  \item \emph{Goal F9:} No orphaned labels. \textbf{Verified}.  
-  \item \emph{Goal F10:} No undefined references. \textbf{Verified}.  
-  \item \emph{Goal F11:} All citations valid. \textbf{Verified}.  
-  \item \emph{Goal F12:} Equation numbering consistent. \textbf{Verified}.  
+  \item \texttt{sec:06:geodesic} — section heading for geodesic classes and summation.
+  \item \texttt{lem:06:geodesic-cutoff} — lemma controlling contributions of long/short geodesics.
+  \item \texttt{prop:06:parabolic-regularization} — regularization of parabolic terms via truncation $M(Y)$.
+  \item \texttt{thm:06:assembly} — assembly theorem combining identity/geodesic/parabolic contributions.
+  \item \texttt{eq:06:geodesic-weight} — weight/amplitude for a primitive geodesic in the localized window.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Conclusion.}  
-Block F.3 formalizes the test suite and error budget governing the CI pipeline. By codifying invariants F9–F12 and enforcing strict thresholds, it ensures that the monograph is both logically watertight and reproducibly compiled. This is the technical embodiment of methodological rigor: every commit is tested, every assumption verified, every drift detected.
-
-\subsection*{F.4. Audit and Methodological Standard}
-
-\noindent \textbf{Goal.} This block consolidates the methodological lessons from the CI pipeline design (F.1), its execution (F.2), and the test suite with error budgets (F.3). It provides a reflective audit and articulates the methodological standard that this monograph sets for mathematical writing in the age of computational reproducibility.
-
-\medskip
-\noindent \textbf{Motivation.} Modern mathematical research operates under increasing demands for transparency, reproducibility, and precision. While theorems, proofs, and formulas remain the core, the infrastructure of presentation — from consistent labeling to auditable compilation — has become equally important. This appendix serves as a manifesto: rigorous mathematics must be accompanied by rigorous infrastructure. A proof not only demonstrates a claim but also demonstrates that it can be transmitted without distortion.
-
-\medskip
-\noindent \textbf{Invariant F13.} Every goal and invariant introduced in Appendices F.1–F.3 is explicitly verified and documented.  
-\textbf{Invariant F14.} The CI pipeline is not auxiliary but integral to the monograph. Its design is part of the mathematical method.  
-\textbf{Invariant F15.} Methodological reflections are treated with the same rigor as lemmas and theorems. No claim about reproducibility or methodology is left unverified.  
-
-\medskip
-\noindent \textbf{Synthesis of Goals and Invariants.}
-
+\paragraph{File: \texttt{src/sections/07-main-results.tex}}
 \begin{itemize}
-  \item From F.1: Goals F1–F4 defined the skeleton of the CI pipeline. Invariants F1–F4 fixed repository structure and compilation invariants.  
-  \item From F.2: Goals F5–F8 ensured automation of execution, reproducibility of commits, and detection of drift. Invariants F5–F8 bound repository state to PDF output.  
-  \item From F.3: Goals F9–F12 defined explicit tests and error budgets. Invariants F9–F12 ensured no logical drift, no undefined references, and strict error thresholds.  
-  \item In F.4: Goals F13–F15 now elevate these technical guarantees to methodological commitments, enshrining reproducibility as a core principle of mathematical writing.  
+  \item \texttt{thm:07:localized-trace} — localized trace formula with explicit error $O(\lambda^{-\delta})$.
+  \item \texttt{cor:07:error-hierarchy} — corollary summarizing error tiers and parameter dependencies.
+  \item \texttt{eq:07:trace-identity} — identity term with explicit constant (volume contribution).
 \end{itemize}
 
-\medskip
-\noindent \textbf{Lemma F.8 (Methodological Closure).}  
-\emph{If Goals F1–F12 are achieved and Invariants F1–F12 are respected, then the methodological Invariants F13–F15 follow automatically, establishing closure of the CI loop.}
-
-\begin{proof}  
-Goals F1–F4 establish the structure; Goals F5–F8 ensure execution; Goals F9–F12 verify outcomes. Together, they ensure that the CI pipeline is not an external tool but an internal methodology. Therefore, Invariant F13 (explicit verification) is satisfied. Invariant F14 (integration) follows because the pipeline is co-extensive with the document. Invariant F15 (rigor of methodological claims) follows because every methodological claim is backed by a formal test.  
-\end{proof}
-
-\medskip
-\noindent \textbf{Corollary F.9.} \emph{Every PDF generated from this repository is not only a mathematical document but also an audit report of its own structural and methodological soundness.}
-
-\medskip
-\noindent \textbf{Audit of Appendix F.}
-
+\paragraph{File: \texttt{src/sections/08-applications.tex}}
 \begin{itemize}
-  \item \emph{Goal F1:} Define pipeline skeleton. \textbf{Verified}.  
-  \item \emph{Goal F2:} Bind repository to PDF output. \textbf{Verified}.  
-  \item \emph{Goal F3:} Automate builds. \textbf{Verified}.  
-  \item \emph{Goal F4:} Fix repository invariants. \textbf{Verified}.  
-  \item \emph{Goal F5:} Automate execution. \textbf{Verified}.  
-  \item \emph{Goal F6:} Reproduce commits. \textbf{Verified}.  
-  \item \emph{Goal F7:} Detect drift. \textbf{Verified}.  
-  \item \emph{Goal F8:} Record invariants. \textbf{Verified}.  
-  \item \emph{Goal F9:} No orphaned labels. \textbf{Verified}.  
-  \item \emph{Goal F10:} No undefined references. \textbf{Verified}.  
-  \item \emph{Goal F11:} All citations valid. \textbf{Verified}.  
-  \item \emph{Goal F12:} Equation numbering consistent. \textbf{Verified}.  
-  \item \emph{Goal F13:} Explicit verification. \textbf{Verified}.  
-  \item \emph{Goal F14:} Integration of CI. \textbf{Verified}.  
-  \item \emph{Goal F15:} Rigor of methodological claims. \textbf{Verified}.  
+  \item \texttt{thm:08:local-weyl} — quantitative local Weyl law on window $[\lambda-\eta,\lambda+\eta]$.
+  \item \texttt{prop:08:variance} — variance bound for Fourier coefficients (depth aspect).
+  \item \texttt{cor:08:que-scale} — corollary on quantum ergodicity scale (no hidden QUE keys).
+  \item \texttt{eq:08:weyl-window} — main-term $\asymp \mathrm{vol}(M)\,\lambda\,\eta$ with explicit constant.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Forward Links.}
+\paragraph{File: \texttt{src/appendices/B-auxiliary-estimates.tex}}
 \begin{itemize}
-  \item To Chapter~9: Conclusion discusses reproducibility and methodological standards at the monograph level.  
-  \item To Appendix~B: Error budgets for oscillatory integrals echo the structure of CI error budgets.  
-  \item To Appendix~D: Tauberian estimates illustrate methodological rigor in analysis.  
+  \item \texttt{app:B:oscillatory} — section on oscillatory integrals (quantitative stationary phase).
+  \item \texttt{lem:B:paley-wiener} — Paley–Wiener decay for cutoff transforms.
+  \item \texttt{lem:B:resolvent} — resolvent kernel bound with spectral parameter.
 \end{itemize}
 
-\medskip
-\noindent \textbf{Backward Links.}
+\paragraph{File: \texttt{src/appendices/D-tauberian.tex}}
 \begin{itemize}
-  \item From Appendices F.1–F.3: pipeline skeleton, execution, and tests.  
-  \item From Chapter~2: notation and labeling conventions foundational to CI tests.  
-  \item From Chapter~5: microlocal constructions that inspired the idea of reproducibility checks.  
+  \item \texttt{app:D:ikehara} — Ikehara-type lemma (effective form and conditions).
+  \item \texttt{lem:D:laplace-tauberian} — Laplace Tauberian bound (explicit growth line).
 \end{itemize}
 
-\medskip
-\noindent \textbf{Proposition F.10 (The Diamond Standard).}  
-\emph{A document that integrates CI design, execution, explicit tests, error budgets, and methodological audits sets a new standard for mathematical writing: every claim is verifiable, every structure is auditable, and every build is reproducible.}
+\noindent\textbf{Invariant F9.1 (Concrete seeds).} These named items are seeds for CI validation; missing any is a build failure.
 
-\begin{proof}  
-This proposition is a synthesis of all invariants F1–F15. By codifying CI into the monograph, we elevate methodology to the same level as mathematics. The Diamond Standard is not metaphorical: it is the crystallization of reproducibility, precision, and integrity into the very form of the document.  
-\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% F.10 Global Closure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{F.10. Global Closure}
+
+\noindent
+The standards above are minimal and testable. They avoid numeric placeholders, enforce semantic labels,
+define deterministic builds, and make CI pass/fail a matter of measurable facts. The methodological contract
+is therefore auditable: any inconsistency produces a concrete failing pattern and prevents archival status.
 
 \medskip
-\noindent \textbf{Conclusion.} Appendix F closes the methodological loop. It demonstrates that mathematical rigor is inseparable from reproducibility infrastructure. By enforcing invariants, audits, and error budgets, this appendix turns methodology into mathematics. This is the Diamond Standard: a monograph that proves not only theorems but also its own reproducibility.
+\noindent\textbf{Audit summary (illustrative template).}
+\begin{itemize}
+  \item Commit: \texttt{<hash>} \quad Engine: \texttt{pdfTeX (TeX Live 2025)} \quad Passes: 4
+  \item Labels: 600 (orphans 0) \quad Refs: 780 (undefined 0) \quad Citations: 214 (undefined 0)
+  \item Eq. counters: verified \quad Overfull (cosmetic): 3 \quad Warnings: 0
+  \item Checksum: \texttt{<sha256>}
+\end{itemize}
+
+\noindent
+Upon satisfying the invariants and checks in \S\S F.0–F.9, this monograph attains the reproducibility and
+implementation standard expected of a high-level mathematical submission. All claims in the main text that
+depend on methodology (not mathematics) are now tethered to explicit, verifiable conditions.
