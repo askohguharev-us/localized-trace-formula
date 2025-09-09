@@ -1,1 +1,206 @@
+% operators.tex
+% Operator names and frequently used symbols for the monograph
+% Author: A. S. Kozhukharev
 
+% --- Blackboard & calligraphic sets ---
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\HH}{\mathbb{H}}
+
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cJ}{\mathcal{J}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cZ}{\mathcal{Z}}
+
+% --- Lie groups and algebras ---
+\providecommand{\SL}{\mathrm{SL}}
+\providecommand{\PSL}{\mathrm{PSL}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\SO}{\mathrm{SO}}
+\providecommand{\SU}{\mathrm{SU}}
+\providecommand{\Lie}{\mathrm{Lie}}
+
+% --- Geometry of the surface ---
+\DeclareMathOperator{\inj}{inj}             % injectivity radius
+\DeclareMathOperator{\diam}{diam}           % diameter
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\area}{area}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\sys}{sys}             % systole
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\Hess}{Hess}
+
+% --- Differential / functional analysis ---
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Op}{Op}
+\DeclareMathOperator{\Opw}{Op^w}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\singsupp}{singsupp}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\sgn}{sgn}
+
+% --- Laplacian and wave operators ---
+\providecommand{\Lap}{\Delta}               % sign fixed in notation/glossary
+\providecommand{\Boxop}{\square}
+\providecommand{\Exp}{\mathrm{Exp}}
+
+% --- Semiclassical / microlocal notation ---
+\providecommand{\Tast}{T^*}                 % cotangent bundle
+\providecommand{\WF}{\mathrm{WF}}           % wave front set
+\providecommand{\WFh}{\mathrm{WF}_h}        % semiclassical WF
+\providecommand{\Ssym}{S}                   % symbol class S^m
+\providecommand{\PsiDO}{\Psi}               % pseudodiff class \Psi^m
+\providecommand{\Op_h}{\Op_{h}}             % semiclassical quantization
+\providecommand{\OpH}[1]{\Op_{h}\!\paren*{#1}}
+\providecommand{\symb}{\mathrm{symb}}
+\providecommand{\Char}{\mathrm{Char}}
+\providecommand{\elliptic}{\mathrm{ell}}
+\providecommand{\subpr}{\mathrm{sub}}
+\providecommand{\Conorm}{\mathrm{Conorm}}
+
+% --- Geodesic flow and canonical relations ---
+\providecommand{\Geod}{g^t}                 % geodesic flow on S^*M
+\providecommand{\Sast}{S^*}                 % unit cotangent bundle
+\providecommand{\can}{\mathrm{can}}         % canonical
+\providecommand{\CR}{C}                      % canonical relation
+\providecommand{\Diag}{\mathrm{Diag}}       % diagonal in MxM
+
+% --- Spectral parameters, Eisenstein series, scattering ---
+\providecommand{\specpar}{t}                % spectral parameter t
+\providecommand{\Eis}{E}                    % Eisenstein series E_a(z,1/2+ir)
+\providecommand{\phiSc}{\varphi}            % scattering determinant / matrix
+\DeclareMathOperator{\Pl}{pl}                % Plancherel measure density
+\providecommand{\rpar}{r}                    % variable r
+\providecommand{\svar}{s}                    % complex variable s
+
+% --- Harish--Chandra / Selberg transform & spherical functions ---
+\providecommand{\HC}{\mathcal{H}}           % Harish–Chandra transform
+\providecommand{\Sel}{\mathcal{S}}          % Selberg transform
+\providecommand{\phiSph}{\varphi_t}         % spherical function
+\providecommand{\XiHar}{\Xi}                % Harish–Chandra Xi
+
+% --- Kernels, projectors, windows (consistent with house-style) ---
+\providecommand{\KYY}{K_{Y}}                % truncated kernel K_Y
+\providecommand{\KY}{K_{Y}}                 % alias
+\providecommand{\Kloc}{K_{\paramlam,\parameta}}
+\providecommand{\PYY}{P_{Y}}
+\providecommand{\Pproj}{P_{\paramlam,\parameta}}
+\providecommand{\Wcut}{\chi_{\paramT}}      % time cut-off
+\providecommand{\Bcut}{\widehat{\chi}_{\parameta}}
+
+% --- Cusp data & truncation (consistent with house-style) ---
+\providecommand{\cusp}{\mathfrak{a}}
+\providecommand{\sigmaa}{\sigma_{\mathfrak{a}}}
+\providecommand{\wa}{w_{\mathfrak{a}}}
+\providecommand{\Pa}{P_{\mathfrak{a}}}
+\providecommand{\Ma}{M_{\mathfrak{a}}}
+\providecommand{\CaY}{C_{\mathfrak{a}}(Y)}
+\providecommand{\HaY}{H_{\mathfrak{a}}(Y)}
+\providecommand{\Ytr}{Y}
+\providecommand{\Lam}{\Lambda}
+\providecommand{\Lamsm}{\Lambda_{\mathrm{sm}}}
+
+% --- Length spectrum, conjugacy classes ---
+\providecommand{\Gammahyp}{\Gamma_{\mathrm{hyp}}}
+\providecommand{\Gammapar}{\Gamma_{\mathrm{par}}}
+\providecommand{\Class}[1]{\langle #1 \rangle}
+\providecommand{\len}{\ell}
+\providecommand{\Aamp}{A_{\gamma}}          % geodesic amplitude in geometric side
+
+% --- Asymptotic scales & windows ---
+\providecommand{\WindowI}{[\paramlam-\parameta,\ \paramlam+\parameta]}
+\providecommand{\TimeScale}{\paramT\asymp \log \paramlam}
+\providecommand{\hscale}{\paramh = \paramlam^{-1}}
+
+% --- Norms & spaces ---
+\DeclareMathOperator{\HS}{HS}               % Hilbert–Schmidt norm
+\DeclareMathOperator{\opnorm}{op}           % operator norm tag
+\providecommand{\Hsob}[1]{H^{#1}}           % Sobolev H^s
+\providecommand{\Ccinf}{C_c^\infty}
+\providecommand{\Cinfty}{C^\infty}
+\providecommand{\Schwartz}{\mathcal{S}}
+
+% --- Probability & variance (for applications) ---
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+% --- Hecke (optional hooks; safe no-ops if unused) ---
+\providecommand{\Tn}{T_n}
+\providecommand{\Hecke}{\mathcal{T}}
+\DeclareMathOperator{\ord}{ord}
+
+% --- Convenient small macros respecting house-style dependencies ---
+\providecommand{\Oh}[1]{\Oof{#1}}
+\providecommand{\Ogbh}[1]{\Ogb{#1}}
+\providecommand{\Ogeomh}[1]{\Ogeom{#1}}
+
+% --- Differential forms & integration ---
+\providecommand{\dvol}{\mathrm{dvol}}
+\providecommand{\dA}{dA}
+\providecommand{\dx}{dx}
+\providecommand{\dy}{dy}
+\providecommand{\dz}{dz}
+\providecommand{\dt}{dt}
+\providecommand{\dr}{dr}
+\providecommand{\ds}{ds}
+
+% --- Fourier transform (align with house-style conventions) ---
+\providecommand{\FT}{\mathcal{F}}
+\providecommand{\FTof}[1]{\widehat{#1}}
+\providecommand{\IFT}{\mathcal{F}^{-1}}
+
+% --- Indicator & bump ---
+\providecommand{\one}{\mathbf{1}}
+\providecommand{\bump}{\chi}
+\providecommand{\bumpT}{\chi_{\paramT}}
+
+% --- Misc math helpers ---
+\providecommand{\eps}{\varepsilon}
+\providecommand{\wh}{\widehat}
+\providecommand{\wt}{\widetilde}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\angles}[1]{\ang*{#1}}
+
+% --- Labels for frequently cited core results (badges) ---
+\providecommand{\Core}{\thmbadge{Core}}
+\providecommand{\Geom}{\thmbadge{Geom}}
+\providecommand{\SpecTag}{\thmbadge{Spec}}
+\providecommand{\Micro}{\thmbadge{Micro}}
+\providecommand{\AppTag}{\thmbadge{Appl}}
+
+% --- End of operators.tex ---
