@@ -1,1 +1,164 @@
+% environments.tex
+% Custom theorem-like environments and structural blocks
+% Localized Trace Formula Monograph
+% Author: A. S. Kozhukharev
 
+% --- Load packages required ---
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{cleveref}
+\usepackage{xcolor}
+
+% --- Theorem Styles ---
+\declaretheoremstyle[
+  headfont=\bfseries,
+  bodyfont=\itshape,
+  spaceabove=6pt,
+  spacebelow=6pt,
+  headpunct={.},
+  postheadspace=1em,
+  notefont=\normalfont\bfseries,
+  notebraces={(}{)},
+  qed=\qedsymbol
+]{mystyle}
+
+\declaretheoremstyle[
+  headfont=\bfseries,
+  bodyfont=\normalfont,
+  spaceabove=6pt,
+  spacebelow=6pt,
+  headpunct={.},
+  postheadspace=1em
+]{plainremark}
+
+% --- Numbering by chapter ---
+\numberwithin{equation}{section}
+
+% --- Theorem-like environments ---
+\declaretheorem[style=mystyle,numberwithin=section]{theorem}
+\declaretheorem[style=mystyle,sibling=theorem]{lemma}
+\declaretheorem[style=mystyle,sibling=theorem]{proposition}
+\declaretheorem[style=mystyle,sibling=theorem]{corollary}
+\declaretheorem[style=mystyle,sibling=theorem]{conjecture}
+\declaretheorem[style=mystyle,sibling=theorem]{claim}
+\declaretheorem[style=mystyle,sibling=theorem]{fact}
+
+% --- Definitions, remarks, examples ---
+\declaretheorem[style=plainremark,sibling=theorem]{definition}
+\declaretheorem[style=plainremark,sibling=theorem]{remark}
+\declaretheorem[style=plainremark,sibling=theorem]{example}
+\declaretheorem[style=plainremark,sibling=theorem]{notation}
+
+% --- Custom Block: Audit ---
+\newenvironment{auditblock}[1][]{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Audit:} #1 \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Custom Block: Invariants ---
+\newenvironment{invariants}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Invariants.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Custom Block: Goals ---
+\newenvironment{chaptergoals}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Chapter Goals.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Custom Block: Bridges (for Conclusion) ---
+\newenvironment{bridgeblock}[1][]{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Bridge:} #1 \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Custom Proof environment with qed symbol aligned right ---
+\renewenvironment{proof}[1][Proof]{\par
+  \noindent\textbf{#1. }\rmfamily}{\hfill $\square$\par}
+
+% --- Colored environments for emphasis ---
+\newenvironment{highlight}{
+  \begin{quote}\color{blue}\small
+}{
+  \end{quote}
+}
+
+\newenvironment{warning}{
+  \begin{quote}\color{red}\small\textbf{Warning.}
+}{
+  \end{quote}
+}
+
+% --- Consistency checks environment ---
+\newenvironment{consistency}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Consistency Check.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Forward/Backward Links ---
+\newenvironment{forwardlinks}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Forward Links.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+\newenvironment{backwardlinks}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Backward Links.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- Diamond Standard Box ---
+\newenvironment{diamondstandard}{
+  \par\medskip
+  \noindent\begin{tabular}{|p{0.97\linewidth}|}
+  \hline
+  \textbf{Diamond Standard.} \par
+}{
+  \\ \hline
+  \end{tabular}
+  \medskip
+}
+
+% --- End of environments.tex ---
