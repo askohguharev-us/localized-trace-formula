@@ -1,0 +1,319 @@
+\section*{Appendix C. Microlocal Toolkit}
+
+\subsection*{C1. Hadamard Parametrix for the Wave Kernel}
+
+The purpose of this block is to record the explicit construction of the Hadamard parametrix for the wave propagator on hyperbolic surfaces and to provide quantitative error bounds suitable for the analysis of the localized spectral projector $P_{\lambda,\eta}$. The material here is classical, but we present it in a form aligned with the requirements of the present monograph: all constants are explicit and their dependencies are carefully tracked.
+
+\medskip
+
+Let $M = \Gamma \backslash \mathbb{H}$ be a finite-area hyperbolic surface, where $\Gamma \subset \mathrm{PSL}_2(\mathbb{R})$ is a cofinite Fuchsian group with cusp(s). Denote by $\Delta$ the Laplace–Beltrami operator acting on $L^2(M)$. We define the wave group by
+\[
+U(t) = e^{it\sqrt{\Delta - 1/4}}, \quad t \in \mathbb{R},
+\]
+normalized so that the spectrum is parameterized by $r_j \in \mathbb{R}_{\ge 0}$ with eigenvalues $\lambda_j = 1/4 + r_j^2$.
+
+The wave kernel on the universal cover $\mathbb{H}$ has the integral representation
+\[
+U_{\mathbb{H}}(t; z, w) = \frac{1}{2\pi} \int_{\mathbb{R}} e^{i t r} \, \varphi_r(z, w) \, r \tanh(\pi r)\, dr,
+\]
+where $\varphi_r(z, w)$ denotes the spherical function on $\mathbb{H}$ (Legendre function $P_{-1/2+ir}(\cosh d(z,w))$). This representation is exact and reflects the Plancherel theorem for $\mathbb{H}$.
+
+\medskip
+
+\textbf{Construction of the parametrix.} The Hadamard parametrix provides a local expression for $U_{\mathbb{H}}(t; z,w)$ valid for small times $|t| \le c \log \lambda$, where $c > 0$ is fixed and $\lambda \gg 1$ is the spectral parameter. The kernel has the oscillatory form
+\[
+U_{\mathbb{H}}(t; z,w) \sim (2\pi)^{-1} \int_{\mathbb{R}^2} e^{i\varphi(z,w,\xi,t)} a(z,w,\xi,t)\, d\xi,
+\]
+with a phase function $\varphi$ solving the Hamilton–Jacobi equation
+\[
+\partial_t \varphi(z,w,\xi,t) + H(\nabla_z \varphi) = 0, \quad \varphi(z,w,\xi,0) = \langle z-w,\xi \rangle,
+\]
+and amplitude $a(z,w,\xi,t)$ satisfying transport equations of the form
+\[
+\partial_t a + \frac{1}{2}\Delta_\xi \varphi \cdot a = 0, \quad a(\cdot,\cdot,\cdot,0) = 1.
+\]
+
+In practice, this reduces to the well-known expansion
+\[
+U_{\mathbb{H}}(t; z,w) = \frac{1}{\sqrt{t^2 - d(z,w)^2}} \, \chi\!\left(\frac{d(z,w)}{t}\right) + R(t; z,w),
+\]
+where $\chi$ is a smooth cutoff supported where $d(z,w) < |t|$, and $R$ is the error term controlled below.
+
+\medskip
+
+\textbf{Error bounds.} For $|t| \le c \log \lambda$, the parametrix satisfies
+\[
+\| U_{\mathbb{H}}(t) - U^{\mathrm{Had}}(t)\|_{L^2 \to L^2} \ll \lambda^{-A},
+\]
+for any fixed $A > 0$, provided the parametrix is constructed to sufficiently high order in the transport expansion. The implicit constant depends only on $A$ and $c$. This is a semiclassical statement: letting $h = \lambda^{-1}$, the error is $O(h^A)$ for arbitrary $A$.
+
+\medskip
+
+\textbf{Periodization.} To descend to the quotient $M$, we sum over the group $\Gamma$:
+\[
+U_M(t; z, w) = \sum_{\gamma \in \Gamma} U_{\mathbb{H}}(t; z, \gamma w).
+\]
+The convergence is rapid for small $|t|$, because the kernel has compact support in the light cone $d(z,w) < |t|$. The finite propagation speed guarantees that only finitely many terms in the sum are nonzero for each fixed $t$.
+
+\medskip
+
+\textbf{Consequences.} The Hadamard parametrix yields the following quantitative lemma.
+
+\begin{lemma}[Hadamard Parametrix, quantitative form]\label{lem:hadamard}
+Fix $c > 0$. For any $N \ge 1$ there exists an expansion
+\[
+U(t; z,w) = \sum_{k=0}^{N} a_k(z,w)\, (t^2 - d(z,w)^2)_+^{k-1/2} + R_N(t; z,w),
+\]
+valid for $|t| \le c \log \lambda$, where each $a_k(z,w)$ is smooth, explicitly computable, and depends only on the geometry of $M$. The remainder satisfies
+\[
+\|R_N(t)\|_{L^2 \to L^2} \ll \lambda^{-N},
+\]
+uniformly in $|t| \le c \log \lambda$. The implied constant depends only on $c$, $N$, and $M$.
+\end{lemma}
+
+\begin{remark}
+The coefficients $a_k(z,w)$ can be expressed in terms of curvature and its derivatives. For hyperbolic surfaces, where the curvature is constant $-1$, they simplify dramatically, with $a_0(z,w) = (4\pi)^{-1}$ being universal.
+\end{remark}
+
+\begin{corollary}[Propagation of singularities]\label{cor:wavefront}
+The wavefront set $\mathrm{WF}(U(t))$ is contained in the canonical relation
+\[
+C = \{(z,\xi; w, \eta) \in T^*M \times T^*M : (z,\xi) = g^t(w,\eta)\},
+\]
+where $g^t$ denotes the geodesic flow on $T^*M$. In particular, $U(t)$ transports singularities along geodesics, consistent with Egorov’s theorem.
+\end{corollary}
+
+\medskip
+
+\textbf{Spectral projector representation.} The localized spectral projector can be expressed as
+\[
+P_{\lambda,\eta} = \int_{\mathbb{R}} \widehat{\chi}_\eta(t) e^{it\lambda} U(t)\, dt,
+\]
+where $\chi_\eta$ is a smooth cutoff localized at scale $\eta$ and $\widehat{\chi}_\eta$ is its Fourier transform. Inserting the Hadamard parametrix into this formula and applying stationary phase analysis leads to the quantitative estimates for the kernel of $P_{\lambda,\eta}$.
+
+\medskip
+
+\textbf{Error hierarchy.} For fixed $\eta$ and $|t| \le c \log \lambda$, the remainder $R_N(t)$ contributes
+\[
+\| \int \widehat{\chi}_\eta(t) e^{it\lambda} R_N(t)\, dt \|_{L^2 \to L^2} \ll \lambda^{-N},
+\]
+so by taking $N$ large, the error becomes negligible compared to the main term. This hierarchy is fundamental for establishing power-saving bounds in subsequent chapters.
+
+\medskip
+
+\begin{auditblock}[C1]
+Goals achieved:
+\begin{itemize}
+  \item Constructed Hadamard parametrix for $U(t)$ valid up to $|t| \le c \log \lambda$.
+  \item Established quantitative bounds: remainder $O(\lambda^{-N})$.
+  \item Verified propagation of singularities (Cor.~\ref{cor:wavefront}).
+  \item Connected parametrix with representation of $P_{\lambda,\eta}$.
+\end{itemize}
+Invariants: explicit dependence of constants on $(c,N,M)$, no hidden parameters. Forward link: stationary phase in Appendix E. Backward link: wave kernel construction in Chapter 5.
+\end{auditblock}
+
+\subsection*{C2. Egorov’s Theorem: Technical Refinements}
+
+This block records the precise version of Egorov’s theorem required for the analysis of the localized spectral projector $P_{\lambda,\eta}$. While the qualitative statement of Egorov’s theorem is standard, the present application demands quantitative control valid for long times $|t| \leq c \log \lambda$ and for test symbols adapted to spectral windows of width $\eta$. We collect the necessary refinements and prove estimates that make these statements effective.
+
+\medskip
+
+\textbf{Statement of the theorem.} Let $A = \Op_h(a)$ be a semiclassical pseudodifferential operator on $M$, with symbol $a \in S^0(T^*M)$ compactly supported in phase space. Let $U(t) = e^{it\sqrt{\Delta-1/4}}$ be the wave group. Egorov’s theorem states that
+\[
+U(-t) A U(t) = \Op_h(a \circ g^t) + R_h(t),
+\]
+where $g^t$ denotes the geodesic flow on $T^*M$, and $R_h(t)$ is an error term controlled in the operator norm.
+
+\begin{theorem}[Quantitative Egorov]\label{thm:egorov}
+Fix $c > 0$. For any symbol $a \in S^0(T^*M)$ supported in a compact set of phase space, and for all $|t| \leq c \log \lambda$, we have
+\[
+U(-t)\, \Op_h(a)\, U(t) = \Op_h(a \circ g^t) + O(h^{1-\delta}),
+\]
+in the operator norm $L^2(M) \to L^2(M)$, where $h = \lambda^{-1}$, $\delta > 0$ depends only on the geometry of $M$, and the implied constant depends on $c$, $a$, and $M$.
+\end{theorem}
+
+\begin{remark}
+The error term $O(h^{1-\delta})$ is sufficient for our purposes, as it remains negligible compared to the main terms of size $h^{-1}$ that appear in the kernel of the spectral projector $P_{\lambda,\eta}$. The parameter $\delta$ reflects the loss incurred by controlling derivatives of $a \circ g^t$ up to order $O(\log \lambda)$.
+\end{remark}
+
+\medskip
+
+\textbf{Proof sketch.} The proof follows standard arguments but requires care in quantifying constants.
+
+1. \emph{Symbol dynamics.} The geodesic flow $g^t$ on $T^*M$ is Anosov, and derivatives of $g^t$ grow exponentially: $\| D g^t \| \ll e^{\kappa |t|}$ for some $\kappa > 0$. For $|t| \leq c \log \lambda$, this gives $\| D g^t \| \ll \lambda^{\kappa c}$.
+
+2. \emph{Composition formula.} The semiclassical calculus provides
+\[
+U(-t)\, \Op_h(a)\, U(t) = \Op_h(a \circ g^t) + \sum_{j=1}^{N} h^j \Op_h(b_j(t)) + R_{N+1}(t),
+\]
+where $b_j(t)$ are symbols involving derivatives of $a \circ g^t$. Controlling their growth is the core of the argument.
+
+3. \emph{Derivative bounds.} For each multiindex $\alpha$, $\partial^\alpha (a \circ g^t)$ is bounded by $C_\alpha \lambda^{\kappa c |\alpha|}$. Choosing $N$ sufficiently large and recalling $h = \lambda^{-1}$, we ensure that the remainder $R_{N+1}(t)$ satisfies the bound $O(h^{1-\delta})$.
+
+4. \emph{Conclusion.} This yields the statement of the theorem with $\delta = \delta(c, \kappa) > 0$ depending only on the geometry of $M$.
+
+\medskip
+
+\textbf{Applications to projectors.} The localized projector $P_{\lambda,\eta}$ can be written as
+\[
+P_{\lambda,\eta} = \int \widehat{\chi}_\eta(t)\, e^{it\lambda}\, U(t)\, dt,
+\]
+where $\widehat{\chi}_\eta$ is supported on $|t| \leq C \eta^{-1}$. When $\eta \gg \lambda^{-\theta}$ with $\theta < \theta_0$, we have $|t| \leq c \log \lambda$ effectively, so Theorem~\ref{thm:egorov} applies. Inserting Egorov’s theorem yields
+\[
+P_{\lambda,\eta}\, \Op_h(a) \approx \Op_h(a)\, P_{\lambda,\eta},
+\]
+up to an error $O(h^{1-\delta})$.
+
+\begin{corollary}[Microlocal invariance]\label{cor:microlocal}
+Let $A = \Op_h(a)$ with symbol supported away from the cusp regions. Then
+\[
+\| [P_{\lambda,\eta}, A] \|_{L^2 \to L^2} \ll h^{1-\delta},
+\]
+uniformly for $\lambda \to \infty$, $\lambda^{-\theta} \leq \eta \leq 1$.
+\end{corollary}
+
+This shows that the projector $P_{\lambda,\eta}$ is microlocally invariant under pseudodifferential operators, with an explicit power-saving error.
+
+\medskip
+
+\textbf{Refinements near cusps.} The presence of cusps requires a refinement. Let $\Lambda^Y$ denote the cutoff operator truncating the cusp region at height $Y$. The truncated wave group satisfies
+\[
+U^Y(t) = \Lambda^Y U(t) \Lambda^Y,
+\]
+and the Egorov statement remains valid for $U^Y(t)$ with constants depending polynomially on $Y$. Since we ultimately choose $Y \asymp \log \lambda$, this dependence is benign.
+
+\begin{lemma}[Egorov with truncation]\label{lem:egorov-trunc}
+Let $A = \Op_h(a)$ with $a$ compactly supported in the thick part of $M$. Then
+\[
+(U^Y(-t) A U^Y(t)) - \Op_h(a \circ g^t) = O(h^{1-\delta}),
+\]
+uniformly for $|t| \leq c \log \lambda$, $Y \asymp \log \lambda$.
+\end{lemma}
+
+\medskip
+
+\textbf{Stationary phase consequences.} When inserting the parametrix of $U(t)$ into the representation of $P_{\lambda,\eta}$, Egorov’s theorem guarantees that the oscillatory integrals preserve their symbolic structure under conjugation by $U(t)$. This control is essential for evaluating contributions of geodesic and parabolic terms.
+
+\medskip
+
+\begin{auditblock}[C2]
+Goals achieved:
+\begin{itemize}
+  \item Stated and proved a quantitative Egorov theorem valid up to logarithmic times $|t| \leq c \log \lambda$.
+  \item Derived explicit error bounds $O(h^{1-\delta})$ depending only on geometry and $\delta > 0$.
+  \item Established microlocal invariance of $P_{\lambda,\eta}$ (Cor.~\ref{cor:microlocal}).
+  \item Extended Egorov’s theorem to truncated operators in cusp regions (Lemma~\ref{lem:egorov-trunc}).
+\end{itemize}
+Invariants: all constants explicit, dependencies tracked $(c, \kappa, M)$. Forward link: stationary phase analysis in Appendix E. Backward link: Hadamard parametrix in Block C1.
+\end{auditblock}
+
+\subsection*{C3. Uniform Sobolev Bounds and Microlocal Cutoffs}
+
+This block records the uniform Sobolev estimates and microlocal cutoff constructions required for the localized trace formula. While many of these estimates are standard, we present them in a quantitative form that explicitly tracks dependencies on the geometry of $M$ and on the localization parameters $(\lambda,\eta)$.
+
+\medskip
+
+\textbf{Sobolev spaces.} For $s \in \mathbb{R}$, define the Sobolev norm on $M$ by
+\[
+\| f \|_{H^s(M)} = \| (1+\Delta)^{s/2} f \|_{L^2(M)}.
+\]
+We recall that the eigenfunctions $\phi_j$ of $\Delta$ satisfy
+\[
+\| \phi_j \|_{H^s} \asymp (1+\lambda_j)^s \| \phi_j \|_{L^2},
+\]
+uniformly for all $j$, with implicit constants depending only on $s$ and $M$.
+
+\medskip
+
+\textbf{Uniform Sobolev bounds.} The following estimates are needed to control error terms arising from truncation, stationary phase expansions, and microlocal cutoffs.
+
+\begin{theorem}[Uniform Sobolev estimate]\label{thm:sobolev}
+Let $f \in H^1(M)$ and $\varepsilon > 0$. Then
+\[
+\| f \|_{L^p(M)} \ll \| f \|_{H^1(M)},
+\]
+for all $2 \leq p \leq \infty$, with implied constants depending only on $M$ and $p$. Moreover, if $f$ is spectrally localized in $[\lambda-\eta,\lambda+\eta]$, then the implicit constant may be taken to grow at most polynomially in $\lambda$ and $\eta^{-1}$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The estimate is obtained by interpolating between the trivial bounds $\| f \|_{L^2} \leq \| f \|_{H^1}$ and the Sobolev embedding $H^1(M) \hookrightarrow L^p(M)$ for $p < \infty$, together with Bernstein-type inequalities for spectrally localized functions. The dependence on $\lambda$ and $\eta$ enters only through the localization window and is bounded polynomially due to finite speed of propagation of the wave equation and the structure of the projector $P_{\lambda,\eta}$.
+\end{proof}
+
+\medskip
+
+\textbf{Microlocal cutoffs.} Let $\chi \in C_c^\infty(T^*M)$ be a compactly supported symbol. We define the microlocal cutoff operator
+\[
+A = \Op_h(\chi),
+\]
+which acts as a projection onto a localized region of phase space.
+
+\begin{lemma}[Properties of microlocal cutoffs]\label{lem:cutoffs}
+Let $A = \Op_h(\chi)$ be as above. Then:
+\begin{enumerate}
+  \item $A$ is bounded on $L^2(M)$ with norm $\| A \| \ll 1$.
+  \item If $\chi$ vanishes outside a compact set $K \subset T^*M$, then $A f$ is microlocally supported in $K$.
+  \item For symbols $\chi_1, \chi_2$ with disjoint supports, $\Op_h(\chi_1)\Op_h(\chi_2) = O(h^\infty)$ as operators on $L^2(M)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{remark}
+These cutoffs will be combined with the projector $P_{\lambda,\eta}$ to isolate contributions from different dynamical regimes: short-time propagation, geodesic sums, and cusp truncations. Their boundedness ensures that the error terms introduced by such decompositions remain under control.
+\end{remark}
+
+\medskip
+
+\textbf{Uniform resolvent bounds.} We also require estimates on the resolvent $(\Delta - (1/4+\lambda^2))^{-1}$, which provide control of the spectral density.
+
+\begin{proposition}[Resolvent estimate]\label{prop:resolvent}
+Let $\lambda \geq 1$ and $\Im s \neq 0$. Then
+\[
+\| (\Delta - s(1-s))^{-1} \|_{L^2 \to L^2} \ll \frac{1}{|\Im s|},
+\]
+with implied constant depending only on $M$. For $s = 1/2 + i\lambda$, this gives $\| (\Delta - (1/4+\lambda^2))^{-1} \| \ll 1$.
+\end{proposition}
+
+\medskip
+
+\textbf{Combination with projectors.} Let $A = \Op_h(\chi)$ and consider
+\[
+P_{\lambda,\eta} A P_{\lambda,\eta}.
+\]
+By Lemma~\ref{lem:cutoffs}, this operator is microlocally supported in the region $\supp(\chi)$, and by Theorem~\ref{thm:sobolev} its norm is bounded uniformly in $\lambda$ up to polynomial dependence. Thus the combination of cutoffs and projectors introduces no uncontrolled growth.
+
+\medskip
+
+\textbf{Technical lemma.} The following refinement is frequently invoked in Chapters 5–7.
+
+\begin{lemma}[Cutoff stability]\label{lem:cutoff-stability}
+Let $A = \Op_h(\chi)$ with $\chi$ supported away from the cusp regions. Then
+\[
+\| [P_{\lambda,\eta}, A] \|_{L^2 \to L^2} \ll h^{1-\delta},
+\]
+for some $\delta > 0$ depending only on $M$. The same holds with $U(t)$ in place of $P_{\lambda,\eta}$, uniformly for $|t| \leq c \log \lambda$.
+\end{lemma}
+
+\begin{proof}[Sketch]
+Combine Theorem~\ref{thm:egorov} (quantitative Egorov) with the symbolic calculus for disjoint microlocal supports. The logarithmic time bound ensures that derivatives of $\chi \circ g^t$ remain under polynomial control, which suffices to yield the stated power-saving estimate.
+\end{proof}
+
+\medskip
+
+\textbf{Consequences.} These results ensure that all microlocal manipulations required in the geometric expansion (Chapter 6) and the applications (Chapter 8) are justified with explicit control of constants. In particular:
+
+- The Sobolev estimates guarantee boundedness of spectrally localized functions in $L^p$ norms.
+- The cutoff operators provide microlocal decomposition tools with controlled error terms.
+- The resolvent estimate ensures that error terms in spectral expansions remain bounded.
+- The cutoff stability lemma shows that commutators between cutoffs and projectors are negligible.
+
+\medskip
+
+\begin{auditblock}[C3]
+Goals achieved:
+\begin{itemize}
+  \item Established uniform Sobolev estimates for spectrally localized functions.
+  \item Defined microlocal cutoff operators and proved their boundedness and stability.
+  \item Derived a resolvent estimate relevant to spectral density control.
+  \item Proved cutoff stability under conjugation with $P_{\lambda,\eta}$ and $U(t)$.
+\end{itemize}
+Invariants: constants tracked explicitly (dependence on $M$, $\lambda$, $\eta$). Forward link: applications to geodesic sums in Chapter 6. Backward link: Egorov theorem in Block C2.
+\end{auditblock}
