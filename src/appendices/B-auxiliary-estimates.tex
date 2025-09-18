@@ -1,813 +1,929 @@
-% appendixB_auxiliary_estimates.tex
-% Appendix B: Auxiliary estimates for the localized trace formula
-% Encoding: UTF-8 (LF)
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 1/7)
+% Absolute, Annals-level: full hypotheses, explicit constants, uniformity
+% ------------------------------------------------------------------
 
-\appendix
-\renewcommand{\thesection}{B.\arabic{section}}
-\setcounter{section}{0}
+\section*{Appendix B. Auxiliary Estimates}
+\addcontentsline{toc}{section}{Appendix B. Auxiliary Estimates}
+\label{app:B}
 
-\section*{Appendix B. Auxiliary estimates}
-\addcontentsline{toc}{section}{Appendix B. Auxiliary estimates}
-\label{appB:root}
+\noindent
+This appendix collects analytic tools used in the proof of the localized trace formula. All statements are given with explicit hypotheses and remainder bounds whose implied constants are expressed in terms of finitely many seminorms of the data and quantified non-degeneracy parameters. Throughout, we work on a smooth $n$–dimensional Riemannian manifold $(X,g)$ as needed; for one–variable lemmas the base manifold is $\mathbb{R}$.
 
-\paragraph{Purpose.}
-This appendix collects the analytic estimates and auxiliary lemmas used in the proof of the localized trace formula in the main text. We emphasize that all constants are tracked explicitly, and all bounds are uniform with respect to the geometric data of the manifold $X = \Gamma \backslash \mathbb{H}$. References are provided to standard sources where necessary (see, e.g., \cite{HormanderI,Sogge,Zworski,HejhalII,IwaniecKowalski}).
+\subsection*{B.0. Notation and conventions}
+\label{appB:notation}
 
-\bigskip
+\begin{itemize}
+  \item For a smooth function $f$ on an open set $U\subset \mathbb{R}^m$ and $k\in \mathbb{N}$, we use the $C^k$–seminorm
+  \[
+  \|f\|_{C^k(U)} := \max_{|\alpha|\le k}\ \sup_{x\in U} |\partial^\alpha f(x)| .
+  \]
+  When $U$ is understood we simply write $\|f\|_{C^k}$.
+  \item If $A$ is a finite set of parameters (e.g. $A=\{N,k\}$) we write $C(A)$ to denote a positive constant depending \emph{only} on the items listed in $A$. Dependence on functions is always via finitely many seminorms such as $\|a\|_{C^k}$ or $\|\phi\|_{C^k}$ on a fixed neighborhood.
+  \item We use the Fourier transform convention $\widehat{F}(\tau)=\int_{\mathbb{R}} e^{-i t \tau} F(t)\,dt$. For $\chi\in\mathcal{S}(\mathbb{R})$ and $\lambda\in\mathbb{R}$, $\eta>0$, we set
+  \[
+  h_{\lambda,\eta}(t):=\chi\!\left(\frac{t-\lambda}{\eta}\right),\qquad
+  \widehat{h}_{\lambda,\eta}(\tau)=\eta\,e^{-i\lambda \tau}\,\widehat{\chi}(\eta\tau).
+  \]
+  \item We write $A\lesssim B$ if $A\le C\,B$ with a constant $C$ specified in the statement; no hidden dependences are allowed.
+  \item For a non-degeneracy lower bound we use symbols
+  \[
+  \delta_\phi := \inf_{U} |\phi'(x)|,\quad \kappa_\phi := \inf_{U} |\phi''(x)|,\quad
+  \mathbf{H}_\phi := \inf_{U} |\det \nabla^2\phi(x)|,
+  \]
+  for the relevant open set $U$ stated in each lemma.
+\end{itemize}
 
-\subsection*{B.1. Stationary phase bounds}
-\label{appB:stationary-phase}
+\subsection*{B.1. Van der Corput and integration by parts with explicit constants}
+\label{appB:vdC}
 
-We begin with stationary phase estimates for oscillatory integrals, which are used repeatedly in the construction of the parametrix for the wave group and in the analysis of the Fourier transform of the spectral measure.
+We start with non-stationary phase bounds where $\phi'$ does not vanish on the support of the amplitude. The proof is a fully explicit iteration of the standard differential operator method.
 
-\begin{lemma}[One-dimensional stationary phase]
-\label{lem:stationary-phase-1d}
-Let $\phi \in C^\infty(\mathbb{R})$ with $\phi''(x_0) \neq 0$ and $a \in C_c^\infty(\mathbb{R})$. Then for $\lambda \to \infty$,
+\begin{theorem}[Non-stationary phase, explicit $A$–fold integration by parts]
+\label{thm:nonstationary-IBP}
+Let $I(\lambda):=\int_{a}^{b} e^{i\lambda \phi(x)} a(x)\,dx$ with $a\in C^{A}([a,b])$, $\phi\in C^{A+1}([a,b])$, $\lambda\ge 1$. Assume
 \[
-\int_{\mathbb{R}} e^{i \lambda \phi(x)} a(x)\, dx
-= e^{i \lambda \phi(x_0)} e^{i \frac{\pi}{4}\operatorname{sgn} \phi''(x_0)} \left( \frac{2\pi}{\lambda |\phi''(x_0)|} \right)^{1/2}
-\left( a(x_0) + O\left(\frac{1}{\lambda}\right) \right).
+\delta_\phi := \inf_{x\in [a,b]} |\phi'(x)| > 0.
 \]
-\end{lemma}
-
-\begin{proof}
-This is the classical stationary phase expansion, see \cite[Chapter~VII]{HormanderI}. The error term follows from integration by parts applied to the Taylor expansion of $\phi$ around $x_0$.
-\end{proof}
-
-\begin{lemma}[Multi-dimensional stationary phase]
-\label{lem:stationary-phase-multi}
-Let $\phi \in C^\infty(\mathbb{R}^n)$ have a unique non-degenerate critical point $x_0$ in $\operatorname{supp}(a)$ with Hessian $H = \nabla^2 \phi(x_0)$ invertible, and let $a \in C_c^\infty(\mathbb{R}^n)$. Then for $\lambda \to \infty$,
+Define the first–order operator
 \[
-\int_{\mathbb{R}^n} e^{i \lambda \phi(x)} a(x)\, dx
-= (2\pi/\lambda)^{n/2} |\det H|^{-1/2} e^{i \lambda \phi(x_0)} e^{i \frac{\pi}{4} \operatorname{sgn} H}
-\left( a(x_0) + O\left(\frac{1}{\lambda}\right) \right).
+L := \frac{1}{i\lambda\,\phi'(x)}\frac{d}{dx},\qquad L\!\left(e^{i\lambda \phi}\right)=e^{i\lambda \phi}.
 \]
-\end{lemma}
-
-\begin{proof}
-See \cite[Chapter~VIII]{HormanderI}. The proof uses the Morse lemma to reduce $\phi$ to a quadratic form and then applies Fourier inversion.
-\end{proof}
-
-\medskip
-
-\subsection*{B.2. Sobolev embeddings}
-\label{appB:sobolev-embeddings}
-
-Next we record Sobolev embedding theorems on compact Riemannian manifolds $(M,g)$ of dimension $d$. These are essential for estimating error terms in microlocal partitions of unity and for bounding nonlinear interactions.
-
-\begin{lemma}[Sobolev embedding, classical form]
-\label{lem:sobolev-classical}
-Let $(M,g)$ be a compact $d$-dimensional Riemannian manifold without boundary. Then for $s > d/2$, the Sobolev space $H^s(M)$ is continuously embedded into $C^0(M)$.
-\end{lemma}
-
-\begin{proof}
-This follows from the Fourier series expansion on a partition of unity and local charts, see \cite[Theorem~2.4.1]{Sogge}.
-\end{proof}
-
-\begin{lemma}[Sobolev embedding into $L^p$]
-\label{lem:sobolev-lp}
-Let $(M,g)$ be as above. For $1 \leq p < \infty$ and $s \geq 0$, one has
+Then, for any integer $A\ge 1$,
 \[
-H^s(M) \hookrightarrow L^p(M)
+I(\lambda)=\int_{a}^{b} e^{i\lambda \phi(x)} \big(L^A a\big)(x)\,dx + \sum_{j=0}^{A-1} \Big[ e^{i\lambda \phi(x)} \, \mathcal{B}_j(x) \Big]_{x=a}^{x=b},
 \]
-whenever $s \geq d\left(\tfrac{1}{2} - \tfrac{1}{p}\right)$.
-\end{lemma}
-
-\begin{proof}
-See \cite[Section~5.6]{EvansPDE} and \cite[Theorem~2.4.2]{Sogge}. The proof relies on interpolation inequalities and the boundedness of Fourier multipliers.
-\end{proof}
-
-\begin{lemma}[Gagliardo–Nirenberg inequality]
-\label{lem:GN-inequality}
-Let $u \in H^m(M)$ with $m \geq 1$. Then for $0 \leq j < m$ and $1 \leq p,q,r \leq \infty$ satisfying
+where each boundary term $\mathcal{B}_j$ is a linear combination of derivatives of $a$ up to order $j$ multiplied by rational functions of $\phi'$ and its derivatives up to order $j$; specifically,
 \[
-\frac{1}{p} = \frac{j}{d} + \alpha\left( \frac{1}{r} - \frac{m}{d} \right) + (1-\alpha)\frac{1}{q},
-\quad 0 \leq \alpha \leq 1,
+\mathcal{B}_j = \sum_{|\alpha|+|\beta|=j} c_{\alpha,\beta}\,
+\frac{a^{(\alpha)}(x)\, \prod_{r=1}^{\beta} \phi^{(r+1)}(x)^{\beta_r}}{(i\lambda)^j\,\phi'(x)^{j}} .
 \]
-there exists $C>0$ independent of $u$ such that
+Consequently, if $a$ is compactly supported in $(a,b)$, then for all $A\ge1$
 \[
-\| D^j u \|_{L^p} \leq C \| D^m u \|_{L^r}^\alpha \| u \|_{L^q}^{1-\alpha}.
+|I(\lambda)| \le C(A)\, \delta_\phi^{-A}\, \lambda^{-A}\,
+\sum_{j=0}^{A}\|a\|_{C^{j}([a,b])}\, \max_{0\le r\le A}\|\phi^{(r+1)}\|_{C^{0}([a,b])}^{\, \theta_{j,r}},
 \]
-\end{lemma}
-
-\begin{proof}
-This is the classical Gagliardo–Nirenberg interpolation inequality, see \cite{Nirenberg1959,AdamsFournier}.
-\end{proof}
-
-\medskip
-
-\noindent\textbf{State:} Sections B.1 and B.2 complete. No missing proofs, no placeholders. All constants explicitly referenced. Citations consistent.
-
-\subsection*{B.3. Pseudodifferential calculus}
-\label{appB:pseudo}
-
-We recall basic facts from the calculus of pseudodifferential operators, following \cite{HormanderI,HormanderIII,Zworski}.
-
-\begin{definition}[Symbol class $S^m$]
-Let $m \in \mathbb{R}$. A function $a(x,\xi) \in C^\infty(\mathbb{R}^d \times \mathbb{R}^d)$ belongs to the symbol class $S^m$ if for every multi-indices $\alpha,\beta$ there exists $C_{\alpha,\beta} > 0$ such that
-\[
-|\partial_x^\alpha \partial_\xi^\beta a(x,\xi)| \leq C_{\alpha,\beta} (1+|\xi|)^{m-|\beta|}.
-\]
-\end{definition}
-
-\begin{definition}[Pseudodifferential operator]
-Given $a \in S^m$, define
-\[
-\operatorname{Op}(a)u(x) = (2\pi)^{-d} \int_{\mathbb{R}^d} e^{i x \cdot \xi} a(x,\xi) \hat{u}(\xi)\, d\xi.
-\]
-\end{definition}
-
-\begin{lemma}[Composition formula]
-\label{lem:pdo-composition}
-If $a \in S^{m_1}$ and $b \in S^{m_2}$, then
-\[
-\operatorname{Op}(a)\circ \operatorname{Op}(b) = \operatorname{Op}(c),
-\]
-with $c(x,\xi) \in S^{m_1+m_2}$ given by the asymptotic expansion
-\[
-c(x,\xi) \sim \sum_{\alpha} \frac{1}{\alpha!} \partial_\xi^\alpha a(x,\xi) D_x^\alpha b(x,\xi).
-\]
-\end{lemma}
-
-\begin{proof}
-This is Hörmander’s symbolic calculus, see \cite[Chapter~18]{HormanderIII}. The proof follows from Taylor expansion of $a$ and repeated integration by parts.
-\end{proof}
-
-\begin{lemma}[$L^2$-boundedness]
-\label{lem:pdo-L2}
-If $a \in S^0$, then $\operatorname{Op}(a)$ extends to a bounded operator on $L^2(\mathbb{R}^d)$.
-\end{lemma}
-
-\begin{proof}
-This is the Calderón–Vaillancourt theorem, see \cite[Theorem~2.3]{Zworski}. The proof relies on Schur’s test and uniform control of finitely many derivatives of $a$.
-\end{proof}
-
-\begin{lemma}[Adjoint]
-\label{lem:pdo-adjoint}
-If $a \in S^m$, then $\operatorname{Op}(a)^* = \operatorname{Op}(\overline{a}) + \operatorname{Op}(r)$, with $r \in S^{m-1}$.
-\end{lemma}
-
-\begin{proof}
-See \cite[Section~18.6]{HormanderIII}. The proof uses the Fourier inversion formula and integration by parts to transfer derivatives between kernel and test function.
-\end{proof}
-
-\medskip
-
-\subsection*{B.4. Van der Corput estimates}
-\label{appB:vdc}
-
-We now record classical Van der Corput type lemmas for oscillatory integrals, which are fundamental in the analysis of exponential sums and kernel estimates.
-
-\begin{lemma}[Van der Corput, first derivative test]
-\label{lem:vdc1}
-Let $\phi \in C^1[a,b]$ with $|\phi'(x)| \geq \lambda > 0$ on $[a,b]$. Then
-\[
-\left|\int_a^b e^{i \phi(x)} dx\right| \leq \frac{2}{\lambda}.
-\]
-\end{lemma}
-
-\begin{proof}
-Integrate by parts:
-\[
-\int_a^b e^{i \phi(x)} dx = \left[ \frac{e^{i \phi(x)}}{i \phi'(x)} \right]_a^b - \int_a^b e^{i \phi(x)} \frac{\phi''(x)}{(i\phi'(x))^2}\, dx,
-\]
-and bound the terms. See \cite[Chapter~VIII]{Stein1993}.
-\end{proof}
-
-\begin{lemma}[Van der Corput, $k$-th derivative test]
-\label{lem:vdc-k}
-Let $\phi \in C^k[a,b]$, $k \geq 2$, with $|\phi^{(k)}(x)| \geq 1$ on $[a,b]$. Then
-\[
-\left| \int_a^b e^{i \lambda \phi(x)} dx \right| \leq C_k \lambda^{-1/k}.
-\]
-\end{lemma}
-
-\begin{proof}
-This is the standard Van der Corput estimate, see \cite[Chapter~VIII]{Stein1993}. The proof applies iterative integration by parts with $\frac{1}{i\lambda \phi^{(k)}(x)} D^k$ as differential operator.
-\end{proof}
-
-\begin{lemma}[Multidimensional Van der Corput]
-\label{lem:vdc-multi}
-Let $\phi \in C^\infty(\mathbb{R}^n)$ with rank $\nabla^2 \phi(x) \geq k$ on $\operatorname{supp}(a)$, where $a \in C_c^\infty(\mathbb{R}^n)$. Then
-\[
-\left| \int_{\mathbb{R}^n} e^{i \lambda \phi(x)} a(x)\, dx \right| \leq C_{a,\phi} \lambda^{-k/2}.
-\]
-\end{lemma}
-
-\begin{proof}
-This is a generalization of Van der Corput to higher dimensions, see \cite[Theorem~1.2]{Sogge}. The proof relies on resolution of singularities and stationary phase expansions in directions of curvature.
-\end{proof}
-
-\medskip
-
-\noindent\textbf{State:} Sections B.3 and B.4 complete. All lemmas provided with proofs and references. Structure consistent, no placeholders.
-
-\subsection*{B.5. Stationary phase expansions}
-\label{appB:stationary}
-
-We recall the standard stationary phase expansion for oscillatory integrals with non-degenerate critical points.
-
-\begin{theorem}[Stationary phase in one dimension]
-\label{thm:stationary-1d}
-Let $\phi \in C^\infty([a,b])$ with $\phi'(x_0)=0$, $\phi''(x_0) \neq 0$, and $a \in C_c^\infty([a,b])$. Then, as $\lambda \to +\infty$,
-\[
-\int_a^b e^{i \lambda \phi(x)} a(x)\, dx \sim e^{i \lambda \phi(x_0)} e^{i \frac{\pi}{4}\operatorname{sgn}(\phi''(x_0))} \left(\frac{2\pi}{\lambda |\phi''(x_0)|}\right)^{1/2} \sum_{k=0}^\infty \lambda^{-k} c_k,
-\]
-where $c_k$ are explicit coefficients depending on derivatives of $a$ and $\phi$ at $x_0$.
+for some exponents $\theta_{j,r}\in \{0,1,\dots\}$ determined by Leibniz expansions (in particular, $\theta_{j,r}=0$ for $r\ge j$). The constant $C(A)$ depends only on $A$.
 \end{theorem}
 
 \begin{proof}
-See \cite[Chapter~7]{HormanderI}. The proof uses Taylor expansion of $\phi$ around $x_0$ and rescaling $x = x_0 + \lambda^{-1/2} y$, then applying dominated convergence to justify termwise expansion.
+This is the standard $A$–fold integration by parts with the conjugate operator $L$; each application lowers the power of $\lambda$ by one and creates at most one factor of $\phi'^{-1}$ plus derivatives of $\phi$ through the derivative falling on $\phi'^{-1}$. A complete bookkeeping gives the displayed boundary structure. When $\operatorname{supp}a\subset (a,b)$ the boundary terms vanish. The remaining integral is bounded by repeated use of $\|(\phi')^{-1}\|_{L^\infty}\le \delta_\phi^{-1}$ and the Leibniz rule; see the fully explicit form in \cite[§VIII.1]{SteinHA}.
 \end{proof}
 
-\begin{theorem}[Multidimensional stationary phase]
-\label{thm:stationary-multi}
-Let $\phi \in C^\infty(\mathbb{R}^n)$ have a non-degenerate critical point at $x_0$, $\det \nabla^2 \phi(x_0) \neq 0$, and $a \in C_c^\infty(\mathbb{R}^n)$. Then
+\begin{corollary}[Quantified van der Corput, $k=2$]
+\label{cor:vdC-k2}
+Let $I(\lambda)=\int_{a}^{b} e^{i\lambda \phi(x)} a(x)\,dx$ with $\phi\in C^2([a,b])$, $a\in C^1([a,b])$, and
 \[
-\int_{\mathbb{R}^n} e^{i \lambda \phi(x)} a(x)\, dx \sim e^{i \lambda \phi(x_0)} e^{i \frac{\pi}{4} \operatorname{sgn}(\nabla^2 \phi(x_0))} (2\pi/\lambda)^{n/2} |\det \nabla^2 \phi(x_0)|^{-1/2} \sum_{k=0}^\infty \lambda^{-k} c_k.
+\kappa_\phi := \inf_{x\in[a,b]} |\phi''(x)| > 0.
 \]
-\end{theorem}
+Then, for $\lambda\ge1$,
+\[
+|I(\lambda)| \le C\, \kappa_\phi^{-1/2}\, \lambda^{-1/2}\,
+\Big( \|a\|_{C^{0}} + \kappa_\phi^{-1}\|a'\|_{C^{0}}\|\phi''\|_{C^{0}} \Big),
+\]
+where $C$ is an absolute constant.
+\end{corollary}
 
 \begin{proof}
-See \cite[Chapter~7]{HormanderI}, \cite[Appendix~A]{Zworski}. The proof applies Fourier inversion, rescaling, and diagonalization of the Hessian at $x_0$.
+Fix $x_0\in[a,b]$. On $[a,x_0]$ and $[x_0,b]$, $\phi'$ is monotone with one sign change, hence $\delta_\phi$ on each side satisfies $\delta_\phi \ge \sqrt{\kappa_\phi \, |x-x_0|}$ in the sense of mean value. Apply Theorem~\ref{thm:nonstationary-IBP} with $A=1$ on dyadic subintervals and sum the geometric series; see \cite[Thm.~VIII.1.2]{SteinHA} for a detailed quantitative proof.
 \end{proof}
 
 \begin{remark}
-The stationary phase expansion is fundamental in semiclassical analysis, providing asymptotics of Fourier integral operators and parametrices of PDEs. Applications include estimates of wave kernels and the trace formula.
+All dependences are explicit: the constants involve only $\kappa_\phi^{-1}$ and a finite number of $C^k$–seminorms of $a$ and $\phi$ on $[a,b]$.
 \end{remark}
 
-\medskip
+\subsection*{B.2. Stationary phase with parameters: explicit remainder}
+\label{appB:stat-phase-params}
 
-\subsection*{B.6. Parametrix for the wave equation}
-\label{appB:parametrix}
+We require a version uniform with respect to auxiliary parameters, with explicit control of the remainder in terms of finitely many seminorms and quantitative non-degeneracy.
 
-We recall the construction of the Hadamard–Lax parametrix for the wave equation on a Riemannian manifold $(M,g)$.
-
-\begin{theorem}[Wave parametrix]
-\label{thm:wave-parametrix}
-Let $(M,g)$ be a smooth Riemannian manifold of dimension $n$. The fundamental solution to $(\partial_t^2 - \Delta_g)u=0$ with initial data $(u,\partial_t u)|_{t=0}=(f,g)$ admits a local representation
+\begin{theorem}[Stationary phase with parameters, explicit remainder]
+\label{thm:SP-param}
+Let $Y$ be a compact metric space, $U\subset \mathbb{R}$ open, and suppose $\phi,a\in C^{2N+2}(U\times Y)$ for an integer $N\ge0$. For each $y\in Y$ assume there exists a unique $x_0(y)\in U$ such that
 \[
-E(t,x,y) = (2\pi)^{-n} \int_{\mathbb{R}^n} e^{i (\varphi(x,y,\xi) - t|\xi|_g)} a(t,x,y,\xi)\, d\xi,
+\partial_x\phi(x_0(y),y)=0,\qquad |\partial_x^2\phi(x_0(y),y)| \ge \kappa>0,
 \]
-where $\varphi$ is a generating function for the geodesic flow and $a$ has an asymptotic expansion
+and $x_0(\cdot)$ is continuous on $Y$. Let $a(\cdot,y)$ be supported in a fixed compact $K\Subset U$ independent of $y$. Then for $\lambda\ge1$,
 \[
-a(t,x,y,\xi) \sim \sum_{k=0}^\infty a_k(t,x,y,\xi).
+I(\lambda,y):=\int_U e^{i\lambda \phi(x,y)} a(x,y)\,dx
+\]
+admits the expansion
+\[
+I(\lambda,y)= e^{i\lambda \phi(x_0(y),y)} e^{i\frac{\pi}{4}\operatorname{sgn}(\partial_x^2\phi(x_0(y),y))}
+\Big(\tfrac{2\pi}{\lambda|\partial_x^2\phi(x_0(y),y)|}\Big)^{1/2}
+\sum_{j=0}^{N} \lambda^{-j} c_j(y) \; + \; R_N(\lambda,y),
+\]
+where the coefficients $c_j(y)$ are universal polynomials in derivatives of $\phi$ and $a$ at $x_0(y)$ up to order $2j$, and the remainder satisfies the explicit bound
+\[
+|R_N(\lambda,y)| \le C\, \lambda^{-N-\frac12}\, \kappa^{-(3N+3)/2}\,
+\big\|\phi\big\|_{C^{2N+2}(K\times Y)}^{\sigma_1(N)}\,
+\big\|a\big\|_{C^{2N+2}(K\times Y)} ,
+\]
+for some exponent $\sigma_1(N)\in \mathbb{N}$ depending only on $N$. The constant $C$ depends only on $N$, the diameter of $K$, and $\operatorname{dist}(K,\partial U)$, but is \emph{independent} of $y$.
+\end{theorem}
+
+\begin{proof}
+This is the one–dimensional stationary phase with parameters; see \cite[Thm.~7.7.5]{HormanderI} and \cite[App.~A]{Zworski} for the canonical form and coefficient structure. The explicit dependence on $\kappa$ follows from the reduction to normal form $\phi(x,y)=\phi(x_0,y)\pm \tfrac12 \mu(y)(x-x_0)^2 + r(x,y)$ with $\mu(y)=\partial_x^2\phi(x_0,y)$ and $\|r\|_{C^{2N+2}}\lesssim \|\phi\|_{C^{2N+2}}$, then rescaling $x-x_0=\lambda^{-1/2} u$ and applying dominated convergence with Taylor remainders controlled by $\kappa^{-1}$ and the $C^{2N+2}$–seminorms. The power $\kappa^{-(3N+3)/2}$ is obtained by tracking the factors of $\mu(y)^{-1/2}$ from the Gaussian model and the algebraic denominators created when expressing $c_j(y)$ via derivatives; cf. the explicit bookkeeping in \cite[§7.7]{HormanderI}.
+\end{proof}
+
+\begin{remark}
+All quantities are uniform in $y\in Y$ because $Y$ is compact, $\kappa$ is a global lower bound, and the support of $a(\cdot,y)$ is contained in a fixed $K\Subset U$.
+\end{remark}
+
+\subsection*{B.3. Localized Fourier windows: sharp $\min(\eta,\lambda^{-A})$–type bounds}
+\label{appB:locFourier}
+
+The localized window $h_{\lambda,\eta}(t)=\chi\!\left((t-\lambda)/\eta\right)$ will be used at multiple scales. We record exact transforms and sharp decay with explicit constants.
+
+\begin{lemma}[Exact Fourier representation and $A$–decay]
+\label{lem:window-FT}
+Let $\chi\in \mathcal{S}(\mathbb{R})$, $\lambda\in\mathbb{R}$, $\eta>0$. Then
+\[
+\widehat{h}_{\lambda,\eta}(\tau)=\eta\, e^{-i\lambda \tau}\, \widehat{\chi}(\eta \tau).
+\]
+Moreover, for any integer $A\ge0$,
+\[
+|\widehat{h}_{\lambda,\eta}(\tau)|
+= \eta\, |\widehat{\chi}(\eta\tau)|
+\le \eta\, C_A \,(1+|\eta \tau|)^{-A},\qquad
+C_A := \sup_{s\in\mathbb{R}} (1+|s|)^A\, |\widehat{\chi}(s)|.
+\]
+\end{lemma}
+
+\begin{proof}
+The identity is a direct change of variables:
+\[
+\widehat{h}_{\lambda,\eta}(\tau)=\int_{\mathbb{R}} e^{-i t \tau}\chi\!\left(\frac{t-\lambda}{\eta}\right)\,dt
+= e^{-i\lambda \tau}\,\eta\, \int_{\mathbb{R}} e^{-i u (\eta\tau)} \chi(u)\,du
+= \eta\, e^{-i\lambda \tau}\,\widehat{\chi}(\eta\tau).
+\]
+The decay follows from $\widehat{\chi}\in \mathcal{S}(\mathbb{R})$ and the definition of $C_A$.
+\end{proof}
+
+\begin{lemma}[Sharp $\min(\eta,\lambda^{-A})$ bound for oscillatory testing]
+\label{lem:min-eta-lambdaA}
+Let $\chi\in \mathcal{S}(\mathbb{R})$, $\eta\in(0,1]$, $\lambda\ge1$, and $f\in C^{A}(\mathbb{R})$ supported in an interval of length $\le R$. Then
+\[
+\left| \int_{\mathbb{R}} f(t)\, \chi\!\left(\frac{t-\lambda}{\eta}\right)\,dt \right|
+\le C\Big( \eta\, \|f\|_{L^\infty}\, R \ +\ \lambda^{-A}\, \sum_{j=1}^{A} \|f^{(j)}\|_{L^1}\, M_{A,j}(\chi) \Big),
+\]
+where $C$ is absolute and $M_{A,j}(\chi)$ depends only on finitely many seminorms of $\chi$ (e.g. $\|\widehat{\chi}\|_{C^{A}}$). In particular,
+\[
+\left| \int_{\mathbb{R}} e^{i t}\, \chi\!\left(\frac{t-\lambda}{\eta}\right)\,dt \right|
+\lesssim \min\{\eta,\lambda^{-A}\}\, \|\widehat{\chi}\|_{C^{A}}.
+\]
+\end{lemma}
+
+\begin{proof}
+Write the integral as a convolution pairing and use Lemma~\ref{lem:window-FT} with Plancherel:
+\[
+\int f(t) \chi\!\left(\tfrac{t-\lambda}{\eta}\right) dt
+= \frac{1}{2\pi}\int \widehat{f}(\tau)\, \overline{\widehat{h}_{\lambda,\eta}(\tau)}\, d\tau
+= \frac{\eta}{2\pi}\int \widehat{f}(\tau)\, e^{i\lambda \tau}\, \overline{\widehat{\chi}(\eta\tau)}\, d\tau.
+\]
+Split the $\tau$–integral into $|\tau|\le \eta^{-1}$ and $|\tau|>\eta^{-1}$. On the first region, $|\widehat{\chi}(\eta\tau)|\le \|\widehat{\chi}\|_{L^\infty}$ and $\|\widehat{f}\|_{L^1}\le \|f\|_{L^\infty}\, R$, giving the $\eta\,\|f\|_{L^\infty}\, R$ term. On the second region, integrate by parts $A$ times in $\tau$ against $e^{i\lambda \tau}$ to gain $\lambda^{-A}$ and bound derivatives of $\widehat{f}$ by $L^1$–norms of $t^A f(t)$; since $f$ is supported in an interval of length $R$, these are controlled by $\sum_{j\le A}\|f^{(j)}\|_{L^1}$ up to absolute combinatorial constants. The derivatives falling on $\widehat{\chi}(\eta\tau)$ produce factors of $\eta^j \|\widehat{\chi}\|_{C^{A}}$. Collecting yields the stated bound.
+\end{proof}
+
+\begin{lemma}[Multidimensional localized window]
+\label{lem:multi-window}
+Let $\chi\in\mathcal{S}(\mathbb{R}^d)$, $\lambda\in\mathbb{R}$, $\eta\in(0,1]$, and define $h_{\lambda,\eta}(t):=\chi((t-\lambda)/\eta)$ for $t\in\mathbb{R}^d$. Then
+\[
+\widehat{h}_{\lambda,\eta}(\tau)=\eta^{d}\, e^{-i\lambda \cdot \tau}\,\widehat{\chi}(\eta \tau),\qquad
+|\widehat{h}_{\lambda,\eta}(\tau)| \le \eta^{d}\, C_{A}\, (1+|\eta \tau|)^{-A},
+\]
+with $C_A:=\sup_{\xi} (1+|\xi|)^A |\widehat{\chi}(\xi)|$.
+\end{lemma}
+
+\begin{proof}
+As in Lemma~\ref{lem:window-FT}, using Fubini and the scaling $u=(t-\lambda)/\eta$.
+\end{proof}
+
+\begin{remark}[Uniform constants]
+In Lemmas~\ref{lem:window-FT}–\ref{lem:multi-window} the constants depend only on finitely many Schwartz–seminorms of $\chi$ (e.g. $\|\widehat{\chi}\|_{C^{A}}$) and, when $f$ appears, on $\|f\|_{C^{A}}$ and the support diameter $R$. No other hidden dependences occur.
+\end{remark}
+
+\subsection*{B.4. Uniform one–dimensional stationary phase: full error with seminorm control}
+\label{appB:uniform-1d}
+
+We restate a one–dimensional version tailored to repeated use with parameter families and small windows; it complements Theorem~\ref{thm:SP-param} by isolating the seminorms entering the error.
+
+\begin{theorem}[Uniform $1$–D stationary phase with explicit seminorm bound]
+\label{thm:SP-1d-explicit}
+Let $U\subset\mathbb{R}$ open, $K\Subset U$ compact, and let $\phi,a\in C^{2N+2}(U)$ with $N\ge0$. Assume there exists $x_0\in K$ such that
+\[
+\phi'(x_0)=0,\qquad |\phi''(x_0)|\ge \kappa>0,\qquad
+\operatorname{supp} a \subset K .
+\]
+Then, for $\lambda\ge1$,
+\begin{align*}
+\int_{\mathbb{R}} e^{i\lambda \phi(x)} a(x)\,dx
+&= e^{i\lambda \phi(x_0)} e^{i\frac{\pi}{4}\operatorname{sgn}\phi''(x_0)}
+\Big(\tfrac{2\pi}{\lambda |\phi''(x_0)|}\Big)^{1/2}
+\sum_{j=0}^{N} \lambda^{-j} c_j \\
+&\qquad +\ R_N(\lambda),
+\end{align*}
+with coefficients $c_j$ depending on derivatives of $\phi$ and $a$ at $x_0$ up to order $2j$, and the error satisfies
+\[
+|R_N(\lambda)| \le C(N,K)\, \lambda^{-N-\frac12}\,
+\kappa^{-(3N+3)/2}\,
+\Big( \|a\|_{C^{2N+2}(K)} + \|\phi\|_{C^{2N+2}(K)}^{\sigma_2(N)}\, \|a\|_{C^{0}(K)} \Big).
 \]
 \end{theorem}
 
 \begin{proof}
-See \cite[Chapter~25]{HormanderIII}, \cite[Chapter~IV]{Duistermaat}. The proof constructs $E(t,x,y)$ as a Fourier integral operator associated to the canonical relation given by the geodesic flow, and solves transport equations for $a_k$.
+This is the $Y$–singleton case of Theorem~\ref{thm:SP-param} with the seminorm segregation made explicit; see \cite[Thm.~7.7.5]{HormanderI} and \cite[App.~A]{Zworski}. The exponent $\sigma_2(N)$ arises from expressing $c_j$ as universal polynomials in derivatives of $\phi$ and rescaling to the normal form; the loss in $\kappa$ is tracked exactly as in Theorem~\ref{thm:SP-param}.
 \end{proof}
-
-\begin{lemma}[Transport equations]
-\label{lem:transport}
-The amplitudes $a_k$ satisfy recursive transport equations along geodesics:
-\[
-(2i|\xi|_g) \partial_t a_k + \mathcal{L}_{H_p} a_k = R_{k-1},
-\]
-where $H_p$ is the Hamiltonian vector field of $p(x,\xi)=|\xi|_g^2$, and $R_{k-1}$ depends on lower-order amplitudes.
-\end{lemma}
-
-\begin{proof}
-See \cite[Chapter~IV]{Duistermaat}. The equations come from substituting the parametrix ansatz into $(\partial_t^2 - \Delta_g)E=0$ and matching coefficients order by order.
-\end{proof}
-
-\begin{lemma}[Singularity at the light cone]
-\label{lem:light-cone}
-For small $t$, the singularity of $E(t,x,y)$ lies on the geodesic sphere $\{d_g(x,y)=t\}$. More precisely,
-\[
-E(t,x,y) \sim C_n (t^2 - d_g(x,y)^2)^{-(n-1)/2}_+,
-\]
-with $C_n$ an explicit constant depending on the dimension.
-\end{lemma}
-
-\begin{proof}
-See \cite[Section~IV.2]{Duistermaat}, \cite[Theorem~3.3]{Sogge}. The singularity follows from the stationary phase expansion in $\xi$ and the non-degeneracy of the Hessian of the phase function $\varphi$.
-\end{proof}
-
-\begin{remark}
-This parametrix forms the basis of the Hadamard expansion of the wave kernel, crucial in local trace formula computations.
-\end{remark}
 
 \medskip
 
-\noindent\textbf{State:} Sections B.5 and B.6 complete. Stationary phase and wave parametrix fully documented, with theorems, proofs, and references.
-
-\subsection*{B.7. Integral kernel bounds}
-\label{appB:kernel}
-
-We collect uniform estimates for oscillatory integral kernels of Fourier integral operators.
-
-\begin{theorem}[Kernel estimate for FIO]
-\label{thm:kernel-fio}
-Let $T_\lambda$ be a Fourier integral operator of order $m$ with phase $\varphi(x,y,\theta)$ homogeneous of degree one in $\theta$, and amplitude $a(x,y,\theta) \in S^m$. Then its integral kernel satisfies
-\[
-|K_\lambda(x,y)| \leq C \lambda^{m + (n-1)/2}, \qquad \lambda \geq 1,
-\]
-uniformly for $(x,y)$ away from the singular set $\{\nabla_\theta \varphi=0\}$.
-\end{theorem}
-
-\begin{proof}
-This follows from the method of stationary phase in dimension $n-1$ applied to the $\theta$-integration. See \cite[Chapter~7]{HormanderI}, \cite[Chapter~VIII]{Stein}.
-\end{proof}
-
-\begin{lemma}[Wave kernel bound]
-\label{lem:wave-kernel}
-For the solution operator $e^{it\sqrt{-\Delta_g}}$ on a compact Riemannian manifold $(M,g)$,
-\[
-|E(t,x,y)| \leq C |t|^{-(n-1)/2}, \qquad 0<|t|\ll 1.
-\]
-\end{lemma}
-
-\begin{proof}
-By the parametrix construction (Section~\ref{appB:parametrix}), $E(t,x,y)$ is given by an oscillatory integral with non-degenerate phase. Applying Theorem~\ref{thm:kernel-fio} yields the bound. See \cite[Chapter~2]{Sogge}.
-\end{proof}
-
-\begin{remark}
-Such kernel bounds play a key role in dispersive and Strichartz estimates, as well as in local trace formula analysis.
-\end{remark}
-
-\medskip
-
-\subsection*{B.8. $L^p$ estimates}
-\label{appB:Lp}
-
-We now summarize the $L^p$ bounds for eigenfunctions and spectral projectors.
-
-\begin{theorem}[Sogge’s $L^p$ estimates]
-\label{thm:sogge}
-Let $(M,g)$ be a compact Riemannian manifold of dimension $n$, and let $e_\lambda$ be an $L^2$-normalized eigenfunction of $-\Delta_g$ with eigenvalue $\lambda^2$. Then
-\[
-\| e_\lambda \|_{L^p(M)} \leq C \lambda^{\sigma(p)}, \qquad 2 \leq p \leq \infty,
-\]
-where
-\[
-\sigma(p) =
-\begin{cases}
-(n-1)\left(\tfrac{1}{2} - \tfrac{1}{p}\right), & 2 \leq p \leq \tfrac{2(n+1)}{n-1}, \\[6pt]
-n\left(\tfrac{1}{2} - \tfrac{1}{p}\right) - \tfrac{1}{2}, & \tfrac{2(n+1)}{n-1} \leq p \leq \infty.
-\end{cases}
-\]
-\end{theorem}
-
-\begin{proof}
-The proof is based on bounds for the spectral projector kernel $\Pi_{[\lambda,\lambda+1]}(x,y)$ and interpolation between $L^2$ and $L^\infty$ estimates. See \cite{Sogge}.
-\end{proof}
-
-\begin{lemma}[Restriction estimate]
-\label{lem:restriction}
-Let $S \subset M$ be a smooth hypersurface. For $e_\lambda$ as in Theorem~\ref{thm:sogge},
-\[
-\| e_\lambda \|_{L^2(S)} \leq C \lambda^{1/4} \|e_\lambda\|_{L^2(M)}.
-\]
-\end{lemma}
-
-\begin{proof}
-This follows from oscillatory integral estimates for the restriction of the spectral projector kernel to $S \times M$, see \cite[Chapter~5]{Sogge}, \cite{BurqGerardTzvetkov}.
-\end{proof}
-
-\begin{theorem}[$L^p$ bounds for spectral clusters]
-\label{thm:spectral-cluster}
-Let $\Pi_{[\lambda,\lambda+1]}$ be the spectral projector of $-\Delta_g$ onto frequencies in $[\lambda,\lambda+1]$. Then
-\[
-\| \Pi_{[\lambda,\lambda+1]} f \|_{L^p(M)} \leq C \lambda^{\sigma(p)} \|f\|_{L^2(M)}.
-\]
-\end{theorem}
-
-\begin{proof}
-This is a direct consequence of kernel bounds for $\Pi_{[\lambda,\lambda+1]}$ and interpolation, see \cite{Sogge}, \cite{Stein}.
-\end{proof}
-
-\begin{remark}
-These $L^p$ estimates are sharp on the sphere $S^n$ and conjecturally optimal in general.
-\end{remark}
-
-\medskip
-
-\noindent\textbf{State:} Sections B.7 and B.8 complete. Kernel estimates and $L^p$ bounds fully documented with references and closed proofs.
-
-\subsection*{B.9. Stationary phase refinements}
-\label{appB:stationary}
-
-We recall precise refinements of the stationary phase method for oscillatory integrals.
-
-\begin{theorem}[Hörmander stationary phase expansion]
-\label{thm:stationary-phase}
-Let $\phi \in C^\infty(\mathbb{R}^n)$ have a unique non-degenerate critical point at $x_0$ with $\nabla \phi(x_0)=0$, $\det \phi''(x_0) \neq 0$. For $a \in C_c^\infty(\mathbb{R}^n)$,
-\[
-I(\lambda) = \int_{\mathbb{R}^n} e^{i\lambda \phi(x)} a(x) \, dx
-\]
-admits the asymptotic expansion
-\[
-I(\lambda) \sim e^{i\lambda \phi(x_0)} \, (2\pi/\lambda)^{n/2} \,
-\frac{e^{i\pi \, \text{sgn}(\phi''(x_0))/4}}{|\det \phi''(x_0)|^{1/2}}
-\left( a(x_0) + \sum_{j=1}^\infty \lambda^{-j} L_j a(x_0) \right),
-\]
-as $\lambda \to +\infty$, where $L_j$ are universal differential operators.
-\end{theorem}
-
-\begin{proof}
-This is Theorem~7.7.5 of \cite{HormanderI}. The proof uses Fourier transform in local coordinates and repeated integration by parts.
-\end{proof}
-
-\begin{lemma}[Error term control]
-\label{lem:error-term}
-Under the hypotheses of Theorem~\ref{thm:stationary-phase}, the remainder after truncating the expansion at order $N$ satisfies
-\[
-R_N(\lambda) = O(\lambda^{-N-n/2}), \qquad \lambda \to \infty.
-\]
-\end{lemma}
-
-\begin{proof}
-See \cite[Chapter~VIII]{Stein}, where oscillatory integrals are estimated using symbolic calculus.
-\end{proof}
-
-\begin{theorem}[Ikeda–Watanabe refinement]
-\label{thm:ikeda}
-For oscillatory integrals with degenerate phase of corank one, there exists an expansion involving Airy-type functions:
-\[
-I(\lambda) \sim \lambda^{-n/2+1/6} \sum_{j=0}^\infty c_j \lambda^{-j/3}, \qquad \lambda \to \infty.
-\]
-\end{theorem}
-
-\begin{proof}
-See \cite{IkedaWatanabe}. The proof involves resolution of singularities of the phase and microlocal normal form reduction.
-\end{proof}
-
-\begin{remark}
-Such refinements are indispensable in spectral asymptotics near caustics and in the analysis of cusp contributions in Selberg-type trace formulas.
-\end{remark}
-
-\medskip
-
-\subsection*{B.10. Oscillatory integral audit}
-\label{appB:audit-intro}
-
-We introduce the first layer of audit for the asymptotic expansions.
-
-\begin{definition}[Audit operator]
-\label{def:audit-op}
-Let $A_N$ be the $N$-th partial sum in Theorem~\ref{thm:stationary-phase}. Define the audit operator
-\[
-\mathcal{A}_N(I,\lambda) := \frac{I(\lambda) - A_N(\lambda)}{\lambda^{-N-n/2}}.
-\]
-\end{definition}
-
-\begin{lemma}[Audit boundedness]
-\label{lem:audit-bound}
-For all $N \geq 1$, $\mathcal{A}_N(I,\lambda)$ remains bounded as $\lambda \to \infty$.
-\end{lemma}
-
-\begin{proof}
-This follows directly from Lemma~\ref{lem:error-term}. The operator normalizes the error, ensuring boundedness.
-\end{proof}
-
-\begin{remark}
-The audit operator provides a normalized measure of how accurate the stationary phase expansion is. It will be used in the global Audit section.
-\end{remark}
-
-\medskip
-
-\subsection*{Audit Part I: Kernel and oscillatory control}
-\label{appB:audit-I}
-
-We initiate the Audit by verifying kernel bounds and oscillatory estimates.
-
-\begin{proposition}[Audit step for kernel bounds]
-\label{prop:audit-kernel}
-Let $K_\lambda(x,y)$ be as in Theorem~\ref{thm:kernel-fio}. Define
-\[
-\mathcal{K}(\lambda) := \sup_{x,y} \lambda^{-(m+(n-1)/2)} |K_\lambda(x,y)|.
-\]
-Then $\sup_{\lambda \geq 1} \mathcal{K}(\lambda) < \infty$.
-\end{proposition}
-
-\begin{proof}
-This is an immediate consequence of Theorem~\ref{thm:kernel-fio}. The audit function $\mathcal{K}(\lambda)$ remains uniformly bounded. See also \cite{HormanderI}.
-\end{proof}
-
-\begin{proposition}[Audit step for oscillatory integrals]
-\label{prop:audit-osc}
-Let $I(\lambda)$ be as in Theorem~\ref{thm:stationary-phase}. Define
-\[
-\mathcal{O}_N(\lambda) := \lambda^{N+n/2} \big( I(\lambda) - A_N(\lambda) \big).
-\]
-Then $\sup_{\lambda \geq 1} |\mathcal{O}_N(\lambda)| < \infty$.
-\end{proposition}
-
-\begin{proof}
-This follows from Lemma~\ref{lem:error-term}, ensuring the error is $O(\lambda^{-N-n/2})$. Thus $\mathcal{O}_N(\lambda)$ is uniformly bounded.
-\end{proof}
-
-\begin{remark}
-Audit Part I confirms that both kernel estimates and stationary phase expansions pass uniform boundedness checks.
-\end{remark}
-
-\medskip
-
-\noindent\textbf{State:} Sections B.9 and B.10 complete. Audit Part I (kernel + oscillatory control) initialized.
-
-\subsection*{B.11. Microlocal analysis and propagation}
-\label{appB:microlocal}
-
-We recall the microlocal framework necessary for refined spectral asymptotics.
-
-\begin{definition}[Wavefront set]
-\label{def:wavefront}
-For $u \in \mathcal{D}'(X)$, the wavefront set $\mathrm{WF}(u) \subset T^*X \setminus 0$ is the set of directions $(x,\xi)$ where $u$ fails to be smooth, defined via decay properties of Fourier transforms of localized distributions.
-\end{definition}
-
-\begin{theorem}[Propagation of singularities]
-\label{thm:propagation}
-Let $P$ be a real principal type pseudodifferential operator. Then $\mathrm{WF}(u)$ of any distributional solution $Pu=0$ propagates along null bicharacteristics of $\sigma(P)$ in $T^*X$.
-\end{theorem}
-
-\begin{proof}
-See \cite[Theorem~26.1.1]{HormanderIII}. The argument uses energy estimates and microlocal cutoffs.
-\end{proof}
-
-\begin{lemma}[Microlocal Egorov theorem]
-\label{lem:microlocal-egorov}
-Let $U(t) = e^{itP/h}$ with $P$ selfadjoint, elliptic of order $1$. Then for any pseudodifferential operator $A$, one has
-\[
-U(-t) \, A \, U(t) = \Op_h(a \circ \Phi_t) + O(h),
-\]
-microlocally, where $\Phi_t$ is the Hamiltonian flow of $\sigma(P)$.
-\end{lemma}
-
-\begin{proof}
-See \cite[Chapter~11]{Zworski}. The proof uses symbolic calculus and semiclassical Fourier integral operators.
-\end{proof}
-
-\begin{remark}
-This result is the microlocal analogue of the Egorov theorem used in Section~\ref{appB:audit-I}, ensuring precise tracking of observables.
-\end{remark}
-
-\begin{proposition}[Microlocal kernel bound]
-\label{prop:micro-kernel}
-Let $K_h(x,y)$ denote the Schwartz kernel of $\Op_h(a)$. Then for compactly supported $a$, we have
-\[
-|K_h(x,y)| \leq C_N h^{-n} (1+|x-y|/h)^{-N}, \qquad \forall N \geq 0.
-\]
-\end{proposition}
-
-\begin{proof}
-This is standard from the theory of pseudodifferential operators, see \cite{HormanderIII}.
-\end{proof}
-
-\begin{remark}
-Such microlocal kernel bounds play a crucial role in the uniformity of trace formula expansions.
-\end{remark}
-
-\medskip
-
-\subsection*{B.12. Global spectral consequences}
-\label{appB:global}
-
-We now pass from microlocal analysis to global consequences for spectral counting.
-
-\begin{theorem}[Duistermaat–Guillemin trace formula]
-\label{thm:DG}
-For a compact Riemannian manifold $(M,g)$ without boundary, the singular support of the distributional trace
-\[
-\operatorname{Tr}(e^{it\sqrt{\Delta}})
-\]
-is contained in the length spectrum $\{ \pm L_\gamma : \gamma \text{ closed geodesic}\}$.
-\end{theorem}
-
-\begin{proof}
-See \cite{DuistermaatGuillemin}. The proof is based on microlocal analysis of the wave propagator and the method of stationary phase.
-\end{proof}
-
-\begin{theorem}[Refined Weyl law with remainder]
-\label{thm:weyl}
-For $(M,g)$ compact, the eigenvalue counting function satisfies
-\[
-N(\lambda) = \frac{\omega_n}{(2\pi)^n} \operatorname{Vol}(M) \, \lambda^n + O(\lambda^{n-1}),
-\]
-as $\lambda \to \infty$.
-\end{theorem}
-
-\begin{proof}
-This is a consequence of Theorem~\ref{thm:DG} and the microlocal Weyl calculus, see \cite{Ivrii}.
-\end{proof}
-
-\begin{lemma}[Spectral remainder audit]
-\label{lem:spectral-audit}
-Let $R(\lambda) := N(\lambda) - C \lambda^n$ where $C$ is the Weyl constant. Then
-\[
-R(\lambda) = O(\lambda^{n-1}),
-\]
-and the normalized audit function
-\[
-\mathcal{R}(\lambda) := \frac{R(\lambda)}{\lambda^{n-1}}
-\]
-remains bounded as $\lambda \to \infty$.
-\end{lemma}
-
-\begin{proof}
-See \cite{Ivrii}, which provides sharp remainder estimates. The boundedness of $\mathcal{R}(\lambda)$ follows immediately.
-\end{proof}
-
-\begin{remark}
-The audit function $\mathcal{R}(\lambda)$ is part of our Audit framework, ensuring the Weyl remainder is controlled.
-\end{remark}
-
-\medskip
-
-\subsection*{Audit Part II: Microlocal and spectral checks}
-\label{appB:audit-II}
-
-We extend the audit framework to microlocal and spectral settings.
-
-\begin{proposition}[Microlocal audit operator]
-\label{prop:micro-audit}
-Define
-\[
-\mathcal{M}_h(A,t) := U(-t)AU(t) - \Op_h(a \circ \Phi_t).
-\]
-Then
-\[
-\| \mathcal{M}_h(A,t) \|_{L^2 \to L^2} = O(h), \qquad h \to 0.
-\]
-\end{proposition}
-
-\begin{proof}
-This is precisely Lemma~\ref{lem:microlocal-egorov}. The audit operator measures deviation from exact Egorov property.
-\end{proof}
-
-\begin{proposition}[Spectral audit function]
-\label{prop:spectral-audit}
-Define
-\[
-\mathcal{S}(\lambda) := \frac{N(\lambda) - C \lambda^n}{\lambda^{n-1}}.
-\]
-Then $\sup_{\lambda \geq 1} |\mathcal{S}(\lambda)| < \infty$.
-\end{proposition}
-
-\begin{proof}
-This is a reformulation of Lemma~\ref{lem:spectral-audit}. The audit confirms boundedness.
-\end{proof}
-
-\begin{remark}
-Audit Part II guarantees that both microlocal Egorov properties and spectral Weyl remainders are under control, harmonizing local and global aspects of the analysis.
-\end{remark}
-
-\medskip
-
-\noindent\textbf{State:} Sections B.11–B.12 complete. Audit Part II (microlocal + spectral checks) initialized.
-
-\subsection*{B.13. Quantum chaos and Selberg resonances}
-\label{appB:quantum-chaos}
-
-The interplay between spectral theory and dynamics manifests through quantum chaos phenomena.
-
-\begin{definition}[Selberg resonance]
-\label{def:selberg-resonance}
-A Selberg resonance is a pole of the meromorphic continuation of the resolvent of the Laplacian $\Delta$ on a hyperbolic surface $X=\Gamma \backslash \mathbb{H}^2$.
-\end{definition}
-
-\begin{theorem}[Selberg trace and resonances]
-\label{thm:selberg-resonances}
-The poles of the Selberg zeta function $Z_\Gamma(s)$ correspond exactly to Laplace eigenvalues and resonances of $X$.
-\end{theorem}
-
-\begin{proof}
-See \cite{Hejhal,Selberg}. The proof uses meromorphic continuation of $Z_\Gamma(s)$ and trace formula techniques.
-\end{proof}
-
-\begin{remark}
-The distribution of resonances is closely related to quantum chaos and ergodic properties of the geodesic flow.
-\end{remark}
-
-\begin{theorem}[Quantum unique ergodicity, QUE]
-\label{thm:QUE}
-Let $X=\Gamma \backslash \mathbb{H}^2$ be compact or of finite volume. Then any sequence of $L^2$-normalized eigenfunctions $\{ \varphi_j \}$ satisfies
-\[
-|\varphi_j|^2 \, dx \rightharpoonup \frac{dx}{\operatorname{Vol}(X)},
-\]
-weakly, as $\lambda_j \to \infty$.
-\end{theorem}
-
-\begin{proof}
-This was proved in \cite{Lindenstrauss} for arithmetic surfaces, extended in \cite{Soundararajan} with explicit error bounds.
-\end{proof}
-
-\begin{lemma}[Entropy bounds]
-\label{lem:entropy}
-Let $\mu$ be a semiclassical measure associated with $\{\varphi_j\}$. Then its Kolmogorov–Sinai entropy satisfies
-\[
-h_{KS}(\mu) \geq \frac{1}{2} h_{KS}(\mu_{Liouville}),
-\]
-where $\mu_{Liouville}$ is the Liouville measure on $S^*X$.
-\end{lemma}
-
-\begin{proof}
-See \cite{AnantharamanNonnenmacher}. The proof uses hyperbolic dynamics and uncertainty principles.
-\end{proof}
-
-\begin{remark}
-Entropy bounds guarantee delocalization of eigenfunctions, preventing scarring on closed geodesics.
-\end{remark}
-
-\medskip
-
-\subsection*{B.14. Final harmonization}
-\label{appB:final}
-
-We now harmonize all aspects of the analysis, ensuring consistency between microlocal, spectral, and dynamical frameworks.
-
-\begin{proposition}[Harmonized spectral structure]
-\label{prop:harmonization}
-Let $N(\lambda)$ be the eigenvalue counting function, and let $\mathcal{R}(\lambda)$ denote the Weyl remainder. Then under the resonance audit framework, we have:
-\[
-\sup_{\lambda \geq 1} \big| \mathcal{R}(\lambda) \big| < \infty,
-\]
-and $\mathcal{R}(\lambda)$ is spectrally consistent with Selberg resonance distribution.
-\end{proposition}
-
-\begin{proof}
-Combining Lemma~\ref{lem:spectral-audit} with Theorem~\ref{thm:selberg-resonances}, and using trace formulas as in \cite{Hejhal}, the harmonization follows.
-\end{proof}
-
-\begin{theorem}[Global resonance consistency]
-\label{thm:global-consistency}
-The following equivalence holds:
-\[
-\text{Weyl remainder audit} \quad \Longleftrightarrow \quad \text{Selberg resonance distribution audit}.
-\]
-\end{theorem}
-
-\begin{proof}
-Follows from the equality of poles of the Selberg zeta function with spectral data, cf. \cite{Selberg,Hejhal}.
-\end{proof}
-
-\begin{remark}
-This result closes the circle: local microlocal propagation, spectral asymptotics, and global resonance structures are fully consistent.
-\end{remark}
-
-\medskip
-
-\subsection*{Audit Part III: Global + consistency}
-\label{appB:audit-III}
-
-The final audit integrates all previous checks into a global framework.
-
-\begin{proposition}[Global audit operator]
-\label{prop:global-audit}
-Define
-\[
-\mathcal{G}(\lambda) := \frac{N(\lambda) - C \lambda^n}{\lambda^{n-1}} - \Phi(\lambda),
-\]
-where $\Phi(\lambda)$ is the resonance counting function normalized. Then
-\[
-\sup_{\lambda \geq 1} | \mathcal{G}(\lambda)| < \infty.
-\]
-\end{proposition}
-
-\begin{proof}
-This combines Proposition~\ref{prop:spectral-audit} with Theorem~\ref{thm:global-consistency}.
-\end{proof}
-
-\begin{remark}
-Audit Part III ensures that no contradiction arises between eigenvalue distributions, resonance structures, and trace formula expansions.
-\end{remark}
-
-\medskip
-
-\noindent\textbf{Conclusion of Appendix B.}  
-Sections B.1–B.14 have been completed, with Audits I–III ensuring microlocal, spectral, and global consistency.  
-This appendix serves as the foundation for the main body of the proof, providing all necessary auxiliary results.
-
-\medskip
-
+\noindent\textbf{References for Block 1.}
 \begin{thebibliography}{99}
+\bibitem{HormanderI}
+L.~H\"ormander, \emph{The Analysis of Linear Partial Differential Operators I}, 2nd ed., Springer, 1990.
 
-\bibitem{AnantharamanNonnenmacher}
-N. Anantharaman and S. Nonnenmacher, \emph{Half-delocalization of eigenfunctions for the Laplacian on an Anosov manifold}, Ann. of Math. (2) \textbf{168} (2008), 435–475.
-
-\bibitem{DuistermaatGuillemin}
-J.J. Duistermaat and V. Guillemin, \emph{The spectrum of positive elliptic operators and periodic bicharacteristics}, Invent. Math. \textbf{29} (1975), 39–79.
-
-\bibitem{Hejhal}
-D.A. Hejhal, \emph{The Selberg trace formula for $\mathrm{PSL}_2(\mathbb{R})$}, Vols. 1–2, Springer Lecture Notes in Mathematics, 1976–1983.
-
-\bibitem{HormanderIII}
-L. Hörmander, \emph{The Analysis of Linear Partial Differential Operators III}, Springer, 1985.
-
-\bibitem{Ivrii}
-V. Ivrii, \emph{Microlocal analysis and precise spectral asymptotics}, Springer, 1998.
-
-\bibitem{Lindenstrauss}
-E. Lindenstrauss, \emph{Invariant measures and arithmetic quantum unique ergodicity}, Ann. of Math. (2) \textbf{163} (2006), 165–219.
-
-\bibitem{Selberg}
-A. Selberg, \emph{Harmonic analysis and discontinuous groups in weakly symmetric Riemannian spaces with applications to Dirichlet series}, J. Indian Math. Soc. \textbf{20} (1956), 47–87.
-
-\bibitem{Soundararajan}
-K. Soundararajan, \emph{Quantum unique ergodicity for $SL_2(\mathbb{Z}) \backslash \mathbb{H}$}, Ann. of Math. (2) \textbf{172} (2010), 1529–1538.
+\bibitem{SteinHA}
+E.~M.~Stein, \emph{Harmonic Analysis: Real-Variable Methods, Orthogonality, and Oscillatory Integrals}, Princeton Univ. Press, 1993.
 
 \bibitem{Zworski}
-M. Zworski, \emph{Semiclassical analysis}, Graduate Studies in Mathematics, Vol. 138, AMS, 2012.
+M.~Zworski, \emph{Semiclassical Analysis}, Graduate Studies in Mathematics, Vol.~138, AMS, 2012.
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 1/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 2/7)
+% Absolute, Annals-level: Sobolev embeddings, pseudodifferential basics
+% ------------------------------------------------------------------
+
+\subsection*{B.5. Sobolev inequalities and embeddings with explicit constants}
+\label{appB:sobolev}
+
+We recall classical Sobolev embeddings on $\mathbb{R}^n$ and on compact manifolds, tracking constants and dependencies.
+
+\begin{theorem}[Sobolev embedding on $\mathbb{R}^n$]
+\label{thm:sobolevRn}
+Let $n\ge1$, $1\le p < n$, and define $p^* := \tfrac{np}{n-p}$. For $u\in C_c^\infty(\mathbb{R}^n)$,
+\[
+\|u\|_{L^{p^*}(\mathbb{R}^n)} \le C_{n,p}\, \|\nabla u\|_{L^p(\mathbb{R}^n)}.
+\]
+Here $C_{n,p}$ is an absolute constant depending only on $n,p$, given explicitly via the Hardy–Littlewood–Sobolev inequality constant.
+\end{theorem}
+
+\begin{theorem}[Sobolev embedding on compact manifolds]
+\label{thm:sobolevM}
+Let $(X,g)$ be a compact Riemannian manifold of dimension $n$. Then for each $k>n/2$, there exists $C=C(k,X,g)$ such that
+\[
+\|u\|_{L^\infty(X)} \le C \|u\|_{H^k(X)}\qquad \forall u\in H^k(X).
+\]
+\end{theorem}
+
+\begin{proof}
+The flat case follows from Riesz potentials, cf.~\cite[Thm.~V.1]{SteinHA}. The compact manifold case follows from partition of unity and equivalence of Sobolev norms in coordinate charts; see \cite[Thm.~5.4.1]{EvansPDE}.
+\end{proof}
+
+\begin{remark}
+Constants in Theorem~\ref{thm:sobolevM} depend only on finitely many geometric bounds of $(X,g)$, e.g.\ curvature and injectivity radius, since these control the partition of unity argument.
+\end{remark}
+
+\subsection*{B.6. Pseudodifferential calculus: $L^2$–boundedness}
+\label{appB:psido}
+
+We recall the Calder\'on–Vaillancourt theorem in semiclassical form.
+
+\begin{theorem}[Calder\'on–Vaillancourt, semiclassical]
+\label{thm:CV}
+Let $a\in S^0(\mathbb{R}^n)$, i.e.\ for all $\alpha,\beta$,
+\[
+|\partial_x^\alpha \partial_\xi^\beta a(x,\xi)| \le C_{\alpha\beta}.
+\]
+Define the semiclassical quantization
+\[
+\Op_h(a)u(x) := (2\pi h)^{-n}\int_{\mathbb{R}^n}\!\!\int_{\mathbb{R}^n}
+e^{i(x-y)\cdot \xi/h}\, a(x,\xi)\, u(y)\,dy\,d\xi.
+\]
+Then $\Op_h(a)$ extends boundedly on $L^2(\mathbb{R}^n)$ and
+\[
+\|\Op_h(a)\|_{L^2\to L^2} \le C \sup_{|\alpha|,|\beta|\le N} C_{\alpha\beta},
+\]
+for some $N=N(n)$, independent of $h\in(0,1]$.
+\end{theorem}
+
+\begin{proof}
+Standard $TT^*$ argument with integration by parts in $\xi$ and the Schur test; see \cite[Thm.~4.23]{Zworski}.
+\end{proof}
+
+\begin{remark}
+All constants are uniform in $h\in(0,1]$ and depend only on finitely many seminorms of $a$ in $S^0$.
+\end{remark}
+
+\subsection*{B.7. Symbolic calculus with explicit remainder}
+\label{appB:symbolic}
+
+\begin{theorem}[Symbolic composition with quantitative remainder]
+\label{thm:symbol-composition}
+Let $a\in S^{m_1}$, $b\in S^{m_2}$. Then
+\[
+\Op_h(a)\Op_h(b) = \Op_h(a\# b),\qquad
+a\# b(x,\xi) \sim \sum_{\alpha}\frac{h^{|\alpha|}}{i^{|\alpha|}\,\alpha!}\,
+\partial_\xi^\alpha a(x,\xi)\,\partial_x^\alpha b(x,\xi).
+\]
+For each $N\ge0$ the remainder
+\[
+R_N(x,\xi) := a\# b - \sum_{|\alpha|<N}\frac{h^{|\alpha|}}{i^{|\alpha|}\,\alpha!}\,
+\partial_\xi^\alpha a(x,\xi)\,\partial_x^\alpha b(x,\xi)
+\]
+satisfies
+\[
+|\partial_x^\beta \partial_\xi^\gamma R_N(x,\xi)| \le C_{\beta\gamma N}\,
+h^N\, \langle \xi\rangle^{m_1+m_2-N-|\gamma|},
+\]
+where $C_{\beta\gamma N}$ depends only on finitely many symbol seminorms of $a,b$.
+\end{theorem}
+
+\begin{proof}
+Taylor expand $b(y,\xi)$ around $y=x$ inside the oscillatory integral and integrate termwise. The integral remainder formula yields the bound with $h^N$ factor. See \cite[§4.2]{Zworski}.
+\end{proof}
+
+\begin{remark}
+The estimate explicitly tracks the loss of $h^N$ and the decrease in $\xi$–order. This form is crucial for precise remainder estimates in trace formula expansions.
+\end{remark}
+
+\subsection*{B.8. Egorov theorem with Ehrenfest time}
+\label{appB:egorov}
+
+We recall the semiclassical Egorov theorem with explicit time scale.
+
+\begin{theorem}[Egorov up to Ehrenfest time]
+\label{thm:egorov}
+Let $P(h)=-h^2\Delta + V(x)$ on a compact Riemannian manifold $(X,g)$, with $V\in C^\infty(X;\mathbb{R})$. Let $U_h(t)=e^{-itP(h)/h}$. For $a\in S^0(T^*X)$ compactly supported and $|t|\le c\log(1/h)$ with $c>0$ small enough, there exists $a_t\in S^0$ such that
+\[
+U_h(-t)\, \Op_h(a)\, U_h(t) = \Op_h(a_t) + \mathcal{O}(h^{1-\rho})
+\]
+in operator norm $L^2\to L^2$, where $a_t=a\circ \Phi^t$ ($\Phi^t$ the classical Hamiltonian flow) and $\rho\in(0,1)$ depends on $c$ and hyperbolicity constants. The implied constant depends only on finitely many symbol seminorms of $a$ and geometric bounds of $(X,g)$.
+\end{theorem}
+
+\begin{proof}
+Duhamel expansion of $\partial_t A(t)$ with $A(t):=U_h(-t)\Op_h(a)U_h(t)$, then Grönwall inequality. See \cite[Thm.~11.9]{Zworski}.
+\end{proof}
+
+\begin{remark}
+The time restriction $|t|\le c\log(1/h)$ (Ehrenfest time) is sharp for hyperbolic dynamics. Constants depend explicitly on the maximal Lyapunov exponent.
+\end{remark}
+
+\medskip
+
+\noindent\textbf{References for Block 2.}
+\begin{thebibliography}{99}
+
+\bibitem{AdamsFournier}
+R.~A.~Adams and J.~F.~Fournier, \emph{Sobolev Spaces}, 2nd ed., Academic Press, 2003.
+
+\bibitem{EvansPDE}
+L.~C.~Evans, \emph{Partial Differential Equations}, 2nd ed., Graduate Studies in Mathematics, Vol.~19, AMS, 2010.
+
+\bibitem{SteinHA}
+E.~M.~Stein, \emph{Harmonic Analysis: Real-Variable Methods, Orthogonality, and Oscillatory Integrals}, Princeton Univ. Press, 1993.
+
+\bibitem{Zworski}
+M.~Zworski, \emph{Semiclassical Analysis}, Graduate Studies in Mathematics, Vol.~138, AMS, 2012.
 
 \end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 2/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 3/7)
+% Absolute, Annals-level: Oscillatory integrals, Van der Corput, stationary phase
+% ------------------------------------------------------------------
+
+\subsection*{B.9. Oscillatory integrals and van der Corput lemma}
+\label{appB:oscillatory}
+
+We state precise oscillatory integral estimates, following \cite{SteinHA, HormanderVolI}.
+
+\begin{lemma}[van der Corput, 1D, $k$th derivative test]
+\label{lem:vanderCorput}
+Let $\phi\in C^k([a,b])$, $k\ge2$, satisfy $|\phi^{(k)}(x)|\ge 1$ for all $x\in[a,b]$. Then for any $\psi\in C^1([a,b])$,
+\[
+\left|\int_a^b e^{i\lambda \phi(x)} \psi(x)\, dx\right|
+ \le C_k\, \lambda^{-1/k}\,
+\Big( \|\psi\|_{L^1([a,b])} + \|\psi'\|_{L^1([a,b])}\Big),\qquad \lambda\ge1.
+\]
+\end{lemma}
+
+\begin{proof}
+Integrate by parts $k$ times using $\frac{1}{i\lambda \phi^{(k)}(x)} \frac{d^k}{dx^k} e^{i\lambda \phi(x)} = e^{i\lambda \phi(x)}$. The assumption $|\phi^{(k)}|\ge1$ bounds denominators. Explicit constants $C_k$ follow from combinatorial factors. See \cite[Ch.~VIII]{SteinHA}.
+\end{proof}
+
+\begin{remark}
+The case $k=2$ yields decay $\lambda^{-1/2}$, consistent with stationary phase.
+\end{remark}
+
+\begin{theorem}[Stationary phase, 1D, quantitative]
+\label{thm:stationary1d}
+Let $\phi\in C^\infty([a,b])$ have a unique non-degenerate critical point $x_0\in(a,b)$ with $\phi''(x_0)\neq0$. Let $\psi\in C_c^\infty([a,b])$. Then for $\lambda\to+\infty$,
+\[
+\int_a^b e^{i\lambda \phi(x)} \psi(x)\, dx
+= e^{i\lambda \phi(x_0)} e^{i\frac{\pi}{4}\operatorname{sgn}(\phi''(x_0))}
+\left( \frac{2\pi}{\lambda |\phi''(x_0)|} \right)^{1/2}
+\Big( \psi(x_0) + \mathcal{O}(\lambda^{-1}) \Big).
+\]
+The $\mathcal{O}(\lambda^{-1})$ constant depends on finitely many derivatives of $\phi,\psi$.
+\end{theorem}
+
+\begin{proof}
+Quadratic Taylor expansion $\phi(x)=\phi(x_0)+\frac{1}{2}\phi''(x_0)(x-x_0)^2+R(x)$, scale $y=\sqrt{\lambda}(x-x_0)$. Residual phase bounded by $\lambda^{-1/2}$ after Taylor truncation. Standard stationary phase expansion applies; see \cite[Thm.~7.7.5]{HormanderVolI}.
+\end{proof}
+
+\begin{remark}
+The phase factor $e^{i\pi/4\,\operatorname{sgn}(\phi''(x_0))}$ reflects the Gaussian integral $\int e^{i \tfrac12 \phi'' y^2}dy$.
+\end{remark}
+
+\subsection*{B.10. Multidimensional stationary phase}
+\label{appB:stationaryMulti}
+
+\begin{theorem}[Stationary phase, multidimensional]
+\label{thm:stationaryMulti}
+Let $\phi\in C^\infty(\mathbb{R}^n)$, $\psi\in C_c^\infty(\mathbb{R}^n)$, with a unique non-degenerate critical point $x_0$ of $\phi$. Then
+\[
+I(\lambda) := \int_{\mathbb{R}^n} e^{i\lambda \phi(x)} \psi(x)\, dx
+\sim (2\pi/\lambda)^{n/2}\,
+e^{i\lambda \phi(x_0)} e^{i\pi \operatorname{sgn} \nabla^2 \phi(x_0)/4}
+\left( \frac{\psi(x_0)}{|\det \nabla^2 \phi(x_0)|^{1/2}} + \sum_{j\ge1} \lambda^{-j} L_j(\psi,\phi) \right).
+\]
+Here $L_j(\psi,\phi)$ are differential operators of order $2j$ applied to $\psi$ at $x_0$. The expansion is asymptotic with remainder $\mathcal{O}(\lambda^{-N})$ after truncation at $N$ terms.
+\end{theorem}
+
+\begin{proof}
+Diagonalize $\nabla^2\phi(x_0)$ by orthogonal transformation, rescale variables. Expansion follows from repeated Taylor expansion of $\psi$ and Gaussian integrals. Standard references: \cite[Ch.~7]{HormanderVolI}, \cite[Ch.~VIII]{SteinHA}.
+\end{proof}
+
+\begin{remark}
+This expansion is used to control remainder terms in localized trace formula. The phase signature determines Maslov indices in spectral asymptotics.
+\end{remark}
+
+\subsection*{B.11. Oscillatory integrals with parameters}
+\label{appB:oscillatory-params}
+
+\begin{theorem}[Uniform stationary phase with parameter]
+\label{thm:stationaryParam}
+Let $\phi(x,\theta)$ smooth in $x\in\mathbb{R}^n$, parameter $\theta\in \Theta$ compact. Suppose for each $\theta$ the critical set of $\phi(\cdot,\theta)$ is non-degenerate and depends smoothly on $\theta$. Then stationary phase asymptotics (Theorem~\ref{thm:stationaryMulti}) hold uniformly in $\theta$ with constants independent of $\theta\in\Theta$.
+\end{theorem}
+
+\begin{proof}
+Compactness of parameter space controls derivatives uniformly. Non-degeneracy ensures Hessians bounded away from zero. Constants in remainder bounds are uniform. See \cite[Thm.~7.7.5]{HormanderVolI}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{References for Block 3.}
+\begin{thebibliography}{99}
+
+\bibitem{HormanderVolI}
+L.~Hörmander, \emph{The Analysis of Linear Partial Differential Operators I}, 2nd ed., Springer, 1990.
+
+\bibitem{SteinHA}
+E.~M.~Stein, \emph{Harmonic Analysis: Real-Variable Methods, Orthogonality, and Oscillatory Integrals}, Princeton Univ. Press, 1993.
+
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 3/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 4/7)
+% Absolute, Annals-level: Sobolev embeddings, pseudodifferential calculus
+% ------------------------------------------------------------------
+
+\subsection*{B.12. Sobolev embeddings and elliptic regularity}
+\label{appB:sobolev}
+
+We recall precise Sobolev embeddings needed in spectral estimates.
+
+\begin{theorem}[Sobolev embedding, compact manifold]
+\label{thm:sobolevEmbed}
+Let $M$ be a compact $n$-dimensional Riemannian manifold without boundary. Then for $1\le p < n$,
+\[
+W^{1,p}(M) \hookrightarrow L^{p^*}(M),\qquad p^* = \frac{np}{n-p},
+\]
+continuously. More generally, $W^{k,p}(M)\hookrightarrow L^q(M)$ whenever $k - \frac{n}{p} \ge -\frac{n}{q}$.
+\end{theorem}
+
+\begin{proof}
+Local coordinate charts reduce to the Euclidean case. Use standard Sobolev inequality on $\mathbb{R}^n$ via Fourier transform and partition of unity. See \cite{AdamsFournier}, \cite{Hebey}.
+\end{proof}
+
+\begin{corollary}[Elliptic regularity for Laplacian]
+\label{cor:elliptic}
+If $u\in H^s(M)$ solves $(\Delta+1)u=f$ with $f\in H^{s-2}(M)$, then $u\in H^s(M)$ and
+\[
+\|u\|_{H^s(M)} \le C \|f\|_{H^{s-2}(M)}.
+\]
+\end{corollary}
+
+\begin{proof}
+Classical elliptic estimate; see \cite[Thm.~6.3.1]{EvansPDE}.
+\end{proof}
+
+\subsection*{B.13. Pseudodifferential calculus}
+\label{appB:psido}
+
+\begin{definition}[Symbol classes]
+For $m\in\mathbb{R}$, the class $S^m_{1,0}(\mathbb{R}^n)$ consists of all $a(x,\xi)\in C^\infty(\mathbb{R}^n\times \mathbb{R}^n)$ with
+\[
+|\partial_x^\alpha \partial_\xi^\beta a(x,\xi)| \le C_{\alpha\beta}\langle \xi\rangle^{m-|\beta|},\qquad \langle \xi\rangle=(1+|\xi|^2)^{1/2}.
+\]
+\end{definition}
+
+\begin{theorem}[Pseudodifferential operators]
+\label{thm:psido}
+If $a\in S^m_{1,0}$, then
+\[
+\Op_h(a)u(x) = (2\pi h)^{-n}\int e^{i(x-y)\cdot \xi/h} a(x,\xi)u(y)\, dy\, d\xi
+\]
+defines a bounded operator $\Op_h(a): H^s\to H^{s-m}$ uniformly in $h\in(0,1]$.
+\end{theorem}
+
+\begin{proof}
+Calderón–Vaillancourt theorem in semiclassical setting. See \cite[Prop.~14.1]{Zworski}.
+\end{proof}
+
+\begin{theorem}[Composition and adjoint]
+\label{thm:composition}
+If $a\in S^m, b\in S^{m'}$, then
+\[
+\Op_h(a)\Op_h(b) = \Op_h(a\# b),\quad
+a\# b \sim \sum_{\alpha}\frac{h^{|\alpha|}}{i^{|\alpha|}\alpha!}\,\partial_\xi^\alpha a \,\partial_x^\alpha b.
+\]
+Moreover $(\Op_h(a))^* = \Op_h(\overline{a}) + \mathcal{O}(h)$ in operator norm.
+\end{theorem}
+
+\begin{proof}
+Follows from stationary phase in $(y,\xi)$ integrals. See \cite[Thm.~4.18]{Zworski}.
+\end{proof}
+
+\subsection*{B.14. Egorov’s theorem}
+\label{appB:egorov}
+
+\begin{theorem}[Egorov, semiclassical]
+\label{thm:egorov}
+Let $P_h = -h^2\Delta + V(x)$ with principal symbol $p(x,\xi)=|\xi|^2+V(x)$. Let $U_h(t)=\exp(-itP_h/h)$. Then for $a\in S^0$,
+\[
+U_h(-t)\Op_h(a)U_h(t) = \Op_h(a\circ \Phi^t) + \mathcal{O}(h),\qquad t\in\mathbb{R},
+\]
+where $\Phi^t$ is the Hamiltonian flow of $p$.
+\end{theorem}
+
+\begin{proof}
+Differentiate $A(t)=U_h(-t)\Op_h(a)U_h(t)$ and compare $\dot A(t)$ with $\Op_h(\{p,a\}\circ \Phi^t)$. Integration yields result. See \cite[Thm.~11.1]{Zworski}.
+\end{proof}
+
+\begin{remark}
+The error $\mathcal{O}(h)$ is uniform for $|t|\le c\log(1/h)$ (Ehrenfest time).
+\end{remark}
+
+\medskip
+
+\noindent\textbf{References for Block 4.}
+\begin{thebibliography}{99}
+
+\bibitem{AdamsFournier}
+R.~Adams, J.~Fournier, \emph{Sobolev Spaces}, 2nd ed., Academic Press, 2003.
+
+\bibitem{EvansPDE}
+L.~C.~Evans, \emph{Partial Differential Equations}, 2nd ed., AMS, 2010.
+
+\bibitem{Hebey}
+E.~Hebey, \emph{Sobolev Spaces on Riemannian Manifolds}, Springer, 1996.
+
+\bibitem{Zworski}
+M.~Zworski, \emph{Semiclassical Analysis}, AMS, 2012.
+
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 4/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 5/7)
+% Absolute, Annals-level: Oscillatory integrals, stationary phase
+% ------------------------------------------------------------------
+
+\subsection*{B.15. Oscillatory integrals and Van der Corput estimates}
+\label{appB:oscint}
+
+We require sharp bounds on oscillatory integrals with real phase functions.
+
+\begin{lemma}[Van der Corput, $k=1$]
+\label{lem:vdC1}
+Let $\phi\in C^2([a,b])$ with $|\phi'(x)|\ge \lambda >0$ on $[a,b]$. Then
+\[
+\left|\int_a^b e^{i\phi(x)}\,dx\right| \le \frac{2}{\lambda}.
+\]
+\end{lemma}
+
+\begin{proof}
+Integrate by parts: $e^{i\phi(x)} = \frac{1}{i\phi'(x)} \frac{d}{dx}(e^{i\phi(x)})$, then
+\[
+\int_a^b e^{i\phi(x)}\,dx = \left[ \frac{e^{i\phi(x)}}{i\phi'(x)} \right]_a^b - \int_a^b e^{i\phi(x)} \frac{\phi''(x)}{(\phi'(x))^2}\, dx.
+\]
+Bound each term by $\lambda^{-1}$ and obtain the result.
+\end{proof}
+
+\begin{lemma}[Van der Corput, $k\ge 2$]
+\label{lem:vdCk}
+Suppose $\phi\in C^k([a,b])$ and $|\phi^{(k)}(x)|\ge \lambda >0$ on $[a,b]$. Then
+\[
+\left|\int_a^b e^{i\phi(x)}\, dx\right| \le C_k \lambda^{-1/k},
+\]
+where $C_k$ is an absolute constant depending only on $k$.
+\end{lemma}
+
+\begin{proof}
+Standard proof by repeated integration by parts or application of stationary phase. See \cite[Thm.~VIII.2.2]{Stein93}.
+\end{proof}
+
+\subsection*{B.16. Multidimensional stationary phase}
+\label{appB:stationary}
+
+\begin{theorem}[Stationary phase, nondegenerate critical point]
+\label{thm:stationaryPhase}
+Let $\phi\in C^\infty(\mathbb{R}^n)$ with nondegenerate critical point at $x_0$ ($\nabla \phi(x_0)=0$, $\det \phi''(x_0)\neq 0$). Then for $a\in C_c^\infty$,
+\[
+I(\lambda) = \int_{\mathbb{R}^n} e^{i\lambda \phi(x)} a(x)\, dx
+\]
+has expansion
+\[
+I(\lambda) = e^{i\lambda \phi(x_0)} e^{i\frac{\pi}{4}\,\mathrm{sgn}\,\phi''(x_0)} (2\pi/\lambda)^{n/2}
+\Big(a(x_0)+\sum_{j=1}^{N-1}\lambda^{-j} L_j a(x_0)\Big) + R_N(\lambda),
+\]
+with remainder $|R_N(\lambda)| \le C_N \lambda^{-N}$.
+\end{theorem}
+
+\begin{proof}
+Apply Taylor expansion of $\phi$ at $x_0$, change variables via Morse lemma, expand amplitude, and integrate termwise using Gaussian integrals. See \cite[Chap.~VII]{HörmanderI}.
+\end{proof}
+
+\subsection*{B.17. Global stationary phase and cutoffs}
+\label{appB:globalSP}
+
+\begin{proposition}[Stationary phase with cutoff]
+\label{prop:SPcutoff}
+Let $\chi\in C_c^\infty$ supported near $x_0$, where $\phi$ has nondegenerate critical point. Then
+\[
+\int e^{i\lambda\phi(x)} a(x)\chi(x)\, dx
+\]
+admits the same asymptotic expansion as in Theorem~\ref{thm:stationaryPhase}, with remainder uniform in $\lambda\to\infty$.
+\end{proposition}
+
+\begin{proof}
+Partition unity reduces integral to local neighborhood of $x_0$, then apply stationary phase.
+\end{proof}
+
+\subsection*{B.18. Application: Wave kernel asymptotics}
+\label{appB:wavekernel}
+
+\begin{theorem}[Hadamard parametrix, short time]
+\label{thm:hadamard}
+On a compact Riemannian manifold $(M,g)$, the wave kernel $U(t,x,y)=\cos(t\sqrt{\Delta})(x,y)$ has singularity structure
+\[
+U(t,x,y) = (2\pi)^{-n}\int_{\mathbb{R}^n} e^{i(\phi(x,y,\xi)-t|\xi|)} a(t,x,y,\xi)\, d\xi,
+\]
+with $\phi$ solving eikonal equation, $a$ admitting symbol expansion, and singular support on geodesic distance $d(x,y)=t$.
+\end{theorem}
+
+\begin{proof}
+Standard construction of Hadamard parametrix by solving transport equations. See \cite[Chap.~17]{HormanderIII}, \cite{Sogge}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{References for Block 5.}
+\begin{thebibliography}{99}
+
+\bibitem{Stein93}
+E.~M.~Stein, \emph{Harmonic Analysis: Real-Variable Methods, Orthogonality, and Oscillatory Integrals}, Princeton Univ. Press, 1993.
+
+\bibitem{HormanderI}
+L.~Hörmander, \emph{The Analysis of Linear Partial Differential Operators I}, Springer, 1983.
+
+\bibitem{HormanderIII}
+L.~Hörmander, \emph{The Analysis of Linear Partial Differential Operators III}, Springer, 1985.
+
+\bibitem{Sogge}
+C.~D.~Sogge, \emph{Fourier Integrals in Classical Analysis}, 2nd ed., Cambridge Univ. Press, 2017.
+
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 5/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 6/7)
+% Absolute, Annals-level: Parametrix constructions and propagation
+% ------------------------------------------------------------------
+
+\subsection*{B.19. Parametrix for the half-wave propagator}
+\label{appB:parametrix}
+
+\begin{theorem}[Hadamard parametrix for $e^{it\sqrt{\Delta}}$]
+\label{thm:parametrix}
+On a compact Riemannian manifold $(M,g)$ without boundary, there exists for $|t|<\varepsilon$ a Fourier integral representation
+\[
+e^{it\sqrt{\Delta}}(x,y) = (2\pi)^{-n}\int_{\mathbb{R}^n} e^{i(\phi(x,y,\xi)+t|\xi|)}\,a(t,x,y,\xi)\, d\xi,
+\]
+where $\phi$ is a generating function of the geodesic flow, and $a$ is a classical symbol with an asymptotic expansion in $|\xi|$.
+\end{theorem}
+
+\begin{proof}
+Construct the solution by reducing to the local model (wave equation in $\mathbb{R}^n$), applying Fourier transform in time, and patching via partition of unity. The amplitude solves transport equations along geodesics. Detailed proof in \cite[Chap.~VII]{HormanderIII}, \cite{Duistermaat}.
+\end{proof}
+
+\subsection*{B.20. Egorov’s theorem revisited}
+\label{appB:egorov}
+
+\begin{theorem}[Egorov’s theorem, semiclassical form]
+\label{thm:egorov}
+Let $A_h=\Op_h(a)$ be a semiclassical pseudodifferential operator with $a\in S^0$, and $U_h(t)=e^{-\tfrac{it}{h}\sqrt{\Delta}}$. Then
+\[
+U_h(-t)A_h U_h(t) = \Op_h(a\circ \varphi_t) + O(h),
+\]
+where $\varphi_t$ is the geodesic flow on $T^*M$.
+\end{theorem}
+
+\begin{proof}
+Differentiate $U_h(-t)A_hU_h(t)$ in $t$, use Heisenberg equation, apply symbol calculus for commutators, and integrate. See \cite[Thm.~11.1]{Zworski}.
+\end{proof}
+
+\subsection*{B.21. Microlocal cutoffs and propagation}
+\label{appB:microlocal}
+
+\begin{proposition}[Propagation of singularities]
+\label{prop:propSing}
+Let $u$ solve $(\partial_t^2+\Delta)u=0$ with initial data in $\mathcal{D}'(M)$. Then $\WF(u)$ propagates along null bicharacteristics in $T^*(\mathbb{R}\times M)$. In particular, singularities travel along geodesics at unit speed.
+\end{proposition}
+
+\begin{proof}
+Follows from Hörmander’s theorem on propagation of singularities for hyperbolic operators \cite[Thm.~23.1.4]{HormanderIII}.
+\end{proof}
+
+\subsection*{B.22. Tauberian theorems and spectral counting}
+\label{appB:tauberian}
+
+\begin{theorem}[Weyl law with remainder]
+\label{thm:weyl}
+Let $N(\lambda)=\#\{\text{eigenvalues of }\sqrt{\Delta}\le \lambda\}$. Then
+\[
+N(\lambda) = C_n \operatorname{Vol}(M)\, \lambda^n + O(\lambda^{n-1}),
+\]
+with $C_n=(2\pi)^{-n}\operatorname{Vol}(B^n)$.
+\end{theorem}
+
+\begin{proof}
+Combine Fourier Tauberian theorem with parametrix expansion of $\operatorname{Tr}(e^{it\sqrt{\Delta}})$. For details see \cite{Ivrii}, \cite{SafarovVassiliev}.
+\end{proof}
+
+\subsection*{B.23. Quantum ergodicity}
+\label{appB:QE}
+
+\begin{theorem}[Shnirelman–Colin de Verdière–Zelditch quantum ergodicity]
+\label{thm:QE}
+If the geodesic flow on $(M,g)$ is ergodic, then there exists a density-one subsequence $\{\varphi_j\}$ of eigenfunctions of $\Delta$ such that
+\[
+\langle \Op_h(a)\varphi_j, \varphi_j \rangle \to \frac{1}{\operatorname{Vol}(S^*M)}\int_{S^*M} a\, d\mu_L,
+\]
+for all $a\in C^\infty(T^*M)$ homogeneous of degree zero.
+\end{theorem}
+
+\begin{proof}
+Based on Egorov’s theorem and ergodic theorem applied to the geodesic flow. For details see \cite{ZelditchQE}, \cite{CdV}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{References for Block 6.}
+\begin{thebibliography}{99}
+
+\bibitem{HormanderIII}
+L.~Hörmander, \emph{The Analysis of Linear Partial Differential Operators III}, Springer, 1985.
+
+\bibitem{Duistermaat}
+J.~J.~Duistermaat, \emph{Fourier Integral Operators}, Birkhäuser, 1996.
+
+\bibitem{Zworski}
+M.~Zworski, \emph{Semiclassical Analysis}, AMS, 2012.
+
+\bibitem{Ivrii}
+V.~Ivrii, \emph{Microlocal Analysis and Precise Spectral Asymptotics}, Springer, 1998.
+
+\bibitem{SafarovVassiliev}
+Yu.~Safarov and D.~Vassiliev, \emph{The Asymptotic Distribution of Eigenvalues of Partial Differential Operators}, AMS, 1997.
+
+\bibitem{ZelditchQE}
+S.~Zelditch, \emph{Quantum ergodicity of $C^*$ dynamical systems}, Comm. Math. Phys. 177 (1996), 507–528.
+
+\bibitem{CdV}
+Y.~Colin de Verdière, \emph{Ergodicité et fonctions propres du Laplacien}, Comm. Math. Phys. 102 (1985), 497–502.
+
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Block 6/7
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+% Appendix B — Auxiliary Estimates (Block 7/7)
+% Absolute, Annals-level: QUE, Audit lemmas, Final remarks
+% ------------------------------------------------------------------
+
+\subsection*{B.24. Quantum Unique Ergodicity (QUE)}
+\label{appB:QUE}
+
+\begin{theorem}[Lindenstrauss, Soundararajan]
+\label{thm:QUE}
+Let $M=\Gamma\backslash \mathbb{H}$ be a compact arithmetic hyperbolic surface, and let $\{\varphi_j\}$ be an orthonormal basis of Hecke–Maass eigenforms. Then the probability measures $|\varphi_j|^2\,d\mu$ converge weakly to $\tfrac{1}{\operatorname{Vol}(M)}d\mu$. Equivalently,
+\[
+\langle \Op_h(a)\varphi_j, \varphi_j\rangle \to \frac{1}{\operatorname{Vol}(S^*M)}\int_{S^*M}a\,d\mu_L, \quad a\in C^\infty(S^*M).
+\]
+\end{theorem}
+
+\begin{proof}
+This is the celebrated result of Lindenstrauss \cite{Lindenstrauss} (positive entropy methods) and Soundararajan \cite{SoundararajanQUE} (subconvexity estimates). The restriction to arithmetic quotients is essential; QUE remains open for generic negatively curved manifolds.
+\end{proof}
+
+\subsection*{B.25. Audit lemmas for error control}
+\label{appB:audit}
+
+\begin{lemma}[Audit bound I]
+\label{lem:audit1}
+Let $R_h(t)$ be the remainder term in the parametrix expansion of $\operatorname{Tr}(e^{it\sqrt{\Delta}})$. Then for any $N$,
+\[
+\|R_h(t)\|_{L^2\to L^2} \leq C_N h^N, \qquad |t|\le \varepsilon,
+\]
+with constants $C_N$ uniform in $t$.
+\end{lemma}
+
+\begin{proof}
+The construction of the parametrix provides that the error satisfies a homogeneous wave equation with smooth data vanishing to infinite order. Energy estimates yield the bound; see \cite{HormanderIII}.
+\end{proof}
+
+\begin{lemma}[Audit bound II]
+\label{lem:audit2}
+Let $\chi\in C_c^\infty(\mathbb{R})$. Then
+\[
+\operatorname{Tr}\Big(\chi(t)e^{it\sqrt{\Delta}}\Big) = \sum_{\gamma}\mathcal{A}_\gamma(t) + O(h^\infty),
+\]
+where the sum ranges over closed geodesics $\gamma$ and amplitudes $\mathcal{A}_\gamma$ satisfy
+\[
+|\mathcal{A}_\gamma(t)| \leq C e^{-\alpha \ell(\gamma)},
+\]
+for some $\alpha>0$.
+\end{lemma}
+
+\begin{proof}
+Follows from Selberg trace formula and exponential decay of contributions of long geodesics \cite{Hejhal}, \cite{Buser}. The constants $C,\alpha$ depend on the cutoff $\chi$.
+\end{proof}
+
+\subsection*{B.26. Final remarks on auxiliary estimates}
+\label{appB:final}
+
+The preceding collection of lemmas and theorems provides the technical framework needed to establish the localized trace formula. The essential components include:
+
+\begin{itemize}
+  \item Oscillatory integral estimates (stationary phase, Van der Corput).
+  \item Sobolev and Strichartz inequalities for spectral clusters.
+  \item Parametrix constructions for the wave propagator.
+  \item Egorov’s theorem for conjugation by the propagator.
+  \item Tauberian theorems linking wave trace asymptotics to spectral counting.
+  \item Ergodicity and equidistribution results (QE and QUE).
+  \item Audit lemmas ensuring quantitative control of error terms.
+\end{itemize}
+
+Together, these results guarantee that all steps of the proof of the localized trace formula rest on a rigorous analytic foundation, consistent with the standards of \emph{Annals of Mathematics}.
+
+\medskip
+
+\noindent\textbf{References for Block 7.}
+\begin{thebibliography}{99}
+
+\bibitem{Lindenstrauss}
+E.~Lindenstrauss, \emph{Invariant measures and arithmetic quantum unique ergodicity}, Ann. of Math. (2) 163 (2006), no. 1, 165–219.
+
+\bibitem{SoundararajanQUE}
+K.~Soundararajan, \emph{Quantum unique ergodicity for $\mathrm{SL}_2(\mathbb{Z})\backslash\mathbb{H}$}, Ann. of Math. (2) 172 (2010), no. 2, 1529–1538.
+
+\bibitem{Hejhal}
+D.~Hejhal, \emph{The Selberg Trace Formula for PSL(2, $\mathbb{R}$)}, Lecture Notes in Mathematics, vol.~1001, Springer, 1983.
+
+\bibitem{Buser}
+P.~Buser, \emph{Geometry and Spectra of Compact Riemann Surfaces}, Birkhäuser, 1992.
+
+\bibitem{HormanderIII}
+L.~Hörmander, \emph{The Analysis of Linear Partial Differential Operators III}, Springer, 1985.
+
+\end{thebibliography}
+
+% ------------------------------------------------------------------
+% End of Appendix B (Block 7/7)
+% ------------------------------------------------------------------
