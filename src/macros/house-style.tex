@@ -1,77 +1,13 @@
-% House style for the monograph (no theorem declarations here).
-% Keep this file free of any \newtheorem / \declaretheorem.
-% All theorem-like environments are defined in macros/environments.tex.
+% house-style.tex — tiny, CI-safe styling helpers only
+% Lists
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=1.5em}
 
-% --- Font and spacing tweaks (safe for arXiv/Annals) ---
-\setlength{\parskip}{0.25em}
-\setlength{\parindent}{15pt}
-\linespread{1.04}
-
-% --- Numbering for figures/tables per section ---
-\numberwithin{figure}{section}
-\numberwithin{table}{section}
-
-% --- Microtype fine tuning ---
-\microtypesetup{final,tracking=true,kerning=true,spacing=true,protrusion=true}
-
-% --- URL and link formatting ---
-\urlstyle{same}
-
-% --- Cleveref names (English only) ---
-\crefname{section}{Section}{Sections}
-\Crefname{section}{Section}{Sections}
-\crefname{subsection}{Subsection}{Subsections}
-\Crefname{subsection}{Subsection}{Subsections}
-\crefname{subsubsection}{Subsection}{Subsections}
-\Crefname{subsubsection}{Subsection}{Subsections}
-\crefname{appendix}{Appendix}{Appendices}
-\Crefname{appendix}{Appendix}{Appendices}
-\crefname{figure}{Figure}{Figures}
-\Crefname{figure}{Figure}{Figures}
-\crefname{table}{Table}{Tables}
-\Crefname{table}{Table}{Tables}
-\crefname{equation}{Equation}{Equations}
-\Crefname{equation}{Equation}{Equations}
-
-\crefname{theorem}{Theorem}{Theorems}
-\Crefname{theorem}{Theorem}{Theorems}
-\crefname{lemma}{Lemma}{Lemmas}
-\Crefname{lemma}{Lemma}{Lemmas}
-\crefname{proposition}{Proposition}{Propositions}
-\Crefname{proposition}{Proposition}{Propositions}
-\crefname{corollary}{Corollary}{Corollaries}
-\Crefname{corollary}{Corollary}{Corollaries}
-\crefname{definition}{Definition}{Definitions}
-\Crefname{definition}{Definition}{Definitions}
-\crefname{remark}{Remark}{Remarks}
-\Crefname{remark}{Remark}{Remarks}
-\crefname{example}{Example}{Examples}
-\Crefname{example}{Example}{Examples}
-\crefname{claim}{Claim}{Claims}
-\Crefname{claim}{Claim}{Claims}
-
-% --- Lists style ---
-\setlist[itemize]{topsep=2pt,parsep=0pt,itemsep=2pt,leftmargin=18pt}
-\setlist[enumerate]{topsep=2pt,parsep=0pt,itemsep=2pt,leftmargin=22pt}
-
-% --- tcolorbox defaults (used only if invoked) ---
+% Tcolorbox note (used sparingly; safe defaults)
 \tcbset{
-  colback=white,
-  colframe=black!10!gray,
-  boxrule=0.3pt,
-  arc=2pt,
-  left=6pt,right=6pt,top=6pt,bottom=6pt,
-  enhanced jigsaw,
-  breakable
+  colback=white, colframe=black!15!gray,
+  boxrule=0.3pt, arc=1pt, left=6pt, right=6pt, top=6pt, bottom=6pt
 }
 
-% --- Small helpers (pure macros) ---
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\ip}[2]{\left\langle #1,\,#2 \right\rangle}
-\newcommand{\paren}[1]{\left( #1 \right)}
-\newcommand{\brak}[1]{\left[ #1 \right]}
-\newcommand{\set}[1]{\left\{ #1 \right\}}
-\newcommand{\angles}[1]{\left\langle #1 \right\rangle}
-
-% End of house-style.tex
+% Small helpers
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
