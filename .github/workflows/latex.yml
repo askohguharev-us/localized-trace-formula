@@ -2,27 +2,38 @@ name: Build LaTeX document (arXiv/Annals)
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ main ]
+  pull_request:
 
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # TeX Live + latexmk runner
-      - name: Compile monograph
+      - name: Build monograph (pdfLaTeX + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: src/main.tex
-          latexmk_use_xelatex: true
-          work_in_root_file_dir: true
+          texlive_version: 2024
+          working_directory: src
+          root_file: main.tex
+          compiler: latexmk
+          args: -pdf -bibtex -interaction=nonstopmode -halt-on-error -file-line-error
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: monograph
+          name: monograph-pdf
           path: src/main.pdf
+
+      - name: Upload logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monograph-logs
+          path: |
+            src/*.log
+            src/*.blg
+            src/*.fls
+            src/*.fdb_latexmk
