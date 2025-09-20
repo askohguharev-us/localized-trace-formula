@@ -1,22 +1,23 @@
 \documentclass[11pt]{article}
 
-% --- Page geometry & typography ---
+% --- Page & fonts ---
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{microtype}
+\usepackage[utf8]{inputenc}   % critical for pdflatex on CI
+\usepackage[T1]{fontenc}      % proper fonts/encoding
+\usepackage{lmodern}
 
-% --- AMS & math packages ---
+% --- Math & typesetting ---
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{mathtools}
-\usepackage{bm}
-
-% --- Graphics (safe even if unused) ---
-\usepackage{graphicx}
-
-% --- Links & references ---
+\usepackage{microtype}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{url}
+
+% --- Metadata ---
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
@@ -26,50 +27,45 @@
   pdfauthor={Alexander Stepanovich Kozhukharev}
 }
 
-% --- Lists ---
-\usepackage{enumitem}
-
 % --- Numbering ---
 \numberwithin{equation}{section}
 
-% --- Local macros ---
+% --- Custom macros (order matters: envs before house style) ---
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
-% =====================================================
-%                   DOCUMENT
-% =====================================================
+% --- Title data ---
+\title{\Large\bfseries Localized Trace Formula: A Monograph}
+\author{Alexander Stepanovich Kozhukharev\\
+\small Moscow, Russia\\
+\small \texttt{askohguharev@yandex.ru}}
+\date{September 8, 2025}
+
 \begin{document}
 
-% --- Title page (full, arXiv-friendly) ---
-\begin{titlepage}
-  \centering
-  {\LARGE \bfseries Localized Trace Formula: A Monograph\par}
-  \vspace{1.25em}
-  {\large Alexander Stepanovich Kozhukharev\par}
-  \vspace{0.25em}
-  {\normalsize Moscow, Russia\par}
-  \vspace{0.25em}
-  {\normalsize \texttt{askohguharev@yandex.ru}\par}
-  \vspace{1.25em}
-  {\normalsize DOI/Zenodo: \href{https://doi.org/10.5281/zenodo.16877265}{10.5281/zenodo.16877265}\par}
-  \vfill
-  \begin{abstract}
-  We develop a localized trace formula on finite-area hyperbolic surfaces with cusps. 
-  A microlocal projector onto energies in $[\lambda-\eta,\lambda+\eta]$ yields a geometric expansion supported on closed geodesics of length $\le T\asymp \log\lambda$, together with explicit, uniform-in-$Y$ remainder terms. 
-  The construction provides a power-saving error for the identity and parabolic contributions, and leads to quantitative local Weyl laws and variance bounds for automorphic forms.
-  \end{abstract}
-  \vfill
-  {\normalsize Version compiled on \today\par}
-\end{titlepage}
+\maketitle
+\thispagestyle{plain}
 
-% --- Frontmatter (executive summary, roadmap, notation) ---
+\begin{abstract}
+We establish a localized trace formula for finite-area hyperbolic surfaces
+$\Gamma \backslash \mathbb{H}$ with cusps. The formula equates a spectrally
+localized sum of Laplace eigenvalues, obtained via a smooth projector onto an
+interval $[\lambda-\eta,\lambda+\eta]$, with a geometric expansion over closed
+geodesics of length up to $T \asymp \log \lambda$, accompanied by an explicit
+remainder term. Applications include a quantitative local Weyl law with
+power-saving error and variance bounds for Fourier coefficients of
+Hecke--Maass forms.
+\end{abstract}
+
+\tableofcontents
+
+% --- Frontmatter ---
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% --- Core sections ---
+% --- Sections ---
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -82,7 +78,7 @@
 % --- Conclusion ---
 \input{conclusion/09-conclusion.tex}
 
-% --- Appendices (A–H) ---
+% --- Appendices (A, B already present) ---
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -90,11 +86,11 @@
 \input{appendices/D-extended-tauberian.tex}
 \input{appendices/E-numerical-verification.tex}
 \input{appendices/F-implementation-notes.tex}
-\input{appendices/G-normalizations-and-conventions.tex}
+\input{appendices/G-normalizations-and-conve.tex}
 \input{appendices/H-selberg-comparison.tex}
 
-% --- Bibliography ---
-\bibliographystyle{amsplain}
+% --- Bibliography (BibTeX, alpha) ---
+\bibliographystyle{alpha}
 \bibliography{bib/references}
 
 \end{document}
