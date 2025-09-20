@@ -1,69 +1,71 @@
 \documentclass[11pt]{article}
 
-% -------------------- Packages (arXiv/Annals safe) --------------------
+% --- Page & typography (journal-grade) ---
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage{amsmath,amsthm,amssymb,amsfonts}
-\usepackage{mathtools}
 \usepackage{microtype}
-\usepackage[dvipsnames]{xcolor} % required for named colors in \hypersetup
-\usepackage{hyperref}
-\usepackage[nameinlink]{cleveref}
-\usepackage{enumitem}
-\usepackage{url}
+\usepackage{setspace}
+\usepackage{lmodern}
 
-% -------------------- Metadata --------------------
+% --- Math core ---
+\usepackage{amsmath,amsthm,amssymb,amsfonts,mathtools}
+\numberwithin{equation}{section}
+
+% --- Hyperref/Cleveref (Annals-friendly setup) ---
+\usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
   citecolor=blue!40!black,
   urlcolor=blue!40!black,
   pdftitle={Localized Trace Formula: A Monograph},
-  pdfauthor={Alexander S. Kozhukharev}
+  pdfauthor={Alexander S. Kozhukharev},
+  pdfsubject={Spectral theory; hyperbolic surfaces; localized trace formula}
 }
+\usepackage[nameinlink,capitalise]{cleveref}
 
-% -------------------- Numbering --------------------
-\numberwithin{equation}{section}
+% --- Lists & utilities ---
+\usepackage{enumitem}
+\setlist{nosep}
 
-% -------------------- Custom macros --------------------
+% --- Local macros (already in repo) ---
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
+% --- Title block (expanded, no Russian) ---
 \begin{document}
+\thispagestyle{empty}
 
-% -------------------- Title page --------------------
-\begin{titlepage}
-  \centering
-  {\Large \textsc{Monograph}}\\[8pt]
-  {\LARGE\bfseries Localized Trace Formula}\\[4pt]
-  {\large Spectral, Geometric, and Microlocal Aspects}\\[20pt]
+\begin{center}
+  {\LARGE\bfseries Localized Trace Formula: A Monograph}\\[8pt]
+  {\large Alexander S.~Kozhukharev}\\[4pt]
+  {\small Independent Researcher, Moscow, Russia}\\
+  \href{mailto:askohguharev@yandex.ru}{\texttt{askohguharev@yandex.ru}}\\[6pt]
+  \vspace{4pt}
+  \today
+\end{center}
 
-  {\large Alexander S. Kozhukharev}\\[4pt]
-  {\normalsize \url{mailto:askohguharev@yandex.ru}}\\[2pt]
-  {\normalsize ORCID: 0000-0000-0000-0000}\\[18pt]
+\vspace{10pt}
 
-  {\normalsize Version: September 8, 2025}\\[2pt]
-  {\normalsize Repository: \url{https://github.com/askohguharev-us/localized-trace-formula}}\\[2pt]
-  {\normalsize License: CC BY 4.0 / MIT (code)}\\[24pt]
+\begin{abstract}
+We develop a localized trace formula on finite-area hyperbolic surfaces with cusps. 
+A smooth spectral projector onto a dyadic window $[\lambda-\eta,\lambda+\eta]$ is realized microlocally via a compactly supported wave packet, yielding a geometric expansion over closed geodesics of length $\ll \log\lambda$ together with an explicit, power-saving remainder depending only on cusp geometry and a fixed spectral gap. Consequences include a quantitative local Weyl law and variance bounds for Hecke--Maass coefficients in depth. The appendix suite provides effective cusp geometry (A), auxiliary operator and oscillatory estimates (B), a microlocal toolkit (C), Tauberian upgrades (D), numerical verification protocol (E), implementation notes (F), normalization ledger (G), and a comparison with the classical Selberg trace formula (H).
+\end{abstract}
 
-  \vfill
-  \begin{abstract}
-  We develop a localized trace formula on finite-area hyperbolic surfaces with cusps.
-  A smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$ is constructed
-  microlocally and yields a geometric expansion over closed geodesics of length
-  $\le T\asymp \log\lambda$, with an explicit power-saving remainder depending only
-  on cusp geometry and the spectral gap. Applications include a quantitative local
-  Weyl law and variance bounds for Hecke--Maass forms in the depth aspect.
-  \end{abstract}
-  \vfill
-\end{titlepage}
+\vspace{8pt}
+\noindent\textbf{MSC (2020).} 11F72, 58J51, 35S30, 37D40. \quad
+\textbf{Keywords.} Selberg trace formula; microlocal analysis; hyperbolic surfaces; spectral projectors; cusp geometry.
 
-% -------------------- Frontmatter --------------------
+\bigskip
+\tableofcontents
+\bigskip
+
+% --- Frontmatter (already present in repo) ---
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% -------------------- Sections --------------------
+% --- Main sections (paths exactly as in your repo) ---
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -73,10 +75,10 @@
 \input{sections/07-main-results.tex}
 \input{sections/08-applications.tex}
 
-% -------------------- Conclusion --------------------
+% --- Conclusion ---
 \input{conclusion/09-conclusion.tex}
 
-% -------------------- Appendices --------------------
+% --- Appendices (A--H, exactly as listed) ---
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -87,8 +89,8 @@
 \input{appendices/G-normalizations-and-conventions.tex}
 \input{appendices/H-selberg-comparison.tex}
 
-% -------------------- Bibliography --------------------
-\bibliographystyle{alpha}
+% --- Bibliography ---
+\bibliographystyle{amsalpha} % Annals-friendly AMS style
 \bibliography{bib/references}
 
 \end{document}
