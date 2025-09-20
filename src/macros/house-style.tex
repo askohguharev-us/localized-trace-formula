@@ -5,13 +5,13 @@
 % --- Font and spacing tweaks (safe for arXiv/Annals) ---
 \setlength{\parskip}{0.25em}
 \setlength{\parindent}{15pt}
-\linespread{1.04} % slight breathing room without changing metrics
+\linespread{1.04}
 
-% --- Equation numbering is set in main; ensure figures/tables per-section ---
+% --- Numbering for figures/tables per section ---
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
 
-% --- Microtype setup (already loaded in main) ---
+% --- Microtype fine tuning ---
 \microtypesetup{final,tracking=true,kerning=true,spacing=true,protrusion=true}
 
 % --- URL and link formatting ---
@@ -24,10 +24,8 @@
 \Crefname{subsection}{Subsection}{Subsections}
 \crefname{subsubsection}{Subsection}{Subsections}
 \Crefname{subsubsection}{Subsection}{Subsections}
-
 \crefname{appendix}{Appendix}{Appendices}
 \Crefname{appendix}{Appendix}{Appendices}
-
 \crefname{figure}{Figure}{Figures}
 \Crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
@@ -35,7 +33,6 @@
 \crefname{equation}{Equation}{Equations}
 \Crefname{equation}{Equation}{Equations}
 
-% theorem-like names (declared in environments.tex; here we just name them)
 \crefname{theorem}{Theorem}{Theorems}
 \Crefname{theorem}{Theorem}{Theorems}
 \crefname{lemma}{Lemma}{Lemmas}
@@ -53,14 +50,11 @@
 \crefname{claim}{Claim}{Claims}
 \Crefname{claim}{Claim}{Claims}
 
-% --- Proof qed symbol (keep default diamond/box aesthetics) ---
-% Do not redefine proof environment here; leave defaults for journals.
-
-% --- Lists style (compact but readable) ---
+% --- Lists style ---
 \setlist[itemize]{topsep=2pt,parsep=0pt,itemsep=2pt,leftmargin=18pt}
 \setlist[enumerate]{topsep=2pt,parsep=0pt,itemsep=2pt,leftmargin=22pt}
 
-% --- Tcolorbox defaults for displayed statements (used only if invoked) ---
+% --- tcolorbox defaults (used only if invoked) ---
 \tcbset{
   colback=white,
   colframe=black!10!gray,
@@ -71,7 +65,7 @@
   breakable
 }
 
-% --- Small helpers (pure macros, no theorems) ---
+% --- Small helpers (pure macros) ---
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\ip}[2]{\left\langle #1,\,#2 \right\rangle}
