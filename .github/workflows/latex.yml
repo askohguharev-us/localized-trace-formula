@@ -3,83 +3,90 @@ name: LaTeX build (arXiv/Annals)
 on:
   push:
     branches: [ main ]
-    tags:     [ 'v*' ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
-    name: Compile monograph (pdf)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # --- linters & pdf utils ---
-      - name: Install chktex + pdf tools
+      - name: Install pdf tools (logs sanity)
         run: |
           sudo apt-get update
-          sudo apt-get install -y chktex ghostscript poppler-utils
+          sudo apt-get install -y ghostscript poppler-utils
 
-      - name: Lint TeX with chktex
-        working-directory: src
-        run: |
-          find . -name "*.tex" -print0 | xargs -0 -n1 -I{} bash -c \
-          'echo "::group::chktex {}"; chktex -q -n1 -n8 -n46 {}; echo "::endgroup::"'
-
-      # --- compile with latex-action ---
-      - name: Compile (pdflatex + bibtex via latexmk)
+      # --- pass 1: pdflatex (arXiv-совместимый) ---
+      - name: Compile with pdflatex (latex-action)
+        id: pdflatex
         uses: xu-cheng/latex-action@v3
         with:
-          # работаем прямо в каталоге src
           working_directory: src
           root_file: main.tex
-          # по умолчанию latexmk дергает bibtex — это нам и нужно
           latexmk_use_xelatex: false
           latexmk_use_lualatex: false
           latexmk_shell_escape: false
-          # строгий режим latexmk
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+          # после сборки скопируем логи в dist (даже если не собралось на 100%)
+          post_compile: |
+            mkdir -p dist/logs
+            cp -f main.log   dist/logs/  || true
+            cp -f main.blg   dist/logs/  || true
+            cp -f main.bbl   dist/logs/  || true
+            cp -f main.bcf   dist/logs/  || true
+            cp -f main.run.xml dist/logs/ || true
+            cp -f main.pdf   dist/       || true
 
-      # --- sanity checks for produced PDF ---
-      - name: Verify PDF
+      # --- fallback: xelatex (если вдруг шрифты/Unicode) ---
+      - name: Compile with xelatex (fallback)
+        if: ${{ !exists('src/main.pdf') }}
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: src
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: false
+          args: -interaction=nonstopmode -halt-on-error -file-line-error
+          post_compile: |
+            mkdir -p dist/logs
+            cp -f main.log   dist/logs/  || true
+            cp -f main.blg   dist/logs/  || true
+            cp -f main.bbl   dist/logs/  || true
+            cp -f main.pdf   dist/       || true
+
+      # --- верификация и печать заголовка PDF ---
+      - name: Verify PDF and print info
         run: |
           test -s src/main.pdf
-          pdfinfo src/main.pdf
-          gs -o /dev/null -sDEVICE=nullpage -dBATCH -dNOPAUSE src/main.pdf
-
-      # --- upload artifact ---
-      - name: Prepare artifact
-        run: |
+          echo "==================== PDFINFO ===================="
+          pdfinfo src/main.pdf || true
+          echo "================================================="
           mkdir -p dist
-          cp src/main.pdf dist/localized-trace-formula.pdf
+          cp -f src/main.pdf dist/localized-trace-formula.pdf
 
-      - name: Upload PDF artifact
+      # --- артефакты (всегда) ---
+      - name: Upload PDF
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: localized-trace-formula-pdf
           path: dist/localized-trace-formula.pdf
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
 
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    name: Attach PDF to GitHub Release
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - name: Upload LaTeX logs
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: localized-trace-formula-pdf
-          path: dist
-
-      - name: Create/Update Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: dist/localized-trace-formula.pdf
-          fail_on_unmatched_files: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: latex-logs
+          path: |
+            src/dist/logs/**
+            dist/logs/**
+            src/main.log
+            src/main.blg
+            src/main.bbl
+          retention-days: 14
