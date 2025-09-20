@@ -2,8 +2,8 @@
 
 % --- Page & fonts ---
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage[utf8]{inputenc}   % critical for pdflatex on CI
-\usepackage[T1]{fontenc}      % proper fonts/encoding
+\usepackage[utf8]{inputenc}   % UTF-8 input for pdflatex (CI-safe)
+\usepackage[T1]{fontenc}      % proper font encoding
 \usepackage{lmodern}
 
 % --- Math & typesetting ---
@@ -17,7 +17,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 
-% --- Metadata ---
+% --- PDF metadata ---
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
@@ -30,12 +30,12 @@
 % --- Numbering ---
 \numberwithin{equation}{section}
 
-% --- Custom macros (order matters: envs before house style) ---
+% --- Macros (envs first) ---
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
-% --- Title data ---
+% --- Title page ---
 \title{\Large\bfseries Localized Trace Formula: A Monograph}
 \author{Alexander Stepanovich Kozhukharev\\
 \small Moscow, Russia\\
@@ -78,7 +78,7 @@ Hecke--Maass forms.
 % --- Conclusion ---
 \input{conclusion/09-conclusion.tex}
 
-% --- Appendices (A, B already present) ---
+% --- Appendices ---
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -86,10 +86,10 @@ Hecke--Maass forms.
 \input{appendices/D-extended-tauberian.tex}
 \input{appendices/E-numerical-verification.tex}
 \input{appendices/F-implementation-notes.tex}
-\input{appendices/G-normalizations-and-conve.tex}
+\input{appendices/G-normalizations-and-conventions.tex}
 \input{appendices/H-selberg-comparison.tex}
 
-% --- Bibliography (BibTeX, alpha) ---
+% --- Bibliography ---
 \bibliographystyle{alpha}
 \bibliography{bib/references}
 
