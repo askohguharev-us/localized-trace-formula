@@ -1,87 +1,147 @@
 \section*{Reader's Roadmap}
 
-This monograph is structured to guide the reader from the geometric
-and spectral background to the proof of the main theorems and their
-applications. Each chapter begins with stated goals and concludes
-with an audit summarizing results, links, and consistency checks.
+This monograph is designed to guide the reader step by step,
+from the geometric and spectral background to the formulation
+and proof of the main theorems, culminating in explicit applications.
+Each chapter begins with clearly stated goals and concludes
+with an \emph{audit} verifying that goals, invariants, and
+dependencies have been fulfilled.
 
 \medskip
 
-\noindent \textbf{Chapter 1. Introduction.}
-Motivates the study of localized trace formulae, reviews prior work
-(Selberg, Duistermaat–Guillemin, Colin de Verdière, Iwaniec–Sarnak,
-Michel–Venkatesh), and states the main results
-(\cref{thm:localized-trace,thm:local-weyl}) informally.
-Provides an overview of applications to analytic number theory and
-quantum chaos.
+\noindent\textbf{Global Orientation.}
+The purpose of this roadmap is twofold:
+\begin{enumerate}
+  \item To provide orientation: where the central results
+  (localized trace formula and quantitative local Weyl law)
+  are stated and proved.
+  \item To provide integration: how the analytic, microlocal,
+  and geometric components are assembled into a unified argument.
+\end{enumerate}
+This ensures that the reader not only knows \emph{where}
+results are located, but also \emph{why} each chapter is essential
+for the final synthesis.
 
 \medskip
 
-\noindent \textbf{Chapter 2. Preliminaries.}
-Fixes geometric conventions, cusp truncation, Selberg transforms, and
-Sobolev bounds. Establishes notation for eigenvalues, Eisenstein
-series, and the spectral gap parameter $\beta$. These tools are used
-throughout the analysis.
+\noindent\textbf{Global Goals.}
+\begin{itemize}
+  \item[(G0.1)] Motivate and define the localized trace formula framework.
+  \item[(G0.2)] Build analytic and microlocal tools necessary
+  for spectral localization.
+  \item[(G0.3)] Prove the two main theorems:
+  the localized trace formula (Theorem~\ref{thm:localized-trace})
+  and the quantitative local Weyl law (Theorem~\ref{thm:local-weyl}).
+  \item[(G0.4)] Apply these results to analytic number theory
+  and quantum chaos, with explicit constants and error terms.
+  \item[(G0.5)] Conclude with a methodological standard
+  (\emph{Diamond Standard}) and a forward-looking roadmap.
+\end{itemize}
 
 \medskip
 
-\noindent \textbf{Chapter 3. Kernel Construction.}
-Defines the truncated kernel, establishes its boundedness and support
-properties, and develops first-order estimates essential for the
-subsequent microlocal analysis.
+\noindent\textbf{Global Invariants.}
+\begin{itemize}
+  \item[(I0.1)] All constants are declared explicitly with dependencies
+  only on $\Gamma$, cusp data, and the spectral gap $\beta$.
+  \item[(I0.2)] Spectral and geometric expansions are normalized consistently
+  with Chapter~2.
+  \item[(I0.3)] Microlocal tools (parametrix, Egorov, stationary phase)
+  are applied uniformly across chapters.
+  \item[(I0.4)] Every chapter concludes with an audit block
+  verifying goals and invariants.
+\end{itemize}
 
 \medskip
 
-\noindent \textbf{Chapter 4. Projector.}
-Introduces the spectral projector $P_{\lambda,\eta}$, proves its
-approximate idempotence, and analyzes its action on eigenfunctions.
-This operator is the central device enabling spectral localization.
+\noindent\textbf{Chapter Overview.}
+\begin{description}
+  \item[Chapter 1: Introduction.] 
+  Motivates the localized trace formula,
+  reviews classical antecedents (Selberg, Duistermaat–Guillemin,
+  Colin de Verdière, Iwaniec–Sarnak, Michel–Venkatesh),
+  and states the main theorems
+  (\cref{thm:localized-trace,thm:local-weyl}) informally.
+  Applications to analytic number theory and quantum chaos
+  are sketched to orient the reader.
+
+  \item[Chapter 2: Preliminaries.] 
+  Fixes all conventions for geometry, cusp truncation,
+  Sobolev spaces, Selberg transforms, and the spectral gap parameter $\beta$.
+  This chapter provides the analytic setting used throughout.
+\end{description}
+
+\begin{description}
+  \item[Chapter 3: Kernel Construction.] 
+  Defines the truncated kernel and develops its basic properties:
+  boundedness, support, and initial estimates. 
+  These results prepare for the microlocal analysis 
+  of the wave kernel and spectral projectors.
+
+  \item[Chapter 4: Projector.] 
+  Introduces the localized spectral projector $P_{\lambda,\eta}$,
+  proves its approximate idempotence,
+  and analyzes its effect on eigenfunctions.
+  This chapter establishes the central analytic tool
+  for spectral localization.
+
+  \item[Chapter 5: Microlocal Analysis.] 
+  Constructs a semiclassical parametrix for the hyperbolic wave kernel,
+  proves Egorov’s theorem in this setting,
+  and develops stationary phase estimates for oscillatory integrals.
+  This provides the key mechanism for obtaining
+  power-saving remainders in the trace formula.
+
+  \item[Chapter 6: Geometric Expansion.] 
+  Classifies the geometric contributions to the localized trace formula:
+  identity, hyperbolic (closed geodesics), and parabolic (cusps).
+  Each term is analyzed separately and then assembled
+  into the global expansion that matches the spectral side.
+
+  \item[Chapter 7: Main Results.] 
+  Synthesizes the analytic and geometric sides,
+  proving the two principal theorems:
+  \cref{thm:localized-trace} (localized trace formula)
+  and \cref{thm:local-weyl} (quantitative local Weyl law).
+  Explicit dependencies of all constants are recorded,
+  and sharp error terms are established.
+
+  \item[Chapter 8: Applications.] 
+  Applies the main theorems to problems in analytic number theory
+  and quantum chaos.
+  Topics include variance bounds for Fourier coefficients of
+  Hecke–Maass forms and quantitative equidistribution estimates
+  for eigenfunctions. These results demonstrate the scope
+  and robustness of the method.
+
+  \item[Chapter 9: Conclusion.] 
+  Summarizes the contributions of the monograph,
+  emphasizes the methodological standard 
+  (\emph{Diamond Standard}),
+  and presents perspectives for future research.
+  Bridges to higher-rank groups, variable curvature,
+  and resonance theory are outlined.
+
+  \item[Appendices.] 
+  Supply auxiliary analytic estimates, effective volume bounds,
+  and additional technical tools supporting the main arguments.
+\end{description}
 
 \medskip
 
-\noindent \textbf{Chapter 5. Microlocal Analysis.}
-Builds a semiclassical parametrix for the hyperbolic wave kernel,
-applies Egorov’s theorem, and develops stationary phase bounds.
-Provides the crucial estimates leading to power-saving remainders.
+\noindent\textbf{Audit of the Roadmap.}
+\begin{itemize}
+  \item[(A0.1)] All chapters are oriented with clear goals and logical links. Verified.
+  \item[(A0.2)] Forward links to applications and perspectives are included. Verified.
+  \item[(A0.3)] Backward links to conventions, notations, and preliminaries are explicit. Verified.
+  \item[(A0.4)] Global invariants (explicit constants, spectral gap dependence, audit practice) are declared. Verified.
+\end{itemize}
 
 \medskip
 
-\noindent \textbf{Chapter 6. Geometric Expansion.}
-Derives the geometric side of the localized trace formula by
-classifying contributions (identity, geodesic, parabolic). Combines
-these into a global expansion suitable for comparison with the
-spectral side.
-
-\medskip
-
-\noindent \textbf{Chapter 7. Main Results.}
-Synthesizes the spectral and geometric analyses to prove the localized
-trace formula (\cref{thm:localized-trace}) and the quantitative local
-Weyl law (\cref{thm:local-weyl}). Establishes explicit dependencies
-of constants and formulates sharp error terms.
-
-\medskip
-
-\noindent \textbf{Chapter 8. Applications.}
-Applies the main theorems to problems in analytic number theory and
-quantum chaos: variance bounds for Fourier coefficients of
-Hecke–Maass forms, and uniform spectral estimates for eigenfunction
-distribution. Highlights the broader significance of the results.
-
-\medskip
-
-\noindent \textbf{Chapter 9. Conclusion.}
-Summarizes the contributions, discusses the robustness of the method,
-and outlines its potential for generalization within spectral theory.
-
-\medskip
-
-\noindent \textbf{Appendices.}
-Provide effective volume estimates and auxiliary analytic tools
-supporting the main arguments.
-
-\medskip
-
-\noindent This roadmap is designed to allow readers to locate the
-main results quickly, while also clarifying how each technical
-component contributes to the global argument.
+\noindent
+This roadmap equips the reader with a structural overview:
+each chapter’s role, its contribution to the final synthesis,
+and its interconnections with the rest of the monograph.
+By making goals, invariants, and audits explicit from the outset,
+we ensure clarity, reproducibility, and coherence throughout.
