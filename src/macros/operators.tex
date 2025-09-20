@@ -1,26 +1,48 @@
-% operators.tex — standard math operators with no package side effects
-\providecommand{\dd}{\,\mathrm{d}}
-\providecommand{\ee}{\mathrm{e}}
-\providecommand{\ii}{\mathrm{i}}
+% src/macros/operators.tex
+% Math operators and paired delimiters (arXiv/Annals friendly).
+% Only English in source. UTF-8 encoding.
 
-\DeclareMathOperator{\vol}{vol}
-\DeclareMathOperator{\Area}{Area}
-\DeclareMathOperator{\Length}{Length}
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\spec}{spec}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Res}{Res}
+% --- Operators (provide if missing) ---
+\providecommand{\inj}{\operatorname{inj}}          % injectivity radius
+\providecommand{\Area}{\operatorname{Area}}
+\providecommand{\Length}{\operatorname{Length}}
+\providecommand{\Vol}{\operatorname{Vol}}
+\providecommand{\vol}{\operatorname{vol}}
+\providecommand{\meas}{\operatorname{meas}}
+\providecommand{\diam}{\operatorname{diam}}
+\providecommand{\dist}{\operatorname{dist}}
+\providecommand{\supp}{\operatorname{supp}}
+\providecommand{\sgn}{\operatorname{sgn}}
+\providecommand{\Id}{\operatorname{Id}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\Res}{\operatorname{Res}}
+\providecommand{\spec}{\operatorname{spec}}
+\providecommand{\Span}{\operatorname{span}}
+\providecommand{\rank}{\operatorname{rank}}
+\providecommand{\diag}{\operatorname{diag}}
+\providecommand{\Rea}{\operatorname{Re}}
+\providecommand{\Ima}{\operatorname{Im}}
 
-% Blackboard, calligraphic, fraktur helpers
-\newcommand{\bb}[1]{\mathbb{#1}}
-\newcommand{\mc}[1]{\mathcal{#1}}
-\newcommand{\mf}[1]{\mathfrak{#1}}
+% Hyperbolic/geometry helpers used in appendices
+\providecommand{\arccosh}{\operatorname{arccosh}}
+\providecommand{\arcsinh}{\operatorname{arcsinh}}
+\providecommand{\arctanh}{\operatorname{arctanh}}
+\providecommand{\sech}{\operatorname{sech}}
+\providecommand{\csch}{\operatorname{csch}}
 
-% Norms, inner products
-\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
-\newcommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
+% --- Paired delimiters (require mathtools) ---
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\brak}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
 
-% Re/Im (avoid clashes with \Re,\Im redefinitions)
-\renewcommand{\Re}{\operatorname{Re}}
-\renewcommand{\Im}{\operatorname{Im}}
+% Convenience: starred versions auto-size; non-starred keep declared size
+\makeatletter
+\newcommand{\Abs}{\@ifstar{\abs}{\abs*}}
+\newcommand{\Norm}{\@ifstar{\norm}{\norm*}}
+\newcommand{\Paren}{\@ifstar{\paren}{\paren*}}
+\newcommand{\Brak}{\@ifstar{\brak}{\brak*}}
+\newcommand{\Set}{\@ifstar{\set}{\set*}}
+\makeatother
