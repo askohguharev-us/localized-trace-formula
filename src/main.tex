@@ -7,9 +7,11 @@
 \usepackage{microtype}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
-\usepackage[most]{tcolorbox}
 \usepackage{enumitem}
 \usepackage{url}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{tocloft}
 
 % --- Metadata ---
 \hypersetup{
@@ -21,7 +23,7 @@
   pdfauthor={Alexander Stepanovich Kozhukharev, Moscow, Russia, askohguharev@yandex.ru}
 }
 
-% --- Numbering ---
+% --- Numbering conventions ---
 \numberwithin{equation}{section}
 
 % --- Custom macros ---
@@ -29,18 +31,43 @@
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
+% --- Theorem environments ---
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
 \begin{document}
 
-% --- Title ---
-\begin{center}
-  {\LARGE \textbf{Localized Trace Formula: A Monograph}}\\[6pt]
-  {\large Alexander Stepanovich Kozhukharev}\\[4pt]
-  Moscow, Russia\\[4pt]
-  \texttt{askohguharev@yandex.ru}\\[6pt]
-  September 8, 2025
-\end{center}
+% =====================================================
+% --- Title Page ---
+% =====================================================
+\begin{titlepage}
+\centering
 
+\vspace*{2cm}
+
+{\Huge \bfseries Localized Trace Formula: A Monograph \par}
+
+\vspace{2cm}
+
+{\Large Alexander Stepanovich Kozhukharev \par}
+{\large Moscow, Russia \par}
+{\tt askohguharev@yandex.ru \par}
+
+\vfill
+
+{\large \today \par}
+\end{titlepage}
+
+% =====================================================
 % --- Abstract ---
+% =====================================================
 \begin{abstract}
 We establish a localized trace formula for finite-area hyperbolic surfaces
 $\Gamma \backslash \mathbb{H}$ with cusps. The formula equates a spectrally
@@ -52,23 +79,32 @@ remainder term.
 Our primary contribution is the construction of a microlocalized wave
 propagator that sharpens Selberg’s classical approach: the remainder is shown
 to be $O(\lambda^{-\delta})$ for an explicit $\delta>0$ depending only on the
-spectral gap and the geometry of the cusps. This yields a genuine
-power-saving error term, improving the $O(1)$ remainder obtained by standard
-truncation of the Selberg trace formula.
+spectral gap and cusp geometry. This yields a genuine power-saving error term,
+improving the $O(1)$ remainder obtained by standard truncation of the Selberg
+trace formula.
 
-As applications, we derive a quantitative local Weyl law with a power-saving
-error term, and new variance bounds for Fourier coefficients of
-Hecke–Maass forms in the depth aspect. The methods provide a unified analytic
-framework at the intersection of spectral theory, automorphic forms, and
-quantum chaos.
+Applications include a quantitative local Weyl law with a power-saving error
+term, and new variance bounds for Fourier coefficients of Hecke–Maass forms
+in the depth aspect. The methods provide a unified analytic framework at the
+intersection of spectral theory, automorphic forms, and quantum chaos.
 \end{abstract}
 
+% =====================================================
+% --- Table of Contents ---
+% =====================================================
+\tableofcontents
+\newpage
+
+% =====================================================
 % --- Frontmatter ---
+% =====================================================
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% --- Sections ---
+% =====================================================
+% --- Main Sections ---
+% =====================================================
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -78,14 +114,27 @@ quantum chaos.
 \input{sections/07-main-results.tex}
 \input{sections/08-applications.tex}
 
+% =====================================================
 % --- Conclusion ---
+% =====================================================
 \input{conclusion/09-conclusion.tex}
 
+% =====================================================
 % --- Appendices ---
+% =====================================================
+\appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
+\input{appendices/C-microlocal-toolkit.tex}
+\input{appendices/D-extended-tauberian.tex}
+\input{appendices/E-numerical-verification.tex}
+\input{appendices/F-implementation-notes.tex}
+\input{appendices/G-normalizations-and-conventions.tex}
+\input{appendices/H-selberg-comparison.tex}
 
+% =====================================================
 % --- Bibliography ---
+% =====================================================
 \bibliographystyle{alpha}
 \bibliography{bib/references}
 
