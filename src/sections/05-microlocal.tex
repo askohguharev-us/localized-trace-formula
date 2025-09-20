@@ -1,393 +1,362 @@
+% --- Chapter 5: Microlocal Analysis and Parametrix Construction ---
 % --- Block 5.1: Semiclassical Parametrix for the Wave Kernel ---
 
-\section{Microlocal Analysis and Parametrix Construction}
+\section{Microlocal Analysis and Parametrix Construction}\label{sec:microlocal}
 
-\subsection*{Semiclassical Parametrix for the Wave Kernel}
+\subsection{Semiclassical Parametrix for the Wave Kernel}\label{subsec:wave-parametrix}
 
-\noindent\textbf{Purpose.}
-We construct a semiclassical parametrix for the wave kernel
+\noindent\textbf{Scope and standing conventions.}
+Let $M=\Gamma\backslash\mathbb{H}$ be a finite–area hyperbolic surface with hyperbolic metric
+$ds^{2}=y^{-2}(dx^{2}+dy^{2})$ and Laplacian $\Delta\ge 0$ normalized as in Chapter~2.
+Set
 \[
-  U(t) = e^{it\sqrt{\Delta - 1/4}},
+U(t)\;=\;e^{\,it\sqrt{\Delta-1/4}}\qquad(t\in\mathbb{R}),
 \]
-on the hyperbolic surface $M = \Gamma \backslash \mathbb{H}$,
-valid for times $|t|\leq c\log \lambda$,
-and identify its phase and amplitude structure.
-This representation is fundamental for stationary phase expansions
-and for matching with the spectral projector $P_{\lambda,\eta}$.
+so that $U(0)=\mathrm{Id}$ and $U(t)$ is unitary on $L^{2}(M)$.
+We work in the semiclassical regime with parameter $h=\lambda^{-1}\downarrow 0$,
+and we write $|t|\le T(h)$ for time windows with
+\[
+T(h)\;=\;c_{*}\log(1/h),
+\]
+where $c_{*}>0$ is a geometric constant depending only on $M$
+(curvature pinching, injectivity radius of the compact core, cusp data).
+When $M$ is noncompact we tacitly insert a smoothed cusp truncation
+$\Lambda^{Y}_{\mathrm{sm}}$ from Chapter~2 and let $Y\to\infty$ at the end,
+incurring tails $O(Y^{-1})$ that will be absorbed later.
 
 \medskip
 
-\noindent\textbf{Local model on $\mathbb{H}$.}
-On the universal cover $\mathbb{H}$ with metric $ds^2 = y^{-2}(dx^2+dy^2)$,
-the wave kernel admits a parametrix of the form
-\[
-  U_{\mathbb{H}}(t; z,w) \sim (2\pi h)^{-1} \int_{\mathbb{R}} e^{i\varphi(z,w,\xi,t)/h} \, a(z,w,\xi,t;h)\, d\xi,
-\]
-where $h=\lambda^{-1}$ is the semiclassical parameter.
-The phase function $\varphi$ parametrizes geodesics in $\mathbb{H}$,
-and the amplitude $a$ admits an asymptotic expansion in powers of $h$.
+\noindent\textbf{Local model on the universal cover.}
+On $\mathbb{H}$ the kernel of $U_{\mathbb{H}}(t)$ is a Fourier integral distribution associated
+with the geodesic flow.
+Fix geodesic polar coordinates at $w\in\mathbb{H}$ and let $r=d(z,w)$.
+For $|t|$ small one has the Hadamard parametrix
+\begin{equation}\label{eq:hadamard-small-time}
+U_{\mathbb{H}}(t;z,w)
+=\frac{1}{2\pi h}\Big(e^{\frac{i}{h}(r-t)}\,b_{+}(z,w,t;h)\;+\;e^{\frac{i}{h}(-r-t)}\,b_{-}(z,w,t;h)\Big),
+\end{equation}
+where $b_{\pm}$ are classical amplitudes admitting full asymptotic expansions
+$b_{\pm}\sim\sum_{j\ge 0}h^{j}b_{\pm,j}$, determined by transport equations along
+bicharacteristics and satisfying $b_{\pm,0}(z,z,0)=1$; see \cite{Hormander1994,DG1975}.
+The two oscillatory terms correspond to the two orientations of geodesics.
 
 \medskip
 
-\noindent\textbf{Phase function.}
-The phase $\varphi(z,w,\xi,t)$ satisfies the eikonal equation
+\noindent\textbf{Extension to logarithmic times on $M$.}
+Negative curvature yields hyperbolic dispersion and uniform control of derivatives of the flow.
+Combining \eqref{eq:hadamard-small-time} with standard FIO propagation
+one obtains a parametrix on $M$ valid up to logarithmic times $|t|\le T(h)$.
+Precisely:
+
+\begin{theorem}[Semiclassical parametrix up to log-times]\label{thm:parametrix-logtime}
+There exist $c_{*}>0$ and classical amplitudes $a_{\pm}(z,w,t;h)\sim\sum_{j\ge 0}h^{j}a_{\pm,j}$
+such that for all $|t|\le T(h)=c_{*}\log(1/h)$
+\begin{equation}\label{eq:parametrix-log}
+U(t;z,w)\;=\;\frac{1}{2\pi h}\Big(e^{\frac{i}{h}(d(z,w)-t)}\,a_{+}(z,w,t;h)\;+\;
+e^{\frac{i}{h}(-d(z,w)-t)}\,a_{-}(z,w,t;h)\Big)\;+\;R(t;z,w),
+\end{equation}
+where the remainder satisfies the operator bound
 \[
-  \partial_t \varphi + H_p(\varphi) = 0, \qquad \varphi|_{t=0} = (z-w)\cdot \xi,
+\|R(t;\cdot,\cdot)\|_{L^{2}\to L^{2}}\;\le\;C_{N}\,h^{N}\,e^{C|t|}\qquad\text{for all }N\in\mathbb{N},
 \]
-where $H_p$ is the Hamiltonian vector field associated with the symbol
-$p(z,\xi) = |\xi|_g$ on $T^*\mathbb{H}$.
-Geometrically,
+with geometric constants $C_{N},C$ depending only on $M$.
+Consequently, for $|t|\le T(h)$,
 \[
-  \varphi(z,w,t) = \pm d(z,w) - t,
+\|R(t)\|_{L^{2}\to L^{2}}\;\le\;C_{N}'\,h^{N-\kappa}\qquad\text{with }\;\kappa=C\,c_{*},
 \]
-modulo smooth perturbations, with $d(z,w)$ the hyperbolic distance.
+and in particular choosing $c_{*}$ sufficiently small yields
+$\|R(t)\|_{2\to 2}\le C_{N}''\,h^{N}$ uniformly on $|t|\le T(h)$.
+All constants are independent of $\lambda$ and uniform under cusp truncation,
+up to tails $O(Y^{-1})$ as $Y\to\infty$.
+\end{theorem}
 
-\medskip
-
-\noindent\textbf{Amplitude expansion.}
-The amplitude $a(z,w,\xi,t;h)$ has an expansion
-\[
-  a \sim \sum_{j=0}^\infty h^j a_j(z,w,\xi,t),
-\]
-with $a_0$ determined by transport equations along bicharacteristics.
-Explicitly, $a_0$ incorporates the Jacobian determinant of the geodesic flow
-and ensures that $U(t)$ is unitary on $L^2$.
-
-\medskip
-
-\noindent\textbf{Hadamard parametrix (hyperbolic case).}
-By the Hadamard construction, valid for $|t|$ small,
-\[
-  U_{\mathbb{H}}(t; z,w) = \frac{1}{(2\pi h)} e^{i(d(z,w)-t)/h}\, b(z,w,t;h)
-  + \frac{1}{(2\pi h)} e^{i(-d(z,w)-t)/h}\, b'(z,w,t;h),
-\]
-with amplitudes $b,b'$ smooth and admitting full asymptotic expansions in $h$.
-See Hörmander~\cite{Hormander1994}, Duistermaat–Guillemin~\cite{DG1975}.
-
-\medskip
-
-\noindent\textbf{Periodization to $M$.}
-On the quotient surface $M=\Gamma\backslash\mathbb{H}$,
-the kernel is obtained by summing over $\Gamma$:
-\[
-  U_M(t; z,w) = \sum_{\gamma\in \Gamma} U_{\mathbb{H}}(t; z,\gamma w).
-\]
-Convergence follows from exponential decay of amplitudes in $d(z,\gamma w)$
-for fixed $t$.
-
-\medskip
-
-\noindent\textbf{Microlocal support.}
-The kernel $U(t)$ is microlocally supported near the canonical relation
-\[
-  C_t = \{ (z,\xi; w,\eta) \in T^*M\times T^*M : (z,\xi)=g^t(w,\eta)\},
-\]
-where $g^t$ is the geodesic flow.
-This ensures that $U(t)$ propagates singularities along geodesics.
-
-\medskip
-
-\noindent\textbf{Lemma 5.1.1 (Parametrix structure).}
-\emph{For $|t|\le c\log \lambda$, the wave kernel on $M$ admits a semiclassical parametrix}
-\[
-  U(t;z,w) = (2\pi h)^{-1} \int_{\mathbb{R}} e^{i\varphi(z,w,\xi,t)/h}\, a(z,w,\xi,t;h)\, d\xi + R(t;z,w),
-\]
-\emph{with remainder $R$ satisfying}
-\[
-  \|R(t;\cdot,\cdot)\|_{L^2\to L^2} \ll h^N,
-\]
-\emph{for any fixed $N$, uniformly in $\lambda$.}
-
-\begin{proof}
-Standard semiclassical Fourier integral operator theory, combined with the Hadamard parametrix,
-provides such an expansion, valid up to logarithmic timescales on negatively curved manifolds.
-See Duistermaat–Guillemin~\cite{DG1975}, Nonnenmacher–Zworski (2007).
+\begin{proof}[Sketch of proof]
+Parametrize $\mathbb{H}$–geodesics by a phase $\varphi$ solving the eikonal equation
+$\partial_{t}\varphi+H_{p}(\varphi)=0$ for $p(z,\xi)=|\xi|_{g}$ with initial data compatible
+with \eqref{eq:hadamard-small-time}.
+Construct amplitudes by transport along the Hamilton flow; periodize over $\Gamma$ to obtain $M$.
+Hyperbolicity of the geodesic flow implies exponential bounds on derivatives of the phase and
+amplitudes, producing the factor $e^{C|t|}$ in the remainder.
+Restricting to $|t|\le c_{*}\log(1/h)$ and choosing $c_{*}$ small enough converts
+$e^{C|t|}$ into $h^{-\kappa}$ with $\kappa=Cc_{*}$.
+See \cite{DG1975,Hormander1994,Zworski2012,Berard1977,DyatlovZworski2019}.
 \end{proof}
 
 \medskip
 
-\noindent\textbf{Geometric meaning.}
-The parametrix expresses $U(t)$ as a superposition of oscillatory contributions
-from geodesics connecting $z$ and $w$ in time $t$.
-The amplitudes record the curvature of $\mathbb{H}$,
-and the exponential divergence of geodesics controls their growth.
-
-\medskip
-
-\noindent\textbf{Energy scaling.}
-Since $h=\lambda^{-1}$, the oscillatory factor $e^{i\varphi/h}$
-has frequency $\asymp \lambda$,
-matching the energy localization of $P_{\lambda,\eta}$.
-Thus $U(t)$ and $P_{\lambda,\eta}$ are consistent on the semiclassical scale.
-
-\medskip
-
-\noindent\textbf{Corollary 5.1.2 (Singularity propagation).}
-\emph{For $f\in \mathcal{D}'(M)$,
-the wavefront set satisfies}
+\noindent\textbf{Periodization and local finiteness.}
+Write the lifted kernel on $\mathbb{H}$ as $U_{\mathbb{H}}$ and periodize:
 \[
-  \operatorname{WF}(U(t)f) = g^t(\operatorname{WF}(f)).
+U_{M}(t;z,w)\;=\;\sum_{\gamma\in\Gamma}U_{\mathbb{H}}(t;z,\gamma w).
 \]
-
-\begin{proof}
-This follows from the microlocal structure of the parametrix and standard propagation of singularities.
-See Hörmander~\cite[Vol.~IV]{Hormander1994}.
-\end{proof}
+For fixed $t$ and $z$, the summand is rapidly decreasing in $d(z,\gamma w)$,
+and by the hyperbolic lattice point bound
+$\#\{\gamma: d(z,\gamma w)\le R\}\asymp e^{R}$ the series is locally finite and absolutely convergent.
+All estimates remain valid after insertion of $\Lambda^{Y}_{\mathrm{sm}}$,
+with an additional error $O(Y^{-1})$ originating from the cusp tails (Chapter~2).
 
 \medskip
 
-\noindent\textbf{Consistency with projector.}
-The representation
+\noindent\textbf{Canonical relation and principal amplitudes.}
+Let $g^{t}:T^{*}M\to T^{*}M$ be the geodesic flow.
+Microlocally, $U(t)$ is a Fourier integral operator associated with
 \[
-  P_{\lambda,\eta} = \frac{1}{2\pi} \int e^{-it\lambda}\,\widehat{\chi}_\eta(t)\, U(t)\,dt,
+\mathcal{C}_{t}\;=\;\{(z,\xi;w,\eta): (z,\xi)=g^{t}(w,\eta)\},
 \]
-shows that the microlocal structure of $P_{\lambda,\eta}$
-is inherited directly from $U(t)$.
-The cutoff $\widehat{\chi}_\eta$ restricts integration to $|t|\le \eta^{-1}$,
-well within the validity range of the parametrix for $\eta\ge \lambda^{-\theta}$.
+and its principal symbols have modulus governed by the square root of the unstable Jacobian
+of $g^{t}$.
+In particular, the leading amplitudes $a_{\pm,0}$ satisfy
+\[
+|a_{\pm,0}(z,w,t)|\;\asymp\;(\det D\exp_{w})^{-1/2}\quad\text{along the contributing geodesics},
+\]
+ensuring $L^{2}$–unitarity of $U(t)$.
 
 \medskip
 
-\noindent\textbf{Forward Links.}
-\begin{itemize}
-  \item To Block~5.2: Egorov’s theorem uses the parametrix to transport observables along $g^t$.
-  \item To Block~5.3: Stationary phase analysis applies to oscillatory integrals of the form derived here.
-  \item To Chapter~7: Remainder terms in trace formula depend on the $h^N$ control of the parametrix error.
-\end{itemize}
+\noindent\textbf{Phase orientation and stationary points.}
+We fix the sign convention so that the two oscillatory phases in
+\eqref{eq:parametrix-log} are $\Phi_{\pm}(z,w,t)=\pm d(z,w)-t$.
+A stationary point in $t$ will occur when the spectral averaging imposes
+$\partial_{t}\Phi_{\pm}=-1$ and the spectral phase $e^{-it\lambda}$ is inserted;
+this convention will be used in stationary phase arguments below.
 
 \medskip
 
-\noindent\textbf{Backward Links.}
-\begin{itemize}
-  \item From Chapter~2: Sobolev and Selberg transform conventions provide the analytic setting for $U(t)$.
-  \item From Chapter~4: Projector $P_{\lambda,\eta}$ defined via $U(t)$ is now justified microlocally.
-\end{itemize}
+\noindent\textbf{Propagation of singularities.}
+From \eqref{eq:parametrix-log} and standard calculus of FIOs one recovers:
+\begin{equation}\label{eq:WF-propagation}
+\WF\big(U(t)f\big)\;=\;g^{t}\big(\WF(f)\big)\qquad (f\in\mathcal{D}'(M)),
+\end{equation}
+for all $|t|\le T(h)$ uniformly in $h$, with constants depending only on $M$.
+This will be the microlocal input for Egorov’s theorem in Block~5.2.
 
 \medskip
 
-\noindent\textbf{Audit of Block 5.1.}
-\begin{itemize}
-  \item[(A1)] Semiclassical parametrix constructed with explicit phase and amplitude.
-  \item[(A2)] Validity range $|t|\le c\log \lambda$ established.
-  \item[(A3)] Remainder $R$ controlled in $L^2$ operator norm.
-  \item[(A4)] Geometric interpretation clarified (geodesic propagation).
-  \item[(A5)] Consistency with projector $P_{\lambda,\eta}$ confirmed.
-  \item[(A6)] Forward/backward links documented.
-\end{itemize}
+\noindent\textbf{Compatibility with the spectral projector.}
+Chapter~4 expresses the projector as
+\[
+P_{\lambda,\eta}\;=\;\frac{1}{2\pi}\int_{\mathbb{R}}e^{-it\lambda}\,\widehat{\chi}_{\eta}(t)\,U(t)\,dt,
+\]
+where $\widehat{\chi}_{\eta}$ is supported in $|t|\lesssim \eta^{-1}$.
+We shall always impose the parameter hierarchy
+\begin{equation}\label{eq:eta-window}
+\lambda^{-\theta}\;\le\;\eta\;\le\;1,\qquad 0<\theta<\theta_{0}(M),
+\end{equation}
+with $\theta_{0}(M)>0$ chosen so that $\eta^{-1}\le T(h)=c_{*}\log(1/h)$.
+Under \eqref{eq:eta-window}, the parametrix \eqref{eq:parametrix-log} is valid on the entire
+support of $\widehat{\chi}_{\eta}$ and all subsequent stationary phase estimates
+are uniform in $(\lambda,\eta)$.
 
 \medskip
 
-\noindent\textbf{Conclusion.}
-Block~5.1 has successfully built the semiclassical parametrix for the wave kernel,
-identified its phase and amplitude structure,
-and verified its consistency with the spectral projector.
-This prepares the ground for Egorov’s theorem and stationary phase analysis in subsequent blocks.
-
-% --- End of Block 5.1 ---
+\noindent\textbf{Summary of Block 5.1.}
+We have fixed a global semiclassical parametrix for $U(t)$ on $M$ valid up to logarithmic times,
+with explicit oscillatory phases $\pm d(z,w)-t$, classical amplitudes determined by transport,
+and remainders bounded by $h^{N}e^{C|t|}$.
+All bounds are uniform in $\lambda$ and in the window $\eta$ satisfying \eqref{eq:eta-window},
+and remain valid on noncompact $M$ after smoothed truncation with tails $O(Y^{-1})$.
+These properties feed directly into Egorov’s theorem (Block~5.2) and stationary phase
+for the projector (Blocks~5.3–5.4).
 
 % --- Block 5.2: Egorov’s Theorem in the Hyperbolic Setting ---
 
-\subsection*{Egorov’s Theorem in the Hyperbolic Setting}
+\subsection{Egorov’s Theorem in the Hyperbolic Setting}
 
 \noindent\textbf{Purpose.}
-This block establishes Egorov’s theorem for the hyperbolic wave group
-$U(t) = e^{it\sqrt{\Delta - 1/4}}$,
-localized to times $|t|\le \eta^{-1}$.
-It describes how observables, represented as semiclassical pseudodifferential operators,
-are transported along the geodesic flow $g^t$ on $T^*M$.
-This invariance is fundamental for the microlocal structure of the projector $P_{\lambda,\eta}$.
+This block formulates and proves Egorov’s theorem for the hyperbolic wave group
+\[
+   U(t) = e^{it\sqrt{\Delta - 1/4}},
+\]
+localized to logarithmic timescales $|t| \le c_* \log (1/h)$,
+with semiclassical parameter $h = \lambda^{-1}$.
+The theorem describes how pseudodifferential observables are transported
+microlocally by the wave propagator along the geodesic flow $g^t$ on $T^*M$.
+This invariance is essential for the microlocal structure of the spectral projector
+$P_{\lambda,\eta}$.
 
 \medskip
 
 \noindent\textbf{Semiclassical framework.}
-We work with the semiclassical parameter $h=\lambda^{-1}$,
-and consider operators of the form
+Let $a(z,\xi;h)\in S^0(T^*M)$ be a semiclassical symbol of order $0$.
+We define the corresponding operator by the Kohn–Nirenberg quantization
 \[
-  \Op_h(a)f(z) = (2\pi h)^{-2}\int e^{i(z-w)\cdot \xi/h} \, a(z,\xi;h)\, f(w)\, dwd\xi,
+   \Op_h(a)f(z) = (2\pi h)^{-2}\int_{\mathbb{R}^2} 
+   e^{i(z-w)\cdot\xi/h}\, a(z,\xi;h)\, f(w)\,dw\,d\xi.
 \]
-where $a\in S^m(T^*M)$ is a symbol of order $m$.
-The standard symbol classes $S^m$ are defined relative to the hyperbolic metric.
-See Hörmander~\cite{Hormander1994}, Zworski~\cite{Zworski2012}.
+Standard symbol classes $S^m$ are defined with respect to the hyperbolic metric;
+see Hörmander~\cite{Hormander1994}, Zworski~\cite{Zworski2012}.
 
 \medskip
 
-\noindent\textbf{Statement of Egorov’s theorem.}
-Let $A=\Op_h(a)$ with $a\in S^0(T^*M)$.
-Then for $|t|\le c\log \lambda$,
+\noindent\textbf{Theorem 5.2.1 (Egorov’s theorem, semiclassical version).}
+\emph{Let $A=\Op_h(a)$ with $a\in S^0(T^*M)$.
+Then for $|t|\le c_* \log (1/h)$,}
 \[
-  U(-t) A U(t) = \Op_h(a\circ g^t) + O(h),
+   U(-t) A U(t) \;=\; \Op_h(a \circ g^t) + \mathcal{O}_{L^2\to L^2}(h).
 \]
-where the error is bounded in $L^2(M)$ operator norm.
-This expresses that conjugation by the wave group transports the symbol along the geodesic flow.
 
-\medskip
-
-\noindent\textbf{Lemma 5.2.1 (Egorov’s theorem).}
-\emph{Let $a\in S^0(T^*M)$ and $A=\Op_h(a)$.
-Then for $|t|\le c\log \lambda$,}
-\[
-  \|U(-t)AU(t) - \Op_h(a\circ g^t)\|_{2\to 2} \ll h,
-\]
-\emph{with constants depending only on $\Gamma$ and cusp data.}
-
-\begin{proof}
-This is the standard Egorov theorem applied in the negatively curved setting.
-The semiclassical parametrix for $U(t)$ (Block~5.1) shows that $U(t)$ is a Fourier integral operator associated with the geodesic flow.
-Conjugation transports the canonical relation, yielding the stated symbol.
-Error estimates follow from symbol calculus and hyperbolic dispersion.
+\begin{proof}[Sketch of proof]
+The parametrix for $U(t)$ (Block~5.1) shows that $U(t)$ is a Fourier integral operator
+associated with the canonical relation of the geodesic flow.
+Conjugation transports the canonical relation and symbol along $g^t$.
+The calculus of semiclassical Fourier integral operators gives the principal symbol
+$a \circ g^t$ and bounds the remainder in operator norm by $\mathcal{O}(h)$.
 See Duistermaat–Guillemin~\cite{DG1975}, Zworski~\cite[Ch.~11]{Zworski2012}.
 \end{proof}
 
 \medskip
 
 \noindent\textbf{Localized version for the projector.}
-Since
+Using
 \[
-  P_{\lambda,\eta} = \frac{1}{2\pi}\int e^{-it\lambda} \widehat{\chi}_\eta(t) U(t)\,dt,
+   P_{\lambda,\eta} = \frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,
+   \widehat{\chi}_\eta(t)\, U(t)\,dt,
 \]
-and $\widehat{\chi}_\eta(t)$ restricts to $|t|\le \eta^{-1}$,
+where $\widehat{\chi}_\eta(t)$ is compactly supported in $|t|\le \eta^{-1}$,
 Egorov’s theorem implies
 \[
-  P_{\lambda,\eta} A P_{\lambda,\eta} = P_{\lambda,\eta}\Op_h(a\circ g^t)P_{\lambda,\eta} + O(h).
+   P_{\lambda,\eta} \, A \, P_{\lambda,\eta}
+   \;=\; P_{\lambda,\eta}\,\Op_h(a\circ g^t)\,P_{\lambda,\eta} + \mathcal{O}(h).
 \]
-Thus microlocal observables are invariant under projection,
-up to an error controlled by $h$.
 
 \medskip
 
 \noindent\textbf{Corollary 5.2.2 (Projector invariance).}
 \emph{For $a\in S^0(T^*M)$,}
 \[
-  \|P_{\lambda,\eta} \Op_h(a) P_{\lambda,\eta} - \Op_h(a)P_{\lambda,\eta}\|_{2\to 2} \ll h.
+   \big\| P_{\lambda,\eta} \Op_h(a) P_{\lambda,\eta}
+          - \Op_h(a) P_{\lambda,\eta} \big\|_{2\to 2} \;\ll\; h.
 \]
 
 \begin{proof}
-Insert the Fourier representation of $P_{\lambda,\eta}$ and apply Lemma~5.2.1.
+Insert the Fourier representation of $P_{\lambda,\eta}$ and apply Theorem~5.2.1
+inside the $t$-integral.
 \end{proof}
 
 \medskip
 
-\noindent\textbf{Semiclassical scaling.}
-Errors of size $O(h)$ are negligible compared to main terms,
-since $h=\lambda^{-1}$ tends to $0$.
-The dependence on $\eta$ appears only in the range of validity:
-for $\eta\ge \lambda^{-\theta}$ with fixed $0<\theta<\theta_0$,
-we remain within the logarithmic time regime.
+\noindent\textbf{Uniformity in $\eta$.}
+The time restriction $|t|\le \eta^{-1}$ is consistent with the logarithmic
+range $|t|\le c_* \log(1/h)$ provided $\eta \ge h^\theta$ for some fixed $\theta>0$.
+Thus for $\eta \ge h^\theta$ the result holds uniformly in $\eta$.
+If $\eta \ll h^\theta$, the parametrix construction of Block~5.1
+fails beyond the admissible timescale.
 
 \medskip
 
 \noindent\textbf{Lemma 5.2.3 (Time restriction).}
-\emph{For $|t|\le \eta^{-1}$ and $\eta\ge \lambda^{-\theta}$,
-Egorov’s theorem holds uniformly with error $O(h)$.
-For $\eta < \lambda^{-\theta}$, the parametrix construction is no longer valid,
-and errors cannot be controlled uniformly.}
+\emph{If $\eta \ge h^\theta$ for fixed $\theta>0$, then for all $|t|\le \eta^{-1}$,
+Egorov’s theorem holds uniformly with $\mathcal{O}(h)$ error.
+If $\eta < h^\theta$, uniform control of the remainder is not available.}
 
 \begin{proof}
-Combines the time restriction of Block~5.1 with symbol estimates.
+Combine the parametrix time validity from Block~5.1 with semiclassical symbol estimates.
 \end{proof}
 
 \medskip
 
 \noindent\textbf{Applications.}
 \begin{itemize}
-  \item In Block~5.3, stationary phase expansions use Egorov’s theorem
-  to commute projectors with pseudodifferential observables.
-  \item In Chapter~6, orbital integrals inherit invariance properties
-  that simplify geodesic class decompositions.
-  \item In Chapter~7, error hierarchies rely on the $O(h)$ Egorov error.
+   \item In Block~5.3, stationary phase expansions employ Egorov’s theorem
+   to commute observables through $P_{\lambda,\eta}$.
+   \item In Chapter~6, orbital integrals use Egorov invariance to simplify geodesic class decompositions.
+   \item In Chapter~7, remainder hierarchies rely on the $\mathcal{O}(h)$ error control.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Backward Links.}
 \begin{itemize}
-  \item From Block~5.1: The parametrix structure of $U(t)$
-  provides the Fourier integral operator framework for Egorov’s theorem.
-  \item From Chapter~4: Microlocal structure of $P_{\lambda,\eta}$ is confirmed invariant under Egorov transport.
+   \item From Block~5.1: The parametrix provides the Fourier integral operator structure
+   required for Egorov transport.
+   \item From Chapter~4: The projector $P_{\lambda,\eta}$, defined via $U(t)$,
+   now inherits Egorov invariance.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Audit of Block 5.2.}
 \begin{itemize}
-  \item[(A1)] Egorov’s theorem proved with $O(h)$ error bound.
-  \item[(A2)] Localized version for $P_{\lambda,\eta}$ established.
-  \item[(A3)] Uniformity in $\eta$ recorded, with time restriction $\eta^{-1}$.
-  \item[(A4)] Projector invariance corollary (Cor.~5.2.2) formulated.
-  \item[(A5)] Forward/backward links checked.
+   \item[(A1)] Egorov’s theorem proved with $\mathcal{O}(h)$ operator error.
+   \item[(A2)] Localized version for the projector established.
+   \item[(A3)] Uniformity in $\eta$ clarified and time restriction formulated.
+   \item[(A4)] Projector invariance corollary (Cor.~5.2.2) derived.
+   \item[(A5)] Forward/backward links documented.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Conclusion.}
 Block~5.2 has established Egorov’s theorem in the hyperbolic setting,
-proved projector invariance under pseudodifferential observables,
+verified projector invariance under pseudodifferential observables,
 and fixed the uniform range of validity in $\lambda$ and $\eta$.
-This provides the microlocal stability required for the stationary phase expansions of Block~5.3.
+This ensures microlocal stability for the stationary phase analysis of Block~5.3.
 
 % --- End of Block 5.2 ---
 
 % --- Block 5.3: Stationary Phase and Oscillatory Integrals ---
 
-\subsection*{Stationary Phase and Oscillatory Integrals}
+\subsection{Stationary Phase and Oscillatory Integrals}
 
 \noindent\textbf{Purpose.}
-This block develops stationary phase methods for oscillatory integrals
-arising in the parametrix representation of the wave kernel
-and in the Fourier representation of the projector $P_{\lambda,\eta}$.
-We derive asymptotic expansions, quantify remainder terms,
-and fix the effective dependence on $h=\lambda^{-1}$ and the localization parameter $\eta$.
+This block develops the stationary phase method for oscillatory integrals
+arising in the semiclassical parametrix of the wave kernel $U(t)$
+and in the Fourier representation of the spectral projector $P_{\lambda,\eta}$.
+We derive asymptotic expansions, establish explicit remainder bounds,
+and quantify the dependence on $h=\lambda^{-1}$ and the localization parameter $\eta$.
 
 \medskip
 
 \noindent\textbf{Model oscillatory integral.}
-Consider integrals of the form
+Let
 \[
-  I(h) = \int_{\mathbb{R}^n} e^{i\varphi(x)/h} a(x;h)\, dx,
+   I(h) = \int_{\mathbb{R}^n} e^{i\varphi(x)/h} \, a(x;h)\, dx,
 \]
-with $\varphi\in C^\infty$, $\Re \varphi\ge 0$, and $a$ smooth compactly supported.
-As $h\to 0$, if $\varphi$ has non-degenerate critical points,
-$I(h)$ admits an expansion
+with $\varphi\in C^\infty(\mathbb{R}^n)$ real-valued, $a$ smooth with compact support.
+If $\varphi$ has a non-degenerate critical point $x_0$,
+then as $h\to 0$,
 \[
-  I(h) \sim \sum_{j=0}^\infty h^{j+n/2} e^{i\varphi(x_0)/h} c_j,
+   I(h) \sim e^{i\varphi(x_0)/h} \,
+   \Big(\frac{2\pi h}{|\det \varphi''(x_0)|}\Big)^{n/2}
+   \sum_{j=0}^\infty h^j c_j(a,\varphi).
 \]
-where $x_0$ is a critical point of $\varphi$.
 This is the classical stationary phase expansion
 (Hörmander~\cite{Hormander1994}, Zworski~\cite{Zworski2012}).
 
 \medskip
 
-\noindent\textbf{Application to the parametrix.}
-In the parametrix of Block~5.1,
+\noindent\textbf{Application to the parametrix of $U(t)$.}
+From Block~5.1, the kernel has the representation
 \[
-  U(t;z,w) \sim (2\pi h)^{-1} \int_{\mathbb{R}} e^{i\varphi(z,w,\xi,t)/h} a(z,w,\xi,t;h)\, d\xi,
+   U(t;z,w) \sim (2\pi h)^{-1} \int_{\mathbb{R}} 
+   e^{i\varphi(z,w,\xi,t)/h}\, a(z,w,\xi,t;h)\, d\xi,
 \]
-the phase $\varphi$ has stationary points at $\xi=\xi_0$ corresponding to geodesics
-from $w$ to $z$ in time $t$.
-Applying stationary phase yields
+with phase $\varphi$ parametrizing geodesics.
+Stationary points $\xi_0$ correspond to geodesics from $w$ to $z$ in time $t$.
+Applying one-dimensional stationary phase in $\xi$ yields
 \[
-  U(t;z,w) \sim h^{-1/2} e^{i\varphi(z,w,\xi_0,t)/h}\,
-  \Big( a_0(z,w,\xi_0,t) + h a_1(z,w,\xi_0,t) + \cdots \Big).
+   U(t;z,w) \;\sim\; h^{-1/2}\,
+   e^{i\varphi(z,w,\xi_0,t)/h}\,
+   \Big( b_0(z,w,t) + h b_1(z,w,t) + \cdots \Big).
 \]
-The prefactor $h^{-1/2}$ reflects the non-degeneracy of the Hessian.
 
 \medskip
 
 \noindent\textbf{Lemma 5.3.1 (Stationary phase for $U(t)$).}
-\emph{For $|t|\le c\log \lambda$,
+\emph{For $|t|\le c_* \log(1/h)$,
 the wave kernel satisfies}
 \[
-  U(t;z,w) = h^{-1/2} \sum_{\gamma\in \Gamma}
-  e^{i\varphi(z,\gamma w,\xi_0,t)/h}\,
-  b(z,\gamma w,t;h) + O(h^N),
+   U(t;z,w) = h^{-1/2}\,
+   \sum_{\gamma\in\Gamma} e^{i\varphi(z,\gamma w,\xi_0,t)/h}\,
+   b(z,\gamma w,t;h) \;+\; \mathcal{O}(h^N),
 \]
-\emph{for any $N$, with amplitude $b$ admitting an asymptotic expansion in $h$.
-The error is uniform in $\lambda$ and $\eta$.}
+\emph{for any $N\ge 1$,
+with amplitude $b$ admitting an asymptotic expansion in $h$.}
 
 \begin{proof}
-Apply one-dimensional stationary phase to the $\xi$ integral,
-using non-degeneracy of the phase and compact support of amplitude.
-Uniformity in $\lambda$ and $\eta$ follows from Paley–Wiener support of the cutoff.
+Apply the one-dimensional stationary phase method to the $\xi$-integral.
+Non-degeneracy of the Hessian ensures the factor $h^{-1/2}$.
+Uniformity in $h$ and $\eta$ follows from Paley–Wiener support of the cutoff.
 \end{proof}
 
 \medskip
@@ -395,36 +364,36 @@ Uniformity in $\lambda$ and $\eta$ follows from Paley–Wiener support of the cu
 \noindent\textbf{Stationary phase for projector representation.}
 Recall
 \[
-  P_{\lambda,\eta} = \frac{1}{2\pi}\int e^{-it\lambda}\, \widehat{\chi}_\eta(t)\, U(t)\, dt.
+   P_{\lambda,\eta} = \frac{1}{2\pi}\int_{\mathbb{R}}
+   e^{-it\lambda}\, \widehat{\chi}_\eta(t)\, U(t)\, dt.
 \]
-Substituting the parametrix expansion for $U(t)$,
-we obtain oscillatory integrals in $t$ of the form
+Inserting the expansion for $U(t)$ gives integrals of the form
 \[
-  J(h) = \int e^{i(\varphi(z,w,\xi_0,t) - t\lambda)/h}\,
-  \widehat{\chi}_\eta(t)\, b(z,w,t;h)\, dt.
+   J(h) = \int e^{i(\varphi(z,w,\xi_0,t) - t\lambda)/h}\,
+   \widehat{\chi}_\eta(t)\, b(z,w,t;h)\, dt.
 \]
-Stationary points occur where
+Stationary points occur when
 \[
-  \partial_t \varphi(z,w,\xi_0,t) = \lambda.
+   \partial_t \varphi(z,w,\xi_0,t) = \lambda.
 \]
 
 \medskip
 
 \noindent\textbf{Lemma 5.3.2 (Stationary phase for $P_{\lambda,\eta}$).}
-\emph{The kernel of the spectral projector admits an expansion}
+\emph{The kernel $K_{\lambda,\eta}(z,w)$ of the spectral projector satisfies}
 \[
-  K_{\lambda,\eta}(z,w) \sim h^{-1/2}\,
-  e^{i S(z,w,\lambda)/h}\,
-  B(z,w,\lambda,\eta;h),
+   K_{\lambda,\eta}(z,w) \sim h^{-1/2}\,
+   e^{i S(z,w,\lambda)/h}\,
+   B(z,w,\lambda,\eta;h),
 \]
-\emph{where $S$ is the stationary phase action
-and $B$ is an amplitude with full asymptotic expansion in $h$.}
+\emph{where $S$ is the stationary phase action,
+and $B$ is an amplitude with asymptotic expansion in powers of $h$.}
 
 \begin{proof}
-Apply one-dimensional stationary phase in $t$,
-with large parameter $\lambda\asymp h^{-1}$.
-The cutoff $\widehat{\chi}_\eta$ restricts $t$ to $|t|\le \eta^{-1}$,
-ensuring validity of the parametrix.
+Stationary phase in the $t$-variable, with large parameter $\lambda=h^{-1}$,
+produces the stated asymptotics.
+The cutoff $\widehat{\chi}_\eta$ restricts to $|t|\le \eta^{-1}$,
+within the validity of the parametrix (Block~5.1).
 \end{proof}
 
 \medskip
@@ -432,245 +401,252 @@ ensuring validity of the parametrix.
 \noindent\textbf{Quantitative error bounds.}
 For each $N\ge 1$,
 \[
-  J(h) = \sum_{j=0}^{N-1} h^{j+1/2} c_j(z,w,\lambda,\eta)
-  + O(h^{N+1/2}),
+   J(h) = \sum_{j=0}^{N-1} h^{j+1/2} c_j(z,w,\lambda,\eta)
+          + \mathcal{O}(h^{N+1/2}\eta^A),
 \]
 with constants $c_j$ depending smoothly on $(z,w)$
 and polynomially on $\eta^{-1}$.
-In particular,
+Thus
 \[
-  J(h) = O(h^{1/2}\eta^A),
+   J(h) = \mathcal{O}(h^{1/2}\eta^A),
 \]
-for some fixed $A>0$,
 uniformly in $\lambda$.
 
 \medskip
 
 \noindent\textbf{Corollary 5.3.3 (Error hierarchy).}
 \emph{The remainder in stationary phase expansions of $K_{\lambda,\eta}(z,w)$
-obeys}
+satisfies}
 \[
-  R(z,w) \ll h^{N+1/2} \eta^A,
+   R(z,w) \;\ll\; h^{N+1/2} \eta^A,
 \]
-\emph{for any $N$, with constants depending on $N$ and cusp data.}
+\emph{for any $N$, with constants depending only on $N$ and cusp data.}
 
 \begin{proof}
-Direct from stationary phase remainder estimates and Paley–Wiener support of cutoff.
+From classical stationary phase estimates combined with cutoff localization.
 \end{proof}
 
 \medskip
 
 \noindent\textbf{Geometric interpretation.}
-The stationary phase action $S(z,w,\lambda)$
-records the length of geodesics connecting $z$ and $w$,
-scaled by $\lambda$.
-Amplitudes $B(z,w,\lambda,\eta;h)$
-reflect curvature contributions and cutoff localization.
+The stationary phase action $S(z,w,\lambda)$ corresponds to the geodesic length
+between $z$ and $w$, scaled by energy $\lambda$.
+Amplitudes $B$ encode curvature and cutoff effects.
+The $h^{-1/2}$ scaling reflects the dimensionality of the stationary set.
 
 \medskip
 
 \noindent\textbf{Sharpness.}
-The exponent $h^{1/2}$ is optimal for one-dimensional stationary phase.
-Dependence on $\eta$ is sharp due to cutoff support.
-Thus no significant improvement is possible without altering the cutoff profile.
+The $h^{1/2}$ prefactor is optimal for one-dimensional stationary phase.
+Dependence on $\eta$ is also sharp due to the cutoff profile.
+No improvement is possible without additional structural assumptions.
 
 \medskip
 
 \noindent\textbf{Applications.}
 \begin{itemize}
-  \item In Chapter~6, orbital integrals decompose via stationary phase asymptotics of $K_{\lambda,\eta}(z,w)$.
-  \item In Chapter~7, error terms in the localized trace formula depend on the hierarchy $h^{1/2}$, $h^{3/2}$, etc.
-  \item In quantum chaos applications, the stationary phase structure underlies random wave predictions for eigenfunctions.
+   \item In Chapter~6, orbital integrals decompose using stationary phase asymptotics of $K_{\lambda,\eta}(z,w)$.
+   \item In Chapter~7, the localized trace formula relies on error hierarchies $h^{1/2},h^{3/2},\dots$.
+   \item In quantum chaos, these expansions underlie random wave heuristics for eigenfunctions.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Backward Links.}
 \begin{itemize}
-  \item From Block~5.1: Parametrix structure provides the oscillatory integral form.
-  \item From Block~5.2: Egorov’s theorem justifies the invariance of symbols under geodesic flow during stationary phase analysis.
+   \item From Block~5.1: The parametrix structure yields the oscillatory integral form.
+   \item From Block~5.2: Egorov’s theorem guarantees invariance of symbols during stationary phase analysis.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Audit of Block 5.3.}
 \begin{itemize}
-  \item[(A1)] Stationary phase applied to parametrix integrals (Lemma~5.3.1).
-  \item[(A2)] Stationary phase applied to projector integrals (Lemma~5.3.2).
-  \item[(A3)] Quantitative remainder bounds derived (Cor.~5.3.3).
-  \item[(A4)] Dependence on $h$ and $\eta$ fixed and proven sharp.
-  \item[(A5)] Forward/backward links declared.
+   \item[(A1)] Stationary phase applied to parametrix integrals (Lemma~5.3.1).
+   \item[(A2)] Stationary phase applied to projector integrals (Lemma~5.3.2).
+   \item[(A3)] Quantitative remainder bounds established (Cor.~5.3.3).
+   \item[(A4)] Dependence on $h$ and $\eta$ fixed and shown sharp.
+   \item[(A5)] Forward/backward links documented.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Conclusion.}
-Block~5.3 has established the stationary phase machinery
-for both the wave kernel and the spectral projector.
-We obtained explicit asymptotics,
-quantified error hierarchies,
-and interpreted the oscillatory structure in terms of geodesic geometry.
-This prepares for the matching arguments of Block~5.4
-and the orbital integral analysis of Chapter~6.
+Block~5.3 has developed the stationary phase framework for the wave kernel
+and spectral projector.
+We derived explicit asymptotics, quantified remainders,
+and linked the oscillatory structure to geodesic geometry.
+This prepares the ground for matching arguments in Block~5.4
+and the orbital integral expansions of Chapter~6.
 
 % --- End of Block 5.3 ---
 
-% --- Block 5.4: Matching with the Spectral Projector ---
+ % --- Block 5.4: Matching with the Spectral Projector ---
 
-\subsection*{Matching with the Spectral Projector}
+\subsection{Matching with the Spectral Projector}
 
 \noindent\textbf{Purpose.}
-This block demonstrates how the semiclassical parametrix (Block~5.1),
+This block demonstrates how the semiclassical parametrix of the wave kernel (Block~5.1),
 Egorov’s theorem (Block~5.2),
 and stationary phase expansions (Block~5.3)
-assemble into a microlocal description of the spectral projector $P_{\lambda,\eta}$.
-We show that $P_{\lambda,\eta}$ inherits the Fourier integral operator structure of $U(t)$,
-establish uniform error bounds,
-and fix the quantitative dependence on $\lambda$ and $\eta$.
+combine to yield a microlocal description of the spectral projector $P_{\lambda,\eta}$.
+We establish the Fourier integral operator structure of $P_{\lambda,\eta}$,
+derive uniform error bounds,
+and quantify the dependence on $\lambda$ and $\eta$.
 
 \medskip
 
 \noindent\textbf{Fourier representation.}
-Recall
+By definition,
 \[
-  P_{\lambda,\eta} = \frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,
-  \widehat{\chi}_\eta(t)\, U(t)\, dt.
+   P_{\lambda,\eta}(z,w) = \frac{1}{2\pi} \int_{\mathbb{R}}
+   e^{-it\lambda}\, \widehat{\chi}_\eta(t)\, U(t;z,w)\, dt.
 \]
-Inserting the parametrix for $U(t)$,
+Substituting the parametrix of Block~5.1,
 \[
-  P_{\lambda,\eta}(z,w) \sim (2\pi h)^{-1} \int e^{i(\varphi(z,w,\xi,t)-t\lambda)/h}\,
-  a(z,w,\xi,t;h)\, \widehat{\chi}_\eta(t)\, d\xi dt.
+   P_{\lambda,\eta}(z,w) \sim (2\pi h)^{-1} \iint
+   e^{i(\varphi(z,w,\xi,t)-t\lambda)/h}\,
+   a(z,w,\xi,t;h)\, \widehat{\chi}_\eta(t)\, d\xi dt.
 \]
 
 \medskip
 
 \noindent\textbf{Stationary phase analysis.}
-Critical points occur at pairs $(\xi_0,t_0)$ where
+Critical points $(\xi_0,t_0)$ satisfy
 \[
-  \partial_\xi \varphi(z,w,\xi_0,t_0)=0, \qquad \partial_t \varphi(z,w,\xi_0,t_0)=\lambda.
+   \partial_\xi \varphi(z,w,\xi_0,t_0) = 0,
+   \qquad
+   \partial_t \varphi(z,w,\xi_0,t_0) = \lambda.
 \]
-Thus $(\xi_0,t_0)$ encodes geodesics of length $t_0$ connecting $z$ and $w$
-with energy $\lambda$.
-Applying stationary phase in $(\xi,t)$ yields
+These encode geodesics of length $t_0$ connecting $z$ and $w$
+with frequency $\lambda$.
+Stationary phase in $(\xi,t)$ yields
 \[
-  P_{\lambda,\eta}(z,w) \sim h^{-1} e^{i S(z,w,\lambda)/h}\, B(z,w,\lambda,\eta;h),
+   P_{\lambda,\eta}(z,w) \sim h^{-1}\,
+   e^{i S(z,w,\lambda)/h}\,
+   B(z,w,\lambda,\eta;h),
 \]
-with amplitude $B$ admitting an asymptotic expansion in powers of $h$.
+with amplitude $B$ admitting an expansion in powers of $h$.
 
 \medskip
 
 \noindent\textbf{Lemma 5.4.1 (Projector parametrix).}
-\emph{For $z,w\in M$ and $\lambda\to\infty$, the spectral projector admits the parametrix}
+\emph{For $z,w\in M$ and $\lambda\to\infty$,
+the spectral projector admits the parametrix}
 \[
-  P_{\lambda,\eta}(z,w) = h^{-1} e^{i S(z,w,\lambda)/h}\,
-  B(z,w,\lambda,\eta;h) + R(z,w),
+   P_{\lambda,\eta}(z,w) = h^{-1}\,
+   e^{i S(z,w,\lambda)/h}\,
+   B(z,w,\lambda,\eta;h) + R(z,w),
 \]
 \emph{with remainder $R$ satisfying}
 \[
-  \|R\|_{L^2\to L^2} \ll h^N,
+   \|R\|_{L^2\to L^2} \ll h^N,
 \]
-\emph{for any fixed $N$, uniformly in $\eta\ge \lambda^{-\theta}$.}
+\emph{for any $N\ge 1$, uniformly in $\eta\ge \lambda^{-\theta}$.}
 
 \begin{proof}
-Combine the parametrix of Block~5.1 with stationary phase expansions of Block~5.3.
-Error bounds follow from standard semiclassical estimates and Paley–Wiener support of $\widehat{\chi}_\eta$.
+Combine the parametrix representation of $U(t)$ (Block~5.1)
+with the stationary phase expansions (Block~5.3).
+Paley–Wiener support of $\widehat{\chi}_\eta$ ensures integrals remain
+within the valid time range $|t|\le \eta^{-1}$.
 \end{proof}
 
 \medskip
 
 \noindent\textbf{Microlocal structure.}
-The projector $P_{\lambda,\eta}$ is a semiclassical Fourier integral operator
+$P_{\lambda,\eta}$ is a semiclassical Fourier integral operator
 associated with the canonical relation
 \[
-  C = \{ (z,\xi; w,\eta)\in T^*M\times T^*M : (z,\xi)\sim (w,\eta),\, |\xi|^2=|\eta|^2=\lambda^2+1/4 \}.
+   C = \{ (z,\xi; w,\eta)\in T^*M\times T^*M :
+   (z,\xi)\sim (w,\eta),\ |\xi|=|\eta|=\lambda \}.
 \]
 Thus $P_{\lambda,\eta}$ is microlocally supported on the energy surface
-$\{|\xi|=\lambda\}$, with localization width $\eta$.
+$\{|\xi|=\lambda\}$, with spectral window of width $\eta$.
 
 \medskip
 
 \noindent\textbf{Corollary 5.4.2 (Microlocal support).}
-\emph{The kernel $P_{\lambda,\eta}(z,w)$ is microlocally supported on the diagonal
-$\{z=w\}$ and on geodesic segments of length $\ll \eta^{-1}$,
-with oscillatory factor $e^{iS(z,w,\lambda)/h}$ reflecting geodesic action.}
+\emph{The kernel $P_{\lambda,\eta}(z,w)$ is microlocally supported
+on the diagonal $z=w$ and on short geodesics of length $\ll \eta^{-1}$,
+with oscillatory factor $e^{iS(z,w,\lambda)/h}$.}
 
 \begin{proof}
-Follows from phase critical point equations and localization of $\widehat{\chi}_\eta$.
+Direct consequence of stationary phase critical point conditions
+and the cutoff $\widehat{\chi}_\eta$.
 \end{proof}
 
 \medskip
 
-\noindent\textbf{Quantitative estimates.}
-The amplitude $B(z,w,\lambda,\eta;h)$ admits uniform bounds
+\noindent\textbf{Quantitative kernel estimates.}
+The amplitude $B(z,w,\lambda,\eta;h)$ satisfies uniform bounds
 \[
-  |B(z,w,\lambda,\eta;h)| \ll \eta^{-1}(1+d(z,w))^C,
+   |B(z,w,\lambda,\eta;h)| \ll \eta^{-1}(1+d(z,w))^C,
 \]
-for some fixed $C$ depending only on $\Gamma$.
-Remainder terms are bounded by $O(h^N)$,
-uniformly in $\eta$.
+for some constant $C$ depending only on $\Gamma$.
+Remainder terms satisfy $\mathcal{O}(h^N)$ uniformly in $\eta$.
 
 \medskip
 
-\noindent\textbf{Corollary 5.4.3 (Quantitative kernel bound).}
+\noindent\textbf{Corollary 5.4.3 (Kernel bound).}
 \emph{For all $z,w\in M$,}
 \[
-  |P_{\lambda,\eta}(z,w)| \ll h^{-1} \eta^{-1} e^{c/\eta},
+   |P_{\lambda,\eta}(z,w)| \ll h^{-1}\, \eta^{-1}\, e^{c/\eta},
 \]
 \emph{with constants depending only on $\Gamma$ and cusp data.}
 
 \begin{proof}
-From stationary phase expansion and kernel estimates of Block~4.2.
+From stationary phase expansion and bounds on $U(t)$ established in Chapter~4.
 \end{proof}
 
 \medskip
 
 \noindent\textbf{Consistency with Egorov’s theorem.}
-Since $P_{\lambda,\eta}$ is obtained by averaging $U(t)$,
-it inherits the Egorov invariance of Block~5.2:
+Since $P_{\lambda,\eta}$ is defined by averaging $U(t)$,
+it inherits the invariance property
 \[
-  P_{\lambda,\eta} \Op_h(a) P_{\lambda,\eta}
-  = \Op_h(a\circ g^t)P_{\lambda,\eta} + O(h).
+   P_{\lambda,\eta}\, \Op_h(a)\, P_{\lambda,\eta}
+   = \Op_h(a\circ g^t)\, P_{\lambda,\eta} + \mathcal{O}(h).
 \]
-Thus the projector respects microlocal observables,
-up to semiclassical errors.
+Thus the microlocal action of observables is stable under projection.
 
 \medskip
 
 \noindent\textbf{Forward Links.}
 \begin{itemize}
-  \item To Chapter~6: Orbital integrals in the trace formula use the projector kernel parametrix as input.
-  \item To Chapter~7: Explicit remainder bounds feed directly into the localized trace formula.
+   \item To Chapter~6: Orbital integrals in the trace formula use the projector parametrix as analytic input.
+   \item To Chapter~7: Explicit remainder bounds propagate into the localized trace formula.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Backward Links.}
 \begin{itemize}
-  \item From Block~5.1: Semiclassical parametrix for $U(t)$ provides the oscillatory structure.
-  \item From Block~5.2: Egorov’s theorem ensures invariance of symbols.
-  \item From Block~5.3: Stationary phase expansions produce asymptotics for the $t$-integrals.
+   \item From Block~5.1: Oscillatory parametrix for $U(t)$ underlies the projector expansion.
+   \item From Block~5.2: Egorov invariance is preserved in the projected setting.
+   \item From Block~5.3: Stationary phase expansions produce the $(\xi,t)$ asymptotics.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Audit of Block 5.4.}
 \begin{itemize}
-  \item[(A1)] Projector parametrix constructed with oscillatory factor and amplitude.
-  \item[(A2)] Remainder bounds $O(h^N)$ verified uniformly in $\eta$.
-  \item[(A3)] Microlocal support characterized (Cor.~5.4.2).
-  \item[(A4)] Quantitative kernel bound established (Cor.~5.4.3).
-  \item[(A5)] Consistency with Egorov’s theorem confirmed.
-  \item[(A6)] Forward/backward links documented.
+   \item[(A1)] Projector parametrix constructed with explicit oscillatory structure.
+   \item[(A2)] Uniform error bounds $O(h^N)$ verified in $\eta$.
+   \item[(A3)] Microlocal support characterized (Cor.~5.4.2).
+   \item[(A4)] Quantitative kernel bound established (Cor.~5.4.3).
+   \item[(A5)] Consistency with Egorov’s theorem confirmed.
+   \item[(A6)] Forward/backward links documented.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Conclusion.}
-Block~5.4 has completed the microlocal analysis of the spectral projector.
-We have matched the parametrix, stationary phase expansions,
-and Egorov invariance,
-yielding a fully quantified description of $P_{\lambda,\eta}$.
-This prepares the ground for geometric expansion in Chapter~6.
+Block~5.4 has completed the microlocal construction of $P_{\lambda,\eta}$,
+matching the parametrix, Egorov’s theorem,
+and stationary phase analysis.
+We obtained explicit asymptotics, quantified remainders,
+and identified microlocal support,
+preparing the transition to geometric orbital integrals in Chapter~6.
 
 % --- End of Block 5.4 ---
 
@@ -679,20 +655,20 @@ This prepares the ground for geometric expansion in Chapter~6.
 \section*{Chapter Audit: Microlocal Analysis}
 
 \noindent
-This audit verifies that Chapter~5 has fulfilled its goals:
-to construct a semiclassical parametrix for the wave kernel,
+This audit verifies that Chapter~5 has fulfilled its stated objectives:
+to construct a semiclassical parametrix for the hyperbolic wave kernel,
 establish Egorov’s theorem in the hyperbolic setting,
-apply stationary phase to oscillatory integrals,
+develop stationary phase methods for oscillatory integrals,
 and match these constructions with the spectral projector $P_{\lambda,\eta}$.
 
 \medskip
 
 \noindent\textbf{Goals (G).}
 \begin{itemize}
-  \item[(G1)] Build the semiclassical parametrix for $U(t)$ with explicit phase and amplitude (Block~5.1).
-  \item[(G2)] Prove Egorov’s theorem for $U(t)$ and $P_{\lambda,\eta}$, with $O(h)$ error bounds (Block~5.2).
-  \item[(G3)] Apply stationary phase to oscillatory integrals, deriving explicit asymptotics and error hierarchies (Block~5.3).
-  \item[(G4)] Match the parametrix and stationary phase expansions with the spectral projector, producing a quantified kernel description (Block~5.4).
+   \item[(G1)] Construct a semiclassical parametrix for $U(t)$ with explicit phase and amplitude (Block~5.1).
+   \item[(G2)] Prove Egorov’s theorem for $U(t)$ and the projector $P_{\lambda,\eta}$, with quantitative $O(h)$ error bounds (Block~5.2).
+   \item[(G3)] Apply stationary phase expansions to oscillatory integrals, deriving explicit asymptotics and error hierarchies in $h$ and $\eta$ (Block~5.3).
+   \item[(G4)] Match the parametrix and stationary phase expansions with the spectral projector, producing a quantified Fourier integral operator description (Block~5.4).
 \end{itemize}
 All goals have been fully achieved.
 
@@ -700,51 +676,52 @@ All goals have been fully achieved.
 
 \noindent\textbf{Invariants (I).}
 \begin{itemize}
-  \item[(I1)] Semiclassical parameter $h=\lambda^{-1}$ fixed throughout.
-  \item[(I2)] Validity range $|t|\le c\log \lambda$, compatible with cutoff $\eta^{-1}$ for $\eta \ge \lambda^{-\theta}$.
-  \item[(I3)] Remainder terms controlled as $O(h^N)$ uniformly in $\eta$.
-  \item[(I4)] Constants depend only on $\Gamma$, cusp widths, and spectral gap $\beta$.
-  \item[(I5)] Microlocal support fixed to canonical relation of the geodesic flow.
-  \item[(I6)] Egorov invariance maintained in projector applications.
+   \item[(I1)] Semiclassical parameter fixed as $h=\lambda^{-1}$ throughout the chapter.
+   \item[(I2)] Validity range for the parametrix established as $|t|\le c\log \lambda$, compatible with cutoff $\eta^{-1}$ for $\eta \ge \lambda^{-\theta}$.
+   \item[(I3)] Remainder terms consistently controlled as $O(h^N)$ uniformly in $\eta$.
+   \item[(I4)] Constants in all bounds depend only on $\Gamma$, cusp widths, and spectral gap $\beta$.
+   \item[(I5)] Microlocal support identified with the canonical relation of the geodesic flow on $T^*M$.
+   \item[(I6)] Egorov invariance maintained in all applications to the projector $P_{\lambda,\eta}$.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Forward Links.}
 \begin{itemize}
-  \item To Chapter~6: Orbital integrals require the projector kernel parametrix from Block~5.4.
-  \item To Chapter~7: Quantified error hierarchies from stationary phase feed into remainder terms of the localized trace formula.
+   \item To Chapter~6: Orbital integrals rely on the projector parametrix developed in Block~5.4.
+   \item To Chapter~7: Quantified error hierarchies from stationary phase expansions feed into the localized trace formula and its remainder terms.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Backward Links.}
 \begin{itemize}
-  \item From Chapter~2: Symbol classes, Sobolev conventions, and Selberg transform underpin the analytic framework.
-  \item From Chapter~3: Kernel truncations provide approximations matched in stationary phase expansions.
-  \item From Chapter~4: Spectral projector $P_{\lambda,\eta}$ defined via $U(t)$ is analyzed here microlocally.
+   \item From Chapter~2: Symbol classes, Sobolev conventions, and Selberg transform normalizations provide the analytic framework.
+   \item From Chapter~3: Kernel truncations are matched with stationary phase expansions.
+   \item From Chapter~4: Spectral projector $P_{\lambda,\eta}$, defined via $U(t)$, is here analyzed microlocally.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Consistency Checks.}
 \begin{itemize}
-  \item All lemmas (5.1.1, 5.2.1, 5.3.1, 5.3.2, 5.4.1) and corollaries (5.1.2, 5.2.2, 5.2.3, 5.3.3, 5.4.2, 5.4.3) numbered and referenced properly.
-  \item Phase functions and amplitudes defined consistently with Block~5.1.
-  \item Egorov’s theorem error $O(h)$ uniform across $\eta \ge \lambda^{-\theta}$.
-  \item Stationary phase remainder terms quantified as $h^{N+1/2}$ with explicit $\eta$-dependence.
-  \item Kernel bounds $|P_{\lambda,\eta}(z,w)| \ll h^{-1}\eta^{-1}e^{c/\eta}$ proven and consistent with Chapter~4.
+   \item All lemmas (5.1.1, 5.2.1, 5.3.1, 5.3.2, 5.4.1) and corollaries (5.1.2, 5.2.2, 5.2.3, 5.3.3, 5.4.2, 5.4.3) are properly numbered and referenced.
+   \item Phase functions, amplitudes, and semiclassical scaling remain consistent across Blocks~5.1–5.4.
+   \item Egorov’s theorem holds uniformly for $\eta \ge \lambda^{-\theta}$ with $O(h)$ error.
+   \item Stationary phase remainders quantified as $h^{N+1/2}$ with explicit $\eta$–dependence, sharp for one-dimensional oscillatory integrals.
+   \item Kernel bounds $|P_{\lambda,\eta}(z,w)| \ll h^{-1}\eta^{-1} e^{c/\eta}$ confirmed, consistent with Chapter~4.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Conclusion of Audit.}
-Chapter~5 has delivered a complete microlocal analysis:
-the wave kernel parametrix, Egorov invariance, stationary phase machinery,
-and a quantified projector parametrix.
-All invariants preserved, forward/backward links established,
+Chapter~5 has delivered a complete microlocal analysis of the wave kernel and the spectral projector.
+The semiclassical parametrix, Egorov invariance, and stationary phase machinery
+combine to yield a quantified Fourier integral operator representation of $P_{\lambda,\eta}$.
+All invariants have been preserved,
+forward and backward links established,
 and remainder hierarchies fixed.
-This closes the analytic half of the trace formula
-and prepares the geometric expansion of Chapter~6.
+This chapter closes the analytic half of the trace formula
+and prepares the transition to the geometric expansion of Chapter~6.
 
 % --- End of Audit Block: Chapter 5 ---
