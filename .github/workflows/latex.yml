@@ -1,33 +1,95 @@
-name: build_pdf
+name: LaTeX build (arXiv/Annals)
 
 on:
   push:
+    branches: [ main ]
+    tags:     [ 'v*' ]
   pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  pdf:
+  build:
+    name: Compile monograph (pdf)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Ставим полную TeX Live
-      - name: Install TeX Live full
-        run: sudo apt-get update && sudo apt-get install -y texlive-full
+      # -----------------------------
+      # Lint TeX sources with chktex
+      # -----------------------------
+      - name: Install linters and PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chktex ghostscript poppler-utils
 
-      # Собираем PDF (сначала pdflatex, потом bibtex, потом дважды pdflatex)
-      - name: Build PDF
+      - name: Run chktex
         working-directory: src
         run: |
-          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
-          bibtex main || true
-          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
-          pdflatex -interaction=nonstopmode -file-line-error main.tex || true
+          # Lint only .tex sources in our tree (frontmatter/ sections/ appendices/)
+          find . -name "*.tex" -print0 | xargs -0 -n1 -I{} bash -c 'echo "::group::chktex {}"; chktex -q -n1 -n8 -n46 {}; echo "::endgroup::"'
 
-      # Загружаем PDF как артефакт
-      - name: Upload PDF
+      # ---------------------------------
+      # Build: TeX Live via latex-action
+      # ---------------------------------
+      - name: Compile with latexmk (pdflatex+bibtex)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: src/main.tex
+          # arXiv-friendly toolchain:
+          latexmk_use_xelatex: false
+          latexmk_use_lualatex: false
+          latexmk_shell_escape: false
+          extra_system_packages: "ghostscript"
+          # Use BibTeX (your .bib uses plain alpha style)
+          latexmk_use_biber: false
+          # Cache TeX Live packages between runs
+          cache: true
+
+      # -----------------------------
+      # Sanity checks for produced PDF
+      # -----------------------------
+      - name: Verify PDF exists and is non-empty
+        run: |
+          test -s main.pdf
+          pdfinfo main.pdf
+          gs -o /dev/null -sDEVICE=nullpage -dBATCH -dNOPAUSE main.pdf
+
+      # -----------------------------
+      # Rename and upload artifact
+      # -----------------------------
+      - name: Rename artifact
+        run: |
+          mkdir -p dist
+          mv main.pdf dist/localized-trace-formula.pdf
+
+      - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: localized-trace-formula
-          path: src/main.pdf
+          name: localized-trace-formula-pdf
+          path: dist/localized-trace-formula.pdf
           if-no-files-found: error
+          retention-days: 14
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    name: Attach PDF to GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: localized-trace-formula-pdf
+          path: dist
+
+      - name: Create/Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/localized-trace-formula.pdf
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
