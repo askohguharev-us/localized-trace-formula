@@ -1,0 +1,54 @@
+% G-normalizations-and-conventions.tex
+\appendix
+\section*{Appendix G. Normalizations and Conventions}
+\addcontentsline{toc}{section}{Appendix G. Normalizations and Conventions}
+\label{appG:root}
+
+\noindent\textbf{Purpose of Appendix G.}
+This appendix fixes all normalizations used across the paper:
+measures, Fourier transforms, unitary conventions for spectral decompositions,
+kernel parametrizations, and trace-class sign rules. It is the single source of truth
+for cross-checking constants appearing in Appendices A–F and H.
+
+\subsection*{G.1. Measures and Haar normalizations}
+\label{appG:measures}
+\noindent
+Hyperbolic plane $\mathbb H=\{x+iy:y>0\}$ carries $dA=y^{-2}\,dx\,dy$, geodesic distance
+$\operatorname{dist}(\cdot,\cdot)$, and boundary measure $ds=Y^{-1}\,dx$ on $y=Y$.
+For $\mathrm{PSL}_2(\mathbb{R})$ we use the left Haar measure $dg$ matching
+\cite[Ch.~I]{Helgason} and the Iwasawa decomposition $g=kan$ with densities as in
+\cite[§7.2]{Iwaniec2002}. On $M=\Gamma\backslash\mathbb H$ integrals are with respect to $dA$.
+
+\subsection*{G.2. Fourier and spectral transforms}
+\label{appG:fourier}
+\noindent
+Euclidean Fourier transform on $\mathbb R$:
+\[
+\widehat{f}(\xi)=\int_{\mathbb R} f(t)e^{-2\pi i t\xi}\,dt,\qquad
+f(t)=\int_{\mathbb R}\widehat{f}(\xi)e^{2\pi i t\xi}\,d\xi.
+\]
+Spherical/Fourier–Helgason normalization follows \cite[Ch.~IV]{Helgason};
+Bessel kernels use $K_{ir}$ with parity $K_{ir}=K_{-ir}$.
+
+\subsection*{G.3. Operator classes and quantization}
+\label{appG:pdo}
+\noindent
+Weyl quantization $\Op_h^w(a)$ on charts; symbol classes $S^m_{\rho,\delta}$ with $(\rho,\delta)=(1,0)$;
+$L^2$-boundedness and composition as in \cite[Thm.~4.23]{Zworski}.
+Cutoffs, partitions of unity, and microlocal windows reuse the atlas from Appendix~A.
+
+\subsection*{G.4. Kernels, traces, and test functions}
+\noindent
+Test function $k\in C_c^\infty(\mathbb R)$ is even; wave kernel conventions:
+$U(t)=\cos(t\sqrt{\Delta-1/4})$.
+Trace-class sign conventions and distributional pairing $\langle \cdot,\cdot\rangle$
+agree with \cite[§2]{Sogge}.
+
+\subsection*{G.5. Reference identities}
+\noindent
+Plancherel factor, stationary-phase phase factors, and Bessel asymptotics are listed here
+to avoid duplication; they coincide with the statements cited in Appendices B and H.
+
+\bigskip
+\noindent\textbf{Cross-reference.}
+All constants and normalizations are consistent with \cite{Helgason,Iwaniec2002,Zworski,Sogge}.
