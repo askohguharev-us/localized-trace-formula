@@ -1,23 +1,38 @@
 \documentclass[11pt]{article}
 
-% --- Page & fonts ---
+% --- Page geometry & fonts ---
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage[utf8]{inputenc}   % UTF-8 input for pdflatex (CI-safe)
-\usepackage[T1]{fontenc}      % proper font encoding
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 
-% --- Math & typesetting ---
+% --- Math & symbols ---
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{mathtools}
+\usepackage{bm}          % for \bm
+\usepackage{bbm}         % for \mathbbm{1}
+\usepackage{mathrsfs}    % optional calligraphic
+
+% --- Graphics / floats (robust defaults) ---
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+% --- Micro-typography & hyperlinks ---
 \usepackage{microtype}
 \usepackage{hyperref}
-\usepackage[nameinlink]{cleveref}
-\usepackage[most]{tcolorbox}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+% --- Lists / misc ---
 \usepackage{enumitem}
-\usepackage{graphicx}
+\setlist{nosep}
 \usepackage{url}
 
-% --- PDF metadata ---
+% --- Color boxes (if used in frontmatter) ---
+\usepackage[most]{tcolorbox}
+
+% --- Metadata ---
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
@@ -30,35 +45,46 @@
 % --- Numbering ---
 \numberwithin{equation}{section}
 
-% --- Macros (envs first) ---
+% --- Custom macros ---
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
-% --- Title page ---
-\title{\Large\bfseries Localized Trace Formula: A Monograph}
-\author{Alexander Stepanovich Kozhukharev\\
-\small Moscow, Russia\\
-\small \texttt{askohguharev@yandex.ru}}
-\date{September 8, 2025}
-
 \begin{document}
 
-\maketitle
-\thispagestyle{plain}
+% =======================
+% Title page (full)
+% =======================
+\begin{titlepage}
+  \centering
+  \vspace*{6mm}
+  {\Large\scshape Monograph}\\[12mm]
+  {\LARGE\bfseries Localized Trace Formula}\\[4mm]
+  {\large A Microlocal Approach with Power-Saving Remainders}\\[16mm]
 
-\begin{abstract}
-We establish a localized trace formula for finite-area hyperbolic surfaces
-$\Gamma \backslash \mathbb{H}$ with cusps. The formula equates a spectrally
-localized sum of Laplace eigenvalues, obtained via a smooth projector onto an
-interval $[\lambda-\eta,\lambda+\eta]$, with a geometric expansion over closed
-geodesics of length up to $T \asymp \log \lambda$, accompanied by an explicit
-remainder term. Applications include a quantitative local Weyl law with
-power-saving error and variance bounds for Fourier coefficients of
-Hecke--Maass forms.
-\end{abstract}
+  {\large Alexander Stepanovich Kozhukharev}\\[2mm]
+  Moscow, Russia\\[2mm]
+  \texttt{askohguharev@yandex.ru}\\[14mm]
 
-\tableofcontents
+  \vfill
+
+  \begin{tcolorbox}[colback=white,colframe=black!15,sharp corners,boxrule=0.3pt]
+  \small
+  \textbf{Abstract.}\;
+  We establish a localized trace formula for finite-area hyperbolic surfaces
+  $\Gamma\backslash\mathbb{H}$ with cusps. Using a microlocalized wave propagator
+  and a smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$, we match the
+  spectral side to a geometric expansion over closed geodesics of length up to
+  $T\asymp\log\lambda$ with a power-saving remainder $O(\lambda^{-\delta})$
+  depending only on the cusp geometry and spectral gap. Applications include a
+  quantitative local Weyl law and variance bounds for Hecke--Maass forms.
+  \end{tcolorbox}
+
+  \vfill
+  {\small Version: \today}
+\end{titlepage}
+
+\setcounter{page}{1}
 
 % --- Frontmatter ---
 \input{frontmatter/00-executive-summary.tex}
