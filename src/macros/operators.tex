@@ -1,141 +1,26 @@
-% ======================================================================
-% operators.tex  —  global math operators & microlocal shortcuts
-% Project: Localized Trace Formula (Monograph)
-% Notes:
-%   • No package loads here (load amsmath/amssymb/mathtools in main).
-%   • No macro names contain underscores.
-%   • Use \providecommand to avoid redefinition clashes.
-%   • All symbols are neutral to journal styles (Annals/arXiv ready).
-% ======================================================================
-
-% -----------------------------
-% Blackboard shortcuts (safe)
-% -----------------------------
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\Q}{\mathbb{Q}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\N}{\mathbb{N}}
-\providecommand{\Hh}{\mathbb{H}}
-
-% -----------------------------
-% Basic math operators
-% -----------------------------
-\DeclareMathOperator{\Id}{Id}
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\dimn}{dim}
-\DeclareMathOperator{\Span}{span}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\Spec}{Spec}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\argmin}{argmin}
-\DeclareMathOperator{\argmax}{argmax}
-\DeclareMathOperator{\Vol}{Vol}
-\DeclareMathOperator{\Area}{Area}
-\DeclareMathOperator{\Length}{Length}
-\DeclareMathOperator{\dist}{dist}
-\DeclareMathOperator{\inj}{inj}
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\Leb}{Leb}
-\DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\Ree}{Re}
-\DeclareMathOperator{\Imm}{Im}
-
-% -----------------------------
-% Pseudodifferential/microlocal
-% -----------------------------
-% Core "Op" — defined safely; no redefinition if already present.
-\providecommand{\Op}{\operatorname{Op}}
-
-% Parameterized "Op" (e.g., h-semiclassical or other scales).
-\providecommand{\OpPar}[1]{\Op_{#1}}
-\providecommand{\Oph}{\OpPar{h}}
-\providecommand{\Opeta}{\OpPar{\eta}}
-\providecommand{\Opvareps}{\OpPar{\varepsilon}}
-
-% Symbol classes and PsiDO classes (printed, not operator names).
-% Usage: \Sclass{m} -> S^m, \Shclass{m} -> S_h^m, \Psih[ m ] -> \Psi_h^m
-\providecommand{\Sclass}[1]{S^{#1}}
-\providecommand{\Shclass}[1]{S_{h}^{#1}}
-\providecommand{\Psih}[1][]{\Psi_{h}^{#1}}
-\providecommand{\PsiClass}[1]{\Psi^{#1}}
-\providecommand{\PsiSc}[1]{\Psi_{\mathrm{sc}}^{#1}}
-
-% Wavefront set and characteristic sets
-\providecommand{\WF}{\mathrm{WF}}
-\providecommand{\WFpar}[1]{\WF_{#1}}
-\providecommand{\WFh}{\WFpar{h}}
-\providecommand{\Char}{\mathrm{Char}}
-\providecommand{\Ell}{\mathrm{Ell}}
-
-% Principal symbol and quantization markers
-\providecommand{\psym}{\sigma}
-\providecommand{\psympr}[1]{\psym_{\mathrm{pr}}\!\left(#1\right)}
-\providecommand{\qp}{\mathrm{q}}
-
-% -----------------------------
-% Flows and geodesic dynamics
-% -----------------------------
-\providecommand{\flow}[1]{\varphi^{#1}}
-\providecommand{\gflow}[1]{\varphi_{\mathrm{geo}}^{#1}}
-\providecommand{\Ham}{H}
-\providecommand{\XHam}{H_{p}}   % Hamilton vector field for principal symbol p
-\providecommand{\Liou}{\mu_{\mathrm{L}}}
-
-% -----------------------------
-% Pairing and norm helpers (lightweight, no package deps)
-% -----------------------------
-\providecommand{\ang}[1]{\left\langle #1 \right\rangle}
-\providecommand{\abs}[1]{\left| #1 \right|}
-\providecommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\providecommand{\ip}[2]{\left\langle #1,\,#2 \right\rangle}
-
-% -----------------------------
-% Geometry for hyperbolic surfaces
-% -----------------------------
-\providecommand{\PSL}{\mathrm{PSL}}
-\providecommand{\PSLR}{\PSL_{2}(\R)}
-\providecommand{\SLR}{\mathrm{SL}_{2}(\R)}
-\providecommand{\GLR}{\mathrm{GL}_{2}(\R)}
-\providecommand{\Lap}{\Delta}
-\providecommand{\injM}{\inj_{M}}
-\providecommand{\SM}{S M}
-\providecommand{\SX}{S X}
-
-% Cusps, widths, truncation height (notations consistent with Appendix A)
-\providecommand{\cusp}{\mathfrak{a}}
-\providecommand{\Cusps}{\mathcal{C}}
-\providecommand{\width}{w}
-\providecommand{\Wtot}{W}
-\providecommand{\Ytr}{Y}
-
-% -----------------------------
-% Spectral window / localization
-% -----------------------------
-\providecommand{\locproj}{\Pi_{\lambda,\eta}}
-\providecommand{\winL}{[\lambda-\eta,\lambda+\eta]}
-\providecommand{\testf}{k}
-\providecommand{\cutoff}{\chi}
-
-% -----------------------------
-% Misc. utilities
-% -----------------------------
+% operators.tex — standard math operators with no package side effects
 \providecommand{\dd}{\,\mathrm{d}}
 \providecommand{\ee}{\mathrm{e}}
 \providecommand{\ii}{\mathrm{i}}
-\providecommand{\bbone}{\mathbf{1}}
-\providecommand{\smallO}{o}
-\providecommand{\bigO}{O}
 
-% -----------------------------
-% Safe theorem labels in math text
-% -----------------------------
-\providecommand{\eqrefp}[1]{(\ref{#1})}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Area}{Area}
+\DeclareMathOperator{\Length}{Length}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Res}{Res}
 
-% -----------------------------
-% End of operators.tex
-% ======================================================================
+% Blackboard, calligraphic, fraktur helpers
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Norms, inner products
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
+
+% Re/Im (avoid clashes with \Re,\Im redefinitions)
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
