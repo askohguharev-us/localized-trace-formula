@@ -1,110 +1,69 @@
 \documentclass[11pt]{article}
 
-% --- Packages (Annals/arXiv level) ---
+% -------------------- Packages (arXiv/Annals safe) --------------------
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{mathtools}
 \usepackage{microtype}
+\usepackage[dvipsnames]{xcolor} % required for named colors in \hypersetup
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
 \usepackage{enumitem}
 \usepackage{url}
-\usepackage{setspace}
-\usepackage{titlesec}
-\usepackage{tocloft}
 
-% --- Metadata ---
+% -------------------- Metadata --------------------
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
   citecolor=blue!40!black,
   urlcolor=blue!40!black,
   pdftitle={Localized Trace Formula: A Monograph},
-  pdfauthor={Alexander Stepanovich Kozhukharev, Moscow, Russia, askohguharev@yandex.ru}
+  pdfauthor={Alexander S. Kozhukharev}
 }
 
-% --- Numbering conventions ---
+% -------------------- Numbering --------------------
 \numberwithin{equation}{section}
 
-% --- Custom macros ---
+% -------------------- Custom macros --------------------
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
-% --- Theorem environments ---
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
-
 \begin{document}
 
-% =====================================================
-% --- Title Page ---
-% =====================================================
+% -------------------- Title page --------------------
 \begin{titlepage}
-\centering
+  \centering
+  {\Large \textsc{Monograph}}\\[8pt]
+  {\LARGE\bfseries Localized Trace Formula}\\[4pt]
+  {\large Spectral, Geometric, and Microlocal Aspects}\\[20pt]
 
-\vspace*{2cm}
+  {\large Alexander S. Kozhukharev}\\[4pt]
+  {\normalsize \url{mailto:askohguharev@yandex.ru}}\\[2pt]
+  {\normalsize ORCID: 0000-0000-0000-0000}\\[18pt]
 
-{\Huge \bfseries Localized Trace Formula: A Monograph \par}
+  {\normalsize Version: September 8, 2025}\\[2pt]
+  {\normalsize Repository: \url{https://github.com/askohguharev-us/localized-trace-formula}}\\[2pt]
+  {\normalsize License: CC BY 4.0 / MIT (code)}\\[24pt]
 
-\vspace{2cm}
-
-{\Large Alexander Stepanovich Kozhukharev \par}
-{\large Moscow, Russia \par}
-{\tt askohguharev@yandex.ru \par}
-
-\vfill
-
-{\large \today \par}
+  \vfill
+  \begin{abstract}
+  We develop a localized trace formula on finite-area hyperbolic surfaces with cusps.
+  A smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$ is constructed
+  microlocally and yields a geometric expansion over closed geodesics of length
+  $\le T\asymp \log\lambda$, with an explicit power-saving remainder depending only
+  on cusp geometry and the spectral gap. Applications include a quantitative local
+  Weyl law and variance bounds for Hecke--Maass forms in the depth aspect.
+  \end{abstract}
+  \vfill
 \end{titlepage}
 
-% =====================================================
-% --- Abstract ---
-% =====================================================
-\begin{abstract}
-We establish a localized trace formula for finite-area hyperbolic surfaces
-$\Gamma \backslash \mathbb{H}$ with cusps. The formula equates a spectrally
-localized sum of Laplace eigenvalues, obtained via a smooth projector onto an
-interval $[\lambda-\eta,\lambda+\eta]$, with a geometric expansion over closed
-geodesics of length up to $T \asymp \log \lambda$, accompanied by an explicit
-remainder term.
-
-Our primary contribution is the construction of a microlocalized wave
-propagator that sharpens Selberg’s classical approach: the remainder is shown
-to be $O(\lambda^{-\delta})$ for an explicit $\delta>0$ depending only on the
-spectral gap and cusp geometry. This yields a genuine power-saving error term,
-improving the $O(1)$ remainder obtained by standard truncation of the Selberg
-trace formula.
-
-Applications include a quantitative local Weyl law with a power-saving error
-term, and new variance bounds for Fourier coefficients of Hecke–Maass forms
-in the depth aspect. The methods provide a unified analytic framework at the
-intersection of spectral theory, automorphic forms, and quantum chaos.
-\end{abstract}
-
-% =====================================================
-% --- Table of Contents ---
-% =====================================================
-\tableofcontents
-\newpage
-
-% =====================================================
-% --- Frontmatter ---
-% =====================================================
+% -------------------- Frontmatter --------------------
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% =====================================================
-% --- Main Sections ---
-% =====================================================
+% -------------------- Sections --------------------
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -114,14 +73,10 @@ intersection of spectral theory, automorphic forms, and quantum chaos.
 \input{sections/07-main-results.tex}
 \input{sections/08-applications.tex}
 
-% =====================================================
-% --- Conclusion ---
-% =====================================================
+% -------------------- Conclusion --------------------
 \input{conclusion/09-conclusion.tex}
 
-% =====================================================
-% --- Appendices ---
-% =====================================================
+% -------------------- Appendices --------------------
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -132,9 +87,7 @@ intersection of spectral theory, automorphic forms, and quantum chaos.
 \input{appendices/G-normalizations-and-conventions.tex}
 \input{appendices/H-selberg-comparison.tex}
 
-% =====================================================
-% --- Bibliography ---
-% =====================================================
+% -------------------- Bibliography --------------------
 \bibliographystyle{alpha}
 \bibliography{bib/references}
 
