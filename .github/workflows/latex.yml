@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build monograph (pdfLaTeX + BibTeX)
+      - name: Compile monograph (pdfLaTeX + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           texlive_version: 2024
@@ -27,7 +27,7 @@ jobs:
           name: monograph-pdf
           path: src/main.pdf
 
-      - name: Upload logs
+      - name: Upload LaTeX logs (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
