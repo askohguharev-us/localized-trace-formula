@@ -4,62 +4,43 @@ on:
   push:
     branches: [ main ]
   pull_request:
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: latex-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Сборка LaTeX. Используем latexmk (pdflatex + BibTeX).
-      # Никаких лишних опций: только валидные ключи этого экшена.
       - name: Compile monograph (pdf)
+        id: compile
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: src/main.tex
-          work_in_root_file_dir: true
-          latexmk_shell_escape: false
+          texlive_version: 2024
+          working_directory: src
+          root_file: main.tex
+          compiler: latexmk
+          args: -pdf -file-line-error -interaction=nonstopmode -halt-on-error
           latexmk_use_lualatex: false
           latexmk_use_xelatex: false
-          compiler: latexmk
-          args: -pdf -file-line-error -interaction=nonstopmode
-          cache: true
-          extra_system_packages: >-
-            ghostscript
-            poppler-utils
 
-      # Публикуем итоговый PDF + вспомогательные файлы как артефакты
       - name: Upload PDF artifact
-        if: always()
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
-          path: |
-            src/main.pdf
+          path: src/main.pdf
 
-      - name: Upload logs (aux/bbl/blg/log)
+      - name: Upload build logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-logs
           path: |
             src/*.log
-            src/*.aux
-            src/*.bbl
             src/*.blg
-            src/appendices/*.aux
-            src/sections/*.aux
-            src/frontmatter/*.aux
-            src/conclusion/*.aux
-            src/bib/*.bib
+            src/*.bbl
+            src/*.aux
+            src/*.fls
+            src/*.fdb_latexmk
