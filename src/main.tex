@@ -1,71 +1,75 @@
 \documentclass[11pt]{article}
 
-% --- Page & typography (journal-grade) ---
+% --- Page geometry & typography ---
 \usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{microtype}
-\usepackage{setspace}
-\usepackage{lmodern}
 
-% --- Math core ---
-\usepackage{amsmath,amsthm,amssymb,amsfonts,mathtools}
-\numberwithin{equation}{section}
+% --- AMS & math packages ---
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{bm}
 
-% --- Hyperref/Cleveref (Annals-friendly setup) ---
+% --- Graphics (safe even if unused) ---
+\usepackage{graphicx}
+
+% --- Links & references ---
 \usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
   citecolor=blue!40!black,
   urlcolor=blue!40!black,
   pdftitle={Localized Trace Formula: A Monograph},
-  pdfauthor={Alexander S. Kozhukharev},
-  pdfsubject={Spectral theory; hyperbolic surfaces; localized trace formula}
+  pdfauthor={Alexander Stepanovich Kozhukharev}
 }
-\usepackage[nameinlink,capitalise]{cleveref}
 
-% --- Lists & utilities ---
+% --- Lists ---
 \usepackage{enumitem}
-\setlist{nosep}
 
-% --- Local macros (already in repo) ---
+% --- Numbering ---
+\numberwithin{equation}{section}
+
+% --- Local macros ---
 \input{macros/environments.tex}
 \input{macros/operators.tex}
 \input{macros/house-style.tex}
 
-% --- Title block (expanded, no Russian) ---
+% =====================================================
+%                   DOCUMENT
+% =====================================================
 \begin{document}
-\thispagestyle{empty}
 
-\begin{center}
-  {\LARGE\bfseries Localized Trace Formula: A Monograph}\\[8pt]
-  {\large Alexander S.~Kozhukharev}\\[4pt]
-  {\small Independent Researcher, Moscow, Russia}\\
-  \href{mailto:askohguharev@yandex.ru}{\texttt{askohguharev@yandex.ru}}\\[6pt]
-  \vspace{4pt}
-  \today
-\end{center}
+% --- Title page (full, arXiv-friendly) ---
+\begin{titlepage}
+  \centering
+  {\LARGE \bfseries Localized Trace Formula: A Monograph\par}
+  \vspace{1.25em}
+  {\large Alexander Stepanovich Kozhukharev\par}
+  \vspace{0.25em}
+  {\normalsize Moscow, Russia\par}
+  \vspace{0.25em}
+  {\normalsize \texttt{askohguharev@yandex.ru}\par}
+  \vspace{1.25em}
+  {\normalsize DOI/Zenodo: \href{https://doi.org/10.5281/zenodo.16877265}{10.5281/zenodo.16877265}\par}
+  \vfill
+  \begin{abstract}
+  We develop a localized trace formula on finite-area hyperbolic surfaces with cusps. 
+  A microlocal projector onto energies in $[\lambda-\eta,\lambda+\eta]$ yields a geometric expansion supported on closed geodesics of length $\le T\asymp \log\lambda$, together with explicit, uniform-in-$Y$ remainder terms. 
+  The construction provides a power-saving error for the identity and parabolic contributions, and leads to quantitative local Weyl laws and variance bounds for automorphic forms.
+  \end{abstract}
+  \vfill
+  {\normalsize Version compiled on \today\par}
+\end{titlepage}
 
-\vspace{10pt}
-
-\begin{abstract}
-We develop a localized trace formula on finite-area hyperbolic surfaces with cusps. 
-A smooth spectral projector onto a dyadic window $[\lambda-\eta,\lambda+\eta]$ is realized microlocally via a compactly supported wave packet, yielding a geometric expansion over closed geodesics of length $\ll \log\lambda$ together with an explicit, power-saving remainder depending only on cusp geometry and a fixed spectral gap. Consequences include a quantitative local Weyl law and variance bounds for Hecke--Maass coefficients in depth. The appendix suite provides effective cusp geometry (A), auxiliary operator and oscillatory estimates (B), a microlocal toolkit (C), Tauberian upgrades (D), numerical verification protocol (E), implementation notes (F), normalization ledger (G), and a comparison with the classical Selberg trace formula (H).
-\end{abstract}
-
-\vspace{8pt}
-\noindent\textbf{MSC (2020).} 11F72, 58J51, 35S30, 37D40. \quad
-\textbf{Keywords.} Selberg trace formula; microlocal analysis; hyperbolic surfaces; spectral projectors; cusp geometry.
-
-\bigskip
-\tableofcontents
-\bigskip
-
-% --- Frontmatter (already present in repo) ---
+% --- Frontmatter (executive summary, roadmap, notation) ---
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% --- Main sections (paths exactly as in your repo) ---
+% --- Core sections ---
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -78,7 +82,7 @@ A smooth spectral projector onto a dyadic window $[\lambda-\eta,\lambda+\eta]$ i
 % --- Conclusion ---
 \input{conclusion/09-conclusion.tex}
 
-% --- Appendices (A--H, exactly as listed) ---
+% --- Appendices (A–H) ---
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -90,7 +94,7 @@ A smooth spectral projector onto a dyadic window $[\lambda-\eta,\lambda+\eta]$ i
 \input{appendices/H-selberg-comparison.tex}
 
 % --- Bibliography ---
-\bibliographystyle{amsalpha} % Annals-friendly AMS style
+\bibliographystyle{amsplain}
 \bibliography{bib/references}
 
 \end{document}
