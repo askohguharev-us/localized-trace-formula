@@ -1,75 +1,65 @@
-% ------------------------------------------------------------
-% operators.tex — safe operator and macro declarations
-% ------------------------------------------------------------
-% All declarations are protected against redefinition.
-% No compilation errors if included multiple times.
+% ============================================
+% operators.tex — SAFE, IDEMPOTENT DEFINITIONS
+% ============================================
+% Assumes amsmath/amssymb/mathtools/bbm are loaded in the preamble.
 
-% Basic utilities
-\providecommand{\dd}{\,\mathrm{d}}
-\providecommand{\ii}{\mathrm{i}}
-\providecommand{\ee}{\mathrm{e}}
-
-% Indicator
+% ---- tiny helpers (defined safely) ----
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
 \providecommand{\1}{\mathbbm{1}}
-\providecommand{\ind}{\mathbbm{1}}
+\providecommand{\e}{\mathrm{e}}
+\providecommand{\ii}{\mathrm{i}}
+\providecommand{\dd}{\mathrm{d}}
 
-% Common sets
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\N}{\mathbb{N}}
-\providecommand{\Hh}{\mathbb{H}}
-
-% Brackets
+% Paired delimiters (keep simple & safe)
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
-\providecommand{\inp}[2]{\left\langle #1,\,#2\right\rangle}
+\providecommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\providecommand{\bracks}[1]{\left[ #1 \right]}
+\providecommand{\parens}[1]{\left( #1 \right)}
 
-% Named operators (declared only if not already defined)
+% ----- Safe DeclareMathOperator wrappers -----
 \makeatletter
-\@ifundefined{tr}{\DeclareMathOperator{\tr}{tr}}{}
-\@ifundefined{Tr}{\DeclareMathOperator{\Tr}{Tr}}{}
-\@ifundefined{supp}{\DeclareMathOperator{\supp}{supp}}{}
-\@ifundefined{vol}{\DeclareMathOperator{\vol}{vol}}{}
-\@ifundefined{dist}{\DeclareMathOperator{\dist}{dist}}{}
-\@ifundefined{diam}{\DeclareMathOperator{\diam}{diam}}{}
-\@ifundefined{sgn}{\DeclareMathOperator{\sgn}{sgn}}{}
-\@ifundefined{Id}{\DeclareMathOperator{\Id}{Id}}{}
+\providecommand{\SafeDeclareMathOperator}[2]{%
+  \@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}%
+}
+\providecommand{\SafeDeclareMathOperatorStar}[2]{%
+  \@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}%
+}
 \makeatother
 
-% Microlocal notation
-\providecommand{\Op}{\operatorname{Op}}
-\providecommand{\Oph}{\operatorname{Op}_h}
-\providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
+% Common operators
+\SafeDeclareMathOperator{sgn}{sgn}
+\SafeDeclareMathOperator{tr}{tr}
+\SafeDeclareMathOperator{rank}{rank}
+\SafeDeclareMathOperator{supp}{supp}
+\SafeDeclareMathOperator{Res}{Res}
+\SafeDeclareMathOperator{diag}{diag}
+\SafeDeclareMathOperator{vol}{vol}
+\SafeDeclareMathOperator{area}{area}
+\SafeDeclareMathOperator{length}{length}
+\SafeDeclareMathOperator{diam}{diam}
+\SafeDeclareMathOperator{dist}{dist}
+\SafeDeclareMathOperator{Id}{Id}
+\SafeDeclareMathOperator{arccosh}{arccosh}
 
-% Wavefront and spectrum
-\providecommand{\WF}{\mathrm{WF}}
-\providecommand{\WFh}{\mathrm{WF}_h}
-\providecommand{\Spec}{\mathrm{Spec}}
+% Extremizers
+\SafeDeclareMathOperatorStar{argmin}{arg\,min}
+\SafeDeclareMathOperatorStar{argmax}{arg\,max}
 
-% Differential operators
-\providecommand{\grad}{\nabla}
-\providecommand{\Lap}{\Delta}
-\providecommand{\dA}{\mathrm{d}A}
-\providecommand{\dvol}{\mathrm{d}\mathrm{vol}}
+% ----- Microlocal / semiclassical notation (conflict-free) -----
+% If \Op was already defined by a package or elsewhere, do nothing.
+\makeatletter
+\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{}
+\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}
+\@ifundefined{Opw}{\newcommand{\Opw}{\Op_{h}^{\mathrm{w}}}}{}
+\makeatother
 
-% Geometry
-\providecommand{\inj}{\mathrm{inj}}
-\providecommand{\length}{\ell}
-\providecommand{\cl}{\mathrm{cl}}
-\providecommand{\Int}{\mathrm{int}}
+% Pseudodifferential symbol classes (safe)
+\providecommand{\Sm}[1][]{S^{#1}}
+\providecommand{\SrhoDelta}[2]{S^{#1}_{#2,0}}
 
-% Asymptotics
-\providecommand{\bigo}{\mathcal{O}}
-\providecommand{\smallo}{o}
-
-% Convenient arrows
-\providecommand{\xto}[1]{\xrightarrow{#1}}
-\providecommand{\tto}{\rightrightarrows}
-
-% Text styles inside math
-\providecommand{\st}{\;\text{s.t.}\;}
-\providecommand{\where}{\;\text{where}\;}
-\providecommand{\wh}{\widehat}
-\providecommand{\wt}{\widetilde}
-\providecommand{\ol}{\overline}
+% Fourier transform conventions (safe aliases)
+\providecommand{\FT}{\mathcal{F}}
+\providecommand{\IFT}{\mathcal{F}^{-1}}
