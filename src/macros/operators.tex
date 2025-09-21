@@ -1,42 +1,75 @@
-% src/macros/operators.tex  — canonical operator macros (diamond)
+% ------------------------------------------------------------
+% operators.tex — safe operator and macro declarations
+% ------------------------------------------------------------
+% All declarations are protected against redefinition.
+% No compilation errors if included multiple times.
 
-% --- Algebraic / analytic operators ---
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Vol}{Vol}
-\DeclareMathOperator{\vol}{vol}
-\DeclareMathOperator{\dist}{dist}
-\DeclareMathOperator{\inj}{inj}
-\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Id}{Id}
-\DeclareMathOperator{\WFop}{WF}      % use \WF for the set
+% Basic utilities
+\providecommand{\dd}{\,\mathrm{d}}
+\providecommand{\ii}{\mathrm{i}}
+\providecommand{\ee}{\mathrm{e}}
 
-% --- Semiclassical / PDO notation ---
-% Base "Op" (plain), Weyl "Op^w", semiclassical subscripts, and combos.
-\newcommand{\Op}{\mathrm{Op}}
-\newcommand{\Opw}{\mathrm{Op}^{\!w}}
-\newcommand{\Op_h}{\mathrm{Op}_{h}}
-\newcommand{\Opw_h}{\mathrm{Op}_{h}^{\!w}}
+% Indicator
+\providecommand{\1}{\mathbbm{1}}
+\providecommand{\ind}{\mathbbm{1}}
 
-% Optional short-hands used across appendices
-\newcommand{\OpH}{\Op_h}      % alias
-\newcommand{\OpHw}{\Opw_h}    % alias
+% Common sets
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Hh}{\mathbb{H}}
 
-% --- Sets / function spaces ---
-\newcommand{\WF}{\mathrm{WF}}                 % wavefront set
-\newcommand{\Sch}{\mathcal{S}}                % Schwartz
-\newcommand{\Cc}{C_c^\infty}                  % compactly supported smooth
-\newcommand{\Ls}{L^2}                          % L^2
-\newcommand{\Hs}[1]{H^{#1}}                   % Sobolev H^s
+% Brackets
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\lVert #1\right\rVert}
+\providecommand{\inp}[2]{\left\langle #1,\,#2\right\rangle}
 
-% --- Frequently used symbols ---
-\newcommand{\1}{\mathbbm{1}}                  % indicator
-\newcommand{\bbR}{\mathbb{R}}
-\newcommand{\bbZ}{\mathbb{Z}}
-\newcommand{\bbN}{\mathbb{N}}
-\newcommand{\bbC}{\mathbb{C}}
+% Named operators (declared only if not already defined)
+\makeatletter
+\@ifundefined{tr}{\DeclareMathOperator{\tr}{tr}}{}
+\@ifundefined{Tr}{\DeclareMathOperator{\Tr}{Tr}}{}
+\@ifundefined{supp}{\DeclareMathOperator{\supp}{supp}}{}
+\@ifundefined{vol}{\DeclareMathOperator{\vol}{vol}}{}
+\@ifundefined{dist}{\DeclareMathOperator{\dist}{dist}}{}
+\@ifundefined{diam}{\DeclareMathOperator{\diam}{diam}}{}
+\@ifundefined{sgn}{\DeclareMathOperator{\sgn}{sgn}}{}
+\@ifundefined{Id}{\DeclareMathOperator{\Id}{Id}}{}
+\makeatother
 
-% --- Small spacing helpers for nice typesetting in superscripts/subscripts ---
-\newcommand{\!}{\mskip-2mu}                   % tiny negative space (for Op^{\!w})
+% Microlocal notation
+\providecommand{\Op}{\operatorname{Op}}
+\providecommand{\Oph}{\operatorname{Op}_h}
+\providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
+
+% Wavefront and spectrum
+\providecommand{\WF}{\mathrm{WF}}
+\providecommand{\WFh}{\mathrm{WF}_h}
+\providecommand{\Spec}{\mathrm{Spec}}
+
+% Differential operators
+\providecommand{\grad}{\nabla}
+\providecommand{\Lap}{\Delta}
+\providecommand{\dA}{\mathrm{d}A}
+\providecommand{\dvol}{\mathrm{d}\mathrm{vol}}
+
+% Geometry
+\providecommand{\inj}{\mathrm{inj}}
+\providecommand{\length}{\ell}
+\providecommand{\cl}{\mathrm{cl}}
+\providecommand{\Int}{\mathrm{int}}
+
+% Asymptotics
+\providecommand{\bigo}{\mathcal{O}}
+\providecommand{\smallo}{o}
+
+% Convenient arrows
+\providecommand{\xto}[1]{\xrightarrow{#1}}
+\providecommand{\tto}{\rightrightarrows}
+
+% Text styles inside math
+\providecommand{\st}{\;\text{s.t.}\;}
+\providecommand{\where}{\;\text{where}\;}
+\providecommand{\wh}{\widehat}
+\providecommand{\wt}{\widetilde}
+\providecommand{\ol}{\overline}
