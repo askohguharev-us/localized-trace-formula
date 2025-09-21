@@ -16,7 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Быстрый sanity-check структуры (чёткие сообщения об ошибке пути)
       - name: Sanity check layout
         run: |
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
@@ -25,32 +24,28 @@ jobs:
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
-      # Устанавливаем необходимые коллекции TeX Live (надёжно закрывает зависимости)
-      - name: Install TeX Live collections
-        run: |
-          tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
-          tlmgr update --self --all
-          tlmgr install \
-            collection-latexrecommended \
-            collection-latexextra \
-            collection-fontsrecommended \
-            collection-bibtexextra
-
-      # Сборка через latexmk (pdfLaTeX + BibTeX). latex-action сам вызовет bibtex при необходимости.
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
+          texlive_version: 2024
           root_file: main.tex
           working_directory: src
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           latexmk_use_lualatex: false
           latexmk_use_xelatex: false
-          # на случай, если где-то включён \write18 — по умолчанию выключено:
           latexmk_shell_escape: false
+          # ← TeX Live уже установлен; здесь безопасно ставим коллекции/пакеты
+          pre_compile: |
+            tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+            tlmgr update --self --all
+            tlmgr install \
+              collection-latexrecommended \
+              collection-latexextra \
+              collection-fontsrecommended \
+              collection-bibtexextra
           post_compile: |
-            ls -lah
-            # Сохраняем лог наверх для загрузки артефактом:
             cp main.log "$GITHUB_WORKSPACE/src/main.log" 2>/dev/null || true
+            ls -lah
 
       - name: Upload PDF
         if: success()
