@@ -1,36 +1,46 @@
-% environments.tex  — clean Annals/ArXiv-safe theorem setup
-\providecommand{\theoremname}{Theorem}
-\providecommand{\lemmaname}{Lemma}
-\providecommand{\corollaryname}{Corollary}
-\providecommand{\propositionname}{Proposition}
-\providecommand{\definitionname}{Definition}
-\providecommand{\examplename}{Example}
-\providecommand{\remarkname}{Remark}
+% ============================================
+% environments.tex — GUARDED THEOREM ENVIRONMENTS
+% ============================================
 
-\newtheorem{theorem}{\theoremname}[section]
-\newtheorem{lemma}[theorem]{\lemmaname}
-\newtheorem{corollary}[theorem]{\corollaryname}
-\newtheorem{proposition}[theorem]{\propositionname}
+% Numbering by section (only if not already set)
+\numberwithin{equation}{section}
 
+\makeatletter
+% Helper: define theorem-like env only if undefined
+\newcommand{\SafeNewTheorem}[3][]{%
+  \@ifundefined{#2}{\newtheorem{#2}{#3}[#1]}{}%
+}
+\newcommand{\SafeNewTheoremNoReset}[2]{%
+  \@ifundefined{#1}{\newtheorem{#1}{#2}}{}%
+}
+\makeatother
+
+% Main theorem family (reset each section)
+\SafeNewTheorem{theorem}{Theorem}
+\SafeNewTheoremNoReset{lemma}{Lemma}
+\SafeNewTheoremNoReset{proposition}{Proposition}
+\SafeNewTheoremNoReset{corollary}{Corollary}
+
+% Definition/remark styles
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{\definitionname}
-\newtheorem{example}[theorem]{\examplename}
+\SafeNewTheoremNoReset{definition}{Definition}
+\SafeNewTheoremNoReset{assumption}{Assumption}
 
 \theoremstyle{remark}
-\newtheorem{remark}[theorem]{\remarkname}
+\SafeNewTheoremNoReset{remark}{Remark}
+\SafeNewTheoremNoReset{example}{Example}
 
-% Cleveref names (no localization)
-\crefname{theorem}{Theorem}{Theorems}
-\Crefname{theorem}{Theorem}{Theorems}
-\crefname{lemma}{Lemma}{Lemmas}
-\Crefname{lemma}{Lemma}{Lemmas}
-\crefname{corollary}{Corollary}{Corollaries}
-\Crefname{corollary}{Corollary}{Corollaries}
-\crefname{proposition}{Proposition}{Propositions}
-\Crefname{proposition}{Proposition}{Propositions}
-\crefname{definition}{Definition}{Definitions}
-\Crefname{definition}{Definition}{Definitions}
-\crefname{example}{Example}{Examples}
-\Crefname{example}{Example}{Examples}
-\crefname{remark}{Remark}{Remarks}
-\Crefname{remark}{Remark}{Remarks}
+% Cleveref names (only once; harmless if repeated)
+\providecommand{\crefname}[3]{\@ifundefined{cref@#1@name}{\def\cref@#1@name{#2}\def\Cref@#1@name{#3}}{}}
+\providecommand{\Crefname}[3]{}
+
+% (Names below are used by cleveref; if cleveref loaded, these help formatting.)
+\crefname{theorem}{theorem}{theorems}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{definition}{definition}{definitions}
+\crefname{assumption}{assumption}{assumptions}
+\crefname{remark}{remark}{remarks}
+\crefname{example}{example}{examples}
+\crefname{equation}{equation}{equations}
