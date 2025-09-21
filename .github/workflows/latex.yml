@@ -1,8 +1,5 @@
 name: latex
-
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   pdf:
@@ -10,7 +7,6 @@ jobs:
     defaults:
       run:
         working-directory: src
-
     steps:
       - uses: actions/checkout@v4
 
@@ -23,9 +19,10 @@ jobs:
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
-      - name: Build (full TeX Live container)
-        uses: dante-ev/latex-action@v2
+      - name: Compile with TeX Live (full image)
+        uses: xu-cheng/latex-action@v3
         with:
+          docker_image: ghcr.io/xu-cheng/texlive:2024-full
           root_file: main.tex
           working_directory: src
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
