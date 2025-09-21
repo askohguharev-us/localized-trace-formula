@@ -1,10 +1,8 @@
-name: pdf
+name: latex
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-  workflow_dispatch:
 
 jobs:
   pdf:
@@ -12,48 +10,58 @@ jobs:
 
     defaults:
       run:
-        shell: bash
         working-directory: src
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Быстрый sanity-check структуры (чёткие сообщения об ошибке пути)
       - name: Sanity check layout
         run: |
-          set -euo pipefail
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
+      # Устанавливаем необходимые коллекции TeX Live (надёжно закрывает зависимости)
+      - name: Install TeX Live collections
+        run: |
+          tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+          tlmgr update --self --all
+          tlmgr install \
+            collection-latexrecommended \
+            collection-latexextra \
+            collection-fontsrecommended \
+            collection-bibtexextra
+
+      # Сборка через latexmk (pdfLaTeX + BibTeX). latex-action сам вызовет bibtex при необходимости.
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: src
-          # все опции latexmk передаем через args
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
-          # включить \write18 если нужно (tikzexternalize и т.п.)
-          latexmk_shell_escape: true
-          # скрипт выполнится после сборки (успешной или нет)
+          latexmk_use_lualatex: false
+          latexmk_use_xelatex: false
+          # на случай, если где-то включён \write18 — по умолчанию выключено:
+          latexmk_shell_escape: false
           post_compile: |
-            set -e
             ls -lah
-            cp main.log "$GITHUB_WORKSPACE/main.log" 2>/dev/null || true
+            # Сохраняем лог наверх для загрузки артефактом:
+            cp main.log "$GITHUB_WORKSPACE/src/main.log" 2>/dev/null || true
 
       - name: Upload PDF
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
           path: src/main.pdf
-          if-no-files-found: ignore
 
       - name: Upload LaTeX log (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: main-log
-          path: main.log
-          if-no-files-found: warn
+          path: src/main.log
