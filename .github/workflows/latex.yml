@@ -1,39 +1,70 @@
-name: Build LaTeX document (arXiv/Annals)
+# .github/workflows/latex.yml
+name: build-pdf
 
 on:
   push:
     branches: [ main ]
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  build-pdf:
+  pdf:
     runs-on: ubuntu-latest
+
+    # Все команды – из каталога src/
+    defaults:
+      run:
+        shell: bash -euo pipefail
+        working-directory: src
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile monograph (pdfLaTeX + BibTeX)
+      - name: Sanity check repo layout
+        run: |
+          echo "PWD=$(pwd)"
+          ls -la
+          test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
+          test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
+          # Макросы
+          test -f macros/environments.tex || { echo "::error ::macros/environments.tex missing"; exit 2; }
+          test -f macros/operators.tex    || { echo "::error ::macros/operators.tex missing"; exit 2; }
+          test -f macros/house-style.tex  || { echo "::error ::macros/house-style.tex missing"; exit 2; }
+
+      # Самый надёжный вариант: готовый полный TeXLive контейнер
+      - name: Compile with TeXLive full (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          texlive_version: 2024
-          working_directory: src
           root_file: main.tex
-          compiler: latexmk
-          args: -pdf -bibtex -interaction=nonstopmode -halt-on-error -file-line-error
+          working_directory: src
+          # Ускоряем и делаем сборку предсказуемой
+          latexmk_use_xelatex: false
+          extra_latexmk_options: "-file-line-error -halt-on-error -interaction=nonstopmode"
+          # Логи всегда сохраняем
+          post_compile: |
+            echo "— build tree —"
+            ls -lah
+            cp main.log ../main.log || true
+
+      # (Опционально) Строгая проверка “нулевого бюджета ошибок” — включи, когда потребуется
+      - name: Enforce zero warnings/overfull (optional)
+        if: ${{ false }}   # поменяй на 'true' чтобы включить
+        run: |
+          echo "Checking LaTeX warnings/overfull hboxes…"
+          ! grep -q "LaTeX Warning:" main.log || { echo "::error ::LaTeX warnings present"; exit 3; }
+          ! grep -q "Overfull \\hbox" main.log || { echo "::error ::Overfull hboxes present"; exit 4; }
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
           path: src/main.pdf
+          if-no-files-found: error
 
-      - name: Upload LaTeX logs (on failure)
+      - name: Upload LaTeX log (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: monograph-logs
-          path: |
-            src/*.log
-            src/*.blg
-            src/*.fls
-            src/*.fdb_latexmk
+          name: main-log
+          path: main.log
