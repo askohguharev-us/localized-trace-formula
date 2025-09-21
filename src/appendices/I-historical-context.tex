@@ -1,0 +1,150 @@
+% I-historical-context.tex
+\appendix
+\section*{Appendix I. Historical Context and Literature Map}
+\addcontentsline{toc}{section}{Appendix I. Historical Context and Literature Map}
+\label{appI:root}
+
+\noindent\textbf{Purpose of Appendix I.}  
+This appendix situates the results of the monograph within the historical trajectory of spectral theory, analytic number theory, and microlocal analysis.  
+The objective is not to provide a survey “for completeness,” but to map the genealogy of key methods—trace formulae, Tauberian theorems, microlocal tools, and numerical verification—so that readers can trace intellectual dependencies and evaluate the originality of this work with maximal clarity.  
+
+\subsection*{I.1. Origins of the Trace Formula}  
+\begin{itemize}
+  \item \textbf{Selberg (1956)} introduced the trace formula for compact and finite-area hyperbolic surfaces, establishing a spectral–geometric duality that became the foundation of modern analytic number theory.  
+  \item \textbf{Hejhal (1983, 1990)} developed a detailed exposition and computational framework, making Selberg’s formula effective for explicit groups.  
+  \item Subsequent generalizations (Arthur, Langlands) broadened the scope to higher-rank groups and automorphic forms.  
+\end{itemize}
+
+\subsection*{I.2. Spectral Asymptotics and Local Laws}  
+\begin{itemize}
+  \item \textbf{Weyl (1912)} established the classical global eigenvalue asymptotics.  
+  \item \textbf{Duistermaat–Guillemin (1975)} and \textbf{Colin de Verdière (1980s)} refined microlocal approaches for wave kernels.  
+  \item \textbf{Iwaniec–Sarnak (1990s)} connected spectral gaps and arithmetic.  
+  \item Our localized Weyl law extends this trajectory with quantitative local error control.  
+\end{itemize}
+
+\subsection*{I.3. Tauberian Framework}  
+\begin{itemize}
+  \item \textbf{Ikehara (1931)} provided the archetype of Tauberian theorems in prime number theory.  
+  \item \textbf{Ingham (1935)}, \textbf{Delange (1954)} developed effective remainders.  
+  \item In spectral geometry, these principles were adapted by \textbf{Jakobson–Naud (2007)} to connect spectral gaps with error terms.  
+  \item Appendix~D of this monograph crystallizes this lineage into a quantitative, explicit toolkit.  
+\end{itemize}
+
+\subsection*{Audit of Appendix I, Part 1}  
+\noindent\textbf{Goals.}  
+\begin{itemize}
+  \item \emph{Goal I1:} Document the historical genesis of each analytic tool.  
+  \item \emph{Goal I2:} Provide a literature map linking past to present.  
+\end{itemize}
+
+\noindent\textbf{Invariants.}  
+\begin{itemize}
+  \item \emph{Invariant I1:} Every cited method is anchored in a canonical reference.  
+  \item \emph{Invariant I2:} No duplication or vague references; only core contributions.  
+\end{itemize}
+
+\noindent\textbf{Forward Links.}  
+\begin{itemize}
+  \item To Chapter~7: localized trace formula compared with Selberg’s.  
+  \item To Appendix~D: explicit Tauberian lemmas in modern form.  
+\end{itemize}
+
+\noindent\textbf{Backward Links.}  
+\begin{itemize}
+  \item From Chapter~1: motivation via historical trajectory.  
+  \item From Appendix~H: comparison with Selberg trace formula.  
+\end{itemize}
+
+\bigskip
+\noindent\textbf{Conclusion.}  
+Part 1 of Appendix~I frames the intellectual lineage: Selberg’s duality, Weyl’s asymptotics, Tauberian bridges, and microlocal refinements. This establishes a rigorous context for evaluating the novelty and robustness of the results presented in this monograph.  
+
+% ===== Appendix I — Part 2 =====
+
+\subsection*{I.4. Microlocal and Semiclassical Foundations}
+\noindent
+Wave-trace and microlocal techniques supplied the modern bridge from geometry to spectrum:
+\begin{itemize}
+  \item \textbf{Wave kernel and parametrix.} Short-time Hadamard parametrices and finite propagation underpin local trace identities and the symbolic control required for our localized windows.
+  \item \textbf{Egorov and semiclassical calculus.} Conjugation by the wave group transports symbols along the geodesic flow up to Ehrenfest times (\(t\sim c\log\lambda\)), providing the microlocal invariance of the projector \(P_{\lambda,\eta}\).
+  \item \textbf{Stationary phase hierarchy.} Quantitative expansions (principal term + power-saving remainder) govern all oscillatory integrals appearing in the geometric side and in localized pre-trace bounds.
+  \item \textbf{Quantum ergodicity lineage.} Microlocal propagation clarifies how dynamical features (e.g.\ hyperbolicity on \(T^*M\)) feed spectral equidistribution phenomena; our localized bounds are designed to be compatible with this program.
+\end{itemize}
+
+\subsection*{I.5. Hyperbolic Dynamics, Spectral Gaps, and Arithmetic}
+\noindent
+The magnitude of remainder terms in local Weyl-type statements is tightly linked to gap information:
+\begin{itemize}
+  \item \textbf{Spectral gap as a Tauberian parameter.} Any analytic continuation width for resolvents/scattering directly calibrates the power-saving exponent in Tauberian remainders; Appendix~D formalizes this dependency.
+  \item \textbf{Geodesic dynamics.} Anosov properties (expansion/contraction rates) govern derivative growth for \(g^t\) and thus the loss in quantitative Egorov; this is the source of our \(h^{1-\delta}\) commutator bounds.
+  \item \textbf{Arithmetic input.} For congruence surfaces one leverages Hecke symmetry, scattering data, and known lower bounds toward the Selberg eigenvalue conjecture to make the constants in our error budgets fully explicit.
+\end{itemize}
+
+\subsection*{I.6. Numerical Era and Reproducibility}
+\noindent
+Computational breakthroughs shaped today’s expectations for transparency:
+\begin{itemize}
+  \item \textbf{Spectral data for model groups.} High-precision eigenvalues and Fourier coefficients on modular and low-level congruence surfaces enable sanity checks of localized asymptotics (Appendix~E).
+  \item \textbf{Algorithmic cross-checks.} Independent pipelines (e.g.\ Hejhal-type methods, finite-element variants) provide robustness against implementation bias; Appendix~F encodes these practices as CI invariants.
+  \item \textbf{Constant-level verification.} Our tables separate geometric constants (volume, cusp widths, injectivity data) from spectral ones (gaps, scattering), mirroring the separation of roles in the localized trace identity.
+\end{itemize}
+
+\subsection*{I.7. Literature Map and Reading Guide}
+\noindent
+The references naturally cluster into method families; below we also indicate the entry points in this monograph.
+
+\medskip\noindent
+\textbf{Trace-formula core.}
+Selberg’s original identity and its expositions; geometric terms (identity/hyperbolic/parabolic); scattering and determinant.  
+\emph{Crosswalk:} Appendix~H (term-by-term comparison), Chapter~6 (geometric expansion), Chapter~7 (synthesis).
+
+\medskip\noindent
+\textbf{Microlocal/semiclassical.}
+Wave parametrices, symbolic calculus, Egorov at logarithmic times, stationary phase with explicit remainders.  
+\emph{Crosswalk:} Appendix~B (oscillatory/Hadamard), Appendix~C (Egorov toolkit), Chapter~5 (microlocal estimates).
+
+\medskip\noindent
+\textbf{Tauberian/complex-analytic.}
+Ikehara–Wiener and effective refinements; Laplace–Mellin interfaces; gap\(\Rightarrow\)power-saving.  
+\emph{Crosswalk:} Appendix~D (quantitative Tauberian), Chapter~8 (applications).
+
+\medskip\noindent
+\textbf{Hyperbolic dynamics and arithmetic.}
+Geodesic flow, transfer-operator heuristics, arithmetic symmetries, gap phenomena.  
+\emph{Crosswalk:} Chapter~2 (normalizations), Appendix~A (effective cusp geometry), Appendices~E–F (numerical standards).
+
+\medskip\noindent
+\textbf{Numerics and standards.}
+Spectral datasets, verification protocols, deterministic builds, label/bibliography integrity.  
+\emph{Crosswalk:} Appendix~E (experiments, tables), Appendix~F (implementation invariants).
+
+\subsection*{Audit of Appendix I, Part 2}
+\noindent\textbf{Goals.}
+\begin{itemize}
+  \item \emph{Goal I3:} Explain how microlocal and dynamical inputs produce quantitative locality in the trace identity. 
+  \item \emph{Goal I4:} Link spectral gaps to all power-saving exponents used in Tauberian outputs. 
+  \item \emph{Goal I5:} Provide a navigable literature map aligned with the monograph’s architecture.
+\end{itemize}
+
+\noindent\textbf{Invariants.}
+\begin{itemize}
+  \item \emph{Invariant I3:} No historical statement without a methodological role in the present work.
+  \item \emph{Invariant I4:} Each cluster in the literature map has an explicit crosswalk to sections/appendices of this monograph.
+\end{itemize}
+
+\noindent\textbf{Forward Links.}
+\begin{itemize}
+  \item To Chapter~7: localized trace and constant tracking.
+  \item To Appendices~D–F: quantitative Tauberian, numerics, and reproducibility standards.
+\end{itemize}
+
+\noindent\textbf{Backward Links.}
+\begin{itemize}
+  \item From Chapter~1: positioning and claims of novelty.
+  \item From Appendix~H: Selberg alignment ensures normalization consistency.
+\end{itemize}
+
+\bigskip
+\noindent\textbf{Conclusion.}
+Part 2 consolidates the methodological lineage—microlocal control, dynamical growth, Tauberian translation—and equips the reader with a compact literature map tied to concrete entry points in this monograph. This closes Appendix~I’s mission: context with purpose, history with constants.
