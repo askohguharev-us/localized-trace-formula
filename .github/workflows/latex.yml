@@ -23,21 +23,21 @@ jobs:
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
-      # КЛЮЧЕВОЕ:
-      # 1) фиксируем год TeX Live = 2024
-      # 2) через pre_compile перевыставляем репозиторий на 2024/tlnet-final,
-      #    чтобы tlmgr не пытался прыгнуть на 2025 (убирает твою прошлую ошибку).
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: src
           texlive_version: 2024
+          # НИКАКИХ update --self (это и ломало сборку)
           pre_compile: |
-            tlmgr option repository https://mirror.ctan.org/systems/texlive/2024/tlnet-final
-            tlmgr update --self
-            # при необходимости можно доставить пакеты:
-            # tlmgr install microtype enumitem mathtools bbm rsfs
+            set -eux
+            REPO=https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2024/tlnet-final
+            tlmgr option repository "$REPO"
+            # Доставь только то, чего нет в базовом образе
+            tlmgr install --repository "$REPO" \
+              microtype enumitem mathtools bbm rsfs \
+              xcolor caption subcaption float tcolorbox cleveref
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
           latexmk_shell_escape: false
 
