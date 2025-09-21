@@ -1,69 +1,20 @@
-% --- House style (robust, idempotent) ---------------------------------
-% This file only defines theorem-like environments and cref names.
-% Every \newtheorem is guarded to avoid "already defined" errors.
+% ============================================
+% house-style.tex — CONSERVATIVE HOUSE STYLE
+% ============================================
 
-\makeatletter
+% Microtypography defaults are in preamble; keep here only logic that’s safe.
 
-% Plain theorem style
-\theoremstyle{plain}
-\@ifundefined{theorem}{\newtheorem{theorem}{Theorem}[section]}{}
-\@ifundefined{lemma}{\newtheorem{lemma}[theorem]{Lemma}}{}
-\@ifundefined{proposition}{\newtheorem{proposition}[theorem]{Proposition}}{}
-\@ifundefined{corollary}{\newtheorem{corollary}[theorem]{Corollary}}{}
-\@ifundefined{claim}{\newtheorem{claim}[theorem]{Claim}}{}
-\@ifundefined{conjecture}{\newtheorem{conjecture}[theorem]{Conjecture}}{}
-\@ifundefined{result}{\newtheorem{result}[theorem]{Result}}{}
+% Small caps & math operators look
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\HH}{\mathbb{H}} % avoid clash with \H accent
 
-% Definition style
-\theoremstyle{definition}
-\@ifundefined{definition}{\newtheorem{definition}[theorem]{Definition}}{}
-\@ifundefined{assumption}{\newtheorem{assumption}[theorem]{Assumption}}{}
-\@ifundefined{condition}{\newtheorem{condition}[theorem]{Condition}}{}
-\@ifundefined{example}{\newtheorem{example}[theorem]{Example}}{}
+% Display math spacing tweaks (minimal, safe)
+\allowdisplaybreaks
 
-% Remark style
-\theoremstyle{remark}
-\@ifundefined{remark}{\newtheorem{remark}[theorem]{Remark}}{}
-\@ifundefined{note}{\newtheorem{note}[theorem]{Note}}{}
-\@ifundefined{warning}{\newtheorem{warning}[theorem]{Warning}}{}
+% Figure/table captions (caption package is in preamble)
+\captionsetup{font=small,labelfont=bf}
 
-\makeatother
-
-% --- Cleveref names (robust if cleveref is loaded) --------------------
-\providecommand{\crefname}[3]{} % no-op if cleveref not loaded yet
-\providecommand{\Crefname}[3]{} % idem
-
-\crefname{theorem}{Theorem}{Theorems}
-\Crefname{theorem}{Theorem}{Theorems}
-\crefname{lemma}{Lemma}{Lemmas}
-\Crefname{lemma}{Lemma}{Lemmas}
-\crefname{proposition}{Proposition}{Propositions}
-\Crefname{proposition}{Proposition}{Propositions}
-\crefname{corollary}{Corollary}{Corollaries}
-\Crefname{corollary}{Corollary}{Corollaries}
-\crefname{conjecture}{Conjecture}{Conjectures}
-\Crefname{conjecture}{Conjecture}{Conjectures}
-\crefname{claim}{Claim}{Claims}
-\Crefname{claim}{Claim}{Claims}
-\crefname{definition}{Definition}{Definitions}
-\Crefname{definition}{Definition}{Definitions}
-\crefname{assumption}{Assumption}{Assumptions}
-\Crefname{assumption}{Assumption}{Assumptions}
-\crefname{condition}{Condition}{Conditions}
-\Crefname{condition}{Condition}{Conditions}
-\crefname{example}{Example}{Examples}
-\Crefname{example}{Example}{Examples}
-\crefname{remark}{Remark}{Remarks}
-\Crefname{remark}{Remark}{Remarks}
-\crefname{equation}{eq.}{eqs.}
-\Crefname{equation}{Equation}{Equations}
-\crefname{figure}{Figure}{Figures}
-\Crefname{figure}{Figure}{Figures}
-\crefname{table}{Table}{Tables}
-\Crefname{table}{Table}{Tables}
-\crefname{section}{§}{§§}
-\Crefname{section}{Section}{Sections}
-\crefname{subsection}{§}{§§}
-\Crefname{subsection}{Subsection}{Subsections}
-
-% --- End of house-style ------------------------------------------------
+% Hyperref/Cleveref niceties are configured in main preamble; nothing here.
