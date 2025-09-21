@@ -1,121 +1,69 @@
-% =========================
-% macros/house-style.tex
-% Minimal, robust house style for the monograph
-% =========================
+% --- House style (robust, idempotent) ---------------------------------
+% This file only defines theorem-like environments and cref names.
+% Every \newtheorem is guarded to avoid "already defined" errors.
 
-% ---- Package guards (load only if missing) ----
 \makeatletter
-\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
-\@ifpackageloaded{tcolorbox}{}{\RequirePackage[most]{tcolorbox}}
-\@ifpackageloaded{amsthm}{}{\RequirePackage{amsthm}}
-\@ifpackageloaded{etoolbox}{}{\RequirePackage{etoolbox}}
-\@ifpackageloaded{cleveref}{}{\RequirePackage[nameinlink,capitalize]{cleveref}}
+
+% Plain theorem style
+\theoremstyle{plain}
+\@ifundefined{theorem}{\newtheorem{theorem}{Theorem}[section]}{}
+\@ifundefined{lemma}{\newtheorem{lemma}[theorem]{Lemma}}{}
+\@ifundefined{proposition}{\newtheorem{proposition}[theorem]{Proposition}}{}
+\@ifundefined{corollary}{\newtheorem{corollary}[theorem]{Corollary}}{}
+\@ifundefined{claim}{\newtheorem{claim}[theorem]{Claim}}{}
+\@ifundefined{conjecture}{\newtheorem{conjecture}[theorem]{Conjecture}}{}
+\@ifundefined{result}{\newtheorem{result}[theorem]{Result}}{}
+
+% Definition style
+\theoremstyle{definition}
+\@ifundefined{definition}{\newtheorem{definition}[theorem]{Definition}}{}
+\@ifundefined{assumption}{\newtheorem{assumption}[theorem]{Assumption}}{}
+\@ifundefined{condition}{\newtheorem{condition}[theorem]{Condition}}{}
+\@ifundefined{example}{\newtheorem{example}[theorem]{Example}}{}
+
+% Remark style
+\theoremstyle{remark}
+\@ifundefined{remark}{\newtheorem{remark}[theorem]{Remark}}{}
+\@ifundefined{note}{\newtheorem{note}[theorem]{Note}}{}
+\@ifundefined{warning}{\newtheorem{warning}[theorem]{Warning}}{}
+
 \makeatother
 
-% ---- Color palette (neutral, print–friendly) ----
-\definecolor{UIBlack}{RGB}{33,33,33}
-\definecolor{UILink}{RGB}{33,76,140}
-\definecolor{UIFrame}{RGB}{180,180,180}
-\definecolor{UIHint}{RGB}{245,245,245}
-\definecolor{UIKey}{RGB}{245,248,255}
-\definecolor{UIWarn}{RGB}{255,244,240}
+% --- Cleveref names (robust if cleveref is loaded) --------------------
+\providecommand{\crefname}[3]{} % no-op if cleveref not loaded yet
+\providecommand{\Crefname}[3]{} % idem
 
-% ---- Global tcolorbox defaults ----
-\tcbset{
-  enhanced,
-  colback=white,
-  colframe=UIFrame,
-  boxrule=.3pt,
-  sharp corners,
-  left=8pt,right=8pt,top=6pt,bottom=6pt,
-  before skip=8pt, after skip=8pt
-}
-
-% ---- Box styles used across the monograph ----
-\newtcolorbox{keybox}[1][]{%
-  colback=UIKey,
-  colframe=UIFrame,
-  title=#1,
-  fonttitle=\bfseries,
-  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
-  boxed title style={colback=UIKey, colframe=UIFrame, boxrule=.3pt}
-}
-
-\newtcolorbox{notebox}[1][]{%
-  colback=UIHint,
-  colframe=UIFrame,
-  title=#1,
-  fonttitle=\bfseries,
-  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
-  boxed title style={colback=UIHint, colframe=UIFrame, boxrule=.3pt}
-}
-
-\newtcolorbox{warningbox}[1][]{%
-  colback=UIWarn,
-  colframe=UIFrame,
-  title=#1,
-  fonttitle=\bfseries,
-  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
-  boxed title style={colback=UIWarn, colframe=UIFrame, boxrule=.3pt}
-}
-
-% Audit block: used at the end of sections/appendices
-\newtcolorbox{auditblock}[1][]{%
-  colback=white,
-  colframe=UIFrame,
-  borderline west={1.2pt}{0pt}{UIBlack},
-  title={#1},
-  fonttitle=\bfseries,
-  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
-  boxed title style={colback=white, colframe=UIFrame, boxrule=.3pt}
-}
-
-% ---- Theorem environments (numbered within section) ----
-% If numbering already set elsewhere, these lines are harmless.
-\numberwithin{equation}{section}
-
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
-
-% ---- Cleveref names (consistent singular/plural) ----
 \crefname{theorem}{Theorem}{Theorems}
-\crefname{proposition}{Proposition}{Propositions}
-\crefname{lemma}{Lemma}{Lemmas}
-\crefname{corollary}{Corollary}{Corollaries}
-\crefname{definition}{Definition}{Definitions}
-\crefname{remark}{Remark}{Remarks}
-\crefname{example}{Example}{Examples}
-\crefname{equation}{Equation}{Equations}
-\crefname{figure}{Figure}{Figures}
-\crefname{table}{Table}{Tables}
-\crefname{section}{Section}{Sections}
 \Crefname{theorem}{Theorem}{Theorems}
-\Crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
 \Crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
 \Crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{claim}{Claim}{Claims}
+\Crefname{claim}{Claim}{Claims}
+\crefname{definition}{Definition}{Definitions}
 \Crefname{definition}{Definition}{Definitions}
-\Crefname{remark}{Remark}{Remarks}
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{condition}{Condition}{Conditions}
+\Crefname{condition}{Condition}{Conditions}
+\crefname{example}{Example}{Examples}
 \Crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+\crefname{equation}{eq.}{eqs.}
 \Crefname{equation}{Equation}{Equations}
+\crefname{figure}{Figure}{Figures}
 \Crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
 \Crefname{table}{Table}{Tables}
+\crefname{section}{§}{§§}
 \Crefname{section}{Section}{Sections}
+\crefname{subsection}{§}{§§}
+\Crefname{subsection}{Subsection}{Subsections}
 
-% ---- Small utilities ----
-% Compact inline monospace for code/paths without loading extra packages
-\newcommand{\code}[1]{\texttt{#1}}
-
-% Proof QED symbol slightly tighter
-\renewcommand{\qedsymbol}{$\blacksquare$}
-
-% End of house-style.tex
+% --- End of house-style ------------------------------------------------
