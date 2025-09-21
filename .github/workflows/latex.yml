@@ -23,23 +23,16 @@ jobs:
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
+      # НИКАКИХ tlmgr / pre_compile / update --self
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
-          working_directory: src
-          texlive_version: 2024
-          # НИКАКИХ update --self (это и ломало сборку)
-          pre_compile: |
-            set -eux
-            REPO=https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2024/tlnet-final
-            tlmgr option repository "$REPO"
-            # Доставь только то, чего нет в базовом образе
-            tlmgr install --repository "$REPO" \
-              microtype enumitem mathtools bbm rsfs \
-              xcolor caption subcaption float tcolorbox cleveref
-          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
-          latexmk_shell_escape: false
+            root_file: main.tex
+            working_directory: src
+            texlive_version: 2024
+            args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+            latexmk_shell_escape: false
+            # остальные опции по умолчанию
 
       - name: Upload PDF
         if: success()
