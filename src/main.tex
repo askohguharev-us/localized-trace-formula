@@ -1,67 +1,72 @@
 % ==================================================================
-% File: src/main.tex
-% Monograph: Localized Trace Formula
+% main.tex — Monograph: Localized Trace Formula
+% Repository layout expected:
+%   src/
+%     main.tex               (this file)
+%     macros/{environments,operators,house-style}.tex
+%     frontmatter/00-*.tex
+%     sections/..
+%     appendices/A-..,B-..,..
+%     bib/references.bib
 % ==================================================================
-\documentclass[11pt,a4paper]{article}
 
-% -------------------- Language & encoding -------------------------
+\documentclass[11pt]{article}
+
+% ---------- Page geometry & fonts ----------
+\usepackage[a4paper,margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage{lmodern}
 
-% -------------------- Page geometry & fonts -----------------------
-\usepackage[a4paper,margin=1in]{geometry}
-\usepackage{lmodern}            % pdfLaTeX safe vector fonts
-\usepackage{microtype}          % better kerning & protrusion
-
-% -------------------- Math & symbols ------------------------------
+% ---------- Math & symbols ----------
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{mathtools}
-\usepackage{bm}                 % \bm
-\usepackage{bbm}                % \mathbbm{1}
+\usepackage{bm}
+\usepackage{bbm}
 \usepackage{mathrsfs}
 
-% -------------------- Graphics / floats ---------------------------
+% ---------- Graphics / floats ----------
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
 
-% -------------------- Lists / misc --------------------------------
+% ---------- Micro-typography & hyperlinks ----------
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
+
+% ---------- Lists / misc ----------
 \usepackage{enumitem}
 \setlist{nosep}
-\usepackage{booktabs}
 \usepackage{url}
-\usepackage{xcolor}
 
-% -------------------- Hyperlinks & cross-refs ---------------------
-\usepackage{hyperref}
+% ---------- Color boxes for abstract (fixes past CI error) ----------
+\usepackage[most]{tcolorbox}
+
+% ---------- Numbering ----------
+\numberwithin{equation}{section}
+
+% ---------- Custom macros ----------
+\input{macros/environments.tex}
+\input{macros/operators.tex}
+\input{macros/house-style.tex}
+
+% ---------- PDF metadata ----------
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!40!black,
   citecolor=blue!40!black,
   urlcolor=blue!40!black,
   pdftitle={Localized Trace Formula: A Monograph},
-  pdfauthor={Alexander Stepanovich Kozhukharev},
-  pdfsubject={Microlocal localized trace formula with power-saving remainders},
-  pdfkeywords={Selberg trace formula, microlocal analysis, hyperbolic surfaces, Weyl law}
+  pdfauthor={Alexander Stepanovich Kozhukharev}
 }
-\usepackage[nameinlink,capitalize]{cleveref}
 
-% -------------------- Numbering & counters ------------------------
-\numberwithin{equation}{section}
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{2}
-
-% -------------------- House style & macros ------------------------
-\input{macros/environments.tex}
-\input{macros/operators.tex}
-\input{macros/house-style.tex}
-
-% ==================================================================
 \begin{document}
 
-% ======================= Title page ===============================
+% ==============================================================
+% Title page
+% ==============================================================
 \begin{titlepage}
   \centering
   \vspace*{6mm}
@@ -70,38 +75,45 @@
   {\large A Microlocal Approach with Power-Saving Remainders}\\[16mm]
 
   {\large Alexander Stepanovich Kozhukharev}\\[2mm]
-  Moscow, Russia\\[1mm]
+  Moscow, Russia\\[2mm]
   \texttt{askohguharev@yandex.ru}\\[14mm]
 
   \vfill
-  \begin{minipage}{0.92\textwidth}
+
   \begin{tcolorbox}[colback=white,colframe=black!15,sharp corners,boxrule=0.3pt]
     \small
     \textbf{Abstract.}\;
-    We prove a localized trace formula on finite-area hyperbolic surfaces
-    $\Gamma\backslash\mathbb H$ with cusps. Using a microlocalized wave propagator
-    and a smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$, the spectral
-    side is matched to a geometric expansion over closed geodesics up to
-    $T\asymp\log\lambda$, with a power-saving remainder $O(\lambda^{-\delta})$
-    depending only on cusp geometry and a spectral gap. Applications include a
-    quantitative local Weyl law and variance bounds for Hecke–Maass forms.
+    We establish a localized trace formula for finite-area hyperbolic surfaces
+    $\Gamma\backslash\mathbb{H}$ with cusps. Using a microlocalized wave propagator
+    and a smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$, we match the
+    spectral side to a geometric expansion over closed geodesics of length up to
+    $T\asymp\log\lambda$ with a power-saving remainder $O(\lambda^{-\delta})$
+    depending only on cusp geometry and spectral gap. Applications include a
+    quantitative local Weyl law and variance bounds for Hecke--Maass forms.
   \end{tcolorbox}
-  \end{minipage}
 
   \vfill
   {\small Version: \today}
 \end{titlepage}
 
-% ======================= TOC (clean) ==============================
+\setcounter{page}{1}
+
+% ==============================================================
+% (Optional) Table of contents — comment out if CI requires no TOC
+% ==============================================================
 \tableofcontents
 \clearpage
 
-% ======================= Frontmatter ==============================
+% ==============================================================
+% Frontmatter
+% ==============================================================
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
-% ======================= Chapters =================================
+% ==============================================================
+% Main sections
+% ==============================================================
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -111,11 +123,15 @@
 \input{sections/07-main-results.tex}
 \input{sections/08-applications.tex}
 
-% ======================= Conclusion ===============================
+% ==============================================================
+% Conclusion
+% ==============================================================
 \input{conclusion/09-conclusion.tex}
 
-% ======================= Appendices ===============================
-\appendix
+% ==============================================================
+% Appendices
+% (Не вызываем \appendix здесь, если оно уже стоит в файлах A–H.)
+% ==============================================================
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
 \input{appendices/C-microlocal-toolkit.tex}
@@ -124,9 +140,11 @@
 \input{appendices/F-implementation-notes.tex}
 \input{appendices/G-normalizations-and-conventions.tex}
 \input{appendices/H-selberg-comparison.tex}
-\input{appendices/I-historical-context.tex}
+\input{appendices/I-errata-and-future-work.tex} % если добавили приложение I
 
-% ======================= Bibliography =============================
+% ==============================================================
+% Bibliography
+% ==============================================================
 \bibliographystyle{alpha}
 \bibliography{bib/references}
 
