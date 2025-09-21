@@ -14,7 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Быстрый sanity-check путей (чёткие падения, если чего-то нет)
       - name: Sanity check layout
         run: |
           set -e
@@ -24,19 +23,22 @@ jobs:
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
-      # Официальный xu-cheng/latex-action (под TeX Live). КЛЮЧЕВОЕ:
-      # 1) texlive_version: 2024
-      # 2) tlmgr_repo: 2024/tlnet-final
-      # Это устраняет ошибку "Local TeX Live (2024) is older than remote (2025)".
+      # КЛЮЧЕВОЕ:
+      # 1) фиксируем год TeX Live = 2024
+      # 2) через pre_compile перевыставляем репозиторий на 2024/tlnet-final,
+      #    чтобы tlmgr не пытался прыгнуть на 2025 (убирает твою прошлую ошибку).
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: src
           texlive_version: 2024
-          tlmgr_repo: https://mirror.ctan.org/systems/texlive/2024/tlnet-final
+          pre_compile: |
+            tlmgr option repository https://mirror.ctan.org/systems/texlive/2024/tlnet-final
+            tlmgr update --self
+            # при необходимости можно доставить пакеты:
+            # tlmgr install microtype enumitem mathtools bbm rsfs
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
-          # Если не используешь minted/gnuplot и т.п., оставь false (безопаснее)
           latexmk_shell_escape: false
 
       - name: Upload PDF
