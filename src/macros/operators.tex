@@ -1,42 +1,42 @@
-% --- operators.tex (drop-in) ---
-% Mathematical operators and shorthand used across the monograph.
-% Only safe, clash-free definitions; no package-specific dependencies.
+% src/macros/operators.tex  — canonical operator macros (diamond)
 
-% Basic operators
+% --- Algebraic / analytic operators ---
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\vol}{vol}
-\DeclareMathOperator{\area}{area}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\inj}{inj}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\WFop}{WF}      % use \WF for the set
 
-% Microlocal / semiclassical
-\newcommand{\Op}{\operatorname{Op}}      % quantization "Op"
-\newcommand{\Opw}{\operatorname{Op}^{w}} % Weyl quantization
-\newcommand{\Op_h}{\operatorname{Op}_{h}}
-\newcommand{\WF}{\operatorname{WF}}      % wavefront set
-\newcommand{\WFh}{\operatorname{WF}_{h}}
-\newcommand{\sgn}{\operatorname{sgn}}
+% --- Semiclassical / PDO notation ---
+% Base "Op" (plain), Weyl "Op^w", semiclassical subscripts, and combos.
+\newcommand{\Op}{\mathrm{Op}}
+\newcommand{\Opw}{\mathrm{Op}^{\!w}}
+\newcommand{\Op_h}{\mathrm{Op}_{h}}
+\newcommand{\Opw_h}{\mathrm{Op}_{h}^{\!w}}
 
-% Spectral notations
-\newcommand{\Spec}{\operatorname{Spec}}
-\newcommand{\ResSet}{\operatorname{Res}} % resonance set if used
+% Optional short-hands used across appendices
+\newcommand{\OpH}{\Op_h}      % alias
+\newcommand{\OpHw}{\Opw_h}    % alias
 
-% Short shorthands
-\newcommand{\1}{\mathbbm{1}}   % needs \usepackage{bbm} (already in main.tex)
-\newcommand{\e}{\mathrm{e}}
-\newcommand{\ii}{\mathrm{i}}
-\newcommand{\dd}{\mathrm{d}}
+% --- Sets / function spaces ---
+\newcommand{\WF}{\mathrm{WF}}                 % wavefront set
+\newcommand{\Sch}{\mathcal{S}}                % Schwartz
+\newcommand{\Cc}{C_c^\infty}                  % compactly supported smooth
+\newcommand{\Ls}{L^2}                          % L^2
+\newcommand{\Hs}[1]{H^{#1}}                   % Sobolev H^s
 
-% Brackets and norms
-\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
-\newcommand{\abs}[1]{\left| #1 \right|}
-\newcommand{\norm}[1]{\left\| #1 \right\|}
+% --- Frequently used symbols ---
+\newcommand{\1}{\mathbbm{1}}                  % indicator
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbC}{\mathbb{C}}
 
-% Big-Oh with parameters
-\newcommand{\Oh}{\mathcal{O}}
-\newcommand{\oh}{o}
-\newcommand{\Odep}[1]{\mathcal{O}\!\left(#1\right)}
+% --- Small spacing helpers for nice typesetting in superscripts/subscripts ---
+\newcommand{\!}{\mskip-2mu}                   % tiny negative space (for Op^{\!w})
