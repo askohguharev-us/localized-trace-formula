@@ -1,13 +1,121 @@
-% house-style.tex — tiny, CI-safe styling helpers only
-% Lists
-\setlist[itemize]{leftmargin=1.5em}
-\setlist[enumerate]{leftmargin=1.5em}
+% =========================
+% macros/house-style.tex
+% Minimal, robust house style for the monograph
+% =========================
 
-% Tcolorbox note (used sparingly; safe defaults)
+% ---- Package guards (load only if missing) ----
+\makeatletter
+\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+\@ifpackageloaded{tcolorbox}{}{\RequirePackage[most]{tcolorbox}}
+\@ifpackageloaded{amsthm}{}{\RequirePackage{amsthm}}
+\@ifpackageloaded{etoolbox}{}{\RequirePackage{etoolbox}}
+\@ifpackageloaded{cleveref}{}{\RequirePackage[nameinlink,capitalize]{cleveref}}
+\makeatother
+
+% ---- Color palette (neutral, print–friendly) ----
+\definecolor{UIBlack}{RGB}{33,33,33}
+\definecolor{UILink}{RGB}{33,76,140}
+\definecolor{UIFrame}{RGB}{180,180,180}
+\definecolor{UIHint}{RGB}{245,245,245}
+\definecolor{UIKey}{RGB}{245,248,255}
+\definecolor{UIWarn}{RGB}{255,244,240}
+
+% ---- Global tcolorbox defaults ----
 \tcbset{
-  colback=white, colframe=black!15!gray,
-  boxrule=0.3pt, arc=1pt, left=6pt, right=6pt, top=6pt, bottom=6pt
+  enhanced,
+  colback=white,
+  colframe=UIFrame,
+  boxrule=.3pt,
+  sharp corners,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  before skip=8pt, after skip=8pt
 }
 
-% Small helpers
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% ---- Box styles used across the monograph ----
+\newtcolorbox{keybox}[1][]{%
+  colback=UIKey,
+  colframe=UIFrame,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
+  boxed title style={colback=UIKey, colframe=UIFrame, boxrule=.3pt}
+}
+
+\newtcolorbox{notebox}[1][]{%
+  colback=UIHint,
+  colframe=UIFrame,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
+  boxed title style={colback=UIHint, colframe=UIFrame, boxrule=.3pt}
+}
+
+\newtcolorbox{warningbox}[1][]{%
+  colback=UIWarn,
+  colframe=UIFrame,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
+  boxed title style={colback=UIWarn, colframe=UIFrame, boxrule=.3pt}
+}
+
+% Audit block: used at the end of sections/appendices
+\newtcolorbox{auditblock}[1][]{%
+  colback=white,
+  colframe=UIFrame,
+  borderline west={1.2pt}{0pt}{UIBlack},
+  title={#1},
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift*=-2pt,xshift=6pt},
+  boxed title style={colback=white, colframe=UIFrame, boxrule=.3pt}
+}
+
+% ---- Theorem environments (numbered within section) ----
+% If numbering already set elsewhere, these lines are harmless.
+\numberwithin{equation}{section}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% ---- Cleveref names (consistent singular/plural) ----
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{definition}{Definition}{Definitions}
+\crefname{remark}{Remark}{Remarks}
+\crefname{example}{Example}{Examples}
+\crefname{equation}{Equation}{Equations}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{section}{Section}{Sections}
+\Crefname{theorem}{Theorem}{Theorems}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{corollary}{Corollary}{Corollaries}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{remark}{Remark}{Remarks}
+\Crefname{example}{Example}{Examples}
+\Crefname{equation}{Equation}{Equations}
+\Crefname{figure}{Figure}{Figures}
+\Crefname{table}{Table}{Tables}
+\Crefname{section}{Section}{Sections}
+
+% ---- Small utilities ----
+% Compact inline monospace for code/paths without loading extra packages
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Proof QED symbol slightly tighter
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+% End of house-style.tex
