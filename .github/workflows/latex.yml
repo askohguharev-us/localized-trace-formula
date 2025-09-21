@@ -7,7 +7,6 @@ on:
 jobs:
   pdf:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: src
@@ -27,14 +26,15 @@ jobs:
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          texlive_version: 2024
+          # ключевая правка: ставим актуальную сборку TeX Live
+          texlive_version: latest
           root_file: main.tex
           working_directory: src
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           latexmk_use_lualatex: false
           latexmk_use_xelatex: false
           latexmk_shell_escape: false
-          # ← TeX Live уже установлен; здесь безопасно ставим коллекции/пакеты
+          # теперь tlmgr и репозиторий согласованы, можно обновлять и ставить коллекции
           pre_compile: |
             tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
             tlmgr update --self --all
@@ -44,6 +44,7 @@ jobs:
               collection-fontsrecommended \
               collection-bibtexextra
           post_compile: |
+            # на случай падения скопируем лог наверх, чтобы upload нашёл его по пути src/main.log
             cp main.log "$GITHUB_WORKSPACE/src/main.log" 2>/dev/null || true
             ls -lah
 
