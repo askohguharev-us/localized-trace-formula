@@ -10,11 +10,10 @@ jobs:
   pdf:
     runs-on: ubuntu-latest
 
-    # Только рабочая папка; shell без флагов!
     defaults:
       run:
-        working-directory: src
         shell: bash
+        working-directory: src
 
     steps:
       - name: Checkout
@@ -23,29 +22,27 @@ jobs:
       - name: Sanity check layout
         run: |
           set -euo pipefail
-          echo "PWD=$(pwd)"
-          ls -la
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
-          test -f macros/environments.tex || { echo "::error ::macros/environments.tex missing"; exit 2; }
-          test -f macros/operators.tex    || { echo "::error ::macros/operators.tex missing"; exit 2; }
-          test -f macros/house-style.tex  || { echo "::error ::macros/house-style.tex missing"; exit 2; }
+          for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
+            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
+          done
 
-      - name: Compile with TeXLive (latexmk+BibTeX)
+      - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: src
-          # latexmk опции: показывать строку ошибки и останавливаться на ней
-          extra_latexmk_options: "-file-line-error -halt-on-error -interaction=nonstopmode"
-          # Скопируем лог наружу для артефактов
+          # все опции latexmk передаем через args
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+          # включить \write18 если нужно (tikzexternalize и т.п.)
+          latexmk_shell_escape: true
+          # скрипт выполнится после сборки (успешной или нет)
           post_compile: |
-            set -euo pipefail
-            echo "— build tree —"
+            set -e
             ls -lah
-            cp main.log "$GITHUB_WORKSPACE/main.log" || true
+            cp main.log "$GITHUB_WORKSPACE/main.log" 2>/dev/null || true
 
-      # Загрузить PDF (если собрался)
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
@@ -53,11 +50,10 @@ jobs:
           path: src/main.pdf
           if-no-files-found: ignore
 
-      # Лог на случай падения сборки
       - name: Upload LaTeX log (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: main-log
           path: main.log
-          if-no-files-found: ignore
+          if-no-files-found: warn
