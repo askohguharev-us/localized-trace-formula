@@ -15,41 +15,56 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Минимальная проверка структуры (чтобы падать раньше и понятнее)
       - name: Sanity check layout
         run: |
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
-          for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
+          for f in macros/environments.tex macros/operators.tex macros/house-style.tex ; do
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
 
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          # ключевая правка: ставим актуальную сборку TeX Live
-          texlive_version: latest
+          # Ключевой момент: фиксируем год TeX Live, чтобы не было cross-release обновлений
+          texlive_version: 2024
           root_file: main.tex
           working_directory: src
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           latexmk_use_lualatex: false
           latexmk_use_xelatex: false
-          latexmk_shell_escape: false
-          # теперь tlmgr и репозиторий согласованы, можно обновлять и ставить коллекции
+
+          # Выполняется ПОСЛЕ установки TeX Live, ДО сборки.
+          # Никаких self-update! Выбираем зеркало и ставим только нужные пакеты.
           pre_compile: |
-            tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
-            tlmgr update --self --all
+            set -e
+            mirrors=(
+              https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2024/tlnet-final
+              https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet
+              https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+              https://mirror.ctan.org/systems/texlive/tlnet
+            )
+            for m in "${mirrors[@]}"; do
+              if tlmgr option repository "$m" && tlmgr update --list >/dev/null 2>&1; then
+                echo "Using TeX Live repo: $m"
+                break
+              fi
+            done
+            # Устанавливаем только то, что реально используется в main.tex
             tlmgr install \
-              collection-latexrecommended \
-              collection-latexextra \
-              collection-fontsrecommended \
-              collection-bibtexextra
+              amsmath amsfonts amssymb mathtools bm bbm mathrsfs \
+              microtype hyperref cleveref enumitem xcolor \
+              graphicx caption subcaption float \
+              tcolorbox lmodern url xurl \
+              bibtex latexmk
+
           post_compile: |
-            # на случай падения скопируем лог наверх, чтобы upload нашёл его по пути src/main.log
+            ls -lah || true
+            # сохраняем лог рядом со src, чтобы шаг артефакта всегда его нашёл
             cp main.log "$GITHUB_WORKSPACE/src/main.log" 2>/dev/null || true
-            ls -lah
 
       - name: Upload PDF
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
