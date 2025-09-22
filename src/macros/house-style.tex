@@ -1,20 +1,40 @@
-% ============================================
-% house-style.tex — CONSERVATIVE HOUSE STYLE
-% ============================================
+% House style (clean, no external includes)
+% Requires: amsmath, amssymb, mathtools already loaded in main.tex
 
-% Microtypography defaults are in preamble; keep here only logic that’s safe.
+% ----- Small helpers -----
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\OO}{\mathcal{O}}
+\newcommand{\oo}{o}
 
-% Small caps & math operators look
-\providecommand{\RR}{\mathbb{R}}
-\providecommand{\CC}{\mathbb{C}}
-\providecommand{\ZZ}{\mathbb{Z}}
-\providecommand{\NN}{\mathbb{N}}
-\providecommand{\HH}{\mathbb{H}} % avoid clash with \H accent
+% Number sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hh}{\mathbb{H}}
 
-% Display math spacing tweaks (minimal, safe)
-\allowdisplaybreaks
+% ----- Operators (safe declarations) -----
+\providecommand{\Op}{\operatorname{Op}} % do not error if defined elsewhere
+\providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
+\providecommand{\Opl}{\operatorname{Op}_h^{\mathrm{left}}}
+\providecommand{\Opr}{\operatorname{Op}_h^{\mathrm{right}}}
 
-% Figure/table captions (caption package is in preamble)
-\captionsetup{font=small,labelfont=bf}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Res}{Res}
 
-% Hyperref/Cleveref niceties are configured in main preamble; nothing here.
+% ----- TODO helper (can be disabled by comment) -----
+\newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+
+% No external \input here. Keep this file self-contained.
