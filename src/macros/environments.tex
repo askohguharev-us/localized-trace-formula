@@ -29,6 +29,13 @@
 \theoremstyle{remark}
 \SafeNewTheoremNoReset{remark}{Remark}
 \SafeNewTheoremNoReset{example}{Example}
+\newenvironment{auditblock}[1]{%
+    \begin{remark}[#1]
+}{%
+    \end{remark}
+}
+\crefname{auditblock}{audit block}{audit blocks}
+\Crefname{auditblock}{Audit block}{Audit blocks}
 
 % Cleveref names (only once; harmless if repeated)
 \providecommand{\crefname}[3]{\@ifundefined{cref@#1@name}{\def\cref@#1@name{#2}\def\Cref@#1@name{#3}}{}}
