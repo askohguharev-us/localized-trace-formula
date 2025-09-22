@@ -1,62 +1,64 @@
 % ============================================
-% operators.tex — SAFE & IDEMPOTENT
-% Requires: amsmath
+% operators.tex — safe, idempotent operators
+% Requires: \usepackage{amsmath,amssymb,bm,bbm}
 % ============================================
 
-% ---- Basics ----
+% ----- Scalars and differentials -----
 \providecommand{\e}{\mathrm{e}}
 \providecommand{\ii}{\mathrm{i}}
 \providecommand{\dd}{\mathrm{d}}
 
-% ---- Probability / linear algebra ----
+% ----- Linear algebra / probability -----
 \providecommand{\E}{\mathbb{E}}
 \providecommand{\Var}{\operatorname{Var}}
 \providecommand{\Cov}{\operatorname{Cov}}
 \providecommand{\1}{\mathbbm{1}}
 
-% ---- Delimiters ----
+% ----- Delimiters -----
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
 \providecommand{\ip}[2]{\left\langle #1,#2\right\rangle}
-\providecommand{\parens}[1]{\left( #1 \right)}
 \providecommand{\bracks}[1]{\left[ #1 \right]}
+\providecommand{\parens}[1]{\left( #1 \right)}
 
-% ---- Guarded operator decl helpers ----
+% ----- Helper: guarded declaration to avoid re-def errors -----
 \makeatletter
-\newcommand{\IfFreeOp}[2]{\@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}}
-\newcommand{\IfFreeOpStar}[2]{\@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}}
+% plain operators
+\newcommand{\GuardOp}[2]{\@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}}
+% large-operator style (limits underneath in display math)
+\newcommand{\GuardOpStar}[2]{\@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}}
 \makeatother
 
-% ---- Common operators (guarded) ----
-\IfFreeOp{sgn}{sgn}            % sign
-\IfFreeOp{tr}{tr}
-\IfFreeOp{rank}{rank}
-\IfFreeOp{supp}{supp}
-\IfFreeOp{Res}{Res}
-\IfFreeOp{diag}{diag}
-\IfFreeOp{vol}{vol}
-\IfFreeOp{area}{area}
-\IfFreeOp{length}{length}
-\IfFreeOp{diam}{diam}
-\IfFreeOp{dist}{dist}
-\IfFreeOp{Id}{Id}
-\IfFreeOp{arccosh}{arccosh}
+% ----- Common math operators (guarded) -----
+\GuardOp{sgn}{sgn}
+\GuardOp{tr}{tr}
+\GuardOp{rank}{rank}
+\GuardOp{supp}{supp}
+\GuardOp{Res}{Res}
+\GuardOp{diag}{diag}
+\GuardOp{vol}{vol}
+\GuardOp{area}{area}
+\GuardOp{length}{length}
+\GuardOp{diam}{diam}
+\GuardOp{dist}{dist}
+\GuardOp{Id}{Id}
+\GuardOp{arccosh}{arccosh}
 
-% Extremizers
-\IfFreeOpStar{argmin}{arg\,min}
-\IfFreeOpStar{argmax}{arg\,max}
+% extremizers
+\GuardOpStar{argmin}{arg\,min}
+\GuardOpStar{argmax}{arg\,max}
 
-% ---- Semiclassical / microlocal ----
+% ----- Semiclassical / microlocal operators -----
 \makeatletter
 \@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{}
 \@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}
 \@ifundefined{Opw}{\newcommand{\Opw}{\Op_{h}^{\mathrm{w}}}}{}
 \makeatother
 
-% ---- Symbol-class shorthands ----
+% ----- Symbol-class shorthands -----
 \providecommand{\Sm}[1][]{S^{#1}}
 \providecommand{\SrhoDelta}[1]{S^{#1}_{1,0}}
 
-% ---- Fourier transform aliases ----
+% ----- Fourier transform aliases -----
 \providecommand{\FT}{\mathcal{F}}
 \providecommand{\IFT}{\mathcal{F}^{-1}}
