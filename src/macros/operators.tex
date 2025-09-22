@@ -1,65 +1,63 @@
 % ============================================
-% operators.tex — SAFE, IDEMPOTENT DEFINITIONS
+% operators.tex — SAFE, MINIMAL, IDEMPOTENT
+% Requires: amsmath (already loaded in main)
 % ============================================
-% Assumes amsmath/amssymb/mathtools/bbm are loaded in the preamble.
 
-% ---- tiny helpers (defined safely) ----
-\providecommand{\E}{\mathbb{E}}
-\providecommand{\Var}{\operatorname{Var}}
-\providecommand{\Cov}{\operatorname{Cov}}
-\providecommand{\1}{\mathbbm{1}}
+% ---- Basic constants and differentials (safe) ----
 \providecommand{\e}{\mathrm{e}}
 \providecommand{\ii}{\mathrm{i}}
 \providecommand{\dd}{\mathrm{d}}
 
-% Paired delimiters (keep simple & safe)
+% ---- Probability shorthands (safe) ----
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\1}{\mathbbm{1}}
+
+% ---- Delimiters (safe) ----
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
 \providecommand{\ip}[2]{\left\langle #1,#2\right\rangle}
-\providecommand{\bracks}[1]{\left[ #1 \right]}
 \providecommand{\parens}[1]{\left( #1 \right)}
+\providecommand{\bracks}[1]{\left[ #1 \right]}
 
-% ----- Safe DeclareMathOperator wrappers -----
+% ---- Safe operator declaration helpers ----
 \makeatletter
-\providecommand{\SafeDeclareMathOperator}[2]{%
-  \@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}%
-}
-\providecommand{\SafeDeclareMathOperatorStar}[2]{%
-  \@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}%
-}
+% Use \@ifundefined to avoid re-declaration errors if a name already exists.
+\newcommand{\IfFreeOp}[2]{\@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}}
+\newcommand{\IfFreeOpStar}[2]{\@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}}
 \makeatother
 
-% Common operators
-\SafeDeclareMathOperator{sgn}{sgn}
-\SafeDeclareMathOperator{tr}{tr}
-\SafeDeclareMathOperator{rank}{rank}
-\SafeDeclareMathOperator{supp}{supp}
-\SafeDeclareMathOperator{Res}{Res}
-\SafeDeclareMathOperator{diag}{diag}
-\SafeDeclareMathOperator{vol}{vol}
-\SafeDeclareMathOperator{area}{area}
-\SafeDeclareMathOperator{length}{length}
-\SafeDeclareMathOperator{diam}{diam}
-\SafeDeclareMathOperator{dist}{dist}
-\SafeDeclareMathOperator{Id}{Id}
-\SafeDeclareMathOperator{arccosh}{arccosh}
+% ---- Common operators (guarded) ----
+\IfFreeOp{sgn}{sgn}
+\IfFreeOp{tr}{tr}
+\IfFreeOp{rank}{rank}
+\IfFreeOp{supp}{supp}
+\IfFreeOp{Res}{Res}
+\IfFreeOp{diag}{diag}
+\IfFreeOp{vol}{vol}
+\IfFreeOp{area}{area}
+\IfFreeOp{length}{length}
+\IfFreeOp{diam}{diam}
+\IfFreeOp{dist}{dist}
+\IfFreeOp{Id}{Id}
+\IfFreeOp{arccosh}{arccosh}
 
-% Extremizers
-\SafeDeclareMathOperatorStar{argmin}{arg\,min}
-\SafeDeclareMathOperatorStar{argmax}{arg\,max}
+% Extremizers (guarded, with limits-style placement)
+\IfFreeOpStar{argmin}{arg\,min}
+\IfFreeOpStar{argmax}{arg\,max}
 
-% ----- Microlocal / semiclassical notation (conflict-free) -----
-% If \Op was already defined by a package or elsewhere, do nothing.
+% ---- Microlocal / semiclassical notation (guarded) ----
 \makeatletter
-\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{}
-\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}
+\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{} % only if not already defined
+\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}   % \Oph → \Op_h
 \@ifundefined{Opw}{\newcommand{\Opw}{\Op_{h}^{\mathrm{w}}}}{}
 \makeatother
 
-% Pseudodifferential symbol classes (safe)
+% ---- Symbol-class shorthands (plain commands, guarded) ----
 \providecommand{\Sm}[1][]{S^{#1}}
-\providecommand{\SrhoDelta}[2]{S^{#1}_{#2,0}}
+\providecommand{\SrhoDelta}[1]{S^{#1}_{1,0}} % default choice; adjust if needed
 
-% Fourier transform conventions (safe aliases)
+% ---- Fourier transform aliases (safe) ----
 \providecommand{\FT}{\mathcal{F}}
 \providecommand{\IFT}{\mathcal{F}^{-1}}
