@@ -1,64 +1,15 @@
-% ============================================
-% operators.tex — safe, idempotent operators
-% Requires: \usepackage{amsmath,amssymb,bm,bbm}
-% ============================================
+% Operators (safe)
+\providecommand{\Op}{\operatorname{Op}}
+\providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
+\providecommand{\Opl}{\operatorname{Op}_h^{\mathrm{left}}}
+\providecommand{\Opr}{\operatorname{Op}_h^{\mathrm{right}}}
 
-% ----- Scalars and differentials -----
-\providecommand{\e}{\mathrm{e}}
-\providecommand{\ii}{\mathrm{i}}
-\providecommand{\dd}{\mathrm{d}}
-
-% ----- Linear algebra / probability -----
-\providecommand{\E}{\mathbb{E}}
-\providecommand{\Var}{\operatorname{Var}}
-\providecommand{\Cov}{\operatorname{Cov}}
-\providecommand{\1}{\mathbbm{1}}
-
-% ----- Delimiters -----
-\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
-\providecommand{\norm}[1]{\left\lVert #1\right\rVert}
-\providecommand{\ip}[2]{\left\langle #1,#2\right\rangle}
-\providecommand{\bracks}[1]{\left[ #1 \right]}
-\providecommand{\parens}[1]{\left( #1 \right)}
-
-% ----- Helper: guarded declaration to avoid re-def errors -----
-\makeatletter
-% plain operators
-\newcommand{\GuardOp}[2]{\@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}}
-% large-operator style (limits underneath in display math)
-\newcommand{\GuardOpStar}[2]{\@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}}
-\makeatother
-
-% ----- Common math operators (guarded) -----
-\GuardOp{sgn}{sgn}
-\GuardOp{tr}{tr}
-\GuardOp{rank}{rank}
-\GuardOp{supp}{supp}
-\GuardOp{Res}{Res}
-\GuardOp{diag}{diag}
-\GuardOp{vol}{vol}
-\GuardOp{area}{area}
-\GuardOp{length}{length}
-\GuardOp{diam}{diam}
-\GuardOp{dist}{dist}
-\GuardOp{Id}{Id}
-\GuardOp{arccosh}{arccosh}
-
-% extremizers
-\GuardOpStar{argmin}{arg\,min}
-\GuardOpStar{argmax}{arg\,max}
-
-% ----- Semiclassical / microlocal operators -----
-\makeatletter
-\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{}
-\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}
-\@ifundefined{Opw}{\newcommand{\Opw}{\Op_{h}^{\mathrm{w}}}}{}
-\makeatother
-
-% ----- Symbol-class shorthands -----
-\providecommand{\Sm}[1][]{S^{#1}}
-\providecommand{\SrhoDelta}[1]{S^{#1}_{1,0}}
-
-% ----- Fourier transform aliases -----
-\providecommand{\FT}{\mathcal{F}}
-\providecommand{\IFT}{\mathcal{F}^{-1}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\rank}{rank}
