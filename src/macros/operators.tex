@@ -1,35 +1,34 @@
 % ============================================
-% operators.tex — SAFE, MINIMAL, IDEMPOTENT
-% Requires: amsmath (already loaded in main)
+% operators.tex — SAFE & IDEMPOTENT
+% Requires: amsmath
 % ============================================
 
-% ---- Basic constants and differentials (safe) ----
+% ---- Basics ----
 \providecommand{\e}{\mathrm{e}}
 \providecommand{\ii}{\mathrm{i}}
 \providecommand{\dd}{\mathrm{d}}
 
-% ---- Probability shorthands (safe) ----
+% ---- Probability / linear algebra ----
 \providecommand{\E}{\mathbb{E}}
 \providecommand{\Var}{\operatorname{Var}}
 \providecommand{\Cov}{\operatorname{Cov}}
 \providecommand{\1}{\mathbbm{1}}
 
-% ---- Delimiters (safe) ----
+% ---- Delimiters ----
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
 \providecommand{\ip}[2]{\left\langle #1,#2\right\rangle}
 \providecommand{\parens}[1]{\left( #1 \right)}
 \providecommand{\bracks}[1]{\left[ #1 \right]}
 
-% ---- Safe operator declaration helpers ----
+% ---- Guarded operator decl helpers ----
 \makeatletter
-% Use \@ifundefined to avoid re-declaration errors if a name already exists.
 \newcommand{\IfFreeOp}[2]{\@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}}
 \newcommand{\IfFreeOpStar}[2]{\@ifundefined{#1}{\DeclareMathOperator*{#1}{#2}}{}}
 \makeatother
 
 % ---- Common operators (guarded) ----
-\IfFreeOp{sgn}{sgn}
+\IfFreeOp{sgn}{sgn}            % sign
 \IfFreeOp{tr}{tr}
 \IfFreeOp{rank}{rank}
 \IfFreeOp{supp}{supp}
@@ -43,21 +42,21 @@
 \IfFreeOp{Id}{Id}
 \IfFreeOp{arccosh}{arccosh}
 
-% Extremizers (guarded, with limits-style placement)
+% Extremizers
 \IfFreeOpStar{argmin}{arg\,min}
 \IfFreeOpStar{argmax}{arg\,max}
 
-% ---- Microlocal / semiclassical notation (guarded) ----
+% ---- Semiclassical / microlocal ----
 \makeatletter
-\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{} % only if not already defined
-\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}   % \Oph → \Op_h
+\@ifundefined{Op}{\DeclareMathOperator{\Op}{Op}}{}
+\@ifundefined{Oph}{\newcommand{\Oph}{\Op_{h}}}{}
 \@ifundefined{Opw}{\newcommand{\Opw}{\Op_{h}^{\mathrm{w}}}}{}
 \makeatother
 
-% ---- Symbol-class shorthands (plain commands, guarded) ----
+% ---- Symbol-class shorthands ----
 \providecommand{\Sm}[1][]{S^{#1}}
-\providecommand{\SrhoDelta}[1]{S^{#1}_{1,0}} % default choice; adjust if needed
+\providecommand{\SrhoDelta}[1]{S^{#1}_{1,0}}
 
-% ---- Fourier transform aliases (safe) ----
+% ---- Fourier transform aliases ----
 \providecommand{\FT}{\mathcal{F}}
 \providecommand{\IFT}{\mathcal{F}^{-1}}
