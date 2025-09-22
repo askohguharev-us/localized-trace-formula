@@ -1,8 +1,9 @@
-name: latex
+name: pdf
 
 on:
   push:
-  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   pdf:
@@ -12,27 +13,39 @@ jobs:
         working-directory: src
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Sanity check layout
         run: |
-          set -e
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
-          for f in macros/environments.tex macros/operators.tex macros/house-style.tex ; do
+          for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
+          # forbid bad \input paths
+          BAD=$(grep -R -nE '\\input\{(sub/|/|\\\.\.)' . || true)
+          if [ -n "$BAD" ]; then
+            echo "::error ::Forbidden \\input path(s) detected:"
+            echo "$BAD"
+            exit 3
+          fi
 
-      # НИКАКИХ tlmgr / pre_compile / update --self
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-            root_file: main.tex
-            working_directory: src
-            texlive_version: 2024
-            args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
-            latexmk_shell_escape: false
-            # остальные опции по умолчанию
+          root_file: main.tex
+          working_directory: src
+          # xelatex обычно стабильнее (шрифты), latexmk сам дергает bibtex
+          latexmk_use_xelatex: true
+          # ставим недостающие пакеты через tlmgr ДО компиляции
+          pre_compile: |
+            tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
+            tlmgr update --self || true
+            tlmgr install \
+              bbm mathrsfs microtype enumitem float caption subcaption tcolorbox \
+              cleveref xcolor etoolbox
+          args: -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Upload PDF
         if: success()
