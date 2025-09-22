@@ -23,12 +23,9 @@ jobs:
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
-          # forbid bad \input paths
           BAD=$(grep -R -nE '\\input\{(sub/|/|\\\.\.)' . || true)
           if [ -n "$BAD" ]; then
-            echo "::error ::Forbidden \\input path(s) detected:"
-            echo "$BAD"
-            exit 3
+            echo "::error ::Forbidden \\input path(s) detected:"; echo "$BAD"; exit 3
           fi
 
       - name: Compile with TeX Live (latexmk + BibTeX)
@@ -36,15 +33,14 @@ jobs:
         with:
           root_file: main.tex
           working_directory: src
-          # xelatex обычно стабильнее (шрифты), latexmk сам дергает bibtex
           latexmk_use_xelatex: true
-          # ставим недостающие пакеты через tlmgr ДО компиляции
           pre_compile: |
-            tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
-            tlmgr update --self || true
+            tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
+            tlmgr update --self --all || true
             tlmgr install \
-              bbm mathrsfs microtype enumitem float caption subcaption tcolorbox \
-              cleveref xcolor etoolbox
+              bbm mathrsfs microtype enumitem float caption subcaption \
+              tcolorbox cleveref xcolor etoolbox || true
+            echo "[tlmgr pre_compile finished]"
           args: -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Upload PDF
