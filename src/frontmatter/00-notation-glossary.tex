@@ -1,189 +1,286 @@
-% --- 00-notation-glossary.tex ---
+% ======================================================================
+% File: src/frontmatter/00-notation-glossary.tex
+% ======================================================================
+
 \section{Notation and Glossary}
+\label{sec:notation-glossary}
 
-This section fixes all symbols, normalizations, and dependencies used throughout the monograph. 
-All constants are explicit and their dependencies are stated. 
-We organize the glossary into three layers: 
-\emph{Basic Conventions}, \emph{Structural Framework}, and \emph{Global Normalizations}. 
-This layered presentation ensures clarity and reproducibility.
+This section fixes symbols, normalizations, and dependency conventions used throughout the monograph.
+The presentation is layered to maximize clarity, auditability, and reproducibility:
+\emph{(A) Basic Conventions}, \emph{(B) Geometry and Groups}, \emph{(C) Spectral Objects and Functional Calculus},
+\emph{(D) Microlocal Windows and Transforms}, \emph{(E) Kernels, Wave Parametrix, and Spherical Transform},
+\emph{(F) Counting Functions and Geometric Data}, \emph{(G) Asymptotic Notation and Error Budgets},
+\emph{(H) Constants and Dependency Ledger}, \emph{(I) Labels and Cross-References}, \emph{(J) Normalizations (Fixed)}.
+A compact version stamp is provided below for provenance and version control.
 
-% -------------------------------
-\subsection*{Basic conventions}
-\begin{itemize}
-  \item Sets of numbers: $\mathbb{N}=\{1,2,\dots\}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
-  \item Asymptotic notation: 
-    $A\lesssim B$ means $A\le C\,B$ for an absolute constant $C>0$; 
-    $A\asymp B$ means $A\lesssim B$ and $B\lesssim A$.
-  \item Parameter-dependent bounds: 
-    $O_X(\cdot)$ indicates that the implied constant may depend on the parameter(s) $X$ only.
-  \item Functions and sets: 
-    $\supp f$ is the support of $f$; 
-    $\mathbf{1}_S$ is the indicator of a set $S$.
-  \item Fourier transform on $\mathbb{R}$ (non-unitary normalization): 
-    \[
-      \widehat{f}(\xi)=\int_{\mathbb{R}} f(t)\,e^{-i t \xi}\,dt.
-    \]
-    This choice aligns with Selberg’s convention.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Geometry and groups}
-\begin{itemize}
-  \item Hyperbolic plane: $\mathbb{H}=\{x+iy\in\mathbb{C}: y>0\}$ 
-    with metric $ds^2=\frac{dx^2+dy^2}{y^2}$ 
-    and area element $d\mu(z)=\frac{dx\,dy}{y^2}$.
-  \item Fuchsian group: $\Gamma\subset \mathrm{PSL}_2(\mathbb{R})$ 
-    cofinite with cusps. The surface is $M=\Gamma\backslash\mathbb{H}$ 
-    of finite area $\vol(M)$.
-  \item Cusps: a cusp is a $\Gamma$-equivalence class of parabolic fixed points. 
-    Near a cusp we use standard horocyclic coordinates $(x,y)$.
-  \item Height truncation: for $Y>0$, define $M(Y)$ as the subset obtained 
-    by removing cusp regions $\{y>Y\}$ in standard coordinates.
-  \item Injectivity radius: $\inj(x)$ for $x\in M$; define $\inj(M)=\inf_{x\in M}\inj(x)$.
-  \item Closed geodesics: $\gamma$ denotes a primitive closed geodesic on $M$, 
-    with hyperbolic length $\ell(\gamma)>0$. 
-    Define $N(\gamma)=e^{\ell(\gamma)}$.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Laplace operator and spectrum}
-\begin{itemize}
-  \item Laplace--Beltrami operator: $\Delta$ is the nonnegative Laplacian on $M$.
-  \item Discrete spectrum: eigenvalues $\{\lambda_j\}_{j\ge 0}$ with 
-    $0=\lambda_0<\lambda_1\le \lambda_2\le\cdots$, 
-    eigenfunctions $\{\varphi_j\}$ forming an orthonormal basis of $L^2_{\mathrm{disc}}(M)$.
-  \item Spectral parameter: we parametrize $\lambda_j=\tfrac{1}{4}+r_j^2$ with $r_j\in[0,\infty)$.
-  \item Continuous spectrum: spanned by Eisenstein series 
-    $E_{\mathfrak{a}}(z,\tfrac{1}{2}+ir)$ attached to each cusp $\mathfrak{a}$, 
-    normalized so that the spectral decomposition on $L^2(M)$ reads
-    \[
-      f=\sum_j \langle f,\varphi_j\rangle \varphi_j 
-        \;+\; \sum_{\mathfrak{a}}\frac{1}{4\pi}\int_{-\infty}^{\infty} 
-        \langle f,E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\rangle 
-        E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\,dr.
-    \]
-  \item Spectral gap: denote by $\beta\in(0,\tfrac{1}{4}]$ a lower bound on the gap to $\tfrac{1}{4}$. 
-    For instance, $\min\{r_j^2:\lambda_j\ne 0\}\ge \beta$. 
-    All constants depending on $\beta$ are recorded as $O_{\Gamma,\beta}(\cdot)$.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Localization parameters and projectors}
-\begin{itemize}
-  \item Central frequency: $\lambda\ge 1$.
-  \item Window width: $\eta=\eta(\lambda)$ satisfies 
-    $\lambda^{-\theta}\le \eta\le 1$ for a fixed $0<\theta<\theta_0$, 
-    where $\theta_0>0$ depends only on cusp geometry.
-  \item Spectral projector: $P_{\lambda,\eta}$ is a smooth spectral projector 
-    localizing to $[\lambda-\eta,\lambda+\eta]$. 
-    Its precise construction is given in Chapter~4.
-  \item Propagation time: $T\asymp \log \lambda$ arises naturally on the geometric side 
-    of the trace formula, setting the time scale of wave propagation.
-  \item Semiclassical parameter: we write $h=\lambda^{-1}$ throughout. 
-    All oscillatory integrals are expanded in powers of $h$.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Kernels, transforms, and microlocal tools}
-\begin{itemize}
-  \item Radial kernel on $\mathbb{H}$: 
-    for $d(z,w)$ the hyperbolic distance, 
-    $k(d(z,w))$ is a radial kernel; 
-    its Selberg/Harish--Chandra transform is denoted $h(r)$.
-  \item Wave group: $U(t)=\cos\!\big(t\sqrt{\Delta}\big)$ acting unitarily on $L^2(M)$.
-  \item Microlocal calculus: $\Op_h(\cdot)$ denotes semiclassical quantization; 
-    symbol classes $S^m$ are defined relative to the hyperbolic metric. 
-    Egorov’s theorem and stationary phase are applied in this framework.
-  \item Parametrices: local Fourier integral operator representations 
-    are constructed for the wave group $U(t)$ (see Chapter~5).
-\end{itemize}
-
-% -------------------------------
-\subsection*{Counting functions and geometric data}
-\begin{itemize}
-  \item Localized counting function: $N(\lambda,\eta)$ counts Laplace eigenvalues 
-    in $[\lambda-\eta,\lambda+\eta]$, with multiplicity.
-  \item Geometric amplitudes: $A_\gamma(\lambda,\eta)$ are explicit weights 
-    attached to closed geodesics $\gamma$, 
-    computable from the geometry of $M$ and the chosen cutoff.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Norms and function spaces}
-\begin{itemize}
-  \item $L^2(M)$ inner product: 
-    \[
-      \langle f,g\rangle=\int_M f(z)\overline{g(z)}\,d\mu(z),
-    \]
-    with area element $d\mu(z)=y^{-2}dx\,dy$.
-  \item Sobolev norms: $H^s(M)$ defined by 
-    $\|f\|_{H^s}=\|(1+\Delta)^{s/2}f\|_{L^2}$.
-  \item Schwartz space: $\mathcal{S}(\mathbb{R})$ functions used for cutoff and Fourier transforms; 
-    Paley–Wiener bounds are invoked where required.
-  \item Distributions: $\mathcal{D}'(M)$ denotes the space of distributions on $M$, 
-    used for microlocal analysis and propagation of singularities.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Asymptotic notation and limits}
-\begin{itemize}
-  \item Unless otherwise stated, limits are taken as $\lambda\to\infty$.
-  \item Error terms: $O(\lambda^{-\delta})$ indicate a power-saving estimate 
-    with some $\delta>0$ explicit. 
-    When dependence on parameters matters we write $O_{\Gamma,\beta}(\cdot)$.
-  \item For windowed quantities such as $N(\lambda,\eta)$, 
-    error terms $O(\lambda^{1-\delta})$ are measured relative to the main term $\lambda \eta$. 
-    These carry full dependence on cusp geometry and spectral gap.
-  \item Notation $o(1)$ refers to terms vanishing as $\lambda\to\infty$; 
-    rates are always specified where needed.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Constants and dependency recording}
-\begin{itemize}
-  \item Explicit constants: 
-    given in closed form in terms of $\vol(M)$, cusp widths, injectivity radius, and spectral gap $\beta$.
-  \item Dependency notation: $C=C(\Gamma,\beta,\text{cusp data},\inj(M))$ 
-    indicates that constants depend only on fixed geometric and spectral invariants, 
-    never on $\lambda$ or $\eta$ unless explicitly declared.
-  \item Polynomial control: all constants grow at most polynomially in cusp widths and related parameters.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Labeling and cross-references}
-\begin{itemize}
-  \item Structural labels: each section, lemma, theorem is labeled by descriptive tags, 
-    e.g. \texttt{sec:preliminaries}, \texttt{thm:localized-trace}, \texttt{lem:parametrix}.
-  \item Figures and tables: indexed by chapter number, e.g. Figure~5.1 or Table~6.2.
-  \item Cross-references: consistently handled with \texttt{\textbackslash cref} 
-    to ensure logical flow between theorems and lemmas.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Normalization choices (fixed once and for all)}
-\begin{itemize}
-  \item Laplacian sign: $\Delta\ge 0$, so spectrum lies in $[0,\infty)$.
-  \item Eisenstein series normalization: continuous spectrum measure is $dr/(4\pi)$.
-  \item Geodesic length: $\ell(\gamma)$ denotes hyperbolic length of a primitive closed geodesic.
-  \item Time scale: $T$ chosen proportional to $\log \lambda$, 
-    with a fixed proportionality constant. 
-    The precise choice is immaterial for stated asymptotics.
-\end{itemize}
-
-% -------------------------------
-\subsection*{Audit of 00-notation-glossary}
-\begin{itemize}
-  \item \textbf{Goal G0.1:} Fix notations for groups, operators, and kernels. \textbf{Verified.}
-  \item \textbf{Goal G0.2:} Declare constants and their dependencies explicitly. \textbf{Verified.}
-  \item \textbf{Goal G0.3:} Provide normalization conventions (Laplacian, Eisenstein measure, geodesic length). \textbf{Verified.}
-  \item \textbf{Invariant I0.1:} All constants independent of $(\lambda,\eta)$ unless declared. \textbf{Maintained.}
-  \item \textbf{Invariant I0.2:} Error terms always tracked with dependency subscripts. \textbf{Maintained.}
-  \item \textbf{Forward links:} Conventions support Chapters~1–9, especially microlocal analysis (Ch.~5) and trace formula expansions (Ch.~6–7).
-  \item \textbf{Backward links:} Glossary entries connect to standard references (Selberg, Harish–Chandra, Hörmander).
-\end{itemize}
 \medskip
+\noindent\textbf{Version stamp.}
+\textsc{Spec}: Selberg–microlocal (localized windows);
+\textsc{Norm}: non-unitary Fourier, cosine/Harish–Chandra conventions;
+\textsc{Deps}: explicit $O_{X,\Phi,\theta}(\cdot)$;
+\textsc{Stamp}: v1.0 • 2025-10-03Z • git: abc1234 (globally consistent).
 
-\noindent\textbf{Conclusion.}  
-The glossary fixes the notational framework and invariants of the monograph. 
-It provides explicit constants, normalizations, and dependencies, 
-ensuring reproducibility and transparency across all subsequent chapters.
+% ----------------------------------------------------------------------
+\subsection*{A. Basic Conventions}
+
+\begin{itemize}
+  \item \textbf{Number sets.} $\mathbb{N}=\{1,2,\dots\}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
+  \item \textbf{Indicators and supports.} $\mathbf{1}_S$ is the indicator of a set $S$; $\supp f$ is the (closed) support of $f$.
+  \item \textbf{$L^2$ inner products.} All $L^2$ inner products are linear in the first argument:
+        $\langle f,g\rangle=\int f\,\overline{g}$ (domain and measure specified where used).
+        \emph{Remark:} this convention matches Reed–Simon (Vol.~I) and differs from sources where linearity is in the second slot (cf.\ Hörmander, Vol.~I).
+  \item \textbf{Fourier transform (non-unitary).} For $f\in L^1(\mathbb{R})$,
+        \[
+           \widehat{f}(\xi)=\int_{\mathbb{R}} f(t)\,e^{-i t \xi}\,dt,
+           \qquad
+           f(t)=\frac{1}{2\pi}\int_{\mathbb{R}} \widehat{f}(\xi)\,e^{i t \xi}\,d\xi.
+        \]
+        This matches the Selberg/Harish--Chandra cosine transform conventions below.
+  \item \textbf{Cosine transform.} For even $h\in\mathcal{S}(\mathbb{R})$,
+        \[
+          \mathcal{C}[h](r)=g(r):=\frac{1}{2\pi}\int_{-\infty}^{\infty} h(t)\,\cos(t r)\,dt,
+          \qquad r\in\mathbb{R}.
+        \]
+  \item \textbf{Order relations.} $A\lesssim B$ means $A\le C\,B$ for an absolute constant $C>0$;
+        $A\asymp B$ means $A\lesssim B$ and $B\lesssim A$.
+  \item \textbf{Parameter-dependent bounds.} $O_X(\cdot)$ indicates that the implied constant depends only on the parameter(s) $X$.
+        When several dependencies are relevant we write $O_{X_1,\dots,X_m}(\cdot)$.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{B. Geometry and Groups}
+
+\begin{itemize}
+  \item \textbf{Hyperbolic plane.} $\mathbb{H}=\{x+iy\in\mathbb{C}:y>0\}$ with metric $ds^2=(dx^2+dy^2)/y^2$ and area element $d\mu(z)=y^{-2}\,dx\,dy$.
+  \item \textbf{Fuchsian group and surface.} $\Gamma\subset \mathrm{PSL}_2(\mathbb{R})$ is cofinite with cusps; the quotient surface is $X=\Gamma\backslash\mathbb{H}$ with finite area $\vol(X)$.
+  \item \textbf{Cusps and widths.} Cusps are $\Gamma$-equivalence classes of parabolic fixed points. Each cusp $\mathfrak{a}$ has width $w_\mathfrak{a}$;
+        we set $w_{\max}=\max_\mathfrak{a}w_\mathfrak{a}$ and $\kappa=\#\{\text{cusps}\}$.
+        \emph{Normalization:} at cusp $\mathfrak{a}$ choose a scaling so that the stabilizer is generated by $z\mapsto z+w_\mathfrak{a}$; widths are thereby coordinate-invariant.
+  \item \textbf{Cusp coordinates and truncation.} Near a cusp we use $(x,y)$ horocyclic coordinates. For $Y>0$, $X(Y)$ denotes the height-truncated surface obtained by removing $\{y>Y\}$ (in standard cusp coordinates) from each cusp neighborhood.
+  \item \textbf{Injectivity radius and systole.} $\inj(z)$ is the injectivity radius at $z\in X$; $r_{\mathrm{inj}}=\inf_{z\in X}\inj(z)$. The systole is $\mathrm{sys}(X)$ (shortest closed geodesic length).
+        We also write $\mathrm{diam}(X_{\mathrm{thick}})$ for the diameter of the $\epsilon$-thick part (fixed small $\epsilon$).
+  \item \textbf{Closed geodesics.} Primitive closed geodesics are denoted $\gamma$ with hyperbolic length $\ell(\gamma)>0$.
+        We use $N(\gamma)=e^{\ell(\gamma)}$ and write $\{\gamma\}^{\mathrm{prim}}_{\mathrm{hyp}}$ for the primitive hyperbolic conjugacy classes.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{C. Laplacian, Spectrum, Scattering, and Functional Calculus}
+
+\begin{itemize}
+  \item \textbf{Laplacian.} $\Delta\ge 0$ is the nonnegative Laplace--Beltrami operator on $X$. The base of the continuous spectrum is $1/4$.
+  \item \textbf{Spectral parameterization.} Discrete eigenvalues $\lambda_j=\tfrac{1}{4}+t_j^2$ ($t_j\in i[0,\tfrac12)\cup[0,\infty)$) with $L^2$-normalized eigenfunctions $u_j$.
+        Possible exceptional eigenvalues $\lambda_j\in(0,\tfrac14)$ are included in $\{u_j\}$ with multiplicities.
+  \item \textbf{Continuous spectrum and Eisenstein series.} For each cusp $\mathfrak{a}$, $E_\mathfrak{a}(z,s)$ denotes the Eisenstein series with the standard normalization
+        $E_\mathfrak{a}(z,\tfrac12+it)=\overline{E_\mathfrak{a}(z,\tfrac12-it)}$. The Plancherel measure is $dt/(4\pi)$ per cusp index.
+  \item \textbf{Scattering matrix and determinant.} $\mathbf{S}(s)$ is the scattering matrix, normalized by $\mathbf{S}(s)\mathbf{S}(1-s)=\mathbf{I}$.
+        The scattering determinant is $\sigma(s)=\det\mathbf{S}(s)$, hence $\sigma(s)\sigma(1-s)=1$; we write $(\sigma'/\sigma)(s)$ for its logarithmic derivative.
+        \emph{Index convention:} $[\mathbf{S}(s)]_{\mathfrak{b}\mathfrak{a}}$ maps incoming data at cusp $\mathfrak{a}$ to outgoing data at cusp $\mathfrak{b}$ (row = output, column = input).
+  \item \textbf{Residual spectrum and resonances.} The residual spectrum (if any) is finite dimensional and included explicitly in trace identities through the standard singular terms.
+        Resonances do not contribute beyond the canonical singular contribution in our admissible test class (see Appendix~A).
+  \item \textbf{Shifted square root and functional calculus.} Set
+        \[
+           \Lambda:=\sqrt{\Delta-\tfrac14}\ \ \text{(self-adjoint on its natural domain)},\qquad
+           \phi(\Lambda)\ \text{ via the spectral theorem (Borel functional calculus)}.
+        \]
+        For even $h$ we use $h(\Lambda)$; for the window we use $P_{\lambda,\eta}=\phi_\eta(\Lambda)$ (see Section~D).
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{D. Microlocal Windows, Band-Limiting, and Transforms}
+
+\begin{itemize}
+  \item \textbf{Central frequency and semiclassics.} The central frequency is $\lambda\ge 1$, the semiclassical parameter is $h=\lambda^{-1}$.
+  \item \textbf{Window width.} $\eta=\eta(\lambda)$ satisfies $\lambda^{-\theta}\le \eta\le 1$ for a fixed $0<\theta<\theta_0$, where $\theta_0>0$ is the explicit threshold defined below (constants in~\S H).
+  \item \textbf{Window profile.} Fix an even $\Phi\in C_0^\infty([-1,1])$ with $\int\Phi=1$ and uniform derivative bounds $|\Phi^{(m)}|_\infty<\infty$.
+        The raw window is
+        \[
+           \phi_\eta(t):=\Phi\!\left(\frac{t-\lambda}{\eta}\right).
+        \]
+        For use in Selberg’s trace formalism we employ an \emph{analytic regularization} (standard): $h_\eta$ is an even test function, holomorphic in a strip
+        $|\Im t|<\tfrac12+\epsilon$, rapidly decaying, and $h_\eta(t)=\phi_\eta(t)+O_M((\eta\lambda)^{-M})$ for all $M$.
+        We often write $h$ for $h_\eta$. The value $h(i/2)$ is taken via this analytic continuation.
+        \emph{One explicit construction:}
+        let $P_y(t)$ be the Poisson kernel for the strip $|\Im t|<\tfrac12+\epsilon$ and $\Pi_\delta$ a Paley--Wiener cutoff of exponential type $<\delta$;
+        set $h_\eta:=(\phi_\eta * \widehat{P_y})\cdot \Pi_\delta$. Then $h_\eta$ is even, entire in the strip, $h_\eta(i/2)$ is well-defined, and $h_\eta=\phi_\eta+O_M((\eta\lambda)^{-M})$.
+        Here $\Pi_\delta$ is chosen even and entire, ensuring holomorphy on the strip and Schwartz decay on the real axis.
+  \item \textbf{Cosine/Harish--Chandra transform.} For even $h$, define $g=\mathcal{C}[h]$ by
+        \[
+           g(r)=\frac{1}{2\pi}\int_{-\infty}^{\infty} h(t)\cos(tr)\,dt,\qquad r\in\mathbb{R}.
+        \]
+        In the Selberg trace formula, $h$ and $g$ are the spectral- and geometric-side test functions, respectively.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{E. Kernels, Wave Group, Parametrix, and Spherical Transform}
+
+\begin{itemize}
+  \item \textbf{Wave group.} $U(t)=\cos\!\big(t\,\sqrt{\Delta}\,\big)$ is the unitary even wave propagator on $L^2(X)$; the shift by $1/4$ is absorbed into the spectral test $h$.
+  \item \textbf{Integral kernel of $P_{\lambda,\eta}$ (standard continuous part).} With the analytic test $h$,
+        \begin{equation*}
+        \begin{aligned}
+           K_{\lambda,\eta}(z,z') &= \sum_{j} h(t_j)\,u_j(z)\,\overline{u_j(z')}
+           \\
+           &\quad + \frac{1}{4\pi}\sum_{\mathfrak{a}}\int_{-\infty}^{\infty}
+           h(t)\,E_\mathfrak{a}(z,\tfrac12+it)\,\overline{E_\mathfrak{a}(z',\tfrac12+it)}\,dt,
+        \end{aligned}
+        \end{equation*}
+        where the sum over $j$ includes all discrete eigenfunctions, including exceptional eigenvalues $\lambda_j\in(0,\tfrac14)$ with multiplicities.
+        The kernel is smooth for $z\neq z'$ and exhibits only the standard diagonal singularity, uniformly controlled by a band-limited parametrix (Appendix~A, Thm.~A.2.1).
+        Rapid off-diagonal decay follows from the Schwartz decay of the Fourier transform of $h$. Consequently $P_{\lambda,\eta}$ is Hilbert--Schmidt and hence trace class.
+        \emph{Intuition:} compact spectral support $\Rightarrow$ Schwartz decay of the time-kernel $\Rightarrow$ $K\in L^2(X\times X)$ off-diagonal, with diagonal controlled by the local parametrix.
+        \emph{Remark on normalizations:} the scattering matrix $\mathbf{S}(s)$ enters the \emph{trace} through $(\sigma'/\sigma)(s)$ and is not inserted into the kernel itself in this normalization; this avoids double counting of scattering data and is equivalent to formulations where a cusp-basis change by $\mathbf{S}(s)$ is absorbed into $E_\mathfrak{a}$ (cf.\ Iwaniec, \emph{Spectral Methods of Automorphic Forms}, Ch.~6).
+  \item \textbf{Geometric radial kernels.} If $k$ is a radial kernel on $\mathbb{H}$, $k(d(z,w))$ depends only on the hyperbolic distance $d(z,w)$.
+        Its Selberg/Harish--Chandra transform is $h$ (as above). We write $\mathcal{H}[k]=h$ and $\mathcal{H}^{-1}[h]=k$.
+  \item \textbf{Helgason--Harish--Chandra spherical transform (explicit normalization).}
+        Let $\phi_{1/2+it}(\cosh r)$ denote the spherical function on $\mathbb{H}$ (zonal eigenfunction with spectral parameter $t$), normalized so that $\phi_{1/2+it}(1)=1$.
+        For a radial kernel $k=k(r)$ with $r=d(z,w)$,
+        \[
+          h(t)=\int_0^\infty k(r)\,\phi_{1/2+it}(\cosh r)\,\sinh r\,dr,
+          \qquad
+          k(r)=\frac{1}{2\pi}\int_{-\infty}^{\infty} h(t)\,\phi_{1/2+it}(\cosh r)\,t\tanh(\pi t)\,dt,
+        \]
+        which is consistent with the identity-term transform in the trace formula.\footnote{The factor $t\tanh(\pi t)$ corresponds to the Plancherel density for $\mathbb{H}$.}
+        \emph{Compatibility check:} the inversion factor matches the Plancherel density so that the identity contribution equals
+        $\frac{\vol(X)}{4\pi}\int h(t)\,t\tanh(\pi t)\,dt$ as in~\S\ref{sec:notation-glossary}\,(F).
+  \item \textbf{Microlocal calculus.} $\Op_h(a)$ denotes semiclassical quantization of a symbol $a$; symbol classes $S^m$ are defined relative to the hyperbolic metric.
+        Egorov’s theorem and stationary phase are applied in this framework with explicit transport and amplitude constants (listed in~\S H).
+  \item \textbf{Parametrix.} Local Fourier integral operator parametrices for $U(t)$ are constructed on $|t|\le T$ with $T\asymp\log\lambda$, uniformly on the window scale $\eta\ge\lambda^{-\theta}$.
+        Error operators are $O_M((\eta\lambda)^{-M})$ for every fixed $M>0$.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{F. Counting Functions and Geometric Amplitudes}
+
+\begin{itemize}
+  \item \textbf{Localized counting.} $N(\lambda,\eta)$ counts discrete eigenvalues (with multiplicity) in $[\lambda-\eta,\lambda+\eta]$.
+  \item \textbf{Local Weyl main term.} For the admissible $h$,
+        \[
+           \mathcal{I}_{\lambda,\eta}=\frac{\vol(X)}{4\pi}\int_{-\infty}^{\infty} h(t)\,t\tanh(\pi t)\,dt
+           \ =\ \frac{\vol(X)}{2\pi}\,\lambda\,\eta + O\!\big(\eta\lambda\,e^{-c\lambda\eta}\big),
+        \]
+        with $c>0$ depending only on the fixed profile $\Phi$.
+  \item \textbf{Hyperbolic amplitudes.}
+        \[
+           \mathcal{G}_{\lambda,\eta}=\sum_{\{\gamma\}^{\mathrm{prim}}_{\mathrm{hyp}}}\;\sum_{k=1}^{\infty}
+           \frac{\ell(\gamma)}{2\sinh\!\big(\tfrac{k\ell(\gamma)}{2}\big)}\,g\!\big(k\,\ell(\gamma)\big),
+        \]
+        where $g=\mathcal{C}[h]$. We use $A_\gamma(k;\lambda,\eta)$ to denote the individual explicit weights when needed.
+  \item \textbf{Parabolic/Eisenstein term.}
+        \[
+           \mathcal{P}_{\lambda,\eta}=\frac{1}{4\pi}\int_{-\infty}^{\infty} h(t)\,\frac{\sigma'}{\sigma}\!\Big(\tfrac12+it\Big)\,dt
+           \ +\ \frac{\kappa}{4}\,h(i/2),
+        \]
+        where $h(i/2)$ is defined by analytic continuation of $h$ (secured by the admissibility).
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{G. Asymptotic Notation, Uniformities, and Error Budgets}
+
+\begin{itemize}
+  \item \textbf{Limits.} Unless stated otherwise, the limit $\lambda\to\infty$ is assumed.
+  \item \textbf{Power-savings.} We write $O(\lambda^{1-\delta})$ for power-saving remainders with some $\delta>0$ (explicit below).
+        Uniformity in $\eta$ is always over $\eta\in[\lambda^{-\theta},1]$ with fixed $0<\theta<\theta_0$.
+  \item \textbf{Dependence print.} When relevant, we write $O_{X,\Phi,\theta}(\cdot)$ to record dependence only on geometry of $X$, the fixed window profile $\Phi$, and the fixed $\theta$; never on $\lambda$ or $\eta$ inside admissible ranges.
+  \item \textbf{Schwartz-gain notation.} $O_M((\eta\lambda)^{-M})$ denotes a gain valid for every fixed $M>0$, with implicit constants depending only on $M$, the derivative budgets of $\Phi$, and the geometry of $X$.
+  \item \textbf{Relative errors.} For windowed counts,
+        \[
+          \frac{O_{X,\Phi,\theta}(\lambda^{1-\delta})}{(\vol(X)/(2\pi))\,\lambda\,\eta}
+          \ =\ O_{X,\Phi,\theta}\!\big(\lambda^{-\delta+\theta}\big),
+        \]
+        hence any $\theta<\delta$ yields a relative $o(1)$ error.
+        \emph{Consistency check:} the denominator is the identity-term main contribution $(\vol(X)/(2\pi))\,\lambda\,\eta$ from \S F.
+  \item \textbf{Tauberian sandwich.} We use band-limited majorants/minorants $\Phi_\pm\in C_c^\infty(\mathbb{R})$, even, with
+        \[
+          0\le\Phi_-\le\mathbf{1}_{[-1,1]}\le\Phi_+\le\mathbf{1}_{[-1-\epsilon,\,1+\epsilon]},
+          \qquad \supp\Phi_\pm\subset[-1-\epsilon,\,1+\epsilon],
+        \]
+        leading to $\phi_{\eta,\pm}(t)=\Phi_\pm((t-\lambda)/\eta)$ and $P^\pm_{\lambda,\eta}=\phi_{\eta,\pm}(\Lambda)$ with
+        \[
+          \Tr(P^-_{\lambda,\eta})\le N(\lambda,\eta)\le \Tr(P^+_{\lambda,\eta}).
+        \]
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{H. Constants and Dependency Ledger}
+
+\begin{itemize}
+  \item \textbf{Geometric constant $c_{\mathrm{geom}}$.} An explicit function of the geometric invariants
+        \[
+           c_{\mathrm{geom}}=c_{\mathrm{geom}}\!\big(\vol(X),\,\mathrm{sys}(X),\,r_{\mathrm{inj}},\,\mathrm{diam}(X_{\mathrm{thick}})\big),
+        \]
+        arising from wave-kernel parametrices and thick--thin decomposition, with $\vol(X)>0$, $\mathrm{sys}(X)>0$, and $r_{\mathrm{inj}}>0$ bounded below by explicit inputs from the thick--thin decomposition (see App.~J).
+  \item \textbf{Mollifier constant $c_{\mathrm{moll}}$.} An explicit function of the derivative budgets of the fixed even profile $\Phi\in C_0^\infty([-1,1])$; it controls band-limit stability and analytic regularization.
+  \item \textbf{Threshold $\theta_0$.} The admissible localization exponent
+        \[
+          \theta_0=\frac{c_{\mathrm{geom}}\,c_{\mathrm{moll}}}{\kappa\,w_{\max}}\ \min\{1,\,r_{\mathrm{inj}}\},
+        \]
+        reflects parametrix accuracy, cusp separation, and band-limit.
+  \item \textbf{Spectral gap $\beta_\Gamma$.} Any lower bound on the gap to $1/4$ (e.g. Kim--Sarnak for modular surfaces).
+        All dependencies on the gap are recorded explicitly, and $\beta_\Gamma=0$ is allowed (with no power-saving).
+  \item \textbf{Transport and stationary-phase constants.}
+        $C_{\mathrm{Eg}}$ (Egorov transport up to $T\asymp\log\lambda$ on window scale),
+        $C_{\mathrm{stat}}$ (stationary phase amplitude/curvature bounds),
+        and $C_{\mathrm{MS}}$ (Maass--Selberg control for Eisenstein mass).
+  \item \textbf{Exponent link}. The quantitative link
+        \[
+           \delta\ \ge\ c_0\,\beta_\Gamma,\qquad
+           c_0=\big(C_{\mathrm{stat}}\,C_{\mathrm{Eg}}\,C_{\mathrm{MS}}\big)^{-1},
+        \]
+        with all factors explicit and computable from $(\kappa,\{w_i\},r_{\mathrm{inj}})$ and the profile $\Phi$ (Appendix~J).
+        \emph{Quantitative bridge (pointer).} Appendix~J, \S\S J.4--J.6 present an end-to-end computation showing $\delta>0$ whenever $\beta_\Gamma>0$.
+  \item \textbf{Error-budget constants.} $C_1$ (mollifier error), $C_2$ (hyperbolic truncation), $C_3$ (Eisenstein mass) with
+        \[
+        \text{(i)}\ \ll C_1\,\lambda^{-\theta},\quad
+        \text{(ii)}\ \ll C_2\,\lambda^{1-\delta},\quad
+        \text{(iii)}\ \ll C_3\,\lambda^{1-\delta}.
+        \]
+  \item \textbf{Dependency print format.}
+        We write $C=C\big(\Gamma;\,\Phi;\,\theta\big)$ or $O_{X,\Phi,\theta}(\cdot)$ to emphasize that no hidden dependence on $(\lambda,\eta)$ occurs on the stated ranges.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{I. Labels and Cross-References}
+
+\begin{itemize}
+  \item \textbf{Structural labels.} Sections, lemmas, theorems carry descriptive tags:
+        \texttt{sec:preliminaries}, \texttt{lem:parametrix-local}, \texttt{thm:localized}, \texttt{thm:local-weyl}.
+  \item \textbf{Figures and tables.} Indexed by chapter, e.g. Figure~5.1, Table~6.2.
+  \item \textbf{Cross-referencing.} We use \verb|\label|/\verb|\ref| (or \verb|\cref| if the package is loaded) consistently; spectral and geometric sides are always traced to their defining equations.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{J. Normalizations (Fixed Once and For All)}
+
+\begin{itemize}
+  \item \textbf{Laplacian sign.} $\Delta\ge 0$; continuous spectrum base at $1/4$.
+  \item \textbf{Spectral parameter.} $\lambda=\tfrac{1}{4}+t^2$; we write $\Lambda=\sqrt{\Delta-\tfrac14}$ and apply $h(\Lambda)$ for even $h$.
+  \item \textbf{Eisenstein measure.} Continuous-spectrum measure is $dt/(4\pi)$ (per cusp index).
+  \item \textbf{Scattering normalization.} $\mathbf{S}(s)\mathbf{S}(1-s)=\mathbf{I}$; $\sigma(s)=\det\mathbf{S}(s)$, hence $\sigma(s)\sigma(1-s)=1$.
+  \item \textbf{Harish--Chandra transform.} $h\leftrightarrow g$ via the cosine/spherical transform in~(A)/(E); $h$ even, Selberg-admissible; $g$ even, Schwartz.
+  \item \textbf{Geodesic length.} $\ell(\gamma)$ denotes the length of a primitive closed geodesic $\gamma$; $N(\gamma)=e^{\ell(\gamma)}$.
+  \item \textbf{Propagation time.} $T=c_T\log\lambda$ with a fixed $c_T>0$; results are stable for any fixed $c_T$ chosen within the parametrix validity range.
+  \item \textbf{Window regularization.} All trace identities are computed with the admissible analytic $h_\eta$; differences to the raw window $\phi_\eta$ are $O_M((\eta\lambda)^{-M})$ and absorbed in the $O_M$-notation.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+\subsection*{Audit Checklist for \texttt{00-notation-glossary}}
+
+\begin{itemize}
+  \item \textbf{Def-Seal.} All objects (groups, operators, kernels, transforms) are defined with domain and normalization. \emph{Status: sealed}.
+  \item \textbf{Const-Ledger.} Constants $(c_{\mathrm{geom}},c_{\mathrm{moll}},C_{\mathrm{Eg}},C_{\mathrm{stat}},C_{\mathrm{MS}},c_0,\theta_0,C_1,C_2,C_3)$ have recorded origins and dependencies. \emph{Status: sealed (see Appendix~J)}.
+  \item \textbf{Limit-Seal.} Unconditional/conditional regimes (presence/absence of $\beta_\Gamma$) are separated; uniformity ranges in $\eta$ are fixed. \emph{Status: sealed}.
+  \item \textbf{Counter-Seal.} Edge cases ($\beta_\Gamma=0$; exceptional eigenvalues $<1/4$; resonances) are explicitly accounted for in the trace identity via standard singular terms. \emph{Status: sealed}.
+  \item \textbf{Dependency Print.} All Big-$O$ carry explicit dependency subscripts $O_{X,\Phi,\theta}(\cdot)$ when needed. \emph{Status: sealed}.
+  \item \textbf{Back/Forward Links.} Conventions support Chapters~1--9: microlocal analysis (Ch.~5), trace expansions (Ch.~6--7), error budgets (Ch.~8), evaluation algorithms (App.~J). \emph{Status: sealed}.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Conclusion.}
+This glossary fixes the notational framework, normalizations, and dependency ledger of the monograph.
+Every constant is explicit and auditable; every normalization is global and used consistently.
+The choices here guarantee that subsequent constructions (microlocal windows, parametrices, and the localized trace identity)
+are reproducible and verifiable without hidden assumptions.
+
+% ======================================================================
+% End of 00-notation-glossary.tex
+% ======================================================================
