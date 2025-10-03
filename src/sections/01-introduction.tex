@@ -440,7 +440,8 @@ such that
 where:
 \begin{itemize}
   \item $\mathcal{I}_{\lambda,\eta} = \dfrac{\vol(X)}{2\pi}\,\lambda\,\eta$
-        is the main identity contribution, in exact agreement with the Plancherel measure.
+        is the main identity contribution, in exact agreement with the Plancherel measure
+        for the hyperbolic plane.
   \item $\mathcal{G}_{\lambda,\eta}$ is the hyperbolic sum over primitive geodesics:
   \[
     \mathcal{G}_{\lambda,\eta}
@@ -452,7 +453,7 @@ where:
   \]
   with the sum effectively truncated at
   \[
-    k\ell(\gamma)\;\leq\; C_T\log\lambda
+    k\ell(\gamma)\;\leq\; C_T\log\lambda + O(1),
   \]
   for some explicit constant $C_T>0$,
   enforced naturally by the decay of $g$.
@@ -467,9 +468,12 @@ where:
   \]
   where $h$ is the analytic transform associated with $\phi_\eta$
   and $\kappa$ is the number of cusps.
-  \item $\delta>0$ depends explicitly on the spectral gap $\beta_\Gamma$
-        and the constants in \S H of the Notation Glossary,
-        but not on $\lambda$ or $\eta$.
+  \item $\delta \geq c_0 \beta_\Gamma$, with
+        \[
+          c_0 = \big(C_{\mathrm{stat}} C_{\mathrm{Eg}} C_{\mathrm{MS}}\big)^{-1},
+        \]
+        an explicit constant depending only on the geometry of $X$ and
+        the cutoff profile $\Phi$.
 \end{itemize}
 The implicit constant in the error term depends only on the fixed surface $X$
 and on the chosen window profile $\Phi$.
@@ -516,7 +520,9 @@ uniformly for $\lambda^{-\theta}\le \eta\le 1$.
         hyperbolic surfaces with cusps.
 \end{itemize}
 
+% ----------------------------------------------------------------------
 \subsubsection*{Expanded Sketch of the Proof of Theorem~\ref{thm:intro-localized-trace}.}
+
 The proof integrates spectral, geometric, and microlocal components:
 
 \begin{enumerate}[label=\arabic*.]
@@ -524,30 +530,40 @@ The proof integrates spectral, geometric, and microlocal components:
         Define $P_{\lambda,\eta}=\phi_\eta(\Lambda)$ via functional calculus,
         with $\phi_\eta$ a smooth compactly supported function scaled to window $\eta$.
         Smoothness ensures analytic continuation and avoids sharp-cutoff artefacts.
+
   \item \textbf{Trace via wave kernel.}
         Express $\Tr(P_{\lambda,\eta})$ as the integral of the even wave kernel
         $U(t)=\cos(t\sqrt{\Delta})$ against $h(t)$, the Fourier transform of $\phi_\eta$.
         This representation connects spectral localization to time propagation.
+
   \item \textbf{Parametrix construction.}
         Build a Fourier integral operator parametrix for $U(t)$
         valid up to times $|t|\le T\asymp\log\lambda$.
         Stationary phase analysis reveals contributions from closed geodesics.
+
   \item \textbf{Hyperbolic contributions.}
         For each primitive $\gamma$, amplitudes are computed explicitly:
-        $A_\gamma = \frac{\ell(\gamma)}{2\sinh(k\ell(\gamma)/2)}$,
+        \[
+          A_\gamma(k) = \frac{\ell(\gamma)}{2\sinh(k\ell(\gamma)/2)},
+        \]
         with oscillations governed by $g(k\ell(\gamma))$.
         Effective truncation arises naturally from decay.
+
   \item \textbf{Parabolic/Eisenstein control.}
         Use Maass–Selberg relations and analytic continuation
         to control Eisenstein contributions.
         The scattering matrix enters only through $\sigma'/\sigma$.
+
   \item \textbf{Error bounds.}
         Parametrix errors are shown to decay faster than any power in $\eta\lambda$.
         Gathering all terms yields the $O(\lambda^{1-\delta})$ remainder.
 \end{enumerate}
 
+% ----------------------------------------------------------------------
 \subsubsection*{Expanded Sketch of the Proof of Theorem~\ref{thm:intro-local-weyl}.}
+
 The Weyl law follows immediately:
+
 \begin{enumerate}[label=\arabic*.]
   \item Approximate the characteristic function of $[\lambda-\eta,\lambda+\eta]$
         with smooth $\phi_\eta$.
@@ -634,6 +650,8 @@ Faddeev \cite{Faddeev1967} advanced the spectral theory of automorphic functions
 Lax–Phillips \cite{LaxPhillips1976} developed scattering methods,
 and parametrix techniques were systematically refined by Russian analysts.
 These traditions underpin the analytic foundations of our refinement.
+In particular, the Russian emphasis on operator-theoretic clarity and explicit
+parametrix construction resonates strongly with our methodological commitments.
 
 \subsubsection*{7. Conceptual Summary.}
 From these traditions, three imperatives emerge:
@@ -919,7 +937,7 @@ and that the results are positioned not only for proof but also for reproducibil
 % ======================================================================
 % ======================================================================
 % File: src/sections/01-introduction.tex
-% Part 8/8 — Methodological Principles and Closing
+% Part 8/8 — Methodological Principles and Closing (Final Absolute Version)
 % ======================================================================
 
 \subsection*{J. Methodological Principles}
