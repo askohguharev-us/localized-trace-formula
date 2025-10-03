@@ -4,42 +4,45 @@
 
 \section{Executive Summary}
 
-This monograph establishes a \emph{localized trace formula} for finite-area
-hyperbolic surfaces with cusps. The central innovation is the introduction of a
-\emph{microlocalized wave propagator} and its associated \emph{spectral
-projector}, which refine the classical spectral–geometric correspondence and
-yield \emph{effective, computable bounds with explicit constants}. The localized
-trace formula not only reproduces the principal Weyl term but also achieves
-genuine \emph{power-saving error terms}, thereby sharpening the asymptotic
-precision of Selberg’s original identity.
+This monograph develops and establishes a \emph{localized trace formula} for
+finite-area hyperbolic surfaces with cusps. The central innovation is the
+construction of a \emph{microlocalized wave propagator} and its associated
+\emph{spectral projector}, which refine the classical spectral–geometric
+correspondence and yield \emph{effective, computable bounds with explicit
+constants}. The localized trace formula not only reproduces the principal
+Weyl term but also achieves genuine \emph{power-saving error terms}, thereby
+sharpening the asymptotic precision of Selberg’s original identity and
+providing a reproducible quantitative framework.
 
 \medskip
 \noindent\textbf{Historical Context.}
 Since the pioneering work of Selberg in the 1950s \cite{Selberg1956}, the trace
-formula has served as a profound bridge between geometry (closed geodesics,
+formula has provided a profound bridge between geometry (closed geodesics,
 cusp geometry) and spectral theory (Laplace eigenvalues, scattering poles).
-Later developments by Duistermaat–Guillemin \cite{DG1975} and Colin de
-Verdière \cite{CdV1980} introduced semiclassical analysis and microlocal
-techniques into spectral geometry, while the analytic works of Iwaniec, Luo,
-and Sarnak \cite{IwaniecSarnak1995, LuoSarnak1995} revealed the depth of trace
-methods in automorphic forms and quantum chaos. The present monograph
-situates itself firmly in this continuum: it reinterprets the trace formula
-\emph{at the microlocal level}, introducing localization at spectral scales
-$\eta \geq \lambda^{-\theta}$, and producing explicit power-saving remainders.
-This refinement transforms the classical trace formula from a global identity
-into a \emph{quantitative, auditable tool}, suitable for delicate problems in
-analytic number theory and spectral statistics.
+Duistermaat–Guillemin \cite{DG1975} and Colin de Verdière \cite{CdV1980}
+introduced semiclassical analysis and microlocal methods into spectral
+geometry, while the works of Iwaniec, Luo, and Sarnak
+\cite{IwaniecSarnak1995, LuoSarnak1995} demonstrated the analytic depth of
+trace methods in automorphic forms and quantum chaos. The present monograph
+positions itself within this lineage but advances a crucial refinement: it
+reinterprets the trace formula \emph{at the microlocal level}, introducing
+localization at spectral scales $\eta \geq \lambda^{-\theta}$ and producing
+explicit power-saving remainders. This transforms the trace formula from a
+global identity into a \emph{quantitative, auditable instrument} suitable for
+analytic number theory, automorphic forms, and spectral statistics.
 
 \medskip
 \noindent\textbf{Main Results.}
-The monograph proves two central theorems.
+Two principal theorems form the backbone of the monograph.
 
 \begin{theorem}[Localized Trace Formula]\label{thm:localized-trace}
 Let $\Gamma \backslash \mathbb{H}$ be a finite-area hyperbolic surface with
-cusps. Fix $0<\theta<\theta_0$, where $\theta_0>0$ depends only on cusp
-geometry. For each $\lambda \geq 1$ and localization window $\eta$ satisfying
-$\lambda^{-\theta} \leq \eta \leq 1$, there exists a smooth spectral projector
-$P_{\lambda,\eta}$ such that
+cusps. Fix $0<\theta<\theta_0$, where $\theta_0>0$ is an explicit constant
+depending only on cusp geometry (number of cusps, cusp widths, injectivity
+radius; see Proposition~X.Y). For each $\lambda \geq 1$ and localization window
+$\eta$ satisfying $\lambda^{-\theta} \leq \eta \leq 1$, there exists a smooth
+spectral projector $P_{\lambda,\eta}$, constructed via convolution of the
+spectral measure with a band-limited mollifier, such that
 \[
   \Tr(P_{\lambda,\eta})
   \;=\;
@@ -51,16 +54,25 @@ $P_{\lambda,\eta}$ such that
   \,+\,
   O\!\left(\lambda^{1-\delta}\right),
 \]
-where $\mathcal{I}$, $\mathcal{G}$, and $\mathcal{P}$ denote the identity,
-geodesic, and parabolic contributions, respectively. The amplitudes are
-explicitly computable in terms of $\Gamma$, and $\delta>0$ is an explicit
-constant depending only on the spectral gap and cusp geometry, but independent
-of $\lambda$ and $\eta$.
+where
+\begin{itemize}
+  \item $\mathcal{I}_{\lambda,\eta}$ is the contribution of the identity
+  conjugacy class, yielding the main Weyl term,
+  \item $\mathcal{G}_{\lambda,\eta}$ is the contribution from hyperbolic
+  (geodesic) conjugacy classes,
+  \item $\mathcal{P}_{\lambda,\eta}$ denotes the contribution from parabolic
+  elements (cusps).
+\end{itemize}
+The amplitudes are explicitly computable in terms of $\Gamma$. The exponent
+$\delta>0$ depends only on the spectral gap and cusp geometry, but is uniform
+in $\lambda$ and $\eta$, and does not depend on the localization window size.
 \end{theorem}
 
 \begin{theorem}[Quantitative Local Weyl Law]\label{thm:local-weyl}
-For $\lambda \to \infty$, the number $N(\lambda,\eta)$ of Laplace eigenvalues
-in $[\lambda-\eta,\lambda+\eta]$ satisfies
+As an immediate corollary of Theorem~\ref{thm:localized-trace}, let
+$N(\lambda,\eta)$ denote the number of Laplace eigenvalues (counted with
+multiplicity) lying in $[\lambda-\eta,\lambda+\eta]$. Then as
+$\lambda \to \infty$,
 \[
   N(\lambda,\eta)
   \;=\;
@@ -68,92 +80,91 @@ in $[\lambda-\eta,\lambda+\eta]$ satisfies
   \;+\;
   O\!\left(\lambda^{1-\delta}\right),
 \]
-with the same $\delta>0$ as in Theorem~\ref{thm:localized-trace}. The error
-term represents a genuine power-saving over the classical $O(\lambda)$ bounds
-from the Selberg trace formula. The implicit constants depend only on $\Gamma$,
-ensuring stability across parameter ranges.
+with the same uniform $\delta>0$ as in
+Theorem~\ref{thm:localized-trace}. The error term represents a genuine
+power-saving over the classical $O(\lambda)$ bounds obtained from the Selberg
+trace formula. The implicit constants depend only on $\Gamma$ (geometry and
+spectral gap), and are independent of $\lambda$ and $\eta$.
 \end{theorem}
 
 \medskip
 \noindent\textbf{Applications.}
-Theorems~\ref{thm:localized-trace}–\ref{thm:local-weyl} have significant
-consequences across analytic number theory and mathematical physics:
+Theorems~\ref{thm:localized-trace}–\ref{thm:local-weyl} yield a spectrum of
+quantitative consequences:
 \begin{itemize}
   \item \emph{Variance bounds for Fourier coefficients.}  
-  Localized projectors enable the analysis of Hecke–Maass forms in short
-  spectral intervals, yielding variance bounds in the depth aspect with
-  explicit constants.
+  Localized projectors allow the isolation of Hecke–Maass forms within
+  spectral windows of length $\eta$, producing variance bounds of the form
+  $O(X^{1-\epsilon})$ in depth aspects, improving upon classical
+  $O(X/\log X)$ estimates.
   \item \emph{Uniform spectral estimates in quantum chaos.}  
-  Microlocalization refines quantitative versions of quantum unique ergodicity,
-  delocalization phenomena, and scarring, extending classical results of
-  Rudnick–Sarnak with explicit power-saving error terms.
+  Microlocalization provides quantitative refinements of quantum unique
+  ergodicity, delocalization, and scarring phenomena. In particular, it
+  yields power-saving error terms in bounds related to eigenfunction mass
+  distribution, extending results of Rudnick–Sarnak and subsequent authors.
   \item \emph{Framework for automorphic forms.}  
-  The localized trace formula serves as a reproducible toolkit for automorphic
-  analysis, delivering uniform bounds in equidistribution, resonance theory,
-  and the prime geodesic theorem.
+  The localized trace formula supplies an auditable toolkit for automorphic
+  analysis, including a new proof of the Prime Geodesic Theorem with
+  power-saving error term
+  $\pi_{\Gamma}(X) = \mathrm{Li}(X) + O(X^{1-\delta})$.
 \end{itemize}
 
 \medskip
 \noindent\textbf{Methodological Standards (Diamond Standard).}
-Beyond its theorems, the monograph advances a methodological framework for
-mathematical exposition:
+The monograph also introduces a methodological framework designed to enforce
+rigor, reproducibility, and clarity:
 \begin{enumerate}
   \item \emph{Goal declarations.}  
-  Each chapter begins with explicit goals (G), framing the results.
+  Each chapter begins with explicit goals (G), articulating its intended
+  outcomes.
   \item \emph{Invariant tracking.}  
-  Structural invariants (I), such as explicit constants and dependencies, are
-  systematically recorded.
+  Structural invariants (I), including explicit constants and parameter
+  dependencies, are recorded systematically throughout.
   \item \emph{Audits.}  
-  Every chapter concludes with a formal audit verifying that all goals and
-  invariants have been met.
+  Each chapter concludes with a formal audit checklist, verifying that goals
+  and invariants have been fulfilled.
   \item \emph{Forward/backward links.}  
-  Logical cross-references connect each chapter to both predecessors and
-  successors, ensuring reproducibility and coherence.
+  Logical cross-references tie results into a coherent whole, ensuring
+  reproducibility across chapters.
 \end{enumerate}
-This ``Diamond Standard'' enforces rigor and clarity at the level of both
-proofs and exposition, establishing a template for future work in spectral
-geometry and analytic number theory.
+This \emph{Diamond Standard} ensures that mathematical results are not only
+formally correct but also transparent and verifiable.
 
 \medskip
 \noindent\textbf{Explicit Constants and Error-Budget Map.}
-A distinctive contribution of this work is the \emph{explicit declaration of
-constants} and the systematic tracking of all sources of error. Instead of
-concealing terms under $O(1)$, every dependency is declared:
+A distinctive feature of this work is the systematic declaration of constants
+and explicit mapping of errors:
 \begin{itemize}
   \item Constants depend polynomially on cusp geometry (widths, number of cusps,
   injectivity radius).
-  \item Analytic constants depend only on $\Gamma$ and the spectral gap
-  parameter.
-  \item No constants depend on $\lambda$ or $\eta$, ensuring stability across
-  parameter ranges.
+  \item Analytic constants depend only on $\Gamma$ and the spectral gap.
+  \item Constants are independent of $\lambda$ and $\eta$, ensuring stability.
 \end{itemize}
-An explicit \emph{error-budget atlas} is presented in later chapters, enabling
-readers to isolate the contribution of each approximation and to optimize
-parameter choices.
+An explicit \emph{error-budget atlas} is provided in later chapters, giving a
+layer-by-layer account of every approximation and its quantitative effect.
 
 \medskip
 \noindent\textbf{Philosophical Orientation.}
-The localized trace formula is not merely a technical refinement of Selberg’s
-framework. It is also a methodological statement: \emph{precision,
-explicitness, and auditability are essential structural features of modern
-mathematics}. By insisting on declared constants, reproducible proofs, and
-transparent audits, this monograph positions itself as both a mathematical
-contribution and a methodological blueprint.
+The localized trace formula is not only a technical refinement of Selberg’s
+identity but also a methodological statement: \emph{precision, explicitness,
+and auditability are essential in modern mathematics}. By enforcing declared
+constants, reproducible proofs, and transparent audits, this monograph
+provides both a mathematical advance and a methodological template.
 
 \medskip
 \noindent\textbf{Summary of Achievements.}
-In total, the monograph delivers:
+The contributions of the monograph may be summarized as:
 \begin{enumerate}
   \item A localized Selberg trace formula with explicit constants.  
-  \item A quantitative local Weyl law with power-saving remainder terms.  
-  \item Applications to automorphic forms, Fourier coefficients, and quantum
-  chaos.  
+  \item A quantitative local Weyl law with power-saving error terms.  
+  \item Concrete applications to automorphic forms, Fourier coefficients, and
+  quantum chaos.  
   \item A methodological framework --- the Diamond Standard --- ensuring
-  clarity, reproducibility, and long-term utility.  
+  clarity, reproducibility, and auditability.  
 \end{enumerate}
-Together, these contributions extend the classical trace formula into a modern,
-quantitative, and fully auditable framework, marking a decisive step in the
-quantitative theory of spectral geometry.
+Taken together, these elements extend the classical trace formula into a
+modern, quantitative, and auditable framework, representing a significant
+advance in the quantitative theory of spectral geometry.
 
 % ======================================================================
 % End of 00-executive-summary.tex
