@@ -404,7 +404,7 @@ monograph, which crystallize this framework into precise analytic statements.
 % ======================================================================
 % ======================================================================
 % File: src/sections/01-introduction.tex
-% Part 4/8 — Statements of Principal Theorems (Diamond-polished, Expanded)
+% Part 4/8 — Statements of Principal Theorems (Diamond-Polished, Expanded, Corrected)
 % ======================================================================
 
 \subsection*{C. Statements of Principal Theorems}
@@ -450,7 +450,11 @@ where:
     \frac{\ell(\gamma)}{2\sinh(k\ell(\gamma)/2)}\,
     g\!\big(k\ell(\gamma)\big),
   \]
-  with effective truncation at $k\ell(\gamma)\lesssim T\asymp \log\lambda$
+  with the sum effectively truncated at
+  \[
+    k\ell(\gamma)\;\leq\; C_T\log\lambda
+  \]
+  for some explicit constant $C_T>0$,
   enforced naturally by the decay of $g$.
   \item $\mathcal{P}_{\lambda,\eta}$ is the parabolic/Eisenstein contribution:
   \[
@@ -480,6 +484,8 @@ and on the chosen window profile $\Phi$.
   \item The error term is a true power-saving $O(\lambda^{1-\delta})$,
         in contrast to the $O(1)$ remainder of the global trace formula.
   \item Constants are explicit and traceable, ensuring applicability in arithmetic contexts.
+  \item The projector $P_{\lambda,\eta}$ acts on the full $L^2(X)$ space,
+        covering both discrete and continuous spectrum, with explicit control of constant terms.
 \end{itemize}
 
 \medskip
@@ -563,6 +569,7 @@ historical and methodological framework.
 % ======================================================================
 % End of Introduction, Part 4/8
 % ======================================================================
+
 % ======================================================================
 % File: src/sections/01-introduction.tex
 % Part 5/8 — Historical Lineage, Conceptual Framework, and Analytical Positioning
@@ -679,6 +686,8 @@ This ensures reproducibility, clarity, and alignment with the Executive Summary.
 This part has traced the historical lineage and clarified the conceptual framework.
 We have shown how Selberg’s exact kernel,
 microlocal semiclassics, and arithmetic explicitness converge.
+We also positioned the work in relation to modern representation-theoretic advances,
+highlighting connections to Venkatesh’s program on periods, representations, and spectral methods.
 The next part of the introduction presents the structural roadmap of the monograph,
 chapter by chapter, with explicit audits and bidirectional linkage.
 
