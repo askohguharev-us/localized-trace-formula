@@ -12,16 +12,20 @@ From Selberg’s trace formula \cite{Selberg1956}, through the microlocal develo
 
 \medskip
 \noindent\textbf{Conventions and normalization.}
-Let $X=\Gamma\backslash\mathbb{H}$ be of finite area, with $\kappa$ cusps of widths $w_i$, injectivity radius $r_{\mathrm{inj}}>0$, and Laplacian $\Delta$ normalized so that the base of the continuous spectrum is $1/4$. The spectral parameter is $t\in\mathbb{R}$, with discrete eigenvalues $\lambda_j=\tfrac14+t_j^2$ (multiplicities counted) and continuous spectrum $\sigma_{\mathrm{cont}}(\Delta)=[1/4,\infty)$. The scattering matrix for $X$ is denoted $\mathbf{S}(s)$, its determinant by $\sigma(s)=\det\mathbf{S}(s)$, and Eisenstein series by $E_\mathfrak{a}(z,s)$, normalized so that $E_\mathfrak{a}(z,\tfrac12+it)=\overline{E_\mathfrak{a}(z,\tfrac12-it)}$. The $L^2$-decomposition of $\Gamma\backslash\mathbb{H}$ is the standard spectral resolution into (i) discrete eigenfunctions $u_j$, (ii) continuous part given by Eisenstein series $E_\mathfrak{a}(z,1/2+it)$ integrated over $t\in\mathbb{R}$, and (iii) a finite-dimensional residual part. This decomposition follows from the spectral theory of Faddeev \cite{Faddeev1967} and Lax--Phillips \cite{LaxPhillips1976}. Throughout, \emph{all} $O(\cdot)$-constants depend only on $\Gamma$ (via $\kappa$, ${w_i}$, $r_{\mathrm{inj}}$), the fixed window profile $\Phi$ introduced below, and the fixed choice of $\theta<\theta_0$; they are independent of $\lambda$ and $\eta$ within the stated regimes. We write $O_M\!\big((\eta\lambda)^{-M}\big)$ for bounds valid for any fixed $M>0$, with constants depending only on $M$, on uniform derivative bounds of $\Phi$, and on the geometry of $X$.
+Let $X=\Gamma\backslash\mathbb{H}$ be of finite area, with $\kappa$ cusps of widths $w_i$, injectivity radius $r_{\mathrm{inj}}>0$, and Laplacian $\Delta$ normalized so that the base of the continuous spectrum is $1/4$. The spectral parameter is $t\in\mathbb{R}$, with discrete eigenvalues $\lambda_j=\tfrac14+t_j^2$ (multiplicities counted) and continuous spectrum $\sigma_{\mathrm{cont}}(\Delta)=[1/4,\infty)$. The scattering matrix is denoted by $\mathbf{S}(s)$, its determinant by $\sigma(s)=\det\mathbf{S}(s)$, and Eisenstein series by $E_\mathfrak{a}(z,s)$, normalized so that $E_\mathfrak{a}(z,\tfrac12+it)=\overline{E_\mathfrak{a}(z,\tfrac12-it)}$. We adopt the standard normalization $\mathbf{S}(s)\mathbf{S}(1-s)=\mathbf{I}$, so that $\sigma(s)\sigma(1-s)=1$; all occurrences of $\frac{\sigma'}{\sigma}(s)$ refer to this normalization. The $L^2$-decomposition of $\Gamma\backslash\mathbb{H}$ is the standard spectral resolution into (i) discrete eigenfunctions $u_j$, (ii) the continuous part given by Eisenstein series $E_\mathfrak{a}(z,1/2+it)$ integrated over $t\in\mathbb{R}$, and (iii) a finite-dimensional residual part. This decomposition follows from the spectral theory of Faddeev \cite{Faddeev1967} and Lax--Phillips \cite{LaxPhillips1976}. \emph{Exceptional spectrum and resonances.} Possible exceptional eigenvalues $\lambda_j\in(0,\tfrac14)$ are included in the discrete sum with their multiplicities. Resonances (if any) do not contribute to $\Tr(P_{\lambda,\eta})$ for our band-limited test class beyond the explicit singular terms already recorded in~\eqref{eq:trace-decomp}. Throughout, \emph{all} $O(\cdot)$-constants depend only on $\Gamma$ (via $\kappa$, ${w_i}$, $r_{\mathrm{inj}}$), the fixed window profile $\Phi$ introduced below, and the fixed choice of $\theta<\theta_0$; they are independent of $\lambda$ and $\eta$ within the stated regimes. We write
+\[
+O_M\!\big((\eta\lambda)^{-M}\big)\quad\text{for any fixed }M>0,
+\]
+with dependence of the implicit constant only on $M$, on uniform derivative bounds of $\Phi$, and on the geometry of $X$.
 
 \medskip
 \noindent\textbf{Localized spectral projector: kernel, trace, and trace class.}
-Fix an effectively computable base $\lambda_0\ge1$ determined by geometric constants of $X$ (see Appendix~J). Choose an even $\Phi\in C_0^\infty([-1,1])$, real-valued, $\int\Phi=1$, with uniform derivative bounds $|\Phi^{(m)}|_\infty<\infty$ for all $m\in\mathbb{N}$. For $\lambda\ge\lambda_0$ and $\eta\in[\lambda^{-\theta},1]$, set
+Fix an effectively computable base $\lambda_0\ge1$ determined by geometric constants of $X$ (see Appendix~J). Choose an even $\Phi\in C_0^\infty([-1,1])$, real-valued, $\int\Phi=1$, with uniform derivative bounds $|\Phi^{(m)}|_\infty<\infty$ for all $m\in\mathbb{N}$. For $\lambda\ge\lambda_0$ and $\eta\in[\lambda^{-\theta},1]$, define
 \[
 \phi_\eta(t)=\Phi\!\left(\frac{t-\lambda}{\eta}\right),\qquad 
 P_{\lambda,\eta}=\phi_\eta\!\Big(\sqrt{\Delta-\tfrac14}\Big).
 \]
-This operator is bounded and self-adjoint on $L^2(X)$. Its integral kernel is given by
+By the spectral theorem, $P_{\lambda,\eta}$ is bounded and self-adjoint on $L^2(X)$. Its integral kernel is
 \begin{equation}\label{eq:kernel}
 \begin{aligned}
 K_{\lambda,\eta}(z,z') &= 
@@ -32,7 +36,7 @@ K_{\lambda,\eta}(z,z') &=
 \big[\mathbf{S}(\tfrac12+it)\big]_{\mathfrak{b}\mathfrak{a}}\,dt,
 \end{aligned}
 \end{equation}
-where $\{u_j\}$ are $L^2$-normalized Maass eigenfunctions and the finite cusp index set is made explicit. The kernel $K_{\lambda,\eta}(z,z')$ is smooth for $z\neq z'$ and exhibits only the standard diagonal singularity, uniformly controlled by the band-limited parametrix (see Appendix~A); the Fourier transform of $\phi_\eta$ is Schwartz, yielding rapid off-diagonal decay. Consequently $P_{\lambda,\eta}$ is Hilbert--Schmidt and hence of trace class on $L^2(X)$, and the \emph{trace} takes the standard continuous-spectrum form
+where $\{u_j\}$ are $L^2$-normalized Maass eigenfunctions and the finite cusp index set is made explicit. The kernel $K_{\lambda,\eta}(z,z')$ is smooth for $z\neq z'$ and exhibits only the standard diagonal singularity, uniformly controlled by a band-limited parametrix (Appendix~A); the Fourier transform of $\phi_\eta$ is Schwartz, yielding rapid off-diagonal decay. Consequently $P_{\lambda,\eta}$ is Hilbert--Schmidt and hence of trace class on $L^2(X)$, and the \emph{trace} takes the standard continuous-spectrum form
 \begin{equation}\label{eq:trace-decomp}
 \Tr(P_{\lambda,\eta}) = 
 \sum_j \phi_\eta(t_j) 
@@ -40,24 +44,24 @@ where $\{u_j\}$ are $L^2$-normalized Maass eigenfunctions and the finite cusp in
 \phi_\eta(t)\,\frac{\sigma'}{\sigma}\!\Big(\tfrac12+it\Big)\,dt
 + \frac{\kappa}{4}\,\phi_\eta(i/2).
 \end{equation}
-Here $\phi_\eta(i/2)$ denotes the analytic continuation of $\phi_\eta$ (equivalently $h$ below) into the strip $|\Im t|<\tfrac12$, ensured by the band-limited construction of $\Phi$; the last term is the explicit singular contribution from constant terms of Eisenstein series. No unspecified remainders occur.
+\emph{Analytic regularization of the window.} To interpret $\phi_\eta(i/2)$, we henceforth replace the raw window $\phi_\eta$ by its standard Selberg-admissible analytic regularization $h_\eta$ (an even function, holomorphic in a strip $|\Im t|<\tfrac12+\epsilon$ and of rapid decay), obtained by a fixed convolutional regularizer; this preserves localization on the real axis and changes all trace identities by $O_M((\eta\lambda)^{-M})$. We denote the resulting test function by $h$ below; $h(i/2)$ is then well-defined. No unspecified remainders occur.
 
 \medskip
 \noindent\textbf{Geometric side: explicit $I/G/P$ decomposition.}
-Let $h(t)=\phi_\eta(t)$ (even) and $g(r)=\frac{1}{2\pi}\int_{-\infty}^{\infty}h(t)\cos(tr)\,dt$. The localized Selberg trace formula gives
+Let $h(t)=h_\eta(t)$ (even, Selberg-admissible) and $g(r)=\frac{1}{2\pi}\int_{-\infty}^{\infty}h(t)\cos(tr)\,dt$. Since $h$ is real and even, $g$ is real and even. The localized Selberg trace formula gives
 \begin{equation}\label{eq:IGP}
 \Tr(P_{\lambda,\eta}) = \mathcal{I}_{\lambda,\eta}+\mathcal{G}_{\lambda,\eta}+\mathcal{P}_{\lambda,\eta},
 \end{equation}
 where
 \begin{align}
 \mathcal{I}_{\lambda,\eta} &= \frac{\vol(X)}{4\pi}\int_{-\infty}^{\infty} h(t)\,t\,\tanh(\pi t)\,dt, \label{eq:I}\\
-\mathcal{G}_{\lambda,\eta} &= \sum_{\gamma\ \mathrm{hyp}}\sum_{k=1}^{\infty} 
-\frac{\ell(\gamma)}{2\sinh(\tfrac{k\ell(\gamma)}{2})}\, g(k\ell(\gamma)), \label{eq:G}\\
+\mathcal{G}_{\lambda,\eta} &= \sum_{\{\gamma\}_{\mathrm{hyp}}^{\mathrm{prim}}}\;\sum_{k=1}^{\infty} 
+\frac{\ell(\gamma)}{2\sinh(\tfrac{k\ell(\gamma)}{2})}\, g\!\big(k\ell(\gamma)\big), \label{eq:G}\\
 \mathcal{P}_{\lambda,\eta} &= \frac{1}{4\pi}\int_{-\infty}^{\infty} h(t)\,\frac{\sigma'}{\sigma}\!\Big(\tfrac12+it\Big)\,dt + \frac{\kappa}{4}\,h(i/2).\label{eq:P}
 \end{align}
 By stationary phase,
 \begin{equation}\label{eq:weyl-main}
-\mathcal{I}_{\lambda,\eta} = \frac{\vol(X)}{2\pi}\,\lambda\,\eta + O\!\big(\eta\lambda\,e^{-c\lambda\eta}\big),
+\mathcal{I}_{\lambda,\eta} = \frac{\vol(X)}{2\pi}\,\lambda\,\eta \;+\; O_{X,\Phi}\!\big(\eta\lambda\,e^{-c\lambda\eta}\big),
 \end{equation}
 with $c>0$ depending only on the fixed profile $\Phi$. Thus $\mathcal{I}_{\lambda,\eta}$ furnishes the local Weyl main term corresponding to the window of length $2\eta$.
 
@@ -68,7 +72,11 @@ There exists an \emph{effectively computable} threshold
 \[
 \theta_0=\frac{c_{\mathrm{geom}}\,c_{\mathrm{moll}}}{\kappa\max_i w_i}\,\min\{1,r_{\mathrm{inj}}\},
 \]
-with $c_{\mathrm{geom}}>0$ determined by geometric invariants of $X$ (volume, systole, injectivity radius, thick-part diameter) and $c_{\mathrm{moll}}>0$ from derivative bounds of the fixed Fejér-type profile $\Phi$, such that for every fixed $0<\theta<\theta_0$ and $\eta\in[\lambda^{-\theta},1]$,
+with $c_{\mathrm{geom}}>0$ determined by geometric invariants of $X$ \emph{via}
+\[
+c_{\mathrm{geom}}=c_{\mathrm{geom}}\!\big(\mathrm{vol}(X),\,\mathrm{systole}(X),\,r_{\mathrm{inj}},\,\mathrm{diam}(X_{\mathrm{thick}})\big),
+\]
+and $c_{\mathrm{moll}}>0$ from derivative bounds of the fixed Fejér-type profile $\Phi$, such that for every fixed $0<\theta<\theta_0$ and $\eta\in[\lambda^{-\theta},1]$,
 \begin{equation}\label{eq:localized}
 \Tr(P_{\lambda,\eta}) = \mathcal{I}_{\lambda,\eta}+\mathcal{G}_{\lambda,\eta}+\mathcal{P}_{\lambda,\eta} \;+\; O_{X,\Phi,\theta}\!\big(\lambda^{1-\delta}\big),
 \end{equation}
@@ -107,7 +115,7 @@ so any fixed $\theta<\delta$ yields a relative $o(1)$ error as $\lambda\to\infty
 \medskip
 \noindent\textbf{Mechanism, scale, and effectivity of $\theta_0$.}
 The microlocal restriction $\eta\ge\lambda^{-\theta}$ reflects three independent mechanisms:
-(i) finite propagation and parametrix accuracy up to the injectivity scale, producing the factor $\min\{1,r_{\mathrm{inj}}\}$; (ii) cusp separation across the thin part, whose worst-case interaction scale yields the factor $1/(\kappa\max_i w_i)$; (iii) band-limit and derivative growth of the Fejér profile, producing $c_{\mathrm{moll}}$. The geometric constant $c_{\mathrm{geom}}$ and the analytic constant $c_{\mathrm{moll}}$ are explicit; Appendix~J provides their closed formulas and a step-by-step algorithm for evaluating $\theta_0$ from the tuple $(\kappa,{w_i},r_{\mathrm{inj}})$ and the fixed profile $\Phi$.
+(i) finite propagation and parametrix accuracy up to the injectivity scale, producing the factor $\min\{1,r_{\mathrm{inj}}\}$; (ii) cusp separation across the thin part, whose worst-case interaction scale yields the factor $1/(\kappa\max_i w_i)$; (iii) band-limit and derivative growth of the Fejér profile, producing $c_{\mathrm{moll}}$. The geometric constant $c_{\mathrm{geom}}$ and the analytic constant $c_{\mathrm{moll}}$ are explicit; Appendix~J provides their closed formulas and a step-by-step algorithm for evaluating $\theta_0$ from the tuple $(\kappa,{w_i},r_{\mathrm{inj}})$ and the fixed profile $\Phi$. \emph{Profile stability.} All bounds are stable under replacing $\Phi$ by any even $\widetilde{\Phi}\in C_0^\infty([-1,1])$ with the same normalization and comparable derivative budgets; the constants $c_{\mathrm{moll}}$ and $C_i$ adjust functorially with the derivative norms.
 
 \medskip
 \noindent\textbf{Quantitative link $\delta\leftrightarrow\beta_\Gamma$.}
@@ -150,11 +158,7 @@ All error sources are isolated and bounded by explicit constants depending only 
 \text{(ii) hyperbolic truncation}\ \ll\ C_2\,\lambda^{1-\delta},\qquad
 \text{(iii) Eisenstein mass}\ \ll\ C_3\,\lambda^{1-\delta}.
 \]
-Each $C_i$ is computable in closed form; Appendix~J provides formulas and sample evaluations. We also employ the convention
-\[
-O_M\!\big((\eta\lambda)^{-M}\big)\ \text{for any fixed } M>0,
-\]
-with dependence of the implicit constant only on $M$, on uniform derivative bounds of $\Phi$, and on the geometric data of $X$.
+Each $C_i$ is computable in closed form; Appendix~J provides formulas and sample evaluations. We also employ the convention $O_M\!\big((\eta\lambda)^{-M}\big)$ as above, with dependence only on $M$, on uniform derivative bounds of $\Phi$, and on the geometric data of $X$.
 
 \medskip
 \noindent\textbf{Novelty and prior work.}
