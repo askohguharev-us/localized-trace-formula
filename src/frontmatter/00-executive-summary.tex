@@ -21,21 +21,26 @@ functions, sharp remainders are typically limited to logarithmic savings
 reflecting singularities in the length spectrum. We show that \emph{microlocal
 localization} at frequency scale $\eta\ge \lambda^{-\theta}$ smooths the
 relevant oscillatory integrals and yields genuine power savings for the local
-counting problem.
+counting problem. Conceptually, microlocal windows of width $\eta$ reduce the
+impact of singularities of the length spectrum in frequency space and permit
+stationary-phase/Egorov estimates with power-saving remainders.
 
 \medskip
-\noindent\textbf{Definition of the localized projector.}
+\noindent\textbf{Localized spectral projector (definition and domain).}
 Let $\Delta$ denote the Laplacian on $X=\Gamma\backslash\mathbb{H}$ with
 continuous spectrum $\sigma_{\mathrm{cont}}(\Delta)=[1/4,\infty)$ and discrete
-eigenvalues $\lambda_j=\tfrac14+t_j^2$ (counted with multiplicities). Fix
-$\Phi\in C^\infty_0([-1,1])$, real-valued, $\int\Phi=1$. For $\lambda\ge1$ and
-$\eta\in[\lambda^{-\theta},1]$ set
+eigenvalues $\lambda_j=\tfrac14+t_j^2$ (counted with multiplicities). Fix an
+effectively determined $\lambda_0\ge 1$ (depending only on $X$). Let
+$\Phi\in C^\infty_0([-1,1])$ be real-valued with $\int\Phi=1$. For
+$\lambda\ge\lambda_0$ and $\eta\in[\lambda^{-\theta},1]$ set
 \[
   \phi_\eta(t)\coloneqq \Phi\!\left(\frac{t-\lambda}{\eta}\right),\qquad
-  P_{\lambda,\eta}\coloneqq \phi_\eta\!\left(\sqrt{\Delta-\tfrac14}\right).
+  P_{\lambda,\eta}\coloneqq \phi_\eta\!\left(\sqrt{\Delta-\tfrac14}\right),
 \]
-Then $P_{\lambda,\eta}$ is a bounded self-adjoint operator on $L^2(X)$.
-Its trace is defined by the standard spectral decomposition:
+where $\sqrt{\Delta-\tfrac14}$ is defined by the spectral theorem for the
+self-adjoint operator $\Delta$. Then $P_{\lambda,\eta}$ is a bounded
+self-adjoint operator on $L^2(X)$ acting simultaneously on discrete and
+continuous spectrum. Its trace is given by the standard spectral decomposition:
 \begin{equation}\label{eq:trace-decomp}
   \Tr(P_{\lambda,\eta})
   \;=\; \sum_j \phi_\eta(t_j)
@@ -44,23 +49,29 @@ Its trace is defined by the standard spectral decomposition:
         \;+\; \mathcal{C}_{\mathrm{sing}}(\phi_\eta),
 \end{equation}
 where $\varphi(s)$ is the scattering determinant and
-$\mathcal{C}_{\mathrm{sing}}(\phi_\eta)$ collects the standard singular/constant
-terms (explicit and effective).
+$\mathcal{C}_{\mathrm{sing}}(\phi_\eta)$ collects the explicit singular/constant
+terms. Throughout, the implicit constants in $O(\cdot)$ depend only on $\Gamma$
+(via $\kappa$, $\{w_i\}$, $r_{\mathrm{inj}}$), on the fixed profile $\Phi$, and
+on the choice of $\theta<\theta_0$, and are independent of $\lambda$ and $\eta$.
+We write $O_M((\eta\lambda)^{-M})$ for bounds valid for each fixed $M>0$, with
+constants depending on $M$, on $\Phi$ (via uniform bounds on derivatives), and
+on the geometric data of $X$.
 
 \medskip
 \noindent\textbf{Main results.}
 \begin{theorem}[Localized trace formula]\label{thm:localized}
 Let $X=\Gamma\backslash\mathbb{H}$ be of finite area with $\kappa$ cusps of
-widths $w_i$ and injectivity radius $r_{\mathrm{inj}}>0$.
-There exists an \emph{effectively computable} threshold
+widths $w_i$ and injectivity radius $r_{\mathrm{inj}}>0$. There exists an
+\emph{effectively computable} threshold
 \[
   \theta_0 \;=\;
   \frac{c_{\mathrm{geom}}\cdot c_{\mathrm{moll}}}{\kappa \max_i w_i}\,
   \min\{1,\,r_{\mathrm{inj}}\},
 \]
 where $c_{\mathrm{geom}},c_{\mathrm{moll}}>0$ are explicit constants depending
-only on the wave parametrix and the fixed Fejér-type profile $\Phi$,
-such that for every $0<\theta<\theta_0$ and $\eta\in[\lambda^{-\theta},1]$,
+only on the wave parametrix and the fixed Fejér-type profile $\Phi$. Assume
+that $X$ has a spectral gap $\beta_\Gamma>0$. Then for every
+$0<\theta<\theta_0$ and $\eta\in[\lambda^{-\theta},1]$ one has
 \[
   \Tr(P_{\lambda,\eta})
   \;=\; \mathcal{I}_{\lambda,\eta} \,+\, \mathcal{G}_{\lambda,\eta}
@@ -70,19 +81,22 @@ such that for every $0<\theta<\theta_0$ and $\eta\in[\lambda^{-\theta},1]$,
 \emph{uniformly in $\eta$}. Here $\mathcal{I}$ (identity), $\mathcal{G}$
 (hyperbolic) and $\mathcal{P}$ (parabolic/Eisenstein) are given by explicit
 oscillatory amplitudes; the effective exponent $\delta>0$ depends only on
-the spectral gap $\beta_\Gamma$ and on geometric data of $X$.
+$\beta_\Gamma$ and on the geometric data of $X$. If only $\beta_\Gamma\ge 0$ is
+known, the stated identity holds with $\delta=0$.
 \end{theorem}
 
 \begin{theorem}[Quantitative local Weyl law]\label{thm:local-weyl}
 Let $N(\lambda,\eta)$ be the number of discrete eigenvalues in
-$[\lambda-\eta,\lambda+\eta]$ (counted with multiplicity). Then, as $\lambda\to\infty$,
+$[\lambda-\eta,\lambda+\eta]$ (counted with multiplicity). Assume
+$\beta_\Gamma>0$. Then, as $\lambda\to\infty$,
 \[
   N(\lambda,\eta)
   \;=\; \frac{\vol(X)}{2\pi}\,\lambda\,\eta \;+\; O\!\left(\lambda^{1-\delta}\right),
 \]
 with the same $\delta>0$ as in Theorem~\ref{thm:localized}, \emph{uniformly for}
 $\eta\in[\lambda^{-\theta},1]$. The coefficient $\vol(X)/(2\pi)$ corresponds to
-the window of length $2\eta$.
+the window of length $2\eta$. If only $\beta_\Gamma\ge 0$ is known, the formula
+holds with $\delta=0$.
 \end{theorem}
 
 \noindent\emph{Uniform relative error.} In the regime above,
@@ -90,7 +104,8 @@ the window of length $2\eta$.
   \frac{O(\lambda^{1-\delta})}{(\vol(X)/2\pi)\lambda\eta}
   \;=\; O\!\bigl(\lambda^{-\delta+\theta}\bigr).
 \]
-Thus choosing any fixed $\theta<\delta$ gives relative $o(1)$-error.
+Thus choosing any fixed $\theta<\delta$ gives relative $o(1)$-error, uniformly
+for $\eta\in[\lambda^{-\theta},1]$.
 
 \medskip
 \noindent\textbf{Effectivity and the role of the spectral gap.}
@@ -108,7 +123,9 @@ numerical exponents.
 \medskip
 \noindent\textbf{Concrete example: $PSL(2,\mathbb{Z})\backslash\mathbb{H}$.}
 For the modular surface, $\kappa=1$, $w_1=1$, $r_{\mathrm{inj}}\ge c_0'>0$ and
-$\beta_\Gamma\ge 25/64$. The algorithm of Appendix~J then gives
+$\beta_\Gamma\ge 25/64$. Combining this with the explicit
+$c_0(\kappa=1,w_1=1,r_{\mathrm{inj}}\ge c_0')$ from Appendix~J and our fixed
+profile $\Phi$ yields
 \[
   \delta \;\ge\; \frac{1}{64},\qquad
   N(\lambda,\eta) \;=\; \frac{\vol}{2\pi}\lambda\eta \;+\; O\!\left(\lambda^{63/64}\right),
@@ -122,14 +139,14 @@ uniformly for $\eta\in[\lambda^{-\theta},1]$ and any $\theta<\theta_0$.
   spectral windows, with effective power-saving remainders.
   \item Quantitative statements in quantum chaos (QUE, delocalization, scarring),
   where microlocal windows improve error terms.
-  \item \emph{Prime Geodesic Theorem (conditional).} Under the assumption
-  $\beta_\Gamma>0$, the localized framework yields the scheme to derive
+  \item \emph{Prime Geodesic Theorem (conditional).} Assuming $\beta_\Gamma>0$,
+  the localized framework supplies all ingredients (test functions, uniform error
+  control, effective constants) to carry out the standard derivation of
   \(
     \pi_\Gamma(X) = \mathrm{Li}(X) + O\!\left(X^{1-\delta}\right)
   \)
-  with effective constants. A detailed proof is not the focus of this monograph;
-  the standard route is outlined and constants are recorded so that it can be
-  implemented within our framework.
+  with computable constants. A full implementation is outside the present scope;
+  the algorithmic blueprint is recorded within our framework.
 \end{itemize}
 
 \medskip
@@ -142,14 +159,17 @@ depending only on geometric data and $\beta_\Gamma$:
   \text{Eisenstein term} \;\ll\; C_3\,\lambda^{1-\delta}.
 \]
 We use $O_M((\eta\lambda)^{-M})$ to denote bounds holding for each fixed $M>0$,
-with constants depending on $M$ and uniform derivative bounds of the fixed profile $\Phi$.
+with constants depending on $M$, on the fixed $\Phi$ (via uniform derivative
+bounds), and on the geometric data of $X$.
 
 \medskip
 \noindent\textbf{Methodological standards.}
 Statements are accompanied by explicit hypotheses, constant tracking, and
 forward/backward links to proofs. All constructive thresholds (e.g.\ $\theta_0$)
 are displayed in the main text, with detailed derivations and algorithms in
-Appendix~J.
+Appendix~J. The implicit constants in all $O(\cdot)$-notations depend only on
+$\Gamma$, the fixed profile $\Phi$, and the chosen $\theta<\theta_0$, but not on
+$\lambda$ or $\eta$.
 
 % ======================================================================
 % End of 00-executive-summary.tex
