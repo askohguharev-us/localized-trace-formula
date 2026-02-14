@@ -1,6 +1,5 @@
 % =====================================================================
 % File: 02-preliminaries.tex
-% Block 1 of 4 — Introduction, Goals, Invariants, Organization
 % =====================================================================
 
 \chapter{Preliminaries}
@@ -24,7 +23,7 @@ The goals are fourfold:
         together with the spectral decomposition of $L^{2}(M)$.
   \item To describe truncation conventions and cusp neighborhoods with explicit
         dependence on cusp widths and scaling matrices.
-  \item To declare the Selberg/Harish–Chandra transform conventions,
+  \item To declare the Selberg/Harish--Chandra transform conventions,
         Sobolev norms, and dependency rules for error terms and constants.
 \end{enumerate}
 
@@ -59,7 +58,7 @@ traceable to invariants of $(M,\Gamma)$ rather than hidden parameters.
   discrete eigenfunctions $\{\varphi_j\}$ and Eisenstein series
   $E_{\mathfrak{a}}(z,1/2+ir)$, with Plancherel measure $dr/(4\pi)$.
 
-  \item[\textbf{(G5)}] Normalize the Selberg/Harish–Chandra transform
+  \item[\textbf{(G5)}] Normalize the Selberg/Harish--Chandra transform
   for radial kernels, consistent with later kernel constructions.
 
   \item[\textbf{(G6)}] State uniform Sobolev bounds and mapping
@@ -71,69 +70,9 @@ traceable to invariants of $(M,\Gamma)$ rather than hidden parameters.
 \end{itemize}
 
 % ---------------------------------------------------------------------
-\section*{Invariants and Dependency Ledger}
-
-\begin{itemize}[leftmargin=2em]
-  \item[\textbf{(I1)}] \textit{Surface and volume.}
-  $M=\Gamma\backslash\mathbb{H}$ with $\vol(M)\in(0,\infty)$.
-
-  \item[\textbf{(I2)}] \textit{Cuspidal data.}
-  Number of cusps $h$, cusp widths $(w_1,\dots,w_h)$,
-  and scaling matrices $\sigma_\mathfrak{a}$.
-  All cusp-dependent constants are functions of this tuple.
-
-  \item[\textbf{(I3)}] \textit{Spectral gap.}
-  $\beta\in(0,\tfrac14]$ denotes a fixed lower bound for
-  $r_j^2$ of nontrivial spectrum.
-  Constants depending on $\beta$ are written $O_{\Gamma,\beta}(\cdot)$.
-
-  \item[\textbf{(I4)}] \textit{Normalization of Eisenstein series.}
-  Continuous spectrum integrated with measure $dr/(4\pi)$.
-  Constant terms follow standard scattering conventions.
-
-  \item[\textbf{(I5)}] \textit{Asymptotic notation.}
-  $A\lesssim B$ means $A\le C\,B$ for some absolute $C$;
-  $A\asymp B$ means both $A\lesssim B$ and $B\lesssim A$.
-  Dependence on parameters is annotated:
-  $O_X(\cdot)$ indicates dependence on $X$ only.
-
-  \item[\textbf{(I6)}] \textit{Propagation scale.}
-  The natural comparison time is $T\asymp\log\lambda$.
-  Constants are fixed globally (Chapter~5) and will not affect error orders.
-\end{itemize}
-
-% ---------------------------------------------------------------------
-\section*{Organization of the Chapter}
-
-The chapter consists of modular blocks, each self-contained and audited:
-
-\begin{itemize}[leftmargin=2em]
-  \item \textbf{Geometry:} hyperbolic metric, distance, injectivity, and
-        global volume conventions.
-        (Input: \texttt{02b-geometry.tex})
-
-  \item \textbf{Cusps and truncation:} cusp neighborhoods, truncation
-        domains $M(Y)$, smoothed truncations, Eisenstein series, and
-        Maass–Selberg relations.
-        (Input: \texttt{02b-cusps.tex})
-
-  \item \textbf{Selberg/Harish–Chandra transform:} definition, inversion,
-        admissible test functions, Paley–Wiener duality, stationary phase.
-        (Input: \texttt{02b-selberg-transform.tex})
-\end{itemize}
-
-Each block closes with an internal consistency check and a forward link
-to later chapters. The chapter itself concludes with a global audit
-summarizing achieved goals, preserved invariants, and dependency rules.
-
-% =====================================================================
-% End of File: 02-preliminaries.tex (Block 1 of 4)
-% =====================================================================
-
-% ---------------------------------------------------------------------
 % Invariants and dependency ledger
 % ---------------------------------------------------------------------
-\subsection*{Invariants and Dependency Ledger}
+\section*{Invariants and Dependency Ledger}
 
 In order to ensure clarity and reproducibility throughout the monograph, 
 we fix here the list of persistent invariants and the precise rules by 
@@ -141,26 +80,28 @@ which constants and error terms may depend on geometric and spectral data.
 This ledger serves as a reference point for all subsequent chapters.  
 Every constant introduced later must be justified in terms of the entries below.
 
+
+
 \begin{itemize}[leftmargin=2em]
 
   \item[\textbf{(I1)}] \textit{Surface and volume.}  
-  The basic object is the finite–area hyperbolic surface
+  The basic object is the finite--area hyperbolic surface
   \[
     M = \Gamma \backslash \mathbb{H},
   \]
-  where $\Gamma \subset PSL_{2}(\mathbb{R})$ is a cofinite Fuchsian group.  
+  where $\Gamma \subset \mathrm{PSL}_{2}(\mathbb{R})$ is a cofinite Fuchsian group.  
   Its hyperbolic volume
   \[
     \vol(M) = \int_{\Gamma \backslash \mathbb{H}} \frac{dx\,dy}{y^{2}}
   \]
-  is finite and positive, and will appear repeatedly in main terms of Weyl–type laws
+  is finite and positive, and will appear repeatedly in main terms of Weyl--type laws
   (cf. Selberg~\cite{Selberg1956}, Buser~\cite{Buser1992}).
 
   \item[\textbf{(I2)}] \textit{Cuspidal data.}  
   The number of cusps is $h \geq 0$.  
   To each cusp $\mathfrak{a}$ we attach a width $w_{\mathfrak{a}}$ and a scaling matrix 
-  $\sigma_{\mathfrak{a}} \in PSL_{2}(\mathbb{R})$.  
-  All cusp–dependent constants in this monograph are functions of the finite tuple
+  $\sigma_{\mathfrak{a}} \in \mathrm{PSL}_{2}(\mathbb{R})$.  
+  All cusp--dependent constants in this monograph are functions of the finite tuple
   \[
     (w_{1}, \dots, w_{h}; \, \sigma_{1}, \dots, \sigma_{h}).
   \]
@@ -217,14 +158,14 @@ The ledger above has been checked for consistency with the global glossary
 (Chapter~0).  
 It isolates all sources of hidden constants and ensures transparency in later
 error bounds.  
-Forward links: invariants (I1–I6) will be invoked in Chapters~3–6 for kernel
+Forward links: invariants (I1--I6) will be invoked in Chapters~3--6 for kernel
 constructions, in Chapter~7 for error terms in theorems, and in Chapter~8
 for explicit arithmetic applications.
 
 % ---------------------------------------------------------------------
 % Organization of the chapter (reader-facing map)
 % ---------------------------------------------------------------------
-\subsection*{Organization of the Chapter}
+\section*{Organization of the Chapter}
 
 This chapter consists of three self-contained building blocks.  
 Each block develops a distinct analytic or geometric component that will be used 
@@ -246,15 +187,15 @@ This ensures that every convention fixed here can be cited later without repetit
   We develop canonical cusp neighborhoods via scaling matrices, 
   define truncation domains $M(Y)$, compute explicit volume and boundary formulas, 
   and introduce both sharp and smoothed truncation operators $\Lambda^{Y}$ and $\Lambda^{Y}_{\mathrm{sm}}$.  
-  Fourier expansions of Eisenstein series, Maass–Selberg relations, 
+  Fourier expansions of Eisenstein series, Maass--Selberg relations, 
   scattering matrices, and effective Parseval identities are also recalled.  
   This block handles the analytic difficulties introduced by noncompactness.  
   (Technical input: \texttt{02b-cusps.tex})
 
-  \item \textbf{Selberg/Harish–Chandra transform for radial kernels.}  
+  \item \textbf{Selberg/Harish--Chandra transform for radial kernels.}  
   We define the transform $q(r) \mapsto h(t)$ and its inversion, 
   record normalization of spherical functions,  
-  state Plancherel and Paley–Wiener theorems, and develop examples 
+  state Plancherel and Paley--Wiener theorems, and develop examples 
   (heat kernel, wave kernel, cutoff projectors).  
   We also explain the role of admissible test functions, 
   convolution properties, orbital integrals, and stationary phase analysis.  
@@ -278,19 +219,21 @@ and backward consistency with the global glossary (Chapter~0) is verified in the
 % Inputs: technical blocks for Chapter 2
 % ---------------------------------------------------------------------
 
+
+
 % Geometry block: metric, distance, volume, injectivity considerations.
 \input{sections/02-preliminaries/blocks/02b-geometry.tex}
 
 % Cuspidal analysis: coordinates, truncation, scattering data conventions.
 \input{sections/02-preliminaries/blocks/02b-cusps.tex}
 
-% Selberg/Harish–Chandra transform: test functions and radial kernels.
+% Selberg/Harish--Chandra transform: test functions and radial kernels.
 \input{sections/02-preliminaries/blocks/02b-selberg-transform.tex}
 
 % ---------------------------------------------------------------------
 % Chapter Audit
 % ---------------------------------------------------------------------
-\subsection*{Chapter Audit}
+\section*{Chapter Audit}
 
 \noindent\textbf{Scope and coverage.}  
 This chapter has fixed the full analytic and geometric setting.  
@@ -312,8 +255,8 @@ Spectral gap parameter $\beta$ was introduced as a persistent invariant.
 
 \medskip
 \noindent\textbf{Transform conventions.}  
-The Selberg/Harish–Chandra transform of radial kernels was defined,  
-with inversion, Plancherel identity, and Paley–Wiener theorem.  
+The Selberg/Harish--Chandra transform of radial kernels was defined,  
+with inversion, Plancherel identity, and Paley--Wiener theorem.  
 Examples (heat kernel, wave kernel, cutoff projectors) confirm consistency.  
 All normalizations are compatible with kernel constructions in Chapter~3 
 and microlocal parametrices in Chapter~5.
@@ -361,13 +304,13 @@ Chapter~2 (Preliminaries) has established:
 \begin{itemize}[leftmargin=2em]
   \item The hyperbolic geometry framework with explicit metrics, measures, kernels, and volume growth.  
   \item The structure of cusps, truncation operators, Eisenstein expansions, scattering matrices, and tail estimates.  
-  \item The Selberg/Harish–Chandra transform with inversion, decay, convolution, and Paley–Wiener theory.  
+  \item The Selberg/Harish--Chandra transform with inversion, decay, convolution, and Paley--Wiener theory.  
   \item Explicit constants and dependencies on $(\Gamma,\beta,\{w_{\mathfrak{a}}\},\{\sigma_{\mathfrak{a}}\})$.  
 \end{itemize}
 
-All chapter goals (G1–G7) have been met, invariants (I1–I6) preserved,  
+All chapter goals (G1--G7) have been met, invariants (I1--I6) preserved,  
 and forward/backward links documented.  
 This audit certifies Chapter~2 as a complete and reliable foundation 
-for the analytic developments of Chapters~3–7.
+for the analytic developments of Chapters~3--7.
 
 % --- End of Chapter 2 (Preliminaries) ---
