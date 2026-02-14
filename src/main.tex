@@ -1,22 +1,21 @@
 % ==================================================================
 % main.tex — Monograph: Localized Trace Formula
-% Repository layout expected:
-%   src/
-%     main.tex               (this file)
-%     macros/{environments,operators,house-style}.tex
-%     frontmatter/00-*.tex
-%     sections/..
-%     appendices/A-..,B-..,..
-%     bib/references.bib
 % ==================================================================
 
-\documentclass[11pt]{book}
+\documentclass[11pt,oneside]{book} % oneside для удобства чтения PDF
 
 % ---------- Page geometry & fonts ----------
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
+
+% Для XeLaTeX/LuaLaTeX (как в логе) лучше использовать fontspec
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+\fi
 
 % ---------- Math & symbols ----------
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -30,6 +29,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{xcolor}
 
 % ---------- Micro-typography & hyperlinks ----------
 \usepackage{microtype}
@@ -41,16 +41,28 @@
 \setlist{nosep}
 \usepackage{url}
 
-% ---------- Color boxes for abstract (fixes past CI error) ----------
+% ---------- Color boxes for abstract ----------
 \usepackage[most]{tcolorbox}
 
 % ---------- Numbering ----------
 \numberwithin{equation}{section}
 
 % ---------- Custom macros ----------
-\input{macros/environments.tex}
-\input{macros/operators.tex}
-\input{macros/house-style.tex}
+% Если файлы в macros/ отсутствуют, проверьте пути!
+\makeatletter
+\@iffileexists{macros/environments.tex}{\input{macros/environments.tex}}{}
+\@iffileexists{macros/operators.tex}{\input{macros/operators.tex}}{}
+\@iffileexists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
+\makeatother
+
+% ---------- Специфические операторы (исправляют ошибку \sys) ----------
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\STF}{STF}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\sys}{sys}   % ТА САМАЯ ОШИБКА l.718
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\Tr}{Tr}
 
 % ---------- PDF metadata ----------
 \hypersetup{
@@ -61,10 +73,6 @@
   pdftitle={Localized Trace Formula: A Monograph},
   pdfauthor={Alexander Stepanovich Kozhukharev}
 }
-\usepackage{amsmath}
-\DeclareMathOperator{\PSL}{PSL}
-\DeclareMathOperator{\Spec}{Spec}
-\DeclareMathOperator{\STF}{STF}
 
 \begin{document}
 
@@ -84,14 +92,14 @@
 
   \vfill
 
-  \begin{tcolorbox}[colback=white,colframe=black!15,sharp corners,boxrule=0.3pt]
+  \begin{tcolorbox}[colback=white,colframe=black!15,sharp corners,boxrule=0.3pt, left=15pt, right=15pt, top=15pt, bottom=15pt]
     \small
     \textbf{Abstract.}\;
     We establish a localized trace formula for finite-area hyperbolic surfaces
     $\Gamma\backslash\mathbb{H}$ with cusps. Using a microlocalized wave propagator
-    and a smooth spectral projector onto $[\lambda-\eta,\lambda+\eta]$, we match the
+    and a smooth spectral projector onto $[\lambda-\eta, \lambda+\eta]$, we match the
     spectral side to a geometric expansion over closed geodesics of length up to
-    $T\asymp\log\lambda$ with a power-saving remainder $O(\lambda^{-\delta})$
+    $T \asymp \log\lambda$ with a power-saving remainder $O(\lambda^{-\delta})$
     depending only on cusp geometry and spectral gap. Applications include a
     quantitative local Weyl law and variance bounds for Hecke--Maass forms.
   \end{tcolorbox}
@@ -100,21 +108,17 @@
   {\small Version: \today}
 \end{titlepage}
 
-\setcounter{page}{1}
-
-% ==============================================================
-% (Optional) Table of contents — comment out if CI requires no TOC
-% ==============================================================
+\frontmatter
 \tableofcontents
-\clearpage
 
 % ==============================================================
-% Frontmatter
+% Frontmatter sections
 % ==============================================================
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
+\mainmatter
 % ==============================================================
 % Main sections
 % ==============================================================
@@ -134,8 +138,8 @@
 
 % ==============================================================
 % Appendices
-
 % ==============================================================
+\appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
 \input{appendices/C-microlocal-toolkit.tex}
@@ -146,15 +150,13 @@
 \input{appendices/H-selberg-comparison.tex}
 \input{appendices/I-historical-context.tex}
 
-...
 % ==============================================================
 % Bibliography
 % ==============================================================
-\section*{Bibliography}
-\addcontentsline{toc}{section}{Bibliography}
-
+\backmatter
 \bibliographystyle{alpha}
 \nocite{*}
+% Проверьте наличие файла bib/references.bib в репозитории
 \bibliography{bib/references.bib}
 
 \end{document}
