@@ -1,6 +1,7 @@
 % ======================================================================
 % File: src/sections/01-introduction.tex
-% Part 1/8 — Orientation and Motivation (Diamond-Polished, Absolute Version — Final)
+% Full Monograph Introduction — Restored & Technical Audit Fixed
+% Parts 1-8 COMPLETE — NO CUTS
 % ======================================================================
 
 \section{Introduction}
@@ -10,7 +11,7 @@
 
 The Selberg trace formula is one of the deepest analytic bridges between spectral
 theory and geometry. In its classical, global incarnation (Selberg \cite{Selberg1956}),
-it furnishes an exact identity equating the spectrum of the Laplace–Beltrami operator
+it furnishes an exact identity equating the spectrum of the Laplace--Beltrami operator
 on a finite-area hyperbolic surface with geometric data encoded by closed geodesics
 and cusp parameters. The spectral side comprises discrete eigenvalues together with
 the continuous spectrum carried by Eisenstein series and their scattering matrix;
@@ -19,8 +20,8 @@ This global equality inaugurated a remarkably fruitful program in spectral geome
 automorphic forms, and analytic number theory.
 
 Yet the very globality that powers the classical trace formula also limits its
-quantitative reach. When one seeks \emph{local} spectral information—microscopic
-windows around a large spectral parameter—classical truncations of cusp integrals
+quantitative reach. When one seeks \emph{local} spectral information --- microscopic
+windows around a large spectral parameter --- classical truncations of cusp integrals
 and regularizations of the continuous spectrum typically yield remainders bounded
 only coarsely (often by $O(1)$ with geometry-dependent constants). Such bounds are
 insufficient for problems that demand explicit control, uniformity across families,
@@ -31,7 +32,7 @@ and \emph{power-saving} error terms.
 \noindent\textbf{The need for localization.}
 Modern problems in analytic number theory and mathematical physics probe
 \emph{short spectral windows}. In arithmetic applications, one studies averages
-of Hecke–Maass coefficients or $L$-values over intervals
+of Hecke--Maass coefficients or $L$-values over intervals
 $[\lambda-\eta,\lambda+\eta]$ with $\eta$ shrinking as a negative power of $\lambda$.
 In quantum chaos, fine-scale statistics of eigenfunctions (quantum ergodicity,
 QUE, scarring, variances) live at the semiclassical resolution
@@ -65,8 +66,8 @@ geometric and analytic invariants of $X$ and by derivative bounds of $\Phi$.
 (derived in Appendix~J) \emph{ensures that the spatial microlocalization scale never falls
 below the injectivity radius; this guarantees that all local parametrices, stationary-phase charts,
 and Egorov transports are valid in geodesic coordinates free of self-overlap.}
-See Appendix~J, §§J.2–J.3 for the derivation of the geometric constant $c_{\mathrm{geom}}$
-(including its explicit dependence on $\vol(X)$, $\mathrm{sys}(X)$, the thick–thin decomposition,
+See Appendix~J, \S\S J.2--J.3 for the derivation of the geometric constant $c_{\mathrm{geom}}$
+(including its explicit dependence on $\vol(X)$, $\mathrm{sys}(X)$, the thick--thin decomposition,
 and cusp data) and of the mollifier constant $c_{\mathrm{moll}}$ (in terms of a finite set of
 derivative bounds of $\Phi$).
 
@@ -84,7 +85,7 @@ We prove an exact localized trace identity with a \emph{power-saving remainder}
 \]
 uniformly for $\lambda^{-\theta}\le\eta\le 1$, where $\delta>0$ depends
 \emph{explicitly and computably} on the spectral gap $\beta_\Gamma$ and on cusp
-geometry. This localized identity converts Selberg’s global equality into a
+geometry. This localized identity converts Selberg's global equality into a
 microlocally sharp instrument capable of resolving short-interval phenomena with
 quantitative precision.
 
@@ -106,7 +107,7 @@ The localized construction hinges on three complementary mechanisms:
   explicit symbol bounds and curvature inputs.
 
   \item \emph{Cusp separation and Eisenstein control.}
-  Parabolic terms are controlled via Maass–Selberg relations and scattering
+  Parabolic terms are controlled via Maass--Selberg relations and scattering
   theory; cusp interactions are separated at an explicit geometric scale
   dictated by the number of cusps $\kappa$, their widths $\{w_i\}$, and the
   injectivity radius $r_{\mathrm{inj}}$.
@@ -144,13 +145,13 @@ Three commitments guide the exposition and proofs:
 \noindent\textbf{Scope of Part 1/8.}
 This opening part motivates the need for localization, states the central objective,
 and records the methodological principles and scales that govern the construction.
-Part~2 surveys the historical lineage (Selberg’s global identity; the microlocal
-revolution of Duistermaat–Guillemin and Ivrii; arithmetic explicitness in the work
-of Iwaniec–Sarnak and successors) and identifies the structural gap our results fill.
+Part~2 surveys the historical lineage (Selberg's global identity; the microlocal
+revolution of Duistermaat--Guillemin and Ivrii; arithmetic explicitness in the work
+of Iwaniec--Sarnak and successors) and identifies the structural gap our results fill.
 Part~3 articulates the precise motivations from analytic number theory and quantum
 chaos and frames the conceptual architecture of the refinement. Part~4 states the
 principal theorems (localized trace formula and quantitative local Weyl law) with
-full hypotheses and clarifications. Parts~5–7 present the historical/conceptual
+full hypotheses and clarifications. Parts~5--7 present the historical/conceptual
 positioning, the structural roadmap of the monograph, and the linkage/audit protocol.
 Part~8 records the methodological principles and closes the introduction.
 
@@ -161,7 +162,7 @@ Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with $\ka
 cusps of widths $\{w_i\}$ and injectivity radius $r_{\mathrm{inj}}>0$.
 The Laplacian $\Delta$ is normalized so that the continuous spectrum begins at $1/4$.
 We write $\lambda=\frac14+t^2$ and denote discrete eigenvalues by $\{\lambda_j\}$
-($\lambda_j=\tfrac14+t_j^2$), with $L^2$-normalized Hecke–Maass eigenfunctions $u_j$.
+($\lambda_j=\tfrac14+t_j^2$), with $L^2$-normalized Hecke--Maass eigenfunctions $u_j$.
 Eisenstein series are $E_\mathfrak{a}(z,s)$, normalized so that
 $E_\mathfrak{a}(z,\tfrac12+it)=\overline{E_\mathfrak{a}(z,\tfrac12-it)}$.
 The scattering matrix is $\mathbf{S}(s)$ with determinant $\sigma(s)=\det\mathbf{S}(s)$.
@@ -176,24 +177,18 @@ and on the chosen $\theta<\theta_0$, but not on $\lambda$ or $\eta$.
 
 \noindent\textbf{Outcome.}
 With these conventions, the localized trace identity established in this monograph
-achieves microlocal resolution at the semiclassical scale, retains exact spectral–geometric
+achieves microlocal resolution at the semiclassical scale, retains exact spectral--geometric
 balance, and delivers a genuinely \emph{quantitative} remainder with explicit,
-auditable constants. This transforms Selberg’s global equality into a precision tool
+auditable constants. This transforms Selberg's global equality into a precision tool
 for arithmetic and semiclassical applications that hinge on short spectral windows.
 
-% ======================================================================
-% End of Introduction, Part 1/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 2/8 — Historical Lineage and Context (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
+\medskip
 
 \subsection*{B. Historical Lineage and Context}
 
-The path from Selberg’s global identity to a localized, quantitative trace formula
+The path from Selberg's global identity to a localized, quantitative trace formula
 passes through three intertwined trajectories:
-(i) the global spectral–geometric equality originating with Selberg;
+(i) the global spectral--geometric equality originating with Selberg;
 (ii) the microlocal and semiclassical program that analyzes wave traces via Fourier integral operators and stationary phase;
 (iii) the arithmetic insistence on explicit constants and uniformity in families.
 This part situates our contribution precisely within that lineage, identifying
@@ -201,15 +196,15 @@ both the enduring strengths of each tradition and the structural gap our results
 
 \medskip
 
-\subsubsection*{1. Selberg’s global identity (1950s).}
-Selberg’s trace formula \cite{Selberg1956} equates the spectrum of the Laplacian on
-$X=\Gamma\backslash\mathbb{H}$—discrete eigenvalues together with the continuous spectrum
-carried by Eisenstein series and the scattering matrix—to a geometric expansion
-indexed by conjugacy classes in $\Gamma\subset\PSL_2(\mathbb{R})$.
+\subsubsection*{1. Selberg's global identity (1950s).}
+Selberg's trace formula \cite{Selberg1956} equates the spectrum of the Laplacian on
+$X=\Gamma\backslash\mathbb{H}$ --- discrete eigenvalues together with the continuous spectrum
+carried by Eisenstein series and the scattering matrix --- to a geometric expansion
+indexed by conjugacy classes in $\Gamma\subset\mathrm{PSL}_2(\mathbb{R})$.
 Two structural features are decisive:
 \begin{itemize}
   \item \emph{Nonabelian Poisson summation.} Hyperbolic conjugacy classes (closed geodesics)
-        and parabolic classes (cusps) replace lattice points, yielding a global spectral–geometric dictionary.
+        and parabolic classes (cusps) replace lattice points, yielding a global spectral--geometric dictionary.
   \item \emph{Exact global balance.} The identity is \emph{exact} and treats the entire spectrum at once,
         enabling deep qualitative results such as global Weyl laws and prime geodesic theorems.
 \end{itemize}
@@ -219,9 +214,9 @@ insufficient for modern short-window questions.
 
 \medskip
 
-\subsubsection*{2. Wave traces and microlocal analysis (1970s–1980s).}
-The microlocal revolution on compact manifolds—Duistermaat–Guillemin’s wave-trace theorem \cite{DG1975},
-Colin de Verdière’s refinements \cite{Colin1978}, and Ivrii’s local Weyl laws \cite{Ivrii1980}—
+\subsubsection*{2. Wave traces and microlocal analysis (1970s--1980s).}
+The microlocal revolution on compact manifolds --- Duistermaat--Guillemin's wave-trace theorem \cite{DG1975},
+Colin de Verdi\`ere's refinements \cite{Colin1978}, and Ivrii's local Weyl laws \cite{Ivrii1980} ---
 established that the singular support of the wave trace coincides with the length spectrum:
 singularities occur at times equal to lengths of closed geodesics.
 The analysis relies on
@@ -237,7 +232,7 @@ finite-area noncompact surfaces requires explicit control of Eisenstein series a
 
 \medskip
 
-\subsubsection*{3. Arithmetic applications and explicitness (1980s–2000s).}
+\subsubsection*{3. Arithmetic applications and explicitness (1980s--2000s).}
 Iwaniec, Sarnak, and collaborators harnessed the trace formula to arithmetic ends
 \cite{Iwaniec2002,LuoSarnak1995}, including the prime geodesic theorem,
 eigenvalue bounds, variance estimates, and uniformity across congruence families.
@@ -248,22 +243,22 @@ Arithmetic applications demand:
   \item \emph{short-window control} to access delicate averages of coefficients and $L$-values.
 \end{itemize}
 Global $O(1)$ remainders and the lack of genuine spectral localization in the classical identity create a quantitative bottleneck.
-Subsequent advances such as Michel–Venkatesh \cite{MichelVenkatesh2010} showcase the reach of global harmonic analysis,
+Subsequent advances such as Michel--Venkatesh \cite{MichelVenkatesh2010} showcase the reach of global harmonic analysis,
 but the need for \emph{localized} tools with effective constants remains.
 
 \medskip
 
 \subsubsection*{4. Higher rank and representation theory.}
-Arthur’s noninvariant and invariant trace formulas \cite{ArthurBook} organize harmonic analysis on reductive groups,
+Arthur's noninvariant and invariant trace formulas \cite{ArthurBook} organize harmonic analysis on reductive groups,
 establishing a far-reaching framework in which spectral and geometric data balance globally.
 While our results concern rank one, the architectural lesson is clear:
 a rank-one refinement that is both localized and quantitative should be built
-to respect the spectral–geometric balance and to expose constants explicitly,
+to respect the spectral--geometric balance and to expose constants explicitly,
 so that analogue constructions may be envisioned in higher rank.
 
 \medskip
 
-\subsubsection*{5. Quantum chaos and semiclassical demands (1990s–present).}
+\subsubsection*{5. Quantum chaos and semiclassical demands (1990s--present).}
 Arithmetic surfaces are a canonical laboratory for quantum chaos.
 Questions of quantum ergodicity, QUE, scarring, and variance live at microscopic scales, requiring:
 \begin{itemize}
@@ -278,9 +273,9 @@ information is decisive; our refinement supplies a localized trace identity alig
 \medskip
 
 \subsubsection*{6. Contributions of the Russian school.}
-Foundational operator-theoretic and scattering perspectives (Faddeev \cite{Faddeev1967}; Lax–Phillips \cite{LaxPhillips1976})
+Foundational operator-theoretic and scattering perspectives (Faddeev \cite{Faddeev1967}; Lax--Phillips \cite{LaxPhillips1976})
 shaped the analysis of the continuous spectrum and Eisenstein series.
-Systematic parametrix constructions and explicit kernel estimates—hallmarks of this school—
+Systematic parametrix constructions and explicit kernel estimates --- hallmarks of this school ---
 resonate with our insistence on band-limited profiles, explicit derivative budgets, and auditable constants for noncompact finite-area surfaces.
 
 \medskip
@@ -288,13 +283,13 @@ resonate with our insistence on band-limited profiles, explicit derivative budge
 \subsubsection*{7. Synthesis and the remaining structural gap.}
 The literature thus offers three complementary strengths:
 \begin{enumerate}[label=\alph*)]
-  \item \emph{Global exactness} (Selberg/Arthur): exact spectral–geometric balance, arithmetic reach; but coarse remainders and no true localization.
-  \item \emph{Microlocal precision} (Duistermaat–Guillemin, Colin de Verdière, Ivrii): semiclassical localization; but primarily compact settings.
-  \item \emph{Arithmetic explicitness} (Iwaniec–Sarnak, successors): explicit constants and uniformity; but constrained by global $O(1)$ barriers.
+  \item \emph{Global exactness} (Selberg/Arthur): exact spectral--geometric balance, arithmetic reach; but coarse remainders and no true localization.
+  \item \emph{Microlocal precision} (Duistermaat--Guillemin, Colin de Verdi\`ere, Ivrii): semiclassical localization; but primarily compact settings.
+  \item \emph{Arithmetic explicitness} (Iwaniec--Sarnak, successors): explicit constants and uniformity; but constrained by global $O(1)$ barriers.
 \end{enumerate}
 The missing piece has been a \emph{localized} trace identity on finite-area hyperbolic surfaces with cusps that:
 \begin{itemize}
-  \item retains Selberg’s spectral–geometric balance,
+  \item retains Selberg's spectral--geometric balance,
   \item imports microlocal precision up to $T\asymp\log\lambda$,
   \item delivers \emph{power-saving}, explicitly controlled remainders for short spectral windows.
 \end{itemize}
@@ -306,7 +301,7 @@ $O_{X,\Phi,\theta}(\lambda^{1-\delta})$ remainder.
 \subsubsection*{8. Our placement in the lineage.}
 Our approach is a synthesis designed to respect each tradition:
 \begin{itemize}
-  \item From \emph{Selberg/Arthur}: the exact spectral–geometric structure and the $I/G/P$ decomposition, with scattering data
+  \item From \emph{Selberg/Arthur}: the exact spectral--geometric structure and the $I/G/P$ decomposition, with scattering data
         entering through $(\sigma'/\sigma)(s)$ in the parabolic term.
   \item From \emph{microlocal semiclassics}: a band-limited wave parametrix, Egorov transport up to Ehrenfest time,
         and stationary phase with explicit symbol bounds.
@@ -327,12 +322,12 @@ For quick orientation we include a compact comparison (see also Appendix~J for p
 \textbf{Tradition} & \textbf{Strength} & \textbf{Limitation} & \textbf{Our synthesis} \\
 \hline
 Selberg/Arthur \cite{Selberg1956,ArthurBook}
-& Exact global spectral–geometric balance; arithmetic reach
+& Exact global spectral--geometric balance; arithmetic reach
 & Coarse ($O(1)$) remainders; no true short-window localization
 & Localized identity preserving exact balance; explicit, power-saving errors \\
 \hline
 Microlocal/semiclassical \cite{DG1975,Colin1978,Ivrii1980}
-& Semiclassical precision; wave-trace–length-spectrum correspondence
+& Semiclassical precision; wave-trace--length-spectrum correspondence
 & Classical scope: compact manifolds; cusp/continuous spectrum absent
 & Parametrix and stationary phase adapted to cusp surfaces; control up to $T\asymp\log\lambda$ \\
 \hline
@@ -347,28 +342,21 @@ Arithmetic practice \cite{Iwaniec2002,LuoSarnak1995,MichelVenkatesh2010}
 \medskip
 
 \noindent\textbf{Conclusion of Part 2/8.}
-Historically, the subject advanced from Selberg’s global equality through microlocal
+Historically, the subject advanced from Selberg's global equality through microlocal
 localization to arithmetic explicitness.
-The structural gap—\emph{a localized, quantitative trace identity with power-saving, explicit remainders on noncompact finite-area surfaces}—
+The structural gap --- \emph{a localized, quantitative trace identity with power-saving, explicit remainders on noncompact finite-area surfaces} ---
 is precisely what this monograph fills.
 Part~3 turns from lineage to \emph{motivations and framework}:
 it enumerates the concrete limitations of classical approaches for short-window questions,
 articulates the semiclassical scale and propagation constraints,
 and lays out the conceptual architecture that leads to the principal theorems.
 
-% ======================================================================
-% End of Introduction, Part 2/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 3/8 — Motivations, Limitations, and Conceptual Framework
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{C. Motivations and the Gap in the Literature}
 
 The need for a localized, quantitative trace formula arises from a persistent
-mismatch: the global strengths of Selberg’s identity are structurally profound,
+mismatch: the global strengths of Selberg's identity are structurally profound,
 yet insufficient for the refined demands of contemporary analytic number theory
 and quantum chaos. This part diagnoses those insufficiencies, illustrates their
 impact on central problems, and presents the conceptual framework that guides
@@ -393,8 +381,8 @@ suffers from three fundamental limitations when applied at microscopic or arithm
         Microscopic statistics are therefore inaccessible.
 
   \item \textbf{Implicit constants.}
-        Dependence on geometric invariants—volume $\vol(X)$, systole, injectivity radius,
-        cusp widths, spectral gap $\beta_\Gamma$—is often suppressed under $O(\cdot)$ notation.
+        Dependence on geometric invariants --- volume $\vol(X)$, systole, injectivity radius,
+        cusp widths, spectral gap $\beta_\Gamma$ --- is often suppressed under $O(\cdot)$ notation.
         For number-theoretic applications, where uniformity in families is essential,
         such implicitness renders results quantitatively unusable.
 \end{enumerate}
@@ -465,7 +453,7 @@ To meet these demands, our refinement rests on three pillars:
         and ensures approximate idempotence.
 
   \item \textbf{Explicit constants and auditability.}
-        All constants are tied to invariants—$\vol(X)$, systole, cusp widths, $\beta_\Gamma$—
+        All constants are tied to invariants --- $\vol(X)$, systole, cusp widths, $\beta_\Gamma$ ---
         with dependencies recorded in cross-referenced audits.
         No hidden constants remain.
 \end{enumerate}
@@ -498,14 +486,7 @@ of our refinement. The next part crystallizes these ideas into the two principal
 theorems of the monograph, which state precisely the localized trace formula
 and the quantitative local Weyl law.
 
-% ======================================================================
-% End of Introduction, Part 3/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 4/8 — Statements of Principal Theorems
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{D. Statements of Principal Theorems}
 \label{sub:intro-mainthms}
@@ -513,7 +494,7 @@ and the quantitative local Weyl law.
 The central contributions of this monograph are crystallized in two principal results:
 a localized trace formula valid on finite-area hyperbolic surfaces with cusps,
 and its corollary, a quantitative local Weyl law.
-These theorems transform Selberg’s global identity into a microlocally sharp tool,
+These theorems transform Selberg's global identity into a microlocally sharp tool,
 equipped with explicit constants and genuinely power-saving error terms.
 
 \medskip
@@ -591,7 +572,7 @@ $w_{\max}$ the maximal cusp width, and $r_{\mathrm{inj}}$ the injectivity radius
 
 \noindent\textbf{Clarifications.}
 \begin{itemize}
-  \item This theorem preserves Selberg’s exact spectral–geometric identity,
+  \item This theorem preserves Selberg's exact spectral--geometric identity,
         while achieving localization at scale $\eta$.
   \item The error term is a true power-saving $O(\lambda^{1-\delta})$,
         in contrast to the $O(1)$ global remainder.
@@ -655,7 +636,7 @@ The proof integrates spectral, geometric, and microlocal arguments:
         Truncation is automatic from decay.
 
   \item \textbf{Parabolic/Eisenstein control.}
-        Maass–Selberg relations and analytic continuation control Eisenstein terms.
+        Maass--Selberg relations and analytic continuation control Eisenstein terms.
         Scattering data enter only via $\sigma'/\sigma$.
 
   \item \textbf{Error bounds.}
@@ -687,14 +668,7 @@ with explicit constants and power-saving remainders.
 The following part positions these results within their broader
 historical and methodological framework.
 
-% ======================================================================
-% End of Introduction, Part 4/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 5/8 — Methodological Architecture
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{E. Methodological Architecture}
 \label{sub:intro-methodology}
@@ -702,9 +676,9 @@ historical and methodological framework.
 The methodology underlying this monograph is designed to unify three traditions
 into a single coherent analytic apparatus:
 \begin{itemize}
-  \item the \emph{global spectral–geometric identity} of Selberg,
-  \item the \emph{microlocal parametrix constructions} of Duistermaat–Guillemin,
-  \item the \emph{explicit arithmetic control of constants} initiated by Iwaniec–Sarnak.
+  \item the \emph{global spectral--geometric identity} of Selberg,
+  \item the \emph{microlocal parametrix constructions} of Duistermaat--Guillemin,
+  \item the \emph{explicit arithmetic control of constants} initiated by Iwaniec--Sarnak.
 \end{itemize}
 This synthesis is operationalized through what we call the \emph{Diamond v2 framework},
 a bidirectional system of linkage, auditing, and explicit constants.
@@ -715,7 +689,7 @@ a bidirectional system of linkage, auditing, and explicit constants.
 \begin{enumerate}[label=\arabic*.]
   \item \textbf{Explicitness of constants.}
         Every constant (geometric, analytic, arithmetic) is stated and traced back to
-        primary invariants: $\vol(X)$, $\sys(X)$, $\diam(X_{\mathrm{thick}})$,
+        primary invariants: $\vol(X)$, $\mathrm{sys}(X)$, $\diam(X_{\mathrm{thick}})$,
         cusp widths, and scattering data.
         No hidden $O(1)$ remains unaccounted.
 
@@ -735,17 +709,17 @@ This monograph operates at the intersection of three epistemological traditions:
 
 \begin{itemize}
   \item \textbf{Constructive Analysis.}
-        Following the Russian school (Faddeev, Lax–Phillips),
+        Following the Russian school (Faddeev, Lax--Phillips),
         priority is given to explicit, verifiable constructions
         over purely existential arguments.
 
   \item \textbf{Arithmetic Explicitness.}
-        In the lineage of Iwaniec–Sarnak,
+        In the lineage of Iwaniec--Sarnak,
         constants are treated not as mere technicalities but as carriers of
         deep arithmetic meaning.
 
   \item \textbf{Microlocal Precision.}
-        Adopting the Duistermaat–Guillemin paradigm,
+        Adopting the Duistermaat--Guillemin paradigm,
         localization is regarded not as a technical convenience but as a fundamental
         principle for accessing fine spectral structure.
 \end{itemize}
@@ -802,50 +776,43 @@ but are embedded in a transparent, reproducible, and philosophically rigorous fr
 The following part (F) presents the structural roadmap of the monograph,
 mapping the methodology into a navigable plan for the reader.
 
-% ======================================================================
-% End of Introduction, Part 5/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 6/8 — Structural Roadmap of the Monograph
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{F. Structural Roadmap of the Monograph}
 \label{sub:intro-roadmap}
 
 The architecture of this monograph is intentionally designed to be
-modular, auditable, and forward–backward linked.
+modular, auditable, and forward--backward linked.
 Each chapter fulfills a clearly defined role within the analytic
 and methodological framework, with audits at the end of each chapter
 to confirm reproducibility and closure.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.1. Chapter 2 — Preliminaries and Notational Framework}
+\subsubsection*{F.1. Chapter 2 --- Preliminaries and Notational Framework}
 This chapter establishes the foundation:
 \begin{itemize}
   \item Hyperbolic geometry of finite-area surfaces with cusps,
-  \item Discrete groups $\Gamma \subset \PSL_2(\mathbb{R})$,
-  \item Laplace–Beltrami operator $\Delta$ and its spectral decomposition,
+  \item Discrete groups $\Gamma \subset \mathrm{PSL}_2(\mathbb{R})$,
+  \item Laplace--Beltrami operator $\Delta$ and its spectral decomposition,
   \item Eisenstein series, scattering matrices, and cusp expansions,
-  \item Geometric invariants: $\vol(X)$, systole $\sys(X)$,
+  \item Geometric invariants: $\vol(X)$, systole $\mathrm{sys}(X)$,
         injectivity radius $r_{\mathrm{inj}}$, cusp widths, spectral gap $\beta_\Gamma$.
 \end{itemize}
 Audit outcome: all definitions fixed, notation consistent,
 constants referenced to the glossary.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.2. Chapter 3 — Kernel Construction and Truncation}
+\subsubsection*{F.2. Chapter 3 --- Kernel Construction and Truncation}
 Here the Selberg kernel is adapted to localization:
 \begin{itemize}
   \item Truncation at cusp height $Y$ with explicit dependence on geometry,
-  \item Compatibility with Selberg’s global kernel,
+  \item Compatibility with Selberg's global kernel,
   \item Window functions $h_\eta$ designed for short spectral intervals.
 \end{itemize}
 Audit outcome: kernel is bounded, localized, and ready for stationary phase.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.3. Chapter 4 — Spectral Projectors $P_{\lambda,\eta}$}
+\subsubsection*{F.3. Chapter 4 --- Spectral Projectors $P_{\lambda,\eta}$}
 This chapter introduces the operators central to localization:
 \begin{itemize}
   \item Spectral projectors defined via smooth functional calculus,
@@ -855,29 +822,29 @@ This chapter introduces the operators central to localization:
 Audit outcome: projectors validated as effective localization tools.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.4. Chapter 5 — Microlocal Analysis and Parametrix}
+\subsubsection*{F.4. Chapter 5 --- Microlocal Analysis and Parametrix}
 This chapter is the semiclassical core:
 \begin{itemize}
   \item Parametrix for $U(t)=\cos(t\sqrt{\Delta})$ built for $|t|\le T\asymp \log \lambda$,
-  \item Egorov’s theorem for transport of observables,
+  \item Egorov's theorem for transport of observables,
   \item Stationary phase expansions for geodesic contributions,
   \item Explicit error control recorded in audit ledger.
 \end{itemize}
 Audit outcome: constants $(C_{\mathrm{Eg}}, C_{\mathrm{stat}}, C_{\mathrm{curv}})$ sealed.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.5. Chapter 6 — Geometric Expansion}
+\subsubsection*{F.5. Chapter 6 --- Geometric Expansion}
 Spectral data is converted into geometric contributions:
 \begin{itemize}
   \item Identity term with exact main contribution,
   \item Hyperbolic terms truncated effectively by decay,
-  \item Parabolic/Eisenstein terms handled by Maass–Selberg relations,
+  \item Parabolic/Eisenstein terms handled by Maass--Selberg relations,
   \item Treatment of resonances and exceptional eigenvalues explicit.
 \end{itemize}
 Audit outcome: geometric contributions explicit, constants recorded.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.6. Chapter 7 — Proofs of the Main Theorems}
+\subsubsection*{F.6. Chapter 7 --- Proofs of the Main Theorems}
 This chapter synthesizes:
 \begin{itemize}
   \item Localized Trace Formula (Theorem~\ref{thm:intro-localized-trace}),
@@ -887,10 +854,10 @@ This chapter synthesizes:
 Audit outcome: theorems closed, bounds sharp, constants explicit.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.7. Chapter 8 — Applications}
+\subsubsection*{F.7. Chapter 8 --- Applications}
 The localized trace formula is deployed:
 \begin{itemize}
-  \item Variance bounds for Hecke–Maass coefficients,
+  \item Variance bounds for Hecke--Maass coefficients,
   \item Uniform estimates in arithmetic families,
   \item Quantum chaos applications (QUE, scarring, variance),
   \item Cross-check with semiclassical heuristics.
@@ -899,7 +866,7 @@ Audit outcome: constants traced back to original definitions,
 applications reproducible.
 
 % ----------------------------------------------------------------------
-\subsubsection*{F.8. Chapter 9 — Conclusion and Outlook}
+\subsubsection*{F.8. Chapter 9 --- Conclusion and Outlook}
 This chapter synthesizes:
 \begin{itemize}
   \item Summary of contributions,
@@ -912,7 +879,7 @@ Audit outcome: closure verified, objectives fulfilled.
 \subsubsection*{F.9. Appendices}
 Supporting material:
 \begin{itemize}
-  \item Appendix A: Effective volume bounds for thick–thin decompositions,
+  \item Appendix A: Effective volume bounds for thick--thin decompositions,
   \item Appendix B: Sobolev lemmas and stationary phase estimates,
   \item Appendix J: Audit ledger of constants and glossary of notation.
 \end{itemize}
@@ -922,10 +889,10 @@ Audit outcome: appendices self-contained, consistent with the main text.
 \subsubsection*{F.10. Balance of Chapters}
 The distribution of material:
 \begin{itemize}
-  \item Ch.~2–4 (≈100 pp.): foundational definitions and operators,
-  \item Ch.~5–6 (≈150 pp.): technical semiclassical and geometric core,
-  \item Ch.~7–8 (≈80 pp.): proofs and applications,
-  \item Appendices (≈70 pp.): supporting analysis and constants.
+  \item Ch.~2--4 ($\approx$100 pp.): foundational definitions and operators,
+  \item Ch.~5--6 ($\approx$150 pp.): technical semiclassical and geometric core,
+  \item Ch.~7--8 ($\approx$80 pp.): proofs and applications,
+  \item Appendices ($\approx$70 pp.): supporting analysis and constants.
 \end{itemize}
 This balance signals density and conceptual flow.
 
@@ -936,14 +903,7 @@ The structural roadmap transforms the monograph into a
 The next part (G) presents the linkage system and chapter audits,
 showing how reproducibility is enforced at every level.
 
-% ======================================================================
-% End of Introduction, Part 6/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 7/8 — Forward/Backward Linkage and Chapter Audit
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{G. Forward/Backward Linkage and Audit Protocol}
 \label{sub:intro-linkage}
@@ -962,8 +922,8 @@ From the Introduction, explicit backward connections are established to:
   \item the \emph{Notation and Glossary} (\Cref{sec:notation-glossary}),
         where every symbol is defined,
   \item the historical lineage (Selberg~\cite{Selberg1956};
-        Duistermaat–Guillemin~\cite{DG1975}; Ivrii~\cite{Ivrii1980};
-        Iwaniec–Sarnak~\cite{Iwaniec2002}; Michel–Venkatesh~\cite{MichelVenkatesh2010}),
+        Duistermaat--Guillemin~\cite{DG1975}; Ivrii~\cite{Ivrii1980};
+        Iwaniec--Sarnak~\cite{Iwaniec2002}; Michel--Venkatesh~\cite{MichelVenkatesh2010}),
         where motivations are situated.
 \end{itemize}
 Thus no symbol or constant appears without provenance.
@@ -972,14 +932,14 @@ Thus no symbol or constant appears without provenance.
 \subsubsection*{G.2. Forward Links}
 The Introduction also points forward to:
 \begin{itemize}
-  \item Chapter~2 (\Cref{chap:preliminaries}) — preliminaries and notation,
-  \item Chapter~3 (\Cref{chap:kernel}) — kernel truncation,
-  \item Chapter~4 (\Cref{chap:projector}) — spectral projectors,
-  \item Chapter~5 (\Cref{chap:parametrix}) — parametrix construction,
-  \item Chapter~6 (\Cref{chap:geometric}) — geometric expansions,
-  \item Chapter~7 (\Cref{chap:proofs}) — proofs of main theorems,
-  \item Chapter~8 (\Cref{chap:applications}) — applications,
-  \item Chapter~9 (\Cref{chap:conclusion}) — synthesis and outlook.
+  \item Chapter~2 (\Cref{chap:preliminaries}) --- preliminaries and notation,
+  \item Chapter~3 (\Cref{chap:kernel}) --- kernel truncation,
+  \item Chapter~4 (\Cref{chap:projector}) --- spectral projectors,
+  \item Chapter~5 (\Cref{chap:parametrix}) --- parametrix construction,
+  \item Chapter~6 (\Cref{chap:geometric}) --- geometric expansions,
+  \item Chapter~7 (\Cref{chap:proofs}) --- proofs of main theorems,
+  \item Chapter~8 (\Cref{chap:applications}) --- applications,
+  \item Chapter~9 (\Cref{chap:conclusion}) --- synthesis and outlook.
 \end{itemize}
 Every claim is thus linked forward to its detailed development.
 
@@ -1001,8 +961,8 @@ The audit for Chapter~1 verifies declared objectives:
   \item \textbf{Motivation:}  
         Localization necessity established via number theory and quantum chaos.
   \item \textbf{Historical Lineage:}  
-        Contributions of Selberg, Duistermaat–Guillemin, Ivrii,
-        Iwaniec–Sarnak, Michel–Venkatesh, Lindenstrauss, Soundararajan acknowledged.
+        Contributions of Selberg, Duistermaat--Guillemin, Ivrii,
+        Iwaniec--Sarnak, Michel--Venkatesh, Lindenstrauss, Soundararajan acknowledged.
   \item \textbf{Conceptual Framework:}  
         Pillars (microlocalized propagator, smooth projectors, explicit constants) stated.
   \item \textbf{Principal Theorems:}  
@@ -1013,7 +973,7 @@ The audit for Chapter~1 verifies declared objectives:
         Volume factor and remainder order $O(\lambda^{1-\delta})$ confirmed,
         correcting earlier inconsistencies (cf.~review).
   \item \textbf{Roadmap:}  
-        Complete outline of Chapters~2–9 and Appendices given.
+        Complete outline of Chapters~2--9 and Appendices given.
   \item \textbf{Methodology:}  
         Explicitness, reproducibility, linkage reinforced as guiding commitments.
 \end{itemize}
@@ -1031,17 +991,10 @@ as a structural invariant, and closes the Introduction with a
 philosophical reflection on explicitness, localization,
 and verifiability as epistemological ideals.
 
-% ======================================================================
-% End of Introduction, Part 7/8 (Diamond-Polished, Absolute Version — Final)
-% ======================================================================
-% ======================================================================
-% File: src/sections/01-introduction.tex
-% Part 8/8 — Methodological Principles and Closing
-% Diamond-Polished, Absolute Version — Final
-% ======================================================================
+\medskip
 
 \subsection*{I. Methodological Principles}
-\label{sub:intro-methodology}
+\label{sub:intro-methodology-principles}
 
 Three methodological commitments form the structural invariant of this monograph.
 They guarantee that every theorem is embedded within a framework of
@@ -1078,8 +1031,8 @@ and applicability across number theory, spectral geometry, and semiclassical phy
 % ----------------------------------------------------------------------
 \subsection*{J. Epistemological and Philosophical Note}
 
-While this monograph is technical in focus—the construction and auditing
-of a localized Selberg trace formula with fully effective constants—
+While this monograph is technical in focus --- the construction and auditing
+of a localized Selberg trace formula with fully effective constants ---
 we emphasize its broader epistemological dimension.
 
 Mathematics is not only formal proof but justification and verification.
@@ -1101,13 +1054,13 @@ not from global accumulation but from precise focus at the right scale.
 The Introduction has achieved all declared objectives:
 
 \begin{itemize}
-  \item Motivated the refinement of Selberg’s formula to a localized, quantitative form.  
-  \item Situated this refinement within the lineage: Selberg, Duistermaat–Guillemin, Ivrii,  
-        Iwaniec–Sarnak, Michel–Venkatesh, Lindenstrauss, Soundararajan.  
+  \item Motivated the refinement of Selberg's formula to a localized, quantitative form.  
+  \item Situated this refinement within the lineage: Selberg, Duistermaat--Guillemin, Ivrii,  
+        Iwaniec--Sarnak, Michel--Venkatesh, Lindenstrauss, Soundararajan.  
   \item Stated the principal contributions:  
         the Localized Trace Formula and the Quantitative Local Weyl Law,  
         each with explicit constants and power-saving remainders.  
-  \item Presented a structural roadmap of the monograph (Chapters~2–9 and Appendices).  
+  \item Presented a structural roadmap of the monograph (Chapters~2--9 and Appendices).  
   \item Articulated methodological and philosophical principles:
         explicitness, reproducibility, linkage, and transparency as rigor.
 \end{itemize}
@@ -1126,5 +1079,5 @@ laying the foundation for the microlocal and arithmetic constructions
 that follow.
 
 % ======================================================================
-% End of Introduction (Parts 1–8, Diamond-Polished Absolute Version — Final)
+% End of Introduction (Parts 1–8, Full Version)
 % ======================================================================
