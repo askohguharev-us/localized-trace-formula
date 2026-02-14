@@ -2,7 +2,7 @@
 
 \noindent
 We recall and fix the geometric framework for the hyperbolic plane $\mathbb{H}$
-and its quotients $M=\Gamma\backslash\mathbb{H}$, with normalizations that are used
+and its quotients $M = \Gamma \backslash \mathbb{H}$, with normalizations that are used
 throughout the monograph.
 
 \medskip
@@ -10,192 +10,198 @@ throughout the monograph.
 \noindent\textbf{Hyperbolic plane and metric.}
 Let
 \[
-  \mathbb{H}=\{z=x+iy\in\mathbb{C}: y>0\}
+  \mathbb{H} = \{z = x + iy \in \mathbb{C} : y > 0\}
 \]
-with hyperbolic metric
+with the hyperbolic metric
 \[
-  ds^{2}=\frac{dx^{2}+dy^{2}}{y^{2}}, \qquad
-  d\mu(z)=\frac{dx\,dy}{y^{2}}.
+  ds^{2} = \frac{dx^{2} + dy^{2}}{y^{2}}, \qquad
+  d\mu(z) = \frac{dx\,dy}{y^{2}}.
 \]
-For $z,w\in\mathbb{H}$ the distance is determined by
+For $z, w \in \mathbb{H}$ the distance $d(z,w)$ is determined by the identity
 \[
-  \cosh d(z,w)=1+\frac{|z-w|^{2}}{2\,\Im z\,\Im w}.
+  \cosh d(z,w) = 1 + \frac{|z - w|^{2}}{2\,\mathrm{Im}(z)\,\mathrm{Im}(w)}.
 \]
-The Riemannian volume of a measurable set $\Omega\subset\mathbb{H}$ is
-$\vol(\Omega)=\int_{\Omega} d\mu$.
+The Riemannian volume of a measurable set $\Omega \subset \mathbb{H}$ is
+$\mathrm{vol}(\Omega) = \int_{\Omega} d\mu$.
 
 \medskip
 
 \noindent\textbf{Isometries.}
-The group $PSL_{2}(\mathbb{R})$ acts by fractional linear transformations
-$\gamma z=\dfrac{az+b}{cz+d}$ with $\gamma=\bigl(\begin{smallmatrix}a&b\\ c&d\end{smallmatrix}\bigr)$
-and preserves $ds^{2}$ and $d\mu$.
-Elements are classified by $|\tr \gamma|$:
-elliptic ($<2$), parabolic ($=2$), hyperbolic ($>2$).
-Two hyperbolic elements are conjugate iff they have the same translation length,
+The group $\mathrm{PSL}_{2}(\mathbb{R})$ acts by fractional linear transformations
+$\gamma z = \dfrac{az + b}{cz + d}$ with $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$
+and preserves both $ds^{2}$ and $d\mu$.
+Elements are classified by the absolute value of their trace $|\mathrm{tr}(\gamma)|$:
+elliptic ($< 2$), parabolic ($= 2$), and hyperbolic ($> 2$).
+Two hyperbolic elements are conjugate if and only if they have the same translation length,
 defined below.
+
+
 
 \medskip
 
 \noindent\textbf{Geodesics.}
-Geodesics in $\mathbb{H}$ are vertical lines and semicircles orthogonal to $\mathbb{R}$.
-Let $\gamma\in PSL_{2}(\mathbb{R})$ be hyperbolic.
+Geodesics in $\mathbb{H}$ are vertical lines and semicircles orthogonal to the real axis $\mathbb{R}$.
+Let $\gamma \in \mathrm{PSL}_{2}(\mathbb{R})$ be a hyperbolic element.
 Its axis is the unique geodesic stabilized by $\gamma$.
-The \emph{translation length} $\ell(\gamma)>0$ satisfies
+The \emph{translation length} $\ell(\gamma) > 0$ satisfies
 \[
-  2\cosh\!\left(\frac{\ell(\gamma)}{2}\right)=|\tr(\gamma)|.
+  2\cosh\left(\frac{\ell(\gamma)}{2}\right) = |\mathrm{tr}(\gamma)|.
 \]
-If $\gamma=\gamma_{0}^{k}$ with $\gamma_{0}$ primitive, then
-$\ell(\gamma)=k\,\ell(\gamma_{0})$.
+If $\gamma = \gamma_{0}^{k}$ with $\gamma_{0}$ primitive, then
+$\ell(\gamma) = k\,\ell(\gamma_{0})$.
 
 \medskip
 
 \noindent\textbf{Balls and volume growth.}
-The ball of radius $R$ has area
+A hyperbolic ball of radius $R$ has area
 \[
-  \vol(B(R))=2\pi(\cosh R-1).
+  \mathrm{vol}(B(R)) = 2\pi(\cosh R - 1).
 \]
-Hence $\vol(B(R))\sim \pi e^{R}$ as $R\to\infty$.
+Hence $\mathrm{vol}(B(R)) \sim \pi e^{R}$ as $R \to \infty$.
 This exponential growth permeates all orbit and lattice point estimates.
 
 \medskip
 
 \noindent\textbf{Fundamental and Dirichlet domains.}
-Let $\Gamma\subset PSL_{2}(\mathbb{R})$ be a discrete group of finite covolume.
+Let $\Gamma \subset \mathrm{PSL}_{2}(\mathbb{R})$ be a discrete group of finite covolume.
 A fundamental domain $\mathcal{F}$ for $\Gamma$ has finitely many geodesic sides,
 paired by elements of $\Gamma$.
-For a basepoint $z_{0}\in\mathbb{H}$ the Dirichlet domain is
+For a basepoint $z_{0} \in \mathbb{H}$ the Dirichlet domain is
 \[
-  \mathcal{D}(z_{0})=\{z\in\mathbb{H}: d(z,z_{0})\le d(z,\gamma z_{0})\ \forall \gamma\in\Gamma\}.
+  \mathcal{D}(z_{0}) = \{z \in \mathbb{H} : d(z, z_{0}) \le d(z, \gamma z_{0}) \text{ for all } \gamma \in \Gamma\}.
 \]
-It is convex, locally finite, and $\vol(\Gamma\backslash\mathbb{H})=\int_{\mathcal{D}(z_{0})} d\mu$.
+It is convex, locally finite, and $\mathrm{vol}(\Gamma \backslash \mathbb{H}) = \int_{\mathcal{D}(z_{0})} d\mu$.
 
 \medskip
 
 \noindent\textbf{Lattice point estimate (hyperbolic).}
-Let $N_{\Gamma}(R;z_{0})=\#\{\gamma\in\Gamma: d(z_{0},\gamma z_{0})\le R\}$.
+Let $N_{\Gamma}(R; z_{0}) = \#\{\gamma \in \Gamma : d(z_{0}, \gamma z_{0}) \le R\}$.
 Then
 \[
-  N_{\Gamma}(R;z_{0})=\frac{\vol(B(R))}{\vol(\Gamma\backslash\mathbb{H})}+O_{\Gamma}\!\left(\frac{e^{R}}{R^{2}}\right),
+  N_{\Gamma}(R; z_{0}) = \frac{\mathrm{vol}(B(R))}{\mathrm{vol}(\Gamma \backslash \mathbb{H})} + O_{\Gamma}\!\left(\frac{e^{R}}{R^{2}}\right),
 \]
-uniformly for $R\to\infty$. The implied constant depends only on $\Gamma$.
+uniformly as $R \to \infty$. The implied constant depends only on $\Gamma$.
 
 \medskip
 
 \noindent\textbf{Separation lemma (Selberg).}
-There exists $\epsilon_{\Gamma}>0$ such that
-$d(\gamma\mathcal{F},\gamma'\mathcal{F})\ge \epsilon_{\Gamma}$ for distinct $\gamma,\gamma'\in\Gamma$.
+There exists $\epsilon_{\Gamma} > 0$ such that
+$d(\gamma\mathcal{F}, \gamma'\mathcal{F}) \ge \epsilon_{\Gamma}$ for any distinct $\gamma, \gamma' \in \Gamma$.
 This quantitative separation underlies the absolute convergence of orbital sums
 for compactly supported or sufficiently decaying kernels.
 
 \medskip
 
 \noindent\textbf{Closed geodesics in the quotient.}
-Let $M=\Gamma\backslash\mathbb{H}$. Conjugacy classes of primitive hyperbolic elements
+Let $M = \Gamma \backslash \mathbb{H}$. Conjugacy classes of primitive hyperbolic elements
 $\{\gamma_{0}\}$ correspond to primitive closed geodesics $\{\mathcal{C}_{\gamma_{0}}\}$ on $M$,
-with $\ell(\mathcal{C}_{\gamma_{0}})=\ell(\gamma_{0})$.
-The number $\pi_{M}(R)$ of primitive closed geodesics with $\ell\le R$ satisfies
+with $\ell(\mathcal{C}_{\gamma_{0}}) = \ell(\gamma_{0})$.
+The number $\pi_{M}(R)$ of primitive closed geodesics with $\ell \le R$ satisfies
 \[
-  \pi_{M}(R)\sim \frac{e^{R}}{R}\qquad (R\to\infty).
+  \pi_{M}(R) \sim \frac{e^{R}}{R} \qquad (R \to \infty).
 \]
-This “prime geodesic theorem’’ will be used later to bound hyperbolic orbital sums.
+This ``prime geodesic theorem'' will be used later to bound hyperbolic orbital sums.
 
 \medskip
 
 \noindent\textbf{Green’s function (model).}
-The resolvent kernel $G_{s}(z,w)$ on $\mathbb{H}$ solves
+The resolvent kernel $G_{s}(z, w)$ on $\mathbb{H}$ solves the equation
 \[
-  (\Delta_{z}-s(1-s))G_{s}(z,w)=-\delta_{w}(z),
+  (\Delta_{z} - s(1 - s))G_{s}(z, w) = -\delta_{w}(z),
 \]
-with explicit expression via the hypergeometric function of $\cosh d(z,w)$. On quotients,
-$G_{s}^{\Gamma}(z,w)=\sum_{\gamma\in\Gamma} G_{s}(z,\gamma w)$ (in the sense of meromorphic continuation).
+with an explicit expression via the hypergeometric function of $\cosh d(z, w)$. On quotients,
+$G_{s}^{\Gamma}(z, w) = \sum_{\gamma \in \Gamma} G_{s}(z, \gamma w)$ (in the sense of meromorphic continuation).
 We record this for later spectral transforms; details are standard and omitted here.
 
 % --- 02b-geometry (Part 2/4): Cusps, injectivity, thick-thin, collars
 
 \noindent\textbf{Cusps and scaling matrices.}
 Let $\mathfrak{a}$ be a cusp (a $\Gamma$-orbit of a parabolic fixed point on $\partial\mathbb{H}$).
-There exists a scaling matrix $\sigma_{\mathfrak{a}}\in PSL_{2}(\mathbb{R})$ such that
-$\sigma_{\mathfrak{a}}(\infty)=\mathfrak{a}$ and
+There exists a scaling matrix $\sigma_{\mathfrak{a}} \in \mathrm{PSL}_{2}(\mathbb{R})$ such that
+$\sigma_{\mathfrak{a}}(\infty) = \mathfrak{a}$ and
 \[
   \sigma_{\mathfrak{a}}^{-1}\Gamma_{\mathfrak{a}}\sigma_{\mathfrak{a}}
   =
-  \Bigl\langle
-  \begin{pmatrix}1&w_{\mathfrak{a}}\\ 0&1\end{pmatrix}
-  \Bigr\rangle,
+  \left\langle
+  \begin{pmatrix} 1 & w_{\mathfrak{a}} \\ 0 & 1 \end{pmatrix}
+  \right\rangle,
 \]
-where $w_{\mathfrak{a}}>0$ is the \emph{cusp width}.
+where $w_{\mathfrak{a}} > 0$ is the \emph{cusp width}.
 The matrix $\sigma_{\mathfrak{a}}$ is unique up to left multiplication by the unipotent subgroup
-$N=\{\bigl(\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr): t\in\mathbb{R}\}$ and right multiplication by $\{\pm I\}$.
-Set the standard strip $\mathcal{S}(w)=\{x+iy\in\mathbb{H}: 0\le x<w,\ y>0\}$ and
-the cusp region $C_{\mathfrak{a}}=\sigma_{\mathfrak{a}}(\mathcal{S}(w_{\mathfrak{a}}))$.
+$N = \{ \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix} : t \in \mathbb{R} \}$ and right multiplication by $\{\pm I\}$.
+Set the standard strip $\mathcal{S}(w) = \{x + iy \in \mathbb{H} : 0 \le x < w, \ y > 0\}$ and
+the cusp region $C_{\mathfrak{a}} = \sigma_{\mathfrak{a}}(\mathcal{S}(w_{\mathfrak{a}}))$.
+
+
 
 \medskip
 
 \noindent\textbf{Height truncation.}
-For $Y>1$ let
+For $Y > 1$, let
 \[
-  C_{\mathfrak{a}}(Y)=\sigma_{\mathfrak{a}}\{x+iy\in\mathbb{H}: 0\le x<w_{\mathfrak{a}},\ y\ge Y\},
+  C_{\mathfrak{a}}(Y) = \sigma_{\mathfrak{a}}\{x + iy \in \mathbb{H} : 0 \le x < w_{\mathfrak{a}}, \ y \ge Y\},
   \qquad
-  M(Y)=M\setminus\bigcup_{\mathfrak{a}}\pi(C_{\mathfrak{a}}(Y)).
+  M(Y) = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y)).
 \]
-For $Y$ large enough the sets $\pi(C_{\mathfrak{a}}(Y))$ are disjoint and $M(Y)$ is compact with geodesic boundary.
+For $Y$ large enough, the sets $\pi(C_{\mathfrak{a}}(Y))$ are disjoint and $M(Y)$ is compact with geodesic boundary.
 
 \medskip
 
 \noindent\textbf{Exact volume and boundary length.}
-With $d\mu=dx\,dy/y^{2}$ one computes
+With $d\mu = dx\,dy/y^{2}$, one computes
 \[
-  \vol\bigl(\pi(C_{\mathfrak{a}})\setminus \pi(C_{\mathfrak{a}}(Y))\bigr)=\frac{w_{\mathfrak{a}}}{Y},
+  \mathrm{vol}\bigl(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))\bigr) = \frac{w_{\mathfrak{a}}}{Y},
   \qquad
-  \operatorname{length}\bigl(\partial \pi(C_{\mathfrak{a}}(Y))\bigr)=\frac{w_{\mathfrak{a}}}{Y}.
+  \mathrm{length}\bigl(\partial \pi(C_{\mathfrak{a}}(Y))\bigr) = \frac{w_{\mathfrak{a}}}{Y}.
 \]
-Summing over cusps:
+Summing over all cusps:
 \[
-  \vol(M\setminus M(Y))=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y},
+  \mathrm{vol}(M \setminus M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y},
   \qquad
-  \operatorname{length}(\partial M(Y))=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y}.
+  \mathrm{length}(\partial M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y}.
 \]
 
 \medskip
 
 \begin{lemma}\label{lem:inj-cusp}
-There exists $c>0$ depending only on $\min_{\mathfrak{a}} w_{\mathfrak{a}}$ such that
-for all $z=\sigma_{\mathfrak{a}}(x+iy)$ with $y\ge Y$ one has
+There exists $c > 0$ depending only on $\min_{\mathfrak{a}} w_{\mathfrak{a}}$ such that
+for all $z = \sigma_{\mathfrak{a}}(x + iy)$ with $y \ge Y$, one has
 \[
-  \inj(z)\ \ge\ c\cdot \min\{1, Y^{-1}\}.
+  \mathrm{inj}(z) \ge c \cdot \min\{1, Y^{-1}\}.
 \]
 \end{lemma}
 
 \begin{proof}
-In cusp coordinates the shortest nontrivial displacement is horizontal by $w_{\mathfrak{a}}$,
+In cusp coordinates, the shortest nontrivial displacement is horizontal by $w_{\mathfrak{a}}$,
 whose hyperbolic length equals $w_{\mathfrak{a}}/y$.
-Hence $\inj(z)\asymp \min\{1,w_{\mathfrak{a}}/y\}$; for $y\ge Y$ this gives the stated bound with
-$c=\tfrac12 \min_{\mathfrak{a}} w_{\mathfrak{a}}$.
+Hence $\mathrm{inj}(z) \asymp \min\{1, w_{\mathfrak{a}}/y\}$; for $y \ge Y$, this gives the stated bound with
+$c = \frac{1}{2} \min_{\mathfrak{a}} w_{\mathfrak{a}}$.
 \end{proof}
 
 \medskip
 
-\noindent\textbf{Thick–thin decomposition.}
-For $\epsilon\in(0, \epsilon_{0}(\Gamma))$ define
+\noindent\textbf{Thick--thin decomposition.}
+For $\epsilon \in (0, \epsilon_{0}(\Gamma))$, define
 \[
-  M_{\ge \epsilon}=\{z\in M:\inj(z)\ge \epsilon\},\qquad
-  M_{<\epsilon}=M\setminus M_{\ge \epsilon}.
+  M_{\ge \epsilon} = \{z \in M : \mathrm{inj}(z) \ge \epsilon\}, \qquad
+  M_{< \epsilon} = M \setminus M_{\ge \epsilon}.
 \]
-Then $M_{\ge \epsilon}$ is compact, and $M_{<\epsilon}$ is a disjoint union of cusp neighborhoods
+Then $M_{\ge \epsilon}$ is compact, and $M_{< \epsilon}$ is a disjoint union of cusp neighborhoods
 and collars around short closed geodesics. This is the standard Margulis decomposition.
+
+
 
 \medskip
 
 \noindent\textbf{Collar lemma.}
-Let $\gamma$ be a simple closed geodesic of length $\ell=\ell(\gamma)$.
+Let $\gamma$ be a simple closed geodesic of length $\ell = \ell(\gamma)$.
 Its embedded collar
 \[
-  \mathcal{C}(\gamma)=\{z\in M : d(z,\gamma)< w(\ell)\},\qquad
-  w(\ell)=\operatorname{arcsinh}\!\left(\frac{1}{\sinh(\ell/2)}\right),
+  \mathcal{C}(\gamma) = \{z \in M : d(z, \gamma) < w(\ell)\}, \qquad
+  w(\ell) = \mathrm{arcsinh}\!\left(\frac{1}{\sinh(\ell/2)}\right),
 \]
 is disjoint from all collars of geodesics freely homotopic to $\gamma$.
-As $\ell\to 0$, $w(\ell)\sim \log(2/\ell)$.
+As $\ell \to 0$, $w(\ell) \sim \log(2/\ell)$.
 
 \medskip
 
@@ -203,7 +209,7 @@ As $\ell\to 0$, $w(\ell)\sim \log(2/\ell)$.
 Choose $Y$ large so that all cusp neighborhoods $\pi(C_{\mathfrak{a}}(Y))$ are disjoint.
 The compact core
 \[
-  M_{\mathrm{core}}=M\setminus\bigcup_{\mathfrak{a}}\pi(C_{\mathfrak{a}}(Y))
+  M_{\mathrm{core}} = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y))
 \]
 is a compact surface with geodesic boundary. Many local analytic estimates
 (Sobolev, elliptic regularity) can be verified first on $M_{\mathrm{core}}$ and then extended
@@ -212,95 +218,95 @@ to $M$ by patching with the explicit cusp model.
 % --- 02b-geometry (Part 3/4): Laplacian, spectral parameter, heat/wave/resolvent kernels
 
 \noindent\textbf{Laplacian and spectral parameter.}
-On functions the (nonnegative) Laplace–Beltrami operator is
+On functions, the (nonnegative) Laplace--Beltrami operator is
 \[
-  \Delta=-y^{2}\bigl(\partial_{x}^{2}+\partial_{y}^{2}\bigr).
+  \Delta = -y^{2}\left(\frac{\partial^{2}}{\partial x^{2}} + \frac{\partial^{2}}{\partial y^{2}}\right).
 \]
-On $\mathbb{H}$ the spherical spectral parameter is $t\in\mathbb{R}$ with eigenvalue
-$\lambda=\tfrac14+t^{2}$. This normalization matches the Plancherel measure
-$\tfrac{1}{4\pi}t\tanh(\pi t)\,dt$ for radial analysis.
+On $\mathbb{H}$, the spherical spectral parameter is $t \in \mathbb{R}$ with eigenvalue
+$\lambda = \frac{1}{4} + t^{2}$. This normalization matches the Plancherel measure
+$\frac{1}{4\pi} t \tanh(\pi t)\,dt$ for radial analysis.
 
 \medskip
 
 \noindent\textbf{Spherical functions.}
-Let $\varphi_{t}(r)$ be the $K$–biinvariant spherical function with $\varphi_{t}(0)=1$.
-It admits
+Let $\varphi_{t}(r)$ be the $K$--biinvariant spherical function with $\varphi_{t}(0) = 1$.
+It admits the representation
 \[
-  \varphi_{t}(r)=P_{-1/2+it}(\cosh r)
+  \varphi_{t}(r) = P_{-1/2 + it}(\cosh r)
 \]
-and the asymptotic expansion as $r\to\infty$
+and the asymptotic expansion as $r \to \infty$:
 \[
-  \varphi_{t}(r)=c(t)\,e^{(it-1/2)r}+c(-t)\,e^{(-it-1/2)r}+O(e^{-3r/2}),
+  \varphi_{t}(r) = c(t)\,e^{(it - 1/2)r} + c(-t)\,e^{(-it - 1/2)r} + O(e^{-3r/2}),
   \qquad
-  c(t)=\frac{\Gamma(it)}{\Gamma(1/2+it)}.
+  c(t) = \frac{\Gamma(it)}{\Gamma(1/2 + it)}.
 \]
 
 \medskip
 
 \noindent\textbf{Heat kernel.}
-The heat kernel $K_{t}(z,w)$ on $\mathbb{H}$ solves
-$\partial_{t}K_{t}=\Delta_{z}K_{t}$ with $K_{0}(z,w)=\delta_{w}(z)$ and admits the spectral
+The heat kernel $K_{t}(z, w)$ on $\mathbb{H}$ solves
+$\partial_{t}K_{t} = -\Delta_{z}K_{t}$ with $K_{0}(z, w) = \delta_{w}(z)$ and admits the spectral
 representation
 \[
-  K_{t}(z,w)=\frac{1}{4\pi}\int_{-\infty}^{\infty}
-  e^{-(1/4+u^{2})t}\,\varphi_{u}\bigl(d(z,w)\bigr)\,u\tanh(\pi u)\,du.
+  K_{t}(z, w) = \frac{1}{4\pi}\int_{-\infty}^{\infty}
+  e^{-(1/4 + u^{2})t}\,\varphi_{u}\bigl(d(z, w)\bigr)\,u \tanh(\pi u)\,du.
 \]
-As $t\to 0^{+}$, $K_{t}(z,w)\sim (4\pi t)^{-1} e^{-d(z,w)^{2}/4t}$; as $t\to\infty$ it decays exponentially.
+As $t \to 0^{+}$, $K_{t}(z, w) \sim (4\pi t)^{-1} e^{-d(z, w)^{2}/4t}$; as $t \to \infty$ it decays exponentially.
 
 \medskip
 
 \noindent\textbf{Wave kernel.}
-Let $\cos(t\sqrt{\Delta-1/4})$ denote the even wave group on $\mathbb{H}$.
+Let $\cos(t\sqrt{\Delta - 1/4})$ denote the even wave group on $\mathbb{H}$.
 Its kernel is
 \[
-  W_{t}(z,w)=\frac{1}{2\pi}\int_{-\infty}^{\infty}
-  \cos(tu)\,\varphi_{u}\bigl(d(z,w)\bigr)\,u\tanh(\pi u)\,du.
+  W_{t}(z, w) = \frac{1}{2\pi}\int_{-\infty}^{\infty}
+  \cos(tu)\,\varphi_{u}\bigl(d(z, w)\bigr)\,u \tanh(\pi u)\,du.
 \]
-For fixed $t\ne 0$ and $d(z,w)\to\infty$, stationary phase yields
+For fixed $t \ne 0$ and $d(z, w) \to \infty$, stationary phase yields
 \[
-  W_{t}(z,w)\ll (1+d(z,w))^{-1/2} e^{-|t|/2}\quad\text{uniformly in }t.
+  W_{t}(z, w) \ll (1 + d(z, w))^{-1/2} e^{-|t|/2} \quad \text{uniformly in } t.
 \]
-This propagation estimate is used when localizing kernels to scales $t\ll \log\lambda$.
+This propagation estimate is used when localizing kernels to scales $t \ll \log \lambda$.
 
 \medskip
 
 \noindent\textbf{Resolvent and Green’s function.}
-For $s\in\mathbb{C}$ with $\Re s>1/2$, define
+For $s \in \mathbb{C}$ with $\mathrm{Re}(s) > 1/2$, define
 \[
-  R(s)=(\Delta-s(1-s))^{-1}.
+  R(s) = (\Delta - s(1 - s))^{-1}.
 \]
 On $\mathbb{H}$
 \[
-  R(s;z,w)=\frac{1}{2\pi}\int_{0}^{\infty}
-  \frac{\varphi_{u}\bigl(d(z,w)\bigr)}{u^{2}+s(1-s)-1/4}\,u\tanh(\pi u)\,du,
+  R(s; z, w) = \frac{1}{2\pi}\int_{0}^{\infty}
+  \frac{\varphi_{u}\bigl(d(z, w)\bigr)}{u^{2} + s(1 - s) - 1/4}\,u \tanh(\pi u)\,du,
 \]
-and $R(s;z,w)$ extends meromorphically in $s$.
+and $R(s; z, w)$ extends meromorphically in $s$.
 
 \medskip
 
 \noindent\textbf{Quotients and kernel summation.}
-On $M=\Gamma\backslash\mathbb{H}$, invariant kernels are obtained by
+On $M = \Gamma \backslash \mathbb{H}$, invariant kernels are obtained by
 Poincaré series
 \[
-  K^{\Gamma}(z,w)=\sum_{\gamma\in\Gamma} K(z,\gamma w),
+  K^{\Gamma}(z, w) = \sum_{\gamma \in \Gamma} K(z, \gamma w),
 \]
 whenever the sum converges absolutely (or via analytic continuation).
 The separation lemma and exponential decay of $\varphi_{u}(r)$ ensure convergence for the
-heat kernel for $t>0$, and for compactly supported wave packets.
+heat kernel for $t > 0$, and for compactly supported wave packets.
 
 \medskip
 
 \noindent\textbf{Sobolev inequalities (model statement).}
-For $f\in H^{2}(M)$ one has
+For $f \in H^{2}(M)$ one has
 \[
-  \|f\|_{L^{\infty}(M)}\ \ll\ C_{\mathrm{Sob}}(M)\,\|f\|_{H^{2}(M)},
+  \|f\|_{L^{\infty}(M)} \ll C_{\mathrm{Sob}}(M)\,\|f\|_{H^{2}(M)},
 \]
 with $C_{\mathrm{Sob}}(M)$ depending only on a lower bound for the injectivity radius on a fixed compact core and on cusp data (via Lemma~\ref{lem:inj-cusp}). Exact constants are tracked in Appendix~B.
 
 \medskip
 
 \noindent\textbf{Geodesic flow.}
-The geodesic flow on $T^{1}M$ is Anosov; it is mixing w.r.t.\ the Liouville measure.
+The geodesic flow on $T^{1}M$ is Anosov; it is mixing with respect to the Liouville measure.
 We record two consequences used later:
 (i) uniform distribution of long closed geodesics along their axes,
 (ii) decay of correlations for smooth observables,
@@ -314,9 +320,9 @@ Denote by $g$ its genus, by $n$ the number of cusps, and by
 $\{e_{j}\}$ the orders of elliptic points (cone points).
 Then
 \[
-  \vol(M)=2\pi\Bigl(2g-2+n+\sum_{j}(1-1/e_{j})\Bigr).
+  \mathrm{vol}(M) = 2\pi\left(2g - 2 + n + \sum_{j}(1 - 1/e_{j})\right).
 \]
-In particular, for torsion-free $\Gamma$ one has $\vol(M)=2\pi(2g-2+n)$.
+In particular, for torsion-free $\Gamma$ one has $\mathrm{vol}(M) = 2\pi(2g - 2 + n)$.
 
 \medskip
 
@@ -334,11 +340,11 @@ The geometric material above feeds the analytic chapters as follows:
 \begin{itemize}
   \item \emph{Chapter 3 (Truncated kernels).} Height truncation $M(Y)$, explicit boundary lengths, and separation lemma
         justify absolute convergence of Poincaré series for truncated kernels and control remainders near the boundary.
-  \item \emph{Chapter 4 (Spectral projector).} Lower bounds for $\inj$ and Sobolev constants yield
+  \item \emph{Chapter 4 (Spectral projector).} Lower bounds for $\mathrm{inj}$ and Sobolev constants yield
         operator norm bounds and commutator estimates with smoothed truncations.
   \item \emph{Chapter 5 (Microlocal analysis).} Wave kernel asymptotics
         and spherical function expansions match the semiclassical parametrix;
-        propagation scale $T\asymp \log\lambda$ is geometrically natural because of exponential volume growth.
+        propagation scale $T \asymp \log \lambda$ is geometrically natural because of exponential volume growth.
   \item \emph{Chapter 6 (Geometric expansion).} Hyperbolic/elliptic/parabolic classifications, collar lemma,
         and explicit length/volume formulas enter orbital integrals and the organization of conjugacy classes.
 \end{itemize}
@@ -347,17 +353,17 @@ The geometric material above feeds the analytic chapters as follows:
 
 \noindent\textbf{Internal consistency checks (Geometry block audit).}
 \begin{itemize}
-  \item Distances, isometries, and classification agree with $PSL_{2}(\mathbb{R})$ conventions used in the Selberg transform.
+  \item Distances, isometries, and classification agree with $\mathrm{PSL}_{2}(\mathbb{R})$ conventions used in the Selberg transform.
   \item Cusp widths $w_{\mathfrak{a}}$ and scaling matrices $\sigma_{\mathfrak{a}}$ are fixed once and for all;
         all cusp-dependent constants in later chapters are functions only of $\{w_{\mathfrak{a}}\}$.
   \item Exact identities:
-        $\vol(\pi(C_{\mathfrak{a}})\setminus\pi(C_{\mathfrak{a}}(Y)))=w_{\mathfrak{a}}/Y$
-        and $\operatorname{length}(\partial \pi(C_{\mathfrak{a}}(Y)))=w_{\mathfrak{a}}/Y$
+        $\mathrm{vol}(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))) = w_{\mathfrak{a}}/Y$
+        and $\mathrm{length}(\partial \pi(C_{\mathfrak{a}}(Y))) = w_{\mathfrak{a}}/Y$
         are recorded for subsequent use.
   \item Lemma~\ref{lem:inj-cusp} pins down the injectivity radius in cusps with explicit dependence on $Y$.
   \item Kernel formulas (heat, wave, resolvent) are stated with the same spectral measure
-        that appears in the Selberg/Harish–Chandra transform in the next block.
-  \item No dependence on later localization parameters $(\lambda,\eta)$ is introduced in this block.
+        that appears in the Selberg/Harish--Chandra transform in the next block.
+  \item No dependence on later localization parameters $(\lambda, \eta)$ is introduced in this block.
 \end{itemize}
 
 \medskip
@@ -365,6 +371,6 @@ The geometric material above feeds the analytic chapters as follows:
 \noindent\textbf{Conclusion.}
 This completes the geometry block for the preliminaries.
 It fixes the global normalizations and the local cusp and collar models that
-will be used uniformly in Chapters~3–7.
+will be used uniformly in Chapters~3--7.
 All statements are classical and appear here with explicit constants and
 dependencies to ensure reproducibility of later error estimates.
