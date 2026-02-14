@@ -25,7 +25,7 @@ The corresponding $\mathbb{H}$-kernel is
 \]
 This kernel satisfies $\Gamma$-invariance:
 \[
-  k(\gamma z,\gamma w) = k(z,w), \qquad \forall \gamma\in PSL_{2}(\mathbb{R}).
+  k(\gamma z,\gamma w) = k(z,w), \qquad \forall \gamma\in \mathrm{PSL}_{2}(\mathbb{R}).
 \]
 
 \medskip
@@ -51,7 +51,7 @@ and define
   K_{Y}(z,w) = \sum_{\gamma\in\Gamma} q(d(z,\gamma w))\,
   \Lambda^{Y}_{\mathrm{sm}}(z)\,\Lambda^{Y}_{\mathrm{sm}}(w).
 \end{equation}
-Thus $K_{Y}$ is supported on the truncated surface $M(Y)$,
+Thus $K_{Y}$ is supported on the truncated surface $M(Y)$ (up to the smoothing scale),
 and inherits improved integrability.
 
 \medskip
@@ -61,7 +61,7 @@ and inherits improved integrability.
   \item \emph{Smoothness:} Since $q$ is smooth and compactly supported, 
   $K_{Y}(z,w)$ is smooth in both variables. 
   \item \emph{$\Gamma$-invariance:} The sum runs over $\Gamma$ and $\Lambda^{Y}_{\mathrm{sm}}$ is $\Gamma$-equivariant. 
-  \item \emph{Local support:} For fixed $z$, the support of $K_{Y}(z,\cdot)$ is contained in a ball of radius $\supp(q)$. 
+  \item \emph{Local support:} For fixed $z$, the support of $K_{Y}(z,\cdot)$ is contained in a union of balls of radius $\mathrm{supp}(q)$. 
   \item \emph{Self-adjointness:} If $h(t)$ is real-valued, then $K_{Y}$ defines a self-adjoint operator on $L^{2}(M)$. 
 \end{itemize}
 
@@ -87,16 +87,16 @@ we obtain
 \[
   K_{Y}(z,w) = \frac{1}{4\pi}\int_{-\infty}^{\infty}
   h(t)\,\Bigg(\sum_{\gamma\in\Gamma}\varphi_{t}(d(z,\gamma w))\Bigg)\,
-  t\tanh(\pi t)\,dt,
+  t\tanh(\pi t)\,dt \cdot \Lambda^{Y}_{\mathrm{sm}}(z)\Lambda^{Y}_{\mathrm{sm}}(w),
 \]
-with truncation restricting $z,w\in M(Y)$.
+with truncation restricting the effective range of $z,w$ to $M(Y)$.
 This shows $K_{Y}$ as a spectral multiplier with cutoff.
 
 \medskip
 
 \noindent\textbf{Local finiteness.}
 Because $q$ has compact support, for fixed $z,w$ only finitely many $\gamma$ contribute:
-if $\supp(q)\subset[0,R]$, then only $\gamma$ with $d(z,\gamma w)\le R$ matter.
+if $\mathrm{supp}(q)\subset[0,R]$, then only $\gamma$ with $d(z,\gamma w)\le R$ matter.
 Hence the series in \eqref{eq:KY-def} is pointwise finite.
 
 \medskip
@@ -124,13 +124,13 @@ For $z,w\in M(Y)$,
 \[
   |K(z,w)-K_{Y}(z,w)| \ll Y^{-1}\|q\|_{C^{2}}.
 \]
-Hence $K_{Y}\to K$ as $Y\to\infty$ at polynomial rate.
+Hence $K_{Y}\to K$ as $Y\to\infty$ at a polynomial rate.
 
 \medskip
 
 \noindent\textbf{Connections and forward links.}
 \begin{itemize}
-  \item To Chapter~2: all constants depend explicitly on $\Gamma$, cusp widths, and $\beta$ (spectral gap). 
+  \item To Chapter~2: all constants depend explicitly on $\Gamma$, cusp widths, and the spectral gap. 
   \item To Chapter~4: $K_{Y}$ will be used in proving approximate idempotence. 
   \item To Chapter~5: $K_{Y}$ serves as microlocal input for stationary phase analysis. 
   \item To Chapter~6: $K_{Y}$ provides the geometric kernel for orbital integrals. 
@@ -212,8 +212,8 @@ Define
 By Schur’s test,
 \[
   \|K_{Y}\|_{L^{2}\to L^{2}}^{2}
-  \le \Big(\sup_{z\in M(Y)}\int |K_{Y}(z,w)|\,d\mu(w)\Big)\,
-       \Big(\sup_{w\in M(Y)}\int |K_{Y}(z,w)|\,d\mu(z)\Big).
+  \le \left(\sup_{z\in M(Y)}\int_{M(Y)} |K_{Y}(z,w)|\,d\mu(w)\right)\,
+       \left(\sup_{w\in M(Y)}\int_{M(Y)} |K_{Y}(z,w)|\,d\mu(z)\right).
 \]
 Both suprema are finite, since $q$ is compactly supported.
 Therefore $K_{Y}$ is a bounded operator on $L^{2}(M)$.
@@ -245,13 +245,13 @@ and only those with $d(z,\gamma w)\le R$ contribute.
 
 \noindent\textbf{Geometric localization.}
 Fix $z\in\mathcal{F}$.
-Then the support of $K_{Y}(z,\cdot)$ is contained in $B(z,R)/\Gamma$.
+Then the support of $K_{Y}(z,\cdot)$ is contained in the projection $B(z,R)/\Gamma$.
 Thus $K_{Y}$ is effectively localized to a hyperbolic ball of radius $R$.
 
 \medskip
 
 \noindent\textbf{Estimates via injectivity radius.}
-Let $\epsilon=\inf_{z\in M(Y)}\inj(z)$.
+Let $\epsilon = \inf_{z\in M(Y)}\mathrm{inj}(z)$.
 Then
 \[
   |K_{Y}(z,w)| \ll \frac{e^{R}}{\epsilon^{2}}\,\|q\|_{\infty}.
@@ -280,7 +280,7 @@ Spectral expansion of $K_{Y}$ reads:
   + \frac{1}{4\pi}\int_{-\infty}^{\infty} h(t) E(z,1/2+it)\overline{E(w,1/2+it)}\,dt
   + \mathrm{Err}(Y),
 \]
-with $\mathrm{Err}(Y)\ll Y^{-1}$ from truncation.
+where $\mathrm{Err}(Y)\ll Y^{-1}$ from truncation.
 This expresses $K_{Y}$ as a spectral multiplier with controlled cusp error.
 
 \medskip
@@ -349,6 +349,8 @@ These localization properties are crucial for the microlocal stationary phase an
 and for the orbital integrals in Chapter~6.
 We emphasize geometric localization, injectivity radius effects, and Sobolev continuity.
 
+
+
 \medskip
 
 \noindent\textbf{Support of $q(r)$.}
@@ -368,7 +370,7 @@ Therefore
 Fix $z\in M(Y)$.
 Then
 \[
-  \supp K_{Y}(z,\cdot) \subset B(z,R)/\Gamma,
+  \mathrm{supp}(K_{Y}(z,\cdot)) \subset B(z,R)/\Gamma,
 \]
 the projection of the hyperbolic ball of radius $R$ centered at $z$.
 Thus $K_{Y}$ acts locally, with support radius controlled entirely by $R$.
@@ -385,7 +387,7 @@ Consequently,
 \medskip
 
 \noindent\textbf{Injectivity radius refinement.}
-Let $\epsilon = \inf_{z\in M(Y)}\inj(z)$.
+Let $\epsilon = \inf_{z\in M(Y)}\mathrm{inj}(z)$.
 Then
 \[
   |K_{Y}(z,w)| \ll \frac{e^{R}}{\epsilon^{2}}\,\|q\|_{\infty}.
@@ -398,16 +400,16 @@ the kernel magnitude increases accordingly.
 \begin{lemma}[Support bound]\label{lem:support-bound}
 Let $q$ be supported in $[0,R]$. Then for $z,w\in M(Y)$,
 \[
-  K_{Y}(z,w)\neq 0 \;\Rightarrow\; d(z,w)\le R.
+  K_{Y}(z,w)\neq 0 \;\Rightarrow\; \exists \gamma \text{ s.t. } d(z,\gamma w)\le R.
 \]
-Moreover,
+Moreover, the effective diameter of the support satisfies
 \[
-  \diam(\supp K_{Y})\le R.
+  \mathrm{diam}(\mathrm{supp}(K_{Y})) \le R.
 \]
 \end{lemma}
 
 \begin{proof}
-Immediate from the definition of $k(z,w)$ and compact support of $q$.
+Immediate from the definition of $k(z,w)$ and the compact support of $q$.
 \end{proof}
 
 \medskip
@@ -421,7 +423,7 @@ For fixed $z\in M(Y)$,
 
 \begin{proof}
 Only $\gamma$ with $\gamma w\in B(z,R)$ contribute,
-and there are $O(e^{R})$ such $\gamma$.
+and there are $O(e^{R})$ such $\gamma$ by the lattice point theorem.
 \end{proof}
 
 \medskip
@@ -430,8 +432,9 @@ and there are $O(e^{R})$ such $\gamma$.
 Let $f\in H^{s}(M)$.
 Then
 \[
-  (K_{Y}f)(z) = \int_{B(z,R)} K_{Y}(z,w)f(w)\,d\mu(w).
+  (K_{Y}f)(z) = \int_{M} K_{Y}(z,w)f(w)\,d\mu(w).
 \]
+Due to the support of $K_Y$, the integral is effectively over $B(z,R)/\Gamma$.
 Thus $K_{Y}$ depends only on the values of $f$ in a neighborhood of radius $R$,
 showing strong localization.
 
@@ -447,7 +450,7 @@ This analogy is central to the semiclassical viewpoint of Chapter~5.
 \noindent\textbf{Exponential volume growth.}
 The hyperbolic ball $B(z,R)$ has volume
 \[
-  \vol(B(z,R)) = 2\pi(\cosh R - 1).
+  \mathrm{vol}(B(z,R)) = 2\pi(\cosh R - 1).
 \]
 Therefore, the support of $K_{Y}(z,\cdot)$ has area $O(e^{R})$.
 
@@ -463,10 +466,10 @@ where exponential growth is governed by $\cosh R$.
 \medskip
 
 \noindent\textbf{Truncation and cusps.}
-Since $z,w\in M(Y)$, both coordinates satisfy $\Im(z),\Im(w)\le Y$.
+Since $z,w\in M(Y)$, both coordinates satisfy $\mathrm{Im}(z),\mathrm{Im}(w)\le Y$ (in cusp coordinates).
 If $d(z,w)\le R$, then
 \[
-  \min(\Im(z),\Im(w)) \le e^{R}Y.
+  \max(\mathrm{Im}(z),\mathrm{Im}(w)) \le e^{R}Y.
 \]
 This bound links truncation height and geometric distance,
 relevant for controlling cusp contributions in Chapter~6.
@@ -475,7 +478,7 @@ relevant for controlling cusp contributions in Chapter~6.
 
 \begin{lemma}[Support stability]\label{lem:support-stability}
 The support of $K_{Y}(z,\cdot)$ is independent of $Y$,
-up to enlargement by a factor $e^{R}$.
+up to enlargement by a factor $e^{R}$ near the boundary.
 \end{lemma}
 
 \begin{proof}
@@ -483,7 +486,7 @@ Truncation excludes points with $y>Y$,
 but if $d(z,w)\le R$ and $z,w\in M(Y)$,
 then support control remains unchanged,
 except at the boundary $y=Y$,
-which enlarges by at most $e^{R}$ in hyperbolic distance.
+which enlarges by at most $e^{R}$ in hyperbolic distance coordinates.
 \end{proof}
 
 \medskip
@@ -492,9 +495,9 @@ which enlarges by at most $e^{R}$ in hyperbolic distance.
 Let $\chi\in C_{c}^{\infty}(M)$ be a cutoff supported in a ball of radius $\rho<R$.
 Then
 \[
-  \chi K_{Y}\chi = K_{Y}^{\rho},
+  \chi K_{Y}\chi = K_{Y}^{\rho}
 \]
-an operator localized to $d(z,w)\le \rho$,
+is an operator localized to $d(z,w)\le \rho$,
 useful for microlocal partition of unity.
 
 \medskip
@@ -580,11 +583,11 @@ For $z,w\in M(Y)$,
   |K_{Y}(z,w)| \le C(\Gamma,R)\,\|q\|_{\infty},
 \]
 where $C(\Gamma,R)$ depends polynomially on $e^{R}$
-and inversely on $\inj(M(Y))$.
+and inversely on $\mathrm{inj}(M(Y))$.
 \end{lemma}
 
 \begin{proof}
-By local finiteness: only $O(e^{R}/\inj(M(Y))^{2})$ orbit points contribute,
+By local finiteness: only $O(e^{R}/\mathrm{inj}(M(Y))^{2})$ orbit points contribute,
 each bounded by $\|q\|_{\infty}$.
 \end{proof}
 
@@ -603,8 +606,8 @@ By Schur’s test,
 
 \medskip
 
-\begin{lemma}[Hilbert–Schmidt norm]\label{lem:HS-norm}
-The Hilbert–Schmidt norm satisfies
+\begin{lemma}[Hilbert--Schmidt norm]\label{lem:HS-norm}
+The Hilbert--Schmidt norm satisfies
 \[
   \|K_{Y}\|_{HS}^{2}
   = \iint_{M(Y)\times M(Y)} |K_{Y}(z,w)|^{2}\,d\mu(z)\,d\mu(w)
@@ -613,9 +616,9 @@ The Hilbert–Schmidt norm satisfies
 \end{lemma}
 
 \begin{proof}
-The kernel is supported in $\{d(z,w)\le R\}$,
-with volume $O_{\Gamma}(e^{R})$,
-and bounded by $\|q\|_{\infty}$.
+The kernel is supported in a strip near the diagonal $\{d(z,\gamma w)\le R\}$,
+with effective volume $O_{\Gamma}(e^{R})$,
+and values bounded by $\|q\|_{\infty}$.
 \end{proof}
 
 \medskip
@@ -639,7 +642,7 @@ with norm depending explicitly on $\|q\|_{C^{s}}$ and $e^{R}$.
 \end{lemma}
 
 \begin{proof}
-$K_{Y}$ is smooth and compactly supported,
+$K_{Y}$ is smooth and compactly supported (in terms of $q$),
 so derivatives pass under the integral sign,
 yielding Sobolev stability.
 \end{proof}
@@ -647,14 +650,14 @@ yielding Sobolev stability.
 \medskip
 
 \noindent\textbf{Dependence on truncation $Y$.}
-The difference $K(z,w)-K_{Y}(z,w)$ is supported in cusp regions with $y>Y$.
+The difference $K(z,w)-K_{Y}(z,w)$ is supported in cusp regions with $y>Y$ (or near the boundary).
 By Chapter~2 estimates,
 \[
   |K(z,w)-K_{Y}(z,w)| \ll Y^{-1}\|q\|_{C^{2}}.
 \]
 Thus
 \[
-  \|K-K_{Y}\|_{HS} \ll Y^{-1}.
+  \|K-K_{Y}\|_{HS} \ll Y^{-1/2}.
 \]
 Hence $K_{Y}\to K$ as $Y\to\infty$ at a polynomial rate.
 
@@ -701,7 +704,7 @@ These estimates enter directly into:
 \noindent\textbf{Audit: Block 3.4.}
 \begin{itemize}
   \item[(A1)] Pointwise $L^{\infty}$ bounds (Lemma~\ref{lem:K-Y-Linfty}) proved. 
-  \item[(A2)] Hilbert–Schmidt norm bounded (Lemma~\ref{lem:HS-norm}). 
+  \item[(A2)] Hilbert--Schmidt norm bounded (Lemma~\ref{lem:HS-norm}). 
   \item[(A3)] Sobolev continuity established (Lemma~\ref{lem:sobolev-continuity}). 
   \item[(A4)] Truncation error quantified (Lemma~\ref{lem:truncation-error}). 
   \item[(A5)] Explicit dependence on $\Gamma,R,Y$ made precise. 
@@ -757,7 +760,7 @@ ensuring reproducibility and consistency throughout the monograph.
   \item[(G1)] Define the truncated kernel $K_{Y}(z,w)$ rigorously, incorporating the smoothed truncation operator $\Lambda^{Y}_{\mathrm{sm}}$ from Chapter~2.
   \item[(G2)] Represent $K_{Y}$ as a geometric sum over $\Gamma$, with convergence justified by compact support of $q$ and hyperbolic lattice point bounds.
   \item[(G3)] Establish support and localization control for $K_{Y}$, with explicit dependence on the support radius $R$ and injectivity radius of $M(Y)$.
-  \item[(G4)] Derive a priori estimates: pointwise $L^{\infty}$ bounds, Hilbert–Schmidt norm bounds, Sobolev continuity, and truncation error bounds.
+  \item[(G4)] Derive a priori estimates: pointwise $L^{\infty}$ bounds, Hilbert--Schmidt norm bounds, Sobolev continuity, and truncation error bounds.
   \item[(G5)] Prepare $K_{Y}$ as a building block for spectral projectors (Chapter~4), microlocal stationary phase analysis (Chapter~5), and orbital integrals (Chapter~6).
 \end{itemize}
 Each of these goals has been addressed and met in Blocks~3.1–3.4.
@@ -766,10 +769,10 @@ Each of these goals has been addressed and met in Blocks~3.1–3.4.
 
 \noindent\textbf{Invariants (I).}
 \begin{itemize}
-  \item[(I1)] \emph{Dependence on data:} All constants are stated to depend only on $\Gamma$, cusp widths, the support radius $R$, and the injectivity radius $\inj(M(Y))$.
+  \item[(I1)] \emph{Dependence on data:} All constants are stated to depend only on $\Gamma$, cusp widths, the support radius $R$, and the injectivity radius $\mathrm{inj}(M(Y))$.
   \item[(I2)] \emph{Spectral compatibility:} The operator $K_{Y}$ acts as a multiplier $h(t)$ on eigenfunctions, consistent with the Selberg transform formalism (Chapter~2B).
   \item[(I3)] \emph{Localization:} The support of $K_{Y}(z,\cdot)$ is confined to $d(z,w)\le R$, independent of the truncation height $Y$, up to exponentially small effects near the cusp boundary.
-  \item[(I4)] \emph{Truncation error:} Quantified explicitly as $O(Y^{-1})$ in Hilbert–Schmidt norm and $O(e^{-cY})$ in spectral action.
+  \item[(I4)] \emph{Truncation error:} Quantified explicitly as $O(Y^{-1})$ in Hilbert--Schmidt norm and $O(e^{-cY})$ in spectral action.
   \item[(I5)] \emph{Regularity:} Derivatives of $K_{Y}$ are bounded in terms of derivatives of $q$, ensuring Sobolev continuity.
   \item[(I6)] \emph{Self-adjointness:} If $h$ is real-valued, $K_{Y}$ is self-adjoint on $L^{2}(M)$.
 \end{itemize}
