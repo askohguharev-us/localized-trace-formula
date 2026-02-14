@@ -8,7 +8,7 @@ In this block we recall the precise structure of cuspidal regions
 of the finite-area hyperbolic surface
 \[
   M = \Gamma \backslash \mathbb{H}, \qquad 
-  \Gamma \subset PSL_{2}(\mathbb{R})
+  \Gamma \subset \mathrm{PSL}_{2}(\mathbb{R})
 \]
 and fix the notational conventions that will be used throughout
 for truncations, coordinates, and scaling matrices. 
@@ -38,7 +38,7 @@ element of $\Gamma$.
 \noindent
 \textbf{Scaling matrices.}
 For each cusp $\mathfrak{a}$ we choose a scaling matrix
-$\sigma_{\mathfrak{a}} \in PSL_{2}(\mathbb{R})$ satisfying
+$\sigma_{\mathfrak{a}} \in \mathrm{PSL}_{2}(\mathbb{R})$ satisfying
 \[
   \sigma_{\mathfrak{a}}(\infty) = \mathfrak{a},
   \qquad
@@ -190,7 +190,7 @@ It represents the tail of the cusp above height $Y$.
 \textbf{Truncated surface.}
 The truncated surface at height $Y$ is defined as
 \[
-  M(Y) \;=\; M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y)).
+  M(Y) = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y)).
 \]
 For $Y$ sufficiently large, the sets $\pi(C_{\mathfrak{a}}(Y))$
 are disjoint, hence $M(Y)$ is compact with geodesic boundary.
@@ -212,7 +212,7 @@ Both uses rely on the explicit volume formulas given below.
 Let $\mu(z)=dx\,dy/y^{2}$ denote the hyperbolic area element.
 For $0<Y_{1}<Y_{2}$ we compute
 \[
-  \vol\!\left(
+  \mathrm{vol}\!\left(
     \sigma_{\mathfrak{a}}
       \{ x+iy : 0\le x < w_{\mathfrak{a}},\ Y_{1} \le y \le Y_{2} \}
   \right)
@@ -222,7 +222,7 @@ For $0<Y_{1}<Y_{2}$ we compute
 \]
 Letting $Y_{2}\to\infty$, we obtain
 \[
-  \vol\big(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))\big)
+  \mathrm{vol}\big(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))\big)
   = \frac{w_{\mathfrak{a}}}{Y}.
 \]
 Thus the contribution of the cusp tail decreases linearly with $1/Y$.
@@ -233,7 +233,7 @@ Thus the contribution of the cusp tail decreases linearly with $1/Y$.
 The boundary of $\pi(C_{\mathfrak{a}}(Y))$ is a horocycle at height $Y$.
 Its length is
 \[
-  \operatorname{length}\big(\partial \pi(C_{\mathfrak{a}}(Y))\big)
+  \mathrm{length}\big(\partial \pi(C_{\mathfrak{a}}(Y))\big)
   = \int_{0}^{w_{\mathfrak{a}}} \frac{dx}{Y}
   = \frac{w_{\mathfrak{a}}}{Y}.
 \]
@@ -243,9 +243,9 @@ Its length is
 \textbf{Global sums over cusps.}
 Summing over all cusps, we obtain
 \[
-  \vol(M \setminus M(Y)) \;=\; \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y},
+  \mathrm{vol}(M \setminus M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y},
   \qquad
-  \operatorname{length}(\partial M(Y)) \;=\; \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y}.
+  \mathrm{length}(\partial M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y}.
 \]
 These formulas will serve as input in Chapter~6 for bounding
 parabolic contributions to the geometric expansion.
@@ -254,14 +254,14 @@ parabolic contributions to the geometric expansion.
 There exists a constant $C_{\Gamma}>0$ depending only on cusp widths
 such that
 \[
-  \vol(M \setminus M(Y)) \le \frac{C_{\Gamma}}{Y}, \qquad Y \ge 1.
+  \mathrm{vol}(M \setminus M(Y)) \le \frac{C_{\Gamma}}{Y}, \qquad Y \ge 1.
 \]
 \end{lemma}
 
 \begin{proof}
 The formula above shows that
 \[
-  \vol(M \setminus M(Y)) = \sum_{\mathfrak{a}} w_{\mathfrak{a}} / Y.
+  \mathrm{vol}(M \setminus M(Y)) = \sum_{\mathfrak{a}} w_{\mathfrak{a}} / Y.
 \]
 Setting $C_{\Gamma} = \sum_{\mathfrak{a}} w_{\mathfrak{a}}$ proves the claim.
 \end{proof}
@@ -277,13 +277,13 @@ At height $y$, the hyperbolic displacement is
 \]
 Hence
 \[
-  \inj(z) \asymp \min\{1,\ w_{\mathfrak{a}}/y\}.
+  \mathrm{inj}(z) \asymp \min\{1,\ w_{\mathfrak{a}}/y\}.
 \]
 
 \begin{lemma}[Lower bound for injectivity radius in cusps]
 There exists $c>0$ such that for all $z \in \pi(C_{\mathfrak{a}}(Y))$,
 \[
-  \inj(z) \;\ge\; c \cdot \min\{1, Y^{-1}\}.
+  \mathrm{inj}(z) \ge c \cdot \min\{1, Y^{-1}\}.
 \]
 \end{lemma}
 
@@ -380,7 +380,7 @@ Then $\eta_{Y}$ is supported in $[0,2Y]$ and equals $1$ on $[0,Y]$.
 Define the smoothed truncation operator
 \[
   (\Lambda^{Y}_{\mathrm{sm}} f)(z)
-  = \eta_{Y}(\Im(\sigma_{\mathfrak{a}}^{-1} z)) \, f(z),
+  = \eta_{Y}(\mathrm{Im}(\sigma_{\mathfrak{a}}^{-1} z)) \, f(z),
 \]
 for $z$ in cusp coordinates attached to $\mathfrak{a}$,
 and set $\Lambda^{Y}_{\mathrm{sm}} f(z)=f(z)$ elsewhere.
@@ -407,7 +407,7 @@ onto eigenvalues in $[\lambda-\eta,\lambda+\eta]$.
 Then
 \[
   \big\| [\Lambda^{Y}_{\mathrm{sm}}, P_{\lambda,\eta}] \big\|_{L^{2}\to L^{2}}
-  \;\le\; C_{\Gamma} \,\frac{\lambda^{1/2}}{Y},
+  \le C_{\Gamma} \,\frac{\lambda^{1/2}}{Y},
 \]
 for some constant $C_{\Gamma}$ depending only on cusp data.
 This bound will be proved in Chapter~4 using Egorov’s theorem and semiclassical
@@ -508,10 +508,10 @@ the Eisenstein series is
 \[
   E_{\mathfrak{a}}(z,s)
   = \sum_{\gamma \in \Gamma_{\mathfrak{a}}\backslash\Gamma}
-    \Im(\sigma_{\mathfrak{a}}^{-1}\gamma z)^{s}, \qquad \Re(s)>1.
+    \mathrm{Im}(\sigma_{\mathfrak{a}}^{-1}\gamma z)^{s}, \qquad \mathrm{Re}(s)>1.
 \]
 This series converges absolutely and uniformly on compact subsets
-for $\Re(s)>1$ and extends meromorphically to $\mathbb{C}$,
+for $\mathrm{Re}(s)>1$ and extends meromorphically to $\mathbb{C}$,
 with functional equation $s \mapsto 1-s$.
 
 \medskip
@@ -540,7 +540,7 @@ Here:
 \textbf{Scattering matrix.}
 The collection of coefficients $\varphi_{\mathfrak{a}\mathfrak{b}}(s)$
 forms the scattering matrix $\Phi(s)$.
-It is unitary on the critical line $\Re(s)=1/2$ and satisfies
+It is unitary on the critical line $\mathrm{Re}(s)=1/2$ and satisfies
 $\Phi(s)\Phi(1-s)=I$.
 Its determinant admits the functional equation
 \[
@@ -552,12 +552,12 @@ Its determinant admits the functional equation
 \textbf{Maass–Selberg relations.}
 Let $E_{\mathfrak{a}}(z,s)$ and $E_{\mathfrak{b}}(z,\bar{s})$ be Eisenstein
 series attached to cusps $\mathfrak{a},\mathfrak{b}$.
-For $\Re(s)=1/2$,
+For $\mathrm{Re}(s)=1/2$,
 \[
   \langle \Lambda^{Y} E_{\mathfrak{a}}(\cdot,s),\,
           \Lambda^{Y} E_{\mathfrak{b}}(\cdot,\bar{s}) \rangle
   = \delta_{\mathfrak{a}\mathfrak{b}} \,\log Y
-    + \Re\!\left(\frac{\varphi'_{\mathfrak{a}\mathfrak{b}}}{\varphi_{\mathfrak{a}\mathfrak{b}}}(s)\right)
+    + \mathrm{Re}\!\left(\frac{\varphi'_{\mathfrak{a}\mathfrak{b}}}{\varphi_{\mathfrak{a}\mathfrak{b}}}(s)\right)
     + O(Y^{-1}),
 \]
 where the error arises from tail integrals as in Lemma~\ref{lem:tail-integral}.
