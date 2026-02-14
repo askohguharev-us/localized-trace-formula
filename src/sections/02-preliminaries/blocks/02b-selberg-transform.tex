@@ -15,28 +15,30 @@ of the Selberg trace formula and its localized refinements.
 \subsection{Radial kernels and spherical functions}
 
 Let $\mathbb{H} = \{z = x+iy \in \mathbb{C} : y>0\}$ be the upper half-plane
-with the hyperbolic metric $ds^2 = y^{-2}(dx^2+dy^2)$
+with the hyperbolic metric $ds^{2} = y^{-2}(dx^{2}+dy^{2})$
 and Laplacian
 \[
-  \Delta \;=\; -y^2\!\left(\frac{\partial^2}{\partial x^2}
-  + \frac{\partial^2}{\partial y^2}\right).
+  \Delta = -y^{2}\left(\frac{\partial^{2}}{\partial x^{2}}
+  + \frac{\partial^{2}}{\partial y^{2}}\right).
 \]
 
 For $r \in \mathbb{R}$,
-define the \emph{spherical function} $\varphi_r$
+define the \emph{spherical function} $\varphi_{r}$
 as the unique radial eigenfunction of $\Delta$ on $\mathbb{H}$ satisfying
 \[
-  \Delta \varphi_r \;=\; \Bigl(\tfrac{1}{4}+r^2\Bigr)\varphi_r,
-  \qquad \varphi_r(0) = 1,
+  \Delta \varphi_{r} = \left(\tfrac{1}{4}+r^{2}\right)\varphi_{r},
+  \qquad \varphi_{r}(i) = 1,
 \]
-where radial means $\varphi_r(z)$ depends only on the hyperbolic distance $d(z,i)$.
+where radial means $\varphi_{r}(z)$ depends only on the hyperbolic distance $d(z,i)$.
 
-Explicitly, one has
+Explicitly, one has the representation via the Mehler--Dirichlet formula:
 \[
-  \varphi_r(\cosh u) = \frac{\sin(ru)}{r\sinh u}, \qquad u\ge 0,
+  \varphi_{r}(\cosh u) = \frac{1}{2\pi} \int_{0}^{2\pi} (\cosh u + \sinh u \cos \theta)^{ir-1/2} d\theta,
 \]
-where $u=d(z,i)$.
-These functions form the kernel of the Harish–Chandra transform on $\mathbb{H}$.
+which for $u \ge 0$ behaves like $\frac{\sin(ru)}{r\sinh u}$ in its leading term as $u \to \infty$. 
+These functions form the kernel of the Harish--Chandra transform on $\mathbb{H}$.
+
+
 
 \subsection{Definition of the Selberg transform}
 
@@ -44,12 +46,12 @@ Let $k \colon [0,\infty) \to \mathbb{C}$ be an even, compactly supported,
 or rapidly decaying test function.
 The associated \emph{radial kernel} on $\mathbb{H}$ is
 \[
-  K(z,w) \;=\; k\!\bigl(d(z,w)\bigr).
+  K(z,w) = k\bigl(d(z,w)\bigr).
 \]
 
 The \emph{Selberg transform} of $k$ is defined by
 \[
-  h(r) \;=\; \int_{0}^{\infty} k(u)\,\varphi_r(\cosh u)\,\sinh u\,du.
+  h(r) = \int_{\mathbb{H}} k(d(z,i))\,\varphi_{r}(z)\,d\mu(z) = 2\pi \int_{0}^{\infty} k(u)\,\varphi_{r}(\cosh u)\,\sinh u\,du.
 \]
 This integral converges absolutely if $k$ has sufficient decay.
 It produces an even, holomorphic function $h(r)$
@@ -58,7 +60,7 @@ in a strip around the real axis.
 \begin{remark}
 The normalization ensures that the operator with kernel $K(z,w)$
 acts as a spectral multiplier with eigenvalue $h(r)$
-on Laplace eigenfunctions of eigenvalue $1/4+r^2$.
+on Laplace eigenfunctions of eigenvalue $1/4+r^{2}$.
 \end{remark}
 
 \subsection{Basic analytic properties}
@@ -67,36 +69,36 @@ The transform $k \mapsto h$ enjoys the following properties:
 
 \begin{lemma}[Decay and regularity]
 \label{lem:selberg-decay}
-If $k$ is $C^\infty$ and compactly supported, then $h(r)$
+If $k$ is $C^{\infty}$ and compactly supported, then $h(r)$
 is an entire function of $r$ with rapid decay along horizontal strips.
 If $k$ is only rapidly decaying, then $h(r)$ extends holomorphically
 to a vertical strip and satisfies polynomial bounds outside it.
 \end{lemma}
 
 \begin{proof}
-The integrand $k(u)\varphi_r(\cosh u)\sinh u$ is smooth in $(u,r)$.
+The integrand $k(u)\varphi_{r}(\cosh u)\sinh u$ is smooth in $(u,r)$.
 For compactly supported $k$, one may differentiate under the integral sign
 to obtain holomorphy in $r$.
-Repeated integration by parts against the oscillatory kernel $\sin(ru)$
+Repeated integration by parts against the oscillatory part of the kernel 
 gives rapid decay as $|r|\to\infty$.
 \end{proof}
 
 \begin{lemma}[Plancherel formula]
 \label{lem:selberg-plancherel}
-For radial kernels $k_1,k_2$ with Selberg transforms $h_1,h_2$,
+For radial kernels $k_{1},k_{2}$ with Selberg transforms $h_{1},h_{2}$,
 one has the Plancherel identity
 \[
-  \int_{\mathbb{H}} k_1(d(z,i))\,\overline{k_2(d(z,i))}\,d\mu(z)
-  \;=\; \frac{1}{4\pi} \int_{-\infty}^\infty
-      h_1(r)\,\overline{h_2(r)}\, r\tanh(\pi r)\,dr,
+  \int_{\mathbb{H}} k_{1}(d(z,i))\,\overline{k_{2}(d(z,i))}\,d\mu(z)
+  = \frac{1}{4\pi} \int_{-\infty}^{\infty}
+      h_{1}(r)\,\overline{h_{2}(r)}\, r\tanh(\pi r)\,dr,
 \]
 where $d\mu(z)=y^{-2}dx\,dy$ is the hyperbolic volume measure.
 \end{lemma}
 
 \begin{proof}
 This is the classical spherical Fourier transform on $\mathbb{H}$.
-It follows from the representation theory of $PSL(2,\mathbb{R})$
-or directly from the spectral decomposition of $L^2(\mathbb{H})$.
+It follows from the representation theory of $\mathrm{PSL}(2,\mathbb{R})$
+or directly from the spectral decomposition of $L^{2}(\mathbb{H})$.
 See \cite{Helgason1984, Iwaniec2002}.
 \end{proof}
 
@@ -129,25 +131,25 @@ See \cite{Helgason1984, Iwaniec2002}.
 
 \subsection{Asymptotics of spherical functions}
 
-The spherical functions $\varphi_r$ admit explicit asymptotic expansions,
+The spherical functions $\varphi_{r}$ admit explicit asymptotic expansions,
 which play a central role in stationary phase analysis.
 
 \begin{lemma}[Asymptotic expansion]
-For fixed $r \in \mathbb{R}$, as $u \to \infty$,
+For fixed $r \in \mathbb{R} \setminus \{0\}$, as $u \to \infty$,
 \[
-  \varphi_r(\cosh u) \;=\;
+  \varphi_{r}(\cosh u) =
     c(r) e^{(ir-\tfrac12)u}
-    + c(-r) e^{(-ir-\tfrac12)u},
+    + c(-r) e^{(-ir-\tfrac12)u} + O(e^{-3u/2}),
 \]
 where
 \[
-  c(r) = \frac{\Gamma(ir)}{\Gamma(\tfrac12+ir)}.
+  c(r) = \frac{2^{2ir-1}\Gamma(ir)}{\sqrt{\pi}\Gamma(ir+1/2)}.
 \]
 \end{lemma}
 
 \begin{proof}
 This is a standard consequence of the hypergeometric representation
-$\varphi_r(\cosh u) = {}_2F_{1}(1/2+ir,1/2-ir;1;\!-\sinh^2(u/2))$.
+$\varphi_{r}(\cosh u) = {}_{2}F_{1}(1/2+ir,1/2-ir;1;\!-\sinh^{2}(u/2))$.
 Expanding near infinity yields the stated form.
 See Helgason~\cite{Helgason1984}.
 \end{proof}
@@ -160,25 +162,25 @@ the Plancherel measure $r\tanh(\pi r)\,dr$.
 
 \subsection{Normalization of the Selberg transform}
 
-Different authors use different normalizations for $\varphi_r$ and $h(r)$.
+Different authors use different normalizations for $\varphi_{r}$ and $h(r)$.
 In this monograph we adopt the convention:
 
 \begin{itemize}
-  \item The spectral parameter is $\lambda = \tfrac14 + r^2$, $r\in \mathbb{R}$.
+  \item The spectral parameter is $\lambda = \tfrac14 + r^{2}$, $r\in \mathbb{R}$.
   \item The Plancherel measure is $\tfrac{1}{4\pi} r\tanh(\pi r)\,dr$.
-  \item Spherical functions $\varphi_r$ are normalized by $\varphi_r(0)=1$.
+  \item Spherical functions $\varphi_{r}$ are normalized by $\varphi_{r}(i)=1$.
 \end{itemize}
 
 With this choice, the inversion formula reads
 \[
-  k(u) = \frac{1}{4\pi}\int_{-\infty}^\infty
-          h(r)\,\varphi_r(\cosh u)\,r\tanh(\pi r)\,dr.
+  k(u) = \frac{1}{4\pi}\int_{-\infty}^{\infty}
+          h(r)\,\varphi_{r}(\cosh u)\,r\tanh(\pi r)\,dr.
 \]
 
 \begin{remark}
 This convention is compatible with Iwaniec~\cite{Iwaniec2002},
 Hejhal~\cite{Hejhal1983}, and Buser~\cite{Buser1992}.
-It guarantees consistency across Chapters~3–6,
+It guarantees consistency across Chapters~3--6,
 where spectral projectors and trace formulas rely on identical scaling.
 \end{remark}
 
@@ -187,24 +189,27 @@ where spectral projectors and trace formulas rely on identical scaling.
 \paragraph{(i) Heat kernel.}
 The hyperbolic heat kernel has spectral transform
 \[
-  h_t(r) = e^{-(1/4+r^2)t}, \qquad t>0.
+  h_{t}(r) = e^{-(1/4+r^{2})t}, \qquad t>0.
 \]
-This follows from solving $\partial_t u = -(\Delta-1/4)u$ in the spectral domain.
+This follows from solving $\partial_{t} u = -\Delta u$ in the spectral domain.
 It shows Gaussian decay in $r$, reflecting parabolic smoothing.
+
+
 
 \paragraph{(ii) Wave kernel.}
 The hyperbolic wave kernel corresponds to
 \[
-  h_t(r) = \cos(rt),
+  h_{t}(r) = \frac{\sin(rt)}{r},
 \]
+or $h_{t}(r) = \cos(rt)$ for the wave group $\cos(t\sqrt{\Delta-1/4})$, 
 giving exact unitary propagation in the spectral side.
 On the geometric side, this kernel localizes along geodesic spheres.
 
 \paragraph{(iii) Approximate spectral projectors.}
-Let $\chi\in C_c^\infty(\mathbb{R})$ be even with $\chi(0)=1$.
+Let $\chi\in C_{c}^{\infty}(\mathbb{R})$ be even with $\chi(0)=1$.
 Define
 \[
-  h(r) = \chi\!\left(\frac{r-\lambda}{\eta}\right),
+  h(r) = \chi\!\left(\frac{r-\lambda}{\eta}\right) + \chi\!\left(\frac{r+\lambda}{\eta}\right),
 \]
 for central parameter $\lambda$ and window $\eta$.
 The inverse transform yields kernels oscillating at scale $\log \lambda$.
@@ -216,21 +221,21 @@ These approximate projectors $P_{\lambda,\eta}$ are central in Chapter~4.
 If $k(u)$ is smooth with compact support of radius $R$,
 then for each $N>0$,
 \[
-  h(r) \;\ll_N\; (1+|r|)^{-N}.
+  h(r) \ll_{N} (1+|r|)^{-N} e^{R|\mathrm{Im} r|}.
 \]
 \end{lemma}
 
 \begin{proof}
 Repeated integration by parts in
-$h(r)=\int_0^R k(u)\varphi_r(\cosh u)\sinh u\,du$
-against the oscillatory factor $e^{iru}$ yields the bound.
+$h(r)=2\pi\int_{0}^{R} k(u)\varphi_{r}(\cosh u)\sinh u\,du$
+against the oscillatory factor yields the bound.
 \end{proof}
 
 \begin{lemma}[Exponential support duality]
 If $h(r)$ is supported in $[-T,T]$,
 then $k(u)$ decays exponentially:
 \[
-  k(u) \;\ll\; e^{-Tu}(1+u)^{-1/2}.
+  k(u) \ll e^{-Tu}(1+u)^{-1/2}.
 \]
 \end{lemma}
 
@@ -251,7 +256,7 @@ It follows by stationary phase analysis of the inversion integral.
 \subsection*{Audit of Block 2}
 
 \begin{itemize}
-  \item[(B36)] Asymptotics of $\varphi_r$ fixed, $c$-function recorded.
+  \item[(B36)] Asymptotics of $\varphi_{r}$ fixed, $c$-function recorded.
   \item[(B37)] Normalization conventions declared and compared with literature.
   \item[(B38)] Heat, wave, and projector kernels given as canonical examples.
   \item[(B39)] Decay and Paley--Wiener duality proved.
@@ -266,43 +271,43 @@ It follows by stationary phase analysis of the inversion integral.
 \subsection{Convolution and diagonalization}
 
 \begin{lemma}[Convolution property]
-Let $k_1, k_2$ be radial kernels on $\mathbb{H}$ with transforms $h_1, h_2$.
+Let $k_{1}, k_{2}$ be radial kernels on $\mathbb{H}$ with transforms $h_{1}, h_{2}$.
 Then their convolution
 \[
-  (k_1 * k_2)(u) \;=\; \int_{\mathbb{H}} k_1(d(z,w))\,k_2(d(w,o))\,d\mu(w)
+  (k_{1} * k_{2})(d(z,o)) = \int_{\mathbb{H}} k_{1}(d(z,w))\,k_{2}(d(w,o))\,d\mu(w)
 \]
 has Selberg transform
 \[
-  h_{1*2}(r) = h_1(r)\,h_2(r).
+  h_{1*2}(r) = h_{1}(r)\,h_{2}(r).
 \]
 \end{lemma}
 
 \begin{proof}
-This follows from the fact that spherical functions $\varphi_r$ diagonalize radial convolution operators, just as plane waves diagonalize convolution in Euclidean space. See Helgason~\cite{Helgason1984}.
+This follows from the fact that spherical functions $\varphi_{r}$ diagonalize radial convolution operators, just as plane waves diagonalize convolution in Euclidean space. See Helgason~\cite{Helgason1984}.
 \end{proof}
 
 \begin{remark}
-Thus the Selberg transform provides a complete diagonalization of the algebra of $\Gamma$-invariant radial kernels, exactly analogous to the Fourier transform on $\mathbb{R}^n$.
+Thus the Selberg transform provides a complete diagonalization of the algebra of $\Gamma$-invariant radial kernels, exactly analogous to the Fourier transform on $\mathbb{R}^{n}$.
 \end{remark}
 
 \subsection{Spectral projectors}
 
 Given an admissible cutoff $h(r)$, define the operator
 \[
-  (Kf)(z) = \int_{M} k(d(z,w)) f(w)\,d\mu(w).
+  (Kf)(z) = \int_{M} \sum_{\gamma \in \Gamma} k(d(z,\gamma w)) f(w)\,d\mu(w).
 \]
 On the spectral side,
 \[
-  K \phi_j = h(r_j) \phi_j,
+  K \phi_{j} = h(r_{j}) \phi_{j},
 \]
-for each eigenfunction $\phi_j$ of $\Delta$ with eigenvalue $\tfrac14+r_j^2$.
+for each eigenfunction $\phi_{j}$ of $\Delta$ with eigenvalue $\tfrac{1}{4}+r_{j}^{2}$.
 
 \paragraph{Localized projectors.}
 For $\lambda>0$ and window $\eta>0$, define
 \[
   h(r) = \chi\!\left(\frac{r-\sqrt{\lambda-1/4}}{\eta}\right),
 \]
-with $\chi\in C_c^\infty(\mathbb{R})$ even, $\chi(0)=1$.
+with $\chi\in C_{c}^{\infty}(\mathbb{R})$ even, $\chi(0)=1$.
 Then $K$ acts as an approximate spectral projector $P_{\lambda,\eta}$ onto eigenfunctions with eigenvalues near $\lambda$.
 This construction will be used in Chapter~4 to prove Weyl-type asymptotics.
 
@@ -312,9 +317,9 @@ This construction will be used in Chapter~4 to prove Weyl-type asymptotics.
 Let $k$ be a radial kernel with Selberg transform $h$.
 Then
 \[
-  \sum_j h(r_j)
-  + \frac{1}{4\pi}\int_{-\infty}^\infty h(r)\,d\mu_{\mathrm{cont}}(r)
-  \;=\; \sum_{\{\gamma\}} O_\gamma(k),
+  \sum_{j} h(r_{j})
+  + \frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,d\mu_{\mathrm{cont}}(r)
+  = \sum_{\{\gamma\}} \mathrm{Vol}(\Gamma_{\gamma}\backslash \mathbb{H}_{\gamma}) \int_{\mathbb{H}_{\gamma}\backslash \mathbb{H}} k(d(z,\gamma z)) d\bar{z},
 \]
 where
 \begin{itemize}
@@ -326,10 +331,12 @@ where
 \begin{proof}[Sketch]
 Insert the kernel $k$ into the pre-trace formula
 \[
-  \sum_{\gamma\in \Gamma} k(z,\gamma z) = \sum_j h(r_j)\,|\phi_j(z)|^2 + \frac{1}{4\pi}\int_{-\infty}^\infty h(r)\,|E(z,1/2+ir)|^2 dr.
+  \sum_{\gamma\in \Gamma} k(d(z,\gamma z)) = \sum_{j} h(r_{j})\,|\phi_{j}(z)|^{2} + \frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,|E(z,1/2+ir)|^{2} dr.
 \]
 Integrating over $M$ and interchanging sums/integrals yields the stated identity.
 \end{proof}
+
+
 
 \begin{remark}
 This identity is the backbone of the spectral theory of automorphic forms. It reduces the analysis of eigenvalue distributions to orbital integrals of kernels.
@@ -337,20 +344,20 @@ This identity is the backbone of the spectral theory of automorphic forms. It re
 
 \subsection{Geometric orbital integrals}
 
-The orbital integrals $O_\gamma(k)$ depend on the conjugacy class of $\gamma\in\Gamma$:
+The orbital integrals $O_{\gamma}(k)$ depend on the conjugacy class of $\gamma\in\Gamma$:
 
 \begin{itemize}
   \item \textbf{Elliptic elements.} Fix a point in $\mathbb{H}$. Their contribution involves weighted orbital integrals with stabilizers. Rare for torsion-free $\Gamma$.
-  \item \textbf{Parabolic elements.} Correspond to cusps. Their contribution is expressed via the logarithmic derivative of the scattering determinant.
+  \item \textbf{Parabolic elements.} Correspond to cusps. Their contribution is expressed via the logarithmic derivative of the scattering determinant and a term involving $h(0)$.
   \item \textbf{Hyperbolic elements.} Correspond to closed geodesics. Contribution given by
   \[
-    O_\gamma(k) = \frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)}\,q(\ell(\gamma)),
+    O_{\gamma}(k) = \frac{\ell(\gamma_{0})}{2\sinh(\ell(\gamma)/2)}\,g(\ell(\gamma)),
   \]
-  where $\gamma_0$ is the primitive element underlying $\gamma$.
+  where $\gamma_{0}$ is the primitive element underlying $\gamma$ and $g$ is the Abel transform of $k$.
 \end{itemize}
 
 \begin{remark}
-Here $q(\ell(\gamma))$ is the radial profile of $k$ evaluated at the length of the closed geodesic associated to $\gamma$.
+Here the contribution is evaluated at the length of the closed geodesic associated to $\gamma$.
 \end{remark}
 
 \subsection*{Forward links}
@@ -358,7 +365,7 @@ Here $q(\ell(\gamma))$ is the radial profile of $k$ evaluated at the length of t
 \begin{itemize}
   \item To Chapter~4: localized projectors $P_{\lambda,\eta}$ are defined precisely with these kernels.
   \item To Chapter~6: orbital integrals provide the backbone of the geometric expansion of the trace formula.
-  \item To Appendix~B: detailed asymptotics of $\varphi_r$ refine orbital integral computations.
+  \item To Appendix~B: detailed asymptotics of $\varphi_{r}$ refine orbital integral computations.
 \end{itemize}
 
 \subsection*{Audit of Block 3}
@@ -379,10 +386,10 @@ Here $q(\ell(\gamma))$ is the radial profile of $k$ evaluated at the length of t
 \subsection{Admissible test functions and convergence}
 
 \begin{definition}[Admissible test functions]
-A function $h:\mathbb{R}\to\mathbb{C}$ is admissible for the Selberg trace formula if:
+A function $h:\mathbb{C}\to\mathbb{C}$ is admissible for the Selberg trace formula if:
 \begin{itemize}
-  \item $h$ is even and holomorphic in a strip $|\Im r|<\tfrac12+\epsilon$ for some $\epsilon>0$,
-  \item $h(r) \ll (1+|r|)^{-2-\delta}$ as $|r|\to\infty$ for some $\delta>0$.
+  \item $h$ is even and holomorphic in a strip $|\mathrm{Im}(r)|<\tfrac12+\epsilon$ for some $\epsilon>0$,
+  \item $h(r) \ll (1+|r|)^{-2-\delta}$ as $|r|\to\infty$ in that strip for some $\delta>0$.
 \end{itemize}
 \end{definition}
 
@@ -392,35 +399,31 @@ These conditions ensure that the corresponding kernel $k(z,w)$ is absolutely sum
 
 \subsection{Analytic continuation and scattering}
 
-The transform $h(r)$ extends holomorphically in vertical strips, thanks to the analytic continuation of spherical functions $\varphi_r(r)$.  
+The transform $h(r)$ extends holomorphically in vertical strips, thanks to the analytic continuation of spherical functions $\varphi_{r}$.  
 This allows contour shifting in integrals on the spectral side and yields analytic continuation of scattering terms on the geometric side.  
 For parabolic contributions, admissibility guarantees the convergence of
 \[
-  \frac{1}{4\pi}\int_{-\infty}^\infty h(r)\,
-    \Big(-\frac{\varphi'(1/2+ir)}{\varphi(1/2+ir)}\Big)\,dr,
+  \frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,
+    \left(-\frac{\Phi'(1/2+ir)}{\Phi(1/2+ir)}\right)\,dr,
 \]
-where $\varphi(s)$ is the determinant of the scattering matrix.
+where $\Phi(s)$ is the determinant of the scattering matrix.
 
 \subsection{Explicit kernel examples}
 
 \paragraph{Gaussian kernel.}
-For $h(r)=e^{-\sigma^2 r^2}$,
-\[
-  q(r) = \frac{1}{\sqrt{4\pi\sigma^2}}\,\frac{1}{\sinh r}\,
-  \exp\!\left(-\frac{r^2}{4\sigma^2}\right).
-\]
-This kernel localizes near $r=0$ and decays exponentially.
+For $h(r)=e^{-\sigma^{2} r^{2}}$, the kernel $k(u)$ is smooth and reflects the diffusion on $\mathbb{H}$.
+This kernel localizes near $r=0$ in the spectral side and behaves like a heat kernel on the geometric side.
 
 \paragraph{Compactly supported cutoff.}
-If $h(r)$ is supported in $[-T,T]$, then $q(r)$ decays like $e^{Tr}/r^{1/2}$ by stationary phase, showing oscillatory behavior compatible with microlocal parametrices.
+If $h(r)$ is supported in $[-T,T]$, then the radial profile $g(u)$ is supported in $[0,T]$ by the Paley--Wiener theorem. This shows oscillatory behavior compatible with microlocal parametrices.
 
 \paragraph{Wave kernel.}
-For $h(r)=\cos(tr)$, the kernel $q(r)$ corresponds to the wave propagator, reflecting unitary evolution.
+For $h(r)=\cos(tr)$, the kernel represents the wave propagator, reflecting unitary evolution and finite speed of propagation.
 
-\subsection{Paley–Wiener theorem}
+\subsection{Paley--Wiener theorem}
 
-\begin{theorem}[Paley–Wiener for the Selberg transform]
-$h(r)$ is an entire function of exponential type $R$ if and only if the corresponding radial kernel $q(r)$ is supported in $[0,R]$. 
+\begin{theorem}[Paley--Wiener for the Selberg transform]
+$h(r)$ is an even entire function of exponential type $R$ if and only if the corresponding radial kernel $k(u)$ is supported in $[0,R]$. 
 \end{theorem}
 
 \begin{remark}
@@ -430,19 +433,19 @@ This duality provides a precise dictionary between support of kernels and growth
 \subsection{Stationary phase analysis}
 
 Suppose $h(r)$ is compactly supported and smooth.  
-Then for large $r$,
+Then for large $u$, the inversion formula yields
 \[
-  q(r) \;\asymp\; r^{-1/2}\cos(Tr-\theta_0) + O(r^{-3/2}),
+  k(u) \asymp u^{-1/2}\cos(Tu-\theta_{0}) + O(u^{-3/2}),
 \]
-where $T$ is the radius of support of $h$ and $\theta_0$ a phase constant.  
+where $T$ is the radius of support of $h$ and $\theta_{0}$ a phase constant.  
 These oscillatory asymptotics govern error terms in localized trace formulas.
 
 \subsection{Applications and forward links}
 
 \begin{itemize}
   \item \textbf{To Chapter~3:} kernels $K_{\lambda,\eta}$ are defined directly via admissible $h(r)$.
-  \item \textbf{To Chapter~4:} construction of spectral projectors relies on Paley–Wiener admissibility and stationary phase.
-  \item \textbf{To Chapter~6:} parabolic and hyperbolic orbital integrals require explicit decay of $h(r)$ and asymptotics of $q(r)$.
+  \item \textbf{To Chapter~4:} construction of spectral projectors relies on Paley--Wiener admissibility and stationary phase.
+  \item \textbf{To Chapter~6:} parabolic and hyperbolic orbital integrals require explicit decay of $h(r)$ and asymptotics of $k(u)$.
   \item \textbf{To Chapter~7:} error terms in the main localized trace formula depend on sharp stationary phase asymptotics recorded here.
 \end{itemize}
 
@@ -452,15 +455,15 @@ These oscillatory asymptotics govern error terms in localized trace formulas.
   \item[(B51)] Admissibility conditions stated and justified.
   \item[(B52)] Analytic continuation and scattering terms clarified.
   \item[(B53)] Explicit kernel examples (Gaussian, wave, compact cutoff) expanded.
-  \item[(B54)] Paley–Wiener theorem included with explanation.
+  \item[(B54)] Paley--Wiener theorem included with explanation.
   \item[(B55)] Stationary phase asymptotics recorded.
   \item[(B56)] Applications to later chapters documented.
 \end{itemize}
 
 \subsection*{Conclusion}
 
-The Selberg/Harish–Chandra transform, equipped with admissible test functions, analytic continuation, Paley–Wiener duality, and stationary phase asymptotics, completes the analytic foundation of the preliminaries.  
-Together with the geometry and cusp analysis of the preceding blocks, this block furnishes the exact analytic machinery needed for constructing localized projectors and for carrying out the geometric expansion of the trace formula in Chapters~3–7.  
+The Selberg/Harish--Chandra transform, equipped with admissible test functions, analytic continuation, Paley--Wiener duality, and stationary phase asymptotics, completes the analytic foundation of the preliminaries.  
+Together with the geometry and cusp analysis of the preceding blocks, this block furnishes the exact analytic machinery needed for constructing localized projectors and for carrying out the geometric expansion of the trace formula in Chapters~3--7.  
 All constants are explicit, dependencies are transparent, and forward/backward links are fully recorded.  
 This concludes the preliminaries section on transforms.
 
