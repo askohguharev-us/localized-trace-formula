@@ -47,19 +47,18 @@
 \numberwithin{equation}{section}
 
 % ---------- Custom macros (Diamond Standard Guard) ----------
-\makeatletter
-% Подключаем внешние макросы. Важно: \makeatletter позволяет использовать @ в путях и именах.
-\@iffileexists{macros/environments.tex}{\input{macros/environments.tex}}{}
-\@iffileexists{macros/operators.tex}{\input{macros/operators.tex}}{}
-\@iffileexists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
+% Используем \IfFileExists (стандартный LaTeX2e), чтобы избежать ошибок с @
+\IfFileExists{macros/environments.tex}{\input{macros/environments.tex}}{}
+\IfFileExists{macros/operators.tex}{\input{macros/operators.tex}}{}
+\IfFileExists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
 
-% Дополнительные операторы, которые мы не вынесли в файлы (безопасно)
+\makeatletter
+% Дополнительные операторы (безопасно)
 \providecommand{\PSL}{\operatorname{PSL}}
 \providecommand{\STF}{\operatorname{STF}}
 \makeatother
 
 % Примечание: \vol, \sys, \Tr, \Spec, \diam уже определены в operators.tex через SafeDeclareOp.
-% Если тебе нужно добавить что-то специфическое здесь, используй \providecommand.
 
 % ---------- PDF metadata ----------
 \hypersetup{
@@ -111,10 +110,9 @@
 \tableofcontents
 
 % --- Frontmatter sections ---
-% Убедись, что имена файлов в папке frontmatter совпадают!
-\input{frontmatter/00-executive-summary.tex}
-\input{frontmatter/00-readers-roadmap.tex}
-\input{frontmatter/00-notation-glossary.tex}
+\IfFileExists{frontmatter/00-executive-summary.tex}{\input{frontmatter/00-executive-summary.tex}}{}
+\IfFileExists{frontmatter/00-readers-roadmap.tex}{\input{frontmatter/00-readers-roadmap.tex}}{}
+\IfFileExists{frontmatter/00-notation-glossary.tex}{\input{frontmatter/00-notation-glossary.tex}}{}
 
 \mainmatter
 
@@ -147,6 +145,6 @@
 % --- Bibliography ---
 \bibliographystyle{alpha}
 \nocite{*}
-\bibliography{bib/references.bib}
+\IfFileExists{bib/references.bib}{\bibliography{bib/references.bib}}{}
 
 \end{document}
