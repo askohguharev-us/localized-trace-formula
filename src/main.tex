@@ -1,3 +1,15 @@
+% somewhere in the preamble (after amsthm is loaded)
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% ADD THIS:
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
 % ==================================================================
 % main.tex — Monograph: Localized Trace Formula
 % ==================================================================
