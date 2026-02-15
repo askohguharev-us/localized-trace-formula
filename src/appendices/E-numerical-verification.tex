@@ -1,5 +1,10 @@
+% ==================================================================
+% E-numerical-verification.tex — FULL MONOLITHIC VERSION
+% ==================================================================
+
 \section*{Appendix E. Numerical Verification and Tables of Constants}
 \addcontentsline{toc}{section}{Appendix E. Numerical Verification and Tables of Constants}
+\label{appE:root}
 
 \subsection*{E.1. Numerical Framework and Explicit Constants}
 
@@ -80,8 +85,7 @@ References for these constants include \cite{Iwaniec2002, Buser1992}.
 These values anchor the effective constants appearing in the localized trace formula.
 
 \medskip
-\subsection*{E.1.4. Audit of Appendix E, Block 1}
-
+\begin{auditblock}{Audit of Appendix E, Block 1}
 \noindent \textbf{Goals.}
 \begin{itemize}
   \item \emph{Goal E1:} Provide explicit models and constants for $\Gamma=\PSL_2(\mathbb Z)$ and $\Gamma_0(q)$. \textbf{Verified}.
@@ -105,6 +109,7 @@ These values anchor the effective constants appearing in the localized trace for
 Block~E.1 establishes the numerical framework by fixing explicit hyperbolic surfaces, 
 recording their geometric constants, and summarizing known spectral data. 
 This provides the foundation for the verification experiments carried out in later blocks.
+\end{auditblock}
 
 \subsection*{E.2. Numerical Experiments and Error Hierarchy}
 
@@ -187,7 +192,7 @@ power-saving $O(\lambda^{-\delta})$ remainder in the localized trace formula.
 
 For transparency, we summarize the hierarchy in a compact table:
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
@@ -204,8 +209,7 @@ Stationary phase & $\ll \lambda^{-n/2-N}$ & visible as $\sim\lambda^{-1}$ error 
 \end{table}
 
 \medskip
-\subsection*{E.2.3. Audit of Appendix E, Block 2}
-
+\begin{auditblock}{Audit of Appendix E, Block 2}
 \noindent \textbf{Goals.}
 \begin{itemize}
   \item \emph{Goal E4:} Test theoretical predictions against small-scale numerical data. \textbf{Verified}.  
@@ -231,6 +235,7 @@ Block~E.2 demonstrates that the error structure of the localized trace formula
 is consistent with low-level spectral data, and that each error source is 
 analytically controlled. This ensures the theoretical results are both rigorous 
 and numerically credible.
+\end{auditblock}
 
 \subsection*{E.3. Extended Tables and Reproducibility Protocol}
 
@@ -249,7 +254,7 @@ $N_{\text{spec}}(\lambda,\eta)$ with the main term
 $N_{\text{main}}(\lambda,\eta) = (\vol M)/(2\pi)\cdot \lambda \eta$.
 All values are rounded to two decimals for clarity.  
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -311,8 +316,7 @@ We emphasize three reproducibility principles:
 \end{itemize}
 
 \medskip
-\subsection*{E.3.4. Audit of Appendix E, Block 3}
-
+\begin{auditblock}{Audit of Appendix E, Block 3}
 \noindent \textbf{Goals.}
 \begin{itemize}
   \item \emph{Goal E7:} Provide extended numerical tables.
@@ -342,6 +346,7 @@ Block~E.3 extends the numerical analysis with concrete tables, codifies a
 reproducibility protocol, and establishes a community verification standard.
 This ensures that the analytic results of the monograph are not only rigorous,
 but also practically checkable and transparent.
+\end{auditblock}
 
 \subsection*{E.4. Global Audit of Appendix E}
 
@@ -365,7 +370,7 @@ Appendix~E was designed to serve three interlocking purposes:
 \end{itemize}
 
 \medskip
-\noindent \textbf{Verification of Goals.}
+\begin{auditblock}{Verification of Goals}
 \begin{itemize}
   \item \textbf{V(E1):} Verified in Block~E.1, which tabulated constants for
   $\PSL_2(\mathbb Z)$ and small congruence groups.  
@@ -374,6 +379,7 @@ Appendix~E was designed to serve three interlocking purposes:
   \item \textbf{V(E3):} Verified in Block~E.3, which presented extended tables
   and codified a reproducibility pipeline.  
 \end{itemize}
+\end{auditblock}
 
 \medskip
 \noindent \textbf{Invariants.}
@@ -433,40 +439,31 @@ analytic arguments developed in the main chapters. Its structure was organized
 into three main operational blocks and one global audit:
 \begin{itemize}
   \item \textbf{Block E.1:} Explicit constants (volumes, cusp widths, geodesic
-  lengths, spectral gaps) for model hyperbolic surfaces, ensuring that every
-  analytic formula has transparent numerical input.  
+  lengths, spectral gaps) for model hyperbolic surfaces.
   \item \textbf{Block E.2:} Small-scale numerical experiments testing the
-  localized Weyl law and localized trace formula, with a detailed hierarchy of
-  error sources.  
+  localized Weyl law and localized trace formula.
   \item \textbf{Block E.3:} Extended tables of data and a reproducibility
-  protocol, defining how any reader may replicate the numerical checks.  
+  protocol.
   \item \textbf{Block E.4:} A global audit confirming that all objectives were
-  met, invariants respected, and forward/backward links documented.  
+  met.
 \end{itemize}
 
 \medskip
 \noindent \textbf{Key Achievements.}
 \begin{enumerate}
   \item Demonstrated that the localized trace formula is numerically consistent
-  with tabulated eigenvalues of $\PSL_2(\mathbb Z)$ and congruence subgroups.  
-  \item Fixed all constants explicitly: no hidden parameters, no unstated
-  dependencies.  
-  \item Recorded an explicit error budget (spectral leakage, cusp truncation,
-  geodesic cutoff, stationary phase), each bounded separately.  
-  \item Codified a reproducibility pipeline: data sources, normalization
-  conventions, cutoff construction, computational steps, and storage format.  
-  \item Established a verification standard: transparency, consistency, and
-  traceability.  
+  with tabulated eigenvalues.
+  \item Fixed all constants explicitly.
+  \item Recorded an explicit error budget.
+  \item Codified a reproducibility pipeline.
+  \item Established a verification standard.
 \end{enumerate}
 
 \medskip
 \noindent \textbf{Integration with the Monograph.}
 \begin{itemize}
-  \item \emph{Forward integration:} Appendix~E feeds directly into Appendix~F,
-  which describes algorithmic implementation details, and into Chapter~9,
-  where reproducibility is positioned as a methodological pillar.  
-  \item \emph{Backward integration:} It depends on analytic tools developed in
-  Appendices~A--C and normalization conventions set in Chapter~2.  
+  \item \emph{Forward integration:} Appendix~E feeds directly into Appendix~F.
+  \item \emph{Backward integration:} It depends on analytic tools from Appendices~A--C.
 \end{itemize}
 
 \medskip
@@ -474,23 +471,11 @@ into three main operational blocks and one global audit:
 By linking rigorous theory with explicit computation, Appendix~E embodies the
 core principle of the Diamond Standard: \emph{clarity, reproducibility, and
 auditability at every stage.}  
-It shows that analytic estimates are not abstractions detached from reality,
-but results that can be confirmed, illustrated, and trusted in concrete
-examples.
 
 \medskip
 \noindent \textbf{Closure.}
 Appendix~E thus completes its role as the \emph{numerical verification anchor}
-of the monograph. The analytic framework of localized trace formulae is now
-supported by:
-\begin{itemize}
-  \item transparent constants,  
-  \item explicit error budgets,  
-  \item reproducibility protocols, and  
-  \item extended tables for independent verification.  
-\end{itemize}
-This closure guarantees that the bridge between analysis and computation is
-both complete and reliable.
+of the monograph. This closure guarantees that the bridge between analysis and computation is both complete and reliable.
 
 \bigskip
 \hrule
@@ -498,8 +483,4 @@ both complete and reliable.
 
 \noindent \textbf{Final Statement.}
 Appendix~E stands as a model of how deep analytic theorems can be paired with
-explicit numerical verification. It reinforces the entire monograph by
-ensuring that no claim rests solely on abstract reasoning without the
-possibility of independent confirmation.  
-The Diamond Standard of reproducibility is thus fully realized in this
-appendix.
+explicit numerical verification. The Diamond Standard of reproducibility is thus fully realized in this appendix.
