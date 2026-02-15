@@ -1,5 +1,10 @@
 % =====================================================================
 % PATH: src/sections/02-preliminaries/02-preliminaries.tex
+% DIAMOND EDITION — contract-grade conventions + dependency law
+%
+% Goal: This chapter is the single immutable normalization authority.
+% Rule: anything that is not purely conventional is either proved in blocks
+% or deferred with explicit hypotheses + citations at point of use.
 % =====================================================================
 
 \chapter{Preliminaries}\label{chap:preliminaries}
@@ -9,33 +14,42 @@
 % ---------------------------------------------------------------------
 \section*{Orientation and Intent}
 
-This chapter fixes, once and for all, the analytic and geometric conventions
-used throughout the monograph.  Its purpose is foundational: every later
-kernel construction, projector identity, and trace formula statement will
-cite this chapter rather than reintroduce conventions.  In particular, we
-freeze:
-(i) the hyperbolic model, metric, and measure;
-(ii) the Laplace--Beltrami operator and spectral parameter conventions;
-(iii) cusp normalizations, scaling matrices, and truncation domains;
-(iv) Eisenstein series and scattering normalization, including Plancherel
-measure for the continuous spectrum;
-(v) the Selberg/Harish--Chandra transform conventions for radial kernels;
-(vi) the dependency rules for all implied constants.
+This chapter freezes, once and for all, the analytic and geometric conventions
+used throughout the monograph.  It is \emph{binding}: later kernel constructions,
+projector identities, truncation commutators, and trace formula expansions cite
+this chapter rather than reintroducing normalizations.
 
-The guiding principle is \emph{reproducibility}.  Every constant occurring in
-later $O(\cdot)$--estimates must have an explicit admissible dependency on
-geometric and spectral invariants recorded below.  No later bound may hide a
-dependence on window parameters $(\lambda,\eta)$ or truncation parameters
-unless explicitly stated.
+\medskip
+\noindent
+\textbf{What is frozen (and where).}
+We fix:
+\begin{itemize}[leftmargin=2em]
+  \item the hyperbolic model, metric, measure, distance, and Laplacian sign convention
+  (Block \texttt{02b-geometry}, Sections~\ref{subsec:geometry-diamond} and references therein);
+  \item cusp normalizations (scaling matrices, widths), truncation domains $M(Y)$,
+  and canonical tail identities (Block \texttt{02b-cusps});
+  \item Eisenstein series/scattering normalizations and the continuous Plancherel measure
+  for $L^{2}(M)$ (Block \texttt{02b-cusps});
+  \item Selberg/Harish--Chandra (spherical) transform conventions for radial kernels,
+  including inversion/Plancherel/Paley--Wiener language (Block \texttt{02b-selberg-transform},
+  Section~\ref{sec:selberg-transform}).
+\end{itemize}
+
+\medskip
+\noindent
+\textbf{Reproducibility principle (contract rule).}
+Every implied constant in later $O(\cdot)$--bounds must have an admissible dependency
+traceable to the dependency ledger declared below.  No estimate is allowed to hide
+dependence on localization parameters $(\lambda,\eta)$ or truncation heights $Y$ unless
+that dependence is explicitly annotated in the statement where it is used.
 
 \medskip
 \noindent
 \textbf{Primary references.}
-Our global conventions are compatible with classical sources, including
+Global conventions are compatible with classical sources, including
 Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}, Buser~\cite{Buser1992},
-and Iwaniec~\cite{Iwaniec2002}.  Whenever a statement later depends on
-a specific normalization choice, that dependence is traceable to this chapter.
-
+and Iwaniec~\cite{Iwaniec2002}.  When a later statement depends on a specific
+normalization choice, that dependence is traceable to this chapter.
 
 % ---------------------------------------------------------------------
 % Chapter Goals
@@ -44,47 +58,47 @@ a specific normalization choice, that dependence is traceable to this chapter.
 
 \begin{itemize}[leftmargin=2em]
   \item[\textbf{(G1)}] Fix the geometric background:
-  the upper half-plane $\mathbb{H}$ with its hyperbolic metric,
-  the quotient $M=\Gamma\backslash\mathbb{H}$ for a cofinite
-  $\Gamma\subset\PSL_2(\mathbb{R})$, and the associated measure and volume.
+  the upper half-plane $\mathbb{H}$ with hyperbolic metric and measure,
+  the quotient $M=\Gamma\backslash\mathbb{H}$ for cofinite
+  $\Gamma\subset\PSL_2(\mathbb{R})$, and the admissible geometric ledger.
 
-  \item[\textbf{(G2)}] Fix the Laplacian convention:
-  $\Delta\ge 0$, spectral parameter $\lambda=\tfrac14+r^2$ with $r\ge 0$,
-  and the wave group $U(t)=e^{it\sqrt{\Delta-1/4}}$ used later in projector
-  constructions.
+  \item[\textbf{(G2)}] Fix the Laplacian convention and spectral parameterization:
+  $\Delta\ge 0$, eigenvalues $\lambda=\tfrac14+r^2$, and the wave/heat/resolvent
+  kernels used later as model operators and comparison kernels.
 
   \item[\textbf{(G3)}] Fix cusp neighborhoods, scaling matrices, cusp widths,
-  and truncations $M(Y)$ with explicit volume/boundary formulas.
+  and truncations $M(Y)$, including canonical tail volume/boundary identities.
 
-  \item[\textbf{(G4)}] Fix the spectral decomposition of $L^2(M)$ into the
-  discrete spectrum and Eisenstein series, together with the continuous
-  Plancherel measure $dr/(4\pi)$ and the scattering normalization.
+  \item[\textbf{(G4)}] Fix the $L^2(M)$ spectral resolution conventions:
+  discrete spectrum, Eisenstein series for the continuous spectrum,
+  and the scattering normalization (including the continuous Plancherel measure).
 
-  \item[\textbf{(G5)}] Fix the Selberg/Harish--Chandra transform conventions
-  for radial kernels and the corresponding Plancherel/Paley--Wiener framework.
+  \item[\textbf{(G5)}] Fix Selberg/Harish--Chandra transform conventions
+  for radial kernels: inversion, Plancherel, Paley--Wiener dictionary,
+  and the admissible test-function class for trace identities.
 
-  \item[\textbf{(G6)}] Declare the Sobolev scales and mapping conventions that
-  later control stationary phase, truncation commutators, and error terms.
+  \item[\textbf{(G6)}] Fix Sobolev/elliptic conventions and the precise
+  dependency rule for Sobolev constants on $M$ and on $M(Y)$.
 
-  \item[\textbf{(G7)}] Declare a strict dependency ledger: all implied
-  constants may depend only on the invariants recorded below unless
-  explicitly annotated otherwise.
+  \item[\textbf{(G7)}] Enforce a strict dependency ledger:
+  later implied constants depend only on ledger items below unless a statement
+  explicitly enlarges the parameter set.
 \end{itemize}
-
 
 % ---------------------------------------------------------------------
 % Invariants and Dependency Ledger
 % ---------------------------------------------------------------------
 \section*{Invariants and Dependency Ledger}\label{sec:dependency-ledger}
 
-We now record the \emph{persistent invariants} and the admissible dependencies
-of constants throughout the monograph.  This ledger is binding: if a later
-argument requires dependence outside the items below, it must explicitly
-declare an enlarged parameter set.
+We now record the \emph{persistent invariants} and admissible dependencies
+of constants throughout the monograph.  This ledger is binding:
+if a later argument requires dependence outside the items below,
+it must explicitly declare an enlarged parameter set.
 
 \subsection*{Geometric invariants}
 
 \begin{itemize}[leftmargin=2em]
+
   \item[\textbf{(I1)}] \textit{Hyperbolic model.}
   We work on the upper half-plane
   \[
@@ -94,57 +108,65 @@ declare an enlarged parameter set.
     \qquad
     d\mu(z)=\frac{dx\,dy}{y^2}.
   \]
-  The hyperbolic distance is denoted $d_{\mathbb{H}}(z,w)$.
+  The hyperbolic distance is denoted $d_{\mathbb{H}}(z,w)$ and is normalized
+  by the identity recorded in Block \texttt{02b-geometry}
+  (see \eqref{eq:cosh-distance} therein).
 
-  \item[\textbf{(I2)}] \textit{Quotient surface.}
+  \item[\textbf{(I2)}] \textit{Quotient surface (finite area).}
   Let $\Gamma\subset\PSL_2(\mathbb{R})$ be a cofinite Fuchsian group and set
   \[
     M=\Gamma\backslash\mathbb{H},
     \qquad
     \vol(M)=\int_M d\mu <\infty.
   \]
-  We allow cusps and (if present) elliptic elements, unless explicitly stated
-  otherwise in later chapters.
+  We allow cusps and (if present) elliptic elements (orbifold points),
+  unless stated otherwise in a local argument.
 
-  \item[\textbf{(I3)}] \textit{Cusp data.}
-  Let $\{\mathfrak{a}\}_{\mathfrak{a}=1}^{h}$ denote the set of cusps ($h\ge 0$).
-  For each cusp $\mathfrak{a}$ fix:
+  \item[\textbf{(I3)}] \textit{Cusp ledger.}
+  Let $\{\mathfrak{a}\}_{\mathfrak{a}=1}^{h}$ be the cusps ($h\ge 0$).
+  For each cusp $\mathfrak{a}$ we fix:
   \begin{itemize}[leftmargin=2em]
-    \item a scaling matrix $\sigma_{\mathfrak{a}}\in\PSL_2(\mathbb{R})$ such that
-    $\sigma_{\mathfrak{a}}(\infty)=\mathfrak{a}$;
-    \item a width $w_{\mathfrak{a}}>0$ such that
+    \item a scaling matrix $\sigma_{\mathfrak{a}}\in\PSL_2(\mathbb{R})$ with
+          $\sigma_{\mathfrak{a}}(\infty)=\mathfrak{a}$;
+    \item a width $w_{\mathfrak{a}}>0$ satisfying
     \[
       \sigma_{\mathfrak{a}}^{-1}\Gamma_{\mathfrak{a}}\sigma_{\mathfrak{a}}
       = \left\{\pm\begin{pmatrix}1 & n w_{\mathfrak{a}}\\ 0 & 1\end{pmatrix}: n\in\mathbb{Z}\right\},
     \]
     where $\Gamma_{\mathfrak{a}}$ is the stabilizer of $\mathfrak{a}$ in $\Gamma$.
   \end{itemize}
-  All cusp-dependent constants may depend on the finite collection
+  Cusp-dependent constants may depend on the finite collection
   $\big(\{w_{\mathfrak{a}}\},\{\sigma_{\mathfrak{a}}\}\big)$ and on $\Gamma$,
   but never on truncation heights $Y$ unless explicitly annotated.
 
-  \item[\textbf{(I4)}] \textit{Truncation domains.}
+  \item[\textbf{(I4)}] \textit{Truncations and canonical tail identity.}
   For $Y\ge 1$, define the truncated surface
   \[
     M(Y):=M\setminus \bigcup_{\mathfrak{a}}
     \sigma_{\mathfrak{a}}\Big(\{x+iy:\ y\ge Y\}/(x\sim x+w_{\mathfrak{a}})\Big),
   \]
-  where the cusp neighborhoods are taken disjoint for $Y$ sufficiently large
-  (a choice fixed once and for all).  In these conventions the cusp tail volume
-  satisfies the identity
+  with a fixed choice of $Y_0=Y_0(\Gamma)$ ensuring these cusp tails are disjoint
+  for all $Y\ge Y_0$ (fixed once and for all in Block \texttt{02b-cusps}).
+  In these conventions one has the exact identity
   \begin{equation}\label{eq:cusp-tail-volume}
-    \vol\!\big(M\setminus M(Y)\big)=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y}.
+    \vol\!\big(M\setminus M(Y)\big)=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y},
+    \qquad (Y\ge Y_0),
   \end{equation}
-  The boundary length of $\partial M(Y)$ equals $\sum_{\mathfrak{a}} w_{\mathfrak{a}}/Y$.
-  These formulas are used repeatedly in truncation and Maass--Selberg estimates.
+  and the boundary length identity
+  \[
+    \length\big(\partial M(Y)\big)=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y}.
+  \]
+  These formulas are canonical references for truncation and Maass--Selberg estimates.
+
 \end{itemize}
 
 \subsection*{Spectral invariants}
 
 \begin{itemize}[leftmargin=2em]
-  \item[\textbf{(I5)}] \textit{Laplacian convention.}
-  The Laplace--Beltrami operator $\Delta$ on $M$ is nonnegative:
-  in local coordinates it is given by
+
+  \item[\textbf{(I5)}] \textit{Laplacian convention and discrete spectrum.}
+  The Laplace--Beltrami operator $\Delta$ on $M$ is nonnegative and on $\mathbb H$
+  is given in coordinates by
   \[
     \Delta = -y^{2}\big(\partial_{x}^{2}+\partial_{y}^{2}\big).
   \]
@@ -152,46 +174,43 @@ declare an enlarged parameter set.
   \[
     \Delta \varphi_j = \Big(\tfrac14+r_j^2\Big)\varphi_j,
     \qquad
-    r_j\in\mathbb{R}_{\ge 0},
+    r_j\in\mathbb{R}_{\ge 0}\ \text{or}\ r_j\in i[0,\tfrac12],
   \]
-  where $\{\varphi_j\}$ is an orthonormal basis of $L^2(M)$ for the discrete
-  spectrum (including the constant eigenfunction when $M$ has finite volume).
+  where $\{\varphi_j\}$ is an orthonormal basis for the discrete spectrum
+  (including the constant eigenfunction when $\vol(M)<\infty$).
 
-  \item[\textbf{(I6)}] \textit{Eisenstein series normalization.}
-  For each cusp $\mathfrak{a}$ define the Eisenstein series for $\Re(s)>1$ by
+  \item[\textbf{(I6)}] \textit{Eisenstein series (cusp normalization).}
+  For each cusp $\mathfrak{a}$ define, for $\Re(s)>1$,
   \[
     E_{\mathfrak{a}}(z,s)=
     \sum_{\gamma\in\Gamma_{\mathfrak{a}}\backslash\Gamma}
     \Im\big(\sigma_{\mathfrak{a}}^{-1}\gamma z\big)^{s},
   \]
-  continued meromorphically to $s\in\mathbb{C}$ and holomorphic on $\Re(s)=1/2$
-  except possibly at $s=1/2$ for residual spectrum.  The continuous spectrum is
-  parameterized by $s=1/2+ir$, $r\in\mathbb{R}$.
+  which continues meromorphically to $s\in\mathbb{C}$ and is holomorphic on
+  $\Re(s)=1/2$ away from possible residual poles (treated explicitly in the cusp block).
+  The continuous spectrum is parameterized by $s=1/2+ir$, $r\in\mathbb{R}$.
 
-  \item[\textbf{(I7)}] \textit{Scattering normalization and Plancherel measure.}
+  \item[\textbf{(I7)}] \textit{Scattering matrix and continuous Plancherel measure.}
   Let $\Phi(s)$ denote the $h\times h$ scattering matrix in the Hejhal convention,
-  and write $\varphi_{\mathfrak{a}\mathfrak{b}}(s)$ for its entries.  We adopt
-  the standard Plancherel measure
+  with entries $\varphi_{\mathfrak{a}\mathfrak{b}}(s)$.
+  The continuous part of the $L^2(M)$ spectral resolution uses the standard
+  Plancherel measure
   \[
     \frac{dr}{4\pi}
   \]
-  for the continuous spectrum in the spectral resolution of $L^2(M)$.
+  on $r\in\mathbb{R}$, together with the (block-recorded) normalization of
+  the Eisenstein inner products and Maass--Selberg relations.
 
-  \item[\textbf{(I8)}] \textit{Spectral gap parameter.}
-  If $M$ has cusps then there may exist discrete eigenvalues $\lambda_j<1/4$.
-  We fix a parameter $\beta\in[0,1/4]$ such that
+  \item[\textbf{(I8)}] \textit{Exceptional spectrum bookkeeping (optional parameter).}
+  If $M$ has cusps, there may exist discrete eigenvalues $\lambda_j<1/4$.
+  When an argument requires uniform control that is sensitive to this phenomenon,
+  we allow it to depend on an explicit parameter $\beta\in[0,1/4]$ such that
   \[
-    \text{every nonzero discrete eigenvalue }\lambda_j
-    \text{ satisfies either }\lambda_j\ge \tfrac14
-    \text{ or }\lambda_j\in[0,\tfrac14-\beta].
+    \lambda_j\in(0,\tfrac14)\ \Longrightarrow\ \lambda_j\le \tfrac14-\beta.
   \]
-  Equivalently, the spectral parameters satisfy $r_j\in\mathbb{R}\cup i[0,1/2]$
-  and the exceptional imaginary parameters obey
-  \(
-    \Im(r_j)\le \tfrac12-\sqrt{\beta}.
-  \)
-  Any estimate that uses cusp scattering bounds may depend on $\beta$; this
-  dependence is always displayed as $O_{\Gamma,\beta}(\cdot)$.
+  Any estimate using scattering bounds that depend on exceptional spectrum is
+  annotated as $O_{\Gamma,\beta}(\cdot)$.
+
 \end{itemize}
 
 \subsection*{Propagation scale and semiclassical bookkeeping}
@@ -199,17 +218,19 @@ declare an enlarged parameter set.
 \begin{itemize}[leftmargin=2em]
   \item[\textbf{(I9)}] \textit{Semiclassical parameter.}
   In high-frequency regimes we write $h=\lambda^{-1}$ (or $h=r^{-1}$ when
-  working directly with $r$).  All semiclassical statements specify which
-  parameter is used.
+  working directly with the spectral parameter $r$).  Every semiclassical
+  statement specifies which parameter is used.
 
-  \item[\textbf{(I10)}] \textit{Ehrenfest time scale.}
+  \item[\textbf{(I10)}] \textit{Logarithmic (Ehrenfest-type) time scale.}
   In microlocal propagation arguments the natural maximal time is
   \[
     T \asymp \log \lambda,
   \]
-  reflecting exponential volume growth and the instability of the geodesic
-  flow.  The implicit constants in $\asymp$ are fixed once and for all in
-  Chapter~5 and are treated as universal.
+  reflecting exponential area growth and instability of the geodesic flow.
+  Precise constants (and the regime in which they are admissible) are fixed
+  in Chapter~5; until then, \eqref{eq:ball-area} in Block \texttt{02b-geometry}
+  is the sole geometric input used to motivate this scale.
+
 \end{itemize}
 
 \subsection*{Asymptotic notation and admissible dependencies}
@@ -217,11 +238,11 @@ declare an enlarged parameter set.
 \begin{itemize}[leftmargin=2em]
   \item[\textbf{(I11)}] \textit{Asymptotic notation.}
   We write $A\lesssim B$ if $A\le C B$ for an absolute constant $C>0$;
-  $A\asymp B$ if both $A\lesssim B$ and $B\lesssim A$.
+  $A\asymp B$ if $A\lesssim B$ and $B\lesssim A$.
   We write $O_X(\cdot)$ to indicate that the implied constant may depend only
   on parameters in the set $X$.
 
-  \item[\textbf{(I12)}] \textit{Strict ledger rule.}
+  \item[\textbf{(I12)}] \textit{Strict ledger rule (no hidden dependencies).}
   Unless explicitly stated otherwise, any implied constant in this monograph
   may depend only on:
   \[
@@ -229,50 +250,50 @@ declare an enlarged parameter set.
     \quad \text{and fixed auxiliary cutoffs chosen once and for all.}
   \]
   In particular, no constant may depend on localization window parameters
-  $(\lambda,\eta)$ or truncation heights $Y$ unless such dependence is
+  $(\lambda,\eta)$ or truncation heights $Y$ unless that dependence is
   explicitly annotated.
+
 \end{itemize}
 
 \medskip
 \noindent
-\textbf{Audit note.}
-The ledger items (I1)--(I12) are the only admissible sources of dependence for
-constants in later estimates.  This rule is enforced in the chapter audits
-and in the statements of main theorems.
-
+\textbf{Audit note (enforcement).}
+Ledger items (I1)--(I12) are the only admissible sources of dependence for
+constants in later estimates.  This rule is enforced in chapter audits
+and in the statements of main theorems: any deviation must be declared.
 
 % ---------------------------------------------------------------------
 % Organization (reader map)
 % ---------------------------------------------------------------------
 \section*{Organization of the Chapter}
 
-The chapter is split into three technical blocks, each intended to be cited as
-a standalone reference module.
+The chapter is split into three technical blocks, each intended to be cited as a
+standalone reference module.
 
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Geometry (Block 02b-geometry).}
-  Metric, distance, geodesics, volume growth, injectivity considerations,
-  and standard kernels (heat/wave/resolvent) on $\mathbb{H}$ and their descent
-  to $M$.
+  \item \textbf{Geometry (Block \texttt{02b-geometry}).}
+  Metric/distance/geodesics, isometries and translation length, exponential
+  volume growth, thick--thin/collars, Laplacian convention, spherical functions
+  and Plancherel density on $\mathbb H$, and model kernels (heat/wave/resolvent)
+  together with safe Poincar\'e summation criteria.
 
-  \item \textbf{Cusps and truncation (Block 02b-cusps).}
+  \item \textbf{Cusps and truncation (Block \texttt{02b-cusps}).}
   Scaling matrices, cusp widths, truncation domains $M(Y)$, sharp and smoothed
-  truncation operators, Fourier expansions at cusps, Maass--Selberg relations,
-  and scattering conventions.
+  truncations, Fourier expansions at cusps, Maass--Selberg relations, Eisenstein
+  series conventions, and scattering normalization.
 
-  \item \textbf{Selberg transform (Block 02b-selberg-transform).}
+  \item \textbf{Selberg transform (Block \texttt{02b-selberg-transform}).}
   Selberg/Harish--Chandra transform conventions for radial kernels, inversion,
-  Plancherel/Paley--Wiener statements, and canonical examples used later for
+  Plancherel and Paley--Wiener duality, and canonical examples used later for
   localized projectors and trace identities.
 \end{itemize}
 
 \medskip
 \noindent
 \textbf{Reader guidance.}
-Later chapters cite these blocks as immutable convention sources: if a formula
-in Chapters~3--8 involves a radial kernel or a cusp truncation, the
-normalizations are those fixed here.
-
+Later chapters cite these blocks as immutable convention sources:
+any formula in Chapters~3--8 involving a radial kernel, cusp truncation,
+or Eisenstein/scattering term uses the normalization fixed here.
 
 % ---------------------------------------------------------------------
 % Inputs: technical blocks for Chapter 2
@@ -281,58 +302,52 @@ normalizations are those fixed here.
 \input{sections/02-preliminaries/blocks/02b-cusps.tex}
 \input{sections/02-preliminaries/blocks/02b-selberg-transform.tex}
 
-
 % ---------------------------------------------------------------------
 % Chapter Audit
 % ---------------------------------------------------------------------
 \section*{Chapter Audit}
 
 \noindent\textbf{(A2.1) Geometry and measure fixed.}
-We fixed the hyperbolic model $(\mathbb{H},ds^2)$, the quotient
-$M=\Gamma\backslash\mathbb{H}$, and the hyperbolic measure $d\mu$.
-The volume $\vol(M)$ is finite and appears as the unique global geometric
-coefficient in Weyl-type main terms.
+The hyperbolic model $(\mathbb{H},ds^2,d\mu)$, the quotient $M=\Gamma\backslash\mathbb{H}$,
+and the admissible geometric ledger are fixed and immutable (Block \texttt{02b-geometry}).
+No later argument redefines metric/measure/distance.
 
 \medskip
 \noindent\textbf{(A2.2) Cusps and truncation fixed.}
 For each cusp $\mathfrak{a}$ we fixed a scaling matrix $\sigma_{\mathfrak{a}}$
-and a width $w_{\mathfrak{a}}$, and defined truncations $M(Y)$ by height cutoffs.
-The tail volume identity~\eqref{eq:cusp-tail-volume} and the matching boundary
-length formula are recorded as canonical references for later truncation and
-Maass--Selberg computations.
+and width $w_{\mathfrak{a}}$, and defined truncations $M(Y)$ by height cutoffs.
+The canonical tail volume identity \eqref{eq:cusp-tail-volume} and boundary length
+identity are recorded as references for truncation and Maass--Selberg computations
+(Block \texttt{02b-cusps}).
 
 \medskip
 \noindent\textbf{(A2.3) Spectral conventions fixed.}
 We fixed the nonnegative Laplacian convention, the parameterization
-$\lambda=\tfrac14+r^2$, and the Eisenstein normalization, including the
-continuous Plancherel measure $dr/(4\pi)$ in the Hejhal convention.
+$\lambda=\tfrac14+r^2$, and Eisenstein/scattering normalization, including the
+continuous Plancherel measure $dr/(4\pi)$ (Block \texttt{02b-cusps}).
 All later spectral expansions and trace identities use these normalizations.
 
 \medskip
-\noindent\textbf{(A2.4) Spectral gap parameter declared.}
-We recorded a gap parameter $\beta$ as an admissible input for cusp/scattering
-bounds and required that all such dependencies be displayed as
-$O_{\Gamma,\beta}(\cdot)$.  No later estimate is allowed to hide spectral-gap
-dependence.
+\noindent\textbf{(A2.4) Exceptional spectrum bookkeeping declared.}
+When required, dependence on exceptional spectrum is mediated by an explicit
+parameter $\beta$ and is displayed as $O_{\Gamma,\beta}(\cdot)$.
+No estimate is allowed to hide gap/exceptional-spectrum dependence.
 
 \medskip
 \noindent\textbf{(A2.5) Selberg transform conventions fixed.}
-The Selberg/Harish--Chandra transform conventions are delegated to
-\texttt{02b-selberg-transform.tex} and are treated as immutable for the rest
-of the monograph; in particular, all later localized test functions inherit
-their normalization from that block.
+The Selberg/Harish--Chandra transform is delegated to Block \texttt{02b-selberg-transform}
+and treated as immutable for the rest of the monograph.
 
 \medskip
 \noindent\textbf{(A2.6) Dependency ledger enforced.}
-We declared the strict dependency ledger (I1)--(I12).  Every later implied
-constant must be traceable to those invariants (and fixed auxiliary cutoffs),
-with no hidden dependence on window parameters $(\lambda,\eta)$ or truncation
-heights $Y$ unless explicitly stated.
+The strict dependency ledger (I1)--(I12) is binding.
+Every later implied constant is traceable to these invariants (and fixed auxiliary cutoffs),
+with no hidden dependence on window parameters $(\lambda,\eta)$ or truncation heights $Y$
+unless explicitly annotated.
 
 \medskip
 \noindent\textbf{Conclusion.}
-All goals (G1)--(G7) are achieved.  The chapter is certified as the unique
-normalization reference point for the analytic developments in
-Chapters~3--8.
+All goals (G1)--(G7) are achieved.  This chapter is certified as the unique
+normalization reference point for the analytic developments in Chapters~3--8.
 
 % --- End of Chapter 2 (Preliminaries) ---
