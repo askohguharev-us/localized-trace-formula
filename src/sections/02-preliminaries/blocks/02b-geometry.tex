@@ -1,25 +1,35 @@
 % =====================================================================
 % 02b-geometry.tex  (DIAMOND / single-block, contract-level geometry)
 % Hyperbolic plane, isometries, geodesics, volume growth, domains,
-% thick--thin, collars, Laplacian, spherical analysis, kernels,
+% thick--thin, collars, Laplacian, spherical analysis, model kernels,
 % Gauss--Bonnet, torsion, and dependency ledger.
+%
+% DESIGN GOAL (DIAMOND): absolutely safe normalizations + no fragile claims.
+% Anything requiring spectral gap / refined remainder is deferred with hypotheses.
 % =====================================================================
 
 \subsection{Hyperbolic geometry: normalizations, models, and global constants}
 \label{subsec:geometry-diamond}
 
-\subsubsection*{G0. Object and invariant ledger}
-Throughout, the basic geometric object is the finite-area quotient
+\subsubsection*{G0. Object lock and invariant ledger}
+Throughout, the geometric object is the finite-area quotient
 \[
   M=\Gamma\backslash \mathbb H,\qquad \Gamma\subset \mathrm{PSL}_2(\mathbb R)\ \text{discrete, cofinite}.
 \]
-All geometric constants in later chapters are allowed to depend \emph{only} on:
+All geometric constants used later are allowed to depend \emph{only} on the ledger
 \[
-  \mathcal G(\Gamma):=\big(\vol(M);\ \text{torsion orders } \{e_j\};\ \text{cusp data }\mathcal C(\Gamma);\ \text{a fixed compact core }M(Y_0)\big),
+  \mathcal G(\Gamma):=
+  \Big(
+     \vol(M);\ \text{torsion orders } \{e_j\};\ \text{cusp ledger } \mathcal C(\Gamma);\ \text{a fixed core height } Y_0
+  \Big),
 \]
-where $\mathcal C(\Gamma)=(h;\{w_{\mathfrak a}\};\{\sigma_{\mathfrak a}\})$ is the cusp ledger fixed in \S\ref{subsec:cusps-truncation-eisenstein},
-and $Y_0=Y_0(\Gamma)$ is a disjointness height (Lemma~\ref{lem:disjoint-tails}).
-No constant in this block depends on later spectral-localization parameters $(\lambda,\eta)$.
+where the cusp ledger is fixed once and for all in Section~\ref{subsec:cusps-truncation-eisenstein},
+\[
+  \mathcal C(\Gamma)=\big(\#\{\text{cusps}\};\{w_{\mathfrak a}\};\{\sigma_{\mathfrak a}\}\big),
+\]
+and $Y_0=Y_0(\Gamma)$ is any height for which the cusp tails are pairwise disjoint
+(cf.\ Lemma~\ref{lem:disjoint-tails} in the cusp block).
+\emph{No constant in this block depends on later localization parameters $(\lambda,\eta)$}.
 
 % ---------------------------------------------------------------------
 \subsubsection*{G1. The hyperbolic plane: metric, measure, distance}
@@ -31,24 +41,27 @@ Let
 \qquad
   d\mu(z)=\frac{dx\,dy}{y^2}.
 \]
-The distance $d_{\mathbb H}(z,w)$ is determined by the identity
+The hyperbolic distance $d_{\mathbb H}(z,w)$ is characterized by
 \begin{equation}\label{eq:cosh-distance}
   \cosh d_{\mathbb H}(z,w)=1+\frac{|z-w|^2}{2\,\Im z\,\Im w}.
 \end{equation}
 In particular, for a horizontal shift $w>0$,
 \begin{equation}\label{eq:horizontal-distance}
-  d_{\mathbb H}(x+iy,\ (x+w)+iy)=2\,\operatorname{arsinh}\!\Big(\frac{w}{2y}\Big)
-  \asymp \min\Big\{1,\frac{w}{y}\Big\}.
+  d_{\mathbb H}(x+iy,\ (x+w)+iy)
+  =2\,\operatorname{arsinh}\!\Big(\frac{w}{2y}\Big)
+  \asymp \min\Big\{1,\frac{w}{y}\Big\},
 \end{equation}
+with implied constants absolute.
 
 \medskip
 \noindent\textbf{Geodesics.}
 Geodesics in $\mathbb H$ are vertical lines and semicircles orthogonal to $\mathbb R$.
-For each pair of distinct boundary points $\alpha,\beta\in \mathbb R\cup\{\infty\}$ there is a unique geodesic with endpoints $\{\alpha,\beta\}$.
+Equivalently, for any two distinct boundary points $\alpha\neq\beta\in\mathbb R\cup\{\infty\}$,
+there is a unique geodesic with endpoints $\{\alpha,\beta\}$.
 
 % ---------------------------------------------------------------------
 \subsubsection*{G2. Isometries and classification; translation length}
-$\mathrm{PSL}_2(\mathbb R)$ acts on $\mathbb H$ by Möbius maps
+$\mathrm{PSL}_2(\mathbb R)$ acts on $\mathbb H$ by fractional linear maps
 \[
   \gamma z=\frac{az+b}{cz+d},\qquad
   \gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in \mathrm{PSL}_2(\mathbb R),
@@ -59,12 +72,16 @@ elliptic ($|\tr\gamma|<2$), parabolic ($|\tr\gamma|=2$), hyperbolic ($|\tr\gamma
 
 \medskip
 \noindent\textbf{Hyperbolic translation length.}
-If $\gamma$ is hyperbolic, it stabilizes a unique geodesic axis $\mathcal A_\gamma$ and acts on it as a translation by $\ell(\gamma)>0$.
+If $\gamma$ is hyperbolic, it stabilizes a unique geodesic axis $\mathcal A_\gamma$ and acts on it as
+a translation by $\ell(\gamma)>0$.
 One has the exact identity
 \begin{equation}\label{eq:length-trace}
   |\tr(\gamma)|=2\cosh\!\Big(\frac{\ell(\gamma)}{2}\Big).
 \end{equation}
-If $\gamma=\gamma_0^k$ with $\gamma_0$ primitive hyperbolic, then $\ell(\gamma)=k\,\ell(\gamma_0)$.
+If $\gamma=\gamma_0^k$ with $\gamma_0$ primitive hyperbolic and $k\in\mathbb N$, then
+\[
+  \ell(\gamma)=k\,\ell(\gamma_0).
+\]
 
 % ---------------------------------------------------------------------
 \subsubsection*{G3. Balls and exponential area growth}
@@ -72,15 +89,16 @@ Let $B_{\mathbb H}(z,R)$ be the hyperbolic ball of radius $R$.
 Its area is independent of $z$ and equals
 \begin{equation}\label{eq:ball-area}
   \vol\big(B_{\mathbb H}(R)\big)=2\pi(\cosh R-1)
-  =\pi e^{R}\bigl(1+O(e^{-2R})\bigr)
-  \qquad (R\to\infty).
+  =\pi e^{R}\bigl(1+O(e^{-2R})\bigr)\qquad (R\to\infty).
 \end{equation}
-This exponential growth is the geometric origin of the ``logarithmic propagation scale'' $T\asymp \log\lambda$ in microlocal arguments.
+This exponential growth is the geometric source of the logarithmic propagation scale
+$T\asymp \log\lambda$ in semiclassical/microlocal regimes.
 
 % ---------------------------------------------------------------------
-\subsubsection*{G4. Fundamental and Dirichlet domains; coarse counting law}
+\subsubsection*{G4. Fundamental/Dirichlet domains; local finiteness; coarse orbit growth}
 Let $\Gamma\subset \mathrm{PSL}_2(\mathbb R)$ be discrete and cofinite.
-A (measurable) fundamental domain $\mathcal F$ satisfies $\mathbb H=\bigsqcup_{\gamma\in\Gamma}\gamma\mathcal F$ up to measure zero and
+A measurable fundamental domain $\mathcal F$ satisfies $\mathbb H=\bigsqcup_{\gamma\in\Gamma}\gamma\mathcal F$
+up to measure zero and
 \[
   \vol(M)=\int_{\mathcal F} d\mu<\infty.
 \]
@@ -88,27 +106,41 @@ Given $z_0\in\mathbb H$, the Dirichlet domain is
 \[
   \mathcal D(z_0)=\{z\in\mathbb H:\ d_{\mathbb H}(z,z_0)\le d_{\mathbb H}(z,\gamma z_0)\ \forall \gamma\in\Gamma\}.
 \]
-It is convex and locally finite; $\vol(M)=\int_{\mathcal D(z_0)}d\mu$.
+It is convex and locally finite, and $\vol(M)=\int_{\mathcal D(z_0)}d\mu$.
 
 \medskip
-\noindent\textbf{Coarse lattice-point growth (robust form).}
+\begin{lemma}[Proper discontinuity / local finiteness]\label{lem:local-finiteness}
+For any compact set $K\subset\mathbb H$ and any $R>0$, the set
+\[
+  \{\gamma\in\Gamma:\ d_{\mathbb H}(K,\gamma K)\le R\}
+\]
+is finite. In particular, for any fixed $z,w\in\mathbb H$ and any $R>0$,
+\[
+  \#\{\gamma\in\Gamma:\ d_{\mathbb H}(z,\gamma w)\le R\}<\infty.
+\]
+Consequently, if a kernel $K(z,w)=k(d_{\mathbb H}(z,w))$ has compact support in the distance variable,
+then the Poincar\'e sum $\sum_{\gamma\in\Gamma}K(z,\gamma w)$ is \emph{termwise finite} for each $(z,w)$.
+\end{lemma}
+
+\begin{proof}
+Proper discontinuity of the $\Gamma$-action implies $\{\gamma:\ \gamma K\cap K\neq\varnothing\}$ is finite for compact $K$.
+Apply this to the compact thickening $K_R:=\{u\in\mathbb H:\ d_{\mathbb H}(u,K)\le R\}$:
+if $d_{\mathbb H}(K,\gamma K)\le R$, then $\gamma K\cap K_R\neq\varnothing$, hence only finitely many $\gamma$ occur.
+\end{proof}
+
+\medskip
+\noindent\textbf{Coarse orbit growth (robust, no remainder claimed).}
 Define the orbit counting function
 \[
   N_\Gamma(R;z_0):=\#\{\gamma\in\Gamma:\ d_{\mathbb H}(z_0,\gamma z_0)\le R\}.
 \]
-Then as $R\to\infty$,
+For cofinite $\Gamma$ one has the robust exponential growth law
 \begin{equation}\label{eq:orbit-count-coarse}
-  N_\Gamma(R;z_0)\asymp_\Gamma e^{R}.
+  N_\Gamma(R;z_0)\asymp_\Gamma e^{R}\qquad (R\to\infty),
 \end{equation}
-More precise asymptotics and remainder terms depend on spectral input; when needed, they will be invoked with explicit hypotheses and citations in the analytic chapters (cf. \cite{Hejhal1983,Iwaniec2002}).
-
-\medskip
-\noindent\textbf{Quantitative separation (local finiteness).}
-There exists $\epsilon_\Gamma>0$ such that for any fixed compact set $K\subset\mathbb H$ one has
-\begin{equation}\label{eq:separation-compact}
-  \gamma K\cap \gamma'K=\varnothing\quad\text{whenever}\quad \gamma\neq\gamma'\ \text{and}\ d_{\mathbb H}(\gamma K,\gamma'K)<\epsilon_\Gamma.
-\end{equation}
-In particular, for kernels with compact support in the distance variable, orbital/Poincaré sums are locally finite and hence absolutely convergent term-by-term.
+with implied constants depending only on $\Gamma$ (and on $z_0$ through a bounded perturbation inside a fixed compact core).
+Sharper asymptotics and explicit error terms require spectral input (e.g.\ gaps / mixing rates) and will be invoked
+only at the point of use, with hypotheses and citations (see \cite{Hejhal1983,Iwaniec2002}).
 
 % ---------------------------------------------------------------------
 \subsubsection*{G5. Closed geodesics and hyperbolic conjugacy}
@@ -121,31 +153,42 @@ The prime geodesic theorem asserts
   \pi_M(R):=\#\{\text{primitive closed geodesics on }M \text{ with }\ell\le R\}
   \sim \frac{e^{R}}{R}\qquad (R\to\infty),
 \end{equation}
-with effective remainders depending on spectral input (see \cite{Hejhal1983,Iwaniec2002}).
-We will use \eqref{eq:PGT} only as a \emph{black-box} bound for hyperbolic orbital sums, with hypotheses stated at the point of use.
+with effective remainders depending on spectral data (see \cite{Hejhal1983,Iwaniec2002}).
+In this monograph \eqref{eq:PGT} is used only as a \emph{black-box} upper bound for hyperbolic orbital sums,
+with any additional hypotheses stated explicitly where needed.
 
 % ---------------------------------------------------------------------
-\subsubsection*{G6. Cusps, truncation, thick--thin, and collars}
-Cusps, widths, scaling matrices, truncation $M(Y)$, and exact tail volume/length formulas are fixed in \S\ref{subsec:cusps-truncation-eisenstein}.
-We recall only the structural consequences needed for analysis.
+\subsubsection*{G6. Cusps, truncation, injectivity radius, thick--thin, collars}
+Cusps, widths, scaling matrices, truncation $M(Y)$, and exact tail volume/length formulas are fixed in
+Section~\ref{subsec:cusps-truncation-eisenstein}. We record only the structural consequences needed later.
 
 \medskip
-\noindent\textbf{Injectivity radius in cusp tails.}
-For $p\in \mathcal U_{\mathfrak a}(Y)$, Lemma~\ref{lem:inj-cusp} and \eqref{eq:horizontal-distance} imply
-\[
-  \mathrm{inj}(p)\asymp \min\Big\{1,\frac{w_{\mathfrak a}}{y_{\mathfrak a}(p)}\Big\}
-  \le c\,\frac{w_{\mathfrak a}}{Y}.
-\]
-This is the precise cusp-scale that enters Sobolev constants and commutator bounds.
+\noindent\textbf{Injectivity radius: definition.}
+For $p\in M$ define the injectivity radius by
+\begin{equation}\label{eq:inj-def}
+  \inj(p):=\frac12\inf_{\gamma\in\Gamma\setminus\{1\}} d_{\mathbb H}(\tilde p,\gamma \tilde p),
+\end{equation}
+where $\tilde p\in\mathbb H$ is any lift of $p$ (the value is independent of the lift).
+
+\medskip
+\noindent\textbf{Cusp-scale in tails.}
+In cusp coordinates $p=\sigma_{\mathfrak a}(x+iy)$, the shortest nontrivial displacement in $\Gamma_{\mathfrak a}$
+is the horizontal shift by $w_{\mathfrak a}$, hence by \eqref{eq:horizontal-distance} and \eqref{eq:inj-def},
+\begin{equation}\label{eq:inj-cusp-asymp}
+  \inj(p)\asymp \min\Big\{1,\frac{w_{\mathfrak a}}{y}\Big\},
+  \qquad (y\ \text{large}),
+\end{equation}
+with implied constants depending only on the cusp ledger $\{w_{\mathfrak a}\}$.
+In particular, on the truncated tail $y\ge Y$ one has $\inj(p)\ll w_{\mathfrak a}/Y$.
 
 \medskip
 \noindent\textbf{Thick--thin decomposition (Margulis).}
 There exists a universal $\epsilon_*>0$ such that for any $\epsilon\in(0,\epsilon_*)$ the thin part
 \[
-  M_{<\epsilon}:=\{p\in M:\ \mathrm{inj}(p)<\epsilon\}
+  M_{<\epsilon}:=\{p\in M:\ \inj(p)<\epsilon\}
 \]
-is a disjoint union of: (i) cusp neighborhoods (ends), and (ii) embedded collars around short closed geodesics.
-The thick part $M_{\ge\epsilon}$ is compact.
+is a disjoint union of: (i) cusp neighborhoods, and (ii) embedded collars around short closed geodesics.
+The thick part $M_{\ge\epsilon}:=M\setminus M_{<\epsilon}$ is compact.
 
 \medskip
 \noindent\textbf{Collar lemma (embedded tubular neighborhoods).}
@@ -156,7 +199,6 @@ Then there is an embedded collar of half-width
 \end{equation}
 and collars of distinct simple closed geodesics are disjoint.
 As $\ell\to 0$ one has $w(\ell)=\log(2/\ell)+O(\ell^2)$.
-These collars provide the geometric mechanism behind uniform local charts on the thick part and explicit degeneration control on the thin part.
 
 \medskip
 \noindent\textbf{Compact core.}
@@ -164,7 +206,8 @@ Fix $Y\ge Y_0(\Gamma)$ so cusp tails are disjoint. Then
 \[
   M_{\mathrm{core}}:=M(Y)
 \]
-is a compact surface with (horocyclic) boundary, serving as the base region for elliptic regularity and Sobolev estimates; cusp contributions are then handled by the explicit model charts.
+is a compact surface with horocyclic boundary; it is the base region for elliptic regularity and Sobolev estimates,
+while the cusp ends are handled by explicit model charts.
 
 % ---------------------------------------------------------------------
 \subsubsection*{G7. Laplacian normalization and spectral parameter}
@@ -172,14 +215,14 @@ On smooth functions on $\mathbb H$ we take the nonnegative Laplace--Beltrami ope
 \begin{equation}\label{eq:laplacian}
   \Delta:=-y^2\Big(\partial_x^2+\partial_y^2\Big).
 \end{equation}
-The spectral parameterization is
+The spherical spectral parameterization is
 \[
   \lambda=\frac14+t^2,\qquad t\in\mathbb R_{\ge 0},
 \]
-matching the spherical/Plancherel conventions used in the Selberg/Harish--Chandra transform block.
+aligned with the Selberg/Harish--Chandra transform conventions in Section~\ref{sec:selberg-transform}.
 
 % ---------------------------------------------------------------------
-\subsubsection*{G8. Spherical functions and Plancherel measure on \texorpdfstring{$\mathbb H$}{H}}
+\subsubsection*{G8. Spherical functions and Plancherel measure on $\mathbb H$}
 Let $\varphi_t(r)$ be the $K$--biinvariant spherical function on $\mathbb H$ with $\varphi_t(0)=1$.
 It may be written as
 \[
@@ -195,27 +238,32 @@ The Plancherel density for radial analysis on $\mathbb H$ is
 \begin{equation}\label{eq:plancherel-density}
   d\mu_{\mathrm{Pl}}(t)=\frac{1}{2\pi}\,t\,\tanh(\pi t)\,dt,
 \end{equation}
-consistent with the inversion formula for the Selberg/Harish--Chandra transform (next block).
+so that the usual even integral on $\mathbb R$ with factor $1/(4\pi)$ matches \eqref{eq:plancherel-density} after restriction to $t\ge 0$.
 
 % ---------------------------------------------------------------------
-\subsubsection*{G9. Model kernels: heat, wave, resolvent; quotient kernels by summation}
+\subsubsection*{G9. Model kernels: heat, wave, resolvent; quotient kernels by Poincar\'e summation}
 \noindent\textbf{Heat kernel on $\mathbb H$.}
-The heat kernel $K_\tau(z,w)$ solves $\partial_\tau K_\tau=-\Delta_z K_\tau$ and has spectral representation
+The heat kernel $K_\tau(z,w)$ solves $\partial_\tau K_\tau=-\Delta_z K_\tau$ and has the spectral representation
 \begin{equation}\label{eq:heat-kernel}
-  K_\tau(z,w)=\int_0^\infty e^{-(\frac14+t^2)\tau}\,\varphi_t\!\big(d_{\mathbb H}(z,w)\big)\,d\mu_{\mathrm{Pl}}(t).
+  K_\tau(z,w)=\int_0^\infty e^{-(\frac14+t^2)\tau}\,\varphi_t\!\big(d_{\mathbb H}(z,w)\big)\,d\mu_{\mathrm{Pl}}(t),
+  \qquad \tau>0.
 \end{equation}
-As $\tau\to 0^+$ one has the standard Gaussian short-time asymptotic
+As $\tau\to 0^+$ one has the standard Gaussian short-time behavior
 \[
-  K_\tau(z,w)\sim (4\pi\tau)^{-1}e^{-d_{\mathbb H}(z,w)^2/(4\tau)}\quad (\text{with curvature corrections}).
+  K_\tau(z,w)\sim (4\pi\tau)^{-1}e^{-d_{\mathbb H}(z,w)^2/(4\tau)},
 \]
+with the usual curvature corrections in the full asymptotic expansion.
 
 \medskip
 \noindent\textbf{Wave kernel on $\mathbb H$.}
-The even wave group $\cos\big(\tau\sqrt{\Delta-\frac14}\big)$ has kernel
+The even wave group $\cos\!\big(\tau\sqrt{\Delta-\frac14}\big)$ has kernel
 \begin{equation}\label{eq:wave-kernel}
   W_\tau(z,w)=\int_0^\infty \cos(\tau t)\,\varphi_t\!\big(d_{\mathbb H}(z,w)\big)\,d\mu_{\mathrm{Pl}}(t).
 \end{equation}
-Precise dispersive estimates are classical; we will use only that smooth compactly supported spectral cutoffs yield kernels with rapid off-diagonal decay and controlled propagation on times $\tau\ll \log\lambda$ in semiclassical regimes.
+We will use only the \emph{stable} consequence relevant for localized analysis:
+smooth compactly supported spectral cutoffs (in $t$) yield kernels which are smooth and rapidly decaying off the diagonal,
+and whose effective propagation is controlled on times $\tau\ll \log\lambda$ when combined with semiclassical localization
+(precise dispersive bounds are classical and may be cited when needed).
 
 \medskip
 \noindent\textbf{Resolvent on $\mathbb H$.}
@@ -227,27 +275,32 @@ Its kernel admits the spectral integral representation
 and extends meromorphically in $s$.
 
 \medskip
-\noindent\textbf{Quotient kernels by Poincaré summation.}
-For a $\Gamma$--invariant kernel built from a model kernel $K(z,w)$ on $\mathbb H$, define
+\noindent\textbf{Quotient kernels by Poincar\'e summation.}
+Given a model kernel $K(z,w)$ on $\mathbb H$, define the $\Gamma$--invariant kernel
 \begin{equation}\label{eq:poincare-kernel}
   K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} K(z,\gamma w),
 \end{equation}
-whenever the sum is absolutely convergent (or in the sense of analytic continuation).
-Local finiteness \eqref{eq:separation-compact}, together with decay of $K$ in $d_{\mathbb H}(z,w)$ (e.g.\ for heat kernels $\tau>0$ and for compactly supported wave packets),
-ensures that \eqref{eq:poincare-kernel} defines smooth $\Gamma$--invariant kernels on $\mathbb H$ and hence kernels on $M$.
+whenever the sum converges absolutely, or else by analytic continuation/regularization in the standard cases
+(e.g.\ resolvents and Eisenstein/Green kernels).
+By Lemma~\ref{lem:local-finiteness}, if $K$ is compactly supported in the distance variable then the sum is locally finite.
+If $K$ has sufficient decay in $d_{\mathbb H}(z,w)$ (e.g.\ heat kernels for $\tau>0$), then \eqref{eq:poincare-kernel}
+converges absolutely and defines a smooth kernel on $M$.
 
 % ---------------------------------------------------------------------
-\subsubsection*{G10. Sobolev/elliptic constants: dependence statement}
+\subsubsection*{G10. Sobolev/elliptic constants: dependency rule}
 Fix $\epsilon\in(0,\epsilon_*)$.
-On the thick part $M_{\ge\epsilon}$, standard elliptic theory yields Sobolev embeddings with constants depending only on $(\epsilon,\vol(M))$ and finitely many atlas charts.
-On $M$ as a whole, Sobolev constants may additionally depend on cusp widths through the cusp model charts; injectivity control is furnished by Lemma~\ref{lem:inj-cusp}.
-We record the dependency rule:
+On the thick part $M_{\ge\epsilon}$, standard elliptic theory yields Sobolev embeddings with constants depending only on
+$(\epsilon,\vol(M))$ and finitely many atlas charts.
+On $M$ as a whole, Sobolev constants may additionally depend on cusp widths through cusp model charts;
+injectivity control is furnished by \eqref{eq:inj-cusp-asymp}.
+We record the dependency rule in the form used later:
 \begin{equation}\label{eq:sobolev-dependence}
   \|f\|_{L^\infty(M(Y))}\ \ll_{\Gamma,Y}\ \|f\|_{H^2(M(Y))},
   \qquad
-  \|f\|_{L^\infty(M)}\ \ll_{\mathcal G(\Gamma)}\ \|f\|_{H^2(M)},
+  \|f\|_{L^\infty(M)}\ \ll_{\mathcal G(\Gamma)}\ \|f\|_{H^2(M)}.
 \end{equation}
-with the understanding that \eqref{eq:sobolev-dependence} is invoked later only after fixing a truncation height $Y\ge Y_0$ and specifying how $Y$ scales with spectral parameters.
+Whenever \eqref{eq:sobolev-dependence} is invoked, the truncation height $Y\ge Y_0(\Gamma)$ will be fixed
+and its scaling (if any) with spectral parameters will be stated explicitly.
 
 % ---------------------------------------------------------------------
 \subsubsection*{G11. Gauss--Bonnet and torsion bookkeeping}
@@ -259,33 +312,48 @@ If $\Gamma$ has elliptic elements, $M$ is a hyperbolic orbifold with cone points
 \begin{equation}\label{eq:gauss-bonnet-orb}
   \vol(M)=2\pi\Big(2g-2+n+\sum_j (1-1/e_j)\Big).
 \end{equation}
-Elliptic conjugacy classes yield explicit additional terms in geometric trace identities; when torsion is present, these will be included systematically in Chapter~6.
+Elliptic conjugacy classes yield explicit additional terms in geometric trace identities; when torsion is present,
+they will be included systematically in Chapter~6 (geometric expansion).
 
 % ---------------------------------------------------------------------
 \subsubsection*{G12. Reader map: where each geometric input is used}
-\begin{itemize}[leftmargin=2.2em]
-\item \textbf{Chapter 3 (Truncated kernels).} Uses \eqref{eq:poincare-kernel}, local finiteness \eqref{eq:separation-compact}, ball growth \eqref{eq:ball-area}, and cusp truncation/cusp volumes from \S\ref{subsec:cusps-truncation-eisenstein}.
-\item \textbf{Chapter 4 (Spectral projectors).} Uses Laplacian normalization \eqref{eq:laplacian}, spectral parameter $\lambda=\frac14+t^2$, Sobolev dependence \eqref{eq:sobolev-dependence}, and cusp injectivity control (Lemma~\ref{lem:inj-cusp}) to bound commutators with smoothed truncations.
-\item \textbf{Chapter 5 (Microlocal analysis).} Uses wave/heat kernel representations \eqref{eq:heat-kernel}--\eqref{eq:wave-kernel}, spherical asymptotics \eqref{eq:spherical-asympt}, and exponential growth \eqref{eq:ball-area} to justify propagation on logarithmic times.
-\item \textbf{Chapter 6 (Geometric expansion).} Uses classification of isometries, translation length \eqref{eq:length-trace}, collar lemma \eqref{eq:collar-width}, Gauss--Bonnet \eqref{eq:gauss-bonnet-orb}, and the cusp ledger for parabolic terms.
+\begin{itemize}
+\item \textbf{Chapter 3 (Truncated kernels).}
+Uses Poincar\'e summation \eqref{eq:poincare-kernel}, local finiteness (Lemma~\ref{lem:local-finiteness}),
+ball growth \eqref{eq:ball-area}, and the cusp truncation formulas from Section~\ref{subsec:cusps-truncation-eisenstein}.
+\item \textbf{Chapter 4 (Spectral projectors).}
+Uses Laplacian normalization \eqref{eq:laplacian}, $\lambda=\frac14+t^2$,
+Sobolev dependence \eqref{eq:sobolev-dependence}, and cusp injectivity scale \eqref{eq:inj-cusp-asymp}
+to control commutators with smoothed truncations.
+\item \textbf{Chapter 5 (Microlocal analysis).}
+Uses kernel representations \eqref{eq:heat-kernel}--\eqref{eq:wave-kernel},
+spherical asymptotics \eqref{eq:spherical-asympt}, and exponential growth \eqref{eq:ball-area}
+to justify logarithmic-time propagation in semiclassical regimes.
+\item \textbf{Chapter 6 (Geometric expansion).}
+Uses classification of isometries, translation length \eqref{eq:length-trace}, collar lemma \eqref{eq:collar-width},
+Gauss--Bonnet \eqref{eq:gauss-bonnet-orb}, and the cusp ledger for parabolic terms.
 \end{itemize}
 
 % ---------------------------------------------------------------------
 \subsubsection*{G13. Geometry block audit (contract checks)}
-\begin{itemize}[leftmargin=2.2em]
-\item[(A1)] Metric/measure/distance fixed; key exact identity \eqref{eq:cosh-distance} recorded.
+\begin{itemize}
+\item[(A1)] Metric/measure/distance fixed; exact identity \eqref{eq:cosh-distance} recorded.
 \item[(A2)] Hyperbolic classification and translation length \eqref{eq:length-trace} fixed.
 \item[(A3)] Exponential ball area growth \eqref{eq:ball-area} fixed (source of $\log\lambda$ scales).
-\item[(A4)] Domains and orbit counting: only robust growth \eqref{eq:orbit-count-coarse} asserted here; sharper remainders deferred with hypotheses.
-\item[(A5)] Thick--thin and collars fixed with explicit collar width \eqref{eq:collar-width}.
-\item[(A6)] Laplacian normalization \eqref{eq:laplacian} and Plancherel density \eqref{eq:plancherel-density} aligned with Selberg/HC transform conventions.
-\item[(A7)] Heat/wave/resolvent kernels stated in spectral form \eqref{eq:heat-kernel}--\eqref{eq:resolvent-kernel}; quotient kernels by Poincaré summation \eqref{eq:poincare-kernel} recorded with convergence criteria.
-\item[(A8)] Gauss--Bonnet with torsion \eqref{eq:gauss-bonnet-orb} fixed; torsion handling deferred to the geometric expansion chapter.
+\item[(A4)] Domains and orbit counting: only robust growth \eqref{eq:orbit-count-coarse} asserted; refined remainders deferred with hypotheses.
+\item[(A5)] Injectivity radius fixed by definition \eqref{eq:inj-def}; cusp-scale \eqref{eq:inj-cusp-asymp} recorded.
+\item[(A6)] Thick--thin and collars fixed with explicit collar width \eqref{eq:collar-width}.
+\item[(A7)] Laplacian normalization \eqref{eq:laplacian} and Plancherel density \eqref{eq:plancherel-density} aligned with the Selberg/HC transform block.
+\item[(A8)] Heat/wave/resolvent kernels stated in spectral form \eqref{eq:heat-kernel}--\eqref{eq:resolvent-kernel};
+          quotient kernels by Poincar\'e summation \eqref{eq:poincare-kernel} recorded with safe convergence logic.
+\item[(A9)] Gauss--Bonnet with torsion \eqref{eq:gauss-bonnet-orb} fixed; torsion handling deferred to geometric expansion.
 \end{itemize}
 
 \medskip
 \noindent\textbf{Conclusion.}
-This block fixes, once and for all, the hyperbolic geometry normalizations, the cusp/collar local models, and the spherical analytic conventions that underwrite all later kernel constructions, truncation procedures, and trace identities on $M=\Gamma\backslash\mathbb H$.
+This block fixes the hyperbolic geometry normalizations, the cusp/collar local models,
+and the spherical analytic conventions that underwrite all later kernel constructions,
+truncation procedures, and trace identities on $M=\Gamma\backslash\mathbb H$.
 % =====================================================================
 % End of 02b-geometry DIAMOND block
 % =====================================================================
