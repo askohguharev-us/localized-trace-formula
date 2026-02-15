@@ -2,6 +2,8 @@
 % house-style.tex — Safe Notation & Helpers
 % ==================================================================
 
+\makeatletter % <--- РАЗРЕШАЕМ @
+
 % ----- Small helpers (Delimiters) -----
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
@@ -22,27 +24,25 @@
 \providecommand{\Hh}{\mathbb{H}}
 
 % ----- Operators (Guarded) -----
-\makeatletter
-% Исправленный хелпер (теперь одинаковый во всех файлах)
+% Исправленный хелпер: правильно создает команду из текста
 \providecommand{\SafeDeclareOp}[2]{%
   \@ifundefined{#1}{%
     \expandafter\DeclareMathOperator\csname #1\endcsname{#2}%
   }{}%
 }
 
-% Используем безопасное объявление
 \SafeDeclareOp{inj}{inj}
 \SafeDeclareOp{diam}{diam}
 
-% Повторяем квантование (безопасно)
+% Повторяем квантование на случай, если operators.tex не загружен
 \SafeDeclareOp{Op}{Op}
 \SafeDeclareOp{Opw}{Op_h^{\mathrm{w}}}
 \SafeDeclareOp{Opl}{Op_h^{\mathrm{left}}}
 \SafeDeclareOp{Opr}{Op_h^{\mathrm{right}}}
-\makeatother
 
 % ----- TODO helper -----
-% Проверяем xcolor, так как \textcolor может выдать ошибку, если пакет не загружен
 \@ifundefined{TODO}{
-  \providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+  \newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
 }{}
+
+\makeatother % <--- ЗАКРЫВАЕМ @
