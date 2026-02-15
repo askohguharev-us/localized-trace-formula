@@ -1,7 +1,8 @@
-\appendix
-\section*{Appendix G. Normalizations and Conventions}
-\addcontentsline{toc}{section}{Appendix G. Normalizations and Conventions}
-\label{appG:root}
+% ==================================================================
+% G-normalizations-and-conventions.tex — Appendix G (Diamond Standard)
+% ==================================================================
+
+\section{Normalizations and Conventions}\label{appG:root}
 
 \noindent\textbf{Purpose of Appendix G.}  
 This appendix establishes the complete set of normalizations used throughout the monograph.  
@@ -72,8 +73,7 @@ This normalization guarantees that the Selberg transform and Plancherel formula 
 = \int_0^\infty\int_\mathbb R\int_0^{2\pi} f\!\left(kan\right)\,\frac{1}{2\pi}\,d\theta \,\frac{dy}{y^2}\, dx.
 \]
 
-\bigskip
-\noindent\textbf{Audit of Block G.1.}
+\begin{auditblock}{Audit of Block G.1}
 \begin{itemize}
     \item \emph{Goal G1:} Fix the hyperbolic area measure and geodesic conventions. \textbf{Verified}.
     \item \emph{Goal G2:} Specify Haar measure in full detail, including Iwasawa densities. \textbf{Verified}.
@@ -81,6 +81,7 @@ This normalization guarantees that the Selberg transform and Plancherel formula 
     \item \emph{Forward links:} Used in Appendix~A (volume estimates), Appendix~C (Sobolev norms), and Chapter~6 (geometric expansion).
     \item \emph{Backward links:} Derived from standard sources \cite{Helgason,Iwaniec2002}.
 \end{itemize}
+\end{auditblock}
 
 \bigskip
 \noindent\textbf{Conclusion.}  
@@ -130,7 +131,7 @@ All Bessel functions are normalized as
 \[
 K_{ir}(y) = K_{-ir}(y),
 \]
-ensuring parity symmetry. Their asymptotics are recorded in \cref{appG:refidentities}.
+ensuring parity symmetry. Their asymptotics are recorded in \cref{appG:identities}.
 
 \paragraph{Spectral decomposition on $M=\Gamma\backslash \mathbb H$.}  
 Every $f\in L^2(M)$ decomposes as
@@ -149,8 +150,7 @@ We write
 \]
 so that the continuous spectrum starts at $1/4$, aligning with Selberg’s convention.  
 
-\bigskip
-\noindent\textbf{Audit of Block G.2.}
+\begin{auditblock}{Audit of Block G.2}
 \begin{itemize}
     \item \emph{Goal G3:} Fix Fourier conventions (Euclidean and hyperbolic). \textbf{Verified}.
     \item \emph{Goal G4:} Normalize spherical and Fourier–Helgason transforms with precise Plancherel factors. \textbf{Verified}.
@@ -159,6 +159,7 @@ so that the continuous spectrum starts at $1/4$, aligning with Selberg’s conve
     \item \emph{Forward links:} Applied in Chapter~5 (microlocal analysis), Chapter~6 (geometric expansion), Appendix~D (Tauberian estimates).  
     \item \emph{Backward links:} Derived from Helgason~\cite{Helgason}, Iwaniec~\cite{Iwaniec2002}, and consistent with Appendix~B (stationary phase).  
 \end{itemize}
+\end{auditblock}
 
 \bigskip
 \noindent\textbf{Conclusion.}  
@@ -212,8 +213,7 @@ Partitions of unity subordinate to a fixed atlas (see Appendix~A) guarantee that
 The semiclassical propagator $e^{it\sqrt{\Delta-1/4}/h}$ is approximated by a Fourier integral operator with phase given by the geodesic flow and amplitude belonging to symbol class $S^0_{1,0}$.  
 This convention ensures consistency with Egorov’s theorem and stationary phase expansions.
 
-\bigskip
-\noindent\textbf{Audit of Block G.3.}
+\begin{auditblock}{Audit of Block G.3}
 \begin{itemize}
     \item \emph{Goal G6:} Establish pseudodifferential quantization framework. \textbf{Verified}.
     \item \emph{Goal G7:} Guarantee boundedness and symbolic calculus properties. \textbf{Verified}.
@@ -221,6 +221,7 @@ This convention ensures consistency with Egorov’s theorem and stationary phase
     \item \emph{Forward links:} Chapter~5 (microlocal analysis), Appendix~B (stationary phase expansions), Chapter~7 (main theorems).  
     \item \emph{Backward links:} Appendix~A (atlas and partitions of unity), standard references \cite{Zworski, Hormander}.  
 \end{itemize}
+\end{auditblock}
 
 \bigskip
 \noindent\textbf{Conclusion.}  
@@ -278,8 +279,7 @@ Oscillatory integrals arising from Fourier inversion are normalized so that the 
 with phase factor $e^{i\pi \operatorname{sgn}(\varphi'')/4}$ included.  
 These conventions eliminate sign discrepancies across different chapters.
 
-\bigskip
-\noindent\textbf{Audit of Block G.4.}
+\begin{auditblock}{Audit of Block G.4}
 \begin{itemize}
   \item \emph{Goal G8:} Fix normalization of test functions, kernels, and traces. \textbf{Verified}.
   \item \emph{Goal G9:} Guarantee compatibility of distributional pairings and wave kernels. \textbf{Verified}.
@@ -287,6 +287,7 @@ These conventions eliminate sign discrepancies across different chapters.
   \item \emph{Forward links:} Appendix~B (stationary phase expansions), Appendix~C (Hadamard parametrix), Chapter~7 (trace formula).  
   \item \emph{Backward links:} Appendix~G.1 (measures), Appendix~G.2 (spectral transforms).  
 \end{itemize}
+\end{auditblock}
 
 \bigskip
 \noindent\textbf{Conclusion.}  
@@ -298,7 +299,6 @@ Block G.4 establishes the conventions for kernels, traces, and test functions. T
 \paragraph{Purpose.}  
 This block collects a catalogue of standard analytic identities that are repeatedly invoked throughout the monograph.  
 By recording them here once and for all, we eliminate duplication, guarantee uniform sign conventions, and provide a transparent audit trail for all constants.  
-Each identity is tied to authoritative references and aligned with the notational framework of Appendices~A--F.
 
 \medskip
 
@@ -347,10 +347,8 @@ In the Selberg trace formula, the contribution of the identity conjugacy class i
 \frac{\vol(M)}{4\pi} \int_{-\infty}^\infty h(r)\, r \tanh(\pi r)\, dr,
 \]
 where $h$ is the even test function from Appendix~G.4.  
-This ensures compatibility with the Plancherel identity above.
 
-\bigskip
-\noindent\textbf{Audit of Block G.5.}
+\begin{auditblock}{Audit of Block G.5}
 \begin{itemize}
   \item \emph{Goal G10:} Consolidate reference identities to prevent duplication. \textbf{Verified}.
   \item \emph{Goal G11:} Fix global conventions for Fourier, Bessel, and stationary phase identities. \textbf{Verified}.
@@ -358,6 +356,7 @@ This ensures compatibility with the Plancherel identity above.
   \item \emph{Forward links:} Appendix~B (stationary phase), Appendix~C (microlocal analysis), Chapter~6 (geometric side), Chapter~7 (trace formula).  
   \item \emph{Backward links:} Appendix~G.2 (Fourier transforms), Appendix~G.4 (test functions and kernels).  
 \end{itemize}
+\end{auditblock}
 
 \bigskip
 \noindent\textbf{Global Audit of Appendix G.}
