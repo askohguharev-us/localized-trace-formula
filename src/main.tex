@@ -2,19 +2,18 @@
 % main.tex — Monograph: Localized Trace Formula
 % ==================================================================
 
-\documentclass[11pt,oneside]{book} % oneside для удобства чтения PDF
+\documentclass[11pt,oneside]{book}
 
 % ---------- Page geometry & fonts ----------
 \usepackage[a4paper,margin=1in]{geometry}
-
-% Для XeLaTeX/LuaLaTeX (как в логе) лучше использовать fontspec
 \usepackage{iftex}
+
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{lmodern}
 \else
-  \usepackage{fontspec}
+  \usepackage{fontspec} % Для XeLaTeX, который виден в логах
 \fi
 
 % ---------- Math & symbols ----------
@@ -47,22 +46,20 @@
 % ---------- Numbering ----------
 \numberwithin{equation}{section}
 
-% ---------- Custom macros ----------
-% Если файлы в macros/ отсутствуют, проверьте пути!
+% ---------- Custom macros (Diamond Standard Guard) ----------
 \makeatletter
+% Подключаем внешние макросы. Важно: \makeatletter позволяет использовать @ в путях и именах.
 \@iffileexists{macros/environments.tex}{\input{macros/environments.tex}}{}
 \@iffileexists{macros/operators.tex}{\input{macros/operators.tex}}{}
 \@iffileexists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
+
+% Дополнительные операторы, которые мы не вынесли в файлы (безопасно)
+\providecommand{\PSL}{\operatorname{PSL}}
+\providecommand{\STF}{\operatorname{STF}}
 \makeatother
 
-% ---------- Специфические операторы (исправляют ошибку \sys) ----------
-\DeclareMathOperator{\PSL}{PSL}
-\DeclareMathOperator{\Spec}{Spec}
-\DeclareMathOperator{\STF}{STF}
-\DeclareMathOperator{\vol}{vol}
-\DeclareMathOperator{\sys}{sys}   % ТА САМАЯ ОШИБКА l.718
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\Tr}{Tr}
+% Примечание: \vol, \sys, \Tr, \Spec, \diam уже определены в operators.tex через SafeDeclareOp.
+% Если тебе нужно добавить что-то специфическое здесь, используй \providecommand.
 
 % ---------- PDF metadata ----------
 \hypersetup{
@@ -74,11 +71,14 @@
   pdfauthor={Alexander Stepanovich Kozhukharev}
 }
 
+% ==============================================================
+% DOCUMENT START
+% ==============================================================
 \begin{document}
 
-% ==============================================================
-% Title page
-% ==============================================================
+\frontmatter
+
+% --- Title page ---
 \begin{titlepage}
   \centering
   \vspace*{6mm}
@@ -108,20 +108,17 @@
   {\small Version: \today}
 \end{titlepage}
 
-\frontmatter
 \tableofcontents
 
-% ==============================================================
-% Frontmatter sections
-% ==============================================================
+% --- Frontmatter sections ---
+% Убедись, что имена файлов в папке frontmatter совпадают!
 \input{frontmatter/00-executive-summary.tex}
 \input{frontmatter/00-readers-roadmap.tex}
 \input{frontmatter/00-notation-glossary.tex}
 
 \mainmatter
-% ==============================================================
-% Main sections
-% ==============================================================
+
+% --- Main chapters ---
 \input{sections/01-introduction.tex}
 \input{sections/02-preliminaries/02-preliminaries.tex}
 \input{sections/03-kernel.tex}
@@ -131,14 +128,9 @@
 \input{sections/07-main-results.tex}
 \input{sections/08-applications.tex}
 
-% ==============================================================
-% Conclusion
-% ==============================================================
 \input{conclusion/09-conclusion.tex}
 
-% ==============================================================
-% Appendices
-% ==============================================================
+% --- Appendices ---
 \appendix
 \input{appendices/A-effective-volume.tex}
 \input{appendices/B-auxiliary-estimates.tex}
@@ -150,13 +142,11 @@
 \input{appendices/H-selberg-comparison.tex}
 \input{appendices/I-historical-context.tex}
 
-% ==============================================================
-% Bibliography
-% ==============================================================
 \backmatter
+
+% --- Bibliography ---
 \bibliographystyle{alpha}
 \nocite{*}
-% Проверьте наличие файла bib/references.bib в репозитории
 \bibliography{bib/references.bib}
 
 \end{document}
