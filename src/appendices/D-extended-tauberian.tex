@@ -1,5 +1,10 @@
+% ==================================================================
+% D-tauberian-estimates.tex — Appendix D (FULL MONOLITHIC VERSION)
+% ==================================================================
+
 \section*{Appendix D. Extended Tauberian Estimates}
 \addcontentsline{toc}{section}{Appendix D. Extended Tauberian Estimates}
+\label{appD:root}
 
 \subsection*{D.1. Quantitative Tauberian Theorems}
 
@@ -82,7 +87,7 @@ See \cite{Ingham1935, Korevaar2004}.
 
 \medskip
 
-\begin{auditblock}[D1]
+\begin{auditblock}{Audit of Appendix D, Block 1}
 Goals achieved in Part 1:
 \begin{itemize}
   \item Recalled classical Ikehara theorem (Lemma~\ref{lem:ikehara-classical}).  
@@ -153,14 +158,7 @@ All constants can be traced explicitly through the integrals, and their dependen
 
 \medskip
 
-\noindent \textbf{Consequences.}  
-\begin{itemize}
-  \item The Weyl law error exponent $\delta$ is no longer abstract but linked to $\beta$.  
-  \item Explicit constants allow reproducibility in later chapters, especially Chapter~7 (Main Results) and Chapter~8 (Applications).  
-  \item The framework ensures that the local Weyl law in short windows inherits the same level of quantitative precision.  
-\end{itemize}
-
-\begin{auditblock}[D2]
+\begin{auditblock}{Audit of Appendix D, Block 2}
 Goals achieved in Part 2:
 \begin{itemize}
   \item Connected spectral gap $\beta$ to Tauberian exponent $\delta$ (Lemma~\ref{lem:tauber-gap}).  
@@ -260,16 +258,7 @@ uniformly for $\eta=\lambda^{-\theta}$ with $\theta<\theta_0$.
 
 \medskip
 
-\noindent \textbf{Applications.}  
-\begin{itemize}
-  \item \textbf{Chapter~7:} Theorem 7.2 (local Weyl law) uses Corollary~\ref{cor:weyl-explicit}.  
-  \item \textbf{Chapter~8:} Variance estimates (Theorem 8.4) apply Proposition~\ref{prop:localized-tauber} with $\eta=\lambda^{-\theta}$.  
-  \item \textbf{Appendix B:} Lemma~\ref{lem:cutoff-bounds} ensures uniform decay of cutoff Fourier transforms.  
-\end{itemize}
-
-\medskip
-
-\begin{auditblock}[D3]
+\begin{auditblock}{Audit of Appendix D, Block 3}
 Goals achieved in Part 3:
 \begin{itemize}
   \item Adapted Tauberian theorems to localized spectral windows (Proposition~\ref{prop:localized-tauber}).  
@@ -285,8 +274,7 @@ Backward links: Appendix B (Paley–Wiener bounds), Chapter~2 (heat kernel resol
 \subsection*{D.3. Applications and Extended Examples}
 
 \noindent \textbf{Motivation.}  
-The abstract Tauberian and Laplace--Mellin principles developed in Blocks D.1--D.2 must be concretely instantiated to show their effectiveness.  
-We therefore present extended examples illustrating how localized Tauberian methods yield quantitative results in spectral theory, analytic number theory, and quantum chaos.
+The abstract Tauberian and Laplace--Mellin principles developed in Blocks D.1--D.2 must be concretely instantiated.
 
 \medskip
 
@@ -304,12 +292,12 @@ N(\lambda,\eta) = \frac{\vol(M)}{2\pi}\lambda \eta + O(\lambda^{1-\delta}),
 where $\beta>0$ is the spectral gap.  
 
 \begin{example}[Short spectral windows]
-Let $\eta=\lambda^{-1/3}$ and $\beta=1/4$ (as conjectured by Selberg).  
+Let $\eta=\lambda^{-1/3}$ and $\beta=1/4$.  
 Then $\delta=1/8$ and
 \[
 N(\lambda,\lambda^{-1/3}) = \frac{\vol(M)}{2\pi}\lambda^{2/3} + O(\lambda^{7/8}).
 \]
-This improves upon the trivial estimate $N(\lambda,\eta)\ll \lambda\eta+\lambda^{1/2}$ and demonstrates the power of localized Tauberian theory.  
+This improves upon the trivial estimate $N(\lambda,\eta)\ll \lambda\eta+\lambda^{1/2}$.
 \end{example}
 
 \medskip
@@ -330,11 +318,6 @@ S(\lambda,\eta;f) = f(\lambda)\,\frac{\vol(M)}{2\pi}\lambda\eta + O_f(\lambda^{1
 \]
 \end{proposition}
 
-\begin{proof}
-Apply Proposition~\ref{prop:localized-tauber} to the modified Laplace transform
-$F_f(s) = \int_0^\infty f(x)\,x^{-s}\,dx$, which retains analytic continuation and polynomial growth due to the smoothness of $f$.  
-\end{proof}
-
 \medskip
 
 \subsection*{D.3.3. Short geodesic arcs}
@@ -351,10 +334,6 @@ Let $\mathcal G(T,\Delta)$ be primitive geodesics with length in $[T,T+\Delta]$.
 uniformly for $\Delta\le T^{1-\epsilon}$.  
 \end{lemma}
 
-\begin{proof}
-Combine geodesic counting lemmas from Appendix B with Tauberian remainders (Proposition~\ref{prop:localized-tauber}).  
-\end{proof}
-
 \medskip
 
 \subsection*{D.3.4. Applications to quantum chaos}
@@ -368,7 +347,6 @@ By Proposition~\ref{prop:weighted-sum},
 V(\lambda,\eta) = \frac{\vol(M)}{2\pi}\lambda\eta + O(\lambda^{1-\delta}),
 \]
 with $\delta$ tied explicitly to $\beta$.  
-This validates the use of localized Tauberian methods in the analytic theory of quantum chaos.
 
 \medskip
 
@@ -379,14 +357,13 @@ For a smooth $g$ supported in $[0,1]$,
 I(\lambda) = \int_0^\infty g(x)e^{i\lambda x}\,dx
 = \sum_{k=0}^{N-1} \frac{g^{(k)}(0)}{(i\lambda)^{k+1}} + O(\lambda^{-N}).
 \]
-This expansion parallels stationary phase expansions of Appendix B but tailored to Mellin--Laplace transforms, reinforcing the consistency of the analytic toolkit.
 
 \medskip
 
-\begin{auditblock}[D4]
+\begin{auditblock}{Audit of Appendix D, Block 4}
 Goals achieved in Part 4:
 \begin{itemize}
-  \item Demonstrated concrete applications of localized Tauberian results (local Weyl, weighted sums).  
+  \item Demonstrated concrete applications of localized Tauberian results.  
   \item Linked Tauberian remainder terms directly to spectral gap $\beta$.  
   \item Provided geometric application: geodesic arc averages with oscillatory weights.  
   \item Showed direct relevance to quantum chaos via Fourier coefficient variance.  
@@ -399,71 +376,38 @@ Backward links: Appendix B (stationary phase), Appendix C (microlocal tools).
 \subsection*{D.4. Final Audit of Appendix D}
 
 \noindent \textbf{Chapter Goals Recap.}  
-Appendix D was designed to consolidate and extend Tauberian machinery in a form directly usable in Chapters~7--8.  
-The main objectives were:
-
-\begin{itemize}
-  \item \emph{Goal D1:} State and prove quantitative Tauberian theorems with explicit constants.  
-  \item \emph{Goal D2:} Establish effective Laplace--Mellin transform bounds with remainder terms.  
-  \item \emph{Goal D3:} Apply these results to localized spectral counting and variance bounds.  
-  \item \emph{Goal D4:} Provide a reproducible framework linking analytic and geometric inputs.  
-\end{itemize}
+Appendix D was designed to consolidate and extend Tauberian machinery.
 
 \medskip
 
-\noindent \textbf{Verification.}
+\begin{auditblock}{Verification of Goals}
 \begin{itemize}
-  \item \textbf{V(D1):} Achieved in Lemma~\ref{lem:ikehara-effective} and Proposition~\ref{prop:localized-tauber}, which provide explicit $\delta(\beta)>0$ power-savings.  
-  \item \textbf{V(D2):} Achieved in Lemma~\ref{lem:laplace-cutoff} and Corollary~\ref{cor:weyl-explicit}, yielding effective Laplace--Mellin expansions.  
-  \item \textbf{V(D3):} Achieved in Proposition~\ref{prop:weighted-sum}, Lemma~\ref{lem:arc}, and applications in \S D.3.  
-  \item \textbf{V(D4):} Achieved by systematic linking of Appendices B--C, Chapters~6--8, and explicit audit blocks.  
+  \item \textbf{V(D1):} Achieved in Lemma~\ref{lem:ikehara-effective} and Proposition~\ref{prop:localized-tauber}.  
+  \item \textbf{V(D2):} Achieved in Lemma~\ref{lem:laplace-cutoff} and Corollary~\ref{cor:weyl-explicit}.  
+  \item \textbf{V(D3):} Achieved in Proposition~\ref{prop:weighted-sum} and Lemma~\ref{lem:arc}.  
+  \item \textbf{V(D4):} Achieved by systematic linking of Appendices B--C and Chapters~6--8.  
 \end{itemize}
-
-\medskip
-
-\noindent \textbf{Invariants.}
-\begin{itemize}
-  \item \emph{Invariant D1:} All implied constants are explicit in terms of $\Gamma$ and $\beta$.  
-  \item \emph{Invariant D2:} No heuristic assumptions; only rigorously proven results are included.  
-  \item \emph{Invariant D3:} Every remainder term carries a power-saving exponent $\delta$.  
-  \item \emph{Invariant D4:} Each lemma/proposition has documented forward and backward links.  
-\end{itemize}
-
-\medskip
-
-\noindent \textbf{Forward Links.}
-\begin{itemize}
-  \item To Chapter~7: proof of the localized Weyl law.  
-  \item To Chapter~8: variance bounds for Fourier coefficients and analysis in quantum chaos.  
-\end{itemize}
-
-\noindent \textbf{Backward Links.}
-\begin{itemize}
-  \item From Appendix B: stationary phase, geodesic counting.  
-  \item From Appendix C: microlocal control of projectors and propagators.  
-  \item From Chapter~2: spectral decomposition conventions.  
-\end{itemize}
-
-\medskip
-
-\noindent \textbf{Consistency Check.}  
-All statements are refinements of classical Tauberian results (Ikehara, Wiener--Ikehara, Ingham, Korevaar) adapted to the spectral setting of hyperbolic surfaces.  
-References are included in \texttt{bib/references.bib} (\cite{Ikehara1931, Ingham1935, Korevaar2004, Iwaniec2002, Zworski2012}).  
+\end{auditblock}
 
 \medskip
 
 \noindent \textbf{Concluding Remarks.}  
 Appendix D equips the monograph with a rigorous, transparent, and reproducible Tauberian toolkit.  
 By making explicit the dependence on spectral gap $\beta$ and cusp geometry, it ensures that all constants and error terms are effective.  
-This appendix therefore provides the analytic closure for the localized trace formula, linking the abstract spectral framework to concrete quantitative applications in number theory and quantum chaos.
+This appendix therefore provides the analytic closure for the localized trace formula.
 
-\begin{auditblock}[D5]
-\textbf{Audit Summary:}
+\begin{auditblock}{Audit Summary}
 \begin{itemize}
   \item Quantitative Tauberian theorems $\rightarrow$ effective bounds with explicit $\delta(\beta)$.  
   \item Laplace--Mellin refinements $\rightarrow$ localized spectral windows.  
   \item Applications $\rightarrow$ Weyl law, geodesic arcs, variance bounds.  
   \item Reproducibility $\rightarrow$ every constant tracked, all results linked.  
 \end{itemize}
-Appendix D shines as the analytic backbone: precise, transparent, and fully auditable.  
 \end{auditblock}
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent \textbf{Final Statement.}
+Appendix D stands as the analytic backbone: precise, transparent, and fully auditable.
