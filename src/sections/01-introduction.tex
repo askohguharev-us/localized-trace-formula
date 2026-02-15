@@ -1,7 +1,7 @@
 % ======================================================================
 % File: src/sections/01-introduction.tex
-% Full Monograph Introduction — Restored & Technical Audit Fixed
-% Parts 1-8 COMPLETE — NO CUTS
+% Full Monograph Introduction — DIAMOND EDITION (Parts A–K)
+% Block 1/5: Part A + Normalizations (contract-grade)
 % ======================================================================
 
 \section{Introduction}
@@ -9,69 +9,64 @@
 
 \subsection*{A. Orientation and Motivation}
 
-The Selberg trace formula is one of the deepest analytic bridges between spectral
-theory and geometry. In its classical, global incarnation (Selberg \cite{Selberg1956}),
-it furnishes an exact identity equating the spectrum of the Laplace--Beltrami operator
-on a finite-area hyperbolic surface with geometric data encoded by closed geodesics
-and cusp parameters. The spectral side comprises discrete eigenvalues together with
-the continuous spectrum carried by Eisenstein series and their scattering matrix;
-the geometric side is organized by conjugacy classes in a cofinite Fuchsian group.
-This global equality inaugurated a remarkably fruitful program in spectral geometry,
-automorphic forms, and analytic number theory.
+The Selberg trace formula is a deep analytic bridge between spectral theory and geometry.
+In its classical global incarnation (Selberg~\cite{Selberg1956}), it furnishes an exact identity
+equating the spectrum of the Laplace--Beltrami operator on a finite-area hyperbolic surface
+with geometric data encoded by closed geodesics and cusp parameters.  The spectral side comprises
+discrete eigenvalues together with the continuous spectrum carried by Eisenstein series and
+their scattering matrix; the geometric side is organized by conjugacy classes in a cofinite
+Fuchsian group.  This global equality inaugurated a remarkably fruitful program in spectral
+geometry, automorphic forms, and analytic number theory.
 
-Yet the very globality that powers the classical trace formula also limits its
-quantitative reach. When one seeks \emph{local} spectral information --- microscopic
-windows around a large spectral parameter --- classical truncations of cusp integrals
-and regularizations of the continuous spectrum typically yield remainders bounded
-only coarsely (often by $O(1)$ with geometry-dependent constants). Such bounds are
-insufficient for problems that demand explicit control, uniformity across families,
-and \emph{power-saving} error terms.
+Yet the very globality that powers the classical trace formula also limits its quantitative reach.
+When one seeks \emph{local} spectral information --- microscopic windows around a large spectral
+parameter --- cusp truncations and regularizations of the continuous spectrum typically yield
+remainders controlled only coarsely (often $O(1)$ with geometry-dependent constants).  Such bounds
+are insufficient for problems that demand explicit control, uniformity across families, and
+\emph{power-saving} error terms.
 
 \medskip
-
 \noindent\textbf{The need for localization.}
-Modern problems in analytic number theory and mathematical physics probe
-\emph{short spectral windows}. In arithmetic applications, one studies averages
-of Hecke--Maass coefficients or $L$-values over intervals
-$[\lambda-\eta,\lambda+\eta]$ with $\eta$ shrinking as a negative power of $\lambda$.
-In quantum chaos, fine-scale statistics of eigenfunctions (quantum ergodicity,
-QUE, scarring, variances) live at the semiclassical resolution
+Modern problems probe \emph{short spectral windows}. In arithmetic applications, one studies
+averages of Fourier/Hecke data or $L$-values over intervals of shrinking width. In quantum chaos,
+fine-scale statistics of eigenfunctions (quantum ergodicity, QUE, scarring, variances) live at
+semiclassical resolution.  A canonical scaling is
 \[
   \eta \asymp \lambda^{-\theta}, \qquad \theta>0,
 \]
-which requires tools capable of resolving the spectrum at scales much finer than
-its total growth. Global trace identities, which aggregate the entire spectrum,
-cannot reliably detect such local structure: they average away the microscopic
-features and leave only $O(1)$ control on remainders, too crude for present aims.
+which requires tools capable of resolving the spectrum at scales far finer than global Weyl growth.
+Global trace identities cannot reliably detect such local structure: they average away microscopic
+features and typically leave only coarse remainder control.
 
 \medskip
-
 \noindent\textbf{Central objective.}
-This monograph develops, proves, and fully audits a \emph{localized trace formula}
-for finite-area hyperbolic surfaces with cusps. We introduce smooth spectral
-projectors
+This monograph develops, proves, and fully audits a \emph{localized trace formula} for finite-area
+hyperbolic surfaces with cusps.  We introduce smooth spectral localizers
 \[
-  P_{\lambda,\eta} \;=\; \phi_\eta\!\Big(\sqrt{\Delta-\tfrac14}\,\Big),
-  \qquad \phi_\eta(t)=\Phi\!\Big(\tfrac{t-\lambda}{\eta}\Big),
+  P_{\lambda,\eta} \;=\; \phi_{\eta}\!\big(\Lambda\big),
+  \qquad
+  \Lambda:=\sqrt{\Delta-\tfrac14}\;\;(\ge 0),
+  \qquad
+  \phi_{\eta}(t):=\Phi_{\mathrm{win}}\!\Big(\tfrac{t-\lambda}{\eta}\Big),
 \]
-with an even, compactly supported profile $\Phi\in C_0^\infty([-1,1])$ normalized
-by $\int\Phi=1$ and with uniform derivative bounds. These projectors microlocalize
-the spectrum to a window of size $\eta$ around a large parameter $\lambda$, with
-\[
-  \lambda^{-\theta}\;\le\;\eta\;\le\;1, \qquad 0<\theta<\theta_0,
-\]
-where $\theta_0>0$ is an \emph{explicitly computable} threshold determined by
-geometric and analytic invariants of $X$ and by derivative bounds of $\Phi$.
-\emph{The factor} $\min\{1,r_{\mathrm{inj}}\}$ \emph{in the closed formula for} $\theta_0$
-(derived in Appendix~J) \emph{ensures that the spatial microlocalization scale never falls
-below the injectivity radius; this guarantees that all local parametrices, stationary-phase charts,
-and Egorov transports are valid in geodesic coordinates free of self-overlap.}
-See Appendix~J, \S\S J.2--J.3 for the derivation of the geometric constant $c_{\mathrm{geom}}$
-(including its explicit dependence on $\vol(X)$, $\mathrm{sys}(X)$, the thick--thin decomposition,
-and cusp data) and of the mollifier constant $c_{\mathrm{moll}}$ (in terms of a finite set of
-derivative bounds of $\Phi$).
+where $\Phi_{\mathrm{win}}\in C_0^\infty([-1,1])$ is even, real-valued, and normalized by
+$\int_{\mathbb{R}}\Phi_{\mathrm{win}}(u)\,du=1$.  The operator $\Lambda$ is the natural spectral
+parameter on a finite-area hyperbolic surface: the continuous spectrum corresponds to $t=r\in\mathbb{R}$,
+i.e. $\Delta=\tfrac14+r^2$.
 
-We prove an exact localized trace identity with a \emph{power-saving remainder}
+We work in the regime
+\[
+  \lambda^{-\theta}\le \eta \le 1, \qquad 0<\theta<\theta_0,
+\]
+where $\theta_0>0$ is an \emph{explicitly computable} threshold determined by geometric and analytic
+invariants of $X$ and by a finite derivative budget for $\Phi_{\mathrm{win}}$.  The closed form and the
+full dependency ledger for $\theta_0$ are derived and sealed in Appendix~J (see \S\S J.2--J.3), and
+the \emph{only admissible dependencies} are those recorded in Chapter~2
+(\Cref{chap:preliminaries}, especially \Cref{sec:dependency-ledger}).
+
+\medskip
+\noindent\textbf{Localized trace identity (informal form).}
+We prove an exact localized trace identity with a \emph{power-saving remainder}:
 \[
   \Tr(P_{\lambda,\eta})
   \;=\;
@@ -81,1003 +76,466 @@ We prove an exact localized trace identity with a \emph{power-saving remainder}
   \;+\;
   \mathcal{P}_{\lambda,\eta}
   \;+\;
-  O_{X,\Phi,\theta}\!\big(\lambda^{1-\delta}\big),
+  O_{X,\Phi_{\mathrm{win}},\theta}\!\big(\lambda^{1-\delta}\big),
 \]
-uniformly for $\lambda^{-\theta}\le\eta\le 1$, where $\delta>0$ depends
-\emph{explicitly and computably} on the spectral gap $\beta_\Gamma$ and on cusp
-geometry. This localized identity converts Selberg's global equality into a
-microlocally sharp instrument capable of resolving short-interval phenomena with
-quantitative precision.
+uniformly for $\lambda^{-\theta}\le\eta\le 1$.  Here $\mathcal{G}_{\lambda,\eta}$ is the hyperbolic
+(closed geodesic) contribution and $\mathcal{P}_{\lambda,\eta}$ is the parabolic/Eisenstein contribution;
+$\delta>0$ is explicit and computable from the spectral gap bookkeeping parameter and cusp geometry
+(again, fully audited in Appendix~J).
 
 \medskip
-
 \noindent\textbf{Mechanism and scale.}
 The localized construction hinges on three complementary mechanisms:
-
 \begin{enumerate}[label=\arabic*.]
-  \item \emph{Microlocal propagation up to Ehrenfest time.}
-  A semiclassical parametrix for the even wave propagator
-  $U(t)=\cos\!\big(t\sqrt{\Delta}\big)$ is constructed and controlled up to
-  times $|t|\le T\asymp \log\lambda$, with Egorov transport constants recorded
-  explicitly.
+  \item \emph{Microlocal propagation up to logarithmic (Ehrenfest-type) times.}
+  We control an even wave propagator representation through times $|t|\le T\asymp\log\lambda$,
+  with Egorov transport constants recorded explicitly.
 
   \item \emph{Stationary phase on closed geodesics.}
-  Hyperbolic contributions are isolated by stationary phase along canonical
-  relations associated to the geodesic flow; amplitudes are computed with
-  explicit symbol bounds and curvature inputs.
+  Hyperbolic contributions are isolated by stationary phase along canonical relations associated to
+  geodesic flow; amplitudes are computed with explicit symbol bounds and curvature inputs.
 
   \item \emph{Cusp separation and Eisenstein control.}
-  Parabolic terms are controlled via Maass--Selberg relations and scattering
-  theory; cusp interactions are separated at an explicit geometric scale
-  dictated by the number of cusps $\kappa$, their widths $\{w_i\}$, and the
-  injectivity radius $r_{\mathrm{inj}}$.
+  Parabolic terms are controlled via Maass--Selberg relations and scattering theory; cusp interactions
+  are separated at an explicit geometric scale dictated by cusp data and injectivity considerations.
 \end{enumerate}
 
-These mechanisms jointly enforce the admissible localization exponent
-$0<\theta<\theta_0$ and yield the power-saving remainder $O(\lambda^{1-\delta})$.
-
 \medskip
-
-\noindent\textbf{Methodological stance.}
-Three commitments guide the exposition and proofs:
-
+\noindent\textbf{Methodological stance (contract form).}
 \begin{enumerate}[label=\arabic*.]
   \item \textbf{Explicitness of constants.}
-  Every implied constant in $O(\cdot)$ is traced to geometric and spectral
-  invariants of $X$: volume $\vol(X)$, cusp data $(\kappa,\{w_i\})$,
-  injectivity radius $r_{\mathrm{inj}}$, systole $\mathrm{sys}(X)$, and the
-  spectral gap $\beta_\Gamma$. No hidden dependencies are tolerated.
+  Every implied constant is traced to geometric and spectral invariants of $X$ recorded in
+  \Cref{chap:preliminaries}--\Cref{sec:dependency-ledger}.  No hidden dependence on $(\lambda,\eta)$
+  or on truncation heights $Y$ is permitted without explicit annotation.
 
-  \item \textbf{Localization with smooth projectors.}
-  Spectral windows are imposed by smooth cutoffs $\phi_\eta$ in the functional
-  calculus. Smoothness precludes boundary artefacts and enables precise kernel
-  expansions compatible with semiclassical analysis.
+  \item \textbf{Localization via smooth functional calculus.}
+  Spectral windows are imposed by smooth cutoffs $\phi_{\eta}$.
+  Smoothness avoids boundary artefacts and enables precise kernel expansions compatible with
+  semiclassical analysis.
 
   \item \textbf{Auditability and reproducibility.}
-  Each definition, constant, and logical step is bidirectionally linked:
-  backward to its provenance (notation and glossary) and forward to its usage
-  (proofs and applications). The result is a verifiable, reproducible chain
+  Each definition, constant, and logical step is bidirectionally linked: backward to provenance
+  (notation/ledger) and forward to usage (proofs/applications).  The result is a verifiable chain
   from hypotheses to conclusions.
 \end{enumerate}
 
 \medskip
-
-\noindent\textbf{Scope of Part 1/8.}
-This opening part motivates the need for localization, states the central objective,
-and records the methodological principles and scales that govern the construction.
-Part~2 surveys the historical lineage (Selberg's global identity; the microlocal
-revolution of Duistermaat--Guillemin and Ivrii; arithmetic explicitness in the work
-of Iwaniec--Sarnak and successors) and identifies the structural gap our results fill.
-Part~3 articulates the precise motivations from analytic number theory and quantum
-chaos and frames the conceptual architecture of the refinement. Part~4 states the
-principal theorems (localized trace formula and quantitative local Weyl law) with
-full hypotheses and clarifications. Parts~5--7 present the historical/conceptual
-positioning, the structural roadmap of the monograph, and the linkage/audit protocol.
-Part~8 records the methodological principles and closes the introduction.
+\noindent\textbf{Scope of Part A.}
+This part motivates localization, states the objective, and fixes the operative scale.
+Part~B places the work in historical lineage; Part~C diagnoses the quantitative gap;
+Part~D states the principal theorems; Parts~E--K record methodology, roadmap, linkage, and audits.
 
 \medskip
-
 \noindent\textbf{Normalization and notation (in force from now on).}
-Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with $\kappa$
-cusps of widths $\{w_i\}$ and injectivity radius $r_{\mathrm{inj}}>0$.
-The Laplacian $\Delta$ is normalized so that the continuous spectrum begins at $1/4$.
-We write $\lambda=\frac14+t^2$ and denote discrete eigenvalues by $\{\lambda_j\}$
-($\lambda_j=\tfrac14+t_j^2$), with $L^2$-normalized Hecke--Maass eigenfunctions $u_j$.
-Eisenstein series are $E_\mathfrak{a}(z,s)$, normalized so that
-$E_\mathfrak{a}(z,\tfrac12+it)=\overline{E_\mathfrak{a}(z,\tfrac12-it)}$.
-The scattering matrix is $\mathbf{S}(s)$ with determinant $\sigma(s)=\det\mathbf{S}(s)$.
-Throughout, $\Phi\in C_0^\infty([-1,1])$ is even, real-valued, $\int\Phi=1$, and
-has uniform derivative bounds $|\Phi^{(m)}|_\infty<\infty$ for all $m\in\mathbb{N}$.
-We write $O_{X,\Phi,\theta}(\cdot)$ to indicate that the implicit constant depends
-only on the fixed surface $X$ (via $\vol(X), r_{\mathrm{inj}}, \kappa, \{w_i\}$),
-on the fixed profile $\Phi$ (via a finite set of derivative bounds),
-and on the chosen $\theta<\theta_0$, but not on $\lambda$ or $\eta$.
+Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with $\kappa$ cusps.
+All geometric and spectral conventions are those fixed in Chapter~2
+(\Cref{chap:preliminaries}).  In particular:
+\begin{itemize}[leftmargin=2em]
+  \item $\Delta\ge 0$ is normalized so that the continuous spectrum begins at $1/4$.
+  \item We use $\Lambda=\sqrt{\Delta-\tfrac14}$ as the spectral parameter operator.
+  \item Discrete eigenvalues are $\lambda_j=\tfrac14+r_j^2$ with $r_j\in\mathbb{R}_{\ge 0}$ or
+        $r_j\in i[0,\tfrac12]$ (exceptional spectrum).
+  \item Eisenstein series are $E_{\mathfrak{a}}(z,s)$ in the Chapter~2 normalization; the scattering
+        matrix is denoted $\Phi(s)$ with determinant $\varphi(s):=\det\Phi(s)$.
+  \item The window profile $\Phi_{\mathrm{win}}$ is even, real-valued, compactly supported in $[-1,1]$,
+        and normalized by $\int\Phi_{\mathrm{win}}=1$; only a finite set of derivative norms enters
+        constants (specified where used).
+\end{itemize}
+We write $O_{X,\Phi_{\mathrm{win}},\theta}(\cdot)$ to indicate dependence only on the fixed surface $X$
+through the Chapter~2 ledger, on the fixed window profile through a declared derivative budget, and on the
+chosen $\theta<\theta_0$, but not on $\lambda$ or $\eta$.
 
 \medskip
-
 \noindent\textbf{Outcome.}
-With these conventions, the localized trace identity established in this monograph
-achieves microlocal resolution at the semiclassical scale, retains exact spectral--geometric
-balance, and delivers a genuinely \emph{quantitative} remainder with explicit,
-auditable constants. This transforms Selberg's global equality into a precision tool
-for arithmetic and semiclassical applications that hinge on short spectral windows.
+With these conventions, the localized trace identity proved here resolves short spectral windows at
+semiclassical scale, preserves spectral--geometric balance, and delivers genuinely quantitative
+remainders with explicit, auditable constants.
 
-\medskip
+% ======================================================================
+% Block 2/5: Part B — Historical Lineage and Context
+% ======================================================================
 
 \subsection*{B. Historical Lineage and Context}
 
-The path from Selberg's global identity to a localized, quantitative trace formula
+The route from Selberg's global identity to a localized quantitative trace formula
 passes through three intertwined trajectories:
-(i) the global spectral--geometric equality originating with Selberg;
-(ii) the microlocal and semiclassical program that analyzes wave traces via Fourier integral operators and stationary phase;
-(iii) the arithmetic insistence on explicit constants and uniformity in families.
-This part situates our contribution precisely within that lineage, identifying
-both the enduring strengths of each tradition and the structural gap our results are designed to close.
+(i) global spectral--geometric equalities (Selberg and successors);
+(ii) microlocal and semiclassical analysis of wave traces (parametrices, Egorov transport,
+stationary phase);
+(iii) arithmetic insistence on explicit constants and uniformity in families.
 
 \medskip
-
 \subsubsection*{1. Selberg's global identity (1950s).}
-Selberg's trace formula \cite{Selberg1956} equates the spectrum of the Laplacian on
+Selberg's trace formula~\cite{Selberg1956} equates the spectrum of $\Delta$ on
 $X=\Gamma\backslash\mathbb{H}$ --- discrete eigenvalues together with the continuous spectrum
-carried by Eisenstein series and the scattering matrix --- to a geometric expansion
-indexed by conjugacy classes in $\Gamma\subset\mathrm{PSL}_2(\mathbb{R})$.
-Two structural features are decisive:
-\begin{itemize}
-  \item \emph{Nonabelian Poisson summation.} Hyperbolic conjugacy classes (closed geodesics)
-        and parabolic classes (cusps) replace lattice points, yielding a global spectral--geometric dictionary.
-  \item \emph{Exact global balance.} The identity is \emph{exact} and treats the entire spectrum at once,
-        enabling deep qualitative results such as global Weyl laws and prime geodesic theorems.
+carried by Eisenstein series and scattering --- to a geometric expansion indexed by conjugacy
+classes in $\Gamma\subset\PSL_2(\mathbb{R})$. Two structural features are decisive:
+\begin{itemize}[leftmargin=2em]
+  \item \emph{Nonabelian Poisson summation:} hyperbolic conjugacy classes (closed geodesics) and
+        parabolic classes (cusps) replace lattice points, producing a global spectral--geometric dictionary.
+  \item \emph{Exact global balance:} the identity is exact and treats the full spectrum at once,
+        enabling global Weyl laws and prime geodesic theorems.
 \end{itemize}
-The same globality, however, limits quantitative localization:
-cusp truncations and the handling of the continuous spectrum typically produce remainders controlled only at the $O(1)$ level with geometry-dependent constants,
-insufficient for modern short-window questions.
+The same globality limits quantitative localization: cusp truncation and continuous-spectrum
+regularization often lead to remainders controlled only coarsely, inadequate for short-window questions.
 
 \medskip
-
 \subsubsection*{2. Wave traces and microlocal analysis (1970s--1980s).}
-The microlocal revolution on compact manifolds --- Duistermaat--Guillemin's wave-trace theorem \cite{DG1975},
-Colin de Verdi\`ere's refinements \cite{Colin1978}, and Ivrii's local Weyl laws \cite{Ivrii1980} ---
-established that the singular support of the wave trace coincides with the length spectrum:
-singularities occur at times equal to lengths of closed geodesics.
-The analysis relies on
-\begin{itemize}
+On compact manifolds, microlocal analysis of the wave trace --- notably the work of
+Duistermaat--Guillemin~\cite{DG1975} and refinements by Colin de Verdi\`ere~\cite{Colin1978} and
+Ivrii~\cite{Ivrii1980} --- established that singularities of the wave trace occur at lengths of closed
+geodesics.  The mechanism is semiclassical:
+\begin{itemize}[leftmargin=2em]
   \item Fourier integral operator parametrices for the wave group,
-  \item Egorov transport of observables,
-  \item stationary phase expansions with explicit symbol bounds and curvature inputs.
+  \item Egorov transport of observables under geodesic flow,
+  \item stationary phase expansions with explicit symbol bounds.
 \end{itemize}
-This program is inherently \emph{local} in phase space and \emph{semiclassical} in spirit, ideally matched to windows
-$\eta\asymp\lambda^{-\theta}$.
-Its classical scope is compact manifolds without boundary or cusps; adapting it to
-finite-area noncompact surfaces requires explicit control of Eisenstein series and scattering theory.
+Adapting this paradigm to finite-area cusp surfaces requires explicit control of Eisenstein series,
+scattering, and truncation operators.
 
 \medskip
-
 \subsubsection*{3. Arithmetic applications and explicitness (1980s--2000s).}
-Iwaniec, Sarnak, and collaborators harnessed the trace formula to arithmetic ends
-\cite{Iwaniec2002,LuoSarnak1995}, including the prime geodesic theorem,
-eigenvalue bounds, variance estimates, and uniformity across congruence families.
-Arithmetic applications demand:
-\begin{itemize}
-  \item \emph{explicit constants} in terms of geometric invariants (volume, cusp widths, injectivity radius) and spectral gap,
-  \item \emph{uniformity in families} (levels, weights, spectral parameters),
-  \item \emph{short-window control} to access delicate averages of coefficients and $L$-values.
-\end{itemize}
-Global $O(1)$ remainders and the lack of genuine spectral localization in the classical identity create a quantitative bottleneck.
-Subsequent advances such as Michel--Venkatesh \cite{MichelVenkatesh2010} showcase the reach of global harmonic analysis,
-but the need for \emph{localized} tools with effective constants remains.
+Arithmetic applications of trace formulas demand uniformity and explicit dependence on invariants.
+In the analytic number theory tradition (e.g. Iwaniec~\cite{Iwaniec2002} and related works),
+constants are not cosmetic: they govern uniformity across families and the strength of error terms.
+Short-window problems in automorphic forms sharpen this requirement: one needs localization and explicit
+remainders that remain meaningful when $\eta=\eta(\lambda)$ shrinks.
 
 \medskip
-
-\subsubsection*{4. Higher rank and representation theory.}
-Arthur's noninvariant and invariant trace formulas \cite{ArthurBook} organize harmonic analysis on reductive groups,
-establishing a far-reaching framework in which spectral and geometric data balance globally.
-While our results concern rank one, the architectural lesson is clear:
-a rank-one refinement that is both localized and quantitative should be built
-to respect the spectral--geometric balance and to expose constants explicitly,
-so that analogue constructions may be envisioned in higher rank.
+\subsubsection*{4. Higher-rank perspective (architectural lesson).}
+Higher-rank trace formulas (in Arthur's general framework) organize harmonic analysis on reductive groups.
+While our setting is rank one, the architectural lesson is relevant: refinements that preserve
+spectral--geometric balance and expose constants transparently are the natural substrate for uniform
+applications and further generalization.
 
 \medskip
-
 \subsubsection*{5. Quantum chaos and semiclassical demands (1990s--present).}
-Arithmetic surfaces are a canonical laboratory for quantum chaos.
-Questions of quantum ergodicity, QUE, scarring, and variance live at microscopic scales, requiring:
-\begin{itemize}
-  \item spectral windows $\eta\asymp\lambda^{-\theta}$,
-  \item propagation control up to Ehrenfest times $T\asymp\log\lambda$,
-  \item stationary phase analysis of contributions from closed geodesics with explicit constants.
+In quantum chaos, relevant statistics live in microscopic spectral windows and require:
+\begin{itemize}[leftmargin=2em]
+  \item localization $\eta\asymp \lambda^{-\theta}$,
+  \item propagation control to logarithmic times $T\asymp\log\lambda$,
+  \item stationary phase analysis of contributions from closed geodesics with explicit bounds.
 \end{itemize}
-Global identities average away these local structures; smooth, band-limited projectors and microlocal parametrices are needed.
-Work of Lindenstrauss and Soundararajan on QUE \cite{LindenstraussQUE,SoundararajanQUE} underscores that fine-scale spectral
-information is decisive; our refinement supplies a localized trace identity aligned with these semiclassical requirements.
+Global identities average away such local structure; localized projectors aligned with microlocal
+propagation are the natural instrument.
 
 \medskip
-
-\subsubsection*{6. Contributions of the Russian school.}
-Foundational operator-theoretic and scattering perspectives (Faddeev \cite{Faddeev1967}; Lax--Phillips \cite{LaxPhillips1976})
-shaped the analysis of the continuous spectrum and Eisenstein series.
-Systematic parametrix constructions and explicit kernel estimates --- hallmarks of this school ---
-resonate with our insistence on band-limited profiles, explicit derivative budgets, and auditable constants for noncompact finite-area surfaces.
+\subsubsection*{6. Scattering and continuous spectrum traditions.}
+Operator-theoretic and scattering perspectives (e.g. in the Lax--Phillips/Faddeev traditions)
+shape the analysis of Eisenstein series and the continuous spectrum.  Their emphasis on explicit
+kernel estimates and constructive control resonates with our insistence on explicit derivative budgets,
+truncation laws, and auditable constants.
 
 \medskip
-
-\subsubsection*{7. Synthesis and the remaining structural gap.}
-The literature thus offers three complementary strengths:
+\subsubsection*{7. Synthesis and the structural gap.}
+The literature provides three complementary strengths:
 \begin{enumerate}[label=\alph*)]
-  \item \emph{Global exactness} (Selberg/Arthur): exact spectral--geometric balance, arithmetic reach; but coarse remainders and no true localization.
-  \item \emph{Microlocal precision} (Duistermaat--Guillemin, Colin de Verdi\`ere, Ivrii): semiclassical localization; but primarily compact settings.
-  \item \emph{Arithmetic explicitness} (Iwaniec--Sarnak, successors): explicit constants and uniformity; but constrained by global $O(1)$ barriers.
+  \item \emph{Global exactness:} exact spectral--geometric balance, arithmetic reach;
+  \item \emph{Microlocal precision:} semiclassical localization and wave-trace technology;
+  \item \emph{Arithmetic explicitness:} constants and uniformity in families.
 \end{enumerate}
-The missing piece has been a \emph{localized} trace identity on finite-area hyperbolic surfaces with cusps that:
-\begin{itemize}
-  \item retains Selberg's spectral--geometric balance,
-  \item imports microlocal precision up to $T\asymp\log\lambda$,
-  \item delivers \emph{power-saving}, explicitly controlled remainders for short spectral windows.
-\end{itemize}
-This monograph supplies that piece: the localized, quantitative trace formula with effective constants and a uniform
-$O_{X,\Phi,\theta}(\lambda^{1-\delta})$ remainder.
+The missing piece is a localized trace identity on finite-area hyperbolic surfaces with cusps that
+\emph{simultaneously} preserves Selberg's balance, imports microlocal control up to $T\asymp\log\lambda$,
+and yields explicit power-saving remainders in short spectral windows.
 
 \medskip
-
 \subsubsection*{8. Our placement in the lineage.}
-Our approach is a synthesis designed to respect each tradition:
-\begin{itemize}
-  \item From \emph{Selberg/Arthur}: the exact spectral--geometric structure and the $I/G/P$ decomposition, with scattering data
-        entering through $(\sigma'/\sigma)(s)$ in the parabolic term.
-  \item From \emph{microlocal semiclassics}: a band-limited wave parametrix, Egorov transport up to Ehrenfest time,
-        and stationary phase with explicit symbol bounds.
-  \item From \emph{arithmetic practice}: explicit constants traced to geometric invariants and spectral gap $\beta_\Gamma$,
-        enabling uniformity across families and quantitative applications.
+Our method is a synthesis:
+\begin{itemize}[leftmargin=2em]
+  \item from Selberg: the exact spectral--geometric decomposition and the parabolic/hyperbolic bookkeeping;
+  \item from microlocal analysis: wave parametrices, Egorov transport, stationary phase with explicit bounds;
+  \item from arithmetic practice: explicit constants and a strict dependency ledger.
 \end{itemize}
-In doing so, we convert a global identity into a \emph{localized, quantitative} instrument aligned with semiclassical
+In this way, a global identity becomes a localized quantitative instrument aligned with modern semiclassical
 and arithmetic demands.
 
-\medskip
-
-\subsubsection*{9. Comparative view (strengths, limitations, synthesis).}
-For quick orientation we include a compact comparison (see also Appendix~J for pointers to explicit constants):
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{|p{3.1cm}|p{5.2cm}|p{5.2cm}|p{5.2cm}|}
-\hline
-\textbf{Tradition} & \textbf{Strength} & \textbf{Limitation} & \textbf{Our synthesis} \\
-\hline
-Selberg/Arthur \cite{Selberg1956,ArthurBook}
-& Exact global spectral--geometric balance; arithmetic reach
-& Coarse ($O(1)$) remainders; no true short-window localization
-& Localized identity preserving exact balance; explicit, power-saving errors \\
-\hline
-Microlocal/semiclassical \cite{DG1975,Colin1978,Ivrii1980}
-& Semiclassical precision; wave-trace--length-spectrum correspondence
-& Classical scope: compact manifolds; cusp/continuous spectrum absent
-& Parametrix and stationary phase adapted to cusp surfaces; control up to $T\asymp\log\lambda$ \\
-\hline
-Arithmetic practice \cite{Iwaniec2002,LuoSarnak1995,MichelVenkatesh2010}
-& Explicit constants; uniformity across families; applications to $L$-values
-& Global averaging blurs microscopic structure; localization missing
-& Smooth spectral projectors; fully auditable constants suitable for averages in short windows \\
-\hline
-\end{tabular}
-\end{center}
-
-\medskip
-
-\noindent\textbf{Conclusion of Part 2/8.}
-Historically, the subject advanced from Selberg's global equality through microlocal
-localization to arithmetic explicitness.
-The structural gap --- \emph{a localized, quantitative trace identity with power-saving, explicit remainders on noncompact finite-area surfaces} ---
-is precisely what this monograph fills.
-Part~3 turns from lineage to \emph{motivations and framework}:
-it enumerates the concrete limitations of classical approaches for short-window questions,
-articulates the semiclassical scale and propagation constraints,
-and lays out the conceptual architecture that leads to the principal theorems.
-
-\medskip
+% ======================================================================
+% Block 3/5: Part C — Motivations and the Gap in the Literature
+% ======================================================================
 
 \subsection*{C. Motivations and the Gap in the Literature}
 
-The need for a localized, quantitative trace formula arises from a persistent
-mismatch: the global strengths of Selberg's identity are structurally profound,
-yet insufficient for the refined demands of contemporary analytic number theory
-and quantum chaos. This part diagnoses those insufficiencies, illustrates their
-impact on central problems, and presents the conceptual framework that guides
-our refinement.
+The need for a localized, quantitative trace formula arises from a persistent mismatch:
+Selberg's identity is structurally exact and globally powerful, yet too coarse for short-window
+questions that require explicit power-saving remainders and uniformity.
 
 \medskip
-
-\subsubsection*{1. Limitations of the classical trace formula.}
-Despite its exactness and structural elegance, the classical trace formula
-suffers from three fundamental limitations when applied at microscopic or arithmetic scales:
-
+\subsubsection*{1. Limitations of classical global trace methods (for short windows).}
 \begin{enumerate}[label=\arabic*.]
-  \item \textbf{Cusp truncation and coarse remainders.}
-        On finite-area noncompact surfaces, truncation of Eisenstein series and cusp integrals
-        produces remainder terms bounded only by $O(1)$ with hidden constants.
-        Such bounds overwhelm main terms in short spectral windows.
+  \item \textbf{Cusp truncation and continuous spectrum.}
+  On finite-area noncompact surfaces, handling Eisenstein series and truncation produces remainder terms
+  whose dependence on geometry is often implicit.  For shrinking windows, such remainders can dominate
+  the main term unless one proves explicit power-saving bounds.
 
-  \item \textbf{Global spectrum integration.}
-        The classical kernel averages over the entire spectrum.
-        Test functions can weight spectral regions but cannot sharply isolate intervals of width
-        $\eta\asymp\lambda^{-\theta}$.
-        Microscopic statistics are therefore inaccessible.
+  \item \textbf{Global aggregation of the spectrum.}
+  Classical test functions weight spectral regions but do not, by themselves, yield microlocal resolution
+  at scales $\eta\asymp\lambda^{-\theta}$ with explicit remainder control.  Microscopic structure is
+  therefore blurred.
 
-  \item \textbf{Implicit constants.}
-        Dependence on geometric invariants --- volume $\vol(X)$, systole, injectivity radius,
-        cusp widths, spectral gap $\beta_\Gamma$ --- is often suppressed under $O(\cdot)$ notation.
-        For number-theoretic applications, where uniformity in families is essential,
-        such implicitness renders results quantitatively unusable.
+  \item \textbf{Hidden dependencies.}
+  In many contexts, $O(\cdot)$ constants conceal dependence on cusp widths, injectivity radius, or
+  exceptional spectrum.  For quantitative or family-uniform applications this is unacceptable.
+  Our strict dependency ledger (Chapter~2) is designed precisely to prevent this.
 \end{enumerate}
 
 \medskip
+\subsubsection*{2. Examples of insufficiency (conceptual).}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Local Weyl counts.}
+  Heuristically, one expects $\frac{\vol(X)}{2\pi}\lambda\eta$ eigenvalues in a window of width $\eta$
+  around $\lambda$ (in the $\Lambda$-parameter).  Without localization and power-saving errors, global
+  arguments do not produce usable short-window asymptotics.
 
-\subsubsection*{2. Examples of insufficiency.}
-The above limitations obstruct several core problems:
+  \item \textbf{Automorphic averages.}
+  Many arithmetic averages over spectral parameters become meaningful only when one can isolate thin
+  windows and control constants uniformly.
 
-\begin{itemize}
-  \item \textbf{Local Weyl laws.}
-        Differentiating the global Weyl law suggests an expectation
-        of $\tfrac{\vol(X)}{2\pi}\lambda\eta$ eigenvalues in $[\lambda-\eta,\lambda+\eta]$.
-        But trivial differentiation produces error of order $\lambda$, dominating the main term.
-        True local Weyl laws require power-saving error control.
-
-  \item \textbf{Automorphic $L$-functions.}
-        Subconvexity, nonvanishing, and variance questions hinge on averages of Fourier coefficients
-        over narrow spectral bands. Without spectral localization and explicit constants,
-        bounds remain too coarse.
-
-  \item \textbf{Quantum chaos.}
-        Quantum ergodicity, QUE, and scarring probe eigenfunction statistics at scales
-        $\eta\asymp\lambda^{-\theta}$. The global trace formula cannot isolate such windows,
-        leaving semiclassical questions unresolved.
+  \item \textbf{Quantum chaos statistics.}
+  Fine eigenfunction statistics are intrinsically semiclassical and demand microlocal tools matched to
+  logarithmic propagation and short-window projectors.
 \end{itemize}
 
 \medskip
-
-\subsubsection*{3. Motivations from analytic number theory.}
-Contemporary arithmetic research requires:
-\begin{itemize}
-  \item \emph{Uniform variance bounds} for Fourier coefficients,
-  \item \emph{Quantitative eigenvalue counts} in thin spectral windows,
-  \item \emph{Explicit dependence} on spectral gap $\beta_\Gamma$ and cusp invariants,
-  \item \emph{Uniformity across families} of congruence groups and levels.
-\end{itemize}
-Each demand necessitates remainders genuinely smaller than the main term.
-
-\medskip
-
-\subsubsection*{4. Motivations from quantum chaos.}
-Parallel motivations in physics include:
-\begin{itemize}
-  \item \emph{Quantum ergodicity and QUE.}  
-        Equidistribution of eigenfunctions requires analysis at Planck-scale windows
-        $h\asymp\lambda^{-1}$.
-  \item \emph{Scarring and eigenfunction concentration.}  
-        Concentration along closed geodesics manifests only in microscopic statistics.
-  \item \emph{Semiclassical propagation.}  
-        Parametrix control up to Ehrenfest times $T\asymp\log\lambda$ is required.
-        Global kernels cannot provide such precision.
+\subsubsection*{3. Motivations from analytic number theory (operational).}
+What is required is an identity that provides:
+\begin{itemize}[leftmargin=2em]
+  \item short-window localization $\lambda^{-\theta}\le\eta\le 1$,
+  \item explicit dependence on cusp data and exceptional spectrum bookkeeping,
+  \item uniformity and reusability under passage to families (when applicable),
+  \item power-saving remainders that remain smaller than the short-window main term.
 \end{itemize}
 
 \medskip
+\subsubsection*{4. Motivations from semiclassics and quantum chaos.}
+On hyperbolic surfaces the natural propagation horizon is logarithmic:
+\[
+  T\asymp \log\lambda,
+\]
+reflecting exponential divergence of geodesic flow.  A localized trace identity must therefore be
+compatible with parametrices and Egorov transport up to these times, and must isolate contributions
+from closed geodesics via stationary phase while controlling cusp interactions explicitly.
 
-\subsubsection*{5. Conceptual framework of our refinement.}
-To meet these demands, our refinement rests on three pillars:
-
+\medskip
+\subsubsection*{5. Framework of the refinement.}
+Our refinement rests on three pillars:
 \begin{enumerate}[label=\Alph*.]
-  \item \textbf{Microlocalized propagator.}
-        A wave kernel localized near $\lambda$, valid up to $T\asymp\log\lambda$,
-        aligned with geodesic flow and amenable to stationary phase.
+  \item \textbf{Smooth spectral localizers $P_{\lambda,\eta}$.}
+  Defined by functional calculus with a compactly supported profile $\Phi_{\mathrm{win}}$, enabling
+  clean Fourier/wave representations and avoiding sharp cutoff artefacts.
 
-  \item \textbf{Smooth spectral projectors.}
-        Operators $P_{\lambda,\eta}=\phi_\eta(\Lambda)$ defined by smooth cutoffs.
-        Smoothness prevents artefacts of sharp truncation, enables asymptotic expansions,
-        and ensures approximate idempotence.
+  \item \textbf{Microlocal wave representation and stationary phase.}
+  Express $\Tr(P_{\lambda,\eta})$ as a controlled wave integral and evaluate contributions from
+  canonical relations associated to closed geodesics.
 
-  \item \textbf{Explicit constants and auditability.}
-        All constants are tied to invariants --- $\vol(X)$, systole, cusp widths, $\beta_\Gamma$ ---
-        with dependencies recorded in cross-referenced audits.
-        No hidden constants remain.
+  \item \textbf{Cusp/Eisenstein control under a strict ledger.}
+  Use truncation operators and Maass--Selberg relations, with every constant traced back to the
+  invariants of Chapter~2 and the explicit constant ledger sealed in Appendix~J.
 \end{enumerate}
 
 \medskip
-
-\subsubsection*{6. Expected outcome.}
-From this framework we derive:
+\subsubsection*{6. Expected output (quantitative form).}
+The resulting localized trace identity has the form
 \[
   \Tr(P_{\lambda,\eta})
   = \frac{\vol(X)}{2\pi}\lambda\eta
-    + \mathcal{G}_{\lambda,\eta}
-    + \mathcal{P}_{\lambda,\eta}
-    + O_{X,\Phi,\theta}\!\big(\lambda^{1-\delta}\big),
+  + \mathcal{G}_{\lambda,\eta}
+  + \mathcal{P}_{\lambda,\eta}
+  + O_{X,\Phi_{\mathrm{win}},\theta}\!\big(\lambda^{1-\delta}\big),
 \]
-with $\delta>0$ explicit in terms of $\beta_\Gamma$ and cusp geometry.
-Consequences include:
-\begin{itemize}
-  \item A \emph{quantitative local Weyl law} with effective main term and power-saving remainder.
-  \item A \emph{localized trace identity} compatible with semiclassical propagation.
-  \item Constants transparent and reproducible, enabling arithmetic and physical applications.
-\end{itemize}
+with $\delta>0$ explicit and computable from the spectral-gap bookkeeping and cusp geometry
+(see Appendix~J).  This identity yields a quantitative local Weyl law and enables short-window
+applications once the hyperbolic and parabolic terms are estimated in the relevant regimes.
 
-\medskip
-
-\noindent\textbf{Conclusion of Part 3/8.}
-We have identified the limitations of classical trace methods, articulated the
-motivations from number theory and physics, and set out the conceptual pillars
-of our refinement. The next part crystallizes these ideas into the two principal
-theorems of the monograph, which state precisely the localized trace formula
-and the quantitative local Weyl law.
-
-\medskip
+% ======================================================================
+% Block 4/5: Part D — Statements of Principal Theorems (intro-level, consistent symbols)
+% ======================================================================
 
 \subsection*{D. Statements of Principal Theorems}
 \label{sub:intro-mainthms}
 
-The central contributions of this monograph are crystallized in two principal results:
-a localized trace formula valid on finite-area hyperbolic surfaces with cusps,
-and its corollary, a quantitative local Weyl law.
-These theorems transform Selberg's global identity into a microlocally sharp tool,
-equipped with explicit constants and genuinely power-saving error terms.
+We now state the two principal results in the normalization of Chapter~2.
+Precise hypotheses, the admissible parameter sets, and the closed constant ledger
+appear in Chapters~3--7 and Appendix~J.
 
 \medskip
 
 \begin{theorem}[Localized Trace Formula]\label{thm:intro-localized-trace}
 Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with cusps,
-where $\Gamma$ is a cofinite Fuchsian group.
-Fix $\lambda\ge 1$ and $0<\theta<\theta_0$, with $\theta_0>0$ determined explicitly
-by cusp geometry and constants detailed in Appendix~J and \Cref{sec:notation-glossary}.
-Let $\eta=\eta(\lambda)$ satisfy $\lambda^{-\theta}\le \eta\le 1$.
-Then there exists a smooth spectral projector $P_{\lambda,\eta}=\phi_\eta(\Lambda)$
-such that
+with conventions as in \Cref{chap:preliminaries}.
+Let $\Lambda=\sqrt{\Delta-\tfrac14}$ and fix an even window profile
+$\Phi_{\mathrm{win}}\in C_0^\infty([-1,1])$ with $\int\Phi_{\mathrm{win}}=1$.
+For $\lambda\ge 1$ and $\eta$ satisfying $\lambda^{-\theta}\le \eta\le 1$ with
+$0<\theta<\theta_0$ (where $\theta_0$ is explicit and sealed in Appendix~J),
+define
+\[
+  P_{\lambda,\eta}=\phi_\eta(\Lambda),
+  \qquad
+  \phi_\eta(t)=\Phi_{\mathrm{win}}\!\Big(\tfrac{t-\lambda}{\eta}\Big).
+\]
+Then there exist explicit terms $\mathcal{G}_{\lambda,\eta}$ (hyperbolic) and
+$\mathcal{P}_{\lambda,\eta}$ (parabolic/Eisenstein), defined canonically from the
+Selberg/Harish--Chandra transform conventions of Chapter~2, such that
 \[
   \Tr(P_{\lambda,\eta})
   \;=\;
-  \mathcal{I}_{\lambda,\eta}
+  \frac{\vol(X)}{2\pi}\,\lambda\,\eta
   \;+\;
   \mathcal{G}_{\lambda,\eta}
   \;+\;
   \mathcal{P}_{\lambda,\eta}
   \;+\;
-  O_{X,\Phi,\theta}\!\big(\lambda^{1-\delta}\big),
+  O_{X,\Phi_{\mathrm{win}},\theta}\!\big(\lambda^{1-\delta}\big),
 \]
-where:
-\begin{itemize}
-  \item $\mathcal{I}_{\lambda,\eta} = \dfrac{\vol(X)}{2\pi}\,\lambda\,\eta$
-        is the main identity contribution, matching the Plancherel measure
-        for the hyperbolic plane.
-  \item $\mathcal{G}_{\lambda,\eta}$ is the hyperbolic contribution:
-  \[
-    \mathcal{G}_{\lambda,\eta}
-    \;=\;
-    \sum_{\{\gamma\}^{\mathrm{prim}}_{\mathrm{hyp}}}
-    \sum_{k=1}^\infty
-    \frac{\ell(\gamma)}{2\sinh(k\ell(\gamma)/2)}\,
-    g\!\big(k\ell(\gamma)\big),
-  \]
-  with the sum effectively truncated at
-  \[
-    k\ell(\gamma)\;\leq\; C_T\log\lambda + O(1),
-  \]
-  where $C_T>0$ is explicit and enforced by the decay of $g$.
-  \item $\mathcal{P}_{\lambda,\eta}$ is the parabolic/Eisenstein term:
-  \[
-    \mathcal{P}_{\lambda,\eta}
-    \;=\;
-    \frac{1}{4\pi}\int_{-\infty}^{\infty}
-      h(t)\,\frac{\sigma'}{\sigma}(\tfrac{1}{2}+it)\,dt
-    \;+\;
-    \frac{\kappa}{4}\,h(i/2),
-  \]
-  where $h$ is the analytic transform associated with $\phi_\eta$
-  and $\kappa$ is the number of cusps.
-  \item $\delta \geq c_0 \beta_\Gamma$, with
-        \[
-          c_0 = \big(C_{\mathrm{stat}}\,C_{\mathrm{Eg}}\,C_{\mathrm{MS}}\big)^{-1},
-        \]
-        depending only on the geometry of $X$ and
-        the cutoff profile $\Phi$.
-\end{itemize}
-The implicit constant in the error term depends only on the fixed surface $X$
-and on the chosen window profile $\Phi$.
-
-\noindent\textbf{Explicit threshold for $\theta_0$:}
-\[
-\theta_0 = \frac{c_{\mathrm{geom}}\,c_{\mathrm{moll}}}{\kappa\,w_{\max}}\,\min\{1,\,r_{\mathrm{inj}}\},
-\]
-with $c_{\mathrm{geom}}$ from geometric invariants,
-$c_{\mathrm{moll}}$ from derivative bounds of the cutoff profile $\Phi$,
-$w_{\max}$ the maximal cusp width, and $r_{\mathrm{inj}}$ the injectivity radius
-(see Appendix~J for closed formulas and derivations).
+uniformly for $\lambda^{-\theta}\le\eta\le 1$, where $\delta>0$ is explicit and
+computable from the spectral-gap bookkeeping parameter and cusp geometry
+(see Appendix~J for the dependency ledger and closed expressions).
 \end{theorem}
 
 \medskip
 
-\noindent\textbf{Clarifications.}
-\begin{itemize}
-  \item This theorem preserves Selberg's exact spectral--geometric identity,
-        while achieving localization at scale $\eta$.
-  \item The error term is a true power-saving $O(\lambda^{1-\delta})$,
-        in contrast to the $O(1)$ global remainder.
-  \item Constants are explicit and traceable, ensuring applicability in arithmetic contexts.
-  \item The projector $P_{\lambda,\eta}$ acts on the full $L^2(X)$,
-        covering both discrete and continuous spectrum with explicit control.
+\noindent\textbf{Comment (intro-level).}
+\begin{itemize}[leftmargin=2em]
+  \item The identity term $\frac{\vol(X)}{2\pi}\lambda\eta$ matches the hyperbolic-plane
+        Plancherel density in the $\Lambda$-parameter.
+  \item The hyperbolic term $\mathcal{G}_{\lambda,\eta}$ is a sum over closed geodesics
+        weighted by the localized test function (effective truncation emerges from band-limitation).
+  \item The parabolic term $\mathcal{P}_{\lambda,\eta}$ is expressed via Eisenstein series and
+        scattering data in the Chapter~2 normalization (typically through $\varphi'/\varphi$).
+  \item All implied constants obey the strict dependency ledger of \Cref{sec:dependency-ledger}.
 \end{itemize}
 
 \medskip
 
 \begin{theorem}[Quantitative Local Weyl Law]\label{thm:intro-local-weyl}
-Under the same hypotheses,
-the number $N(\lambda,\eta)$ of Laplace eigenvalues in $[\lambda-\eta,\lambda+\eta]$
-satisfies
+Under the hypotheses of Theorem~\ref{thm:intro-localized-trace}, the smoothed local counting
+function associated to $P_{\lambda,\eta}$ satisfies
 \[
-  N(\lambda,\eta)
+  \Tr(P_{\lambda,\eta})
   \;=\;
   \frac{\vol(X)}{2\pi}\,\lambda\,\eta
   \;+\;
-  O_{X,\Phi,\theta}\!\big(\lambda^{1-\delta}\big),
+  O_{X,\Phi_{\mathrm{win}},\theta}\!\big(\lambda^{1-\delta}\big).
 \]
-uniformly for $\lambda^{-\theta}\le \eta\le 1$.
+In particular, whenever $\eta$ is in a regime where the geometric terms
+$\mathcal{G}_{\lambda,\eta}$ and $\mathcal{P}_{\lambda,\eta}$ are of smaller order
+(or can be absorbed), this yields an effective short-window Weyl asymptotic.
 \end{theorem}
 
 \medskip
 
-\noindent\textbf{Clarifications.}
-\begin{itemize}
-  \item The main term $\tfrac{\vol(X)}{2\pi}\lambda\eta$ matches the Plancherel density,
-        confirming semiclassical consistency.
-  \item The remainder is strictly smaller by a power of $\lambda$,
-        unobtainable by trivial differentiation of the global Weyl law.
-  \item This is the first effective local Weyl law for finite-area hyperbolic surfaces with cusps.
-\end{itemize}
-
-% ----------------------------------------------------------------------
-\subsubsection*{Sketch of the Proof of Theorem~\ref{thm:intro-localized-trace}}
-
+\subsubsection*{Sketch of the Proof Strategy (roadmap only).}
 The proof integrates spectral, geometric, and microlocal arguments:
-
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{Spectral projectors.}
-        Define $P_{\lambda,\eta}=\phi_\eta(\Lambda)$ via functional calculus,
-        with $\phi_\eta$ smooth and compactly supported.
-        Smoothness avoids cutoff artefacts and allows asymptotics.
-
-  \item \textbf{Trace via wave kernel.}
-        Represent $\Tr(P_{\lambda,\eta})$ as an integral of the even wave kernel
-        $U(t)=\cos(t\sqrt{\Delta})$ against $h(t)$, the Fourier transform of $\phi_\eta$.
-
-  \item \textbf{Parametrix construction.}
-        Build a Fourier integral parametrix for $U(t)$ valid up to times $|t|\le T\asymp\log\lambda$.
-        Stationary phase reveals contributions from closed geodesics.
-
-  \item \textbf{Hyperbolic terms.}
-        For each primitive $\gamma$, amplitudes are explicit:
-        \[
-          A_\gamma(k) = \frac{\ell(\gamma)}{2\sinh(k\ell(\gamma)/2)},
-        \]
-        oscillations governed by $g(k\ell(\gamma))$.
-        Truncation is automatic from decay.
-
-  \item \textbf{Parabolic/Eisenstein control.}
-        Maass--Selberg relations and analytic continuation control Eisenstein terms.
-        Scattering data enter only via $\sigma'/\sigma$.
-
-  \item \textbf{Error bounds.}
-        Parametrix errors decay faster than any power of $\eta\lambda$.
-        Aggregating yields the $O(\lambda^{1-\delta})$ bound.
+\begin{enumerate}[leftmargin=2em,label=\arabic*.]
+  \item Represent $\phi_\eta(\Lambda)$ via a band-limited wave integral (Fourier inversion),
+        with an even wave kernel tied to the Chapter~2 normalization.
+  \item Construct and control a microlocal parametrix for wave propagation up to
+        $|t|\le T\asymp\log\lambda$ with explicit transport constants.
+  \item Evaluate hyperbolic contributions by stationary phase along geodesic canonical relations,
+        extracting explicit closed-geodesic weights.
+  \item Control parabolic contributions via truncation operators and Maass--Selberg relations,
+        expressing scattering contributions through $\varphi'/\varphi$.
+  \item Combine the pieces, enforcing the strict dependency ledger and producing the power-saving
+        remainder $O(\lambda^{1-\delta})$ with explicit $\delta$.
 \end{enumerate}
 
-% ----------------------------------------------------------------------
-\subsubsection*{Sketch of the Proof of Theorem~\ref{thm:intro-local-weyl}}
-
-The Weyl law follows by approximation:
-
-\begin{enumerate}[label=\arabic*.]
-  \item Approximate the characteristic function of $[\lambda-\eta,\lambda+\eta]$
-        with smooth $\phi_\eta$.
-  \item Apply Theorem~\ref{thm:intro-localized-trace}.
-  \item The identity term yields $\tfrac{\vol(X)}{2\pi}\lambda\eta$.
-  \item Hyperbolic and parabolic terms are absorbed in the error
-        by decay of $g$ and analytic bounds for $\sigma'/\sigma$.
-\end{enumerate}
-
-\medskip
-
-\noindent\textbf{Concluding Remarks for Part 4/8.}
-These theorems form the analytic and conceptual core of the monograph.
-They show that localization at scale $\eta\asymp\lambda^{-\theta}$
-is not only possible but effective,
-with explicit constants and power-saving remainders.
-The following part positions these results within their broader
-historical and methodological framework.
-
-\medskip
+% ======================================================================
+% Block 5/5: Parts E–K — Architecture, Roadmap, Linkage, Audit, Principles, Conclusion
+% ======================================================================
 
 \subsection*{E. Methodological Architecture}
 \label{sub:intro-methodology}
 
-The methodology underlying this monograph is designed to unify three traditions
-into a single coherent analytic apparatus:
-\begin{itemize}
-  \item the \emph{global spectral--geometric identity} of Selberg,
-  \item the \emph{microlocal parametrix constructions} of Duistermaat--Guillemin,
-  \item the \emph{explicit arithmetic control of constants} initiated by Iwaniec--Sarnak.
-\end{itemize}
-This synthesis is operationalized through what we call the \emph{Diamond v2 framework},
-a bidirectional system of linkage, auditing, and explicit constants.
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.1. Three Guiding Principles}
-
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{Explicitness of constants.}
-        Every constant (geometric, analytic, arithmetic) is stated and traced back to
-        primary invariants: $\vol(X)$, $\mathrm{sys}(X)$, $\diam(X_{\mathrm{thick}})$,
-        cusp widths, and scattering data.
-        No hidden $O(1)$ remains unaccounted.
-
-  \item \textbf{Reproducibility.}
-        Each derivation is structured so that another researcher can reproduce it step by step.
-        Appendices contain full derivations, rather than sketches.
-
-  \item \textbf{Fractal linkage.}
-        Each chapter links forward to its applications and backward to its foundations,
-        ensuring no isolated arguments. This creates a closed, verifiable network of results.
-\end{enumerate}
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.2. Epistemological Stance}
-
-This monograph operates at the intersection of three epistemological traditions:
-
-\begin{itemize}
-  \item \textbf{Constructive Analysis.}
-        Following the Russian school (Faddeev, Lax--Phillips),
-        priority is given to explicit, verifiable constructions
-        over purely existential arguments.
-
-  \item \textbf{Arithmetic Explicitness.}
-        In the lineage of Iwaniec--Sarnak,
-        constants are treated not as mere technicalities but as carriers of
-        deep arithmetic meaning.
-
-  \item \textbf{Microlocal Precision.}
-        Adopting the Duistermaat--Guillemin paradigm,
-        localization is regarded not as a technical convenience but as a fundamental
-        principle for accessing fine spectral structure.
-\end{itemize}
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.3. Philosophical Commitments}
-
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{Transparency as rigor.}
-        Mathematical rigor is not just logical correctness,
-        but full transparency of dependencies, constants, and assumptions.
-
-  \item \textbf{Reproducibility as verification.}
-        A construction is validated not only by internal logic
-        but by the possibility of independent reconstruction.
-
-  \item \textbf{Constants as meaning.}
-        In spectral theory, constants encode geometry and arithmetic.
-        Explicit computation is not optional but essential.
-\end{enumerate}
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.4. The Diamond v2 Audit Structure}
-
-The methodological innovation of this work is the \emph{Diamond v2 audit}:
-\begin{itemize}
-  \item Every theorem carries a \emph{forward-link} to its applications.
-  \item Every theorem carries a \emph{backward-link} to prior lemmas and definitions.
-  \item Constants are logged in an \emph{audit ledger} (Appendix J),
-        with explicit provenance.
-  \item A \emph{verification stamp} records the version and dependency chain.
-\end{itemize}
-
-This transforms the monograph from a static document into a
-\emph{verifiable mathematical artifact},
-capable of being audited like an experimental result in physics.
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.5. Clarifications}
-
-\begin{itemize}
-  \item The Diamond v2 system is not decorative; it enforces methodological rigor.
-  \item Forward/backward linkages prevent isolated claims.
-  \item Explicitness ensures results are usable in both arithmetic and physical contexts.
-  \item Reproducibility transforms the text into a blueprint for future work.
-\end{itemize}
-
-% ----------------------------------------------------------------------
-\subsubsection*{E.6. Closing Remarks for Part 5/8}
-
-The methodological architecture is the silent backbone of this monograph.
-It ensures that the theorems of Part~4 are not only correct
-but are embedded in a transparent, reproducible, and philosophically rigorous framework.
-The following part (F) presents the structural roadmap of the monograph,
-mapping the methodology into a navigable plan for the reader.
+The methodology is designed to unify (i) Selberg's spectral--geometric balance,
+(ii) microlocal semiclassics, and (iii) explicit constant control under a strict ledger.
+This is implemented through a bidirectional linkage and audit protocol: every object is anchored
+backward to Chapter~2 conventions and forward to its usage in Chapters~3--8.
 
 \medskip
+\subsubsection*{E.1. Three guiding principles (contract form).}
+\begin{enumerate}[leftmargin=2em,label=\arabic*.]
+  \item \textbf{Explicitness.} Every constant is traceable to the Chapter~2 ledger and Appendix~J.
+  \item \textbf{Reproducibility.} Every operator identity is stated in a form that can be re-derived
+        from declared inputs (kernels, transforms, truncations).
+  \item \textbf{Linkage.} Each chapter provides backward/forward cross-references and an end-of-chapter audit.
+\end{enumerate}
 
+\medskip
 \subsection*{F. Structural Roadmap of the Monograph}
 \label{sub:intro-roadmap}
 
-The architecture of this monograph is intentionally designed to be
-modular, auditable, and forward--backward linked.
-Each chapter fulfills a clearly defined role within the analytic
-and methodological framework, with audits at the end of each chapter
-to confirm reproducibility and closure.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.1. Chapter 2 --- Preliminaries and Notational Framework}
-This chapter establishes the foundation:
-\begin{itemize}
-  \item Hyperbolic geometry of finite-area surfaces with cusps,
-  \item Discrete groups $\Gamma \subset \mathrm{PSL}_2(\mathbb{R})$,
-  \item Laplace--Beltrami operator $\Delta$ and its spectral decomposition,
-  \item Eisenstein series, scattering matrices, and cusp expansions,
-  \item Geometric invariants: $\vol(X)$, systole $\mathrm{sys}(X)$,
-        injectivity radius $r_{\mathrm{inj}}$, cusp widths, spectral gap $\beta_\Gamma$.
+The monograph is modular:
+\begin{itemize}[leftmargin=2em]
+  \item Chapter~2 fixes geometry, cusps/truncation, Eisenstein/scattering, and Selberg transform conventions.
+  \item Chapter~3 constructs localized kernels and truncation operators.
+  \item Chapter~4 builds the spectral localizers $P_{\lambda,\eta}$ and proves their mapping properties.
+  \item Chapter~5 provides the microlocal parametrix and Egorov transport up to $T\asymp\log\lambda$.
+  \item Chapter~6 derives the spectral--geometric expansion (identity/hyperbolic/parabolic pieces).
+  \item Chapter~7 proves the main theorems with explicit constant tracking and remainder bounds.
+  \item Chapter~8 develops applications (short-window estimates, variance-type consequences, semiclassical uses).
+  \item Appendices (esp.\ Appendix~J) seal the constant ledger, thresholds, and dependency audits.
 \end{itemize}
-Audit outcome: all definitions fixed, notation consistent,
-constants referenced to the glossary.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.2. Chapter 3 --- Kernel Construction and Truncation}
-Here the Selberg kernel is adapted to localization:
-\begin{itemize}
-  \item Truncation at cusp height $Y$ with explicit dependence on geometry,
-  \item Compatibility with Selberg's global kernel,
-  \item Window functions $h_\eta$ designed for short spectral intervals.
-\end{itemize}
-Audit outcome: kernel is bounded, localized, and ready for stationary phase.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.3. Chapter 4 --- Spectral Projectors $P_{\lambda,\eta}$}
-This chapter introduces the operators central to localization:
-\begin{itemize}
-  \item Spectral projectors defined via smooth functional calculus,
-  \item Approximate idempotence and orthogonality proved,
-  \item Explicit dependence on profile $\Phi$ recorded.
-\end{itemize}
-Audit outcome: projectors validated as effective localization tools.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.4. Chapter 5 --- Microlocal Analysis and Parametrix}
-This chapter is the semiclassical core:
-\begin{itemize}
-  \item Parametrix for $U(t)=\cos(t\sqrt{\Delta})$ built for $|t|\le T\asymp \log \lambda$,
-  \item Egorov's theorem for transport of observables,
-  \item Stationary phase expansions for geodesic contributions,
-  \item Explicit error control recorded in audit ledger.
-\end{itemize}
-Audit outcome: constants $(C_{\mathrm{Eg}}, C_{\mathrm{stat}}, C_{\mathrm{curv}})$ sealed.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.5. Chapter 6 --- Geometric Expansion}
-Spectral data is converted into geometric contributions:
-\begin{itemize}
-  \item Identity term with exact main contribution,
-  \item Hyperbolic terms truncated effectively by decay,
-  \item Parabolic/Eisenstein terms handled by Maass--Selberg relations,
-  \item Treatment of resonances and exceptional eigenvalues explicit.
-\end{itemize}
-Audit outcome: geometric contributions explicit, constants recorded.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.6. Chapter 7 --- Proofs of the Main Theorems}
-This chapter synthesizes:
-\begin{itemize}
-  \item Localized Trace Formula (Theorem~\ref{thm:intro-localized-trace}),
-  \item Quantitative Local Weyl Law (Theorem~\ref{thm:intro-local-weyl}),
-  \item Full proofs integrating projectors, parametrix, and expansions.
-\end{itemize}
-Audit outcome: theorems closed, bounds sharp, constants explicit.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.7. Chapter 8 --- Applications}
-The localized trace formula is deployed:
-\begin{itemize}
-  \item Variance bounds for Hecke--Maass coefficients,
-  \item Uniform estimates in arithmetic families,
-  \item Quantum chaos applications (QUE, scarring, variance),
-  \item Cross-check with semiclassical heuristics.
-\end{itemize}
-Audit outcome: constants traced back to original definitions,
-applications reproducible.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.8. Chapter 9 --- Conclusion and Outlook}
-This chapter synthesizes:
-\begin{itemize}
-  \item Summary of contributions,
-  \item Methodological reflection (explicitness, reproducibility, linkage),
-  \item Future directions: higher rank, refined QUE, further arithmetic reach.
-\end{itemize}
-Audit outcome: closure verified, objectives fulfilled.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.9. Appendices}
-Supporting material:
-\begin{itemize}
-  \item Appendix A: Effective volume bounds for thick--thin decompositions,
-  \item Appendix B: Sobolev lemmas and stationary phase estimates,
-  \item Appendix J: Audit ledger of constants and glossary of notation.
-\end{itemize}
-Audit outcome: appendices self-contained, consistent with the main text.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.10. Balance of Chapters}
-The distribution of material:
-\begin{itemize}
-  \item Ch.~2--4 ($\approx$100 pp.): foundational definitions and operators,
-  \item Ch.~5--6 ($\approx$150 pp.): technical semiclassical and geometric core,
-  \item Ch.~7--8 ($\approx$80 pp.): proofs and applications,
-  \item Appendices ($\approx$70 pp.): supporting analysis and constants.
-\end{itemize}
-This balance signals density and conceptual flow.
-
-% ----------------------------------------------------------------------
-\subsubsection*{F.11. Closing Remarks for Part 6/8}
-The structural roadmap transforms the monograph into a
-\emph{sealed system}: each part has provenance, purpose, and audit.
-The next part (G) presents the linkage system and chapter audits,
-showing how reproducibility is enforced at every level.
 
 \medskip
-
 \subsection*{G. Forward/Backward Linkage and Audit Protocol}
 \label{sub:intro-linkage}
 
-A defining methodological feature of this monograph is the
-\emph{bidirectional linkage system}, implemented throughout.
-Every constant, definition, and theorem is anchored backward to its origin
-and forward to its consequences. This recursive structure guarantees
-auditability, reproducibility, and transparency.
-
-% ----------------------------------------------------------------------
-\subsubsection*{G.1. Backward Links}
-From the Introduction, explicit backward connections are established to:
-\begin{itemize}
-  \item the \emph{Executive Summary}, where results are first crystallized,
-  \item the \emph{Notation and Glossary} (\Cref{sec:notation-glossary}),
-        where every symbol is defined,
-  \item the historical lineage (Selberg~\cite{Selberg1956};
-        Duistermaat--Guillemin~\cite{DG1975}; Ivrii~\cite{Ivrii1980};
-        Iwaniec--Sarnak~\cite{Iwaniec2002}; Michel--Venkatesh~\cite{MichelVenkatesh2010}),
-        where motivations are situated.
+Every symbol and constant is linked:
+\begin{itemize}[leftmargin=2em]
+  \item backward to Chapter~2 (definitions/normalizations and dependency ledger),
+  \item forward to the exact lemma/theorem where it is used,
+  \item and (for constants) to Appendix~J where provenance and admissible dependencies are sealed.
 \end{itemize}
-Thus no symbol or constant appears without provenance.
+Each chapter ends with an audit verifying that: (i) no hidden dependencies were introduced;
+(ii) notation matches Chapter~2; (iii) remainder bounds state their admissible parameters explicitly.
 
-% ----------------------------------------------------------------------
-\subsubsection*{G.2. Forward Links}
-The Introduction also points forward to:
-\begin{itemize}
-  \item Chapter~2 (\Cref{chap:preliminaries}) --- preliminaries and notation,
-  \item Chapter~3 (\Cref{chap:kernel}) --- kernel truncation,
-  \item Chapter~4 (\Cref{chap:projector}) --- spectral projectors,
-  \item Chapter~5 (\Cref{chap:parametrix}) --- parametrix construction,
-  \item Chapter~6 (\Cref{chap:geometric}) --- geometric expansions,
-  \item Chapter~7 (\Cref{chap:proofs}) --- proofs of main theorems,
-  \item Chapter~8 (\Cref{chap:applications}) --- applications,
-  \item Chapter~9 (\Cref{chap:conclusion}) --- synthesis and outlook.
-\end{itemize}
-Every claim is thus linked forward to its detailed development.
-
-% ----------------------------------------------------------------------
-\subsubsection*{G.3. Fractal Linkage (Diamond v2)}
-The linkage system is recursive and fractal.
-Each chapter is linked backward and forward, forming a closed diamond-shaped network.
-Constants, definitions, and theorems are duplicated across contexts
-(Executive Summary, Glossary, Introduction, Body, Appendices),
-with cross-references enforcing consistency.
-This recursive structure is a methodological invariant of the monograph.
-
-% ----------------------------------------------------------------------
+\medskip
 \subsection*{H. Audit of the Introduction (Chapter 1)}
 
-The audit for Chapter~1 verifies declared objectives:
-
-\begin{itemize}
-  \item \textbf{Motivation:}  
-        Localization necessity established via number theory and quantum chaos.
-  \item \textbf{Historical Lineage:}  
-        Contributions of Selberg, Duistermaat--Guillemin, Ivrii,
-        Iwaniec--Sarnak, Michel--Venkatesh, Lindenstrauss, Soundararajan acknowledged.
-  \item \textbf{Conceptual Framework:}  
-        Pillars (microlocalized propagator, smooth projectors, explicit constants) stated.
-  \item \textbf{Principal Theorems:}  
-        Localized Trace Formula and Quantitative Local Weyl Law presented,
-        with explicit constants and corrected main term
-        $\frac{\vol(X)}{2\pi}\lambda\eta$.
-  \item \textbf{Consistency Checks:}  
-        Volume factor and remainder order $O(\lambda^{1-\delta})$ confirmed,
-        correcting earlier inconsistencies (cf.~review).
-  \item \textbf{Roadmap:}  
-        Complete outline of Chapters~2--9 and Appendices given.
-  \item \textbf{Methodology:}  
-        Explicitness, reproducibility, linkage reinforced as guiding commitments.
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{(H1) Motivation.} The necessity of short-window localization is stated and tied to
+        semiclassical scaling $\eta\asymp\lambda^{-\theta}$.
+  \item \textbf{(H2) Normalization.} All operative objects ($\Delta$, $\Lambda$, Eisenstein/scattering,
+        Selberg transform conventions) are declared to follow Chapter~2.
+  \item \textbf{(H3) Main terms.} The identity contribution is consistently
+        $\frac{\vol(X)}{2\pi}\lambda\eta$ in the $\Lambda$-parameter.
+  \item \textbf{(H4) Dependency law.} All implied constants are declared subject to the strict ledger of
+        \Cref{sec:dependency-ledger}, with detailed closure in Appendix~J.
+  \item \textbf{(H5) Theorems.} Principal theorems are stated in a form consistent with later chapters,
+        with technical definitions deferred to Chapters~3--6 and the constant ledger deferred to Appendix~J.
 \end{itemize}
 
 \noindent\emph{Audit outcome: sealed.}
-The Introduction fulfills all objectives, with corrections implemented
-(main term normalization, threshold explanation, bibliographic precision).
-The linkage and audit structure guarantee reproducibility
-and closure of Chapter~1.
-
-% ----------------------------------------------------------------------
-\subsubsection*{H.1. Outlook}
-The next part (Part 8/8) articulates the methodological principles
-as a structural invariant, and closes the Introduction with a
-philosophical reflection on explicitness, localization,
-and verifiability as epistemological ideals.
+The Introduction is a contract-grade entry point: it fixes scope, normalizations, and dependency rules,
+and states the principal results without introducing undeclared conventions.
 
 \medskip
-
 \subsection*{I. Methodological Principles}
 \label{sub:intro-methodology-principles}
 
-Three methodological commitments form the structural invariant of this monograph.
-They guarantee that every theorem is embedded within a framework of
-reproducibility, explicit constants, and transparent logical architecture.
-
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{Explicitness of constants.}  
-        Each constant is traced to geometric and spectral invariants:
-        volume $\vol(X)$, systole $\mathrm{sys}(X)$, injectivity radius $r_{\mathrm{inj}}$,
-        cusp widths $\{w_i\}$, scattering data, and spectral gap $\beta_\Gamma$.
-        No hidden constants are tolerated.  
-        Cross-references to \Cref{sec:notation-glossary} and Appendices
-        guarantee provenance.  
-        Correction from review: the main term in all statements is now consistently
-        $\frac{\vol(X)}{2\pi}\lambda\eta$.
-
-  \item \textbf{Localization and reproducibility.}  
-        Spectral windows are imposed by smooth projectors $P_{\lambda,\eta}$,
-        with parametrices and kernels constructed so their analytic properties
-        can be independently reconstructed.  
-        Reproducibility ensures that every lemma, constant, and estimate
-        can be verified and reapplied in new contexts.
-
-  \item \textbf{Forward/backward linkage.}  
-        Dependencies are documented in both directions:
-        backward to definitions and origins, forward to proofs and applications.
-        This recursive structure realizes the Diamond~v2 audit system,
-        ensuring every object appears with context and consequence.
+Three commitments are structural invariants:
+\begin{enumerate}[leftmargin=2em,label=\arabic*.]
+  \item \textbf{Transparency as rigor:} constants and dependencies are part of the theorem statement.
+  \item \textbf{Localization as resolution:} short-window operators are built into the framework,
+        not appended as an afterthought.
+  \item \textbf{Auditability as verification:} each chapter is reproducible and closed by an explicit audit.
 \end{enumerate}
 
-These principles are not cosmetic: they safeguard rigor, transparency,
-and applicability across number theory, spectral geometry, and semiclassical physics.
+\medskip
+\subsection*{J. Epistemological Note}
 
-% ----------------------------------------------------------------------
-\subsection*{J. Epistemological and Philosophical Note}
-
-While this monograph is technical in focus --- the construction and auditing
-of a localized Selberg trace formula with fully effective constants ---
-we emphasize its broader epistemological dimension.
-
-Mathematics is not only formal proof but justification and verification.
-A result is not complete until every constant and error term is
-explicit, reproducible, and linked.  
-This embodies a philosophical commitment:
-\emph{transparency as rigor, reproducibility as verification,
-and constants as carriers of meaning.}
-
-Localization can thus be viewed epistemologically:
-by narrowing the spectral window, global noise is suppressed
-and fine structure revealed.  
-This reflects a deeper truth: fundamental understanding often emerges
-not from global accumulation but from precise focus at the right scale.
-
-% ----------------------------------------------------------------------
-\subsection*{K. Conclusion of the Introduction}
-
-The Introduction has achieved all declared objectives:
-
-\begin{itemize}
-  \item Motivated the refinement of Selberg's formula to a localized, quantitative form.  
-  \item Situated this refinement within the lineage: Selberg, Duistermaat--Guillemin, Ivrii,  
-        Iwaniec--Sarnak, Michel--Venkatesh, Lindenstrauss, Soundararajan.  
-  \item Stated the principal contributions:  
-        the Localized Trace Formula and the Quantitative Local Weyl Law,  
-        each with explicit constants and power-saving remainders.  
-  \item Presented a structural roadmap of the monograph (Chapters~2--9 and Appendices).  
-  \item Articulated methodological and philosophical principles:
-        explicitness, reproducibility, linkage, and transparency as rigor.
-\end{itemize}
-
-\noindent\emph{Audit outcome: sealed.}  
-Corrections from review (main term, threshold explanation, bibliographic precision) 
-are fully implemented.  
-Forward/backward linkage has been validated.  
-The Introduction now serves as a reproducible and auditable gateway to the monograph.
+In this monograph, rigor is treated as a three-part object: correctness, explicit dependencies,
+and reproducibility.  Localization is the operational mechanism that converts global identities into
+precision instruments: by restricting to the correct scale, one suppresses global averaging noise and
+exposes fine structure.
 
 \medskip
+\subsection*{K. Conclusion of the Introduction}
 
-\noindent The reader is now prepared to enter Chapter~2,
-where preliminaries are fixed and technical tools established,
-laying the foundation for the microlocal and arithmetic constructions
-that follow.
+We have motivated localized trace identities, fixed normalization by reference to Chapter~2,
+stated the principal theorems in contract form, and recorded the audit protocol that governs the text.
+The reader is now prepared to enter Chapter~2, where preliminaries, truncations, Eisenstein/scattering,
+and Selberg transform conventions are fixed for all subsequent chapters.
 
 % ======================================================================
-% End of Introduction (Parts 1–8, Full Version)
+% End of Introduction — DIAMOND EDITION (Blocks 1–5)
 % ======================================================================
