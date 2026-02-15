@@ -2,9 +2,30 @@
 % PATH: src/sections/02-preliminaries/02-preliminaries.tex
 % DIAMOND EDITION — contract-grade conventions + dependency law
 %
-% Goal: This chapter is the single immutable normalization authority.
-% Rule: anything that is not purely conventional is either proved in blocks
-% or deferred with explicit hypotheses + citations at point of use.
+% ROLE:
+%   Chapter 2 is the *single immutable normalization authority* for the monograph.
+%   Later chapters must cite this chapter (and its blocks) instead of redefining
+%   conventions. Anything non-conventional is proved in blocks or carried as an
+%   explicit hypothesis with citations at point of use.
+%
+% DEPENDS (runtime):
+%   - enumitem (for itemize[leftmargin=...])
+%   - amsmath/amsthm (for environments and \operatorname)
+%   - cleveref/hyperref optional (for robust refs; not required to compile)
+%
+% EXPORTS (semantic):
+%   - Dependency Ledger (I1)--(I12) is binding for all later O(.) constants.
+%   - Canonical truncation identity: vol(M \ M(Y)) = sum_a w_a / Y (Y >= Y0).
+%   - Block boundaries:
+%       (B2.G) 02b-geometry
+%       (B2.C) 02b-cusps
+%       (B2.S) 02b-selberg-transform
+%
+% NOTE (Diamond Guard):
+%   No ad-hoc macros may be introduced here unless they are purely notational
+%   and do not change semantics. In particular, do NOT use undefined commands
+%   (e.g. \length). Use \operatorname{length} explicitly or define operators
+%   centrally in macros/operators.tex.
 % =====================================================================
 
 \chapter{Preliminaries}\label{chap:preliminaries}
@@ -154,7 +175,7 @@ it must explicitly declare an enlarged parameter set.
   \end{equation}
   and the boundary length identity
   \[
-    \length\big(\partial M(Y)\big)=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y}.
+    \operatorname{length}\big(\partial M(Y)\big)=\sum_{\mathfrak{a}}\frac{w_{\mathfrak{a}}}{Y}.
   \]
   These formulas are canonical references for truncation and Maass--Selberg estimates.
 
