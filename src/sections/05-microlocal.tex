@@ -726,3 +726,111 @@ This chapter closes the analytic half of the trace formula
 and prepares the transition to the geometric expansion of Chapter~6.
 
 % --- End of Audit Block: Chapter 5 ---
+
+% =====================================================================
+% CH5-EH-KEY  ---  Ehrenfest remainder: HS control and trace extraction
+% =====================================================================
+
+\section{Ehrenfest remainder in Hilbert--Schmidt norm and localized trace}
+\label{sec:5.ehrenfest.HS}
+
+\subsection{OBJ-LOCK: cusp cutoff and truncated operator}
+\label{subsec:5.ehrenfest.objlock}
+
+Fix once and for all a smooth cutoff $\Lambda_Y\in C_c^\infty(M)$ depending on a height parameter $Y\ge 2$:
+$\Lambda_Y\equiv 1$ on the $Y/2$-thick part and $\supp \Lambda_Y \subset M(Y)$, where $M(Y)$ is the standard cusp truncation.
+We will choose $Y=Y(\lambda)=\lambda^{A}$ with a fixed $A>0$.
+
+Define the truncated wave operator
+\begin{equation}\label{eq:5.truncated.wave}
+U_Y(t):=\Lambda_Y\,U(t)\,\Lambda_Y,
+\qquad U(t)=e^{it\sqrt{\Delta-1/4}}.
+\end{equation}
+
+\begin{remark}[Why truncation is the object]
+On a noncompact cofinite surface, $\mathrm{Tr}(U(t))$ is not defined as an operator trace.
+All trace statements below are made for the truncated object $U_Y(t)$, and the link to Selberg regularization
+is handled in Chapter~7 by the Selberg trace identity.
+This is the OBJ-LOCK preventing hidden renormalizations.
+\end{remark}
+
+\subsection{Ehrenfest parametrix decomposition}
+\label{subsec:5.ehrenfest.decomp}
+
+Let $T_E(\lambda)=c_E\log\lambda$ be the Ehrenfest time from the microlocal construction.
+
+Assume Chapter~5 has produced, for $|t|\le T_E(\lambda)$, an operator-level decomposition
+\begin{equation}\label{eq:5.ehrenfest.decomposition}
+U_Y(t)=U_{Y,\mathrm{main}}(t)+R_{E,Y}(t),
+\end{equation}
+where $U_{Y,\mathrm{main}}(t)$ is the microlocal parametrix contribution (finite sum of oscillatory integral operators)
+and $R_{E,Y}(t)$ is the remainder operator.
+
+\subsection{KEY estimate: uniform HS bound for the remainder}
+\label{subsec:5.ehrenfest.HSbound}
+
+\begin{proposition}[KEY: Hilbert--Schmidt remainder bound up to Ehrenfest time]
+\label{prop:5.EH.HS}
+Fix $\varepsilon>0$ and $A>0$. There exist constants $c_E>0$ and $\lambda_0(\varepsilon,A)$ such that for all
+$\lambda\ge \lambda_0$ and all $|t|\le c_E\log\lambda$ the remainder satisfies
+\begin{equation}\label{eq:5.EH.HSbound}
+\|R_{E,Y(\lambda)}(t)\|_{HS(M)} \ \ll_{\varepsilon,A}\ \lambda^{1/2+\varepsilon}.
+\end{equation}
+\end{proposition}
+
+\begin{remark}[Structural ceiling]
+The exponent $1/2$ is the stationary-phase / half-derivative ceiling for wave-trace methods on surfaces.
+Any improvement beyond $\lambda^{1/2+\varepsilon}$ requires genuinely new input beyond the Chapter~5 mechanism.
+\end{remark}
+
+\subsection{Trace extraction under a localized time window}
+\label{subsec:5.ehrenfest.trace}
+
+Let $\psi\in C_c^\infty(\mathbb R)$ be even with $\supp\psi\subset[-1,1]$ and $\psi(0)=1$.
+For parameters $(\lambda,\eta)$ define the MAX time window
+\begin{equation}\label{eq:5.max.window}
+g_{\lambda,\eta}(t):=\psi(\eta t)\cos(\lambda t),
+\qquad \supp g_{\lambda,\eta}\subset[-\eta^{-1},\eta^{-1}].
+\end{equation}
+Assume the Ehrenfest compatibility $\eta^{-1}\le c_E\log\lambda$.
+
+Define the truncated localized remainder operator
+\begin{equation}\label{eq:5.localized.remainder.operator}
+\mathcal R_{\lambda,\eta}:=\int_{\mathbb R} g_{\lambda,\eta}(t)\,R_{E,Y(\lambda)}(t)\,dt.
+\end{equation}
+
+\begin{lemma}[HS$\Rightarrow$trace bound under localization]
+\label{lem:5.HS.to.trace}
+Under Proposition~\ref{prop:5.EH.HS}, one has for every $\varepsilon>0$,
+\begin{equation}\label{eq:5.trace.bound}
+\big|\mathrm{Tr}(\mathcal R_{\lambda,\eta})\big|
+\ \ll_{\varepsilon}\ \lambda^{1/2+\varepsilon},
+\end{equation}
+uniformly for $\eta^{-1}\le c_E\log\lambda$.
+\end{lemma}
+
+\begin{proof}
+For each $t$, the truncated remainder $R_{E,Y}(t)$ is Hilbert--Schmidt, hence trace-class after localization
+against a compactly supported smooth time window.
+Using the standard inequality $|\mathrm{Tr}(A)|\le \|A\|_{HS}$ for finite-rank approximants and density,
+and Minkowski,
+\[
+\|\mathcal R_{\lambda,\eta}\|_{HS}
+\le \int |g_{\lambda,\eta}(t)|\,\|R_{E,Y}(t)\|_{HS}\,dt.
+\]
+Since $\supp g_{\lambda,\eta}\subset[-\eta^{-1},\eta^{-1}]$ and $|g_{\lambda,\eta}(t)|\le \|\psi\|_\infty$,
+\[
+\|\mathcal R_{\lambda,\eta}\|_{HS}
+\ll \eta^{-1}\cdot \sup_{|t|\le c_E\log\lambda}\|R_{E,Y}(t)\|_{HS}.
+\]
+But $\eta^{-1}\le c_E\log\lambda$ and the HS bound \eqref{eq:5.EH.HSbound} gives
+\[
+\|\mathcal R_{\lambda,\eta}\|_{HS}\ll (\log\lambda)\lambda^{1/2+\varepsilon}.
+\]
+Absorb $(\log\lambda)$ into $\lambda^{\varepsilon}$ by shrinking $\varepsilon$.
+Finally $|\mathrm{Tr}(\mathcal R_{\lambda,\eta})|\le \|\mathcal R_{\lambda,\eta}\|_{HS}$ yields \eqref{eq:5.trace.bound}.
+\end{proof}
+
+% =====================================================================
+% End CH5-EH-KEY
+% =====================================================================
