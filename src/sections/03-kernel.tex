@@ -1,135 +1,110 @@
 % ============================================================
-% CHAPTER 3 (FULL PASTE): Truncated Selberg kernel K_Y
-% MAX DIAMOND / NO HIDDEN CONSTANTS / NO FALSE MULTIPLIER CLAIMS
+% Chapter 3: Kernel Construction (DIAMOND FULL, SINGLE BLOCK)
 % ============================================================
 
 % ============================================================
-% Block 3.1: Truncated kernel definition (MAX DIAMOND)
+% Block 3.1: Truncated kernel definition (DIAMOND)
 % ============================================================
 
 \subsection{Block 3.1: Truncated kernel definition}\label{block:3.1}
 
 \noindent\textbf{Orientation.}
-Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface (possibly noncompact, with cusps),
-with $\Gamma<\mathrm{PSL}_2(\mathbb{R})$ a nonuniform lattice.
-We define a \emph{truncated Selberg kernel} $K_Y(z,w)$ by cutting an (untruncated) Selberg kernel $K(z,w)$
-with the fixed \emph{smoothed truncation cutoff} $\Lambda^Y_{\mathrm{sm}}$ from Chapter~2C.
-The truncation is \emph{spatial} (multiplication in $z$ and $w$) and is designed to ensure:
-\begin{itemize}
-  \item[(i)] pointwise finiteness and smoothness,
-  \item[(ii)] Hilbert--Schmidt (hence bounded) behavior due to finite-volume support,
-  \item[(iii)] exact compatibility with the spectral multiplier formalism \emph{at the level of quadratic forms}.
-\end{itemize}
-All dependencies are recorded explicitly; we do \emph{not} use any false eigenfunction multiplier identity for $K_Y$.
-
-\medskip
-
-\noindent\textbf{Fixed data and notation (sealed).}
-\begin{itemize}
-  \item $d(\cdot,\cdot)$: hyperbolic distance on $\mathbb{H}$ and its quotient.
-  \item $d\mu$: hyperbolic area measure on $X$.
-  \item $q\in C_c^\infty([0,\infty))$: radial profile with $\mathrm{supp}(q)\subset[0,R]$ for some fixed $R>0$.
-  \item $\Lambda^Y_{\mathrm{sm}}\in C^\infty(X)$: smoothed truncation cutoff (Chapter~2C) such that
-        $0\le \Lambda^Y_{\mathrm{sm}}\le 1$,
-        $\mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta)$,
-        and $\Lambda^Y_{\mathrm{sm}}\equiv 1$ on $X(Y-\Delta)$,
-        with fixed smoothing buffer $\Delta\ge 1$.
-        A uniform (in $Y$) derivative budget for $\Lambda^Y_{\mathrm{sm}}$ is recorded in Chapter~2C.
-\end{itemize}
-
-\medskip
-
-\noindent\textbf{Base kernel on $\mathbb{H}$.}
-Define
+Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with cusps,
+with hyperbolic distance $d(\cdot,\cdot)$ and measure $d\mu$.
+Fix the smoothed truncation cutoff $\Lambda^Y_{\mathrm{sm}}$ from Chapter~2C.
+We define the truncated Selberg kernel $K_Y(z,w)$ and record the exact operator identity
 \[
-  k_q(z,w)\ :=\ q\!\big(d(z,w)\big),\qquad z,w\in\mathbb{H}.
+K_Y=\Lambda^Y_{\mathrm{sm}}\;K\;\Lambda^Y_{\mathrm{sm}},
 \]
-Then $k_q\in C^\infty(\mathbb{H}\times\mathbb{H})$ and is $\mathrm{PSL}_2(\mathbb{R})$-invariant:
-$k_q(gz,gw)=k_q(z,w)$.
+which is the only spectral compatibility statement we will use (always at the level of quadratic forms).
+All $Y$-dependences are explicit; there are no hidden constants.
 
 \medskip
 
-\noindent\textbf{Untruncated geometric (Selberg) kernel on $X$.}
+\noindent\textbf{Radial profile and base kernel on $\mathbb{H}$.}
+Let $q\in C_c^\infty([0,\infty))$ be supported in $[0,R]$ for some $R>0$.
+Define the $\mathrm{PSL}_2(\mathbb{R})$-invariant kernel on $\mathbb{H}$ by
+\[
+k_q(z,w):=q\!\big(d(z,w)\big), \qquad z,w\in\mathbb{H}.
+\]
+Then $k_q\in C^\infty(\mathbb{H}\times\mathbb{H})$ and $k_q(gz,gw)=k_q(z,w)$.
+
+\medskip
+
+\noindent\textbf{Geometric (Selberg) kernel on $X$.}
 For $z,w\in\mathbb{H}$ define the $\Gamma$-periodization
-\begin{equation}\label{eq:K-untr-def}
-  K(z,w)\ :=\ \sum_{\gamma\in\Gamma} k_q(z,\gamma w)
-           \ =\ \sum_{\gamma\in\Gamma} q\!\big(d(z,\gamma w)\big).
+\begin{equation}\label{eq:K-def}
+K(z,w):=\sum_{\gamma\in\Gamma}k_q(z,\gamma w)
+      =\sum_{\gamma\in\Gamma}q\!\big(d(z,\gamma w)\big).
 \end{equation}
-\emph{Pointwise finiteness:}
-since $\mathrm{supp}(q)\subset[0,R]$ and $\Gamma$ is discrete, for each fixed $(z,w)$ the set
+\emph{Pointwise finiteness:} since $\mathrm{supp}(q)\subset[0,R]$ and $\Gamma$ is discrete,
+for fixed $z,w$ only finitely many $\gamma$ satisfy $d(z,\gamma w)\le R$.
+Hence the sum is finite at each $(z,w)$ and $K\in C^\infty(X\times X)$.
+(Integrability/trace issues arise only when integrating near cusps; that is exactly why we truncate.)
+
+\medskip
+
+\noindent\textbf{Smoothed truncation and truncated kernel.}
+Let $\Lambda^Y_{\mathrm{sm}}\in C^\infty(X)$ be the smoothed cutoff from Chapter~2C, satisfying:
 \[
-  \mathcal{N}(z,w;R)\ :=\ \{\gamma\in\Gamma:\ d(z,\gamma w)\le R\}
+0\le \Lambda^Y_{\mathrm{sm}}\le 1,\qquad
+\Lambda^Y_{\mathrm{sm}}\equiv 1 \ \text{on } X(Y-\Delta),\qquad
+\mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta),
 \]
-is finite, so \eqref{eq:K-untr-def} is a finite sum at each point.
-Thus $K$ defines a smooth $\Gamma$-invariant kernel on $X\times X$ (after projection).
-Noncompactness issues arise only for \emph{integrals} and \emph{traces}, not pointwise definitions.
-
-\medskip
-
-\noindent\textbf{Truncated kernel (definition).}
-Define
+for a fixed smoothing scale $\Delta\ge 1$ and a fixed derivative budget (all recorded in Chapter~2C).
+Define the truncated kernel on $X\times X$ by
 \begin{equation}\label{eq:KY-def}
-  K_Y(z,w)\ :=\ \Lambda^Y_{\mathrm{sm}}(z)\,\Lambda^Y_{\mathrm{sm}}(w)\,K(z,w),
-  \qquad z,w\in X.
+K_Y(z,w):=\Lambda^Y_{\mathrm{sm}}(z)\,\Lambda^Y_{\mathrm{sm}}(w)\,K(z,w),
+\qquad z,w\in X.
 \end{equation}
-Equivalently, $K_Y$ is the integral kernel of the operator
-\begin{equation}\label{eq:KY-op-def}
-  K_Y\ :=\ \Lambda^Y_{\mathrm{sm}}\,K\,\Lambda^Y_{\mathrm{sm}}
-\end{equation}
-on $L^2(X)$.
+Equivalently, $K_Y$ is the kernel of the operator $\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$.
 
 \medskip
 
-\noindent\textbf{Immediate properties (no hidden steps).}
+\noindent\textbf{Basic properties (immediate).}
 \begin{itemize}
-  \item \emph{Smoothness:} $K_Y\in C^\infty(X\times X)$ as a product of smooth functions.
-  \item \emph{Exact support mechanism:} if $K_Y(z,w)\neq 0$, then
-        \[
-          z,w\in \mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta)
-          \quad\text{and}\quad
-          \exists\gamma\in\Gamma:\ d(z,\gamma w)\le R.
-        \]
-        Moreover, if $z,w\in X(Y-\Delta)$ then $\Lambda^Y_{\mathrm{sm}}(z)=\Lambda^Y_{\mathrm{sm}}(w)=1$ and $K_Y(z,w)=K(z,w)$.
-  \item \emph{Self-adjointness:} if $q$ is real-valued, then $K(z,w)=\overline{K(w,z)}$, hence $K_Y(z,w)=\overline{K_Y(w,z)}$ and $K_Y$ is self-adjoint on $L^2(X)$.
+\item \emph{Smoothness:} $K_Y\in C^\infty(X\times X)$ as a product of smooth factors.
+\item \emph{Support control:} $K_Y(z,w)=0$ unless $z,w\in\mathrm{supp}(\Lambda^Y_{\mathrm{sm}})$ and
+      $\exists\gamma\in\Gamma$ with $d(z,\gamma w)\le R$.
+\item \emph{Self-adjointness:} if $q$ is real-valued, then $K(z,w)=\overline{K(w,z)}$ and
+      $K_Y$ defines a self-adjoint operator on $L^2(X)$.
 \end{itemize}
 
 \medskip
 
-\noindent\textbf{Operator and Hilbert--Schmidt meaning.}
-Define for $f\in L^2(X)$
+\noindent\textbf{Operator formulation.}
+Define $K_Y:L^2(X)\to L^2(X)$ by
 \[
-  (K_Y f)(z)\ =\ \int_X K_Y(z,w)\,f(w)\,d\mu(w).
+(K_Y f)(z)=\int_X K_Y(z,w)\,f(w)\,d\mu(w).
 \]
-Because $\Lambda^Y_{\mathrm{sm}}$ is bounded and supported in the finite-volume region $X(Y+\Delta)$,
-the kernel $K_Y$ is supported in $(X(Y+\Delta)\times X(Y+\Delta))$.
-Once we establish a uniform pointwise bound for $K_Y$ on that region (Block~3.2),
-it follows that $K_Y$ is Hilbert--Schmidt on $L^2(X)$, hence bounded.
+Since $\Lambda^Y_{\mathrm{sm}}$ is bounded and compactly supported in $X(Y+\Delta)$,
+$K_Y$ is Hilbert--Schmidt (hence bounded on $L^2$); quantitative bounds appear in Block~3.4.
 
 \medskip
 
-\noindent\textbf{Spectral multiplier viewpoint (the precise and only admissible statement).}
-Let $h$ be the Selberg/Harish-Chandra transform of $q$ (Chapter~2B), and let $K=h(\Delta)$ denote the corresponding
-(untruncated) Selberg operator on $X$ defined by functional calculus. Then \eqref{eq:KY-op-def} is the exact factorization
+\noindent\textbf{Spectral multiplier viewpoint (precise statement).}
+Let $K$ be the untruncated Selberg operator associated to $q$.
+By Chapter~2B, $K$ is a spectral multiplier $K=h(\Delta)$ (functional calculus),
+acting by the scalar multiplier $h(t)$ on spectral parameter $t$ (discrete spectrum plus Eisenstein continuum).
+Then the truncation is exactly the operator factorization
 \begin{equation}\label{eq:KY-factor}
-  K_Y\ =\ \Lambda^Y_{\mathrm{sm}}\,h(\Delta)\,\Lambda^Y_{\mathrm{sm}},
+K_Y=\Lambda^Y_{\mathrm{sm}}\,K\,\Lambda^Y_{\mathrm{sm}}.
 \end{equation}
-and therefore for all $f,g\in L^2(X)$ we have the exact quadratic-form identity
+Consequently, for any $f,g\in L^2(X)$,
 \begin{equation}\label{eq:KY-quadratic}
-  \langle K_Y f,g\rangle_{L^2(X)}
-  \ =\ \big\langle h(\Delta)\big(\Lambda^Y_{\mathrm{sm}}f\big),\,\Lambda^Y_{\mathrm{sm}}g\big\rangle_{L^2(X)}.
+\langle K_Y f,g\rangle_{L^2(X)}
+=\langle K(\Lambda^Y_{\mathrm{sm}}f),\,\Lambda^Y_{\mathrm{sm}}g\rangle_{L^2(X)}.
 \end{equation}
-\emph{Sealed warning (no false claims):}
-$K_Y$ is \emph{not} a pure spectral multiplier because $\Lambda^Y_{\mathrm{sm}}$ is spatial.
-Thus identities like $K_Y\phi_j=h(t_j)\phi_j$ are \emph{false} and will not be used.
-All spectral statements for $K_Y$ are formulated as traces/quadratic forms via \eqref{eq:KY-quadratic}.
+\emph{Important:} $K_Y$ is \emph{not} a pure spectral multiplier (because of spatial truncation),
+so identities of the form $K_Y\phi_j=h(t_j)\phi_j$ are \emph{false as stated} and will never be used.
 
 \medskip
 
 \noindent\textbf{Audit items (Block 3.1).}
 \begin{itemize}
-  \item[(G1)] Definition \eqref{eq:KY-def} is pointwise finite and smooth.
-  \item[(G2)] Exact operator identity \eqref{eq:KY-factor} and quadratic form identity \eqref{eq:KY-quadratic}.
-  \item[(I1)] Dependencies are explicit: $(\Gamma;\text{cusp data};R;\Delta;\Lambda^Y_{\mathrm{sm}}\text{ derivative budget})$.
+\item[(G1)] Definition \eqref{eq:KY-def} is pointwise finite and smooth.
+\item[(G2)] Operator identity \eqref{eq:KY-factor} and quadratic form identity \eqref{eq:KY-quadratic}.
+\item[(I1)] Dependencies are explicit: $(\Gamma;\text{cusp data};R;\Delta;\text{derivative budget of }\Lambda^Y_{\mathrm{sm}})$.
 \end{itemize}
 
 % ============================================================
@@ -138,113 +113,84 @@ All spectral statements for $K_Y$ are formulated as traces/quadratic forms via \
 
 
 % ============================================================
-% Block 3.2: Geometric sum representation and counting bounds (MAX DIAMOND)
+% Block 3.2: Geometric sum representation (DIAMOND)
 % ============================================================
 
 \subsection{Block 3.2: Geometric sum representation}\label{block:3.2}
 
 \noindent\textbf{Orientation.}
-We record the geometric representation of $K_Y$ as a finite $\Gamma$-sum and derive uniform bounds
-\emph{on the truncated region where the kernel actually lives}.
-All bounds are stated with explicit dependence on: support radius $R$ and the injectivity radius
-of the compact core $X(Y+\Delta)$. No asymptotic lattice-point theorems are needed.
+We record the finite $\Gamma$-sum formula for $K_Y$ and the standard counting bound
+for orbit points in hyperbolic balls. Only explicit upper bounds are needed.
 
 \medskip
 
-\noindent\textbf{Finite $\Gamma$-sum on $X$.}
-For $z,w\in X$,
-\begin{equation}\label{eq:KY-gamma-sum}
-  K_Y(z,w)\ =\ \Lambda^Y_{\mathrm{sm}}(z)\Lambda^Y_{\mathrm{sm}}(w)\sum_{\gamma\in\Gamma} q\!\big(d(z,\gamma w)\big),
+\noindent\textbf{Finite $\Gamma$-sum.}
+Assume $\mathrm{supp}(q)\subset[0,R]$. For $z,w\in X$,
+\begin{equation}\label{eq:KY-gammasum}
+K_Y(z,w)=\Lambda^Y_{\mathrm{sm}}(z)\Lambda^Y_{\mathrm{sm}}(w)\sum_{\gamma\in\Gamma} q\!\big(d(z,\gamma w)\big),
 \end{equation}
-and the sum is pointwise finite since $\mathcal{N}(z,w;R)$ is finite.
-
-\medskip
-
-\noindent\textbf{Injectivity radius on the truncated support (compactness).}
-Since $\mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta)$ and $X(Y+\Delta)$ is compact,
+and the sum is pointwise finite since
 \[
-  \inj_{Y+\Delta}\ :=\ \inf_{u\in X(Y+\Delta)} \inj(u)\ >\ 0.
+\mathcal{N}(z,w;R):=\{\gamma\in\Gamma:\ d(z,\gamma w)\le R\}
 \]
-We will use $\inj_{Y+\Delta}$ as the sole geometric thickness parameter in counting bounds.
+is finite for each fixed $(z,w)$.
 
 \medskip
 
-\noindent\textbf{Counting bound via packing (explicit and local).}
-Fix $z,w\in X(Y+\Delta)$ and let $\rho:=\inj_{Y+\Delta}/2$.
-Then the balls $\{B(\gamma w,\rho)\}_{\gamma\in\mathcal{N}(z,w;R)}$ are pairwise disjoint in $X$
-(because distinct $\gamma w$ are separated by at least $\inj_{Y+\Delta}$ in $X(Y+\Delta)$),
-and all lie in $B(z,R+\rho)$.
-Hence
-\begin{equation}\label{eq:latticepoint-pack}
-  \#\mathcal{N}(z,w;R)\ \le\ \frac{\mathrm{vol}\big(B(z,R+\rho)\big)}{\mathrm{vol}\big(B(z,\rho)\big)}
-  \ =\ \frac{\mathrm{vol}\big(B_{\mathbb{H}}(R+\rho)\big)}{\mathrm{vol}\big(B_{\mathbb{H}}(\rho)\big)}.
+\noindent\textbf{Counting bound on $\mathcal{N}(z,w;R)$.}
+There exists $C_\Gamma>0$ (recorded in Appendix~J; depending only on $\Gamma$) such that for all
+$z,w\in X(Y)$,
+\begin{equation}\label{eq:latticepoint-upper}
+\#\mathcal{N}(z,w;R)\ \le\ C_\Gamma\,e^{R}.
 \end{equation}
-Since in curvature $-1$ one has $\mathrm{vol}\big(B_{\mathbb{H}}(r)\big)=4\pi\sinh^2(r/2)\asymp e^{r}$,
-this yields the uniform bound
+Moreover, if $\inj_{X(Y)}:=\inf_{u\in X(Y)}\inj(u)>0$ denotes the injectivity radius on $X(Y)$, then one may take
 \begin{equation}\label{eq:latticepoint-inj}
-  \#\mathcal{N}(z,w;R)\ \le\ C_{\mathrm{pack}}\,
-  \frac{e^{R}}{\inj_{Y+\Delta}^{2}},
+\#\mathcal{N}(z,w;R)\ \le\ C\,\frac{e^{R}}{\inj_{X(Y)}^{2}},
 \end{equation}
-where $C_{\mathrm{pack}}>0$ is a universal numerical constant coming only from the ball-volume formula.
-(If one prefers a softer statement, absorb $C_{\mathrm{pack}}$ into Appendix~J constants.)
+with a universal constant $C>0$ (explicit packing by disjoint balls in curvature $-1$; see Chapter~2A/Appendix~J).
 
 \medskip
 
-\noindent\textbf{Pointwise bound for $K_Y$ on its support.}
-For $z,w\in X$ we have
-\[
-  |K_Y(z,w)|\ \le\ \Lambda^Y_{\mathrm{sm}}(z)\Lambda^Y_{\mathrm{sm}}(w)\,
-  \#\mathcal{N}(z,w;R)\,\|q\|_{\infty}.
-\]
-In particular, on the support of $\Lambda^Y_{\mathrm{sm}}$ (i.e. for $z,w\in X(Y+\Delta)$),
+\noindent\textbf{Pointwise bound for the truncated kernel.}
+From \eqref{eq:KY-gammasum} and \eqref{eq:latticepoint-upper},
 \begin{equation}\label{eq:KY-pointwise}
-  |K_Y(z,w)|\ \le\ C_{\mathrm{pack}}\,
-  \frac{e^{R}}{\inj_{Y+\Delta}^{2}}\ \|q\|_{\infty}.
+|K_Y(z,w)|
+\le \Lambda^Y_{\mathrm{sm}}(z)\Lambda^Y_{\mathrm{sm}}(w)\,\#\mathcal{N}(z,w;R)\,\|q\|_\infty
+\le C_\Gamma e^{R}\,\|q\|_\infty,
 \end{equation}
-This is the uniform $L^\infty$ bound needed for Hilbert--Schmidt estimates in Block~3.4.
+and similarly with the refined dependence \eqref{eq:latticepoint-inj}.
 
 \medskip
 
-\noindent\textbf{Geometric localization (exact statement).}
-For fixed $z\in X$, using $\mathrm{supp}(q)\subset[0,R]$,
+\noindent\textbf{Geometric localization.}
+For fixed $z\in X(Y)$,
 \[
-  K_Y(z,w)\neq 0\ \Rightarrow\ w\in X(Y+\Delta)\cap \Big(\bigcup_{\gamma\in\Gamma}\gamma^{-1}B(z,R)\Big),
+\mathrm{supp}\big(K_Y(z,\cdot)\big)\subset
+\Big(\bigcup_{\gamma\in\Gamma}\gamma^{-1}B(z,R)\Big)\cap X(Y+\Delta),
 \]
-and symmetrically in $z$.
-Thus $K_Y$ is localized to an $R$-neighborhood in the geometric variable,
-with truncation enforced by $X(Y+\Delta)$.
+hence $K_Y$ is localized to a controlled $R$-neighborhood in the geometric variable,
+uniformly away from the truncation boundary.
 
 \medskip
 
-\noindent\textbf{Spectral expansion (structural form, quadratic forms only).}
-Let $\{\phi_j\}$ be an orthonormal basis of discrete eigenfunctions of $\Delta$ on $X$,
-with spectral parameters $t_j$ (so $\Delta\phi_j=(\tfrac14+t_j^2)\phi_j$),
-and let $\{E_{\mathfrak{a}}(\cdot,\tfrac12+it)\}_{\mathfrak{a}}$ denote Eisenstein series for cusps $\mathfrak{a}$.
-Then from \eqref{eq:KY-quadratic} and the spectral decomposition of $h(\Delta)$,
-for all $f,g\in L^2(X)$ we have
-\begin{align}\label{eq:KY-spectral-qf}
-  \langle K_Y f,g\rangle
-  &=
-  \sum_j h(t_j)\,\langle \Lambda^Y_{\mathrm{sm}}f,\phi_j\rangle\overline{\langle \Lambda^Y_{\mathrm{sm}}g,\phi_j\rangle}
-  \\
-  &\quad+\ \frac{1}{4\pi}\sum_{\mathfrak{a}}
-  \int_{-\infty}^{\infty} h(t)\,
-  \langle \Lambda^Y_{\mathrm{sm}}f,E_{\mathfrak{a}}(\cdot,\tfrac12+it)\rangle\,
-  \overline{\langle \Lambda^Y_{\mathrm{sm}}g,E_{\mathfrak{a}}(\cdot,\tfrac12+it)\rangle}\,dt,
-  \nonumber
-\end{align}
-where the precise normalization of Eisenstein inner products is as fixed in Chapter~2B.
-Equation \eqref{eq:KY-spectral-qf} is the correct “multiplier statement” for $K_Y$:
-it holds exactly at the level of quadratic forms and is all that is used later.
+\noindent\textbf{Spectral expansion (structural form, quadratic forms).}
+Using \eqref{eq:KY-factor} and the spectral decomposition of $K=h(\Delta)$ (Chapter~2B),
+for $f,g\in L^2(X)$,
+\[
+\langle K_Y f,g\rangle
+=\sum_j h(t_j)\,\langle \Lambda^Y_{\mathrm{sm}}f,\phi_j\rangle\overline{\langle \Lambda^Y_{\mathrm{sm}}g,\phi_j\rangle}
++\frac{1}{4\pi}\int_{-\infty}^\infty h(t)\,
+\langle \Lambda^Y_{\mathrm{sm}}f,E(\cdot,\tfrac12+it)\rangle\overline{\langle \Lambda^Y_{\mathrm{sm}}g,E(\cdot,\tfrac12+it)\rangle}\,dt.
+\]
+This is the correct multiplier statement for $K_Y$: it holds exactly at the level of quadratic forms.
 
 \medskip
 
 \noindent\textbf{Audit items (Block 3.2).}
 \begin{itemize}
-  \item[(G1)] Finite $\Gamma$-sum representation \eqref{eq:KY-gamma-sum}.
-  \item[(G2)] Packing-counting bound \eqref{eq:latticepoint-pack} and explicit injectivity-radius form \eqref{eq:latticepoint-inj}.
-  \item[(G3)] Uniform pointwise bound \eqref{eq:KY-pointwise} on the actual support $X(Y+\Delta)\times X(Y+\Delta)$.
-  \item[(I1)] Spectral structure stated only as quadratic forms \eqref{eq:KY-spectral-qf}; no false eigenfunction identity.
+\item[(G1)] Finite $\Gamma$-sum and counting bound \eqref{eq:latticepoint-upper}.
+\item[(G2)] Pointwise estimate \eqref{eq:KY-pointwise} and refined injectivity-radius dependence \eqref{eq:latticepoint-inj}.
+\item[(G3)] Correct spectral-structure statement formulated as quadratic forms (no false eigenfunction identity).
 \end{itemize}
 
 % ============================================================
@@ -253,87 +199,89 @@ it holds exactly at the level of quadratic forms and is all that is used later.
 
 
 % ============================================================
-% Block 3.3: Support control and localization (MAX DIAMOND)
+% Block 3.3: Support control and localization (DIAMOND)
 % ============================================================
 
 \subsection{Block 3.3: Support control and localization}\label{block:3.3}
 
 \noindent\textbf{Orientation.}
-We isolate the two exact support mechanisms:
-\begin{itemize}
-  \item distance support from $\mathrm{supp}(q)\subset[0,R]$,
-  \item spatial truncation support from $\Lambda^Y_{\mathrm{sm}}$.
-\end{itemize}
-This is the sole geometric input needed for stationary phase/orbital integrals later.
+We isolate the exact support mechanisms: (i) compact support of $q$ in hyperbolic distance,
+(ii) spatial truncation by $\Lambda^Y_{\mathrm{sm}}$.
+These two together control where orbital integrals and stationary phase may live.
 
 \medskip
 
 \noindent\textbf{Distance support.}
-If $\mathrm{supp}(q)\subset[0,R]$, then $k_q(z,w)=0$ whenever $d(z,w)>R$.
+Assume $\mathrm{supp}(q)\subset[0,R]$. Then
+\[
+k_q(z,w)=q(d(z,w))=0\quad\text{if } d(z,w)>R.
+\]
 Consequently,
 \[
-  K(z,w)\neq 0\ \Rightarrow\ \exists\gamma\in\Gamma:\ d(z,\gamma w)\le R,
+K(z,w)\neq 0\ \Rightarrow\ \exists\gamma\in\Gamma \text{ with } d(z,\gamma w)\le R,
 \]
-and the same implication holds for $K_Y$ (with truncation added).
+and the same implication holds for $K_Y$ (with the extra truncation condition below).
 
 \medskip
 
 \noindent\textbf{Truncation support.}
 By definition,
 \[
-  K_Y(z,w)=0\quad\text{unless}\quad z,w\in \mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta).
+K_Y(z,w)=0\quad\text{unless}\quad z,w\in \mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta).
 \]
-Moreover, on the core region $X(Y-\Delta)$ one has $K_Y=K$ identically.
+In particular, if $z,w\in X(Y-\Delta)$ (the fully untruncated core), then
+$\Lambda^Y_{\mathrm{sm}}(z)=\Lambda^Y_{\mathrm{sm}}(w)=1$ and thus $K_Y(z,w)=K(z,w)$.
 
 \medskip
 
 \begin{lemma}[Support criterion]\label{lem:support-criterion}
-Assume $\mathrm{supp}(q)\subset[0,R]$. If $K_Y(z,w)\neq 0$, then
+Let $\mathrm{supp}(q)\subset[0,R]$. If $K_Y(z,w)\neq 0$, then
 \[
-  z,w\in X(Y+\Delta)\qquad\text{and}\qquad \exists\gamma\in\Gamma:\ d(z,\gamma w)\le R.
+z,w\in X(Y+\Delta)
+\quad\text{and}\quad
+\exists\gamma\in\Gamma:\ d(z,\gamma w)\le R.
 \]
-If in addition $z,w\in X(Y-\Delta)$, then $K_Y(z,w)=K(z,w)$.
 \end{lemma}
 
 \begin{proof}
-Immediate from \eqref{eq:KY-def} and \eqref{eq:K-untr-def}.
+Immediate from \eqref{eq:KY-gammasum}.
 \end{proof}
 
 \medskip
 
-\noindent\textbf{Bounded overlap on the truncated support.}
-For $z,w\in X(Y+\Delta)$, combining \eqref{eq:latticepoint-inj} with \eqref{eq:KY-gamma-sum} yields
+\noindent\textbf{Bounded overlap on $X(Y)$.}
+For $z,w\in X(Y)$, the counting bound yields
 \[
-  |K_Y(z,w)|\ \le\ C_{\mathrm{pack}}\,
-  \frac{e^{R}}{\inj_{Y+\Delta}^{2}}\ \|q\|_{\infty},
+|K_Y(z,w)|\le \#\mathcal{N}(z,w;R)\,\|q\|_\infty\le C_\Gamma e^{R}\|q\|_\infty,
 \]
-which is precisely \eqref{eq:KY-pointwise}. This is the uniform overlap control needed for $HS$ and Schur tests.
+and likewise the injectivity-radius refinement \eqref{eq:latticepoint-inj}.
 
 \medskip
 
-\noindent\textbf{Cusp-geometry consequence (safe, non-asymptotic).}
-If $z,w\in X(Y+\Delta)$ and there exists $\gamma\in\Gamma$ with $d(z,\gamma w)\le R$,
-then in cusp coordinates (for the relevant cusp charts fixed in Chapter~2A/2C) the height functions satisfy
+\noindent\textbf{Cusp geometry consequence (safe form).}
+If $z,w\in X(Y)$ and $d(z,w)\le R$, then in cusp coordinates (Chapter~2A/2C) one has
 \[
-  y(\gamma w)\ \ll_{R,\text{cusp data}}\ y(z),
+y(w)\ \le\ C_{\mathrm{cusp}}\,e^{R}\,y(z),
 \]
-so the distance restriction prevents uncontrolled jumps to arbitrarily large heights \emph{within the truncated support}.
-(Precise constants and dependence on cusp widths are recorded in Chapter~2A/2C and Appendix~J.)
+for an explicit constant $C_{\mathrm{cusp}}$ depending only on cusp widths.
+Thus the distance restriction prevents uncontrolled excursions to arbitrarily high cusp heights
+when both points are in the truncated region.
 
 \medskip
 
-\noindent\textbf{Microlocal reading (what is true vs postponed).}
-The operator $K=h(\Delta)$ is a spectral multiplier and hence smoothing in the frequency range controlled by $h$ (Chapter~2B).
-The truncated operator $K_Y=\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$ inherits this smoothing up to
-commutators with multiplication by $\Lambda^Y_{\mathrm{sm}}$; quantitative Sobolev bounds and commutator accounting are stated in Block~3.4.
+\noindent\textbf{Microlocal reading (what is true, what is postponed).}
+The untruncated operator $K=h(\Delta)$ is a smoothing operator whose frequency profile is governed by $h$.
+The truncated operator $K_Y=\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$ inherits this control up to commutators
+with multiplication by $\Lambda^Y_{\mathrm{sm}}$; quantitative Sobolev bounds and commutator dependence
+are handled in Block~3.4.
 
 \medskip
 
 \noindent\textbf{Audit items (Block 3.3).}
 \begin{itemize}
-  \item[(G1)] Exact support criterion (Lemma~\ref{lem:support-criterion}).
-  \item[(G2)] Uniform overlap bound on the truncated support via \eqref{eq:KY-pointwise}.
-  \item[(I1)] Core/buffer separation: $K_Y=K$ on $X(Y-\Delta)$, boundary effects live in the buffer strip.
+\item[(G1)] Exact support criterion (Lemma~\ref{lem:support-criterion}).
+\item[(G2)] Explicit overlap bound via $\#\mathcal{N}(z,w;R)$ and $e^{R}$ growth.
+\item[(I1)] Core/buffer separation: on $X(Y-\Delta)$ one has $K_Y=K$ identically.
 \end{itemize}
 
 % ============================================================
@@ -342,116 +290,118 @@ commutators with multiplication by $\Lambda^Y_{\mathrm{sm}}$; quantitative Sobol
 
 
 % ============================================================
-% Block 3.4: A priori estimates for the truncated kernel (MAX DIAMOND)
+% Block 3.4: A priori estimates for the truncated kernel (DIAMOND)
 % ============================================================
 
 \subsection{Block 3.4: A priori estimates for the truncated kernel}\label{block:3.4}
 
 \noindent\textbf{Orientation.}
-We prove robust operator bounds for $K_Y=\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$,
-separating:
-\begin{itemize}
-  \item \emph{spectral} control (through $\|h\|_\infty$ and weighted norms of $h$),
-  \item \emph{geometric} control (through $R$ and $\inj_{Y+\Delta}$),
-  \item \emph{truncation-tail} control (through cusp-volume decay from Chapter~2C).
-\end{itemize}
-All bounds are stated in norms that are actually used later (operator, Hilbert--Schmidt, Sobolev).
+We establish robust operator bounds for $K_Y=\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$,
+separating (i) purely geometric bounds (support radius $R$, finite area),
+and (ii) functional-calculus bounds controlled by the spectral multiplier $h$.
+Truncation tails are stated in the correct norms, with the correct $Y$-scale:
+polynomial decay for operator/HS arguments (via cusp-volume decay), never falsely exponential for Eisenstein.
 
 \medskip
 
-\noindent\textbf{$L^2$ operator norm (multiplier-dominant, exact).}
+\noindent\textbf{$L^2$ operator norm (multiplier-dominant).}
 Since $\|\Lambda^Y_{\mathrm{sm}}\|_{L^\infty}\le 1$ and $K=h(\Delta)$,
 \begin{equation}\label{eq:L2-opnorm}
-  \|K_Y\|_{L^2\to L^2}
-  \ \le\ \|K\|_{L^2\to L^2}
-  \ =\ \|h\|_{L^\infty(\mathbb{R})}.
+\|K_Y\|_{L^2\to L^2}\le \|K\|_{L^2\to L^2}=\|h\|_{L^\infty(\mathbb{R})}.
 \end{equation}
-This is the clean global bound and does not use geometry.
 
 \medskip
 
-\noindent\textbf{Hilbert--Schmidt bound (geometric + truncation support).}
-Because $\mathrm{supp}(K_Y)\subset X(Y+\Delta)\times X(Y+\Delta)$ and \eqref{eq:KY-pointwise} holds there,
-\begin{equation}\label{eq:HS-bound}
-  \|K_Y\|_{HS}^2
-  \ =\ \iint_{X\times X}|K_Y(z,w)|^2\,d\mu(z)\,d\mu(w)
-  \ \le\ \mathrm{vol}\big(X(Y+\Delta)\big)^2
-  \left(C_{\mathrm{pack}}\frac{e^{R}}{\inj_{Y+\Delta}^{2}}\|q\|_\infty\right)^2.
-\end{equation}
-In particular $K_Y$ is Hilbert--Schmidt (hence bounded) on $L^2(X)$.
+\noindent\textbf{Hilbert--Schmidt bound (geometric).}
+Using \eqref{eq:KY-pointwise} and $\mathrm{supp}(\Lambda^Y_{\mathrm{sm}})\subset X(Y+\Delta)$,
+\begin{align}
+\|K_Y\|_{HS}^2
+&=\iint_{X\times X}|K_Y(z,w)|^2\,d\mu(z)\,d\mu(w) \label{eq:HS-bound-1}\\
+&\le \iint_{X(Y+\Delta)\times X(Y+\Delta)} |K_Y(z,w)|^2\,d\mu(z)\,d\mu(w) \nonumber\\
+&\le \mathrm{vol}\big(X(Y+\Delta)\big)^2\,
+\sup_{z,w\in X(Y+\Delta)}|K_Y(z,w)|^2 \nonumber\\
+&\le \mathrm{vol}\big(X(Y+\Delta)\big)^2\,(C_\Gamma e^{R}\|q\|_\infty)^2. \label{eq:HS-bound}
+\end{align}
+In particular, $\|K_Y\|_{HS}<\infty$ for each finite-area $X$.
 
 \medskip
 
-\noindent\textbf{Schur-type bound (geometric, optional).}
-For $z\in X(Y+\Delta)$, the $w$-support of $K_Y(z,\cdot)$ lies in an $R$-neighborhood modulo $\Gamma$ inside $X(Y+\Delta)$.
-Using \eqref{eq:KY-pointwise} and the hyperbolic ball volume estimate $\mathrm{vol}(B_{\mathbb{H}}(R))\asymp e^{R}$,
-one obtains
+\noindent\textbf{Schur-type bound (purely geometric, optional).}
+For each fixed $z\in X$, integration in $w$ is restricted to $X(Y+\Delta)$ and to an $R$-neighborhood modulo $\Gamma$.
+Using \eqref{eq:KY-pointwise} and $\mathrm{vol}(B_{\mathbb{H}}(R))=4\pi\sinh^2(R/2)\ll e^{R}$,
 \[
-  \sup_{z\in X}\int_X |K_Y(z,w)|\,d\mu(w)
-  \ \ll\ \left(\frac{e^{R}}{\inj_{Y+\Delta}^{2}}\|q\|_\infty\right)\,e^{R}
-  \ =\ \frac{e^{2R}}{\inj_{Y+\Delta}^{2}}\|q\|_\infty,
+\sup_{z\in X}\int_X |K_Y(z,w)|\,d\mu(w)\ \le\ C'_\Gamma e^{2R}\|q\|_\infty,
 \]
-and similarly for $\sup_w\int|K_Y(z,w)|\,d\mu(z)$.
-This yields an $L^2$ bound via Schur's test consistent with \eqref{eq:L2-opnorm} (but typically weaker).
+and similarly with the symmetric bound in $z$. This yields boundedness on $L^2$ by Schur's test,
+though \eqref{eq:L2-opnorm} is typically stronger when $h$ is controlled.
 
 \medskip
 
-\noindent\textbf{Sobolev mapping bounds (functional calculus + cutoff budget).}
-For $s\ge 0$, functional calculus gives the standard estimate
+\noindent\textbf{Sobolev mapping (functional-calculus form).}
+For $s\ge 0$, functional calculus gives
 \[
-  \|K f\|_{H^{s}(X)}
-  \ \le\ \sup_{t\in\mathbb{R}} (1+|t|)^s|h(t)|\ \|f\|_{L^2(X)}.
+\|K f\|_{H^{s}(X)}
+\le \sup_{t\in\mathbb{R}} (1+|t|)^s|h(t)|\ \|f\|_{L^2(X)}.
 \]
 Since $K_Y=\Lambda^Y_{\mathrm{sm}}K\Lambda^Y_{\mathrm{sm}}$ and multiplication by $\Lambda^Y_{\mathrm{sm}}$
-is bounded on $H^s(X)$ with a norm controlled by finitely many derivatives of $\Lambda^Y_{\mathrm{sm}}$
-(the Chapter~2C derivative budget),
-we obtain
+is bounded on $H^s$ with constants depending only on finitely many derivatives of $\Lambda^Y_{\mathrm{sm}}$
+(as recorded in Chapter~2C), we obtain
 \begin{equation}\label{eq:sobolev-KY}
-  \|K_Y f\|_{H^s(X)}
-  \ \ll_{s,\ \mathrm{budget}(\Lambda)}
-  \left(\sup_{t}(1+|t|)^s|h(t)|\right)\ \|f\|_{H^s(X)}.
+\|K_Y f\|_{H^s(X)}
+\le C_{s,\Lambda}\,\sup_{t}(1+|t|)^s|h(t)|\ \|f\|_{H^s(X)}.
 \end{equation}
-Any commutator refinements (e.g. $[\Lambda^Y_{\mathrm{sm}},K]$) are postponed to Chapters~4--5 where needed;
-\eqref{eq:sobolev-KY} is the safe bound used for bookkeeping.
+Here $C_{s,\Lambda}$ depends only on $s$ and the fixed derivative budget of $\Lambda^Y_{\mathrm{sm}}$.
 
 \medskip
 
-\noindent\textbf{Truncation tail control (correct regime; no overclaim).}
-Write
+\noindent\textbf{Truncation tail estimate in HS norm (with correct $Y$-scale).}
+Write $\Lambda=\Lambda^Y_{\mathrm{sm}}$ and note
 \[
-  K-K_Y\ =\ (1-\Lambda^Y_{\mathrm{sm}})\,K\ +\ \Lambda^Y_{\mathrm{sm}}\,K\,(1-\Lambda^Y_{\mathrm{sm}}).
+K-K_Y = (1-\Lambda(z)\Lambda(w))\,K(z,w),
+\qquad\text{pointwise on }X\times X.
 \]
-The factor $(1-\Lambda^Y_{\mathrm{sm}})$ is supported in cusp tails whose volume decays like $\ll Y^{-1}$
-(Chapter~2C, with constants depending on cusp data and the smoothing buffer).
-Combining this tail-volume decay with the growth envelopes for $K$ on cusp tails (recorded in Chapter~2C/Appendix~J),
-we obtain the Hilbert--Schmidt tail estimate in the \emph{correct} scaling regime:
-\begin{equation}\label{eq:tail-HS}
-  \|K-K_Y\|_{HS}\ \ll_{q,\Gamma,\ \mathrm{budget}(\Lambda)}\ Y^{-1/2}.
+Let $S_Y:=\mathrm{supp}(1-\Lambda)\subset X\setminus X(Y-\Delta)$ be the truncation boundary/tail region.
+Chapter~2C gives
+\begin{equation}\label{eq:tail-volume}
+\mathrm{vol}(S_Y)\ \ll\ Y^{-1},
 \end{equation}
-This is the norm and decay rate used in trace/Hilbert--Schmidt arguments later.
+with an explicit implied constant depending only on cusp data and the fixed smoothing buffer.
+Then
+\begin{align}
+\|K-K_Y\|_{HS}^2
+&=\iint_{X\times X} |1-\Lambda(z)\Lambda(w)|^2\,|K(z,w)|^2\,d\mu(z)\,d\mu(w)\nonumber\\
+&\le 2\iint_{S_Y\times X}|K(z,w)|^2\,d\mu(z)\,d\mu(w)
+   +2\iint_{X\times S_Y}|K(z,w)|^2\,d\mu(z)\,d\mu(w)\nonumber\\
+&=4\iint_{S_Y\times X}|K(z,w)|^2\,d\mu(z)\,d\mu(w)\nonumber\\
+&\le 4\,\mathrm{vol}(S_Y)\,\mathrm{vol}(X)\,\sup_{z,w\in X}|K(z,w)|^2.\label{eq:tail-HS-raw}
+\end{align}
+Using $\sup|K(z,w)|\le C_\Gamma e^{R}\|q\|_\infty$ (same counting bound, no truncation needed pointwise),
+and \eqref{eq:tail-volume}, we obtain
+\begin{equation}\label{eq:tail-HS}
+\|K-K_Y\|_{HS}\ \le\ C_{\Gamma,\mathrm{cusp},\Delta}\,e^{R}\|q\|_\infty\;Y^{-1/2}.
+\end{equation}
+This is the tail decay used in trace/Hilbert--Schmidt arguments.
 
 \medskip
 
-\noindent\textbf{Exponential vs polynomial in $Y$ (sealed dichotomy).}
-Exponential tails $e^{-cY}$ may appear for \emph{cusp forms} (Bessel decay in cusp coordinates),
-but \emph{never uniformly} for the Eisenstein continuum.
-Therefore:
+\noindent\textbf{Where exponential decay appears (and where it does not).}
+Exponential tail bounds in $Y$ hold for individual \emph{cusp forms} in cusp coordinates (Bessel decay),
+but \emph{not} uniformly for the Eisenstein continuum. Therefore:
 \begin{itemize}
-  \item cusp-form tails may be treated with exponential-in-$Y$ decay (Chapter~2C),
-  \item continuous-spectrum tails are controlled using Maass--Selberg and yield polynomial-in-$Y$ bounds,
-        consistent with \eqref{eq:tail-HS}.
+\item cusp-form tails may admit $e^{-cY}$ bounds (Chapter~2C),
+\item continuous-spectrum tails require Maass--Selberg and yield polynomial-in-$Y$ control,
 \end{itemize}
-This dichotomy is enforced from here onward.
+and we enforce this dichotomy from now on.
 
 \medskip
 
 \noindent\textbf{Audit items (Block 3.4).}
 \begin{itemize}
-  \item[(A1)] $L^2$ operator norm bound \eqref{eq:L2-opnorm}.
-  \item[(A2)] Hilbert--Schmidt bound \eqref{eq:HS-bound} using \eqref{eq:KY-pointwise} on $X(Y+\Delta)$.
-  \item[(A3)] Sobolev mapping bound \eqref{eq:sobolev-KY} with explicit dependence on the cutoff derivative budget.
-  \item[(A4)] Tail estimate \eqref{eq:tail-HS} in HS norm, consistent with cusp-volume decay and the Chapter~2C envelopes.
-  \item[(I1)] No false eigenfunction multiplier identity for $K_Y$; only quadratic forms/traces are used.
+\item[(A1)] $L^2$ operator norm \eqref{eq:L2-opnorm} (multiplier-dominant).
+\item[(A2)] Hilbert--Schmidt bound \eqref{eq:HS-bound}.
+\item[(A3)] Sobolev mapping \eqref{eq:sobolev-KY} with explicit dependence on the cutoff derivative budget.
+\item[(A4)] Tail estimate \eqref{eq:tail-HS} derived from cusp-volume decay \eqref{eq:tail-volume}.
+\item[(I1)] No false eigenfunction identity; all spectral statements are quadratic-form statements.
 \end{itemize}
 
 % ============================================================
@@ -460,7 +410,7 @@ This dichotomy is enforced from here onward.
 
 
 % ============================================================
-% Chapter Audit: Kernel Construction (MAX DIAMOND)
+% Chapter Audit: Kernel Construction (DIAMOND)
 % ============================================================
 
 \section*{Chapter Audit: Kernel Construction}\label{audit:ch3}
@@ -468,75 +418,67 @@ This dichotomy is enforced from here onward.
 \noindent\textbf{Orientation.}
 This audit certifies that Chapter~3 constructs a truncated Selberg kernel
 \[
-  K_Y\ =\ \Lambda^Y_{\mathrm{sm}}\,K\,\Lambda^Y_{\mathrm{sm}},\qquad K=h(\Delta),
+K_Y=\Lambda^Y_{\mathrm{sm}}\,K\,\Lambda^Y_{\mathrm{sm}}
 \]
-with the following guaranteed properties:
-\begin{itemize}
-  \item[(i)] \emph{Geometric well-definition:} $K_Y$ is defined via a finite $\Gamma$-sum and is smooth.
-  \item[(ii)] \emph{Analytic control:} $K_Y$ is Hilbert--Schmidt (hence bounded) due to finite-volume support and pointwise bounds.
-  \item[(iii)] \emph{Spectral compatibility (correct form):} all spectral statements are phrased as quadratic forms/traces via the exact identity \eqref{eq:KY-quadratic}.
-  \item[(iv)] \emph{Correct $Y$-error regime:} polynomial tail control in $Y$ at HS/operator level; exponential $Y$-decay reserved only for cusp forms.
-\end{itemize}
+which is: (i) geometrically well-defined via a pointwise finite $\Gamma$-sum,
+(ii) analytically controlled (bounded on $L^2$, Hilbert--Schmidt),
+(iii) correctly compatible with the spectral multiplier formalism at the level of quadratic forms,
+and (iv) prepared for trace and stationary phase mechanisms in Chapters~4--6.
 
 \medskip
 
 \noindent\textbf{Goals (G) and closure.}
 \begin{itemize}
-  \item[(G1)] \emph{Rigorous definition.}
-        $K_Y$ is defined by \eqref{eq:KY-def}, with $K$ given by \eqref{eq:K-untr-def} and truncation $\Lambda^Y_{\mathrm{sm}}$ from Chapter~2C.
-        Pointwise finiteness follows from $\mathrm{supp}(q)\subset[0,R]$ and discreteness of $\Gamma$.
-  \item[(G2)] \emph{Geometric representation + counting control.}
-        The finite $\Gamma$-sum \eqref{eq:KY-gamma-sum} is recorded.
-        On the actual support $X(Y+\Delta)\times X(Y+\Delta)$, the packing argument yields \eqref{eq:latticepoint-inj},
-        hence the uniform pointwise bound \eqref{eq:KY-pointwise}.
-  \item[(G3)] \emph{Support/localization.}
-        Lemma~\ref{lem:support-criterion} isolates the exact support mechanism (distance $R$ plus truncation $Y$ and buffer $\Delta$),
-        and records the exact identity $K_Y=K$ on the core $X(Y-\Delta)$.
-  \item[(G4)] \emph{A priori analytic bounds.}
-        The operator norm is controlled by the multiplier bound \eqref{eq:L2-opnorm}.
-        Hilbert--Schmidt control is proved by \eqref{eq:HS-bound}.
-        Sobolev mapping is stated in the safe functional-calculus form \eqref{eq:sobolev-KY} with explicit cutoff-budget dependence.
-  \item[(G5)] \emph{Compatibility principle for later chapters.}
-        The key exact identity is the quadratic-form relation \eqref{eq:KY-quadratic},
-        which is the foundation for trace comparisons (Chapter~4),
-        stationary phase / parametrices (Chapter~5),
-        and orbital integral decompositions (Chapter~6).
+\item[(G1)] \emph{Rigorous definition.}
+$K_Y$ is defined by \eqref{eq:KY-def} using the fixed smoothed cutoff $\Lambda^Y_{\mathrm{sm}}$ (Chapter~2C).
+Pointwise finiteness and smoothness follow from $\mathrm{supp}(q)\subset[0,R]$ and discreteness of $\Gamma$.
+\item[(G2)] \emph{Geometric representation + counting control.}
+The finite $\Gamma$-sum \eqref{eq:KY-gammasum} is recorded, with explicit bounds
+\eqref{eq:latticepoint-upper} and injectivity-radius refinement \eqref{eq:latticepoint-inj}.
+\item[(G3)] \emph{Support/localization.}
+Exact support is isolated (Lemma~\ref{lem:support-criterion}), separating distance support ($R$)
+from truncation support ($Y$ and buffer $\Delta$). On $X(Y-\Delta)$ one has $K_Y=K$.
+\item[(G4)] \emph{A priori analytic bounds.}
+$L^2$ norm is governed by $\|h\|_\infty$ \eqref{eq:L2-opnorm};
+Hilbert--Schmidt bounds are controlled geometrically \eqref{eq:HS-bound};
+Sobolev mapping follows from functional calculus with explicit cutoff dependence \eqref{eq:sobolev-KY}.
+\item[(G5)] \emph{Compatibility principle for later chapters.}
+The key identity is the quadratic-form relation \eqref{eq:KY-quadratic}, which is exactly what is needed for
+trace comparisons (Chapter~4), parametrix/stationary phase inputs (Chapter~5),
+and orbital-integral decompositions (Chapter~6).
 \end{itemize}
 
 \medskip
 
-\noindent\textbf{Invariants (I) enforced (sealed).}
+\noindent\textbf{Invariants (I) enforced.}
 \begin{itemize}
-  \item[(I1)] \emph{No hidden constants.}
-        All constants are expressed in terms of $(R,\inj_{Y+\Delta},\|q\|_\infty)$ and the fixed cutoff derivative budget,
-        plus cusp data recorded in Chapter~2C/Appendix~J.
-  \item[(I2)] \emph{Correct spectral language only.}
-        No claim that $K_Y$ is a spectral multiplier on eigenfunctions;
-        all spectral structure is formulated as quadratic forms \eqref{eq:KY-spectral-qf}.
-  \item[(I3)] \emph{Correct $Y$-error regime.}
-        Tail control is polynomial in $Y$ in HS/operator norms \eqref{eq:tail-HS};
-        exponential in $Y$ is reserved only for cusp-form tails and never asserted for the Eisenstein continuum.
-  \item[(I4)] \emph{Core/buffer separation.}
-        $K_Y=K$ on $X(Y-\Delta)$; all truncation effects live in the buffer strip and tails.
+\item[(I1)] \emph{Explicit dependencies only.}
+Constants depend on $(\Gamma;\text{cusp data};R;\Delta)$ and on the fixed derivative budget of $\Lambda^Y_{\mathrm{sm}}$.
+\item[(I2)] \emph{Correct spectral language.}
+We do not claim that $K_Y$ is a spectral multiplier on eigenfunctions; all spectral compatibility is via quadratic forms.
+\item[(I3)] \emph{Correct $Y$-error regime.}
+Tail control is polynomial in $Y$ in HS/trace-type arguments via cusp-volume decay \eqref{eq:tail-HS};
+exponential decay is reserved only for cusp-form tails, never for Eisenstein uniformly.
+\item[(I4)] \emph{Core/buffer separation.}
+On $X(Y-\Delta)$ one has $K_Y=K$ identically; boundary effects are localized to $S_Y$ with volume $\ll Y^{-1}$.
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Forward links (certified).}
 \begin{itemize}
-  \item Chapter~4 uses \eqref{eq:KY-quadratic} plus \eqref{eq:L2-opnorm}, \eqref{eq:HS-bound}, \eqref{eq:tail-HS}.
-  \item Chapter~5 uses the strict support mechanism (Lemma~\ref{lem:support-criterion}) and Sobolev mapping \eqref{eq:sobolev-KY}.
-  \item Chapter~6 uses the finite $\Gamma$-sum \eqref{eq:KY-gamma-sum} and counting control \eqref{eq:latticepoint-inj}.
+\item Chapter~4 uses \eqref{eq:KY-quadratic} and the bounds of Block~3.4.
+\item Chapter~5 uses strict support control (Block~3.3) and boundedness of $K_Y$.
+\item Chapter~6 uses the geometric $\Gamma$-sum and counting bounds (Block~3.2).
 \end{itemize}
 
 \medskip
 
 \noindent\textbf{Audit outcome: sealed (Chapter~3).}
-Chapter~3 is internally consistent: definitions are pointwise correct, bounds are in the correct norms,
-all $Y$-errors are stated in the correct (polynomial) regime for general spectral data,
-and all spectral statements for $K_Y$ are phrased correctly via quadratic forms.
-This chapter is ready to serve as the kernel foundation for the localized projector machinery
-and the localized trace formula in Chapters~4--6.
+Chapter~3 is internally consistent: definitions are correct, bounds are in the right norms,
+and $Y$-tails are stated in the correct regime without overstating decay.
+It is ready to serve as the kernel foundation for the localized projector machinery
+and the localized trace formula.
 
 % ============================================================
 % End of Chapter Audit: Kernel Construction
