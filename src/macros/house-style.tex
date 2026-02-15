@@ -1,40 +1,41 @@
-% House style (self-contained; no external \input)
-% Requires: amsmath, amssymb, mathtools already loaded in main.tex
+% ==================================================================
+% house-style.tex — Safe Notation & Helpers
+% ==================================================================
 
-% ----- Small helpers -----
-\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
-\newcommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
-\newcommand{\set}[1]{\left\{\,#1\,\right\}}
-\newcommand{\dd}{\mathrm{d}}
-\newcommand{\eps}{\varepsilon}
-\newcommand{\OO}{\mathcal{O}}
-\newcommand{\oo}{o}
+% ----- Small helpers (Delimiters) -----
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\lVert #1\right\rVert}
+\providecommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
+\providecommand{\set}[1]{\left\{\,#1\,\right\}}
 
-% Number sets
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Hh}{\mathbb{H}}
+% ----- Symbols -----
+\providecommand{\dd}{\mathrm{d}}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\OO}{\mathcal{O}}
+\providecommand{\oo}{o}
 
-% ----- Operators (safe) -----
-\providecommand{\Op}{\operatorname{Op}} % avoid “already defined”
+% ----- Number sets -----
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Hh}{\mathbb{H}}
+
+% ----- Operators (Guarded) -----
+\makeatletter
+\providecommand{\SafeDeclareOp}[2]{%
+  \@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}%
+}
+\makeatother
+
+\SafeDeclareOp{inj}{inj}
+\SafeDeclareOp{diam}{diam}
+
+% Повторяем квантование на случай, если operators.tex не загружен
+\providecommand{\Op}{\operatorname{Op}}
 \providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
 \providecommand{\Opl}{\operatorname{Op}_h^{\mathrm{left}}}
 \providecommand{\Opr}{\operatorname{Op}_h^{\mathrm{right}}}
 
-%\DeclareMathOperator{\sgn}{sgn}
-%\DeclareMathOperator{\tr}{tr}
-%\DeclareMathOperator{\Tr}{Tr}
-%\DeclareMathOperator{\diag}{diag}
-%\DeclareMathOperator{\supp}{supp}
-%\DeclareMathOperator{\rank}{rank}
-%\DeclareMathOperator{\dist}{dist}
-%\DeclareMathOperator{\vol}{vol}
-%\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\inj}{inj}
-\DeclareMathOperator{\diam}{diam}
-
 % ----- TODO helper -----
-\newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+\providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
