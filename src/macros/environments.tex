@@ -1,53 +1,75 @@
-% ============================================
-% environments.tex — GUARDED THEOREM ENVIRONMENTS
-% ============================================
+% ==================================================================
+% environments.tex — Guarded Theorem Environments (Diamond Standard)
+% ==================================================================
 
-% Numbering by section (only if not already set)
-\numberwithin{equation}{section}
+% Установка нумерации уравнений по разделам (если еще не задано)
+\@ifundefined{c@equation}{}{\numberwithin{equation}{section}}
 
-\makeatletter
-% Helper: define theorem-like env only if undefined
+% --- Вспомогательные макросы для безопасного определения ---
+% Определяет окружение только если оно еще не существует
 \newcommand{\SafeNewTheorem}[3][]{%
-  \@ifundefined{#2}{\newtheorem{#2}{#3}[#1]}{}%
+  \@ifundefined{#2}{%
+    \ifx\\#1\\
+      \newtheorem{#2}{#3}
+    \else
+      \newtheorem{#2}{#3}[#1]
+    \fi
+  }{}
 }
-\newcommand{\SafeNewTheoremNoReset}[2]{%
-  \@ifundefined{#1}{\newtheorem{#1}{#2}}{}%
-}
-\makeatother
 
-% Main theorem family (reset each section)
-\SafeNewTheorem{theorem}{Theorem}
+\newcommand{\SafeNewTheoremNoReset}[2]{%
+  \@ifundefined{#1}{\newtheorem{#1}{#2}}{}
+}
+
+% --- Основное семейство теорем (нумерация сбрасывается в каждой секции) ---
+\theoremstyle{plain}
+\SafeNewTheorem[section]{theorem}{Theorem}
 \SafeNewTheoremNoReset{lemma}{Lemma}
 \SafeNewTheoremNoReset{proposition}{Proposition}
 \SafeNewTheoremNoReset{corollary}{Corollary}
 
-% Definition/remark styles
+% --- Стили определений и допущений ---
 \theoremstyle{definition}
 \SafeNewTheoremNoReset{definition}{Definition}
 \SafeNewTheoremNoReset{assumption}{Assumption}
 
+% --- Стили замечаний и примеров ---
 \theoremstyle{remark}
 \SafeNewTheoremNoReset{remark}{Remark}
 \SafeNewTheoremNoReset{example}{Example}
-\newenvironment{auditblock}[1]{%
-    \begin{remark}[#1]
-}{%
-    \end{remark}
+
+% --- Специализированное окружение для аудита (Audit Block) ---
+\@ifundefined{auditblock}{
+  \newenvironment{auditblock}[1]{%
+      \begin{remark}[#1]
+  }{%
+      \end{remark}
+  }
+}{}
+
+% --- Настройка имен для cleveref (через хук AtBeginDocument) ---
+% Это гарантирует, что настройки применятся ПОСЛЕ загрузки пакета cleveref
+\AtBeginDocument{
+  \@ifpackageloaded{cleveref}{
+    % Форматирование для стандартных теорем
+    \crefname{theorem}{theorem}{theorems}
+    \crefname{lemma}{lemma}{lemmas}
+    \crefname{proposition}{proposition}{propositions}
+    \crefname{corollary}{corollary}{corollaries}
+    \crefname{definition}{definition}{definitions}
+    \crefname{assumption}{assumption}{assumptions}
+    \crefname{remark}{remark}{remarks}
+    \crefname{example}{example}{examples}
+    \crefname{equation}{equation}{equations}
+    
+    % Форматирование для блока аудита
+    \crefname{auditblock}{audit block}{audit blocks}
+    \Crefname{auditblock}{Audit block}{Audit blocks}
+  }{
+    % Если cleveref не загружен, определяем пустую команду, чтобы не было ошибок
+    \providecommand{\cref}[1]{\ref{#1}}
+    \providecommand{\Cref}[1]{\ref{#1}}
+  }
 }
-\crefname{auditblock}{audit block}{audit blocks}
-\Crefname{auditblock}{Audit block}{Audit blocks}
 
-% Cleveref names (only once; harmless if repeated)
-\providecommand{\crefname}[3]{\@ifundefined{cref@#1@name}{\def\cref@#1@name{#2}\def\Cref@#1@name{#3}}{}}
-\providecommand{\Crefname}[3]{}
-
-% (Names below are used by cleveref; if cleveref loaded, these help formatting.)
-\crefname{theorem}{theorem}{theorems}
-\crefname{lemma}{lemma}{lemmas}
-\crefname{proposition}{proposition}{propositions}
-\crefname{corollary}{corollary}{corollaries}
-\crefname{definition}{definition}{definitions}
-\crefname{assumption}{assumption}{assumptions}
-\crefname{remark}{remark}{remarks}
-\crefname{example}{example}{examples}
-\crefname{equation}{equation}{equations}
+% Конец файла environments.tex
