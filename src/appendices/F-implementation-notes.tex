@@ -70,9 +70,10 @@ sha256sum output.pdf
 \end{verbatim}
 
 \begin{auditblock}{Audit of Section F.2}
-\par\textbullet\ \emph{Goal F2a:} Enforce deterministic repository layout. \textbf{Verified} by directory checks.
-\par\textbullet\ \emph{Goal F2b:} Guarantee identical PDF outputs. \textbf{Verified} by containerized builds and SHA-256 comparison.
-\par\textbullet\ \emph{Invariant links:} Connects to Chapter~2 (notation) and Appendix~B (auxiliary estimates) where reproducibility conventions are applied.
+\leavevmode\par
+$\bullet$ \emph{Goal F2a:} Enforce deterministic repository layout. \textbf{Verified} by directory checks.\\
+$\bullet$ \emph{Goal F2b:} Guarantee identical PDF outputs. \textbf{Verified} by containerized builds and SHA-256 comparison.\\
+$\bullet$ \emph{Invariant links:} Connects to Chapter~2 (notation) and Appendix~B (auxiliary estimates) where reproducibility conventions are applied.
 \end{auditblock}
 
 \subsection*{F.3. Labeling and Cross-Referencing}
@@ -98,10 +99,11 @@ Every \texttt{\textbackslash label} must be referenced at least once by
 Conversely, every reference must resolve to an existing label.
 
 \begin{auditblock}{Audit of Section F.3}
-\par\textbullet\ \emph{Goal F3a:} Guarantee semantic integrity of labels. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F3b:} Prevent orphan labels and dangling references. \textbf{Verified}.
-\par\textbullet\ \emph{Forward links:} To Chapter~5 (microlocal analysis).
-\par\textbullet\ \emph{Backward links:} From Chapter~1 (motivation for reproducibility).
+\leavevmode\par
+$\bullet$ \emph{Goal F3a:} Guarantee semantic integrity of labels. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F3b:} Prevent orphan labels and dangling references. \textbf{Verified}.\\
+$\bullet$ \emph{Forward links:} To Chapter~5 (microlocal analysis).\\
+$\bullet$ \emph{Backward links:} From Chapter~1 (motivation for reproducibility).
 \end{auditblock}
 
 \subsection*{F.4. Bibliographic Integrity}
@@ -130,10 +132,11 @@ Every entry must be cited at least once. Orphan bibliography entries
 are disallowed.
 
 \begin{auditblock}{Audit of Section F.4}
-\par\textbullet\ \emph{Goal F4a:} Guarantee unique and semantic citation keys. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F4b:} Ensure no orphan references. \textbf{Verified}.
-\par\textbullet\ \emph{Forward links:} To Chapter~8 (applications rely on precise bibliographic sources).
-\par\textbullet\ \emph{Backward links:} From Appendix~B (analytic inequalities cited).
+\leavevmode\par
+$\bullet$ \emph{Goal F4a:} Guarantee unique and semantic citation keys. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F4b:} Ensure no orphan references. \textbf{Verified}.\\
+$\bullet$ \emph{Forward links:} To Chapter~8 (applications rely on precise bibliographic sources).\\
+$\bullet$ \emph{Backward links:} From Appendix~B (analytic inequalities cited).
 \end{auditblock}
 
 \subsection*{F.5. Error Budgets}
@@ -165,10 +168,11 @@ grep -c "Overfull \\hbox" build.log  -> E_o
 If any counter is nonzero, the build fails.
 
 \begin{auditblock}{Audit of Section F.5}
-\par\textbullet\ \emph{Goal F5a:} Achieve flawless typesetting. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F5b:} Define measurable error budgets. \textbf{Verified}.
-\par\textbullet\ \emph{Forward links:} To Chapter~9 (conclusion emphasizes zero error tolerance).
-\par\textbullet\ \emph{Backward links:} From Chapter~6 (geometric expansions requiring precise alignment).
+\leavevmode\par
+$\bullet$ \emph{Goal F5a:} Achieve flawless typesetting. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F5b:} Define measurable error budgets. \textbf{Verified}.\\
+$\bullet$ \emph{Forward links:} To Chapter~9 (conclusion emphasizes zero error tolerance).\\
+$\bullet$ \emph{Backward links:} From Chapter~6 (geometric expansions requiring precise alignment).
 \end{auditblock}
 
 \subsection*{F.6. Continuous Integration (CI) Pipeline}
@@ -206,10 +210,11 @@ jobs:
 \end{verbatim}
 
 \begin{auditblock}{Audit of Section F.6}
-\par\textbullet\ \emph{Goal F6a:} Automate all reproducibility checks. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F6b:} Enforce binary CI logic. \textbf{Verified}.
-\par\textbullet\ \emph{Forward links:} To Appendix~F.12 (containerization).
-\par\textbullet\ \emph{Backward links:} From Chapter~3 (kernel constructions whose correctness requires reproducibility).
+\leavevmode\par
+$\bullet$ \emph{Goal F6a:} Automate all reproducibility checks. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F6b:} Enforce binary CI logic. \textbf{Verified}.\\
+$\bullet$ \emph{Forward links:} To Appendix~F.12 (containerization).\\
+$\bullet$ \emph{Backward links:} From Chapter~3 (kernel constructions whose correctness requires reproducibility).
 \end{auditblock}
 
 \subsection*{F.7. Registry of Invariants}
@@ -236,8 +241,9 @@ The registry is machine-readable: stored in
 declared invariant has a corresponding verification stage.
 
 \begin{auditblock}{Audit of Section F.7}
-\par\textbullet\ \emph{Goal F7a:} Provide a canonical registry of invariants. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F7b:} Ensure one-to-one mapping between invariants and CI checks. \textbf{Verified}.
+\leavevmode\par
+$\bullet$ \emph{Goal F7a:} Provide a canonical registry of invariants. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F7b:} Ensure one-to-one mapping between invariants and CI checks. \textbf{Verified}.
 \end{auditblock}
 
 \subsection*{F.8. Forward Links}
@@ -287,17 +293,19 @@ validated via semantic labels and CI.
 
 \begin{auditblock}{Audit of Appendix F (Block 1)}
 \paragraph{Goals.}
-\par\textbullet\ \emph{Goal F1:} Ensure reproducibility across environments. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F2:} Enforce semantic integrity of labels and bibliography. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F3:} Achieve zero-error build quality. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F4:} Guarantee binary CI transparency. \textbf{Verified}.
+\leavevmode\par
+$\bullet$ \emph{Goal F1:} Ensure reproducibility across environments. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F2:} Enforce semantic integrity of labels and bibliography. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F3:} Achieve zero-error build quality. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F4:} Guarantee binary CI transparency. \textbf{Verified}.
 
 \paragraph{Invariants.}
 Invariants F2.1–F6.1 explicitly enumerated and matched with CI stages.
 
 \paragraph{Forward/Backward Links.}
-\par\textbullet\ Forward: to Appendix~F.11 (extended error budget map).
-\par\textbullet\ Backward: from Chapter~2 (notations feeding invariants).
+\leavevmode\par
+$\bullet$ Forward: to Appendix~F.11 (extended error budget map).\\
+$\bullet$ Backward: from Chapter~2 (notations feeding invariants).
 
 \paragraph{Conclusion.}
 Block 1 of Appendix~F establishes the core reproducibility contract:
@@ -461,11 +469,12 @@ Parser invariants ensure real-time, deterministic detection.
 \end{itemize}
 
 \begin{auditblock}{Audit of Block F2}
-\par\textbullet\ \emph{Goal F5:} Extend error taxonomy. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F6:} Guarantee containerized builds. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F7:} Register seeds for reproducibility. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F8:} Enforce bibliographic integrity. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F9:} Define parser invariants. \textbf{Verified}.
+\leavevmode\par
+$\bullet$ \emph{Goal F5:} Extend error taxonomy. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F6:} Guarantee containerized builds. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F7:} Register seeds for reproducibility. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F8:} Enforce bibliographic integrity. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F9:} Define parser invariants. \textbf{Verified}.
 
 \paragraph{Invariants.}
 F11.1–F16.2 enumerated and enforced.
@@ -550,24 +559,27 @@ Removes ambiguity in scholarly attribution.
 \subsection*{F.24. Global Audit of Appendix F}
 
 \paragraph{Goals.}
-\par\textbullet\ \emph{Goal F10:} Ensure artifact traceability. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F11:} Detect label drift. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F12:} Eliminate orphan figures/tables. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F13:} Enforce cross-chapter consistency. \textbf{Verified}.
-\par\textbullet\ \emph{Goal F14:} Guarantee bibliographic integrity. \textbf{Verified}.
+\leavevmode\par
+$\bullet$ \emph{Goal F10:} Ensure artifact traceability. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F11:} Detect label drift. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F12:} Eliminate orphan figures/tables. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F13:} Enforce cross-chapter consistency. \textbf{Verified}.\\
+$\bullet$ \emph{Goal F14:} Guarantee bibliographic integrity. \textbf{Verified}.
 
 \paragraph{Invariants.}
 F19.1–F23.2 fully satisfied.
 
 \paragraph{Forward Links.}
-\par\textbullet\ To Chapter~8: variance estimates depend on bibliographic clarity.
-\par\textbullet\ To Appendix~D: Tauberian lemmas rely on stable citations.
-\par\textbullet\ To Conclusion: artifact traceability supports reproducibility manifesto.
+\leavevmode\par
+$\bullet$ To Chapter~8: variance estimates depend on bibliographic clarity.\\
+$\bullet$ To Appendix~D: Tauberian lemmas rely on stable citations.\\
+$\bullet$ To Conclusion: artifact traceability supports reproducibility manifesto.
 
 \paragraph{Backward Links.}
-\par\textbullet\ From Chapter~1: introduction of structural invariants.
-\par\textbullet\ From Appendix~B: analytic seeds in error budgets.
-\par\textbullet\ From Appendix~C: environment checks linked to CI.
+\leavevmode\par
+$\bullet$ From Chapter~1: introduction of structural invariants.\\
+$\bullet$ From Appendix~B: analytic seeds in error budgets.\\
+$\bullet$ From Appendix~C: environment checks linked to CI.
 
 \paragraph{Conclusion.}
 Appendix~F concludes with a complete reproducibility contract: strict
