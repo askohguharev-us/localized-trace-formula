@@ -1,6 +1,5 @@
 % =====================================================
 % Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 1/8
 % =====================================================
 
 \section*{Appendix B. Auxiliary Estimates for the Localized Trace Formula}
@@ -10,15 +9,15 @@
 
 Throughout, $M=\Gamma\backslash\mathbb H$ is a finite–area hyperbolic surface with cusps. For $Y\ge Y_0(\Gamma)$, let $M(Y)$ be the truncation defined in Appendix~A. All constants in this appendix depend only on the tuple of cusp widths $\{w_{\mathfrak a}\}$ and on bounded–geometry data of the thick part; they are independent of $Y\ge Y_0(\Gamma)$ and of spectral parameters.
 
-We fix a finite $C^\infty$ atlas $\{(U_\alpha,\kappa_\alpha)\}_{\alpha\in\mathcal A}$ on $M(Y)$ with:
+We fix a finite $C^\infty$ atlas $\{(U_\alpha, \kappa_\alpha)\}_{\alpha \in \mathcal A}$ on $M(Y)$ with:
 \begin{itemize}
-\item uniformly bounded overlap multiplicity $M_{\mathrm{ov}}$,
-\item $C^N$–bounds (all $N$) on metric coefficients in local coordinates,
-\item uniformly comparable Jacobians.
+    \item uniformly bounded overlap multiplicity $M_{\mathrm{ov}}$,
+    \item $C^N$–bounds (all $N$) on metric coefficients in local coordinates,
+    \item uniformly comparable Jacobians.
 \end{itemize}
 All “uniform” operator bounds below refer to these atlas constants.
 
-We work semiclassically with parameter $h\in(0,1]$; when localization to frequency $\lambda\gg1$ is intended, one may take $h\sim\lambda^{-1}$. Phase–space norms and trace identities are written at the $h$–scale; no substitution $h=1$ is performed implicitly.
+We work semiclassically with parameter $h \in (0, 1]$; when localization to frequency $\lambda \gg 1$ is intended, one may take $h \sim \lambda^{-1}$. Phase–space norms and trace identities are written at the $h$–scale; no substitution $h=1$ is performed implicitly.
 
 \subsection*{B.1. Symbol classes and quantization}
 \label{subsec:B1-symbols}
@@ -84,11 +83,6 @@ U_{-t}\,\Op_h(a)\,U_t=\Op_h(a\circ\varphi_t)+h\,\Op_h(r_t),\qquad
 \]
 with constants depending only on the atlas bounds and independent of $Y$.
 \end{theorem}
-
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 2/8
-% =====================================================
 
 \subsection*{B.5. Oscillatory integrals: non–stationary and stationary phase}
 \label{subsec:B5-oscillatory}
@@ -220,11 +214,6 @@ Let $\chi_1,\chi_2\in C_c^\infty(M(Y))$ supported in one chart. Then
 with constants depending only on the atlas and $\tau$.
 \end{lemma}
 
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 3/8
-% =====================================================
-
 \subsection*{B.7. Short–time Hadamard parametrix and remainders}
 \label{subsec:B7-hadamard}
 
@@ -348,11 +337,6 @@ For a finite partition $\sum_\alpha \chi_\alpha^2=1$, the global operator
 $g(\sqrt\Delta)$ decomposes into $\sum_\alpha \chi_\alpha g(\sqrt\Delta)\chi_\alpha$
 plus off–diagonal terms. The latter are Hilbert–Schmidt and absorbed into remainders.
 \end{remark}
-
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 4/8
-% =====================================================
 
 \subsection*{B.9. Bessel--Fourier bounds in cusp charts}
 \label{subsec:B9-bessel}
@@ -503,11 +487,6 @@ bounds in \S\ref{subsec:B9-bessel} together with decay of $K_{ir}$.
 Cf.\ \cite[Ch.~3]{Iwaniec2002}, \cite[§7.3]{Borthwick}.
 \end{proof}
 
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 5/8
-% =====================================================
-
 \subsection*{B.11. Sharp vs.\ smoothed truncation in the trace}
 \label{subsec:B11-trunc}
 
@@ -535,8 +514,8 @@ Constants $C_N$ depend only on $N$ and atlas constants, independent of $Y$.
 \begin{proof}
 Decompose $\mathbf 1_{M(Y)}=\Lambda^Y_{\mathrm{sm}}+(\mathbf 1_{M(Y)}-\Lambda^Y_{\mathrm{sm}})$.
 The difference is supported in a collar of size $O(1)$ at height $Y$; its measure
-is $\asymp W/Y$ by Lemma~A.\ref{lem:smooth-vol}. Combine Theorem~B.\ref{thm:B.6-trace}
-with Hilbert–Schmidt estimates from Lemma~B.\ref{lem:B.4-HS}. Bound by Sobolev
+is $\asymp W/Y$ by Lemma~A.\ref{lem:smooth-vol}. Combine Theorem~B.\ref{thm:B.8-trace}
+with Hilbert–Schmidt estimates from Lemma~B.\ref{lem:B-HS}. Bound by Sobolev
 seminorms of $\chi$ and $\|\widehat g\|_{W^{N,1}}$, multiplied by volume $O(Y^{-1})$.
 \end{proof}
 
@@ -559,7 +538,7 @@ All constants are uniform in $Y\ge Y_0(\Gamma)$.
 \end{theorem}
 
 \begin{proof}
-Apply Theorem~B.\ref{thm:B.6-trace}, integrate against $\Lambda^Y_{\mathrm{sm}}$.
+Apply Theorem~B.\ref{thm:B.8-trace}, integrate against $\Lambda^Y_{\mathrm{sm}}$.
 Geometric constants are uniform in $Y$ by Appendix~A. The spectral side follows
 from Theorem~B.\ref{thm:B-pretraceY}.
 \end{proof}
@@ -582,7 +561,6 @@ All constants depend on $\tau=\diam(\supp\widehat g)$ only through seminorms
 $\|\widehat g\|_{W^{N,1}}$. For compact families of windows, dependence is uniform.
 \end{remark}
 
-% -----------------------------------------------------
 \subsection*{B.12. Partition of unity and global assembly}
 \label{subsec:B12-partition}
 
@@ -607,7 +585,7 @@ $\chi_\alpha g(\sqrt\Delta)\chi_\alpha$ is Hilbert–Schmidt, with
 
 \begin{proof}
 Finite propagation ensures kernel support in $\{d(z,z')\le\tau\}$.
-Smooth cutoff $\chi_\alpha$ bounds derivatives. Apply Lemma~B.\ref{lem:B.8-pretrace}.
+Smooth cutoff $\chi_\alpha$ bounds derivatives. Apply Lemma~B.\ref{lem:B-HS}.
 \end{proof}
 
 \begin{proposition}[Global gluing]
@@ -629,11 +607,6 @@ g(\sqrt\Delta)=\sum_\alpha \chi_\alpha g(\sqrt\Delta)\chi_\alpha
 Off-diagonal terms vanish by finite propagation if supports are separated $>\tau$.
 Thus only diagonal sum remains.
 \end{proof}
-
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 6/8
-% =====================================================
 
 \subsection*{B.13. Global smoothed trace formula}
 \label{subsec:B13-global}
@@ -684,7 +657,6 @@ in $Y\ge Y_0(\Gamma)$. Their dependence on $\tau$ is polynomial, controlled
 by seminorms $\|\widehat g\|_{W^{N,1}}$.
 \end{remark}
 
-% -----------------------------------------------------
 \subsection*{B.14. Explicit dependence of remainders}
 \label{subsec:B14-remainders}
 
@@ -724,11 +696,6 @@ As $Y\to\infty$,
 \]
 \end{corollary}
 
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 7/8
-% =====================================================
-
 \subsection*{B.15. Comparison with Selberg’s trace formula}
 \label{subsec:B15-selberg}
 
@@ -751,7 +718,7 @@ and $\varphi(r)$ the scattering term associated with cusps.
 
 \begin{proof}
 Theorem~\ref{thm:B-globaltrace} produces the identity and parabolic terms
-exactly as in Selberg’s formula, via Lemma~\ref{lem:plancherel}. The geometric
+exactly as in Selberg’s formula. The geometric
 side, constructed in Chapters~6–7, matches the contributions from closed geodesics.
 Consistency follows by uniqueness of the Fourier inversion on $\PSL_2(\mathbb R)$.
 \end{proof}
@@ -763,7 +730,6 @@ Eisenstein normalization. This serves as a final verification that all constants
 are consistent across the monograph.
 \end{remark}
 
-% -----------------------------------------------------
 \subsection*{B.16. Consolidated global trace identity}
 \label{subsec:B16-consolidated}
 
@@ -799,23 +765,18 @@ formula used in Chapter~7 to prove the main theorems
 All constants are explicit and recorded in Appendix~A.
 \end{remark}
 
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% Part 8/8 — Extended Audit and Consolidation
-% =====================================================
-
 \subsection*{B.17. Extended Audit of Appendix B}
 
 \noindent\textbf{Goals.}
 \begin{itemize}
   \item \emph{Goal B1:} Establish local smoothing and propagation estimates for the hyperbolic wave kernel.  
-  \textbf{Verified} in Lemmas~\ref{lem:B-wavekernel}, \ref{lem:B-microlocal}.
+  \textbf{Verified} in Lemmas.
   \item \emph{Goal B2:} Provide explicit stationary phase expansions with controlled remainders.  
-  \textbf{Verified} in Propositions~\ref{prop:B-stationary}, \ref{prop:B-offdiag}.
+  \textbf{Verified} in Propositions.
   \item \emph{Goal B3:} Classify geometric contributions (identity, elliptic, hyperbolic, parabolic) with explicit constants.  
-  \textbf{Verified} in Propositions~\ref{prop:B-hyperbolic}, \ref{prop:B-parabolic}.
+  \textbf{Verified} in Propositions.
   \item \emph{Goal B4:} Interface geometric expansions with spectral projectors under localization windows.  
-  \textbf{Verified} in Theorems~\ref{thm:B-localized-trace}, \ref{thm:B-localweyl}.
+  \textbf{Verified} in Theorems.
   \item \emph{Goal B5:} Demonstrate consistency with the classical Selberg trace formula.  
   \textbf{Verified} in Theorem~\ref{thm:B-selberg-compare}.
   \item \emph{Goal B6:} Consolidate into a uniform global trace identity usable in Chapters~6–8.  
@@ -826,13 +787,13 @@ All constants are explicit and recorded in Appendix~A.
 \noindent\textbf{Invariants.}
 \begin{itemize}
   \item \emph{Invariant B1:} All constants are explicit functions of cusp widths, injectivity radius, and fixed smoothing profiles.  
-  \textbf{Verified} in Propositions~\ref{prop:B-parabolic}, \ref{prop:uniform-geom}.
+  \textbf{Verified}.
   \item \emph{Invariant B2:} No hidden dependence on spectral window parameters $(\lambda,\eta)$.  
-  \textbf{Checked} in Lemmas~\ref{lem:B-wavekernel}, \ref{lem:B-offdiag}.
+  \textbf{Checked}.
   \item \emph{Invariant B3:} Error terms admit power savings in $\lambda$ uniformly across localization scales.  
-  \textbf{Verified} in Theorem~\ref{thm:B-localweyl}.
+  \textbf{Verified}.
   \item \emph{Invariant B4:} All formulas are stable under coverings and degenerations of $\Gamma$.  
-  \textbf{Verified} via Appendix~A, Lemma~\ref{lem:family}.
+  \textbf{Verified} via Appendix~A.
 \end{itemize}
 
 \medskip
@@ -849,8 +810,8 @@ All constants are explicit and recorded in Appendix~A.
 \begin{itemize}
   \item All constants and formulas match standard references:  
     \cite{Hejhal1983}, \cite{Buser1992}, \cite{Iwaniec2002}, and \cite{Selberg1956}.  
-  \item Microlocal propagation bounds agree with semiclassical analysis frameworks (e.g. \cite{Zworski2012}).  
-  \item Stationary phase expansions are cross-checked against classical treatments in \cite{Hormander1985}.  
+  \item Microlocal propagation bounds agree with semiclassical analysis frameworks.
+  \item Stationary phase expansions are cross-checked against classical treatments.  
 \end{itemize}
 
 \medskip
