@@ -1,27 +1,21 @@
 % ==================================================================
 % operators.tex — Comprehensive & Safe Operator Definitions
 % ==================================================================
-
 \makeatletter
 
 % --- Системный хелпер для безопасного объявления ---
-% Теперь он правильно превращает строку 'sgn' в команду '\sgn'
+% Исправлено: теперь он корректно создает команду из строки
 \providecommand{\SafeDeclareOp}[2]{%
   \@ifundefined{#1}{%
     \expandafter\DeclareMathOperator\csname #1\endcsname{#2}%
-  }{%
-    % Если оператор уже определен, ничего не делаем, чтобы избежать ошибок
-  }%
+  }{}%
 }
 
-% --- Semiclassical / Microlocal Operators ---
-% Используем \SafeDeclareOp для единообразия
+% --- Операторы ---
 \SafeDeclareOp{Op}{Op}
 \SafeDeclareOp{Opw}{Op_h^{\mathrm{w}}}
 \SafeDeclareOp{Opl}{Op_h^{\mathrm{left}}}
 \SafeDeclareOp{Opr}{Op_h^{\mathrm{right}}}
-
-% --- Spectral & Geometric Operators ---
 \SafeDeclareOp{sgn}{sgn}
 \SafeDeclareOp{Tr}{Tr}
 \SafeDeclareOp{tr}{tr}
@@ -31,33 +25,28 @@
 \SafeDeclareOp{dist}{dist}
 \SafeDeclareOp{vol}{vol}
 \SafeDeclareOp{rank}{rank}
-\SafeDeclareOp{WF}{WF}      % Wave Front set
-\SafeDeclareOp{Var}{Var}    % Variance
+\SafeDeclareOp{WF}{WF}
+\SafeDeclareOp{Var}{Var}
 \SafeDeclareOp{inj}{inj}
 \SafeDeclareOp{sys}{sys}
 \SafeDeclareOp{Spec}{Spec}
 \SafeDeclareOp{diam}{diam}
 
-% --- Small helpers (Delimiters & Symbols) ---
+% --- Наборы чисел и символы ---
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
 \providecommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
 \providecommand{\set}[1]{\left\{\,#1\,\right\}}
 \providecommand{\dd}{\mathrm{d}}
 \providecommand{\eps}{\varepsilon}
-\providecommand{\OO}{\mathcal{O}}
-\providecommand{\oo}{o}
-
-% --- Number sets ---
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\Hh}{\mathbb{H}}
 
-% --- Utility ---
 \@ifundefined{TODO}{
-  \providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+  \newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
 }{}
 
 \makeatother
