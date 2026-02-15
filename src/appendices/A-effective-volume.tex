@@ -1,6 +1,6 @@
 % =========================================================
 % Appendix A — Effective Volume and Boundary Geometry
-% Part 1/6: Scope, model cusp, and truncation on M
+% Full Monolithic Version: Sections A.0 to A.16
 % Label prefix for this appendix: appA:...
 % =========================================================
 
@@ -118,16 +118,15 @@ and sum over cusps.
 Formulas in \eqref{appA:eq:vol-defect} depend on $\Gamma$ solely via the finite
 tuple $(w_{\mathfrak{a}})_{\mathfrak{a}}$; no spectral parameters appear.
 \end{remark}
-```0
 
-% --- Appendix A, Part 2 of 6 ---
 \subsection*{A.3. Injectivity radius and collars near the boundary}
+\label{appA:subsec:injectivity}
 
 Although the global injectivity radius of $M$ vanishes due to cusps,
 the truncated surface $M(Y)$ enjoys a uniform injectivity bound
 that depends explicitly on $Y$.
 
-\begin{lemma}[Injectivity in truncated cusps]\label{lem:appA:inj-cusp}
+\begin{lemma}[Injectivity in truncated cusps]\label{appA:lem:inj-cusp}
 There exists an absolute constant $c_0>0$ such that for all
 $Y\ge Y_0(\Gamma)$ and every $z\in \Pi_{\mathfrak a}(Y)$ one has
 \[
@@ -146,7 +145,7 @@ through $\sigma_{\mathfrak a}$ and invoking the disjointness of
 neighborhoods for $Y\ge Y_0(\Gamma)$ gives the claimed bound.
 \end{proof}
 
-\begin{proposition}[Geodesic collars near $\partial M(Y)$]\label{prop:appA:collar}
+\begin{proposition}[Geodesic collars near $\partial M(Y)$]\label{appA:prop:collar}
 For $0<\delta\le \tfrac12$ the collar
 \[
 \mathcal N_\delta\!\big(\partial M(Y)\big)
@@ -168,6 +167,8 @@ In particular, one has the uniform estimate
 \]
 \end{proposition}
 
+
+
 \begin{proof}
 In the model cusp strip, the metric factor in the normal direction to
 $H(w_{\mathfrak a};Y)$ is $y^{-1}$. Thus normal distance $\rho$ corresponds to
@@ -180,17 +181,16 @@ Integrating over $\rho\in[0,\delta]$ gives
 =\frac{w_{\mathfrak a}}{Y}\tanh\delta.
 \]
 Summing over cusps yields the claimed area formula. The boundary length identity
-follows directly from Lemma~\ref{lem:ref-int}.
+follows directly from Lemma~\ref{appA:lem:ref-int}.
 \end{proof}
 
-% --- Appendix A, Part 4 ---
-
 \subsection*{A.5. Effective volumes for geodesic sectors and balls}
+\label{appA:subsec:balls-sectors}
 
 \noindent
 The next bounds are used implicitly when localizing kernels by distance.
 
-\begin{lemma}[Balls in the cusp]\label{lem:balls}
+\begin{lemma}[Balls in the cusp]\label{appA:lem:balls}
 Let $B_\rho(z)$ denote the hyperbolic ball of radius $\rho>0$ centered at
 $z=x+iy$ with $y\ge Y$. Then for $0<\rho\le 1$,
 \[
@@ -210,7 +210,7 @@ the vertical hyperbolic distance to $Y$, i.e.\ $\asymp e^{-2(\log Y-\log y)}$,
 giving the stated error. Transport via $\sigma_{\mathfrak a}$ is isometric.
 \end{proof}
 
-\begin{proposition}[Sectors based at the boundary]\label{prop:sectors}
+\begin{proposition}[Sectors based at the boundary]\label{appA:prop:sectors}
 Fix $\theta\in(0,\pi)$ and let $S_{\theta,\rho}(Y)$ be the geodesic sector of
 aperture $\theta$ and radius $\rho\le 1$ issuing orthogonally from a point of
 $\partial M(Y)$ into $M(Y)$. Then for each cusp
@@ -224,16 +224,17 @@ and summing over cusps yields the total area near $\partial M(Y)$.
 \begin{proof}
 In the model cusp, by rotational symmetry around the normal direction to
 $H(w_{\mathfrak a};Y)$, sectors scale by $\theta/(2\pi)$ from the ball area in
-Lemma~\ref{lem:balls}. The horocyclic boundary introduces only the global
-factor $w_{\mathfrak a}/Y$ from \eqref{eq:length-horo}.
+Lemma~\ref{appA:lem:balls}. The horocyclic boundary introduces only the global
+factor $w_{\mathfrak a}/Y$ from \eqref{appA:eq:length-horo}.
 \end{proof}
 
 \subsection*{A.6. Effective comparison for $Y$ and $Y'$}
+\label{appA:subsec:comparison}
 
 \noindent
 We will need to compare truncations at two heights $Y<Y'$.
 
-\begin{lemma}[Difference of truncations]\label{lem:Y-compare}
+\begin{lemma}[Difference of truncations]\label{appA:lem:Y-compare}
 For $Y<Y'$,
 \[
 \operatorname{Area}\big(M(Y)\setminus M(Y')\big)= \sum_{\mathfrak a} w_{\mathfrak a}\,\Big(\frac{1}{Y}-\frac{1}{Y'}\Big),
@@ -243,18 +244,17 @@ For $Y<Y'$,
 \end{lemma}
 
 \begin{proof}
-Subtract the identities in \eqref{eq:vol-defect} for $Y$ and $Y'$.
+Subtract the identities in \eqref{appA:eq:vol-defect} for $Y$ and $Y'$.
 \end{proof}
 
-\begin{corollary}[Monotonicity and stability]\label{cor:monotone}
+\begin{corollary}[Monotonicity and stability]\label{appA:cor:monotone}
 The functions $Y\mapsto \operatorname{Area}(M(Y))$ and
 $Y\mapsto \operatorname{Length}\,\partial M(Y)$ are strictly increasing and
 decreasing, respectively, with Lipschitz constants controlled by $W=\sum w_{\mathfrak a}$.
 \end{corollary}
 
-% --- Appendix A, Part 5 ---
-
 \subsection*{A.7. Effective volume with smooth truncation}
+\label{appA:subsec:smooth-truncation}
 
 \noindent
 In Chapters~3–6 we often use a \emph{smoothed} truncation operator $\Lambda^Y_{\mathrm{sm}}$
@@ -266,7 +266,7 @@ $[1,\infty)$, scaled at height $Y$:
 \]
 The following formulas quantify the geometric effect of smoothing.
 
-\begin{lemma}[Smoothed volumes]\label{lem:smooth-vol}
+\begin{lemma}[Smoothed volumes]\label{appA:lem:smooth-vol}
 Let $\psi$ be as above and set
 \[
 \Psi_0=\int_0^\infty \psi'(t)\,\frac{dt}{t},\qquad
@@ -287,7 +287,7 @@ an explicit shape factor depending only on $\psi$.
 
 \begin{proof}
 Change variables $t=y/Y$ in each cusp chart and use the reference integrals
-\eqref{eq:area-cusp}. The constants $\Psi_0,\Psi_1$ are finite by the support
+\eqref{appA:eq:area-cusp}. The constants $\Psi_0,\Psi_1$ are finite by the support
 and plateau properties of $\psi$.
 \end{proof}
 
@@ -298,12 +298,13 @@ of geometric constants, up to a fixed multiplicative factor.
 \end{remark}
 
 \subsection*{A.8. Effective interfaces with spectral side}
+\label{appA:subsec:spectral-interface}
 
 \noindent
 We conclude this block by recording two interface identities that are repeatedly
 used when translating geometric measures to spectral weights.
 
-\begin{lemma}[Plancherel-compatible normalization]\label{lem:plancherel}
+\begin{lemma}[Plancherel-compatible normalization]\label{appA:lem:plancherel}
 With the normalizations adopted in the glossary, the identity contribution in
 the localized trace formula over $M(Y)$ equals
 \[
@@ -316,10 +317,10 @@ $\psi$ (linear in $\Psi_0,\Psi_1$).
 \end{lemma}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:vol-defect} and Lemma~\ref{lem:smooth-vol}.
+Immediate from Proposition~\ref{appA:prop:vol-defect} and Lemma~\ref{appA:lem:smooth-vol}.
 \end{proof}
 
-\begin{proposition}[Uniformity of geometric constants]\label{prop:uniform-geom}
+\begin{proposition}[Uniformity of geometric constants]\label{appA:prop:uniform-geom}
 All geometric constants entering the identity and parabolic contributions in
 Chapters~6–8 are explicit functions of the tuple
 $(W,\{w_{\mathfrak a}\})$ and the smoothing shape $\psi$ and are independent of
@@ -329,18 +330,17 @@ dependence on $\lambda$ or $\eta$ in geometric prefactors.
 
 \begin{proof}
 Every geometric quantity used there is a finite linear combination of the
-objects computed in Lemmas~\ref{lem:ref-int}, \ref{lem:weighted-tails},
-\ref{lem:smooth-vol}, and Propositions~\ref{prop:vol-defect}, \ref{prop:collar},
-\ref{prop:sectors}. None of these involve spectral parameters.
+objects computed in Lemmas~\ref{appA:lem:ref-int}, \ref{appA:lem:smooth-vol}, 
+and Propositions~\ref{appA:prop:vol-defect}, \ref{appA:prop:collar},
+\ref{appA:prop:sectors}. None of these involve spectral parameters.
 \end{proof}
 
-% --- Appendix A, Part 6 ---
-
 \subsection*{A.9. Consistency checks and forward link}
+\label{appA:subsec:consistency}
 
 \noindent
 \textbf{Consistency.}
-Formulas \eqref{eq:vol-defect}–\eqref{eq:weighted-tail} match verbatim the
+Formulas \eqref{appA:eq:vol-defect} match verbatim the
 normalizations in \cite[§2–§3]{Hejhal1983} and \cite[Chap.~3]{Iwaniec2002}.
 The collar area formula agrees with classical computations in
 \cite[§4.1]{Buser1992}. Smoothed quantities reduce to the sharp ones when
@@ -356,51 +356,32 @@ spectral window parameters $(\lambda,\eta)$.
 \medskip
 \noindent
 \textbf{Forward link.}
-The identities of Lemma~\ref{lem:plancherel} are invoked in Chapter~6 (identity
-and parabolic terms) and Chapter~8 (local Weyl law), with explicit $Y$–dependence
+The identities of Lemma~\ref{appA:lem:plancherel} are invoked in Chapter~6 (identity
+and parabolic terms) and Chapter~8 (local Weyl law), with explicit $Y$-dependence
 propagating to the final error budget.
 
-\bigskip
-\noindent\textbf{Audit of Block A1.}
-\begin{itemize}
-  \item \emph{Goal A1:} Compute effective volumes and boundary lengths of truncated cusps. \\
-  \textbf{Verified} by \eqref{eq:vol-defect}.
-  \item \emph{Goal A2:} Record weighted tail integrals with logs. \\
-  \textbf{Verified} by \eqref{eq:weighted-tail}–\eqref{eq:log-tail}.
-  \item \emph{Invariant A1:} No dependence on $(\lambda,\eta)$ in geometric constants. \\
-  \textbf{Verified} by Proposition~\ref{prop:uniform-geom}.
-  \item \emph{Forward link:} Provide geometric inputs for identity/parabolic contributions. \\
-  \textbf{Verified} via Lemma~\ref{lem:plancherel}.
-\end{itemize}
-
 \subsection*{A.10. Dependence on cusp parameters and uniformity}
+\label{appA:subsec:uniformity}
 
-\noindent
-\textbf{Objective.}
-We now analyze in detail how all geometric quantities depend on the tuple of cusp
-widths $\{w_{\mathfrak a}\}$ and the truncation parameter $Y$. This is essential
-for uniformity when passing to families of surfaces (coverings, degenerations)
-and for ensuring reproducibility of constants in analytic estimates.
-
-\begin{lemma}[Linear dependence on widths]\label{lem:linear-w}
+\begin{lemma}[Linear dependence on widths]\label{appA:lem:linear-w}
 Each of the quantities
 \[
 \operatorname{Area}(M\setminus M(Y)),\quad
 \operatorname{Length}\,\partial M(Y),\quad
 \int_{M\setminus M(Y)} y^{-s} dA,
 \]
-is a $\mathbb Q$–linear combination of the cusp widths
+is a $\mathbb Q$-linear combination of the cusp widths
 $\{w_{\mathfrak a}\}$ with coefficients depending only on $s$ and $Y$. In
 particular, they depend on $\Gamma$ only through the vector
 $(w_{\mathfrak a})_{\mathfrak a\in\mathcal C}$.
 \end{lemma}
 
 \begin{proof}
-Immediate from Lemma~\ref{lem:ref-int} and Proposition~\ref{prop:vol-defect}.
+Immediate from Lemma~\ref{appA:lem:ref-int} and Proposition~\ref{appA:prop:vol-defect}.
 Each cusp contributes independently and linearly in $w_{\mathfrak a}$.
 \end{proof}
 
-\begin{proposition}[Uniform Lipschitz bounds in $Y$]\label{prop:lipschitz-Y}
+\begin{proposition}[Uniform Lipschitz bounds in $Y$]\label{appA:prop:lipschitz-Y}
 Fix $\Gamma$. Then
 \[
 \left|\frac{\partial}{\partial Y}\operatorname{Area}(M(Y))\right|
@@ -409,24 +390,17 @@ Fix $\Gamma$. Then
 =\frac{W}{Y^2},
 \]
 with $W=\sum_{\mathfrak a} w_{\mathfrak a}$. In particular, both functions are
-$O_\Gamma(Y^{-2})$–Lipschitz in $Y$.
+$O_\Gamma(Y^{-2})$-Lipschitz in $Y$.
 \end{proposition}
 
 \begin{proof}
-Differentiate the explicit formulas in Proposition~\ref{prop:vol-defect}.
+Differentiate the explicit formulas in Proposition~\ref{appA:prop:vol-defect}.
 \end{proof}
 
-% --- Appendix A, Part 7 ---
-
 \subsection*{A.11. Effective bounds in degenerating families}
+\label{appA:subsec:families}
 
-\noindent
-\textbf{Motivation.}
-In applications we may consider a tower of coverings or a degenerating family of
-surfaces. We need bounds that remain valid when the number of cusps grows or the
-widths $\{w_{\mathfrak a}\}$ vary.
-
-\begin{lemma}[Uniform bounds in cusp families]\label{lem:family}
+\begin{lemma}[Uniform bounds in cusp families]\label{appA:lem:family}
 For any finite-area $\Gamma$ and all $Y\ge Y_0(\Gamma)$,
 \[
 \operatorname{Area}(M\setminus M(Y))\le \frac{W}{Y},\qquad
@@ -440,25 +414,15 @@ widths of $\Gamma'$ are $\{w'_{\mathfrak a}\}$ with total $W' = dW$. Hence
 \end{lemma}
 
 \begin{proof}
-The first inequalities are the identities of Proposition~\ref{prop:vol-defect}.
+The first inequalities are the identities of Proposition~\ref{appA:prop:vol-defect}.
 The covering relation follows because each cusp of $\Gamma$ lifts to $d$ cusps
 of $\Gamma'$, each with the same width, so the total width multiplies by $d$.
 \end{proof}
 
-\begin{remark}[Degeneration through narrow collars]
-If a family of hyperbolic surfaces degenerates by pinching a closed geodesic,
-then new cusps may form in the limit. The effective formulas of this appendix
-apply uniformly provided one records the new widths $w_{\mathfrak a}$ after
-pinching. Thus the analytic constants in the trace formula remain controlled.
-\end{remark}
-
 \subsection*{A.12. Weighted horocycle integrals}
+\label{appA:subsec:horocycles}
 
-\noindent
-Horocycle averages play a role in parabolic contributions. We collect explicit
-integrals over the boundary components.
-
-\begin{lemma}[Horocycle averages]\label{lem:horo-av}
+\begin{lemma}[Horocycle averages]\label{appA:lem:horo-av}
 For each cusp $\mathfrak a$ and $s>-1$,
 \[
 \int_{\partial\Pi_{\mathfrak a}(Y)} y^{-s}\,ds = w_{\mathfrak a}\,Y^{-s-1}.
@@ -475,14 +439,10 @@ On $\partial\Pi_{\mathfrak a}(Y)$ we have $y=Y$ and $ds=dx/Y$. Integrate
 $x\in[0,w_{\mathfrak a}]$ and obtain the stated equalities.
 \end{proof}
 
-% --- Appendix A, Part 8 ---
-
 \subsection*{A.13. Asymptotic expansions for cusp integrals}
+\label{appA:subsec:asymptotics}
 
-\noindent
-For applications requiring high precision, we give complete asymptotic expansions.
-
-\begin{proposition}[Asymptotic expansion of weighted tails]\label{prop:asy-tail}
+\begin{proposition}[Asymptotic expansion of weighted tails]\label{appA:prop:asy-tail}
 For $s>-1$ and $Y\to\infty$,
 \[
 \int_{M\setminus M(Y)} y^{-s}\,dA
@@ -499,23 +459,19 @@ where the coefficients $c_j(s)$ are rational functions of $s$.
 
 \begin{proof}
 Expand $(\log y)^N$ around $\log Y$ and integrate term-by-term using
-\eqref{eq:ys-int}. The coefficients $c_j(s)$ arise from binomial expansions.
+\eqref{appA:eq:ys-int}. The coefficients $c_j(s)$ arise from binomial expansions.
 \end{proof}
 
-\begin{corollary}[Stability of expansions]\label{cor:stability-exp}
-The expansions in Proposition~\ref{prop:asy-tail} converge absolutely in the
+\begin{corollary}[Stability of expansions]\label{appA:cor:stability-exp}
+The expansions in Proposition~\ref{appA:prop:asy-tail} converge absolutely in the
 sense of asymptotic series. In particular, truncating after $J$ terms introduces
 an error bounded by $O(Y^{-s-2}(\log Y)^{N-J})$.
 \end{corollary}
 
 \subsection*{A.14. Interfacing with Sobolev norms}
+\label{appA:subsec:sobolev}
 
-\noindent
-Effective Sobolev embeddings in Chapter~2 used estimates of the type
-$\|u\|_\infty\ll \|u\|_{H^s}$ with explicit constants depending on cusp widths.
-We now extend this to weighted norms.
-
-\begin{lemma}[Weighted Sobolev inequality]\label{lem:weighted-sob}
+\begin{lemma}[Weighted Sobolev inequality]\label{appA:lem:weighted-sob}
 For $s>1$ and $u\in C_c^\infty(M(Y))$,
 \[
 \int_{M(Y)} |u(z)|^2 y^{-s}\,dA
@@ -530,90 +486,50 @@ $y^{-s}\le Y^{-s}$, hence the weighted integral is dominated by the $L^2$ norm.
 Sobolev embedding in the thick part completes the bound.
 \end{proof}
 
-% --- Appendix A, Part 9 (Final) ---
-
 \subsection*{A.15. Cross-checks with literature}
-
-\noindent
-To verify consistency, we match our constants against classical references:
+\label{appA:subsec:cross-checks}
 
 \begin{itemize}
   \item \cite[§2]{Hejhal1983}: formulas for truncated cusp volumes match exactly
-  \eqref{eq:area-cusp}–\eqref{eq:ys-int}.
+  \eqref{appA:eq:area-cusp}–\eqref{appA:eq:ys-int}.
   \item \cite[Chap.~3]{Buser1992}: the area of cusp collars agrees with our
-  Proposition~\ref{prop:collar}.
+  Proposition~\ref{appA:prop:collar}.
   \item \cite[§3]{Iwaniec2002}: normalizations of widths and horocycle lengths
-  coincide with \eqref{eq:length-horo}.
+  coincide with \eqref{appA:eq:length-horo}.
 \end{itemize}
-
-These cross-checks confirm that our adopted normalizations and effective formulas
-are fully aligned with classical sources, ensuring reproducibility and clarity.
 
 \subsection*{A.16. Audit of Appendix A}
+\label{appA:subsec:audit}
 
 \noindent
-We now provide a comprehensive audit verifying that Appendix~A has achieved its
-stated goals, preserved invariants, and established forward and backward links.
-
-\medskip
-\noindent\textbf{Goals.}
+\textbf{Goals achieved.}
 \begin{itemize}
-  \item \emph{Goal A1:} Compute effective volumes and boundary lengths of truncated cusps. \\
-  \textbf{Verified} by Lemma~\ref{lem:ref-int} and Proposition~\ref{prop:vol-defect}.
-  \item \emph{Goal A2:} Record weighted tail integrals with and without logarithmic factors. \\
-  \textbf{Verified} by Lemma~\ref{lem:weighted-tails}.
-  \item \emph{Goal A3:} Establish injectivity radius and collar geometry near truncated boundaries. \\
-  \textbf{Verified} by Lemma~\ref{lem:inj-cusp} and Proposition~\ref{prop:collar}.
-  \item \emph{Goal A4:} Provide smoothed truncation formulas compatible with spectral analysis. \\
-  \textbf{Verified} by Lemma~\ref{lem:smooth-vol}.
-  \item \emph{Goal A5:} Record dependence of constants on cusp widths, with uniformity in families. \\
-  \textbf{Verified} by Lemma~\ref{lem:linear-w}, Proposition~\ref{prop:lipschitz-Y}, Lemma~\ref{lem:family}.
-  \item \emph{Goal A6:} Supply asymptotic expansions and weighted Sobolev inequalities. \\
-  \textbf{Verified} by Proposition~\ref{prop:asy-tail} and Lemma~\ref{lem:weighted-sob}.
+  \item \emph{Goal A1:} Compute effective volumes and boundary lengths of truncated cusps. (Verified by Lemma~\ref{appA:lem:ref-int} and Proposition~\ref{appA:prop:vol-defect}).
+  \item \emph{Goal A2:} Record weighted tail integrals. (Verified by Proposition~\ref{appA:prop:asy-tail}).
+  \item \emph{Goal A3:} Establish injectivity radius and collar geometry. (Verified by Lemma~\ref{appA:lem:inj-cusp} and Proposition~\ref{appA:prop:collar}).
+  \item \emph{Goal A4:} Provide smoothed truncation formulas. (Verified by Lemma~\ref{appA:lem:smooth-vol}).
+  \item \emph{Goal A5:} Record dependence of constants on widths. (Verified by Lemma~\ref{appA:lem:linear-w}).
+  \item \emph{Goal A6:} Supply asymptotic expansions and weighted Sobolev inequalities. (Verified by Proposition~\ref{appA:prop:asy-tail} and Lemma~\ref{appA:lem:weighted-sob}).
 \end{itemize}
 
-\medskip
 \noindent\textbf{Invariants.}
 \begin{itemize}
-  \item \emph{Invariant A1:} All constants are explicit and depend only on cusp widths $\{w_{\mathfrak a}\}$, 
-  smoothing profile $\psi$, and injectivity data of the thick part. \\
-  \textbf{Checked} in every lemma and proposition.
-  \item \emph{Invariant A2:} No hidden dependence on spectral parameters $(\lambda,\eta)$. \\
-  \textbf{Checked} throughout Appendix~A.
-  \item \emph{Invariant A3:} Normalizations match standard references 
-  (Hejhal, Buser, Iwaniec). \\
-  \textbf{Verified} in \S A.15.
+  \item \emph{Invariant A1:} All constants are explicit and depend only on $\{w_{\mathfrak a}\}$, 
+  smoothing profile $\psi$, and thick part data.
+  \item \emph{Invariant A2:} No hidden dependence on $(\lambda,\eta)$.
+  \item \emph{Invariant A3:} Normalizations match Hejhal, Buser, Iwaniec.
 \end{itemize}
 
-\medskip
-\noindent\textbf{Forward Links.}
+\noindent\textbf{Links.}
 \begin{itemize}
-  \item To Chapter~2: Sobolev constants and injectivity estimates.  
-  \item To Chapter~6: Identity and parabolic terms use Lemma~\ref{lem:plancherel} and Lemma~\ref{lem:horo-av}.  
-  \item To Chapter~8: Error terms in the local Weyl law rely on Proposition~\ref{prop:asy-tail}.  
-\end{itemize}
-
-\medskip
-\noindent\textbf{Backward Links.}
-\begin{itemize}
-  \item From Glossary (Chapter~0): normalization of cusp widths, Laplacian, and area measure.  
-  \item From Preliminaries (Chapter~2): geometric conventions and spectral gap parameter $\beta$.  
-\end{itemize}
-
-\medskip
-\noindent\textbf{Consistency Checks.}
-\begin{itemize}
-  \item Weighted integrals and expansions (\S A.4, \S A.13) reproduce known formulas.  
-  \item Sobolev embeddings extend naturally to weighted settings (\S A.14).  
-  \item Smoothed truncation (\S A.7) reduces to sharp truncation as $\psi\to \mathbf{1}_{[1,\infty)}$.  
+  \item Forward: Sobolev constants (Ch. 2), Parabolic terms (Ch. 6), Weyl law (Ch. 8).
+  \item Backward: Cusp width normalizations from Glossary.
 \end{itemize}
 
 \medskip
 \noindent\textbf{Conclusion of Appendix A.}
 Appendix~A has established a complete effective framework for geometric constants
-on finite-area hyperbolic surfaces with cusps. All quantities are computed
-explicitly, with full dependency tracking, uniformity across cusp families, and
-alignment with classical literature. These results form the geometric backbone
+on finite-area hyperbolic surfaces with cusps. These results form the geometric backbone
 supporting the analytic estimates in Chapters~6–8.
 
 % --- End of Appendix A ---
