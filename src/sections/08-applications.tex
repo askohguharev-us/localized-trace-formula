@@ -62,12 +62,18 @@ The results of this chapter rely directly on:
 \item Chapter~7: the localized trace formula with quantitative remainders.
 \end{itemize}
 
-\paragraph{Forward.}  
-The applications in Chapter~8 prepare the ground for:
+\paragraph{Forward (Appendices Synthesis).}  
+The applications in Chapter~8 are supported by the following technical appendices (synchronized with your src/appendices/):
 \begin{itemize}
-\item Chapter~9: methodological synthesis and broader principles.  
-\item Possible extensions to higher-rank groups and the Langlands program.  
-\item Applications to quantum chaos, equidistribution, and analytic number theory beyond hyperbolic surfaces.
+\item \textbf{Appendix A (A-effective-volume.tex):} Detailed calculations for the identity term and effective volume.
+\item \textbf{Appendix B (B-auxiliary-estimates.tex):} Explicit bounds for scattering matrices and parabolic terms.
+\item \textbf{Appendix C (C-microlocal-toolkit.tex):} Symbol calculus and microlocal parametrix construction tools.
+\item \textbf{Appendix D (D-extended-tauberian.tex):} Transition from smoothed counts to sharp windows via Tauberian analysis.
+\item \textbf{Appendix E (E-numerical-verification.tex):} Computational data supporting the $O(\lambda^{1-\delta})$ remainder.
+\item \textbf{Appendix F (F-implementation-notes.tex):} Algorithmic and numerical notes for the localized trace formula.
+\item \textbf{Appendix G (G-normalizations-and-conve...):} Global consistency of Fourier transforms and measures.
+\item \textbf{Appendix H (H-selberg-comparison.tex):} Explicit mapping between localized results and Selberg's classical identities.
+\item \textbf{Appendix I (I-historical-context.tex):} Extended literature review and lineage of spectral laws.
 \end{itemize}
 
 \section{Audit of goals (for Chapter 8)}
@@ -343,7 +349,7 @@ We emphasize that the framework is robust:
   \item Any even Schwartz function $\chi$ with $\chi(0)=1$ yields the same main term 
   $\tfrac{\vol(M)}{2\pi}\lambda\eta$, since only the low-frequency behavior of $\chi$ enters the identity contribution.
   \item The power-saving error bound $O(\lambda^{1-\delta})$ is preserved, although the precise exponent $\delta_0$ (from stationary phase at small times) may vary slightly with derivatives of $\chi$ near $0$. 
-  \item The implicit constants in $O(\cdot)$ depend on finitely many seminorms of $\chi$ and are uniform in $\lambda,\eta$.
+  \item The implicit constants in $O(\cdot)$ depend on finitely many seminorms of $\chi$ and are uniform in $\lambda, \eta$.
 \end{itemize}
 
 Thus the structure of Theorem~\ref{thm:localweyl} is insensitive to specific cutoff choices, provided $\chi$ is fixed independently of $\lambda$.
@@ -364,7 +370,7 @@ This confirms that smoothing at the spectral scale $\eta$ does not affect the ma
 
 \subsection{Dependence on spectral gap and cusp data}
 
-The exponent $\delta$ in \eqref{eq:local-weyl-main} is governed by three sources (cf. refined hierarchy in Chapter~6):
+The exponent $\delta$ in \eqref{eq:local-weyl-main} is governed by three sources (cf.~refined hierarchy in Chapter~6):
 \begin{enumerate}
   \item $\delta_0$ from microlocal stationary phase (Chapter~5).
   \item $\delta_1$ from hyperbolic contributions, controlled by the spectral gap $\beta$.
@@ -389,7 +395,7 @@ Instead, it reflects the intrinsic spectral distribution on $M$, robust across d
 This robustness is essential for transferring results to variance bounds (Block~8.2) and QUE estimates (Block~8.3), where test functions vary according to the observable under study.
 
 % =========================================================
-% 08-applications.tex — Block 8.2 (Part 7/8, Expanded)
+% 08-applications.tex — Block 8.1 (Part 7/8, Expanded)
 % Applications and forward connections
 % =========================================================
 
@@ -448,7 +454,7 @@ Its robustness under cutoff choices, sharpness in short windows, and quantified 
 This universality is a key reason why it stands as the central analytic theorem of Part~II of the monograph.
 
 % =========================================================
-% 08-audit.tex — Block 8.3 (Part 8/8, Expanded)
+% 08-audit.tex — Block 8.1 (Part 8/8, Expanded)
 % Chapter 8 Audit: Local Weyl Law
 % =========================================================
 
@@ -459,7 +465,7 @@ This universality is a key reason why it stands as the central analytic theorem 
   \item[(G8.1)] Construct the microlocal spectral projector $P_{\lambda,\eta}$ and establish uniform kernel bounds.
   \item[(G8.2)] Prove the asymptotic law
   \[
-    N(\lambda,\eta) = \frac{\mathrm{vol}(M)}{4\pi}\,\lambda\eta \,+\, O(\lambda^{1-\delta}),
+    N(\lambda,\eta) = \frac{\vol(M)}{2\pi}\,\lambda\eta \,+\, O(\lambda^{1-\delta}),
   \]
   valid for $\eta \geq \lambda^{-\theta}$.
   \item[(G8.3)] Control all error terms uniformly in $\lambda$ and $\eta$ using stationary phase and cusp geometry.
@@ -468,7 +474,7 @@ This universality is a key reason why it stands as the central analytic theorem 
 
 \subsection*{Invariants Fixed (I8.1–I8.5)}
 \begin{itemize}
-  \item[(I8.1)] Volume constant $\mathrm{vol}(M)/(4\pi)$ as the sharp proportionality factor.
+  \item[(I8.1)] Volume constant $\vol(M)/(2\pi)$ as the sharp proportionality factor.
   \item[(I8.2)] Localization parameter $\eta$ constrained by $\eta \ge \lambda^{-\theta}$.
   \item[(I8.3)] Error exponent $\delta>0$ determined by spectral gap and cusp geometry.
   \item[(I8.4)] Uniformity of bounds across compact and cusp regions.
@@ -482,13 +488,13 @@ This universality is a key reason why it stands as the central analytic theorem 
   \item From Chapter~6: Identity term in the geometric side depends on the local Weyl law as its main term.
 \end{itemize}
 
-\subsection*{Forward Links}
+\subsection*{Forward Links (Appendices Consistency)}
 \begin{itemize}
-  \item To Chapter~6: Error control of geodesic and parabolic contributions is measured against the main Weyl term.
-  \item To Chapter~7: Remainder analysis in the localized trace formula relies directly on the local Weyl asymptotics.
-  \item To Chapter~9: Variance bounds of eigenfunctions use short-window counts $N(\lambda,\eta)$.
-  \item To Chapter~10: Quantum ergodicity arguments rest on local Weyl scaling.
-  \item To Chapter~11: Weighted Weyl laws underpin spectral reciprocity and $L$-function moments.
+  \item To Appendix A: Effective volume verification for the identity term.
+  \item To Appendix D: Extended Tauberian theorems for sharp spectral windows.
+  \item To Appendix E: Numerical consistency of the power-saving remainder $O(\lambda^{1-\delta})$.
+  \item To Appendix G: Consistency of transform normalizations and conventions.
+  \item To Appendix H: Validation against the global Selberg formula.
 \end{itemize}
 
 \subsection*{Verification of Results (V8.1–V8.5)}
@@ -502,7 +508,7 @@ This universality is a key reason why it stands as the central analytic theorem 
 
 \subsection*{Error Hierarchy}
 \[
-  N(\lambda,\eta) \;=\; \frac{\mathrm{vol}(M)}{4\pi}\,\lambda\eta
+  N(\lambda,\eta) \;=\; \frac{\vol(M)}{2\pi}\,\lambda\eta
   \,+\, O(\lambda^{1-\delta}), \qquad \delta>0.
 \]
 All secondary terms, whether geodesic, parabolic, or cusp corrections, are absorbed into the power-saving remainder.  
@@ -510,7 +516,7 @@ The hierarchy ensures that the main term dominates uniformly across admissible $
 
 \subsection*{Conclusion}
 Chapter~8 has established the local Weyl law with sharp constants and explicit error bounds.  
-It proved that the spectral density in localized windows of width $\eta$ grows linearly with $\lambda\eta$, controlled by $\mathrm{vol}(M)/(4\pi)$.  
+It proved that the spectral density in localized windows of width $\eta$ grows linearly with $\lambda\eta$, controlled by the volume $\vol(M)$.  
 The chapter’s achievements include:
 \begin{itemize}
   \item Anchoring the geometric side of the trace formula with a precise main term.
@@ -519,4 +525,3 @@ The chapter’s achievements include:
 \end{itemize}
 With these results, the analytic backbone of the localized trace formula is complete.  
 The stage is now set for Chapter~9, which synthesizes geometric and spectral expansions into the final form of the trace formula.
-
