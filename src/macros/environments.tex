@@ -1,46 +1,38 @@
 % ==================================================================
-% environments.tex — Guarded Theorem Environments (Diamond Standard)
+% environments.tex — Guarded Theorem Environments
 % ==================================================================
+\makeatletter
 
-\makeatletter % <--- РАЗРЕШАЕМ использование @ в командах
-
-% Установка нумерации уравнений по разделам (если еще не задано)
+% Проверка нумерации
 \@ifundefined{c@equation}{}{\numberwithin{equation}{section}}
 
-% --- Вспомогательные макросы для безопасного определения ---
-% Определяет окружение только если оно еще не существует
-\newcommand{\SafeNewTheorem}[3][]{%
+% Макросы для безопасного создания теорем
+\providecommand{\SafeNewTheorem}[3][]{%
   \@ifundefined{#2}{%
-    \ifx\\#1\\
-      \newtheorem{#2}{#3}
-    \else
-      \newtheorem{#2}{#3}[#1]
-    \fi
+    \ifx\\#1\\ \newtheorem{#2}{#3} \else \newtheorem{#2}{#3}[#1] \fi
   }{}
 }
 
-\newcommand{\SafeNewTheoremNoReset}[2]{%
+\providecommand{\SafeNewTheoremNoReset}[2]{%
   \@ifundefined{#1}{\newtheorem{#1}{#2}}{}
 }
 
-% --- Основное семейство теорем (нумерация сбрасывается в каждой секции) ---
+% Определение окружений
 \theoremstyle{plain}
 \SafeNewTheorem[section]{theorem}{Theorem}
 \SafeNewTheoremNoReset{lemma}{Lemma}
 \SafeNewTheoremNoReset{proposition}{Proposition}
 \SafeNewTheoremNoReset{corollary}{Corollary}
 
-% --- Стили определений и допущений ---
 \theoremstyle{definition}
 \SafeNewTheoremNoReset{definition}{Definition}
 \SafeNewTheoremNoReset{assumption}{Assumption}
 
-% --- Стили замечаний и примеров ---
 \theoremstyle{remark}
 \SafeNewTheoremNoReset{remark}{Remark}
 \SafeNewTheoremNoReset{example}{Example}
 
-% --- Специализированное окружение для аудита (Audit Block) ---
+% Audit Block
 \@ifundefined{auditblock}{
   \newenvironment{auditblock}[1]{%
       \begin{remark}[#1]
@@ -49,11 +41,9 @@
   }
 }{}
 
-% --- Настройка имен для cleveref (через хук AtBeginDocument) ---
-% Это гарантирует, что настройки применятся ПОСЛЕ загрузки пакета cleveref
+% Настройка cleveref через хук, чтобы не было ошибок порядка загрузки
 \AtBeginDocument{
   \@ifpackageloaded{cleveref}{
-    % Форматирование для стандартных теорем
     \crefname{theorem}{theorem}{theorems}
     \crefname{lemma}{lemma}{lemmas}
     \crefname{proposition}{proposition}{propositions}
@@ -63,17 +53,12 @@
     \crefname{remark}{remark}{remarks}
     \crefname{example}{example}{examples}
     \crefname{equation}{equation}{equations}
-    
-    % Форматирование для блока аудита
     \crefname{auditblock}{audit block}{audit blocks}
     \Crefname{auditblock}{Audit block}{Audit blocks}
   }{
-    % Если cleveref не загружен, определяем пустую команду, чтобы не было ошибок
     \providecommand{\cref}[1]{\ref{#1}}
     \providecommand{\Cref}[1]{\ref{#1}}
   }
 }
 
-\makeatother % <--- ЗАПРЕЩАЕМ использование @ (возвращаем стандартный режим)
-
-% Конец файла environments.tex
+\makeatother
