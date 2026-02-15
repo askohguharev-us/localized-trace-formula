@@ -1,5 +1,12 @@
 % ==================================================================
+% PATH: src/main.tex
 % main.tex — Monograph: Localized Trace Formula (DIAMOND SAFE)
+%
+% Diamond law:
+%   - main.tex does NOT define theorem environments (single authority:
+%     src/macros/environments.tex).
+%   - operators/house-style are loaded via guarded \input.
+%   - equation numbering is set here (safe if also set in macros).
 % ==================================================================
 
 \documentclass[11pt,oneside]{book}
@@ -29,19 +36,6 @@
 \usepackage{bbm}
 \usepackage{mathrsfs}
 
-% ---------- Theorem environments (AFTER amsthm) ----------
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{hypothesis}[theorem]{Hypothesis}
-
-% (Optional) definition-style blocks if you use them elsewhere:
-% \theoremstyle{definition}
-% \newtheorem{definition}[theorem]{Definition}
-% \newtheorem{remark}[theorem]{Remark}
-
 % ---------- Graphics / floats ----------
 \usepackage{graphicx}
 \usepackage{caption}
@@ -67,13 +61,13 @@
 \numberwithin{equation}{section}
 
 % ---------- Custom macros (Diamond Standard Guard) ----------
-% Use \IfFileExists (LaTeX2e standard) to avoid hard fails if missing.
+% Single sources of truth live in src/macros/*.tex
 \IfFileExists{macros/environments.tex}{\input{macros/environments.tex}}{}
 \IfFileExists{macros/operators.tex}{\input{macros/operators.tex}}{}
 \IfFileExists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
 
-% ---------- Extra operators (safe) ----------
-\providecommand{\PSL}{\operatorname{PSL}}
+% ---------- Extra operators (safe fallbacks) ----------
+% Prefer operators.tex definitions; keep only harmless fallbacks here.
 \providecommand{\STF}{\operatorname{STF}}
 
 % ---------- PDF metadata ----------
@@ -170,3 +164,4 @@
 \IfFileExists{bib/references.bib}{\bibliography{bib/references.bib}}{}
 
 \end{document}
+```0
