@@ -1,376 +1,291 @@
-% --- 02b-geometry (Part 1/4): Hyperbolic plane, isometries, geodesics, volumes
+% =====================================================================
+% 02b-geometry.tex  (DIAMOND / single-block, contract-level geometry)
+% Hyperbolic plane, isometries, geodesics, volume growth, domains,
+% thick--thin, collars, Laplacian, spherical analysis, kernels,
+% Gauss--Bonnet, torsion, and dependency ledger.
+% =====================================================================
 
-\noindent
-We recall and fix the geometric framework for the hyperbolic plane $\mathbb{H}$
-and its quotients $M = \Gamma \backslash \mathbb{H}$, with normalizations that are used
-throughout the monograph.
+\subsection{Hyperbolic geometry: normalizations, models, and global constants}
+\label{subsec:geometry-diamond}
 
-\medskip
+\subsubsection*{G0. Object and invariant ledger}
+Throughout, the basic geometric object is the finite-area quotient
+\[
+  M=\Gamma\backslash \mathbb H,\qquad \Gamma\subset \mathrm{PSL}_2(\mathbb R)\ \text{discrete, cofinite}.
+\]
+All geometric constants in later chapters are allowed to depend \emph{only} on:
+\[
+  \mathcal G(\Gamma):=\big(\vol(M);\ \text{torsion orders } \{e_j\};\ \text{cusp data }\mathcal C(\Gamma);\ \text{a fixed compact core }M(Y_0)\big),
+\]
+where $\mathcal C(\Gamma)=(h;\{w_{\mathfrak a}\};\{\sigma_{\mathfrak a}\})$ is the cusp ledger fixed in \S\ref{subsec:cusps-truncation-eisenstein},
+and $Y_0=Y_0(\Gamma)$ is a disjointness height (Lemma~\ref{lem:disjoint-tails}).
+No constant in this block depends on later spectral-localization parameters $(\lambda,\eta)$.
 
-\noindent\textbf{Hyperbolic plane and metric.}
+% ---------------------------------------------------------------------
+\subsubsection*{G1. The hyperbolic plane: metric, measure, distance}
 Let
 \[
-  \mathbb{H} = \{z = x + iy \in \mathbb{C} : y > 0\}
+  \mathbb H=\{z=x+iy\in\mathbb C:\ y>0\},
+\qquad
+  ds^2=\frac{dx^2+dy^2}{y^2},
+\qquad
+  d\mu(z)=\frac{dx\,dy}{y^2}.
 \]
-with the hyperbolic metric
-\[
-  ds^{2} = \frac{dx^{2} + dy^{2}}{y^{2}}, \qquad
-  d\mu(z) = \frac{dx\,dy}{y^{2}}.
-\]
-For $z, w \in \mathbb{H}$ the distance $d(z,w)$ is determined by the identity
-\[
-  \cosh d(z,w) = 1 + \frac{|z - w|^{2}}{2\,\mathrm{Im}(z)\,\mathrm{Im}(w)}.
-\]
-The Riemannian volume of a measurable set $\Omega \subset \mathbb{H}$ is
-$\mathrm{vol}(\Omega) = \int_{\Omega} d\mu$.
+The distance $d_{\mathbb H}(z,w)$ is determined by the identity
+\begin{equation}\label{eq:cosh-distance}
+  \cosh d_{\mathbb H}(z,w)=1+\frac{|z-w|^2}{2\,\Im z\,\Im w}.
+\end{equation}
+In particular, for a horizontal shift $w>0$,
+\begin{equation}\label{eq:horizontal-distance}
+  d_{\mathbb H}(x+iy,\ (x+w)+iy)=2\,\operatorname{arsinh}\!\Big(\frac{w}{2y}\Big)
+  \asymp \min\Big\{1,\frac{w}{y}\Big\}.
+\end{equation}
 
 \medskip
-
-\noindent\textbf{Isometries.}
-The group $\mathrm{PSL}_{2}(\mathbb{R})$ acts by fractional linear transformations
-$\gamma z = \dfrac{az + b}{cz + d}$ with $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$
-and preserves both $ds^{2}$ and $d\mu$.
-Elements are classified by the absolute value of their trace $|\mathrm{tr}(\gamma)|$:
-elliptic ($< 2$), parabolic ($= 2$), and hyperbolic ($> 2$).
-Two hyperbolic elements are conjugate if and only if they have the same translation length,
-defined below.
-
-
-
-\medskip
-
 \noindent\textbf{Geodesics.}
-Geodesics in $\mathbb{H}$ are vertical lines and semicircles orthogonal to the real axis $\mathbb{R}$.
-Let $\gamma \in \mathrm{PSL}_{2}(\mathbb{R})$ be a hyperbolic element.
-Its axis is the unique geodesic stabilized by $\gamma$.
-The \emph{translation length} $\ell(\gamma) > 0$ satisfies
+Geodesics in $\mathbb H$ are vertical lines and semicircles orthogonal to $\mathbb R$.
+For each pair of distinct boundary points $\alpha,\beta\in \mathbb R\cup\{\infty\}$ there is a unique geodesic with endpoints $\{\alpha,\beta\}$.
+
+% ---------------------------------------------------------------------
+\subsubsection*{G2. Isometries and classification; translation length}
+$\mathrm{PSL}_2(\mathbb R)$ acts on $\mathbb H$ by Möbius maps
 \[
-  2\cosh\left(\frac{\ell(\gamma)}{2}\right) = |\mathrm{tr}(\gamma)|.
+  \gamma z=\frac{az+b}{cz+d},\qquad
+  \gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in \mathrm{PSL}_2(\mathbb R),
 \]
-If $\gamma = \gamma_{0}^{k}$ with $\gamma_{0}$ primitive, then
-$\ell(\gamma) = k\,\ell(\gamma_{0})$.
+preserving $ds^2$ and $d\mu$.
+Elements are classified by the absolute trace:
+elliptic ($|\tr\gamma|<2$), parabolic ($|\tr\gamma|=2$), hyperbolic ($|\tr\gamma|>2$).
 
 \medskip
+\noindent\textbf{Hyperbolic translation length.}
+If $\gamma$ is hyperbolic, it stabilizes a unique geodesic axis $\mathcal A_\gamma$ and acts on it as a translation by $\ell(\gamma)>0$.
+One has the exact identity
+\begin{equation}\label{eq:length-trace}
+  |\tr(\gamma)|=2\cosh\!\Big(\frac{\ell(\gamma)}{2}\Big).
+\end{equation}
+If $\gamma=\gamma_0^k$ with $\gamma_0$ primitive hyperbolic, then $\ell(\gamma)=k\,\ell(\gamma_0)$.
 
-\noindent\textbf{Balls and volume growth.}
-A hyperbolic ball of radius $R$ has area
+% ---------------------------------------------------------------------
+\subsubsection*{G3. Balls and exponential area growth}
+Let $B_{\mathbb H}(z,R)$ be the hyperbolic ball of radius $R$.
+Its area is independent of $z$ and equals
+\begin{equation}\label{eq:ball-area}
+  \vol\big(B_{\mathbb H}(R)\big)=2\pi(\cosh R-1)
+  =\pi e^{R}\bigl(1+O(e^{-2R})\bigr)
+  \qquad (R\to\infty).
+\end{equation}
+This exponential growth is the geometric origin of the ``logarithmic propagation scale'' $T\asymp \log\lambda$ in microlocal arguments.
+
+% ---------------------------------------------------------------------
+\subsubsection*{G4. Fundamental and Dirichlet domains; coarse counting law}
+Let $\Gamma\subset \mathrm{PSL}_2(\mathbb R)$ be discrete and cofinite.
+A (measurable) fundamental domain $\mathcal F$ satisfies $\mathbb H=\bigsqcup_{\gamma\in\Gamma}\gamma\mathcal F$ up to measure zero and
 \[
-  \mathrm{vol}(B(R)) = 2\pi(\cosh R - 1).
+  \vol(M)=\int_{\mathcal F} d\mu<\infty.
 \]
-Hence $\mathrm{vol}(B(R)) \sim \pi e^{R}$ as $R \to \infty$.
-This exponential growth permeates all orbit and lattice point estimates.
+Given $z_0\in\mathbb H$, the Dirichlet domain is
+\[
+  \mathcal D(z_0)=\{z\in\mathbb H:\ d_{\mathbb H}(z,z_0)\le d_{\mathbb H}(z,\gamma z_0)\ \forall \gamma\in\Gamma\}.
+\]
+It is convex and locally finite; $\vol(M)=\int_{\mathcal D(z_0)}d\mu$.
 
 \medskip
-
-\noindent\textbf{Fundamental and Dirichlet domains.}
-Let $\Gamma \subset \mathrm{PSL}_{2}(\mathbb{R})$ be a discrete group of finite covolume.
-A fundamental domain $\mathcal{F}$ for $\Gamma$ has finitely many geodesic sides,
-paired by elements of $\Gamma$.
-For a basepoint $z_{0} \in \mathbb{H}$ the Dirichlet domain is
+\noindent\textbf{Coarse lattice-point growth (robust form).}
+Define the orbit counting function
 \[
-  \mathcal{D}(z_{0}) = \{z \in \mathbb{H} : d(z, z_{0}) \le d(z, \gamma z_{0}) \text{ for all } \gamma \in \Gamma\}.
+  N_\Gamma(R;z_0):=\#\{\gamma\in\Gamma:\ d_{\mathbb H}(z_0,\gamma z_0)\le R\}.
 \]
-It is convex, locally finite, and $\mathrm{vol}(\Gamma \backslash \mathbb{H}) = \int_{\mathcal{D}(z_{0})} d\mu$.
+Then as $R\to\infty$,
+\begin{equation}\label{eq:orbit-count-coarse}
+  N_\Gamma(R;z_0)\asymp_\Gamma e^{R}.
+\end{equation}
+More precise asymptotics and remainder terms depend on spectral input; when needed, they will be invoked with explicit hypotheses and citations in the analytic chapters (cf. \cite{Hejhal1983,Iwaniec2002}).
 
 \medskip
+\noindent\textbf{Quantitative separation (local finiteness).}
+There exists $\epsilon_\Gamma>0$ such that for any fixed compact set $K\subset\mathbb H$ one has
+\begin{equation}\label{eq:separation-compact}
+  \gamma K\cap \gamma'K=\varnothing\quad\text{whenever}\quad \gamma\neq\gamma'\ \text{and}\ d_{\mathbb H}(\gamma K,\gamma'K)<\epsilon_\Gamma.
+\end{equation}
+In particular, for kernels with compact support in the distance variable, orbital/Poincaré sums are locally finite and hence absolutely convergent term-by-term.
 
-\noindent\textbf{Lattice point estimate (hyperbolic).}
-Let $N_{\Gamma}(R; z_{0}) = \#\{\gamma \in \Gamma : d(z_{0}, \gamma z_{0}) \le R\}$.
-Then
+% ---------------------------------------------------------------------
+\subsubsection*{G5. Closed geodesics and hyperbolic conjugacy}
+Primitive closed geodesics on $M$ correspond to primitive hyperbolic conjugacy classes $[\gamma_0]$ in $\Gamma$; their lengths satisfy
 \[
-  N_{\Gamma}(R; z_{0}) = \frac{\mathrm{vol}(B(R))}{\mathrm{vol}(\Gamma \backslash \mathbb{H})} + O_{\Gamma}\!\left(\frac{e^{R}}{R^{2}}\right),
+  \ell(\mathcal C_{\gamma_0})=\ell(\gamma_0).
 \]
-uniformly as $R \to \infty$. The implied constant depends only on $\Gamma$.
+The prime geodesic theorem asserts
+\begin{equation}\label{eq:PGT}
+  \pi_M(R):=\#\{\text{primitive closed geodesics on }M \text{ with }\ell\le R\}
+  \sim \frac{e^{R}}{R}\qquad (R\to\infty),
+\end{equation}
+with effective remainders depending on spectral input (see \cite{Hejhal1983,Iwaniec2002}).
+We will use \eqref{eq:PGT} only as a \emph{black-box} bound for hyperbolic orbital sums, with hypotheses stated at the point of use.
+
+% ---------------------------------------------------------------------
+\subsubsection*{G6. Cusps, truncation, thick--thin, and collars}
+Cusps, widths, scaling matrices, truncation $M(Y)$, and exact tail volume/length formulas are fixed in \S\ref{subsec:cusps-truncation-eisenstein}.
+We recall only the structural consequences needed for analysis.
 
 \medskip
-
-\noindent\textbf{Separation lemma (Selberg).}
-There exists $\epsilon_{\Gamma} > 0$ such that
-$d(\gamma\mathcal{F}, \gamma'\mathcal{F}) \ge \epsilon_{\Gamma}$ for any distinct $\gamma, \gamma' \in \Gamma$.
-This quantitative separation underlies the absolute convergence of orbital sums
-for compactly supported or sufficiently decaying kernels.
+\noindent\textbf{Injectivity radius in cusp tails.}
+For $p\in \mathcal U_{\mathfrak a}(Y)$, Lemma~\ref{lem:inj-cusp} and \eqref{eq:horizontal-distance} imply
+\[
+  \mathrm{inj}(p)\asymp \min\Big\{1,\frac{w_{\mathfrak a}}{y_{\mathfrak a}(p)}\Big\}
+  \le c\,\frac{w_{\mathfrak a}}{Y}.
+\]
+This is the precise cusp-scale that enters Sobolev constants and commutator bounds.
 
 \medskip
-
-\noindent\textbf{Closed geodesics in the quotient.}
-Let $M = \Gamma \backslash \mathbb{H}$. Conjugacy classes of primitive hyperbolic elements
-$\{\gamma_{0}\}$ correspond to primitive closed geodesics $\{\mathcal{C}_{\gamma_{0}}\}$ on $M$,
-with $\ell(\mathcal{C}_{\gamma_{0}}) = \ell(\gamma_{0})$.
-The number $\pi_{M}(R)$ of primitive closed geodesics with $\ell \le R$ satisfies
+\noindent\textbf{Thick--thin decomposition (Margulis).}
+There exists a universal $\epsilon_*>0$ such that for any $\epsilon\in(0,\epsilon_*)$ the thin part
 \[
-  \pi_{M}(R) \sim \frac{e^{R}}{R} \qquad (R \to \infty).
+  M_{<\epsilon}:=\{p\in M:\ \mathrm{inj}(p)<\epsilon\}
 \]
-This ``prime geodesic theorem'' will be used later to bound hyperbolic orbital sums.
+is a disjoint union of: (i) cusp neighborhoods (ends), and (ii) embedded collars around short closed geodesics.
+The thick part $M_{\ge\epsilon}$ is compact.
 
 \medskip
-
-\noindent\textbf{Green’s function (model).}
-The resolvent kernel $G_{s}(z, w)$ on $\mathbb{H}$ solves the equation
-\[
-  (\Delta_{z} - s(1 - s))G_{s}(z, w) = -\delta_{w}(z),
-\]
-with an explicit expression via the hypergeometric function of $\cosh d(z, w)$. On quotients,
-$G_{s}^{\Gamma}(z, w) = \sum_{\gamma \in \Gamma} G_{s}(z, \gamma w)$ (in the sense of meromorphic continuation).
-We record this for later spectral transforms; details are standard and omitted here.
-
-% --- 02b-geometry (Part 2/4): Cusps, injectivity, thick-thin, collars
-
-\noindent\textbf{Cusps and scaling matrices.}
-Let $\mathfrak{a}$ be a cusp (a $\Gamma$-orbit of a parabolic fixed point on $\partial\mathbb{H}$).
-There exists a scaling matrix $\sigma_{\mathfrak{a}} \in \mathrm{PSL}_{2}(\mathbb{R})$ such that
-$\sigma_{\mathfrak{a}}(\infty) = \mathfrak{a}$ and
-\[
-  \sigma_{\mathfrak{a}}^{-1}\Gamma_{\mathfrak{a}}\sigma_{\mathfrak{a}}
-  =
-  \left\langle
-  \begin{pmatrix} 1 & w_{\mathfrak{a}} \\ 0 & 1 \end{pmatrix}
-  \right\rangle,
-\]
-where $w_{\mathfrak{a}} > 0$ is the \emph{cusp width}.
-The matrix $\sigma_{\mathfrak{a}}$ is unique up to left multiplication by the unipotent subgroup
-$N = \{ \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix} : t \in \mathbb{R} \}$ and right multiplication by $\{\pm I\}$.
-Set the standard strip $\mathcal{S}(w) = \{x + iy \in \mathbb{H} : 0 \le x < w, \ y > 0\}$ and
-the cusp region $C_{\mathfrak{a}} = \sigma_{\mathfrak{a}}(\mathcal{S}(w_{\mathfrak{a}}))$.
-
-
+\noindent\textbf{Collar lemma (embedded tubular neighborhoods).}
+Let $\gamma$ be a simple closed geodesic on $M$ of length $\ell=\ell(\gamma)$.
+Then there is an embedded collar of half-width
+\begin{equation}\label{eq:collar-width}
+  w(\ell)=\operatorname{arsinh}\!\Big(\frac{1}{\sinh(\ell/2)}\Big),
+\end{equation}
+and collars of distinct simple closed geodesics are disjoint.
+As $\ell\to 0$ one has $w(\ell)=\log(2/\ell)+O(\ell^2)$.
+These collars provide the geometric mechanism behind uniform local charts on the thick part and explicit degeneration control on the thin part.
 
 \medskip
-
-\noindent\textbf{Height truncation.}
-For $Y > 1$, let
-\[
-  C_{\mathfrak{a}}(Y) = \sigma_{\mathfrak{a}}\{x + iy \in \mathbb{H} : 0 \le x < w_{\mathfrak{a}}, \ y \ge Y\},
-  \qquad
-  M(Y) = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y)).
-\]
-For $Y$ large enough, the sets $\pi(C_{\mathfrak{a}}(Y))$ are disjoint and $M(Y)$ is compact with geodesic boundary.
-
-\medskip
-
-\noindent\textbf{Exact volume and boundary length.}
-With $d\mu = dx\,dy/y^{2}$, one computes
-\[
-  \mathrm{vol}\bigl(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))\bigr) = \frac{w_{\mathfrak{a}}}{Y},
-  \qquad
-  \mathrm{length}\bigl(\partial \pi(C_{\mathfrak{a}}(Y))\bigr) = \frac{w_{\mathfrak{a}}}{Y}.
-\]
-Summing over all cusps:
-\[
-  \mathrm{vol}(M \setminus M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y},
-  \qquad
-  \mathrm{length}(\partial M(Y)) = \sum_{\mathfrak{a}} \frac{w_{\mathfrak{a}}}{Y}.
-\]
-
-\medskip
-
-\begin{lemma}\label{lem:inj-cusp}
-There exists $c > 0$ depending only on $\min_{\mathfrak{a}} w_{\mathfrak{a}}$ such that
-for all $z = \sigma_{\mathfrak{a}}(x + iy)$ with $y \ge Y$, one has
-\[
-  \mathrm{inj}(z) \ge c \cdot \min\{1, Y^{-1}\}.
-\]
-\end{lemma}
-
-\begin{proof}
-In cusp coordinates, the shortest nontrivial displacement is horizontal by $w_{\mathfrak{a}}$,
-whose hyperbolic length equals $w_{\mathfrak{a}}/y$.
-Hence $\mathrm{inj}(z) \asymp \min\{1, w_{\mathfrak{a}}/y\}$; for $y \ge Y$, this gives the stated bound with
-$c = \frac{1}{2} \min_{\mathfrak{a}} w_{\mathfrak{a}}$.
-\end{proof}
-
-\medskip
-
-\noindent\textbf{Thick--thin decomposition.}
-For $\epsilon \in (0, \epsilon_{0}(\Gamma))$, define
-\[
-  M_{\ge \epsilon} = \{z \in M : \mathrm{inj}(z) \ge \epsilon\}, \qquad
-  M_{< \epsilon} = M \setminus M_{\ge \epsilon}.
-\]
-Then $M_{\ge \epsilon}$ is compact, and $M_{< \epsilon}$ is a disjoint union of cusp neighborhoods
-and collars around short closed geodesics. This is the standard Margulis decomposition.
-
-
-
-\medskip
-
-\noindent\textbf{Collar lemma.}
-Let $\gamma$ be a simple closed geodesic of length $\ell = \ell(\gamma)$.
-Its embedded collar
-\[
-  \mathcal{C}(\gamma) = \{z \in M : d(z, \gamma) < w(\ell)\}, \qquad
-  w(\ell) = \mathrm{arcsinh}\!\left(\frac{1}{\sinh(\ell/2)}\right),
-\]
-is disjoint from all collars of geodesics freely homotopic to $\gamma$.
-As $\ell \to 0$, $w(\ell) \sim \log(2/\ell)$.
-
-\medskip
-
 \noindent\textbf{Compact core.}
-Choose $Y$ large so that all cusp neighborhoods $\pi(C_{\mathfrak{a}}(Y))$ are disjoint.
-The compact core
+Fix $Y\ge Y_0(\Gamma)$ so cusp tails are disjoint. Then
 \[
-  M_{\mathrm{core}} = M \setminus \bigcup_{\mathfrak{a}} \pi(C_{\mathfrak{a}}(Y))
+  M_{\mathrm{core}}:=M(Y)
 \]
-is a compact surface with geodesic boundary. Many local analytic estimates
-(Sobolev, elliptic regularity) can be verified first on $M_{\mathrm{core}}$ and then extended
-to $M$ by patching with the explicit cusp model.
+is a compact surface with (horocyclic) boundary, serving as the base region for elliptic regularity and Sobolev estimates; cusp contributions are then handled by the explicit model charts.
 
-% --- 02b-geometry (Part 3/4): Laplacian, spectral parameter, heat/wave/resolvent kernels
-
-\noindent\textbf{Laplacian and spectral parameter.}
-On functions, the (nonnegative) Laplace--Beltrami operator is
+% ---------------------------------------------------------------------
+\subsubsection*{G7. Laplacian normalization and spectral parameter}
+On smooth functions on $\mathbb H$ we take the nonnegative Laplace--Beltrami operator
+\begin{equation}\label{eq:laplacian}
+  \Delta:=-y^2\Big(\partial_x^2+\partial_y^2\Big).
+\end{equation}
+The spectral parameterization is
 \[
-  \Delta = -y^{2}\left(\frac{\partial^{2}}{\partial x^{2}} + \frac{\partial^{2}}{\partial y^{2}}\right).
+  \lambda=\frac14+t^2,\qquad t\in\mathbb R_{\ge 0},
 \]
-On $\mathbb{H}$, the spherical spectral parameter is $t \in \mathbb{R}$ with eigenvalue
-$\lambda = \frac{1}{4} + t^{2}$. This normalization matches the Plancherel measure
-$\frac{1}{4\pi} t \tanh(\pi t)\,dt$ for radial analysis.
+matching the spherical/Plancherel conventions used in the Selberg/Harish--Chandra transform block.
 
-\medskip
-
-\noindent\textbf{Spherical functions.}
-Let $\varphi_{t}(r)$ be the $K$--biinvariant spherical function with $\varphi_{t}(0) = 1$.
-It admits the representation
+% ---------------------------------------------------------------------
+\subsubsection*{G8. Spherical functions and Plancherel measure on \texorpdfstring{$\mathbb H$}{H}}
+Let $\varphi_t(r)$ be the $K$--biinvariant spherical function on $\mathbb H$ with $\varphi_t(0)=1$.
+It may be written as
 \[
-  \varphi_{t}(r) = P_{-1/2 + it}(\cosh r)
+  \varphi_t(r)=P_{-1/2+it}(\cosh r),
 \]
-and the asymptotic expansion as $r \to \infty$:
-\[
-  \varphi_{t}(r) = c(t)\,e^{(it - 1/2)r} + c(-t)\,e^{(-it - 1/2)r} + O(e^{-3r/2}),
+and admits the standard large-$r$ expansion
+\begin{equation}\label{eq:spherical-asympt}
+  \varphi_t(r)=c(t)e^{(it-\frac12)r}+c(-t)e^{(-it-\frac12)r}+O(e^{-3r/2}),
   \qquad
-  c(t) = \frac{\Gamma(it)}{\Gamma(1/2 + it)}.
+  c(t)=\frac{\Gamma(it)}{\Gamma(\frac12+it)}.
+\end{equation}
+The Plancherel density for radial analysis on $\mathbb H$ is
+\begin{equation}\label{eq:plancherel-density}
+  d\mu_{\mathrm{Pl}}(t)=\frac{1}{2\pi}\,t\,\tanh(\pi t)\,dt,
+\end{equation}
+consistent with the inversion formula for the Selberg/Harish--Chandra transform (next block).
+
+% ---------------------------------------------------------------------
+\subsubsection*{G9. Model kernels: heat, wave, resolvent; quotient kernels by summation}
+\noindent\textbf{Heat kernel on $\mathbb H$.}
+The heat kernel $K_\tau(z,w)$ solves $\partial_\tau K_\tau=-\Delta_z K_\tau$ and has spectral representation
+\begin{equation}\label{eq:heat-kernel}
+  K_\tau(z,w)=\int_0^\infty e^{-(\frac14+t^2)\tau}\,\varphi_t\!\big(d_{\mathbb H}(z,w)\big)\,d\mu_{\mathrm{Pl}}(t).
+\end{equation}
+As $\tau\to 0^+$ one has the standard Gaussian short-time asymptotic
+\[
+  K_\tau(z,w)\sim (4\pi\tau)^{-1}e^{-d_{\mathbb H}(z,w)^2/(4\tau)}\quad (\text{with curvature corrections}).
 \]
 
 \medskip
-
-\noindent\textbf{Heat kernel.}
-The heat kernel $K_{t}(z, w)$ on $\mathbb{H}$ solves
-$\partial_{t}K_{t} = -\Delta_{z}K_{t}$ with $K_{0}(z, w) = \delta_{w}(z)$ and admits the spectral
-representation
-\[
-  K_{t}(z, w) = \frac{1}{4\pi}\int_{-\infty}^{\infty}
-  e^{-(1/4 + u^{2})t}\,\varphi_{u}\bigl(d(z, w)\bigr)\,u \tanh(\pi u)\,du.
-\]
-As $t \to 0^{+}$, $K_{t}(z, w) \sim (4\pi t)^{-1} e^{-d(z, w)^{2}/4t}$; as $t \to \infty$ it decays exponentially.
+\noindent\textbf{Wave kernel on $\mathbb H$.}
+The even wave group $\cos\big(\tau\sqrt{\Delta-\frac14}\big)$ has kernel
+\begin{equation}\label{eq:wave-kernel}
+  W_\tau(z,w)=\int_0^\infty \cos(\tau t)\,\varphi_t\!\big(d_{\mathbb H}(z,w)\big)\,d\mu_{\mathrm{Pl}}(t).
+\end{equation}
+Precise dispersive estimates are classical; we will use only that smooth compactly supported spectral cutoffs yield kernels with rapid off-diagonal decay and controlled propagation on times $\tau\ll \log\lambda$ in semiclassical regimes.
 
 \medskip
-
-\noindent\textbf{Wave kernel.}
-Let $\cos(t\sqrt{\Delta - 1/4})$ denote the even wave group on $\mathbb{H}$.
-Its kernel is
-\[
-  W_{t}(z, w) = \frac{1}{2\pi}\int_{-\infty}^{\infty}
-  \cos(tu)\,\varphi_{u}\bigl(d(z, w)\bigr)\,u \tanh(\pi u)\,du.
-\]
-For fixed $t \ne 0$ and $d(z, w) \to \infty$, stationary phase yields
-\[
-  W_{t}(z, w) \ll (1 + d(z, w))^{-1/2} e^{-|t|/2} \quad \text{uniformly in } t.
-\]
-This propagation estimate is used when localizing kernels to scales $t \ll \log \lambda$.
+\noindent\textbf{Resolvent on $\mathbb H$.}
+For $s\in\mathbb C$ with $\Re(s)>\frac12$ let $R(s)=(\Delta-s(1-s))^{-1}$.
+Its kernel admits the spectral integral representation
+\begin{equation}\label{eq:resolvent-kernel}
+  R(s;z,w)=\int_0^\infty \frac{\varphi_t\!\big(d_{\mathbb H}(z,w)\big)}{t^2+(s-\frac12)^2}\,d\mu_{\mathrm{Pl}}(t),
+\end{equation}
+and extends meromorphically in $s$.
 
 \medskip
+\noindent\textbf{Quotient kernels by Poincaré summation.}
+For a $\Gamma$--invariant kernel built from a model kernel $K(z,w)$ on $\mathbb H$, define
+\begin{equation}\label{eq:poincare-kernel}
+  K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} K(z,\gamma w),
+\end{equation}
+whenever the sum is absolutely convergent (or in the sense of analytic continuation).
+Local finiteness \eqref{eq:separation-compact}, together with decay of $K$ in $d_{\mathbb H}(z,w)$ (e.g.\ for heat kernels $\tau>0$ and for compactly supported wave packets),
+ensures that \eqref{eq:poincare-kernel} defines smooth $\Gamma$--invariant kernels on $\mathbb H$ and hence kernels on $M$.
 
-\noindent\textbf{Resolvent and Green’s function.}
-For $s \in \mathbb{C}$ with $\mathrm{Re}(s) > 1/2$, define
+% ---------------------------------------------------------------------
+\subsubsection*{G10. Sobolev/elliptic constants: dependence statement}
+Fix $\epsilon\in(0,\epsilon_*)$.
+On the thick part $M_{\ge\epsilon}$, standard elliptic theory yields Sobolev embeddings with constants depending only on $(\epsilon,\vol(M))$ and finitely many atlas charts.
+On $M$ as a whole, Sobolev constants may additionally depend on cusp widths through the cusp model charts; injectivity control is furnished by Lemma~\ref{lem:inj-cusp}.
+We record the dependency rule:
+\begin{equation}\label{eq:sobolev-dependence}
+  \|f\|_{L^\infty(M(Y))}\ \ll_{\Gamma,Y}\ \|f\|_{H^2(M(Y))},
+  \qquad
+  \|f\|_{L^\infty(M)}\ \ll_{\mathcal G(\Gamma)}\ \|f\|_{H^2(M)},
+\end{equation}
+with the understanding that \eqref{eq:sobolev-dependence} is invoked later only after fixing a truncation height $Y\ge Y_0$ and specifying how $Y$ scales with spectral parameters.
+
+% ---------------------------------------------------------------------
+\subsubsection*{G11. Gauss--Bonnet and torsion bookkeeping}
+If $\Gamma$ is torsion-free, $M$ is a surface of genus $g$ with $n$ cusps and
 \[
-  R(s) = (\Delta - s(1 - s))^{-1}.
+  \vol(M)=2\pi(2g-2+n).
 \]
-On $\mathbb{H}$
-\[
-  R(s; z, w) = \frac{1}{2\pi}\int_{0}^{\infty}
-  \frac{\varphi_{u}\bigl(d(z, w)\bigr)}{u^{2} + s(1 - s) - 1/4}\,u \tanh(\pi u)\,du,
-\]
-and $R(s; z, w)$ extends meromorphically in $s$.
+If $\Gamma$ has elliptic elements, $M$ is a hyperbolic orbifold with cone points of orders $e_j\ge 2$, and Gauss--Bonnet reads
+\begin{equation}\label{eq:gauss-bonnet-orb}
+  \vol(M)=2\pi\Big(2g-2+n+\sum_j (1-1/e_j)\Big).
+\end{equation}
+Elliptic conjugacy classes yield explicit additional terms in geometric trace identities; when torsion is present, these will be included systematically in Chapter~6.
 
-\medskip
+% ---------------------------------------------------------------------
+\subsubsection*{G12. Reader map: where each geometric input is used}
+\begin{itemize}[leftmargin=2.2em]
+\item \textbf{Chapter 3 (Truncated kernels).} Uses \eqref{eq:poincare-kernel}, local finiteness \eqref{eq:separation-compact}, ball growth \eqref{eq:ball-area}, and cusp truncation/cusp volumes from \S\ref{subsec:cusps-truncation-eisenstein}.
+\item \textbf{Chapter 4 (Spectral projectors).} Uses Laplacian normalization \eqref{eq:laplacian}, spectral parameter $\lambda=\frac14+t^2$, Sobolev dependence \eqref{eq:sobolev-dependence}, and cusp injectivity control (Lemma~\ref{lem:inj-cusp}) to bound commutators with smoothed truncations.
+\item \textbf{Chapter 5 (Microlocal analysis).} Uses wave/heat kernel representations \eqref{eq:heat-kernel}--\eqref{eq:wave-kernel}, spherical asymptotics \eqref{eq:spherical-asympt}, and exponential growth \eqref{eq:ball-area} to justify propagation on logarithmic times.
+\item \textbf{Chapter 6 (Geometric expansion).} Uses classification of isometries, translation length \eqref{eq:length-trace}, collar lemma \eqref{eq:collar-width}, Gauss--Bonnet \eqref{eq:gauss-bonnet-orb}, and the cusp ledger for parabolic terms.
+\end{itemize}
 
-\noindent\textbf{Quotients and kernel summation.}
-On $M = \Gamma \backslash \mathbb{H}$, invariant kernels are obtained by
-Poincaré series
-\[
-  K^{\Gamma}(z, w) = \sum_{\gamma \in \Gamma} K(z, \gamma w),
-\]
-whenever the sum converges absolutely (or via analytic continuation).
-The separation lemma and exponential decay of $\varphi_{u}(r)$ ensure convergence for the
-heat kernel for $t > 0$, and for compactly supported wave packets.
-
-\medskip
-
-\noindent\textbf{Sobolev inequalities (model statement).}
-For $f \in H^{2}(M)$ one has
-\[
-  \|f\|_{L^{\infty}(M)} \ll C_{\mathrm{Sob}}(M)\,\|f\|_{H^{2}(M)},
-\]
-with $C_{\mathrm{Sob}}(M)$ depending only on a lower bound for the injectivity radius on a fixed compact core and on cusp data (via Lemma~\ref{lem:inj-cusp}). Exact constants are tracked in Appendix~B.
-
-\medskip
-
-\noindent\textbf{Geodesic flow.}
-The geodesic flow on $T^{1}M$ is Anosov; it is mixing with respect to the Liouville measure.
-We record two consequences used later:
-(i) uniform distribution of long closed geodesics along their axes,
-(ii) decay of correlations for smooth observables,
-both entering the control of oscillatory orbital sums.
-
-% --- 02b-geometry (Part 4/4): Topology, Gauss–Bonnet, elliptic points, links, audit
-
-\noindent\textbf{Gauss–Bonnet.}
-Let $M$ be a finite-area hyperbolic surface (possibly with elliptic points).
-Denote by $g$ its genus, by $n$ the number of cusps, and by
-$\{e_{j}\}$ the orders of elliptic points (cone points).
-Then
-\[
-  \mathrm{vol}(M) = 2\pi\left(2g - 2 + n + \sum_{j}(1 - 1/e_{j})\right).
-\]
-In particular, for torsion-free $\Gamma$ one has $\mathrm{vol}(M) = 2\pi(2g - 2 + n)$.
-
-\medskip
-
-\noindent\textbf{Elliptic points.}
-If $\Gamma$ contains elliptic elements, then $M$ is an orbifold.
-Local neighborhoods are cones of angle $2\pi/e$.
-Elliptic conjugacy classes contribute additional (explicit) terms to geometric trace identities.
-In the present monograph we may include or exclude torsion by assumption;
-when included, the required orbital integrals are standard and will be accounted for in Chapter~6.
-
-\medskip
-
-\noindent\textbf{From geometry to analysis (reader’s map).}
-The geometric material above feeds the analytic chapters as follows:
-\begin{itemize}
-  \item \emph{Chapter 3 (Truncated kernels).} Height truncation $M(Y)$, explicit boundary lengths, and separation lemma
-        justify absolute convergence of Poincaré series for truncated kernels and control remainders near the boundary.
-  \item \emph{Chapter 4 (Spectral projector).} Lower bounds for $\mathrm{inj}$ and Sobolev constants yield
-        operator norm bounds and commutator estimates with smoothed truncations.
-  \item \emph{Chapter 5 (Microlocal analysis).} Wave kernel asymptotics
-        and spherical function expansions match the semiclassical parametrix;
-        propagation scale $T \asymp \log \lambda$ is geometrically natural because of exponential volume growth.
-  \item \emph{Chapter 6 (Geometric expansion).} Hyperbolic/elliptic/parabolic classifications, collar lemma,
-        and explicit length/volume formulas enter orbital integrals and the organization of conjugacy classes.
+% ---------------------------------------------------------------------
+\subsubsection*{G13. Geometry block audit (contract checks)}
+\begin{itemize}[leftmargin=2.2em]
+\item[(A1)] Metric/measure/distance fixed; key exact identity \eqref{eq:cosh-distance} recorded.
+\item[(A2)] Hyperbolic classification and translation length \eqref{eq:length-trace} fixed.
+\item[(A3)] Exponential ball area growth \eqref{eq:ball-area} fixed (source of $\log\lambda$ scales).
+\item[(A4)] Domains and orbit counting: only robust growth \eqref{eq:orbit-count-coarse} asserted here; sharper remainders deferred with hypotheses.
+\item[(A5)] Thick--thin and collars fixed with explicit collar width \eqref{eq:collar-width}.
+\item[(A6)] Laplacian normalization \eqref{eq:laplacian} and Plancherel density \eqref{eq:plancherel-density} aligned with Selberg/HC transform conventions.
+\item[(A7)] Heat/wave/resolvent kernels stated in spectral form \eqref{eq:heat-kernel}--\eqref{eq:resolvent-kernel}; quotient kernels by Poincaré summation \eqref{eq:poincare-kernel} recorded with convergence criteria.
+\item[(A8)] Gauss--Bonnet with torsion \eqref{eq:gauss-bonnet-orb} fixed; torsion handling deferred to the geometric expansion chapter.
 \end{itemize}
 
 \medskip
-
-\noindent\textbf{Internal consistency checks (Geometry block audit).}
-\begin{itemize}
-  \item Distances, isometries, and classification agree with $\mathrm{PSL}_{2}(\mathbb{R})$ conventions used in the Selberg transform.
-  \item Cusp widths $w_{\mathfrak{a}}$ and scaling matrices $\sigma_{\mathfrak{a}}$ are fixed once and for all;
-        all cusp-dependent constants in later chapters are functions only of $\{w_{\mathfrak{a}}\}$.
-  \item Exact identities:
-        $\mathrm{vol}(\pi(C_{\mathfrak{a}}) \setminus \pi(C_{\mathfrak{a}}(Y))) = w_{\mathfrak{a}}/Y$
-        and $\mathrm{length}(\partial \pi(C_{\mathfrak{a}}(Y))) = w_{\mathfrak{a}}/Y$
-        are recorded for subsequent use.
-  \item Lemma~\ref{lem:inj-cusp} pins down the injectivity radius in cusps with explicit dependence on $Y$.
-  \item Kernel formulas (heat, wave, resolvent) are stated with the same spectral measure
-        that appears in the Selberg/Harish--Chandra transform in the next block.
-  \item No dependence on later localization parameters $(\lambda, \eta)$ is introduced in this block.
-\end{itemize}
-
-\medskip
-
 \noindent\textbf{Conclusion.}
-This completes the geometry block for the preliminaries.
-It fixes the global normalizations and the local cusp and collar models that
-will be used uniformly in Chapters~3--7.
-All statements are classical and appear here with explicit constants and
-dependencies to ensure reproducibility of later error estimates.
+This block fixes, once and for all, the hyperbolic geometry normalizations, the cusp/collar local models, and the spherical analytic conventions that underwrite all later kernel constructions, truncation procedures, and trace identities on $M=\Gamma\backslash\mathbb H$.
+% =====================================================================
+% End of 02b-geometry DIAMOND block
+% =====================================================================
