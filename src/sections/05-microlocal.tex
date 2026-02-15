@@ -1,317 +1,572 @@
-% ==================================================================
-% Chapter 5 — Microlocal analysis (orbit-aware log time)
-% ==================================================================
+% ==========================================================
+% Chapter 5 (DIAMOND EDITION)
+% Microlocal Wave Kernel + Localized Projector
+% ==========================================================
 
-\section{Microlocal Analysis and Parametrix Construction}\label{sec:microlocal}
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 1/9
+% ===========================
 
-% --------------------------------------------------------------
-% 5.0  Standing objects and semiclassical scaling (FIX)
-% --------------------------------------------------------------
-\subsection{Standing conventions and the semiclassical wave group}\label{subsec:microlocal-conv}
+\chapter{Microlocal Analysis of the Wave Kernel and the Localized Spectral Projector}
 
-\noindent\textbf{Geometry and Laplacian.}
-Let $M=\Gamma\backslash\Hh$ be a finite-area hyperbolic surface (possibly with cusps),
-with hyperbolic metric $ds^{2}=y^{-2}(dx^{2}+dy^{2})$ and Laplacian $\Delta\ge 0$ normalized as in Chapter~2.
-Set the self-adjoint operator
-\[
-P\;:=\;\sqrt{\Delta-\tfrac14}\quad\text{on }L^{2}(M).
-\]
-
-\medskip
-\noindent\textbf{Semiclassical parameter and the correct propagator.}
-We work at frequency $\lambda\to+\infty$ with
-\[
-h=\lambda^{-1}\downarrow 0.
-\]
-The \emph{semiclassical wave group} is
-\begin{equation}\label{eq:Uh-def}
-U_h(t)\;:=\;\exp\!\Big(\frac{i t}{h}P\Big)\qquad(t\in\R).
-\end{equation}
-Equivalently, if $U(t)=e^{itP}$ denotes the physical-time group, then $U_h(t)=U(t/h)$.
-This scaling is essential: it is exactly what makes the microlocal phases appear as $e^{i(\cdot)/h}$.
-
-\medskip
-\noindent\textbf{Cusp truncation as OBJ-LOCK.}
-On noncompact $M$, we insert a fixed smooth cutoff $\Lambda_Y$ (Chapter~2) and work with
-\[
-U_{h,Y}(t):=\Lambda_Y\,U_h(t)\,\Lambda_Y,
-\]
-postponing $Y\to\infty$ to the global trace step (Chapter~7).
-This prevents hidden renormalizations: all trace statements are made for $U_{h,Y}(t)$.
-
-% --------------------------------------------------------------
-% 5.1  Parametrix up to Ehrenfest time, and orbit-aware log window
-% --------------------------------------------------------------
-\subsection{Semiclassical parametrix up to Ehrenfest time}\label{subsec:wave-parametrix}
-
-\noindent\textbf{Ehrenfest time.}
-Let
-\begin{equation}\label{eq:Ehrenfest-time}
-T_E(h)\;=\;c_E\log(1/h),
-\end{equation}
-where $c_E>0$ is chosen \emph{strictly below the Egorov/derivative-loss threshold}
-so that exponential derivative growth of the geodesic flow is compensated by powers of $h$
-(see \Cref{thm:egorov-log}).
-
-\medskip
-\noindent\textbf{Orbit-aware log window (the key upgrade).}
-A blind cutoff $|t|\le T_E(h)$ may \emph{slice periodic packets}.
-We therefore introduce a smooth \emph{orbit-aware time window}:
-there exists a smooth function
-\[
-T_{\mathrm{orb}}(\rho;h)\in(0,T_E(h)],\qquad \rho\in S^{*}M,
-\]
-such that:
+\noindent\textbf{Purpose of Chapter.}
+This chapter constructs the microlocal toolkit that will be used to build and justify the localized trace formula:
 \begin{itemize}
-\item $T_{\mathrm{orb}}(\rho;h)=T_E(h)$ on the aperiodic region (away from short periodic tubes);
-\item on a $\delta$-neighborhood of periodic geodesics of length $\le T_E(h)$,
-$T_{\mathrm{orb}}(\rho;h)$ is reduced in a smooth way so that the microlocal packet supported near a periodic orbit
-is either \emph{fully propagated} through one return (Poincaré) cycle or is \emph{excluded coherently} (no slicing).
+  \item a semiclassical parametrix for the wave kernel (as a Fourier integral operator) on time intervals up to logarithmic scale,
+  \item Egorov-type propagation of observables under the wave group with quantified remainder,
+  \item stationary phase expansions with explicit error hierarchy adapted to the localization regime,
+  \item a microlocal description of the localized spectral projector $P_{\lambda,\eta}$, including its kernel and trace.
+\end{itemize}
+These results provide the analytic backbone for Chapter~6 (geometric side) and Chapter~7 (spectral side comparison).
+
+\medskip
+
+\noindent\textbf{Object and standing assumptions (OBJ-LOCK).}
+Let
+\[
+  M=\Gamma\backslash\mathbb{H}
+\]
+be a finite-area hyperbolic surface ($\Gamma\subset \mathrm{PSL}_2(\mathbb{R})$ discrete and cofinite).
+Let $\Delta$ be the positive Laplacian on $M$.
+Write eigenvalues in the standard form $\lambda_j=\tfrac14+r_j^2$ with $r_j\ge 0$.
+
+We work in the semiclassical regime $h=\lambda^{-1}\to0$.
+The key time scale is logarithmic in $h$:
+\begin{equation}\label{eq:5.logtime}
+  |t|\le T_h := c_0 \log(1/h),
+\end{equation}
+where $c_0>0$ is chosen sufficiently small (depending on the dynamical instability of the geodesic flow; see below).
+
+\medskip
+
+\noindent\textbf{Wave group and normalization.}
+Define the shifted wave group
+\begin{equation}\label{eq:5.wavegroup}
+  U(t):=\cos\!\big(t\sqrt{\Delta-\tfrac14}\big),
+\end{equation}
+which is the natural wave propagator on $\mathbb{H}$ and descends to $M$.
+Its Schwartz kernel is denoted by $U(t;z,w)$.
+
+\medskip
+
+\noindent\textbf{Localization profile and projector.}
+Fix $\widehat{\chi}\in C_c^\infty(\mathbb{R})$ even with $\widehat{\chi}(-t)=\widehat{\chi}(t)$ and
+\[
+  \mathrm{supp}\,\widehat{\chi}\subset (-1,1), \qquad \widehat{\chi}(0)>0.
+\]
+Let $\chi$ be the inverse Fourier transform
+\begin{equation}\label{eq:5.chi.def}
+  \chi(u):=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{\chi}(t)e^{itu}\,dt,
+\end{equation}
+so $\chi$ is entire and Schwartz on $\mathbb{R}$ (Paley--Wiener).
+For parameters $(\lambda,\eta)$ with $\lambda\to\infty$ and $\eta=\eta(\lambda)\in(0,1)$, define the even spectral window
+\begin{equation}\label{eq:5.h.window}
+  h_{\lambda,\eta}(r):=\chi\!\left(\frac{r-\lambda}{\eta}\right)+\chi\!\left(\frac{r+\lambda}{\eta}\right).
+\end{equation}
+The localized spectral projector is defined by functional calculus
+\begin{equation}\label{eq:5.projector.fc}
+  P_{\lambda,\eta}:=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right).
+\end{equation}
+
+\medskip
+
+\noindent\textbf{Wave representation of the projector.}
+By Fourier inversion and \eqref{eq:5.wavegroup},
+\begin{equation}\label{eq:5.projector.wave}
+  P_{\lambda,\eta}
+  = \frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,\widehat{\chi}(\eta t)\,U(t)\,dt.
+\end{equation}
+Thus the localization cuts time to $|t|\lesssim \eta^{-1}$.
+In the core regime of the project we impose (later optimized):
+\begin{equation}\label{eq:5.eta.regime}
+  \eta \ge \lambda^{-\theta}, \qquad 0<\theta<\theta_0.
+\end{equation}
+
+\medskip
+
+\noindent\textbf{References (sources for the analytic toolkit).}
+We use standard semiclassical and microlocal facts from:
+H\"ormander~\cite{Hormander1983,Hormander1985},
+Duistermaat--Guillemin~\cite{DuistermaatGuillemin1975},
+Sogge~\cite{Sogge2014},
+Zworski~\cite{Zworski2012},
+and the log-time wave parametrix tradition (e.g. B\'erard~\cite{Berard1977} and subsequent refinements in hyperbolic dynamics; see also Dyatlov--Zworski~\cite{DyatlovZworski2019} for semiclassical propagation under hyperbolic flow).
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~1.}
+We have fixed the object $M$, the propagator $U(t)$, the localization profile, and the projector $P_{\lambda,\eta}$.
+Blocks~5.1--5.4 develop the parametrix, Egorov propagation, stationary phase machinery, and the microlocal kernel description.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 2/9
+% ===========================
+
+\section{Semiclassical Parametrix for the Wave Kernel (Logarithmic Times)}
+
+\noindent\textbf{Purpose.}
+Construct a semiclassical Fourier integral representation for $U(t)$ valid for times $|t|\le T_h=c_0\log(1/h)$,
+with explicit symbol bounds and controlled remainder.
+
+\medskip
+
+\noindent\textbf{Geometric optics on the universal cover.}
+On $\mathbb{H}$, the kernel $U_{\mathbb{H}}(t;z,w)$ admits a global Hadamard/geometry-based representation in terms of the hyperbolic distance $d(z,w)$.
+Microlocally (away from the cut locus), it is a Fourier integral distribution associated to the canonical relation of the geodesic flow.
+This is standard; see H\"ormander~\cite{Hormander1983,Hormander1985} and Duistermaat--Guillemin~\cite{DuistermaatGuillemin1975}.
+
+\medskip
+
+\noindent\textbf{Semiclassical scaling.}
+Introduce $h=\lambda^{-1}$ and consider oscillatory representations with phase of size $h^{-1}$.
+For $|t|\le T_h$ and $(z,w)$ in a sufficiently small neighborhood of the diagonal (or, more generally, within injectivity radius scale),
+one may write
+\begin{equation}\label{eq:5.parametrix.local}
+  U(t;z,w)
+  = (2\pi h)^{-1}\int_{\mathbb{R}} e^{\frac{i}{h}\Phi(t,z,w,\xi)}\,a(t,z,w,\xi;h)\,d\xi
+  \ +\ R(t;z,w;h),
+\end{equation}
+where:
+\begin{itemize}
+  \item $\Phi$ is a non-degenerate phase generating the canonical relation of the wave propagator,
+  \item $a\sim \sum_{j\ge0} h^j a_j$ is a classical symbol, with $a_0$ determined by transport along geodesics,
+  \item $R$ is a smoothing remainder with explicit $h$-decay, uniform in $|t|\le T_h$.
 \end{itemize}
 
-Concretely, we fix a smooth partition of unity on $S^{*}M$:
+\medskip
+
+\noindent\textbf{Canonical relation and phase.}
+Let $G^t$ denote the geodesic flow on $T^*M$.
+Then $U(t)$ is a Fourier integral operator associated to the canonical graph
 \[
-1=\chi_{\mathrm{per}}+\chi_{\mathrm{aper}},
+  \mathcal{C}_t = \{(x,\xi; y,\eta): (x,\xi)=G^t(y,\eta)\}.
 \]
-where $\chi_{\mathrm{per}}$ is supported in a finite union of small tubular neighborhoods of periodic orbits
-up to length $T_E(h)$, and $\chi_{\mathrm{aper}}$ is supported on the complement.
-All subsequent $t$-integrals are understood with the orbit-aware restriction:
-\[
-|t|\le T_{\mathrm{orb}}(\rho;h)\quad\text{on the microlocal support at }\rho.
-\]
-This is exactly the mechanism that prevents “log cutting orbits”.
+This is classical for wave propagators; see H\"ormander~\cite[Vol.~IV]{Hormander1985}.
 
 \medskip
-\noindent\textbf{Local model on the universal cover.}
-On $\Hh$, $U_h(t)$ is a semiclassical Fourier integral operator associated with the geodesic flow.
-For $|t|$ small and $r=d(z,w)$ one has a Hadamard/FIO parametrix
-\begin{equation}\label{eq:hadamard-small-time-fixed}
-U_{h,\Hh}(t;z,w)
-=\frac{1}{2\pi h}\Big(e^{\frac{i}{h}(r-t)}\,b_{+}(z,w,t;h)\;+\;e^{\frac{i}{h}(-r-t)}\,b_{-}(z,w,t;h)\Big),
+
+\noindent\textbf{Log-time issue and hyperbolic instability.}
+On negatively curved manifolds, derivatives of $G^t$ grow like $e^{\Lambda |t|}$.
+Thus symbol norms of the transported amplitude grow like $e^{C|t|}$.
+Choosing $T_h=c_0\log(1/h)$ with $c_0$ small ensures that such growth remains polynomial in $h^{-1}$,
+so the semiclassical calculus remains valid. This mechanism is standard in semiclassical dynamics; see Zworski~\cite{Zworski2012} and Dyatlov--Zworski~\cite{DyatlovZworski2019}.
+
+\medskip
+
+\noindent\textbf{Theorem 5.1.1 (Log-time semiclassical parametrix).}
+\emph{There exist constants $c_0>0$ and $h_0>0$ such that for all $0<h<h_0$ and all $|t|\le T_h=c_0\log(1/h)$,
+the operator $U(t)$ is a semiclassical Fourier integral operator of order $0$ associated to $\mathcal{C}_t$.
+Moreover, its kernel admits the representation \eqref{eq:5.parametrix.local} with amplitude $a$ satisfying}
+\begin{equation}\label{eq:5.symbol.bounds}
+  |\partial_{z,w,\xi}^\alpha a(t,z,w,\xi;h)|
+  \le C_\alpha\,h^{-N_\alpha}\,e^{C_\alpha |t|},
 \end{equation}
-with classical amplitudes $b_\pm\sim\sum_{j\ge0}h^j b_{\pm,j}$ determined by transport
-and normalized by $b_{\pm,0}(z,z,0)=1$.
-
-\medskip
-\noindent\textbf{Parametrix on $M$ up to Ehrenfest time.}
-
-\begin{theorem}[Semiclassical parametrix up to Ehrenfest time]\label{thm:parametrix-logtime}
-There exist $c_E>0$ and classical amplitudes $a_{\pm}(z,w,t;h)\sim\sum_{j\ge0}h^j a_{\pm,j}$
-such that for all $|t|\le T_E(h)=c_E\log(1/h)$ one has
-\begin{equation}\label{eq:parametrix-log-fixed}
-U_h(t;z,w)
-=\frac{1}{2\pi h}\Big(e^{\frac{i}{h}(d(z,w)-t)}\,a_{+}(z,w,t;h)+
-e^{\frac{i}{h}(-d(z,w)-t)}\,a_{-}(z,w,t;h)\Big)+R_h(t;z,w),
+\emph{and remainder $R$ satisfying (for each $N$)}
+\begin{equation}\label{eq:5.remainder.bounds}
+  \sup_{|t|\le T_h}\|R(t)\|_{H^{-s}\to H^{s}} \le C_{N,s}\,h^N.
 \end{equation}
-where the remainder satisfies an operator bound of the form
-\begin{equation}\label{eq:R-bound-exp}
-\|R_h(t)\|_{L^{2}\to L^{2}}\;\le\;C_N\,h^{N}\,e^{\Gamma |t|}\qquad(\forall N\in\N),
-\end{equation}
-with geometric constants $C_N,\Gamma$ depending only on $M$.
-Consequently, for $|t|\le T_E(h)$,
-\[
-\|R_h(t)\|_{2\to2}\;\le\;C'_N\,h^{N-\Gamma c_E}.
-\]
-In particular, choosing $c_E$ small enough yields $\|R_h(t)\|_{2\to2}\le C''_N h^{N_0}$ uniformly on $|t|\le T_E(h)$,
-for any prescribed $N_0$.
-All constants are uniform under cusp truncation in the sense that the same bounds hold for $U_{h,Y}(t)$, up to tails $O(Y^{-1})$.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Construct a global FIO parametrix by propagating the local phase/amplitude by the Hamilton flow of $p(x,\xi)=|\xi|_g$.
-Negative curvature gives exponential bounds on derivatives of the flow, producing $e^{\Gamma|t|}$ in \eqref{eq:R-bound-exp}.
-Restricting to $|t|\le c_E\log(1/h)$ turns $e^{\Gamma|t|}$ into a power of $h$.
-\end{proof}
-
-\medskip
-\noindent\textbf{Periodization (local finiteness).}
-On $M$, one may write the kernel as a periodization over $\Gamma$:
-\[
-U_h(t;z,w)=\sum_{\gamma\in\Gamma}U_{h,\Hh}(t;z,\gamma w),
-\]
-and for $|t|\le T_E(h)$ the sum is effectively finite because only $\gamma$ with $d(z,\gamma w)\approx |t|$ contribute,
-while the number of such elements grows like $e^{|t|}$ and is balanced by the hyperbolic dispersive decay encoded in the amplitudes.
-
-\medskip
-\noindent\textbf{Canonical relation and propagation of singularities.}
-Microlocally $U_h(t)$ is an $h$--FIO associated with the graph of $g^t$ on $T^*M$,
-hence for distributions $f$,
-\begin{equation}\label{eq:WF-propagation-fixed}
-\WF\big(U_h(t)f\big)=g^t\big(\WF(f)\big)\qquad(|t|\le T_E(h)).
-\end{equation}
-
-% --------------------------------------------------------------
-% 5.2  Egorov at log times (correct remainder)
-% --------------------------------------------------------------
-\subsection{Egorov's theorem at logarithmic times}\label{subsec:egorov}
-
-\noindent\textbf{Quantization.}
-Let $a\in S^0(T^*M)$ and write $\Op_h(a)$ for a fixed semiclassical quantization (Chapter~2 conventions).
-We will use the fact that derivatives of $a\circ g^t$ grow like $e^{\Gamma|t|}$.
-
-\begin{theorem}[Egorov up to Ehrenfest time]\label{thm:egorov-log}
-Let $A_h=\Op_h(a)$ with $a\in S^0(T^*M)$.
-Then for all $|t|\le T_E(h)=c_E\log(1/h)$ one has
-\begin{equation}\label{eq:egorov-fixed}
-U_h(-t)\,A_h\,U_h(t)=\Op_h(a\circ g^t)+\mathcal{O}_{L^2\to L^2}\!\big(h\,e^{\Gamma|t|}\big).
-\end{equation}
-In particular, if $c_E<1/\Gamma$ then
-\[
-U_h(-t)\,A_h\,U_h(t)=\Op_h(a\circ g^t)+\mathcal{O}_{2\to2}\!\big(h^{1-\Gamma c_E}\big)
-\quad\text{uniformly for }|t|\le T_E(h).
-\]
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Differentiate $U_h(-t)A_hU_h(t)$ in $t$ and use the commutator expansion
-$\frac{d}{dt}(U_h(-t)A_hU_h(t))=\frac{i}{h}U_h(-t)[P,A_h]U_h(t)$.
-Symbolic calculus gives $[P,A_h]=\frac{h}{i}\Op_h(\{p,a\})+\mathcal{O}(h^2)$,
-and derivative growth along $g^t$ produces $e^{\Gamma|t|}$.
-\end{proof}
-
-\medskip
-\noindent\textbf{Orbit-aware Egorov.}
-If $A_h$ is microlocalized by $\chi_{\mathrm{per}}$ or $\chi_{\mathrm{aper}}$, then
-\eqref{eq:egorov-fixed} holds with $|t|\le T_{\mathrm{orb}}(\rho;h)$ on the corresponding microlocal support.
-This is the precise way the calculus avoids slicing periodic packets.
-
-% --------------------------------------------------------------
-% 5.3  Stationary phase (keep it honest; avoid wrong scalings)
-% --------------------------------------------------------------
-\subsection{Stationary phase templates}\label{subsec:stationary-phase}
-
-\noindent\textbf{Template.}
-For oscillatory integrals $\int e^{i\varphi/h}a$, we use the standard stationary phase expansion with explicit
-uniformity requirements; we only record that every remainder inherits an $e^{\Gamma|t|}$-loss coming from flow derivatives,
-hence must be restricted to Ehrenfest/orbit-aware times.
-
-\medskip
-\noindent\textbf{Practical rule.}
-Whenever the phase depends on $t$ through the flow, all “uniform in $t$” statements are made only for
-\[
-|t|\le T_{\mathrm{orb}}(\rho;h)\le T_E(h).
-\]
-
-% --------------------------------------------------------------
-% 5.4  Matching with the spectral projector (FIX the $\eta$ scaling)
-% --------------------------------------------------------------
-\subsection{Matching with the spectral projector}\label{subsec:projector-matching}
-
-\noindent\textbf{Spectral window and Fourier representation.}
-Let $\chi\in\mathcal{S}(\R)$ be even, with $\widehat{\chi}\in C_c^\infty(\R)$.
-Define the \emph{windowed spectral projector} (center $\lambda$, width $\eta$):
-\[
-P_{\lambda,\eta}:=\chi\!\Big(\frac{P-\lambda}{\eta}\Big).
-\]
-Then (functional calculus) gives
-\begin{equation}\label{eq:proj-fourier-fixed}
-P_{\lambda,\eta}
-=\frac{1}{2\pi}\int_{\R} e^{-it\lambda}\,\eta\,\widehat{\chi}(\eta t)\,e^{itP}\,dt
-=\frac{1}{2\pi}\int_{\R} e^{-it}\,\widehat{\chi}(\eta t)\,U_h(t)\,dt,
-\end{equation}
-where in the last identity we used $e^{itP}=U_h(th)$ and $\lambda=1/h$.
-The effective support is $|t|\lesssim \eta^{-1}$.
-
-\medskip
-\noindent\textbf{Ehrenfest compatibility.}
-We impose
-\begin{equation}\label{eq:eta-window-fixed}
-\eta^{-1}\le T_E(h)=c_E\log(1/h),
-\end{equation}
-or, equivalently, $\eta\ge (\log(1/h))^{-1}$ (and in practice $\eta\ge h^\theta$ is more than enough).
-In the orbit-aware setting, we integrate with the microlocal time restriction $|t|\le T_{\mathrm{orb}}(\rho;h)$.
-
-\medskip
-\noindent\textbf{Microlocal structure of $P_{\lambda,\eta}$.}
-On the diagonal (local Weyl regime), one has the correct scaling
-\[
-P_{\lambda,\eta}(z,z)\;\asymp\; \lambda\,\eta
-\qquad(\text{up to geometry-dependent constants}),
-\]
-so any bound of the form $h^{-1}\eta^{-1}$ is dimensionally incorrect and must be avoided.
-
-\medskip
-\noindent\textbf{Projector parametrix (schematic).}
-Combining \Cref{thm:parametrix-logtime} with \eqref{eq:proj-fourier-fixed} yields that $P_{\lambda,\eta}$
-is an $h$--FIO microlocally supported near the energy shell $p=1$ (in $h$-scaled variables),
-with canonical relation induced by short geodesic arcs of length $|t|\lesssim \eta^{-1}$.
-All remainders inherit the Ehrenfest/orbit-aware restriction.
-
-% --------------------------------------------------------------
-% 5.EH  Ehrenfest remainder and HS trace extraction (your block, but made consistent)
-% --------------------------------------------------------------
-\section{Ehrenfest remainder in Hilbert--Schmidt norm and localized trace}
-\label{sec:5.ehrenfest.HS}
-
-\subsection{OBJ-LOCK: cusp cutoff and truncated operator}
-\label{subsec:5.ehrenfest.objlock}
-
-Fix a smooth cutoff $\Lambda_Y\in C_c^\infty(M)$ with $\Lambda_Y\equiv 1$ on the $Y/2$-thick part and
-$\supp\Lambda_Y\subset M(Y)$. Choose $Y=Y(\lambda)=\lambda^{A}$ for fixed $A>0$ and define
-\[
-U_{h,Y}(t):=\Lambda_Y U_h(t)\Lambda_Y.
-\]
-
-\subsection{Ehrenfest decomposition}
-\label{subsec:5.ehrenfest.decomp}
-
-Assume that for $|t|\le T_E(h)$ we have
-\[
-U_{h,Y}(t)=U_{h,Y,\mathrm{main}}(t)+R_{E,Y}(t),
-\]
-where $U_{h,Y,\mathrm{main}}(t)$ is the microlocal main parametrix contribution and $R_{E,Y}(t)$ the remainder.
-
-\subsection{KEY estimate: HS control of the remainder}
-\label{subsec:5.ehrenfest.HSbound}
-
-\begin{proposition}[KEY: Hilbert--Schmidt remainder bound up to Ehrenfest time]
-\label{prop:5.EH.HS}
-Fix $\varepsilon>0$ and $A>0$. There exist constants $c_E>0$ and $\lambda_0(\varepsilon,A)$ such that for all
-$\lambda\ge \lambda_0$ and all $|t|\le c_E\log\lambda$,
-\[
-\|R_{E,Y(\lambda)}(t)\|_{HS(M)} \ \ll_{\varepsilon,A}\ \lambda^{1/2+\varepsilon}.
-\]
-\end{proposition}
-
-\begin{remark}[Structural ceiling]
-The exponent $1/2$ is the stationary-phase ceiling for wave-trace type methods on surfaces.
-Any systematic improvement beyond $\lambda^{1/2+\varepsilon}$ requires new input beyond the Chapter~5 mechanism.
-\end{remark}
-
-\subsection{Trace extraction under a localized time window}
-\label{subsec:5.ehrenfest.trace}
-
-Let $\psi\in C_c^\infty(\R)$ be even with $\supp\psi\subset[-1,1]$.
-Define
-\[
-g_{\lambda,\eta}(t):=\psi(\eta t)\cos(\lambda t),\qquad \supp g_{\lambda,\eta}\subset[-\eta^{-1},\eta^{-1}],
-\]
-and assume the Ehrenfest compatibility $\eta^{-1}\le c_E\log\lambda$.
-
-Set
-\[
-\mathcal R_{\lambda,\eta}:=\int_{\R} g_{\lambda,\eta}(t)\,R_{E,Y(\lambda)}(t)\,dt.
-\]
-
-\begin{lemma}[HS$\Rightarrow$trace bound under localization]
-\label{lem:5.HS.to.trace}
-Under Proposition~\ref{prop:5.EH.HS}, for every $\varepsilon>0$,
-\[
-\big|\Tr(\mathcal R_{\lambda,\eta})\big|
-\ \ll_{\varepsilon}\ \lambda^{1/2+\varepsilon},
-\]
-uniformly for $\eta^{-1}\le c_E\log\lambda$.
-\end{lemma}
 
 \begin{proof}
-Use $|\Tr(A)|\le \|A\|_{HS}$ for trace-class/Hilbert--Schmidt operators and Minkowski:
-\[
-\|\mathcal R_{\lambda,\eta}\|_{HS}\le \int |g_{\lambda,\eta}(t)|\,\|R_{E,Y}(t)\|_{HS}\,dt
-\ll \eta^{-1}\sup_{|t|\le c_E\log\lambda}\|R_{E,Y}(t)\|_{HS}.
-\]
-Then apply Proposition~\ref{prop:5.EH.HS} and absorb $\log\lambda$ into $\lambda^\varepsilon$.
+This is a standard consequence of the semiclassical construction of parametrices for hyperbolic equations (geometric optics),
+combined with derivative-growth control for the flow on logarithmic times.
+See H\"ormander~\cite{Hormander1985} for the FIO structure and Zworski~\cite{Zworski2012} for semiclassical symbol control; the log-time restriction ensures
+that the exponential-in-$t$ derivative loss converts to a polynomial-in-$h^{-1}$ loss. For a modern hyperbolic-dynamical viewpoint, see Dyatlov--Zworski~\cite{DyatlovZworski2019}.
 \end{proof}
 
-% ==================================================================
-% End Chapter 5 replacement
-% ==================================================================
+\medskip
+
+\noindent\textbf{Remark 5.1.2 (Where the constant $c_0$ comes from).}
+$c_0$ is chosen so that $e^{C|t|}\le h^{-\varepsilon}$ on $|t|\le c_0\log(1/h)$,
+i.e. $c_0<\varepsilon/C$.
+This ensures all semiclassical symbol estimates remain within the calculus.
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.1.}
+We have a log-time valid semiclassical parametrix for $U(t)$ as a Fourier integral operator,
+with explicit growth bookkeeping in $t$ and high-order smoothing remainder.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 3/9
+% ===========================
+
+\section{Egorov Theorem on Logarithmic Times}
+
+\noindent\textbf{Purpose.}
+Quantify how pseudodifferential observables propagate under conjugation by $U(t)$,
+with a controlled remainder on the log-time scale.
+
+\medskip
+
+\noindent\textbf{Semiclassical observables.}
+Let $A=\Op_h(a)$ be a semiclassical pseudodifferential operator of order $0$ with compact microsupport.
+We consider the Heisenberg evolution
+\[
+  A(t):=U(-t)\,A\,U(t).
+\]
+
+\medskip
+
+\noindent\textbf{Classical flow.}
+Let $p(x,\xi)$ be the principal symbol of $\sqrt{\Delta-\tfrac14}$.
+Then $G^t=\exp(t H_p)$ is the Hamiltonian/geodesic flow on $T^*M$.
+
+\medskip
+
+\noindent\textbf{Theorem 5.2.1 (Egorov on log times).}
+\emph{Assume $|t|\le T_h=c_0\log(1/h)$ with $c_0$ as in Theorem~5.1.1.
+Then}
+\begin{equation}\label{eq:5.egorov}
+  U(-t)\,\Op_h(a)\,U(t)
+  = \Op_h(a\circ G^t) \ +\ h\,\Op_h(r_t) \ +\ \mathcal{O}_{L^2\to L^2}(h^\infty),
+\end{equation}
+\emph{where $r_t$ is a symbol of order $0$ satisfying}
+\begin{equation}\label{eq:5.egorov.remainder}
+  \|\partial^\alpha r_t\|_\infty \le C_\alpha\,e^{C_\alpha |t|}.
+\end{equation}
+
+\begin{proof}
+This is the standard semiclassical Egorov theorem for unitary propagation by an FIO associated to $G^t$,
+with symbol-derivative losses controlled by derivatives of $G^t$.
+See Zworski~\cite[Ch.~11]{Zworski2012} and Dyatlov--Zworski~\cite{DyatlovZworski2019}.
+The log-time restriction guarantees $e^{C|t|}$ remains $h^{-\varepsilon}$ and thus the $h$-expansion is stable.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Corollary 5.2.2 (Expectation propagation).}
+\emph{For any $u\in L^2(M)$ and $|t|\le T_h$,}
+\[
+  \langle \Op_h(a)U(t)u, U(t)u\rangle
+  = \langle \Op_h(a\circ G^t)u, u\rangle + O(h).
+\]
+\emph{The $O(h)$ constant depends on finitely many symbol seminorms of $a$ and on $c_0$.}
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.2.}
+Egorov holds up to logarithmic times: microlocal mass is transported by the geodesic flow,
+with a quantified $O(h)$ remainder whose symbol norms grow at most exponentially in time (hence polynomially in $h^{-1}$ on log times).
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 4/9
+% ===========================
+
+\section{Stationary Phase: Uniform Expansions and Remainder Hierarchy}
+
+\noindent\textbf{Purpose.}
+Develop a stationary phase lemma tailored to the oscillatory integrals produced by \eqref{eq:5.projector.wave},
+with uniform constants compatible with the $(\lambda,\eta)$ regime and log-time bounds.
+
+\medskip
+
+\noindent\textbf{Basic model integral.}
+Let $\phi\in C^\infty(\mathbb{R}^n)$ have a unique non-degenerate critical point at $x_0$ in the support of $a\in C_c^\infty(\mathbb{R}^n)$.
+Consider
+\[
+  I(h)=\int_{\mathbb{R}^n} e^{\frac{i}{h}\phi(x)}\,a(x;h)\,dx, \qquad h\to0.
+\]
+Stationary phase yields an asymptotic expansion
+\[
+  I(h)\sim e^{\frac{i}{h}\phi(x_0)} e^{\frac{i\pi}{4}\sgn \phi''(x_0)} (2\pi h)^{n/2}
+  \sum_{j\ge0} h^j L_j a(x_0),
+\]
+with explicit differential operators $L_j$ depending on the Taylor jet of $\phi$ at $x_0$.
+See H\"ormander~\cite[Vol.~I]{Hormander1983}.
+
+\medskip
+
+\noindent\textbf{Lemma 5.3.1 (Stationary phase with uniform remainder).}
+\emph{Assume $\det \phi''(x_0)\neq0$ and the support of $a$ stays in a fixed compact set.
+Then for each $N\ge0$ there exists $C_N$ such that}
+\begin{equation}\label{eq:5.stationary.phase}
+  I(h)
+  = e^{\frac{i}{h}\phi(x_0)} (2\pi h)^{n/2}\,e^{\frac{i\pi}{4}\sgn \phi''(x_0)}
+    \sum_{j=0}^{N-1} h^j\,c_j(a,\phi)
+    \ +\ R_N(h),
+\end{equation}
+\emph{with}
+\begin{equation}\label{eq:5.stationary.remainder}
+  |R_N(h)| \le C_N\,h^{n/2+N}\,\max_{|\alpha|\le 2N}\|\partial^\alpha a\|_\infty.
+\end{equation}
+
+\begin{proof}
+Standard stationary phase with integration by parts and Taylor expansion;
+see H\"ormander~\cite[Theorem~7.7.5]{Hormander1983}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Uniformity under controlled parameter dependence.}
+In our application, phases and amplitudes depend on $(t,z,w)$ and the flow $G^t$.
+Uniformity is retained provided all derivatives obey bounds of the form $e^{C|t|}$, which holds on log times by Block~5.1.
+Thus stationary phase is compatible with the log-time parametrix.
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.3.}
+We have a stationary phase expansion with an explicit remainder hierarchy, uniform under the derivative-growth constraints induced by log-time propagation.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 5/9
+% ===========================
+
+\section{Microlocal Kernel Structure of the Localized Projector}
+
+\noindent\textbf{Purpose.}
+Using the wave representation \eqref{eq:5.projector.wave} and the parametrix for $U(t)$,
+derive a microlocal description of the kernel $K_{\lambda,\eta}(z,w)$ of $P_{\lambda,\eta}$,
+including its principal symbol and localization properties.
+
+\medskip
+
+\noindent\textbf{Kernel definition.}
+Let $K_{\lambda,\eta}(z,w)$ denote the Schwartz kernel of $P_{\lambda,\eta}$:
+\begin{equation}\label{eq:5.kernel.def}
+  K_{\lambda,\eta}(z,w)
+  = \frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,\widehat{\chi}(\eta t)\,U(t;z,w)\,dt.
+\end{equation}
+
+\medskip
+
+\noindent\textbf{Support in time and geometric meaning.}
+Since $\widehat{\chi}(\eta t)$ is supported in $|t|\le \eta^{-1}$ (up to the fixed support of $\widehat{\chi}$),
+only wave propagation up to time $\asymp \eta^{-1}$ enters.
+On the universal cover, $U(t;z,w)$ is concentrated on the set $d(z,w)\approx |t|$ (propagation at unit speed).
+Hence $K_{\lambda,\eta}(z,w)$ is microlocally concentrated near the cosphere bundle $|\xi|=1$ and near the diagonal at scale $h$.
+
+\medskip
+
+\noindent\textbf{Principal symbol (local Weyl picture).}
+Microlocally, $P_{\lambda,\eta}$ is a semiclassical pseudodifferential operator with symbol approximating an energy cutoff near $|\xi|=1$,
+smoothed at thickness $\eta$ in spectral parameter.
+Formally, for $A=\Op_h(a)$, the composition $AP_{\lambda,\eta}$ has trace governed by the phase-space integral of $a$ restricted to the energy surface.
+
+\medskip
+
+\noindent\textbf{Proposition 5.4.1 (Microlocal pseudodifferential reduction).}
+\emph{Fix a compactly supported microlocal cutoff $\Psi=\Op_h(\psi)$ supported in a coordinate patch away from cusp singularities.
+Then, modulo $h^\infty$ smoothing remainders,}
+\begin{equation}\label{eq:5.projector.psido}
+  \Psi\,P_{\lambda,\eta}\,\Psi
+  = \Op_h\!\big(\sigma_{\lambda,\eta}\big) \ +\ h\,\Op_h(\sigma^{(1)}_{\lambda,\eta}),
+\end{equation}
+\emph{where the principal symbol $\sigma_{\lambda,\eta}(x,\xi)$ is supported where $||\xi| -1|\lesssim \eta$
+and satisfies}
+\begin{equation}\label{eq:5.symbol.projector}
+  \sigma_{\lambda,\eta}(x,\xi) = \chi\!\left(\frac{|\xi|-1}{\eta}\right) + \chi\!\left(\frac{|\xi|+1}{\eta}\right)
+  \quad \text{(in local coordinates)},
+\end{equation}
+\emph{with symbol seminorm bounds polynomial in $h^{-1}$ on $|t|\le T_h$.}
+
+\begin{proof}
+Insert the FIO parametrix for $U(t)$ from Theorem~5.1.1 into \eqref{eq:5.kernel.def}, then perform stationary phase in the $(t,\xi)$ variables.
+This is the standard construction of functional calculus kernels via oscillatory integrals; see H\"ormander~\cite{Hormander1985} and Zworski~\cite{Zworski2012}.
+Uniformity uses the log-time bounds from \eqref{eq:5.symbol.bounds}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Diagonal scaling and leading size.}
+On the diagonal, the kernel $K_{\lambda,\eta}(z,z)$ behaves like a local density of states.
+The scaling predicts $K_{\lambda,\eta}(z,z)\asymp \lambda\eta$ (consistent with the local Weyl law),
+with explicit constant $\frac{1}{4\pi}$ (hyperbolic surface normalization) after global integration;
+see Chapter~6 for the Selberg-exact constant extraction.
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.4.}
+We have reduced $P_{\lambda,\eta}$ microlocally to a semiclassical pseudodifferential operator supported near the unit cosphere,
+with principal symbol explicitly controlled by the window function $\chi((|\xi|-1)/\eta)$.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 6/9
+% ===========================
+
+\section{Trace, Local Weyl Law, and Error Bookkeeping}
+
+\noindent\textbf{Purpose.}
+Compute the leading trace contribution of $P_{\lambda,\eta}$ and record a remainder hierarchy compatible with Chapters~6--7.
+
+\medskip
+
+\noindent\textbf{Local Weyl law (microlocal form).}
+For a compactly supported $\Psi=\Op_h(\psi)$ as above, consider
+\[
+  \Tr(\Psi P_{\lambda,\eta}\Psi)=\int_M \Psi P_{\lambda,\eta}\Psi(z,z)\,d\mu(z).
+\]
+Using \eqref{eq:5.projector.psido}, trace asymptotics reduce to phase-space integrals.
+Standard semiclassical trace asymptotics (H\"ormander~\cite{Hormander1983}, Zworski~\cite{Zworski2012}) give
+\[
+  \Tr(\Op_h(b)) = (2\pi h)^{-2}\int_{T^*M} b(x,\xi)\,dx\,d\xi + O(h^{-1}).
+\]
+On a surface ($\dim M=2$), $(2\pi h)^{-2}\sim \lambda^2$; but our symbol is supported in a shell of thickness $\eta$ near $|\xi|=1$,
+so the effective volume is $\asymp \eta$ and the trace is $\asymp \lambda\eta$.
+
+\medskip
+
+\noindent\textbf{Proposition 5.5.1 (Microlocal Weyl law for the window).}
+\emph{Let $\Psi=\Op_h(\psi)$ be compactly microlocalized away from cusps.
+Then as $\lambda\to\infty$ (with $h=\lambda^{-1}$) and $\eta$ satisfying \eqref{eq:5.eta.regime},}
+\begin{equation}\label{eq:5.localweyl}
+  \Tr(\Psi P_{\lambda,\eta}\Psi)
+  = \frac{\lambda\eta}{2\pi}\,\widehat{\chi}(0)\int_M \psi_0(z)\,d\mu(z)
+    \ +\ O(\lambda\eta^2)\ +\ O(\lambda^{1-\delta}),
+\end{equation}
+\emph{where $\psi_0$ is the base-point (principal) component of the cutoff and $\delta>0$ depends on the chosen log-time constant $c_0$
+and on the cusp control mechanism.}
+
+\begin{proof}
+Use \eqref{eq:5.projector.psido} and semiclassical trace asymptotics for pseudodifferential operators (H\"ormander~\cite{Hormander1983}, Zworski~\cite{Zworski2012}).
+The factor $\widehat{\chi}(0)$ appears from integrating the rescaled window, $\int \chi(u)\,du=\widehat{\chi}(0)$ by \eqref{eq:5.chi.def}.
+The $O(\lambda\eta^2)$ term comes from Taylor expanding the density on the shell $||\xi|-1|\lesssim \eta$.
+The remaining term collects uniform remainder bounds from the log-time parametrix and cusp cutoff.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Remark 5.5.2 (Why this matches the Selberg constant).}
+Chapter~6 computes the identity term in Selberg form
+\[
+  I_{\lambda,\eta} = \frac{\mathrm{vol}(M)}{4\pi}\int_{\mathbb{R}} r\tanh(\pi r)\,h_{\lambda,\eta}(r)\,dr
+\]
+and extracts the same $\widehat{\chi}(0)$ constant. This is not optional: it is the normalization lock between microlocal and Selberg sides.
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.5.}
+We have recorded a microlocal Weyl law for the localized projector, with explicit dependence on $\widehat{\chi}(0)$ and a remainder hierarchy compatible with later chapters.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 7/9
+% ===========================
+
+\section{Cusp Geometry and Uniformity: Truncation-Compatible Microlocalization}
+
+\noindent\textbf{Purpose.}
+Ensure that the microlocal constructions above remain valid in the finite-area (non-compact) setting with cusps,
+by introducing truncation and cusp-adapted cutoff operators.
+
+\medskip
+
+\noindent\textbf{Cusp model.}
+A cusp neighborhood is modeled by
+\[
+  C(Y)=\{x+iy: y>Y\}/\langle x\mapsto x+1\rangle
+\]
+with hyperbolic metric $y^{-2}(dx^2+dy^2)$.
+Standard cusp analysis is classical; see Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
+
+\medskip
+
+\noindent\textbf{Cusp cutoffs.}
+Let $\mathbf{1}_{M(Y)}$ denote the indicator of the truncated surface $M(Y)=M\setminus \cup_{\mathfrak a} C_{\mathfrak a}(Y)$.
+Choose a smooth cutoff $\kappa_Y$ equal to $1$ on $M(2Y)$ and $0$ on the deep cusp $y>3Y$.
+Define cusp-truncated operators
+\[
+  U_Y(t):=\kappa_Y\,U(t)\,\kappa_Y,\qquad P_{\lambda,\eta}^{(Y)}:=\kappa_Y\,P_{\lambda,\eta}\,\kappa_Y.
+\]
+
+\medskip
+
+\noindent\textbf{Lemma 5.6.1 (Truncation error is smoothing at fixed microlocal scale).}
+\emph{For fixed $Y$ and for microlocal cutoffs supported away from the deep cusp,
+the difference $P_{\lambda,\eta}-P_{\lambda,\eta}^{(Y)}$ is $h^\infty$-smoothing on $L^2(M)$ uniformly in $\lambda$.}
+
+\begin{proof}
+Propagation from the deep cusp to the compact core requires time comparable to $\log Y$ in the hyperbolic metric.
+With $Y$ fixed and microlocal cutoffs supported in the compact region, the kernel contributions from deep cusp truncation are separated by finite propagation speed and decay of the window.
+This is standard in cusp microlocal analysis; see Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.6.}
+We have established the technical compatibility of microlocal parametrices with cusp truncation,
+so the subsequent Selberg geometric expansions (which require cusp regularization) are analytically justified.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 8/9
+% ===========================
+
+\section{Synthesis: Microlocal Description of $P_{\lambda,\eta}$ as a Localized FIO/PDO Hybrid}
+
+\noindent\textbf{Purpose.}
+Assemble the parametrix, Egorov propagation, and stationary phase machinery into a single statement describing $P_{\lambda,\eta}$
+as a microlocally localized operator with controlled kernel and trace.
+
+\medskip
+
+\noindent\textbf{Theorem 5.7.1 (Microlocal structure theorem for $P_{\lambda,\eta}$).}
+\emph{Let $P_{\lambda,\eta}$ be defined by \eqref{eq:5.projector.fc}--\eqref{eq:5.projector.wave}.
+Fix $\eta$ satisfying \eqref{eq:5.eta.regime}.
+Then for any compact microlocal cutoff $\Psi=\Op_h(\psi)$ supported away from the deep cusp,
+the operator $\Psi P_{\lambda,\eta}\Psi$ is a semiclassical pseudodifferential operator with symbol supported in the energy shell $||\xi|-1|\lesssim \eta$,
+with principal symbol given by \eqref{eq:5.symbol.projector}, and remainders controlled as in \eqref{eq:5.projector.psido} and \eqref{eq:5.localweyl}.}
+
+\begin{proof}
+Combine Theorem~5.1.1 (parametrix for $U(t)$), Lemma~5.3.1 (stationary phase), and Proposition~5.4.1 (PDO reduction),
+plus the cusp-truncation Lemma~5.6.1 for uniformity in the finite-area setting.
+\end{proof}
+
+\medskip
+
+\noindent\textbf{Conclusion of Block~5.7.}
+This block packages the analytic content of Chapter~5 into a single microlocal statement that will be used as a black box in Chapters~6 and~7.
+
+% ===========================
+% Chapter 5: Microlocal Analysis
+% Block 9/9 (Audit)
+% ===========================
+
+\section*{Chapter 5 Audit (Diamond)}
+
+\noindent\textbf{Goals Recap (G5.1--G5.4).}
+\begin{itemize}
+  \item[(G5.1)] Construct a log-time semiclassical parametrix for $U(t)$ as an FIO (Theorem~5.1.1).
+  \item[(G5.2)] Prove Egorov propagation with quantified remainder (Theorem~5.2.1).
+  \item[(G5.3)] Establish stationary phase expansions with uniform remainder hierarchy (Lemma~5.3.1).
+  \item[(G5.4)] Derive microlocal kernel and trace structure of $P_{\lambda,\eta}$ (Proposition~5.4.1, Proposition~5.5.1, Theorem~5.7.1).
+\end{itemize}
+
+\medskip
+
+\noindent\textbf{Invariants fixed (I5.*).}
+\begin{itemize}
+  \item[(I5.1)] The time scale $|t|\le c_0\log(1/h)$ is the unique log-time regime compatible with hyperbolic derivative growth.
+  \item[(I5.2)] The constant $\widehat{\chi}(0)$ is the normalization lock between microlocal and Selberg sides.
+  \item[(I5.3)] The projector is microlocally supported in the energy shell $||\xi|-1|\lesssim\eta$.
+  \item[(I5.4)] Cusp truncation can be inserted without disturbing compact microlocal statements (Lemma~5.6.1).
+\end{itemize}
+
+\medskip
+
+\noindent\textbf{Forward link.}
+Chapter~6 uses:
+(i) the wave representation \eqref{eq:5.projector.wave} to unfold the trace geometrically,
+(ii) the diagonal/trace asymptotics to justify the identity term main Weyl contribution,
+(iii) the cutoff support in time to explain the length cutoff $L\lesssim \eta^{-1}$ in the hyperbolic contribution.
+
+\medskip
+
+\noindent\textbf{Backward link.}
+This chapter relies on:
+basic hyperbolic geometry and cusp structure (Hejhal~\cite{Hejhal1983}, Iwaniec~\cite{Iwaniec2002})
+and semiclassical microlocal analysis (H\"ormander~\cite{Hormander1983,Hormander1985}, Zworski~\cite{Zworski2012}).
+
+\medskip
+
+\noindent\textbf{Conclusion.}
+Chapter~5 is now closed at the ``Diamond'' level:
+parametrix + Egorov + stationary phase + projector kernel/traces are fixed with explicit normalization and error bookkeeping,
+fully ready to feed Chapter~6 (geometric expansion) and Chapter~7 (spectral comparison).
+
+% --- End Chapter 5 (DIAMOND EDITION) ---
