@@ -1,32 +1,26 @@
-% somewhere in the preamble (after amsthm is loaded)
-\usepackage{amsthm}
-
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-
-% ADD THIS:
-\newtheorem{hypothesis}[theorem]{Hypothesis}
-
 % ==================================================================
-% main.tex — Monograph: Localized Trace Formula
+% main.tex — Monograph: Localized Trace Formula (DIAMOND SAFE)
 % ==================================================================
 
 \documentclass[11pt,oneside]{book}
 
-% ---------- Page geometry & fonts ----------
-\usepackage[a4paper,margin=1in]{geometry}
+% ---------- Engine detection ----------
 \usepackage{iftex}
 
+% ---------- Page geometry ----------
+\usepackage[a4paper,margin=1in]{geometry}
+
+% ---------- Fonts ----------
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{lmodern}
 \else
-  \usepackage{fontspec} % Для XeLaTeX, который виден в логах
+  \usepackage{fontspec} % XeLaTeX / LuaLaTeX
 \fi
+
+% ---------- Colors (load early; used by boxes/links) ----------
+\usepackage{xcolor}
 
 % ---------- Math & symbols ----------
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -35,17 +29,24 @@
 \usepackage{bbm}
 \usepackage{mathrsfs}
 
+% ---------- Theorem environments (AFTER amsthm) ----------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+% (Optional) definition-style blocks if you use them elsewhere:
+% \theoremstyle{definition}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{remark}[theorem]{Remark}
+
 % ---------- Graphics / floats ----------
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
-\usepackage{xcolor}
-
-% ---------- Micro-typography & hyperlinks ----------
-\usepackage{microtype}
-\usepackage{hyperref}
-\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
 
 % ---------- Lists / misc ----------
 \usepackage{enumitem}
@@ -55,22 +56,25 @@
 % ---------- Color boxes for abstract ----------
 \usepackage[most]{tcolorbox}
 
+% ---------- Micro-typography ----------
+\usepackage{microtype}
+
+% ---------- Hyperlinks (near end) ----------
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
+
 % ---------- Numbering ----------
 \numberwithin{equation}{section}
 
 % ---------- Custom macros (Diamond Standard Guard) ----------
-% Используем \IfFileExists (стандартный LaTeX2e), чтобы избежать ошибок с @
+% Use \IfFileExists (LaTeX2e standard) to avoid hard fails if missing.
 \IfFileExists{macros/environments.tex}{\input{macros/environments.tex}}{}
 \IfFileExists{macros/operators.tex}{\input{macros/operators.tex}}{}
 \IfFileExists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
 
-\makeatletter
-% Дополнительные операторы (безопасно)
+% ---------- Extra operators (safe) ----------
 \providecommand{\PSL}{\operatorname{PSL}}
 \providecommand{\STF}{\operatorname{STF}}
-\makeatother
-
-% Примечание: \vol, \sys, \Tr, \Spec, \diam уже определены в operators.tex через SafeDeclareOp.
 
 % ---------- PDF metadata ----------
 \hypersetup{
@@ -103,7 +107,13 @@
 
   \vfill
 
-  \begin{tcolorbox}[colback=white,colframe=black!15,sharp corners,boxrule=0.3pt, left=15pt, right=15pt, top=15pt, bottom=15pt]
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=black!15,
+    sharp corners,
+    boxrule=0.3pt,
+    left=15pt,right=15pt,top=15pt,bottom=15pt
+  ]
     \small
     \textbf{Abstract.}\;
     We establish a localized trace formula for finite-area hyperbolic surfaces
@@ -129,28 +139,28 @@
 \mainmatter
 
 % --- Main chapters ---
-\input{sections/01-introduction.tex}
-\input{sections/02-preliminaries/02-preliminaries.tex}
-\input{sections/03-kernel.tex}
-\input{sections/04-projector.tex}
-\input{sections/05-microlocal.tex}
-\input{sections/06-geometric.tex}
-\input{sections/07-main-results.tex}
-\input{sections/08-applications.tex}
+\IfFileExists{sections/01-introduction.tex}{\input{sections/01-introduction.tex}}{}
+\IfFileExists{sections/02-preliminaries/02-preliminaries.tex}{\input{sections/02-preliminaries/02-preliminaries.tex}}{}
+\IfFileExists{sections/03-kernel.tex}{\input{sections/03-kernel.tex}}{}
+\IfFileExists{sections/04-projector.tex}{\input{sections/04-projector.tex}}{}
+\IfFileExists{sections/05-microlocal.tex}{\input{sections/05-microlocal.tex}}{}
+\IfFileExists{sections/06-geometric.tex}{\input{sections/06-geometric.tex}}{}
+\IfFileExists{sections/07-main-results.tex}{\input{sections/07-main-results.tex}}{}
+\IfFileExists{sections/08-applications.tex}{\input{sections/08-applications.tex}}{}
 
-\input{conclusion/09-conclusion.tex}
+\IfFileExists{conclusion/09-conclusion.tex}{\input{conclusion/09-conclusion.tex}}{}
 
 % --- Appendices ---
 \appendix
-\input{appendices/A-effective-volume.tex}
-\input{appendices/B-auxiliary-estimates.tex}
-\input{appendices/C-microlocal-toolkit.tex}
-\input{appendices/D-extended-tauberian.tex}
-\input{appendices/E-numerical-verification.tex}
-\input{appendices/F-implementation-notes.tex}
-\input{appendices/G-normalizations-and-conventions.tex}
-\input{appendices/H-selberg-comparison.tex}
-\input{appendices/I-historical-context.tex}
+\IfFileExists{appendices/A-effective-volume.tex}{\input{appendices/A-effective-volume.tex}}{}
+\IfFileExists{appendices/B-auxiliary-estimates.tex}{\input{appendices/B-auxiliary-estimates.tex}}{}
+\IfFileExists{appendices/C-microlocal-toolkit.tex}{\input{appendices/C-microlocal-toolkit.tex}}{}
+\IfFileExists{appendices/D-extended-tauberian.tex}{\input{appendices/D-extended-tauberian.tex}}{}
+\IfFileExists{appendices/E-numerical-verification.tex}{\input{appendices/E-numerical-verification.tex}}{}
+\IfFileExists{appendices/F-implementation-notes.tex}{\input{appendices/F-implementation-notes.tex}}{}
+\IfFileExists{appendices/G-normalizations-and-conventions.tex}{\input{appendices/G-normalizations-and-conventions.tex}}{}
+\IfFileExists{appendices/H-selberg-comparison.tex}{\input{appendices/H-selberg-comparison.tex}}{}
+\IfFileExists{appendices/I-historical-context.tex}{\input{appendices/I-historical-context.tex}}{}
 
 \backmatter
 
