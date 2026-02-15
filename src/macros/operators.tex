@@ -1,17 +1,53 @@
-% Operators (safe)
+% ==================================================================
+% operators.tex — Comprehensive & Safe Operator Definitions
+% ==================================================================
+
+% --- Системный хелпер для безопасного объявления (если еще нет в main) ---
+\makeatletter
+\providecommand{\SafeDeclareOp}[2]{%
+  \@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}%
+}
+\makeatother
+
+% --- Semiclassical / Microlocal Operators ---
 \providecommand{\Op}{\operatorname{Op}}
 \providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
 \providecommand{\Opl}{\operatorname{Op}_h^{\mathrm{left}}}
 \providecommand{\Opr}{\operatorname{Op}_h^{\mathrm{right}}}
 
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\dist}{dist}
-\DeclareMathOperator{\vol}{vol}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\WF}{WF}
-\DeclareMathOperator{\Var}{Var}
+% --- Spectral & Geometric Operators (из твоего нового списка) ---
+\SafeDeclareOp{sgn}{sgn}
+\SafeDeclareOp{Tr}{Tr}
+\SafeDeclareOp{tr}{tr}
+\SafeDeclareOp{supp}{supp}
+\SafeDeclareOp{diag}{diag}
+\SafeDeclareOp{Res}{Res}
+\SafeDeclareOp{dist}{dist}
+\SafeDeclareOp{vol}{vol}
+\SafeDeclareOp{rank}{rank}
+\SafeDeclareOp{WF}{WF}    % Wave Front set
+\SafeDeclareOp{Var}{Var}   % Variance
+\SafeDeclareOp{inj}{inj}
+\SafeDeclareOp{sys}{sys}
+\SafeDeclareOp{Spec}{Spec}
+\SafeDeclareOp{diam}{diam}
+
+% --- Small helpers (Delimiters & Symbols) ---
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\lVert #1\right\rVert}
+\providecommand{\ip}[2]{\left\langle #1,\,#2\right\rangle}
+\providecommand{\set}[1]{\left\{\,#1\,\right\}}
+\providecommand{\dd}{\mathrm{d}}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\OO}{\mathcal{O}}
+\providecommand{\oo}{o}
+
+% --- Number sets ---
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Hh}{\mathbb{H}}
+
+% --- Utility ---
+\providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
