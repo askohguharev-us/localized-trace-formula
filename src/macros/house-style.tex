@@ -23,19 +23,26 @@
 
 % ----- Operators (Guarded) -----
 \makeatletter
+% Исправленный хелпер (теперь одинаковый во всех файлах)
 \providecommand{\SafeDeclareOp}[2]{%
-  \@ifundefined{#1}{\DeclareMathOperator{#1}{#2}}{}%
+  \@ifundefined{#1}{%
+    \expandafter\DeclareMathOperator\csname #1\endcsname{#2}%
+  }{}%
 }
-\makeatother
 
+% Используем безопасное объявление
 \SafeDeclareOp{inj}{inj}
 \SafeDeclareOp{diam}{diam}
 
-% Повторяем квантование на случай, если operators.tex не загружен
-\providecommand{\Op}{\operatorname{Op}}
-\providecommand{\Opw}{\operatorname{Op}_h^{\mathrm{w}}}
-\providecommand{\Opl}{\operatorname{Op}_h^{\mathrm{left}}}
-\providecommand{\Opr}{\operatorname{Op}_h^{\mathrm{right}}}
+% Повторяем квантование (безопасно)
+\SafeDeclareOp{Op}{Op}
+\SafeDeclareOp{Opw}{Op_h^{\mathrm{w}}}
+\SafeDeclareOp{Opl}{Op_h^{\mathrm{left}}}
+\SafeDeclareOp{Opr}{Op_h^{\mathrm{right}}}
+\makeatother
 
 % ----- TODO helper -----
-\providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+% Проверяем xcolor, так как \textcolor может выдать ошибку, если пакет не загружен
+\@ifundefined{TODO}{
+  \providecommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}
+}{}
