@@ -1,5 +1,8 @@
-\section*{Appendix F. Implementation Notes}
-\addcontentsline{toc}{section}{Appendix F. Implementation Notes}
+% ==================================================================
+% F-implementation-notes.tex — FULL MONOLITHIC VERSION (24 SECTIONS)
+% ==================================================================
+
+\section{Implementation Notes}\label{appF:root}
 
 \subsection*{F.1. Introduction and Scope}
 
@@ -66,7 +69,7 @@ docker run --rm -v $PWD:/data texlive/texlive:2025.1 make
 sha256sum output.pdf
 \end{verbatim}
 
-\paragraph{Audit of Section F.2.}
+\begin{auditblock}{Audit of Section F.2}
 \begin{itemize}
   \item \emph{Goal F2a:} Enforce deterministic repository layout.
         \textbf{Verified} by directory checks.
@@ -76,6 +79,7 @@ sha256sum output.pdf
         Appendix~B (auxiliary estimates) where reproducibility
         conventions are applied.
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.3. Labeling and Cross-Referencing}
 
@@ -99,7 +103,7 @@ Every \texttt{\textbackslash label} must be referenced at least once by
 \texttt{\textbackslash ref} or \texttt{\textbackslash cref}.
 Conversely, every reference must resolve to an existing label.
 
-\paragraph{Audit of Section F.3.}
+\begin{auditblock}{Audit of Section F.3}
 \begin{itemize}
   \item \emph{Goal F3a:} Guarantee semantic integrity of labels.
         \textbf{Verified}.
@@ -109,6 +113,7 @@ Conversely, every reference must resolve to an existing label.
   \item \emph{Backward links:} From Chapter~1 (motivation for
         reproducibility).
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.4. Bibliographic Integrity}
 
@@ -135,7 +140,7 @@ found.
 Every entry must be cited at least once. Orphan bibliography entries
 are disallowed.
 
-\paragraph{Audit of Section F.4.}
+\begin{auditblock}{Audit of Section F.4}
 \begin{itemize}
   \item \emph{Goal F4a:} Guarantee unique and semantic citation keys.
         \textbf{Verified}.
@@ -145,6 +150,7 @@ are disallowed.
   \item \emph{Backward links:} From Appendix~B (analytic inequalities
         cited).
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.5. Error Budgets}
 
@@ -174,7 +180,7 @@ grep -c "Overfull \\hbox" build.log  -> E_o
 \end{verbatim}
 If any counter is nonzero, the build fails.
 
-\paragraph{Audit of Section F.5.}
+\begin{auditblock}{Audit of Section F.5}
 \begin{itemize}
   \item \emph{Goal F5a:} Achieve flawless typesetting.
         \textbf{Verified}.
@@ -185,6 +191,7 @@ If any counter is nonzero, the build fails.
   \item \emph{Backward links:} From Chapter~6 (geometric expansions
         requiring precise alignment).
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.6. Continuous Integration (CI) Pipeline}
 
@@ -220,7 +227,7 @@ jobs:
       - run: make
 \end{verbatim}
 
-\paragraph{Audit of Section F.6.}
+\begin{auditblock}{Audit of Section F.6}
 \begin{itemize}
   \item \emph{Goal F6a:} Automate all reproducibility checks.
         \textbf{Verified}.
@@ -230,6 +237,7 @@ jobs:
   \item \emph{Backward links:} From Chapter~3 (kernel constructions
         whose correctness requires reproducibility).
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.7. Registry of Invariants}
 
@@ -254,13 +262,14 @@ The registry is machine-readable: stored in
 \texttt{ci/invariants.registry}. The CI scripts confirm that each
 declared invariant has a corresponding verification stage.
 
-\paragraph{Audit of Section F.7.}
+\begin{auditblock}{Audit of Section F.7}
 \begin{itemize}
   \item \emph{Goal F7a:} Provide a canonical registry of invariants.
         \textbf{Verified}.
   \item \emph{Goal F7b:} Ensure one-to-one mapping between invariants
         and CI checks. \textbf{Verified}.
 \end{itemize}
+\end{auditblock}
 
 \subsection*{F.8. Forward Links}
 
@@ -281,9 +290,10 @@ in later chapters and appendices.
         reproducibility standards.
 \end{itemize}
 
-\paragraph{Audit of Section F.8.}
+\begin{auditblock}{Audit of Section F.8}
 Forward links are explicit and documented in CI to prevent silent drift
 between chapters.
+\end{auditblock}
 
 \subsection*{F.9. Backward Links}
 
@@ -301,12 +311,12 @@ Backward links ensure traceability of Appendix~F to earlier content.
         error budgets.
 \end{itemize}
 
-\paragraph{Audit of Section F.9.}
+\begin{auditblock}{Audit of Section F.9}
 Backward links complete the traceability chain. Each reference is
 validated via semantic labels and CI.
+\end{auditblock}
 
-\subsection*{F.10. Audit of Appendix F (Block 1)}
-
+\begin{auditblock}{Audit of Appendix F (Block 1)}
 \paragraph{Goals.}
 \begin{itemize}
   \item \emph{Goal F1:} Ensure reproducibility across environments.
@@ -333,6 +343,7 @@ Block 1 of Appendix~F establishes the core reproducibility contract:
 repository structure, bibliographic integrity, error budgets, and CI
 pipeline. The audit confirms full compliance and flawless integration
 with both earlier chapters and later appendices.
+\end{auditblock}
 
 \subsection*{F.11. Extended Error Budget Map}
 
@@ -363,9 +374,10 @@ CI log parser \texttt{ci/parse\_log.py} scans logs:
   \item \verb|Overfull \hbox| $\to E_o$.
 \end{itemize}
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 The classification is exhaustive and enforced. Any deviation causes
 pipeline failure.
+\end{auditblock}
 
 \subsection*{F.12. Containerization and Environment Control}
 
@@ -384,9 +396,10 @@ docker run --rm -v $PWD:/data texlive/texlive:2025.1 make
 \end{verbatim}
 Container hash pinned in \texttt{ci/container.lock}.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Reproducibility requires containerization invariants. Any build outside
 the locked environment fails automatically.
+\end{auditblock}
 
 \subsection*{F.13. Concrete Seeds and Worked Examples}
 
@@ -410,8 +423,9 @@ grep -l "{label{<ell>}}" <f>
 \end{verbatim}
 Failure to locate a seed causes rejection.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Seeds prevent silent drift and enforce traceability.
+\end{auditblock}
 
 \subsection*{F.14. Bibliographic Seeds and Orphan Checks}
 
@@ -426,9 +440,10 @@ Every entry in \texttt{references.bib} must be cited at least once.
 CI parses \texttt{.aux} citations and compares them against
 \texttt{references.bib}. Missing keys or uncited entries are prohibited.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 These invariants ensure bibliographic discipline, critical for analytic
 cross-references in Chapters~7–8.
+\end{auditblock}
 
 \subsection*{F.15. Structural Conventions}
 
@@ -445,9 +460,10 @@ Prohibited names: \texttt{file1.tex}, \texttt{draft.tex}.
 \paragraph{Invariant F15.2 (One section per file).}
 Each file corresponds to exactly one chapter or appendix.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 This convention guarantees maintainability and prevents ambiguity during
 cross-referencing.
+\end{auditblock}
 
 \subsection*{F.16. CI Log Parsers}
 
@@ -463,8 +479,9 @@ $E_o$, or ignored under an explicit rule. No unclassified anomalies.
 CI must terminate within 60 seconds of the first $E_c$. Continuing after
 fatal errors is invalid.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Parser invariants ensure real-time, deterministic detection.
+\end{auditblock}
 
 \subsection*{F.17. Forward and Backward Links}
 
@@ -482,8 +499,7 @@ Parser invariants ensure real-time, deterministic detection.
   \item From Chapter~4: parametrix constructions audited via logs.
 \end{itemize}
 
-\subsection*{F.18. Audit of Block F2}
-
+\begin{auditblock}{Audit of Block F2}
 \paragraph{Goals.}
 \begin{itemize}
   \item \emph{Goal F5:} Extend error taxonomy. \textbf{Verified}.
@@ -499,6 +515,7 @@ F11.1–F16.2 enumerated and enforced.
 \paragraph{Conclusion.}
 Block F2 secures the reproducibility foundation: environment control,
 error taxonomy, seeds, and parser discipline.
+\end{auditblock}
 
 \subsection*{F.19. Traceability and Version Control}
 
@@ -511,8 +528,9 @@ No two PDFs with distinct commits may share identical SHA-256 hashes.
 \paragraph{Verification.}
 CI extracts embedded commit hash and cross-checks repository state.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Ensures historical integrity and prevents silent redefinition.
+\end{auditblock}
 
 \subsection*{F.20. Label Drift Detection}
 
@@ -526,8 +544,9 @@ global references.
 \paragraph{Verification.}
 CI compares label usage across commits to detect drift.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Stability guarantees seamless navigation.
+\end{auditblock}
 
 \subsection*{F.21. Orphan Figures and Tables}
 
@@ -537,8 +556,9 @@ Every figure must carry a caption and be referenced at least once.
 \paragraph{Invariant F21.2 (No orphan tables).}
 Every table must carry a caption and be referenced at least once.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Eliminates decorative or unreferenced material.
+\end{auditblock}
 
 \subsection*{F.22. Cross-Chapter Consistency}
 
@@ -549,8 +569,9 @@ Equation counters reset each chapter, format \texttt{(Chapter.Section)}.
 Theorems, lemmas, and corollaries share consistent numbering and
 typography, enforced via \texttt{src/style/thm.sty}.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Preserves stylistic harmony across the monograph.
+\end{auditblock}
 
 \subsection*{F.23. Extended Bibliographic Consistency}
 
@@ -564,8 +585,9 @@ No duplicate author–year pairs unless disambiguated (1997a, 1997b).
 \paragraph{Verification.}
 CI enforces bibliographic uniqueness.
 
-\paragraph{Audit.}
+\begin{auditblock}{Audit}
 Removes ambiguity in scholarly attribution.
+\end{auditblock}
 
 \subsection*{F.24. Global Audit of Appendix F}
 
