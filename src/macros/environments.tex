@@ -1,64 +1,103 @@
 % ==================================================================
-% environments.tex — Guarded Theorem Environments
+% PATH: src/macros/environments.tex
+% environments.tex — Diamond-Guarded Theorem Environments (CHAPTER SAFE)
+%
+% Diamond law:
+%   - Theorem counter is reset by chapter (never by section), to avoid ".59"
+%     in \section* blocks.
+%   - Lemma/Proposition/Corollary/etc share the theorem counter.
+%   - File is the single authority for theorem-like environments.
 % ==================================================================
+
+\ProvidesFile{environments.tex}[2026/02/16 Diamond theorem envs (chapter-safe)]
+
 \makeatletter
 
-% Проверка нумерации
+% --------------------------------------------------------------
+% Equation numbering (safe; if already set elsewhere, no harm)
+% --------------------------------------------------------------
 \@ifundefined{c@equation}{}{\numberwithin{equation}{section}}
 
-% Макросы для безопасного создания теорем
+% --------------------------------------------------------------
+% Guarded theorem constructors
+%   We guard on the *environment macro* (e.g. \theorem).
+% --------------------------------------------------------------
 \providecommand{\SafeNewTheorem}[3][]{%
   \@ifundefined{#2}{%
-    \ifx\\#1\\ \newtheorem{#2}{#3} \else \newtheorem{#2}{#3}[#1] \fi
-  }{}
+    \ifx\\#1\\%
+      \newtheorem{#2}{#3}%
+    \else
+      \newtheorem{#2}{#3}[#1]%
+    \fi
+  }{}%
 }
 
-\providecommand{\SafeNewTheoremNoReset}[2]{%
-  \@ifundefined{#1}{\newtheorem{#1}{#2}}{}
+% Define an env sharing an existing counter (e.g. [theorem])
+\providecommand{\SafeNewTheoremSibling}[3]{%
+  \@ifundefined{#1}{\newtheorem{#1}[#2]{#3}}{}%
 }
 
-% Определение окружений
+% --------------------------------------------------------------
+% Core theorem family (CHAPTER-BASED) — this kills ".59"
+% --------------------------------------------------------------
 \theoremstyle{plain}
-\SafeNewTheorem[section]{theorem}{Theorem}
-\SafeNewTheoremNoReset{lemma}{Lemma}
-\SafeNewTheoremNoReset{proposition}{Proposition}
-\SafeNewTheoremNoReset{corollary}{Corollary}
 
+% Primary counter reset by chapter
+\SafeNewTheorem[chapter]{theorem}{Theorem}
+
+% Siblings share theorem counter
+\SafeNewTheoremSibling{lemma}{theorem}{Lemma}
+\SafeNewTheoremSibling{proposition}{theorem}{Proposition}
+\SafeNewTheoremSibling{corollary}{theorem}{Corollary}
+\SafeNewTheoremSibling{hypothesis}{theorem}{Hypothesis}
+
+% --------------------------------------------------------------
+% Definition / remark families (also share theorem counter)
+% --------------------------------------------------------------
 \theoremstyle{definition}
-\SafeNewTheoremNoReset{definition}{Definition}
-\SafeNewTheoremNoReset{assumption}{Assumption}
+\SafeNewTheoremSibling{definition}{theorem}{Definition}
+\SafeNewTheoremSibling{assumption}{theorem}{Assumption}
 
 \theoremstyle{remark}
-\SafeNewTheoremNoReset{remark}{Remark}
-\SafeNewTheoremNoReset{example}{Example}
+\SafeNewTheoremSibling{remark}{theorem}{Remark}
+\SafeNewTheoremSibling{example}{theorem}{Example}
 
-% Audit Block
+% --------------------------------------------------------------
+% Audit block: stays a remark wrapper (stable + simple)
+% --------------------------------------------------------------
 \@ifundefined{auditblock}{
   \newenvironment{auditblock}[1]{%
-      \begin{remark}[#1]
+    \begin{remark}[#1]%
   }{%
-      \end{remark}
+    \end{remark}%
   }
 }{}
 
-% Настройка cleveref через хук, чтобы не было ошибок порядка загрузки
-\AtBeginDocument{
-  \@ifpackageloaded{cleveref}{
-    \crefname{theorem}{theorem}{theorems}
-    \crefname{lemma}{lemma}{lemmas}
-    \crefname{proposition}{proposition}{propositions}
-    \crefname{corollary}{corollary}{corollaries}
-    \crefname{definition}{definition}{definitions}
-    \crefname{assumption}{assumption}{assumptions}
-    \crefname{remark}{remark}{remarks}
-    \crefname{example}{example}{examples}
-    \crefname{equation}{equation}{equations}
-    \crefname{auditblock}{audit block}{audit blocks}
-    \Crefname{auditblock}{Audit block}{Audit blocks}
-  }{
-    \providecommand{\cref}[1]{\ref{#1}}
-    \providecommand{\Cref}[1]{\ref{#1}}
-  }
+% --------------------------------------------------------------
+% cleveref integration (late binding to avoid load-order crashes)
+% --------------------------------------------------------------
+\AtBeginDocument{%
+  \@ifpackageloaded{cleveref}{%
+    \crefname{theorem}{theorem}{theorems}%
+    \crefname{lemma}{lemma}{lemmas}%
+    \crefname{proposition}{proposition}{propositions}%
+    \crefname{corollary}{corollary}{corollaries}%
+    \crefname{hypothesis}{hypothesis}{hypotheses}%
+    \crefname{definition}{definition}{definitions}%
+    \crefname{assumption}{assumption}{assumptions}%
+    \crefname{remark}{remark}{remarks}%
+    \crefname{example}{example}{examples}%
+    \crefname{equation}{equation}{equations}%
+    \crefname{auditblock}{audit block}{audit blocks}%
+    \Crefname{auditblock}{Audit block}{Audit blocks}%
+  }{%
+    % Minimal fallback if cleveref absent
+    \providecommand{\cref}[1]{\ref{#1}}%
+    \providecommand{\Cref}[1]{\ref{#1}}%
+  }%
 }
 
 \makeatother
+% ==================================================================
+% End of environments.tex
+% ==================================================================
