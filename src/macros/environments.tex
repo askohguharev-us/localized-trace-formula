@@ -2,6 +2,8 @@
 % environments.tex — Guarded Theorem Environments (Diamond Standard)
 % ==================================================================
 
+\makeatletter % <--- РАЗРЕШАЕМ использование @ в командах
+
 % Установка нумерации уравнений по разделам (если еще не задано)
 \@ifundefined{c@equation}{}{\numberwithin{equation}{section}}
 
@@ -71,5 +73,7 @@
     \providecommand{\Cref}[1]{\ref{#1}}
   }
 }
+
+\makeatother % <--- ЗАПРЕЩАЕМ использование @ (возвращаем стандартный режим)
 
 % Конец файла environments.tex
