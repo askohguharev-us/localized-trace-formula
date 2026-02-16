@@ -1,431 +1,308 @@
-% =====================================================================
-% 07-main-results.tex  (FULL REWRITE / DIAMOND / ACADEMIC, FULL LENGTH)
-% Chapter 7: Spectral Expansion, Normalization, and Comparison
-% =====================================================================
+% ==========================================================
+% FILE: sections/07-main-results.tex
+% CONTENT: Chapter 7 + Chapter 8 (single file by decision)
+% STYLE: DIAMOND / ACADEMIC / OBJ-LOCK / NO-SUBSTITUTION
+% ==========================================================
+
+% ==========================================================
+% Chapter 7 (DIAMOND / ACADEMIC, FULL LENGTH)
+% Spectral Expansion, Normalization, and Comparison
+% ==========================================================
 
 \chapter{Spectral Expansion, Normalization, and Comparison for the Localized Trace Formula}
 
 \noindent\textbf{Scope and purpose.}
-Let $M=\Gamma\backslash\mathbb{H}$ be a cofinite hyperbolic surface (finite area, possibly with cusps and torsion),
-$\Delta$ the \emph{positive} Laplace--Beltrami operator, and
+Let \(M=\Gamma\backslash\mathbb{H}\) be a finite-area hyperbolic surface, \(\Delta\) the (positive) Laplace--Beltrami operator,
+and let
 \[
-  P_{\lambda,\eta} \;=\; h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right)
+  P_{\lambda,\eta}=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right)
 \]
-the localized spectral projector introduced in Chapters~5--6.
-This chapter fixes, once and for all, the \emph{spectral-side object} and all \emph{normalization locks}
-(Fourier conventions, truncation/regularization, Eisenstein/scattering normalization),
-and then states the \emph{exact} localized Selberg identity
+be the localized spectral projector introduced in Chapters~5--6.
+This chapter constructs the \emph{spectral side} of the localized Selberg trace formula, fixes the \emph{normalization locks}
+(Fourier conventions, Selberg transforms, cusp truncation), and performs the \emph{comparison-locked} identity with the geometric side.
+In particular, we:
+\begin{enumerate}
+\item[(S7.1)] write \(\Tr^{\mathrm{reg}}(P_{\lambda,\eta})\) as a discrete \(+\) continuous \(+\) (possible) residual contribution;
+\item[(S7.2)] isolate all normalization-dependent linear functionals needed for cofinite \(\Gamma\) (cusps);
+\item[(S7.3)] extract the localized Weyl main term and record a remainder hierarchy compatible with \(\eta\ge \lambda^{-\theta}\);
+\item[(S7.4)] identify the analytic portals where \(\varphi'/\varphi\) (scattering) and \(Z_\Gamma'/Z_\Gamma\) (Selberg zeta) enter.
+\end{enumerate}
+Standard references are Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}, and Iwaniec~\cite{Iwaniec2002}.
+
+% ==========================================================
+\section{OBJ-LOCK and normalization locks (no substitution)}
+% ==========================================================
+
+\noindent\textbf{OBJ-LOCK (single object).}
+The single object compared throughout Chapters~6--7 is the same regularized trace
 \[
-  \Tr^{\mathrm{reg}}(P_{\lambda,\eta}) \;=\; \mathcal{G}_{\lambda,\eta},
+  \Tr^{\mathrm{reg}}(P_{\lambda,\eta}),
 \]
-with $\mathcal{G}_{\lambda,\eta}$ the geometric side from Chapter~6.
-We also isolate the precise analytic portal through which completed $L$-functions (and in arithmetic cases the Riemann zeta function)
-enter the trace identity via the scattering determinant $\varphi(s)=\det\Phi(s)$.
-
-\medskip
-\noindent\textbf{Primary references.}
-We use the standard cofinite Selberg normalization conventions as in Selberg~\cite{Selberg1956},
-Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}, and Iwaniec~\cite[Ch.~6]{Iwaniec2002}.
-All convention-dependent constants are recorded explicitly as linear functionals.
-
-% =====================================================================
-\section{OBJ-LOCK and normalization locks (the ``no substitution'' layer)}
-% =====================================================================
-
-\noindent\textbf{OBJ-LOCK (single global object).}
-Throughout Chapters~6--7 the \emph{single} object is the same regularized trace
-\begin{equation}\label{eq:7.objlock}
-  \Tr^{\mathrm{reg}}(P_{\lambda,\eta})
-  \qquad
-  \Bigl(\text{and, when microlocal cutoffs are inserted, } \Tr^{\mathrm{reg}}(\Psi P_{\lambda,\eta}\Psi)\Bigr).
-\end{equation}
+and, where microlocal cutoffs are inserted, its conjugated version \(\Tr^{\mathrm{reg}}(\Psi P_{\lambda,\eta}\Psi)\).
 No substitution is permitted between:
-(i) the Selberg test-function trace formula,
-(ii) the wave-trace distribution $\Tr(\cos(t\sqrt{\Delta-\tfrac14}))$,
-and (iii) any truncated trace,
-unless the change is stated explicitly \emph{and} the corresponding regularization ledger is recorded.
+\begin{itemize}
+\item the Selberg trace formula with a test function \((h,g)\),
+\item the wave trace distribution \(\Tr(\cos(t\sqrt{\Delta-\tfrac14}))\),
+\item and a truncated/regularized trace,
+\end{itemize}
+unless the modification is stated explicitly and all normalization constants are recorded.
 
 \medskip
-\noindent\textbf{LOCK-F (Fourier convention).}
-Fix an even $\widehat{\chi}\in C_c^\infty(\mathbb{R})$ with $\supp\widehat{\chi}\subset(-1,1)$ and $\widehat{\chi}(0)>0$.
-Define the inverse transform
-\begin{equation}\label{eq:7.lockF}
+\noindent\textbf{Fourier conventions (LOCK-F).}
+Fix an even cutoff \(\widehat{\chi}\in C_c^\infty(\mathbb{R})\) with \(\supp\widehat{\chi}\subset(-1,1)\) and \(\widehat{\chi}(0)>0\), and define
+\begin{equation}\label{eq:7.chi.def}
   \chi(u)=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{\chi}(t)\,e^{itu}\,dt.
 \end{equation}
-Then $\int_{\mathbb{R}}\chi(u)\,du=\widehat{\chi}(0)$, and this constant is the \emph{unique} bridge between the Weyl term on both sides.
-
-\medskip
-\noindent\textbf{LOCK-$h$ (window profile).}
-Let $\lambda\to\infty$ and $\eta=\eta(\lambda)\in(0,1)$.
-Define the even spectral window
-\begin{equation}\label{eq:7.lockh}
-  h_{\lambda,\eta}(r)
-  \;=\;
-  \chi\!\left(\frac{r-\lambda}{\eta}\right)+\chi\!\left(\frac{r+\lambda}{\eta}\right).
+Let \(\lambda\to\infty\) and \(\eta=\eta(\lambda)\in(0,1)\), and define the even spectral window
+\begin{equation}\label{eq:7.h.def}
+  h_{\lambda,\eta}(r)=\chi\!\left(\frac{r-\lambda}{\eta}\right)+\chi\!\left(\frac{r+\lambda}{\eta}\right).
 \end{equation}
 
 \medskip
-\noindent\textbf{LOCK-$g$ (Selberg/Harish--Chandra transform).}
-Define the Fourier transform (the $g$-function used on the geometric side) by
-\begin{equation}\label{eq:7.lockg.def}
-  g_{\lambda,\eta}(u)
-  \;:=\;
-  \frac{1}{2\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,e^{-iru}\,dr.
+\noindent\textbf{Selberg transform convention (LOCK-\(g\)).}
+We adopt the Selberg transform convention consistent with Chapter~6:
+\begin{equation}\label{eq:7.g.def}
+  g_{\lambda,\eta}(u)=\frac{1}{2\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,e^{iru}\,dr.
 \end{equation}
-Then, by a direct substitution using \eqref{eq:7.lockF}--\eqref{eq:7.lockh},
-\begin{equation}\label{eq:7.lockg.closed}
-  g_{\lambda,\eta}(u)
-  \;=\;
-  \frac{\eta}{\pi}\,\widehat{\chi}(\eta u)\,\cos(\lambda u),
+A change of variables using \eqref{eq:7.chi.def} yields the explicit formula
+\begin{equation}\label{eq:7.g.explicit}
+  g_{\lambda,\eta}(u)=2\eta\,\widehat{\chi}(\eta u)\,\cos(\lambda u).
 \end{equation}
-and hence
-\begin{equation}\label{eq:7.lockg.support}
+In particular,
+\begin{equation}\label{eq:7.g.support}
   \supp g_{\lambda,\eta}\subset[-\eta^{-1},\eta^{-1}].
 \end{equation}
-This is the \emph{length cutoff lock}: every hyperbolic/geodesic contribution is automatically truncated to $kL\le \eta^{-1}$.
 
 \medskip
-\noindent\textbf{LOCK-$\eta$ (localization regime).}
-We work under
-\begin{equation}\label{eq:7.locketa}
-  \eta \;\ge\; \lambda^{-\theta},\qquad 0<\theta<\theta_0,
+\noindent\textbf{Localization regime (LOCK-\(\eta\)).}
+We impose
+\begin{equation}\label{eq:7.eta.regime}
+  \eta\ge \lambda^{-\theta},\qquad 0<\theta<\theta_0,
 \end{equation}
-where $\theta_0$ is chosen so that all remainder terms are power-saving relative to the Weyl mass $\asymp \lambda\eta$.
+where \(\theta_0\) will be fixed later so that all remainders (hyperbolic and cusp terms) are power-saving in \(\lambda\).
 
 \medskip
-\noindent\textbf{LOCK-P (functional calculus representation).}
-Define
-\begin{equation}\label{eq:7.lockP}
-  P_{\lambda,\eta}
-  \;:=\;
-  h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right).
+\noindent\textbf{Functional calculus representation (LOCK-P).}
+Define the localized projector by
+\begin{equation}\label{eq:7.P.fc}
+  P_{\lambda,\eta}=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right).
 \end{equation}
-Equivalently (Chapter~5 wave representation),
-\begin{equation}\label{eq:7.lockP.wave}
+Equivalently (wave representation from Chapter~5),
+\begin{equation}\label{eq:7.P.wave}
   P_{\lambda,\eta}
-  =
-  \frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\widehat{\chi}(\eta t)\,
+  =\frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,\widehat{\chi}(\eta t)\,
   \cos\!\bigl(t\sqrt{\Delta-\tfrac14}\bigr)\,dt.
 \end{equation}
 
 \medskip
-\noindent\textbf{LOCK-$\chi_0$ (main-term bridge).}
-By \eqref{eq:7.lockF},
-\begin{equation}\label{eq:7.lockchi0}
-  \int_{\mathbb{R}}\chi(u)\,du = \widehat{\chi}(0).
-\end{equation}
-This constant is the \emph{only} normalization bridge between:
-(i) the microlocal Weyl law of Chapter~5,
-(ii) the identity orbital integral in Chapter~6,
-and (iii) the spectral-side Weyl main term in this chapter.
-Any mismatch of $\widehat{\chi}(0)$ is a genuine convention error.
+\noindent\textbf{Normalization lock \(\widehat{\chi}(0)\) (LOCK-\(\chi_0\)).}
+By \eqref{eq:7.chi.def}, \(\int_{\mathbb{R}}\chi(u)\,du=\widehat{\chi}(0)\).
+This constant is the unique normalization bridge between:
+(i) the microlocal Weyl main term (Chapter~5),
+(ii) the identity orbital integral main term (Chapter~6),
+and (iii) the localized spectral main term (this chapter).
+Any drift in this constant indicates a mismatch in Fourier conventions or trace normalization.
 
-% =====================================================================
-\section{Cofinite spectral decomposition and scattering data}
-% =====================================================================
+% ==========================================================
+\section{Spectral decomposition of \(L^2(M)\) and scattering data}
+% ==========================================================
 
 \noindent\textbf{Discrete spectrum.}
-Let $\{u_j\}_{j\ge1}$ be an orthonormal basis of $L^2$-eigenfunctions of $\Delta$:
-\begin{equation}\label{eq:7.disc.eigs}
-  \Delta u_j=\left(\tfrac14+r_j^2\right)u_j,\qquad r_j\in \mathbb{R}\cup i\,(0,\tfrac12),
+Let \(\{u_j\}\) be an orthonormal basis of \(L^2\)-eigenfunctions of \(\Delta\) with eigenvalues
+\begin{equation}\label{eq:7.eigs}
+  \Delta u_j=\left(\tfrac14+r_j^2\right)u_j,\qquad r_j\in \mathbb{R}\cup i(0,\tfrac12),
 \end{equation}
 listed with multiplicity.
 
 \medskip
-\noindent\textbf{Cusps, Eisenstein series, scattering matrix.}
-Let $\kappa$ be the number of cusps of $\Gamma$.
-Choose scaling matrices $\sigma_{\mathfrak a}\in\mathrm{PSL}_2(\mathbb{R})$ for each cusp $\mathfrak a$
-so that $\sigma_{\mathfrak a}\infty=\mathfrak a$ and
-$\sigma_{\mathfrak a}^{-1}\Gamma_{\mathfrak a}\sigma_{\mathfrak a}=\{\pm\begin{psmallmatrix}1&n\\0&1\end{psmallmatrix}:n\in\mathbb{Z}\}$.
-For $s\in\mathbb{C}$, let $E_{\mathfrak a}(z,s)$ be the Eisenstein series normalized by the standard constant term expansion:
-for $z=\sigma_{\mathfrak b}(x+iy)$ in the $\mathfrak b$-cusp,
-\begin{equation}\label{eq:7.eis.const.term}
-  E_{\mathfrak a}(\sigma_{\mathfrak b}(x+iy),s)
-  =
-  \delta_{\mathfrak a\mathfrak b}\,y^s
-  +
-  \phi_{\mathfrak a\mathfrak b}(s)\,y^{1-s}
-  + (\text{non-constant Fourier modes}).
+\noindent\textbf{Continuous spectrum (Eisenstein series).}
+Let \(\kappa\) denote the number of cusps. For each cusp \(\mathfrak a\), let \(E_{\mathfrak a}(z,s)\) be the Eisenstein series,
+normalized so that the vector \(E(z,s)=(E_{\mathfrak a}(z,s))_{\mathfrak a}\) satisfies the functional equation
+\begin{equation}\label{eq:7.eis.func.eq}
+  E(z,s)=\Phi(s)\,E(z,1-s),
 \end{equation}
-Let $\Phi(s)=(\phi_{\mathfrak a\mathfrak b}(s))_{\mathfrak a,\mathfrak b}$ be the $\kappa\times\kappa$ scattering matrix and
-\begin{equation}\label{eq:7.scatt.det}
-  \varphi(s):=\det\Phi(s)
+where \(\Phi(s)\) is the \(\kappa\times\kappa\) scattering matrix.
+Define the scattering determinant
+\begin{equation}\label{eq:7.phi.det}
+  \varphi(s):=\det \Phi(s).
 \end{equation}
-the scattering determinant.
-Then $\Phi(s)$ satisfies the functional equation and unitarity on $\Re s=\tfrac12$:
-\begin{equation}\label{eq:7.scatt.func}
-  \Phi(s)\Phi(1-s)=I_{\kappa},
-  \qquad
-  \Phi(\overline{s})^\ast=\Phi(s),
-\end{equation}
-hence
+We record the standard identities \(\Phi(\overline{s})^\ast=\Phi(s)\) and \(\Phi(s)\Phi(1-s)=I\), hence
 \begin{equation}\label{eq:7.varphi.sym}
-  \varphi(s)\varphi(1-s)=1,
-  \qquad
-  \overline{\varphi(\tfrac12+ir)}=\varphi(\tfrac12+ir)^{-1}.
+  \varphi(s)\varphi(1-s)=1,\qquad \overline{\varphi(\tfrac12+ir)}=\varphi(\tfrac12-ir)^{-1}.
 \end{equation}
-See Hejhal~\cite[Vol.~I, \S2.3--\S2.4]{Hejhal1983} and Iwaniec~\cite[\S6.3]{Iwaniec2002}.
 
 \medskip
-\noindent\textbf{Plancherel resolution.}
-For $f\in L^2(M)$,
+\noindent\textbf{Spectral resolution (Plancherel).}
+The cofinite spectral theorem yields, for \(f\in L^2(M)\),
 \begin{equation}\label{eq:7.plancherel}
-  f
-  =
-  \sum_{j}\langle f,u_j\rangle u_j
-  +\frac{1}{4\pi}\sum_{\mathfrak a=1}^{\kappa}\int_{\mathbb{R}}
-    \langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle\,
-    E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr,
+  f=\sum_j \langle f,u_j\rangle u_j
+  +\frac{1}{4\pi}\sum_{\mathfrak a=1}^\kappa \int_{\mathbb{R}}
+    \langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr,
 \end{equation}
-with convergence in $L^2$.
-References: Hejhal~\cite[Vol.~I, Thm.\ 2.12]{Hejhal1983}, Iwaniec~\cite[Thm.\ 6.6]{Iwaniec2002}.
+with convergence in \(L^2\); see Hejhal~\cite{Hejhal1983} or Iwaniec~\cite{Iwaniec2002}.
 
-% =====================================================================
-\section{Diagonal action of the localized projector}
-% =====================================================================
+% ==========================================================
+\section{Action of \(P_{\lambda,\eta}\) on the spectrum}
+% ==========================================================
 
-\begin{lemma}[Diagonal action]\label{lem:7.diagonal}
-For every $(\lambda,\eta)$,
-\begin{align}
-  P_{\lambda,\eta}u_j &= h_{\lambda,\eta}(r_j)\,u_j,\\
-  P_{\lambda,\eta}E_{\mathfrak a}(\cdot,\tfrac12+ir) &= h_{\lambda,\eta}(r)\,E_{\mathfrak a}(\cdot,\tfrac12+ir).
-\end{align}
+\begin{lemma}[Diagonal action]\label{lem:7.diagonal.action}
+The operator \(P_{\lambda,\eta}\) acts by scalar multiplication on:
+\begin{itemize}
+\item the discrete eigenspaces: \(P_{\lambda,\eta}u_j=h_{\lambda,\eta}(r_j)u_j\);
+\item the Eisenstein continuum: \(P_{\lambda,\eta}E_{\mathfrak a}(\cdot,\tfrac12+ir)=h_{\lambda,\eta}(r)\,E_{\mathfrak a}(\cdot,\tfrac12+ir)\).
+\end{itemize}
 \end{lemma}
 
 \begin{proof}
-This is immediate from functional calculus \eqref{eq:7.lockP} and the spectral parameterization \eqref{eq:7.disc.eigs}.
+Immediate from functional calculus \eqref{eq:7.P.fc} and the spectral parametrization \eqref{eq:7.eigs}.
 \end{proof}
 
-% =====================================================================
-\section{Truncation, regularized trace, and the continuous spectral measure}
-% =====================================================================
+\begin{proposition}[Discrete spectral contribution]\label{prop:7.discrete}
+The discrete contribution to the trace equals
+\begin{equation}\label{eq:7.S.disc}
+  \mathcal{S}_{\lambda,\eta}^{\mathrm{disc}}=\sum_{j} h_{\lambda,\eta}(r_j).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:7.diagonal.action}, the trace over the discrete spectral subspace is the sum of the eigenvalues \(h_{\lambda,\eta}(r_j)\).
+\end{proof}
+
+% ==========================================================
+\section{Regularized trace and the continuous spectral contribution}
+% ==========================================================
 
 \noindent
-Because $M$ has cusps, the raw trace of the integral kernel is not absolutely integrable along the cusps.
-We therefore fix a truncation operator and define the \emph{regularized trace} as a limit
-in which the logarithmic divergence is subtracted explicitly.
-This fixes the object \eqref{eq:7.objlock}.
+Because \(M\) is non-compact, the trace of integral kernels requires truncation/regularization.
+We adopt a standard cusp truncation \(M(Y)\) at height \(Y\) and the associated regularized trace \(\Tr^{\mathrm{reg}}\).
+Under this convention the continuous spectrum contributes through the Maass--Selberg relations and the scattering determinant \(\varphi\).
 
-\subsection*{Truncation operator $\Lambda^Y$ and truncated domain $M^Y$}
-
-For $Y>1$, define the truncated domain $M^Y\subset M$ by cutting each cusp at height $Y$ in the corresponding cusp coordinate:
-$z=\sigma_{\mathfrak a}(x+iy)$ with $y\ge Y$ is removed.
-Equivalently, define the truncation operator $\Lambda^Y$ on automorphic functions $F$ by
-\begin{equation}\label{eq:7.trunc.op}
-  (\Lambda^Y F)(z)
-  :=
-  F(z)
-  -
-  \sum_{\mathfrak a=1}^{\kappa}
-  \mathbf{1}_{\{y_{\mathfrak a}(z)\ge Y\}}
-  \cdot
-  F_{\mathfrak a}^{(0)}(z),
+\medskip
+\noindent\textbf{Maass--Selberg input (structural form).}
+For each cusp \(\mathfrak a\) and \(r\in\mathbb{R}\), truncation yields an identity of the form
+\begin{equation}\label{eq:7.maass.selberg.struct}
+  \int_{M(Y)} \big|E_{\mathfrak a}(z,\tfrac12+ir)\big|^2\,d\mu(z)
+  = 2\log Y \;+\; \frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}
+  \;+\; \mathcal{U}_\Gamma(r)\;+\;O(Y^{-1}),
 \end{equation}
-where $y_{\mathfrak a}(z)$ is the height in the $\mathfrak a$-cusp coordinate
-and $F_{\mathfrak a}^{(0)}$ is the constant term of $F$ in the Fourier expansion at cusp $\mathfrak a$.
-Then $\Lambda^Y F$ is square-integrable for Eisenstein series on the unitary line.
-See Hejhal~\cite[Vol.~I, \S2.3]{Hejhal1983}.
+where \(\mathcal{U}_\Gamma(r)\) is an explicit universal term determined by the chosen Eisenstein normalization and scaling matrices at cusps.
+Precise closed forms are given in Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}.
 
-\subsection*{Maass--Selberg relation (exact matrix form)}
-
-Let $s=\tfrac12+ir$ with $r\in\mathbb{R}$.
-Define the Eisenstein vector $E(z,s)=(E_{\mathfrak a}(z,s))_{\mathfrak a=1}^{\kappa}$.
-Then the Maass--Selberg relations give, in matrix form,
-\begin{equation}\label{eq:7.maass.selberg.matrix}
-  \int_{M} \bigl(\Lambda^Y E(z,s)\bigr)\,\bigl(\Lambda^Y E(z,s)\bigr)^\ast\,d\mu(z)
-  \;=\;
-  2(\log Y)\,I_{\kappa}
-  \;-\;
-  \Phi'(s)\,\Phi(s)^{-1},
-\end{equation}
-where $d\mu$ is the hyperbolic area measure.
-This formula is \emph{exact} for the truncation operator \eqref{eq:7.trunc.op} and the normalization \eqref{eq:7.eis.const.term}.
-Reference: Hejhal~\cite[Vol.~I, Eq.\ (2.26) and Thm.\ 2.9]{Hejhal1983}; see also Iwaniec~\cite[\S6.4]{Iwaniec2002}.
-
-Taking the trace of \eqref{eq:7.maass.selberg.matrix} yields
-\begin{equation}\label{eq:7.maass.selberg.trace}
-  \sum_{\mathfrak a=1}^{\kappa}\int_{M}\bigl|\Lambda^Y E_{\mathfrak a}(z,\tfrac12+ir)\bigr|^2\,d\mu(z)
-  \;=\;
-  2\kappa\log Y
-  \;-\;
-  \frac{\varphi'(s)}{\varphi(s)}\Big|_{s=\tfrac12+ir}.
-\end{equation}
-
-\subsection*{Regularized trace of $P_{\lambda,\eta}$}
-
-Let $K_{\lambda,\eta}(z,w)$ be the integral kernel of $P_{\lambda,\eta}$.
-For $Y>1$, define the truncated trace integral
-\[
-  \Tr_Y(P_{\lambda,\eta})
-  \;:=\;
-  \int_{M^Y} K_{\lambda,\eta}(z,z)\,d\mu(z).
-\]
-The logarithmic divergence is universal and proportional to $g_{\lambda,\eta}(0)$ and $\kappa\log Y$.
-We therefore define the regularized trace by
-\begin{equation}\label{eq:7.reg.trace.def}
-  \Tr^{\mathrm{reg}}(P_{\lambda,\eta})
-  \;:=\;
-  \lim_{Y\to\infty}\Bigl(\Tr_Y(P_{\lambda,\eta}) - \kappa\,g_{\lambda,\eta}(0)\,\log Y\Bigr),
-\end{equation}
-where $g_{\lambda,\eta}(0)=\frac{1}{2\pi}\int_{\mathbb{R}}h_{\lambda,\eta}(r)\,dr$ by \eqref{eq:7.lockg.def}.
-This is the \emph{single fixed} regularization convention used in the identity of Theorem~\ref{thm:7.selberg.exact} below.
-Reference: Hejhal~\cite[Vol.~I, \S2.5]{Hejhal1983}.
-
-% =====================================================================
-\section{Exact spectral side: discrete + continuous + residual (no placeholders)}
-% =====================================================================
-
-\subsection*{Discrete contribution}
-
-\begin{definition}[Discrete spectral side]\label{def:7.Sdisc}
-\begin{equation}\label{eq:7.Sdisc}
-  \mathcal{S}^{\mathrm{disc}}_{\lambda,\eta}
-  \;:=\;
-  \sum_{j} h_{\lambda,\eta}(r_j).
-\end{equation}
-\end{definition}
-
-\subsection*{Continuous contribution}
-
-\begin{definition}[Continuous spectral side]\label{def:7.Scont}
-\begin{equation}\label{eq:7.Scont}
+\medskip
+\begin{definition}[Continuous spectral contribution]\label{def:7.S.cont}
+Define the continuous contribution to the regularized trace by
+\begin{equation}\label{eq:7.S.cont}
   \mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}
-  \;:=\;
-  \frac{1}{4\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,
-  \Bigl(-\frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}\Bigr)\,dr.
+  := \frac{1}{4\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,
+      \Bigl(-\frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}\Bigr)\,dr
+      \;+\; \mathcal{N}_\Gamma[h_{\lambda,\eta}],
 \end{equation}
+where \(\mathcal{N}_\Gamma[h]\) is the explicit normalization functional induced by the truncation convention (it removes the \(2\log Y\) divergence
+and incorporates \(\mathcal{U}_\Gamma(r)\) and cusp constants).
 \end{definition}
 
-\noindent
-This is exactly the trace contribution forced by the Maass--Selberg identity \eqref{eq:7.maass.selberg.trace}
-when the regularization is fixed by \eqref{eq:7.reg.trace.def}.
-References: Hejhal~\cite[Vol.~I, \S2.5]{Hejhal1983}, Iwaniec~\cite[\S6.5]{Iwaniec2002}.
+\begin{remark}[Normalization functional \(\mathcal{N}_\Gamma[h]\)]\label{rem:7.NGamma}
+In standard conventions (e.g. Hejhal), \(\mathcal{N}_\Gamma[h]\) is an explicitly computable linear functional of \(h\) (equivalently of \(g\)),
+built from:
+\begin{itemize}
+\item the value \(g(0)=\frac{1}{2\pi}\int_{\mathbb{R}} h(r)\,dr\),
+\item integrals of \(h(r)\) against Gamma/digamma-factor terms,
+\item cusp-dependent constants determined by the chosen scaling matrices.
+\end{itemize}
+We isolate \(\mathcal{N}_\Gamma\) so that the compared object remains fixed while all convention-dependence is audited explicitly.
+\end{remark}
 
-\subsection*{Residual contribution (poles of Eisenstein series)}
-
-Poles of $\Phi(s)$ (equivalently $\varphi(s)$) on $\Re s\in(\tfrac12,1]$ produce residual $L^2$-eigenfunctions.
-Let $\mathcal{P}_\Gamma$ be the multiset of poles $s_\ell\in(\tfrac12,1]$ of $\Phi(s)$, counted with multiplicity.
-Each such pole contributes a finite-rank projection in the spectral resolution.
-The corresponding trace contribution is a finite sum determined by residues of $\Phi'(s)\Phi(s)^{-1}$.
-
-\begin{definition}[Residual spectral side]\label{def:7.Sres}
-Define
-\begin{equation}\label{eq:7.Sres}
-  \mathcal{S}^{\mathrm{res}}_{\lambda,\eta}
-  \;:=\;
-  \frac{1}{2}\sum_{s_\ell\in\mathcal{P}_\Gamma}
-  \operatorname{tr}\!\Bigl(\Res_{s=s_\ell}\bigl(\Phi'(s)\Phi(s)^{-1}\bigr)\Bigr)\,
-  h_{\lambda,\eta}\!\bigl(i(s_\ell-\tfrac12)\bigr).
-\end{equation}
+\medskip
+\begin{definition}[Residual contribution]\label{def:7.S.res}
+Let \(\mathcal{S}^{\mathrm{res}}_{\lambda,\eta}\) denote the residual part coming from poles of Eisenstein series (equivalently poles of \(\Phi(s)\))
+in \(s\in(1/2,1]\), when present. In many standard cases \(\mathcal{S}^{\mathrm{res}}_{\lambda,\eta}\) is absent; otherwise it is a finite, explicit sum.
 \end{definition}
 
-\noindent
-This expression is the standard residue term in the cofinite Selberg trace formula.
-Reference: Hejhal~\cite[Vol.~I, \S2.6]{Hejhal1983}; see also Iwaniec~\cite[\S6.7]{Iwaniec2002}.
-
-\subsection*{Full spectral side}
-
-\begin{definition}[Full spectral side]\label{def:7.Sfull}
-\begin{equation}\label{eq:7.Sfull}
+\medskip
+\begin{definition}[Full spectral side]\label{def:7.S.full}
+Define the full spectral side by
+\begin{equation}\label{eq:7.S.full}
   \mathcal{S}_{\lambda,\eta}
-  \;:=\;
-  \mathcal{S}^{\mathrm{disc}}_{\lambda,\eta}
-  +\mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}
-  +\mathcal{S}^{\mathrm{res}}_{\lambda,\eta}.
+  := \mathcal{S}^{\mathrm{disc}}_{\lambda,\eta}
+   + \mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}
+   + \mathcal{S}^{\mathrm{res}}_{\lambda,\eta}.
 \end{equation}
 \end{definition}
 
-% =====================================================================
-\section{Geometric side recall and exact equality (comparison identity)}
-% =====================================================================
+% ==========================================================
+\section{Exact comparison identity with the geometric side}
+% ==========================================================
 
 \noindent
-Let the geometric side $\mathcal{G}_{\lambda,\eta}$ be the localized geometric decomposition defined in Chapter~6:
+Let \(\mathcal{G}_{\lambda,\eta}\) be the geometric side defined in Chapter~6:
 \begin{equation}\label{eq:7.G.recall}
   \mathcal{G}_{\lambda,\eta}
-  =
-  I_{\lambda,\eta}
-  +H_{\lambda,\eta}
-  +P^{\mathrm{para}}_{\lambda,\eta}
-  +E^{\mathrm{ell}}_{\lambda,\eta},
+  = I_{\lambda,\eta}+H_{\lambda,\eta}+P^{\mathrm{para}}_{\lambda,\eta}+E^{\mathrm{ell}}_{\lambda,\eta},
 \end{equation}
-where $I$ is the identity term, $H$ the hyperbolic term (primitive closed geodesics and iterates with cutoff $g_{\lambda,\eta}$),
-$P^{\mathrm{para}}$ the parabolic/cusp term (with the same truncation convention as \eqref{eq:7.reg.trace.def}),
-and $E^{\mathrm{ell}}$ the elliptic term (present only if $\Gamma$ has torsion).
+with \(I_{\lambda,\eta}\) the identity term, \(H_{\lambda,\eta}\) the hyperbolic term, \(P^{\mathrm{para}}_{\lambda,\eta}\) the parabolic (cusp) term,
+and \(E^{\mathrm{ell}}_{\lambda,\eta}\) the elliptic term (if \(\Gamma\) has torsion).
 
-\begin{theorem}[Localized Selberg trace formula: exact regularized identity]\label{thm:7.selberg.exact}
-For every cofinite $\Gamma$ and every $(\lambda,\eta)$, with the truncation and regularized trace fixed by
-\eqref{eq:7.trunc.op} and \eqref{eq:7.reg.trace.def},
+\begin{theorem}[Localized Selberg trace formula: exact identity]\label{thm:7.selberg.exact}
+For every cofinite \(\Gamma\) and every \((\lambda,\eta)\), one has the exact identity
 \begin{equation}\label{eq:7.selberg.exact}
-  \mathcal{S}_{\lambda,\eta}
-  \;=\;
-  \mathcal{G}_{\lambda,\eta},
+  \mathcal{S}_{\lambda,\eta}=\mathcal{G}_{\lambda,\eta},
 \end{equation}
-where $\mathcal{S}_{\lambda,\eta}$ is given by Definitions~\ref{def:7.Sdisc}, \ref{def:7.Scont}, \ref{def:7.Sres}
-and $\mathcal{G}_{\lambda,\eta}$ is the geometric decomposition \eqref{eq:7.G.recall} from Chapter~6.
+where \(\mathcal{S}_{\lambda,\eta}\) is defined by \eqref{eq:7.S.full} and \(\mathcal{G}_{\lambda,\eta}\) by \eqref{eq:7.G.recall},
+with both sides computed under the same cusp normalization convention.
 \end{theorem}
 
 \begin{proof}
-This is the cofinite Selberg trace formula applied to the test function $h_{\lambda,\eta}$,
-with cusp regularization implemented by truncation and subtraction as in \eqref{eq:7.reg.trace.def}.
-References: Selberg~\cite{Selberg1956}; Hejhal~\cite[Vol.~I, \S2.5--\S2.6]{Hejhal1983}; Iwaniec~\cite[\S6.5--\S6.7]{Iwaniec2002}.
+This is the Selberg trace formula applied to the test function \(h_{\lambda,\eta}\), together with the standard cofinite regularization.
+See Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}, Iwaniec~\cite{Iwaniec2002}.
 \end{proof}
 
-\begin{remark}[Normalization lock and termwise checkability]\label{rem:7.norm.lock}
-The equality \eqref{eq:7.selberg.exact} is \emph{termwise checkable} only because:
-(i) the Eisenstein constant term normalization \eqref{eq:7.eis.const.term},
-(ii) the truncation operator \eqref{eq:7.trunc.op},
-and (iii) the subtraction in \eqref{eq:7.reg.trace.def}
-are fixed once and used on both sides.
-Changing any of these changes both $\mathcal{S}^{\mathrm{cont}}$ and $P^{\mathrm{para}}$ by the \emph{same} explicit linear functional.
+\begin{remark}[Normalization lock]\label{rem:7.lock.no.mismatch}
+The identity \eqref{eq:7.selberg.exact} holds only if the cusp truncation/normalization conventions match on both sides.
+This is why cusp-dependent linear functionals are isolated explicitly (Chapter~6 for \(\mathcal{C}_\Gamma\), here for \(\mathcal{N}_\Gamma\)):
+they must be checked term-by-term under the chosen convention.
 \end{remark}
 
-% =====================================================================
-\section{Localized Weyl main term and remainder hierarchy (normalization-locked)}
-% =====================================================================
+% ==========================================================
+\section{Localized Weyl main term and remainder hierarchy}
+% ==========================================================
 
 \noindent
-We now extract the Weyl main term in the localized regime \eqref{eq:7.locketa}.
-The coefficient is rigidly fixed by LOCK-$\chi_0$.
+We extract the main term using the geometric-side Weyl extraction from Chapter~6 and the exact identity
+\(\mathcal{S}_{\lambda,\eta}=\mathcal{G}_{\lambda,\eta}\).
 
-\begin{theorem}[Localized Weyl main term (locked coefficient)]\label{thm:7.weyl.lock}
-Assume \eqref{eq:7.locketa}. Then, as $\lambda\to\infty$,
+\begin{theorem}[Localized Weyl main term (locked)]\label{thm:7.weyl.lock}
+Assume \eqref{eq:7.eta.regime}. Then, as \(\lambda\to\infty\),
 \begin{equation}\label{eq:7.weyl.main}
   \mathcal{S}_{\lambda,\eta}
-  =
-  \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
-  \;+\;
-  H_{\lambda,\eta}
-  \;+\;
-  P^{\mathrm{para}}_{\lambda,\eta}
-  \;+\;
-  E^{\mathrm{ell}}_{\lambda,\eta}.
+  = \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
+    \;+\; H_{\lambda,\eta}
+    \;+\; \mathcal{R}^{\mathrm{cusp}}_{\lambda,\eta}
+    \;+\; \mathcal{R}^{\mathrm{ell}}_{\lambda,\eta}
+    \;+\; O_{\widehat{\chi}}(\eta^2)
+    \;+\; O\!\big(e^{-2\pi\lambda}\lambda\eta\big),
 \end{equation}
-Equivalently, inserting $\mathcal{S}_{\lambda,\eta}=\mathcal{G}_{\lambda,\eta}$,
-the Weyl mass is exactly the identity orbital integral term from Chapter~6 and the coefficient
-$\frac{\vol(M)}{2\pi}\widehat{\chi}(0)$ is independent of cusp normalizations.
+where \(\mathcal{R}^{\mathrm{cusp}}_{\lambda,\eta}\) collects cusp-dependent lower-order terms (parabolic and normalization),
+and \(\mathcal{R}^{\mathrm{ell}}_{\lambda,\eta}\) collects elliptic terms when present.
 \end{theorem}
 
 \begin{proof}
-Combine the exact identity \eqref{eq:7.selberg.exact} with the explicit identity-term evaluation on the geometric side
-from Chapter~6 (identity orbital integral + LOCK-$\chi_0$).
-The coefficient is fixed uniquely by \eqref{eq:7.lockchi0}.
-References for the identity term computation: Selberg~\cite{Selberg1956}, Hejhal~\cite[Vol.~I, \S2.1--\S2.2]{Hejhal1983}, Iwaniec~\cite[\S6.2]{Iwaniec2002}.
+By Theorem~\ref{thm:7.selberg.exact}, \(\mathcal{S}_{\lambda,\eta}=\mathcal{G}_{\lambda,\eta}\).
+Insert the geometric-side extraction from Chapter~6 (Lemma~6.1.2 and Proposition~6.6.1), and absorb the remaining cusp/elliptic terms
+into \(\mathcal{R}^{\mathrm{cusp}}_{\lambda,\eta}\) and \(\mathcal{R}^{\mathrm{ell}}_{\lambda,\eta}\).
 \end{proof}
 
-\begin{remark}[Windowed counting interpretation]\label{rem:7.window.count}
-The discrete sum $\sum_j h_{\lambda,\eta}(r_j)$ is a smoothed local counting functional at resolution $\eta$.
-Equation \eqref{eq:7.weyl.main} shows: the principal mass at scale $\eta$ is Weyl,
-and the oscillatory correction is exactly the hyperbolic (closed geodesic) term with sharp cutoff
-$kL\le \eta^{-1}$ enforced by \eqref{eq:7.lockg.support}.
+\begin{remark}[Windowed counting]\label{rem:7.window.count}
+The discrete sum \(\sum_j h_{\lambda,\eta}(r_j)\) is a smoothed local counting function at resolution \(\eta\).
+The identity \eqref{eq:7.weyl.main} shows that the principal mass at scale \(\eta\) is Weyl, while oscillations are governed by
+closed geodesics (hyperbolic term) and cusp scattering (continuous spectrum).
 \end{remark}
 
-% =====================================================================
-\section{Growth bounds for scattering data and admissible $\theta_0$}
-% =====================================================================
+% ==========================================================
+\section{Growth control for \(\varphi'/\varphi\) and admissible \(\theta_0\)}
+% ==========================================================
 
-\begin{lemma}[Polynomial growth of $\varphi'/\varphi$ on the unitary axis]\label{lem:7.phi.growth}
-There exists $C_\Gamma>0$ such that
+\begin{lemma}[Polynomial growth of \(\varphi'/\varphi\)]\label{lem:7.phi.growth}
+There exists \(C_\Gamma>0\) such that
 \[
   \frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)} \ll_\Gamma (1+|r|)^{C_\Gamma},
   \qquad r\in\mathbb{R}.
@@ -433,267 +310,219 @@ There exists $C_\Gamma>0$ such that
 \end{lemma}
 
 \begin{proof}
-This follows from the analytic properties of Eisenstein series and the meromorphic continuation of $\Phi(s)$,
-together with standard bounds on scattering determinants for cofinite groups.
-References: Hejhal~\cite[Vol.~I, \S2.4--\S2.6]{Hejhal1983}, Iwaniec~\cite[\S6.6]{Iwaniec2002}.
+Standard bounds on scattering determinants and Eisenstein series for cofinite groups; see Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
 \end{proof}
 
-\begin{proposition}[Size of the continuous spectral contribution under localization]\label{prop:7.cont.size}
-Uniformly for $\eta$ satisfying \eqref{eq:7.locketa},
+\begin{proposition}[Cusp contribution under localization]\label{prop:7.cusp.size}
+Uniformly for \(\eta\) satisfying \eqref{eq:7.eta.regime},
 \[
   \mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}
   \ll_{\Gamma,\widehat{\chi}}
-  \eta\,(1+\lambda)^{C_\Gamma}.
+  \eta\,(1+\lambda)^{C_\Gamma} + \big|\mathcal{N}_\Gamma[h_{\lambda,\eta}]\big|.
 \]
-In particular, if $\theta<1/C_\Gamma$ then $\mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}=o(\lambda\eta)$ as $\lambda\to\infty$.
+In particular, if \(\theta<1/C_\Gamma\), then \(\mathcal{S}^{\mathrm{cont}}_{\lambda,\eta}=o(\lambda\eta)\) as \(\lambda\to\infty\).
 \end{proposition}
 
 \begin{proof}
-The window $h_{\lambda,\eta}$ is supported where $r=\pm\lambda+O(\eta)$ and
-$\int |h_{\lambda,\eta}(r)|\,dr\asymp \eta$ by construction.
-Combine this with Lemma~\ref{lem:7.phi.growth}.
+The window \(h_{\lambda,\eta}\) is supported where \(r=\pm\lambda+O(\eta)\) and \(\int_{\mathbb{R}}|h_{\lambda,\eta}(r)|\,dr\asymp\eta\).
+Combine with Lemma~\ref{lem:7.phi.growth}. The functional \(\mathcal{N}_\Gamma[h]\) is explicit and of comparable size under the same localization bounds.
 \end{proof}
 
-% =====================================================================
-\section{Selberg zeta portal: geodesics $\leftrightarrow$ spectrum}
-% =====================================================================
+% ==========================================================
+\section{Selberg zeta as the intrinsic geodesic--spectrum portal}
+% ==========================================================
 
 \noindent
-The intrinsic hyperbolic object tying length spectrum and Laplace spectrum is the Selberg zeta function $Z_\Gamma(s)$.
-We record its logarithmic derivative (Euler product over primitive closed geodesics).
+The intrinsic hyperbolic object tying together the length spectrum and the Laplace spectrum is the Selberg zeta function \(Z_\Gamma(s)\).
+We record the classical log-derivative relation.
 
 \begin{proposition}[Log-derivative of Selberg zeta]\label{prop:7.selberg.zeta}
-Let $Z_\Gamma(s)$ be the Selberg zeta function of $\Gamma$.
-For $\Re s>1$,
-\begin{equation}\label{eq:7.Zlogder}
+Let \(Z_\Gamma(s)\) be the Selberg zeta function associated to \(\Gamma\). For \(\Re s>1\),
+\[
   \frac{Z_\Gamma'(s)}{Z_\Gamma(s)}
-  =
-  \sum_{[\gamma_0]\in\mathcal{P}}
-  \sum_{k\ge1}
-  \frac{L(\gamma_0)\,e^{-ksL(\gamma_0)}}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)},
-\end{equation}
-where $\mathcal{P}$ is the set of primitive hyperbolic conjugacy classes and $L(\gamma_0)$ the primitive length.
-Moreover $Z_\Gamma(s)$ continues meromorphically and its zeros encode the discrete spectrum and resonances.
+  = \sum_{[\gamma_0]\in\mathcal{P}}\sum_{k\ge1}
+    \frac{L(\gamma_0)\,e^{-ksL(\gamma_0)}}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)}.
+\]
+Moreover \(Z_\Gamma(s)\) admits meromorphic continuation, and its zeros encode the Laplace spectrum and resonances.
 \end{proposition}
 
 \begin{proof}
-Expand $\log Z_\Gamma(s)$ as an Euler product over primitive hyperbolic classes and differentiate termwise for $\Re s>1$.
-References: Hejhal~\cite[Vol.~I, \S3.1--\S3.3]{Hejhal1983}, Iwaniec~\cite[\S6.8]{Iwaniec2002}.
+Expand \(\log Z_\Gamma(s)\) as an Euler product over primitive geodesics and differentiate termwise; see Hejhal~\cite{Hejhal1983}.
 \end{proof}
 
-\begin{remark}[Meaning for the localized trace formula]\label{rem:7.selberg.portal.meaning}
-The hyperbolic term $H_{\lambda,\eta}$ from Chapter~6 is precisely a \emph{windowed} version of \eqref{eq:7.Zlogder}
-after Fourier inversion, with the window $g_{\lambda,\eta}(kL)$ enforcing the sharp cutoff $kL\le \eta^{-1}$
-by \eqref{eq:7.lockg.support}. This is the hyperbolic analogue of the explicit formula linking primes to zeros.
+\begin{remark}[Meaning for the localized trace formula]\label{rem:7.zeta.selberg.meaning}
+The hyperbolic term \(H_{\lambda,\eta}\) from Chapter~6 is a windowed prime-geodesic sum, with window \(g_{\lambda,\eta}(kL)\)
+enforcing the length cutoff \(kL\le \eta^{-1}\). This is the hyperbolic analogue of the explicit formula linking primes to zeros in the Riemann setting.
 \end{remark}
 
-% =====================================================================
-\section{Arithmetic portal: where the Riemann zeta function enters}
-% =====================================================================
+% ==========================================================
+\section{Where the Riemann zeta function enters (arithmetic \(\Gamma\))}
+% ==========================================================
 
 \noindent
-In general cofinite $\Gamma$, the continuous spectrum is governed by scattering $\varphi(s)$.
-For arithmetic groups, $\varphi(s)$ factorizes into completed $L$-functions; in particular $\zeta$ appears explicitly.
+For a general cofinite \(\Gamma\), the continuous spectrum is governed by \(\varphi(s)\).
+In arithmetic cases, \(\varphi(s)\) factors into completed \(L\)-functions, and \(\zeta\) appears explicitly.
 
-\begin{example}[Modular surface: explicit $\xi$-ratio]\label{ex:7.modular}
-For $\Gamma=\mathrm{PSL}_2(\mathbb{Z})$ one has
-\begin{equation}\label{eq:7.modular.phi}
-  \varphi(s)=\frac{\xi(2s-1)}{\xi(2s)},
-  \qquad
+\begin{example}[Modular surface]\label{ex:7.modular}
+For \(\Gamma=\mathrm{PSL}_2(\mathbb{Z})\), one has
+\[
+  \varphi(s)=\frac{\xi(2s-1)}{\xi(2s)},\qquad
   \xi(s)=\pi^{-s/2}\Gamma\!\Big(\frac{s}{2}\Big)\zeta(s).
-\end{equation}
+\]
 Hence
-\begin{equation}\label{eq:7.modular.logder}
+\[
   -\frac{\varphi'(s)}{\varphi(s)}
-  =
-  -2\frac{\xi'(2s-1)}{\xi(2s-1)}
-  +2\frac{\xi'(2s)}{\xi(2s)}.
-\end{equation}
-Substituting $s=\tfrac12+ir$ into \eqref{eq:7.Scont} shows that the continuous contribution contains
-$\zeta'/\zeta(1+2ir)$ and $\zeta'/\zeta(2ir)$ together with explicit Gamma-factor derivatives.
-References: Hejhal~\cite[Vol.~I, \S2.7]{Hejhal1983}, Iwaniec~\cite[\S6.10]{Iwaniec2002}.
+  = -2\frac{\xi'(2s-1)}{\xi(2s-1)}+2\frac{\xi'(2s)}{\xi(2s)}.
+\]
+Substituting \(s=\tfrac12+ir\) into \eqref{eq:7.S.cont} shows that the continuous spectral term contains logarithmic derivatives of \(\zeta\),
+together with explicit Gamma-factor derivatives.
 \end{example}
 
-\begin{remark}[Why $\zeta$ is \emph{forced} here]\label{rem:7.zeta.forced}
-On non-compact arithmetic surfaces the trace necessarily splits into discrete and continuous spectrum.
-The continuous spectrum is governed by scattering, and scattering is governed by $\varphi'/\varphi$.
-When $\varphi$ factorizes into completed $L$-functions, $\zeta$ appears as an unavoidable structural component of the trace identity.
+\begin{remark}[Interpretation]\label{rem:7.zeta.forced}
+In the non-compact case, the trace splits into discrete and continuous spectrum.
+The continuous spectrum is governed by scattering, and scattering is governed by \(\varphi'/\varphi\).
+In arithmetic cases, \(\varphi(s)\) is an explicit ratio of completed \(L\)-functions; thus \(\zeta\) enters as a structural component of the trace identity.
 \end{remark}
 
-% =====================================================================
+% ==========================================================
 \section*{Chapter 7 Audit (Diamond / Control)}
-% =====================================================================
+% ==========================================================
 
 \noindent\textbf{Locks (must hold exactly).}
 \begin{itemize}
-\item[(L7.1)] Fourier lock: \eqref{eq:7.lockF}.
-\item[(L7.2)] Window lock: \eqref{eq:7.lockh}.
-\item[(L7.3)] Transform lock: \eqref{eq:7.lockg.closed} and support \eqref{eq:7.lockg.support}.
-\item[(L7.4)] Object lock: regularized trace \eqref{eq:7.reg.trace.def} is the unique object compared.
-\item[(L7.5)] Eisenstein/scattering lock: constant term \eqref{eq:7.eis.const.term} fixes $\Phi(s)$ and $\varphi(s)$.
-\item[(L7.6)] Maass--Selberg lock: exact matrix identity \eqref{eq:7.maass.selberg.matrix}.
-\item[(L7.7)] Main-term lock: coefficient $\frac{\vol(M)}{2\pi}\widehat{\chi}(0)$ is rigid (LOCK-$\chi_0$).
+\item[(L7.1)] Fourier lock: \(\chi(u)=\frac{1}{2\pi}\int\widehat{\chi}(t)e^{itu}dt\).
+\item[(L7.2)] Window lock: \(h_{\lambda,\eta}(r)=\chi(\frac{r-\lambda}{\eta})+\chi(\frac{r+\lambda}{\eta})\).
+\item[(L7.3)] Transform lock: \(g_{\lambda,\eta}(u)=\frac{1}{2\pi}\int h_{\lambda,\eta}(r)e^{iru}dr=2\eta\widehat{\chi}(\eta u)\cos(\lambda u)\).
+\item[(L7.4)] Main-term lock: coefficient \(\frac{\vol(M)}{2\pi}\widehat{\chi}(0)\lambda\eta\) matches Chapter~6.
+\item[(L7.5)] Cusp lock: the same truncation convention must be used on both sides; \(\mathcal{N}_\Gamma\) and cusp constants must match.
+\item[(L7.6)] Object lock: Selberg trace (test function) is not the wave trace distribution.
 \end{itemize}
 
 \medskip
-\noindent\textbf{Failure modes (typical).}
+\noindent\textbf{Failure modes.}
 \begin{itemize}
-\item[(F7.1)] Wrong sign or $2\pi$ factor in \eqref{eq:7.lockg.def} $\Rightarrow$ wrong hyperbolic cutoff and wrong geodesic weights.
-\item[(F7.2)] Changing truncation without matching subtraction in \eqref{eq:7.reg.trace.def} $\Rightarrow$ mismatch between $\mathcal{S}^{\mathrm{cont}}$ and $P^{\mathrm{para}}$.
-\item[(F7.3)] Mixing Eisenstein normalizations (different constant term conventions) $\Rightarrow$ drift in $\Phi'(s)\Phi(s)^{-1}$ and hence in \eqref{eq:7.Scont}.
-\item[(F7.4)] Substituting wave-trace singularities for Selberg hyperbolic weights $\Rightarrow$ object substitution (forbidden by OBJ-LOCK).
+\item[(F7.1)] \(g\)-normalization mismatch \(\Rightarrow\) wrong length cutoff and wrong hyperbolic weights.
+\item[(F7.2)] Missing \(\mathcal{N}_\Gamma[h]\) \(\Rightarrow\) cusp divergence not cancelled (regularization drift).
+\item[(F7.3)] Mixed cusp conventions \(\Rightarrow\) constant drift in the continuous term.
+\item[(F7.4)] Treating wave-trace singularities as Selberg orbital weights \(\Rightarrow\) object substitution.
 \end{itemize}
 
 \medskip
-\noindent\textbf{STATUS\_CERT.}
-CLOSED: Chapter~7 now has a fixed object \eqref{eq:7.objlock}, exact truncation/regularization \eqref{eq:7.trunc.op}, \eqref{eq:7.reg.trace.def},
-and an exact spectral-side decomposition \eqref{eq:7.Sfull} with no schematic placeholders.
-NEXT(1): in Chapter~8, convert the windowed identity into a quantitative local Weyl counting statement via a Tauberian transfer.
+\noindent\textbf{STATUS\_CERT (Chapter 7).}
+OPEN(1): the spectral side is fixed at the level of correct objects and locks, but \(\mathcal{N}_\Gamma[h]\) must be written in the chosen published convention
+(e.g. Hejhal Vol.~I, Ch.~2) as an explicit linear functional for termwise verification.
 
-% =====================================================================
-% End of Chapter 7
-% =====================================================================
-% =====================================================================
-% Chapter 8 (DIAMOND / ACADEMIC, FULL LENGTH)
+% ==========================================================
+% Chapter 8 (DIAMOND / ACADEMIC)
 % Local Weyl Law from the Localized Trace Formula
-% =====================================================================
+% ==========================================================
 
 \chapter{Local Weyl Law from the Localized Trace Formula}
 
-\section{Smoothed counting function and the localized projector}
+\section{Smoothed local counting and the localized projector}
 
-\noindent
-We keep the OBJ-LOCK from Chapter~7: the fixed object is $\Tr^{\mathrm{reg}}(P_{\lambda,\eta})$ with
-\[
-  P_{\lambda,\eta}=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right),
-\]
-and $h_{\lambda,\eta}$ is the locked window \eqref{eq:7.lockh}.
-Define the smoothed spectral counting functional (discrete + continuous + residual) by
-\begin{equation}\label{eq:8.Nsmooth}
-  \mathcal{N}(\lambda,\eta)
-  :=
-  \mathcal{S}_{\lambda,\eta}
-  =
-  \sum_{j} h_{\lambda,\eta}(r_j)
-  +\frac{1}{4\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,
-  \Bigl(-\frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}\Bigr)\,dr
-  + \mathcal{S}^{\mathrm{res}}_{\lambda,\eta},
+Let \(P_{\lambda,\eta}=h_{\lambda,\eta}(\sqrt{\Delta-\tfrac14})\) be the localized projector \eqref{eq:7.P.fc}.
+Define the smoothed local spectral counting functional
+\begin{equation}\label{eq:8.Nsmooth.def}
+\mathcal N(\lambda,\eta)
+:= \sum_{j} h_{\lambda,\eta}(r_j)
+\;+\; \frac{1}{4\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,
+\Bigl(-\frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}\Bigr)\,dr
+\;+\; \mathcal{N}_\Gamma[h_{\lambda,\eta}]
+\;+\; \mathcal{S}^{\mathrm{res}}_{\lambda,\eta},
 \end{equation}
-with $\mathcal{S}^{\mathrm{res}}_{\lambda,\eta}$ as in \eqref{eq:7.Sres}.
+so that \(\mathcal N(\lambda,\eta)=\mathcal{S}_{\lambda,\eta}\) by Definition~\ref{def:7.S.full}.
 
 \begin{lemma}[Trace equals smoothed counting]\label{lem:8.trace_equals_counting}
-With the conventions of Chapter~7 one has the exact identity
-\begin{equation}\label{eq:8.trace_equals_counting}
-  \mathcal{N}(\lambda,\eta)
-  =
-  \Tr^{\mathrm{reg}}(P_{\lambda,\eta})
-  =
-  I_{\lambda,\eta}+H_{\lambda,\eta}+P^{\mathrm{para}}_{\lambda,\eta}+E^{\mathrm{ell}}_{\lambda,\eta},
-\end{equation}
-i.e. the continuous spectrum is absorbed into the left-hand side through the logarithmic derivative of $\varphi$.
+With the fixed normalization convention,
+\[
+\mathcal N(\lambda,\eta)=\Tr^{\mathrm{reg}}(P_{\lambda,\eta})=\mathcal{S}_{\lambda,\eta}=\mathcal{G}_{\lambda,\eta}.
+\]
 \end{lemma}
 
 \begin{proof}
-This is exactly Theorem~\ref{thm:7.selberg.exact} rewritten using \eqref{eq:8.Nsmooth}.
+This is Theorem~\ref{thm:7.selberg.exact}, together with the definition of the regularized trace for cofinite \(\Gamma\).
 \end{proof}
 
 \section{Main term extraction}
 
-\begin{proposition}[Weyl main term]\label{prop:8.main_term}
-Assume the localization regime \eqref{eq:7.locketa}. Then
-\begin{equation}\label{eq:8.main_term}
-  \mathcal{N}(\lambda,\eta)
-  =
-  \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
-  \;+\;
-  \Err(\lambda,\eta),
-\end{equation}
-where
-\begin{equation}\label{eq:8.err.decomp}
-  \Err(\lambda,\eta)
-  :=
-  H_{\lambda,\eta}+P^{\mathrm{para}}_{\lambda,\eta}+E^{\mathrm{ell}}_{\lambda,\eta}.
-\end{equation}
+\begin{proposition}[Weyl main term for the smoothed count]\label{prop:8.main_term}
+Assume \eqref{eq:7.eta.regime}. Then, as \(\lambda\to\infty\),
+\[
+\mathcal N(\lambda,\eta)
+= \frac{\vol(M)}{2\pi}\widehat{\chi}(0)\lambda\eta
+\;+\;\Err(\lambda,\eta),
+\]
+where \(\Err(\lambda,\eta)\) collects \(H_{\lambda,\eta}\), cusp/elliptic lower-order terms, residual contributions, and the explicit
+\(O_{\widehat{\chi}}(\eta^2)\) and \(O(e^{-2\pi\lambda}\lambda\eta)\) errors in \eqref{eq:7.weyl.main}.
 \end{proposition}
 
 \begin{proof}
-Immediate from Theorem~\ref{thm:7.weyl.lock} and Lemma~\ref{lem:8.trace_equals_counting}.
+Immediate from Theorem~\ref{thm:7.weyl.lock}, since \(\mathcal N(\lambda,\eta)=\mathcal{S}_{\lambda,\eta}\).
 \end{proof}
 
-\section{From smoothed to sharp local counting (Tauberian transfer)}
+\section{From smoothed to sharp local counting: a Tauberian transfer}
 
-\noindent
-Let
+Define the sharp local counting function in the \(r\)-parameter by
 \begin{equation}\label{eq:8.Nsharp.def}
-  N(\lambda,\eta)
-  :=
-  \#\{j:\ |r_j-\lambda|\le \eta\}.
+N(\lambda,\eta):=\#\{j:\ |r_j-\lambda|\le \eta\}.
 \end{equation}
-Since $h_{\lambda,\eta}$ is a fixed nonnegative bump at scale $\eta$ (up to the forced even reflection),
-there exist absolute constants $c_1,c_2,C>0$ depending only on the fixed profile $\widehat{\chi}$ such that
-\begin{equation}\label{eq:8.smooth_sharp.compare}
-  c_1\,N(\lambda,\eta)
-  \;\le\;
-  \sum_j h_{\lambda,\eta}(r_j)
-  \;\le\;
-  c_2\,N(\lambda,C\eta).
-\end{equation}
+Under mild positivity assumptions on the fixed bump \(\chi\) (which can be arranged by choosing \(\widehat{\chi}\ge0\)),
+the smoothed sum \(\sum_j h_{\lambda,\eta}(r_j)\) controls \(N(\lambda,\eta)\) up to absolute constants depending only on the fixed window profile.
 
-\begin{lemma}[Local Tauberian transfer]\label{lem:8.tauberian}
-Assume that for some $\delta>0$ one has the uniform bound
-\begin{equation}\label{eq:8.tauber.assump}
-  \mathcal{N}(\lambda,\eta)
-  =
-  \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
-  \;+\;
-  O(\lambda^{1-\delta})
-\end{equation}
-for all $\eta\in[\lambda^{-\theta},1]$ with $\theta<\theta_0$.
-Then uniformly in the same range,
-\begin{equation}\label{eq:8.tauber.concl}
-  N(\lambda,\eta)
-  =
-  \frac{\vol(M)}{2\pi}\,\lambda\eta
-  \;+\;
-  O(\lambda^{1-\delta}),
-\end{equation}
-where the implied constant depends only on $M$ and the fixed cutoff profile $\widehat{\chi}$.
+\begin{lemma}[Local Tauberian comparison]\label{lem:8.tauberian}
+Assume \(\widehat{\chi}\ge0\), \(\widehat{\chi}\not\equiv 0\), and \(\supp\widehat{\chi}\subset(-1,1)\).
+Then there exist constants \(c_1,c_2,C>0\) depending only on \(\widehat{\chi}\) such that for all \(\lambda\) and \(\eta\in(0,1)\),
+\[
+c_1\,N(\lambda,\eta)\ \le\ \sum_j h_{\lambda,\eta}(r_j)\ \le\ c_2\,N(\lambda,C\eta).
+\]
 \end{lemma}
 
 \begin{proof}
-This is a standard local Tauberian comparison using \eqref{eq:8.smooth_sharp.compare},
-together with monotonicity in $\eta$ and the fixed shape of $h_{\lambda,\eta}$.
-A textbook reference for Tauberian transfer in this spectral setting is Iwaniec~\cite[\S13.5]{Iwaniec2002};
-see also Hejhal~\cite[Vol.~II, Ch.\ 15]{Hejhal1983}.
+The function \(h_{\lambda,\eta}\) is a fixed-profile bump of width \(\asymp\eta\) centered at \(\pm\lambda\).
+Under \(\widehat{\chi}\ge0\), \(\chi\) is positive-definite and one may choose the profile so that \(h_{\lambda,\eta}\) dominates
+a characteristic function on \([\lambda-\eta,\lambda+\eta]\) up to constants and is supported in \([\lambda-C\eta,\lambda+C\eta]\).
+This yields the stated two-sided comparison.
 \end{proof}
 
-\section{Quantitative local Weyl law: where the power saving comes from}
+\section{A quantitative local Weyl statement (conditional remainder input)}
 
-\noindent
-To make \eqref{eq:8.tauber.assump} effective one needs a power saving on the error term $\Err(\lambda,\eta)$ in \eqref{eq:8.err.decomp}.
-This is obtained by combining:
-(i) the parametrix/log-time control from Chapter~5,
-(ii) the hyperbolic cutoff $g_{\lambda,\eta}$ and amplitude control from Chapter~6,
-and (iii) a dynamical/mixing (spectral-gap) input encoded by a group-dependent exponent $\beta_\Gamma$.
+The strength of a \emph{quantitative} local Weyl law depends on the strongest remainder control available for \(\Err(\lambda,\eta)\),
+which in our framework comes from combining:
+(i) the microlocal parametrix error from Chapter~5,
+(ii) hyperbolic cutoff and amplitude control from Chapter~6,
+(iii) cusp normalization control (explicit \(\mathcal{N}_\Gamma\)).
 
-\begin{theorem}[Quantitative local Weyl law]\label{thm:8.local_weyl}
-There exists $\delta>0$ (depending on $\Gamma$ and the fixed cutoff profile) such that uniformly for
-$\eta\in[\lambda^{-\theta},1]$ with $\theta<\theta_0$,
-\begin{equation}\label{eq:8.local_weyl}
-  N(\lambda,\eta)
-  =
-  \frac{\vol(M)}{2\pi}\,\lambda\eta
-  \;+\;
-  O(\lambda^{1-\delta}).
-\end{equation}
+\begin{theorem}[Quantitative local Weyl law: transfer form]\label{thm:8.local_weyl.transfer}
+Assume that for some \(\delta>0\) one has the uniform estimate
+\[
+\mathcal N(\lambda,\eta)=\frac{\vol(M)}{2\pi}\widehat{\chi}(0)\lambda\eta + O(\lambda^{1-\delta})
+\]
+uniformly for \(\eta\in[\lambda^{-\theta},1]\). Then
+\[
+N(\lambda,\eta)=\frac{\vol(M)}{2\pi}\lambda\eta + O(\lambda^{1-\delta})
+\]
+uniformly for the same \(\eta\)-range, with implied constants depending only on \(M\) and the fixed window profile.
 \end{theorem}
 
 \begin{proof}
-Combine Lemma~\ref{lem:8.tauberian} with Proposition~\ref{prop:8.main_term} and a power-saving estimate for
-$\Err(\lambda,\eta)$ (hyperbolic + parabolic + elliptic) in the regime $\eta\ge \lambda^{-\theta}$,
-as developed in Chapters~5--6.
+Combine Proposition~\ref{prop:8.main_term} with Lemma~\ref{lem:8.tauberian} and absorb the continuous-spectrum terms into \(\mathcal N(\lambda,\eta)\).
 \end{proof}
 
-% =====================================================================
-% End of Chapter 8
-% =====================================================================
+\section*{Chapter 8 Audit (Diamond / Control)}
+
+\noindent\textbf{Locks.}
+\begin{itemize}
+\item[(L8.1)] Chapter~8 uses exactly the same \((h,g)\) and trace object fixed in Chapter~7.
+\item[(L8.2)] No new normalization is introduced; all convention-dependence remains inside \(\mathcal{N}_\Gamma\).
+\item[(L8.3)] Tauberian step requires a positivity/shape condition on the fixed window profile (recorded explicitly).
+\end{itemize}
+
+\medskip
+\noindent\textbf{STATUS\_CERT (Chapters 7--8 together).}
+NEXT(1): choose the single published cusp convention (recommended: Hejhal Vol.~I, Ch.~2) and write \(\mathcal{N}_\Gamma[h]\) explicitly in that convention;
+then the remainder term \(\Err(\lambda,\eta)\) becomes fully auditable and Theorem~\ref{thm:8.local_weyl.transfer} becomes an executable pipeline.
+
+% ==========================================================
+% END OF FILE
+% ==========================================================
