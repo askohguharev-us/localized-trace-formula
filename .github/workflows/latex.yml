@@ -2,7 +2,7 @@ name: pdf
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -16,17 +16,66 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sanity check layout
+      - name: Sanity check layout (main + bib + macros + sections + appendices)
         run: |
+          set -euo pipefail
+
+          # Root file & bib
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
+
+          # Core macros
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
             test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
-          BAD=$(grep -R -nE '\\input\{(sub/|/|\\\.\.)' . || true)
-          if [ -n "$BAD" ]; then
-            echo "::error ::Forbidden \\input path(s) detected:"; echo "$BAD"; exit 3
+
+          # Key chapters (adjust names only if you rename files)
+          for f in sections/01-introduction.tex \
+                   sections/03-kernel.tex \
+                   sections/04-projector.tex \
+                   sections/05-microlocal.tex \
+                   sections/06-geometric.tex \
+                   sections/07-main-results.tex \
+                   sections/08-normalization.tex \
+                   sections/09-local-weyl.tex \
+                   sections/10-applications.tex \
+                   conclusion/11-conclusion.tex; do
+            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
+          done
+
+          # Preliminaries folder check (if you use it)
+          test -f sections/02-preliminaries/02-preliminaries.tex || true
+
+          # Appendices A..I must exist (no silent drop)
+          for f in appendices/A-effective-volume.tex \
+                   appendices/B-auxiliary-estimates.tex \
+                   appendices/C-microlocal-toolkit.tex \
+                   appendices/D-extended-tauberian.tex \
+                   appendices/E-numerical-verification.tex \
+                   appendices/F-implementation-notes.tex \
+                   appendices/G-normalizations-and-conventions.tex \
+                   appendices/H-selberg-comparison.tex \
+                   appendices/I-historical-context.tex; do
+            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
+          done
+
+          # Forbid dangerous \input paths: absolute or parent traversal
+          BAD_INPUT_ABS_OR_PARENT=$(grep -R -nE '\\input\{(\.\./|/)' . || true)
+          if [ -n "$BAD_INPUT_ABS_OR_PARENT" ]; then
+            echo "::error ::Forbidden \\input path(s) detected (../ or /):"
+            echo "$BAD_INPUT_ABS_OR_PARENT"
+            exit 3
           fi
+
+          # Stronger: forbid any '..' inside \input{...}
+          BAD_INPUT_DOTDOT=$(grep -R -nE '\\input\{[^}]*\.\.[^}]*\}' . || true)
+          if [ -n "$BAD_INPUT_DOTDOT" ]; then
+            echo "::error ::Forbidden \\input path(s) detected (.. inside braces):"
+            echo "$BAD_INPUT_DOTDOT"
+            exit 3
+          fi
+
+          echo "Sanity check OK."
 
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
@@ -35,8 +84,9 @@ jobs:
           working_directory: src
           latexmk_use_xelatex: true
           pre_compile: |
+            set -e
             tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
-            tlmgr update --self --all || true
+            # Keep CI stable: do NOT tlmgr update --self --all
             tlmgr install \
               bbm mathrsfs microtype enumitem float caption subcaption \
               tcolorbox cleveref xcolor etoolbox || true
