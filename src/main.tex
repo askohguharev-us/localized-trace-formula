@@ -67,7 +67,6 @@
 \IfFileExists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
 
 % ---------- Extra operators (safe fallbacks) ----------
-% Prefer operators.tex definitions; keep only harmless fallbacks here.
 \providecommand{\STF}{\operatorname{STF}}
 
 % ---------- PDF metadata ----------
@@ -125,7 +124,7 @@
 
 \tableofcontents
 
-% --- Frontmatter sections ---
+% --- Frontmatter sections (optional) ---
 \IfFileExists{frontmatter/00-executive-summary.tex}{\input{frontmatter/00-executive-summary.tex}}{}
 \IfFileExists{frontmatter/00-readers-roadmap.tex}{\input{frontmatter/00-readers-roadmap.tex}}{}
 \IfFileExists{frontmatter/00-notation-glossary.tex}{\input{frontmatter/00-notation-glossary.tex}}{}
@@ -134,17 +133,26 @@
 
 % --- Main chapters ---
 \IfFileExists{sections/01-introduction.tex}{\input{sections/01-introduction.tex}}{}
+
+% Preliminaries (folder + main file)
 \IfFileExists{sections/02-preliminaries/02-preliminaries.tex}{\input{sections/02-preliminaries/02-preliminaries.tex}}{}
+
+% Core chapters
 \IfFileExists{sections/03-kernel.tex}{\input{sections/03-kernel.tex}}{}
 \IfFileExists{sections/04-projector.tex}{\input{sections/04-projector.tex}}{}
 \IfFileExists{sections/05-microlocal.tex}{\input{sections/05-microlocal.tex}}{}
 \IfFileExists{sections/06-geometric.tex}{\input{sections/06-geometric.tex}}{}
 \IfFileExists{sections/07-main-results.tex}{\input{sections/07-main-results.tex}}{}
-\IfFileExists{sections/08-applications.tex}{\input{sections/08-applications.tex}}{}
 
-\IfFileExists{conclusion/09-conclusion.tex}{\input{conclusion/09-conclusion.tex}}{}
+% Split chapters you currently have
+\IfFileExists{sections/08-normalization.tex}{\input{sections/08-normalization.tex}}{}
+\IfFileExists{sections/09-local-weyl.tex}{\input{sections/09-local-weyl.tex}}{}
+\IfFileExists{sections/10-applications.tex}{\input{sections/10-applications.tex}}{}
 
-% --- Appendices ---
+% Conclusion
+\IfFileExists{conclusion/11-conclusion.tex}{\input{conclusion/11-conclusion.tex}}{}
+
+% --- Appendices (A..I) ---
 \appendix
 \IfFileExists{appendices/A-effective-volume.tex}{\input{appendices/A-effective-volume.tex}}{}
 \IfFileExists{appendices/B-auxiliary-estimates.tex}{\input{appendices/B-auxiliary-estimates.tex}}{}
@@ -160,8 +168,11 @@
 
 % --- Bibliography ---
 \bibliographystyle{alpha}
-\nocite{*}
-\IfFileExists{bib/references.bib}{\bibliography{bib/references.bib}}{}
+
+% IMPORTANT:
+% \bibliography takes database name WITHOUT ".bib"
+\IfFileExists{bib/references.bib}{%
+  \bibliography{bib/references}%
+}{}
 
 \end{document}
-```0
