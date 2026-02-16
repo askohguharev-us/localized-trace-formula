@@ -5,104 +5,103 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: latex-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  pdf:
+  build-pdf:
     runs-on: ubuntu-latest
+
     defaults:
       run:
+        shell: bash
         working-directory: src
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sanity check layout (main + bib + macros + sections + appendices)
+      - name: Sanity check layout (hard)
         run: |
           set -euo pipefail
 
-          # Root file & bib
+          # Required core files
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
+          test -d bib || { echo "::error ::src/bib directory not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
 
-          # Core macros
+          # Required macro files (adjust list if you renamed them)
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
-            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
+            test -f "$f" || { echo "::error ::missing src/$f"; exit 2; }
           done
 
-          # Key chapters (adjust names only if you rename files)
-          for f in sections/01-introduction.tex \
-                   sections/03-kernel.tex \
-                   sections/04-projector.tex \
-                   sections/05-microlocal.tex \
-                   sections/06-geometric.tex \
-                   sections/07-main-results.tex \
-                   sections/08-normalization.tex \
-                   sections/09-local-weyl.tex \
-                   sections/10-applications.tex \
-                   conclusion/11-conclusion.tex; do
-            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
-          done
-
-          # Preliminaries folder check (if you use it)
-          test -f sections/02-preliminaries/02-preliminaries.tex || true
-
-          # Appendices A..I must exist (no silent drop)
-          for f in appendices/A-effective-volume.tex \
-                   appendices/B-auxiliary-estimates.tex \
-                   appendices/C-microlocal-toolkit.tex \
-                   appendices/D-extended-tauberian.tex \
-                   appendices/E-numerical-verification.tex \
-                   appendices/F-implementation-notes.tex \
-                   appendices/G-normalizations-and-conventions.tex \
-                   appendices/H-selberg-comparison.tex \
-                   appendices/I-historical-context.tex; do
-            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
-          done
-
-          # Forbid dangerous \input paths: absolute or parent traversal
-          BAD_INPUT_ABS_OR_PARENT=$(grep -R -nE '\\input\{(\.\./|/)' . || true)
-          if [ -n "$BAD_INPUT_ABS_OR_PARENT" ]; then
-            echo "::error ::Forbidden \\input path(s) detected (../ or /):"
-            echo "$BAD_INPUT_ABS_OR_PARENT"
+          # Forbid dangerous paths in TeX inputs/includes
+          #  - ../  absolute paths  or \input{sub/...} that breaks your repo contract
+          BAD_INPUT=$(grep -R -nE '\\(input|include)\s*\{(\.\./|/|sub/)' . || true)
+          if [[ -n "$BAD_INPUT" ]]; then
+            echo "::error ::Forbidden \\input/\\include path(s) detected:"
+            echo "$BAD_INPUT"
             exit 3
           fi
 
-          # Stronger: forbid any '..' inside \input{...}
-          BAD_INPUT_DOTDOT=$(grep -R -nE '\\input\{[^}]*\.\.[^}]*\}' . || true)
-          if [ -n "$BAD_INPUT_DOTDOT" ]; then
-            echo "::error ::Forbidden \\input path(s) detected (.. inside braces):"
-            echo "$BAD_INPUT_DOTDOT"
+          # Forbid dangerous paths in includegraphics as well
+          BAD_GFX=$(grep -R -nE '\\includegraphics(\[[^]]*\])?\{(\.\./|/)' . || true)
+          if [[ -n "$BAD_GFX" ]]; then
+            echo "::error ::Forbidden \\includegraphics path(s) detected:"
+            echo "$BAD_GFX"
             exit 3
           fi
 
-          echo "Sanity check OK."
+          echo "Layout OK."
 
-      - name: Compile with TeX Live (latexmk + BibTeX)
+      - name: Compile (latexmk + BibTeX, XeLaTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
           working_directory: src
+          root_file: main.tex
           latexmk_use_xelatex: true
+          args: >-
+            -file-line-error
+            -halt-on-error
+            -interaction=nonstopmode
           pre_compile: |
-            set -e
+            set -euo pipefail
             tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
-            # Keep CI stable: do NOT tlmgr update --self --all
-            tlmgr install \
-              bbm mathrsfs microtype enumitem float caption subcaption \
-              tcolorbox cleveref xcolor etoolbox || true
-            echo "[tlmgr pre_compile finished]"
-          args: -file-line-error -halt-on-error -interaction=nonstopmode
 
-      - name: Upload PDF
+            # Minimal install set; add packages ONLY when errors demand it
+            tlmgr install \
+              latexmk \
+              xetex \
+              bibtex \
+              amsfonts amsmath mathtools \
+              geometry fancyhdr microtype \
+              hyperref xcolor cleveref \
+              enumitem \
+              caption subcaption float \
+              tcolorbox etoolbox \
+              bbm mathrsfs \
+              || true
+
+            echo "[tlmgr pre_compile finished]"
+
+      - name: Upload PDF artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
           path: src/main.pdf
 
-      - name: Upload LaTeX log (on failure)
+      - name: Upload LaTeX logs (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: main-log
-          path: src/main.log
+          name: latex-logs
+          path: |
+            src/main.log
+            src/main.blg
+            src/main.bbl
+            src/main.aux
