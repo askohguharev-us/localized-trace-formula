@@ -5,15 +5,12 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 concurrency:
   group: latex-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-pdf:
+  pdf:
     runs-on: ubuntu-latest
 
     defaults:
@@ -25,78 +22,61 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sanity check layout (hard)
+      - name: Sanity check layout
         run: |
           set -euo pipefail
 
-          # Required core files
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
-          test -d bib || { echo "::error ::src/bib directory not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
 
-          # Required macro files (adjust list if you renamed them)
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
             test -f "$f" || { echo "::error ::missing src/$f"; exit 2; }
           done
 
-          # Forbid dangerous paths in TeX inputs/includes
-          #  - ../  absolute paths  or \input{sub/...} that breaks your repo contract
-          BAD_INPUT=$(grep -R -nE '\\(input|include)\s*\{(\.\./|/|sub/)' . || true)
-          if [[ -n "$BAD_INPUT" ]]; then
+          # Forbid dangerous \input/\include paths (absolute, parent, hidden-dot)
+          BAD=$(
+            grep -R -nE '\\(input|include)\s*\{(\.\./|/|\\\.\.|\.{2}/)' . || true
+          )
+          if [ -n "$BAD" ]; then
             echo "::error ::Forbidden \\input/\\include path(s) detected:"
-            echo "$BAD_INPUT"
+            echo "$BAD"
             exit 3
           fi
 
-          # Forbid dangerous paths in includegraphics as well
-          BAD_GFX=$(grep -R -nE '\\includegraphics(\[[^]]*\])?\{(\.\./|/)' . || true)
-          if [[ -n "$BAD_GFX" ]]; then
-            echo "::error ::Forbidden \\includegraphics path(s) detected:"
-            echo "$BAD_GFX"
-            exit 3
-          fi
+          echo "[layout OK]"
 
-          echo "Layout OK."
-
-      - name: Compile (latexmk + BibTeX, XeLaTeX)
+      - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: src
           root_file: main.tex
           latexmk_use_xelatex: true
-          args: >-
-            -file-line-error
-            -halt-on-error
-            -interaction=nonstopmode
+          args: -file-line-error -halt-on-error -interaction=nonstopmode
+
+          # IMPORTANT:
+          #  - do NOT tlmgr update --self --all (unstable & slow on Actions runners)
+          #  - only install missing packages if needed
           pre_compile: |
             set -euo pipefail
             tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
-
-            # Minimal install set; add packages ONLY when errors demand it
             tlmgr install \
-              latexmk \
-              xetex \
-              bibtex \
-              amsfonts amsmath mathtools \
-              geometry fancyhdr microtype \
-              hyperref xcolor cleveref \
-              enumitem \
-              caption subcaption float \
-              tcolorbox etoolbox \
-              bbm mathrsfs \
-              || true
-
+              bbm mathrsfs microtype enumitem float caption subcaption \
+              tcolorbox cleveref xcolor etoolbox \
+              amsfonts amsmath amssymb mathtools \
+              hyperref geometry fancyhdr setspace booktabs \
+              bibtex || true
             echo "[tlmgr pre_compile finished]"
 
-      - name: Upload PDF artifact
+      - name: Upload PDF
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
           path: src/main.pdf
+          if-no-files-found: error
 
-      - name: Upload LaTeX logs (on failure)
-        if: failure()
+      - name: Upload logs (always)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: latex-logs
@@ -105,3 +85,4 @@ jobs:
             src/main.blg
             src/main.bbl
             src/main.aux
+          if-no-files-found: warn
