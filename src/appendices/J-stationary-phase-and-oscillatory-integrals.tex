@@ -1,1 +1,314 @@
+% ======================================================================
+% Appendix J. Stationary phase and oscillatory integrals
+% PATH: src/appendices/J-stationary-phase-and-oscillatory-integrals.tex
+% ======================================================================
 
+\appendix
+\chapter{Stationary phase and oscillatory integrals}
+\label{app:J.stationary}
+
+\section{Scope and conventions}
+\label{sec:J.scope}
+
+This appendix collects the oscillatory integral estimates used repeatedly in Chapters~\ref{chap:05-microlocal}--%
+\ref{chap:08-normalization} and in the application blocks.  The emphasis is on \emph{uniformity} with respect to the
+two-scale parameters that appear in the localized trace framework: the large spectral parameter $\lambda$ and the
+window scale $\eta$ (typically $\lambda^{-\theta}\le \eta\le 1$).  We work throughout in the Fourier conventions fixed
+in Appendix~\ref{app:G.fourier}.
+
+We use the notation $A\lesssim B$ to mean $A\le C\,B$ for a constant $C$ depending only on the ambient dimension and
+on finitely many seminorm bounds for the amplitudes under consideration; dependence on additional parameters is
+always stated explicitly.
+
+\subsection{Symbol and cutoff classes}
+\label{subsec:J.symbols}
+
+Let $\langle x\rangle=(1+|x|^2)^{1/2}$.  For $m\in\R$ we denote by $S^m(\R^d)$ the standard symbol class:
+$a\in S^m(\R^d)$ if $a\in C^\infty(\R^d)$ and for all multiindices $\alpha$ there exists $C_\alpha$ with
+\[
+|\partial_x^\alpha a(x)|\le C_\alpha \langle x\rangle^{m-|\alpha|}.
+\]
+When amplitudes depend on external parameters $(\lambda,\eta)$ we interpret seminorm bounds uniformly in the admissible
+parameter range unless otherwise stated.
+
+For $\eta>0$ we use the rescaled cutoff $\chi_\eta(t)=\chi(t/\eta)$, with $\chi\in\mathcal{S}(\R)$ fixed, even.
+We record the standard scaling identities:
+\begin{equation}\label{eq:J.scaling}
+\widehat{\chi_\eta}(\xi)=\eta\,\widehat{\chi}(\eta\xi),
+\qquad
+\|\partial_t^k \chi_\eta\|_{L^\infty}\lesssim \eta^{-k}.
+\end{equation}
+
+\section{Integration by parts: nonstationary phase}
+\label{sec:J.nsp}
+
+We begin with the standard nonstationary phase lemma in a form suited to uniform bounds.
+
+\begin{lemma}[Nonstationary phase]
+\label{lem:J.nonstationary}
+Let $\phi\in C^\infty(\R^d)$ and $a\in C_c^\infty(\R^d)$.
+Assume that on $\supp(a)$ one has $|\nabla\phi(x)|\ge c_0>0$.
+Then for every $N\ge 0$ and every $\lambda\ge 1$,
+\begin{equation}\label{eq:J.nonstat.bound}
+\left|\int_{\R^d} e^{i\lambda\phi(x)} a(x)\,dx\right|
+\le
+C_N\,\lambda^{-N}\sum_{|\alpha|\le N}\|\partial^\alpha a\|_{L^1},
+\end{equation}
+where $C_N$ depends only on $N,d$ and finitely many bounds for derivatives of $\phi$ on $\supp(a)$, and on $c_0^{-1}$.
+\end{lemma}
+
+\begin{proof}
+Define the differential operator
+\[
+L=\frac{1}{i\lambda}\,\frac{\nabla\phi\cdot\nabla}{|\nabla\phi|^2},
+\qquad
+L\big(e^{i\lambda\phi}\big)=e^{i\lambda\phi}.
+\]
+Integrating by parts $N$ times yields \eqref{eq:J.nonstat.bound}.
+\end{proof}
+
+\begin{remark}[Uniformity under parameter dependence]
+\label{rem:J.uniform.nsp}
+If $\phi=\phi_{\lambda,\eta}$ and $a=a_{\lambda,\eta}$ depend on external parameters and the lower bound
+$|\nabla\phi_{\lambda,\eta}|\ge c_0$ holds uniformly on $\supp(a_{\lambda,\eta})$, while finitely many derivatives of
+$\phi_{\lambda,\eta}$ are uniformly bounded, then \eqref{eq:J.nonstat.bound} is uniform in $(\lambda,\eta)$.
+\end{remark}
+
+\section{One-dimensional stationary phase}
+\label{sec:J.1d}
+
+We record the classical stationary phase expansion in one dimension with explicit remainder control.
+
+\begin{theorem}[Stationary phase in one dimension]
+\label{thm:J.sp1d}
+Let $\phi\in C^\infty([a,b])$ and $A\in C_c^\infty((a,b))$.
+Assume $\phi'$ has a unique zero $x_0\in(a,b)$ and that $\phi''(x_0)\neq 0$.
+Then for $\lambda\to\infty$ one has the expansion
+\begin{equation}\label{eq:J.sp1d.expansion}
+\int_a^b e^{i\lambda\phi(x)}A(x)\,dx
+=
+e^{i\lambda\phi(x_0)}e^{i\frac{\pi}{4}\sgn\phi''(x_0)}
+\left(\frac{2\pi}{\lambda|\phi''(x_0)|}\right)^{1/2}
+\sum_{k=0}^{N-1}\lambda^{-k}\,c_k
++
+R_N(\lambda),
+\end{equation}
+where $c_k$ are universal differential expressions in $\phi$ and $A$ evaluated at $x_0$, and
+\begin{equation}\label{eq:J.sp1d.remainder}
+|R_N(\lambda)|
+\le
+C_N\,\lambda^{-N-\frac12},
+\end{equation}
+with $C_N$ depending on finitely many derivatives of $\phi$ and $A$ on $[a,b]$ and on $|\phi''(x_0)|^{-1}$.
+\end{theorem}
+
+\begin{remark}[Leading coefficient]
+\label{rem:J.sp1d.leading}
+The leading coefficient is $c_0=A(x_0)$.  In particular,
+\[
+\int e^{i\lambda\phi(x)}A(x)\,dx
+=
+e^{i\lambda\phi(x_0)}e^{i\frac{\pi}{4}\sgn\phi''(x_0)}
+\left(\frac{2\pi}{\lambda|\phi''(x_0)|}\right)^{1/2}
+A(x_0)
++
+O(\lambda^{-3/2}).
+\]
+\end{remark}
+
+\section{Multi-dimensional stationary phase}
+\label{sec:J.md}
+
+We now record the $d$-dimensional stationary phase theorem in the nondegenerate case.
+
+\begin{theorem}[Nondegenerate stationary phase]
+\label{thm:J.spd}
+Let $\phi\in C^\infty(\R^d)$ and $a\in C_c^\infty(\R^d)$.
+Assume $\nabla\phi$ has a unique critical point $x_0\in\supp(a)$ and that the Hessian
+$H=\nabla^2\phi(x_0)$ is nondegenerate.
+Then for $\lambda\to\infty$,
+\begin{equation}\label{eq:J.spd.expansion}
+\int_{\R^d} e^{i\lambda\phi(x)}a(x)\,dx
+=
+e^{i\lambda\phi(x_0)}e^{i\frac{\pi}{4}\sgn(H)}
+\left(\frac{2\pi}{\lambda}\right)^{d/2}
+\frac{1}{|\det H|^{1/2}}
+\sum_{k=0}^{N-1}\lambda^{-k}\,C_k
++
+R_N(\lambda),
+\end{equation}
+where $C_k$ are universal differential expressions in $\phi$ and $a$ at $x_0$, and
+\begin{equation}\label{eq:J.spd.remainder}
+|R_N(\lambda)|
+\le
+C_N\,\lambda^{-N-\frac{d}{2}},
+\end{equation}
+with $C_N$ depending on finitely many derivatives of $\phi,a$ on $\supp(a)$ and on a lower bound for
+$|\det H|$.
+\end{theorem}
+
+\begin{remark}[Uniformity under rescaling]
+\label{rem:J.spd.uniform}
+In the localized trace applications, the phase typically has the form
+$\phi(x)=\phi_0(x)+O(\eta)$ and $\lambda$ is large while $\eta$ is small.
+Uniformity of \eqref{eq:J.spd.expansion} requires that the nondegeneracy bounds for the Hessian persist uniformly in
+the admissible parameter range.  This is ensured in our applications by the microlocal localization away from caustics
+and conjugate points, as in Chapter~\ref{chap:05-microlocal}.
+\end{remark}
+
+\section{Parameterized stationary phase at two scales}
+\label{sec:J.two.scale}
+
+We record a form of stationary phase suited to integrals where both $\lambda$ and $\eta$ appear, typically through
+amplitudes supported on $|t|\lesssim \eta^{-1}$.
+
+\subsection{A model estimate}
+\label{subsec:J.model}
+
+Let $I(\lambda,\eta)$ be of the form
+\begin{equation}\label{eq:J.model.integral}
+I(\lambda,\eta)
+=
+\int_{\R^d} e^{i\lambda\phi(x)} a(x)\,\chi\!\left(\frac{\psi(x)}{\eta}\right)\,dx,
+\qquad
+\lambda\ge 1,\quad 0<\eta\le 1,
+\end{equation}
+where $\chi\in C_c^\infty(\R)$ and $\psi$ is smooth with $\psi(x_0)=0$ at a stationary point $x_0$ of $\phi$.
+
+The factor $\chi(\psi/\eta)$ forces the integration region to a tube $\{|\psi|\lesssim \eta\}$, and hence introduces a
+second geometric scale.  The following lemma packages the uniform remainder bound needed for short-window trace
+asymptotics.
+
+\begin{lemma}[Two-scale stationary phase: uniform leading term]
+\label{lem:J.twoscale}
+Assume $\phi$ has a unique nondegenerate critical point $x_0$ on the set $\{\psi=0\}$, and that in a neighborhood of
+$x_0$ the level set $\{\psi=0\}$ is a smooth hypersurface transversal to the gradient directions needed for the
+stationary phase reduction.  Then, for $\lambda\to\infty$ and $\eta\in(0,1]$,
+\begin{equation}\label{eq:J.twoscale.bound}
+I(\lambda,\eta)
+=
+\eta\,e^{i\lambda\phi(x_0)}\lambda^{-(d-1)/2}\,A_0
++
+O\!\left(\eta\,\lambda^{-(d+1)/2}\right)
++
+O_N\!\left(\lambda^{-N}\eta^{-M_N}\right),
+\end{equation}
+where $A_0$ is an explicit constant depending on $\chi$, $\phi$, $\psi$, and $a$ at $x_0$, and $M_N$ is a finite loss
+arising from derivatives of the cutoff $\chi(\psi/\eta)$.
+\end{lemma}
+
+\begin{remark}[Interpretation in localized trace regimes]
+\label{rem:J.twoscale.interp}
+In the localized trace setting, the admissible regime $\eta\ge \lambda^{-\theta}$ ensures that the derivative losses
+$\eta^{-M_N}$ can be traded against powers of $\lambda$ by choosing $N$ large.  This is one of the mechanisms by which
+the window constraint enters the error hierarchy.
+\end{remark}
+
+\section{Oscillatory integrals with endpoint singularities}
+\label{sec:J.endpoints}
+
+Several trace contributions (notably the identity term after reduction to radial variables) lead to oscillatory
+integrals with mild endpoint singularities.  We record a representative estimate.
+
+\begin{lemma}[Oscillatory integral with algebraic singularity]
+\label{lem:J.endpoint}
+Let $\alpha>-1$ and $A\in C^\infty([0,1])$.  Then for $\lambda\ge 1$,
+\begin{equation}\label{eq:J.endpoint.bound}
+\left|\int_0^1 e^{i\lambda t}\,t^\alpha\,A(t)\,dt\right|
+\le
+C_{\alpha,A}\,\lambda^{-\alpha-1},
+\end{equation}
+and if $A(0)\neq 0$ the decay rate $\lambda^{-\alpha-1}$ is sharp.
+\end{lemma}
+
+\begin{proof}
+Integrate by parts once after rewriting $t^\alpha A(t)=\partial_t\big(t^{\alpha+1}B(t)\big)$ for a smooth $B$; iterate
+as needed.
+\end{proof}
+
+\section{Bessel-type oscillatory transforms}
+\label{sec:J.bessel}
+
+The Kuznetsov-type applications require oscillatory integral transforms involving Bessel functions.
+We record the structural estimate used in Block~8.2.
+
+\subsection{A model Bessel transform}
+\label{subsec:J.bessel.model}
+
+Let $K_{\lambda,\eta}(x)$ denote an integral of the form
+\begin{equation}\label{eq:J.bessel.transform}
+K_{\lambda,\eta}(x)
+=
+\int_{\R} \chi_\eta(r-\lambda)\, \mathbf{J}(r;x)\,dr,
+\end{equation}
+where $\mathbf{J}(r;x)$ is a Bessel kernel (e.g.\ combinations of $J_{2ir}$ or $K_{2ir}$ depending on the specific
+normalization of the Kuznetsov formula).
+
+The key feature is that $\chi_\eta$ localizes $r$ to a window of width $\eta$, so that asymptotics may be obtained by
+expanding $\mathbf{J}(r;x)$ around $r=\lambda$ and integrating termwise, with error controlled by bounds on
+$\partial_r^k \mathbf{J}(r;x)$.
+
+\begin{lemma}[Localized Bessel transform: schematic bound]
+\label{lem:J.bessel.bound}
+Assume $\mathbf{J}(r;x)$ is smooth in $r$ and satisfies for $k\le K$ the uniform derivative bound
+$|\partial_r^k \mathbf{J}(r;x)|\le C_k\,\mathcal{W}(x)\,(1+|r|)^k$.
+Then for $\lambda\ge 1$ and $\eta\in(0,1]$,
+\begin{equation}\label{eq:J.bessel.bound}
+K_{\lambda,\eta}(x)
+=
+\eta\,\mathbf{J}(\lambda;x)\int_{\R}\chi(u)\,du
++
+O\!\left(\eta^2 \sup_{|r-\lambda|\le 2\eta} |\partial_r \mathbf{J}(r;x)|\right),
+\end{equation}
+and the implied constant depends only on finitely many seminorms of $\chi$.
+\end{lemma}
+
+\begin{remark}[Use in Kloosterman control]
+\label{rem:J.kloosterman}
+In the off-diagonal Kuznetsov analysis, the oscillation in $\mathbf{J}(r;x)$ as a function of $x$ yields additional
+cancellation after summation over moduli.  Lemma~\ref{lem:J.bessel.bound} isolates the $r$-localization step; the
+subsequent $x$-analysis is performed by stationary phase in the modulus variable, as in Chapter~\ref{chap:05-microlocal}.
+\end{remark}
+
+\section{A bookkeeping lemma for remainder ledgers}
+\label{sec:J.ledger}
+
+We conclude with a lemma that converts repeated uses of stationary phase into a single ledger-style bound.
+
+\begin{lemma}[Remainder aggregation principle]
+\label{lem:J.aggregation}
+Let $I_k(\lambda,\eta)$, $k=1,\dots,K$, be oscillatory integrals each admitting a decomposition
+\[
+I_k(\lambda,\eta)=M_k(\lambda,\eta)+R_k(\lambda,\eta),
+\qquad
+|R_k(\lambda,\eta)|\le \mathcal{E}_k(\lambda,\eta).
+\]
+Then the aggregated integral $I=\sum_{k=1}^K I_k$ satisfies
+\[
+I(\lambda,\eta)
+=
+\sum_{k=1}^K M_k(\lambda,\eta)
++
+R(\lambda,\eta),
+\qquad
+|R(\lambda,\eta)|\le \sum_{k=1}^K \mathcal{E}_k(\lambda,\eta).
+\]
+\end{lemma}
+
+\begin{remark}[Interpretation]
+\label{rem:J.aggregation.interp}
+Lemma~\ref{lem:J.aggregation} is the formal justification for the consolidated error ledger strategy adopted in
+Chapter~\ref{chap:08-normalization}: distinct sources of oscillatory remainder are tracked separately and then combined
+linearly into a single quantified object.
+\end{remark}
+
+\section*{Bibliographic notes}
+
+Stationary phase and oscillatory integral asymptotics in the form used here are standard; see, e.g., the analytic
+background in semiclassical texts such as \cite{Zworski2012} and in microlocal trace formula treatments.
+For Bessel transform asymptotics relevant to Kuznetsov-type formulae, see classical treatments in the automorphic
+literature (e.g.\ \cite{Iwaniec2002}).
+
+% ======================================================================
+% End of J-stationary-phase-and-oscillatory-integrals.tex
+% ======================================================================
