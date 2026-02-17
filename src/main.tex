@@ -1,12 +1,17 @@
 % ==================================================================
 % PATH: src/main.tex
-% main.tex — Monograph: Localized Trace Formula (DIAMOND SAFE)
+% main.tex — Monograph: Localized Trace Formula (ULTRA Annals+++)
 %
-% Diamond law:
-%   - main.tex does NOT define theorem environments (single authority:
-%     src/macros/environments.tex).
-%   - operators/house-style are loaded via guarded \input.
-%   - structure is driven by folder layout under src/.
+% Annals+++ law (structure + stability):
+%   (A0) main.tex contains no theorem environment definitions
+%        (single authority: src/macros/environments.tex).
+%   (A1) main.tex is a pure orchestrator: loads house-style/operators
+%        via guarded \input; never redefines them.
+%   (A2) file layout is the source of truth; removed chapters are NOT
+%        referenced; applications live as a chapter in src/sections/.
+%   (A3) appendices are loaded by stable canonical names; transitional
+%        aliases are tolerated via guarded \IfFileExists blocks.
+%   (A4) numbering and hyperref are deterministic (no hidden state).
 % ==================================================================
 
 \documentclass[11pt,oneside]{book}
@@ -17,7 +22,7 @@
 \usepackage{iftex}
 
 % ------------------------------------------------------------
-% Page geometry
+% Page geometry (Annals-like compactness; keep A4)
 % ------------------------------------------------------------
 \usepackage[a4paper,margin=1in]{geometry}
 
@@ -33,10 +38,9 @@
 \fi
 
 % ------------------------------------------------------------
-% Core packages
+% Core packages (minimal, stable)
 % ------------------------------------------------------------
 \usepackage{xcolor}
-
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{mathtools}
 \usepackage{bm}
@@ -55,32 +59,32 @@
 \usepackage{microtype}
 
 % ------------------------------------------------------------
-% Boxes (for title abstract)
+% Boxes (title abstract)
 % ------------------------------------------------------------
 \usepackage[most]{tcolorbox}
 
 % ------------------------------------------------------------
-% Hyperlinks (load near end)
-% ------------------------------------------------------------
-\usepackage{hyperref}
-\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
-
-% ------------------------------------------------------------
-% Equation numbering
+% Equation numbering (Annals convention: by section)
 % ------------------------------------------------------------
 \numberwithin{equation}{section}
 
 % ------------------------------------------------------------
-% Custom macros (Diamond Guard)
+% Custom macros (Annals+++ Guard)
 % ------------------------------------------------------------
 \IfFileExists{macros/environments.tex}{\input{macros/environments.tex}}{}
 \IfFileExists{macros/operators.tex}{\input{macros/operators.tex}}{}
 \IfFileExists{macros/house-style.tex}{\input{macros/house-style.tex}}{}
 
 % ------------------------------------------------------------
-% Safe fallbacks (only if missing upstream)
+% Safe fallbacks (only if missing upstream authority)
 % ------------------------------------------------------------
 \providecommand{\STF}{\operatorname{STF}}
+
+% ------------------------------------------------------------
+% Hyperlinks (load near end)
+% ------------------------------------------------------------
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
 
 % ------------------------------------------------------------
 % PDF metadata
@@ -99,10 +103,13 @@
 % ==============================================================
 \begin{document}
 
+% ==============================================================
+% FRONTMATTER
+% ==============================================================
 \frontmatter
 
 % ------------------------------------------------------------
-% Title page
+% Title page (Annals+++ minimal + stable)
 % ------------------------------------------------------------
 \begin{titlepage}
   \centering
@@ -127,13 +134,15 @@
   ]
     \small
     \textbf{Abstract.}\;
-    We establish a localized trace formula for finite-area hyperbolic surfaces
-    $\Gamma\backslash\mathbb{H}$ with cusps. Using a microlocalized wave propagator
-    and a smooth spectral projector onto $[\lambda-\eta, \lambda+\eta]$, we match the
-    spectral side to a geometric expansion over closed geodesics of length up to
-    $T \asymp \log\lambda$ with a power-saving remainder $O(\lambda^{-\delta})$
-    depending only on cusp geometry and the spectral gap. Applications include a
-    quantitative local Weyl law and variance bounds for automorphic eigenfunctions.
+    We develop a localized trace formalism for finite-area hyperbolic surfaces
+    $M=\Gamma\backslash\mathbb{H}$ with cusps, treating the trace formula as a stable
+    object under admissible microlocal modifications.  A normalization layer
+    canonicalizes the identity sector and consolidates non-canonicity into an explicit
+    error ledger.  In short spectral windows $[\lambda-\eta,\lambda+\eta]$ down to
+    $\eta=\lambda^{-\theta}$, we obtain power-saving remainders and derive invariant
+    spectral consequences, including a quantitative local Weyl law, localized variance
+    bounds, and trace-to-zeta interfaces compatible with determinant identities and
+    positivity mechanisms.
   \end{tcolorbox}
 
   \vfill
@@ -143,66 +152,96 @@
 \tableofcontents
 
 % ------------------------------------------------------------
-% Frontmatter blocks
+% Frontmatter blocks (guarded)
 % ------------------------------------------------------------
 \IfFileExists{frontmatter/00-executive-summary.tex}{\input{frontmatter/00-executive-summary.tex}}{}
 \IfFileExists{frontmatter/00-readers-roadmap.tex}{\input{frontmatter/00-readers-roadmap.tex}}{}
 \IfFileExists{frontmatter/00-notation-glossary.tex}{\input{frontmatter/00-notation-glossary.tex}}{}
 
+% ==============================================================
+% MAINMATTER
+% ==============================================================
 \mainmatter
 
 % ------------------------------------------------------------
-% Main chapters
+% Core development
 % ------------------------------------------------------------
 \IfFileExists{sections/01-introduction.tex}{\input{sections/01-introduction.tex}}{}
 
-% Preliminaries folder
+% Preliminaries folder (single entry point)
 \IfFileExists{sections/02-preliminaries/02-preliminaries.tex}{%
   \input{sections/02-preliminaries/02-preliminaries.tex}%
 }{}
 
-% Core chapters
+% Kernel / projector / microlocal / geometric / main theorem
 \IfFileExists{sections/03-kernel.tex}{\input{sections/03-kernel.tex}}{}
 \IfFileExists{sections/04-projector.tex}{\input{sections/04-projector.tex}}{}
 \IfFileExists{sections/05-microlocal.tex}{\input{sections/05-microlocal.tex}}{}
 \IfFileExists{sections/06-geometric.tex}{\input{sections/06-geometric.tex}}{}
 \IfFileExists{sections/07-main-results.tex}{\input{sections/07-main-results.tex}}{}
 
-% New split structure
+% ------------------------------------------------------------
+% Post-core: canonicalization + interfaces + applications
+% (Chapter numbers are assigned by file order; chapter labels remain internal.)
+% ------------------------------------------------------------
 \IfFileExists{sections/08-normalization.tex}{\input{sections/08-normalization.tex}}{}
 \IfFileExists{sections/09-local-weyl.tex}{\input{sections/09-local-weyl.tex}}{}
 \IfFileExists{sections/10-trace-to-zeta-bridges.tex}{\input{sections/10-trace-to-zeta-bridges.tex}}{}
-\IfFileExists{sections/12-applications.tex}{\input{sections/12-applications.tex}}{}
+
+% Applications (chapter 12 was removed: do not reference it)
+% Preferred new canonical location/name:
+%   src/sections/11-applications.tex
+% Backward-compatible alias:
+%   src/sections/12-applications.tex (deprecated; should not exist)
+\IfFileExists{sections/11-applications.tex}{\input{sections/11-applications.tex}}{}
+\IfFileExists{sections/12-applications.tex}{\input{sections/12-applications.tex}}{} % legacy alias (remove once migrated)
 
 % ------------------------------------------------------------
-% Conclusion
+% Conclusion (kept as conclusion/11-conclusion.tex; numbering follows order)
+% If you prefer "Conclusion" to be the last numbered chapter, keep it here.
 % ------------------------------------------------------------
 \IfFileExists{conclusion/11-conclusion.tex}{\input{conclusion/11-conclusion.tex}}{}
 
-% ------------------------------------------------------------
-% Appendices
-% ------------------------------------------------------------
+% ==============================================================
+% APPENDICES
+% ==============================================================
 \appendix
 
-\IfFileExists{appendices/A-effective-volume.tex}{\input{appendices/A-effective-volume.tex}}{}
+% Canonical appendix names (preferred)
+\IfFileExists{appendices/A-identity-term-effective-volume.tex}{\input{appendices/A-identity-term-effective-volume.tex}}{}
 \IfFileExists{appendices/B-auxiliary-estimates.tex}{\input{appendices/B-auxiliary-estimates.tex}}{}
 \IfFileExists{appendices/C-microlocal-toolkit.tex}{\input{appendices/C-microlocal-toolkit.tex}}{}
-\IfFileExists{appendices/D-extended-tauberian.tex}{\input{appendices/D-extended-tauberian.tex}}{}
-\IfFileExists{appendices/E-numerical-verification.tex}{\input{appendices/E-numerical-verification.tex}}{}
+\IfFileExists{appendices/D-tauberian-smoothing-removal.tex}{\input{appendices/D-tauberian-smoothing-removal.tex}}{}
+\IfFileExists{appendices/E-consistency-checks.tex}{\input{appendices/E-consistency-checks.tex}}{}
 \IfFileExists{appendices/F-implementation-notes.tex}{\input{appendices/F-implementation-notes.tex}}{}
-\IfFileExists{appendices/G-normalizations-and-conventions.tex}{\input{appendices/G-normalizations-and-conventions.tex}}{}
+\IfFileExists{appendices/G-fourier-normalizations-and-measures.tex}{\input{appendices/G-fourier-normalizations-and-measures.tex}}{}
 \IfFileExists{appendices/H-selberg-comparison.tex}{\input{appendices/H-selberg-comparison.tex}}{}
 \IfFileExists{appendices/I-historical-context.tex}{\input{appendices/I-historical-context.tex}}{}
+\IfFileExists{appendices/J-stationary-phase-and-oscillatory-integrals.tex}{\input{appendices/J-stationary-phase-and-oscillatory-integrals.tex}}{}
+\IfFileExists{appendices/K-scattering-determinant-and-maass-selberg.tex}{\input{appendices/K-scattering-determinant-and-maass-selberg.tex}}{}
+\IfFileExists{appendices/L-trace-class-criteria-and-regularization.tex}{\input{appendices/L-trace-class-criteria-and-regularization.tex}}{}
 
+% Transitional aliases (tolerate older filenames; safe to delete later)
+\IfFileExists{appendices/A-effective-volume.tex}{\input{appendices/A-effective-volume.tex}}{}
+\IfFileExists{appendices/D-extended-tauberian.tex}{\input{appendices/D-extended-tauberian.tex}}{}
+\IfFileExists{appendices/E-numerical-verification.tex}{\input{appendices/E-numerical-verification.tex}}{}
+\IfFileExists{appendices/G-normalizations-and-conventions.tex}{\input{appendices/G-normalizations-and-conventions.tex}}{}
+
+% ==============================================================
+% BACKMATTER
+% ==============================================================
 \backmatter
 
 % ------------------------------------------------------------
 % Bibliography
 % ------------------------------------------------------------
 \bibliographystyle{alpha}
-
 \IfFileExists{bib/references.bib}{%
   \bibliography{bib/references}%
 }{}
 
 \end{document}
+
+% ==================================================================
+% End of main.tex
+% ==================================================================
