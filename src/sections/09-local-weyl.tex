@@ -1,5 +1,10 @@
 % ======================================================================
-% 09-local-weyl.tex
+% 09-local-weyl.tex (FULL REWRITE, Annals+++ / DIAMOND)
+% Local Weyl law as a CANONICALITY + STABILITY statement (not just asymptotic)
+% Locks inherited from Ch. 5–8:
+%   - OBJ-LOCK: A = sqrt(Delta - 1/4), Tr^{reg} fixed by the Chapter-7 truncation ledger
+%   - Normalization: T_\Gamma[h] = L_\Gamma[h - h(0)\chi] (Chapter 8)
+%   - Error accounting: every admissible auxiliary change is absorbed into a finite ledger E_\Gamma
 % ======================================================================
 
 \chapter{A Local Weyl Law with Quantified Remainders}
@@ -7,497 +12,422 @@
 
 \epigraph{A Weyl law is not an asymptotic; it is a stability statement about what survives every admissible normalization.}{}
 
+% ======================================================================
 \section{Purpose and statement of the problem}
 \label{sec:09.purpose}
+% ======================================================================
 
-This chapter establishes a local Weyl law for the spectral data associated with the geometric setting
-fixed in Chapters~\ref{chap:01-introduction}--\ref{chap:08-normalization}. The central goal is to extract,
-from the normalized trace functional of Chapter~\ref{chap:08-normalization}, a canonical leading term
-together with a remainder bound that is stable under all admissible auxiliary choices.
-
-Throughout, the underlying operator and the corresponding spectral resolution are those fixed earlier
-(e.g.\ the Laplace--Beltrami operator on the relevant quotient, or the automorphic Laplacian in the presence
-of a character). We write the spectrum in the standard spectral parameterization
+\noindent\textbf{Scope.}
+In the geometric setting fixed in Chapters~\ref{chap:01-introduction}--\ref{chap:08-normalization}, let
 \[
-\lambda_j=\frac14+r_j^2,
-\qquad r_j\ge 0,
+A:=\sqrt{\Delta-\tfrac14}
 \]
-and denote by $\{\varphi_j\}$ an orthonormal basis of eigenfunctions.
+with the (regularized) trace functional $\Tr^{\mathrm{reg}}$ fixed by the truncation convention of Chapter~7.
+This chapter extracts from the normalized trace functional of Chapter~8 a \emph{canonical principal term}
+(the phase-volume constant) and a \emph{quantified remainder} that is stable under all admissible auxiliary choices.
 
-The fundamental object of this chapter is the (possibly weighted) spectral measure
+\medskip
+\noindent\textbf{Spectral parameterization.}
+Write the discrete spectrum in spectral parameters $r_j\ge 0$ via
 \[
-\mu_{\Gamma,\chi} := \sum_{j} \delta_{r_j},
+\Delta\varphi_j=\Bigl(\tfrac14+r_j^2\Bigr)\varphi_j,
+\qquad \{\varphi_j\}\ \text{orthonormal in }L^2.
+\]
+(When a continuous spectrum is present, it is handled inside $\Tr^{\mathrm{reg}}$ and the Chapter-7 cusp ledger.)
+
+\medskip
+\noindent\textbf{Spectral measures.}
+We consider the unweighted and microlocally weighted measures
+\begin{equation}\label{eq:09.measures}
+\mu_\Gamma := \sum_j \delta_{r_j},
 \qquad
-\mu_{\Gamma,\chi}^A := \sum_{j} \ip{A\varphi_j}{\varphi_j}\,\delta_{r_j},
-\]
-where $A$ is a fixed zeroth-order pseudodifferential operator (or a microlocal projector) as introduced
-in Chapter~\ref{chap:05-microlocal}. The notation indicates that the construction of the localized trace
-depends on admissible auxiliary data, but the theorems below show that the final asymptotic is canonical
-modulo explicit corrections and a quantified error ledger.
+\mu_\Gamma^{B} := \sum_j \langle B\varphi_j,\varphi_j\rangle\,\delta_{r_j},
+\end{equation}
+where $B\in\Psi^0(X)$ is a fixed zeroth-order pseudodifferential observable (Chapter~5).
+The statement below shows that the leading term is \emph{canonical} (independent of auxiliary architecture)
+and that all instabilities are absorbed into an explicit normalization ledger.
 
-\section{Test functions and smoothing conventions}
+% ======================================================================
+\section{Test functions and smoothing locks}
 \label{sec:09.tests}
+% ======================================================================
 
-\subsection{Admissible smoothing kernels}
-\label{subsec:09.admissible-smoothing}
+\subsection{Admissible test class}\label{subsec:09.admissible-smoothing}
 
-Let $h:\R\to\C$ be an admissible test function in the sense of Chapter~\ref{chap:08-normalization}
-(typically Schwartz, or Paley--Wiener of prescribed exponential type). We shall systematically
-consider rescaled families
+Let $h:\R\to\C$ be admissible in the sense of Chapter~8 (Schwartz or Paley--Wiener under the locked Fourier conventions).
+For $T\ge1$ define the rescaled family
+\begin{equation}\label{eq:09.rescale}
+h_T(t):=h(t/T).
+\end{equation}
+
+\medskip
+\noindent\textbf{LOCK-F (Fourier convention).}
+We use the Fourier transform
+\begin{equation}\label{eq:09.FT}
+\widehat h(\xi):=\int_{\R} h(t)\,e^{-it\xi}\,dt,
+\end{equation}
+consistent with Chapters~7--8.
+
+\medskip
+\noindent\textbf{Normalized trace object.}
+Let $\chi$ be the admissible cutoff fixed in Chapter~8 ($\chi\equiv1$ near $0$). The canonical normalized trace is
+\begin{equation}\label{eq:09.T.def}
+\mathcal T_\Gamma[h;\chi]:=\mathcal L_\Gamma[h-h(0)\chi],
+\end{equation}
+with cutoff dependence controlled explicitly by Theorem~\ref{thm:08.normalization-stability}.
+
+\subsection{Parity split and canonical parity reduction}\label{subsec:09.parity}
+
+Define
 \[
-h_T(t):=h\!\left(\frac{t}{T}\right),
-\qquad T\ge 1.
-\]
-We write $\widehat h$ for the Fourier transform with the convention
-\[
-\widehat h(\xi)=\int_{\R} h(t)e^{-it\xi}\,dt.
-\]
-
-The analysis of this chapter is based on the normalized trace functional
-\[
-\mathcal{T}_\Gamma[h;\chi]=\mathcal{L}_\Gamma[h-h(0)\chi]
-\]
-constructed in Chapter~\ref{chap:08-normalization}. In particular, the dependence on $\chi$ is controlled
-explicitly by Theorem~\ref{thm:08.normalization-stability}.
-
-\subsection{Even--odd decomposition and canonical parity reduction}
-\label{subsec:09.parity}
-
-For any admissible $h$ we define
-\[
-h^{\mathrm{ev}}(t)=\frac12\bigl(h(t)+h(-t)\bigr),
+h^{\mathrm{ev}}(t)=\frac12(h(t)+h(-t)),
 \qquad
-h^{\mathrm{odd}}(t)=\frac12\bigl(h(t)-h(-t)\bigr),
+h^{\mathrm{odd}}(t)=\frac12(h(t)-h(-t)),
+\qquad h=h^{\mathrm{ev}}+h^{\mathrm{odd}}.
 \]
-so that $h=h^{\mathrm{ev}}+h^{\mathrm{odd}}$.
 
-The identity contribution in trace formulas is parity-even. Consequently, the odd component provides a
-canonical defect channel which isolates contributions that cannot appear in the principal Weyl term.
-
-\begin{lemma}[Parity reduction of the principal term]
-\label{lem:09.parity-reduction}
-Let $\mathcal{T}_\Gamma[h;\chi]$ be the canonical normalized trace functional of
-Chapter~\ref{chap:08-normalization}. Then the principal Weyl term depends only on $h^{\mathrm{ev}}$.
-More precisely, for any admissible $(h,\chi)$ one has
+\begin{lemma}[Parity reduction of the principal term]\label{lem:09.parity-reduction}
+The principal Weyl term extracted from $\mathcal T_\Gamma[h;\chi]$ depends only on $h^{\mathrm{ev}}$.
+Moreover, the odd-channel contribution carries no identity-sector mass and is therefore a pure remainder channel:
 \[
-\mathcal{T}_\Gamma[h;\chi]
-=
-\mathcal{T}_\Gamma[h^{\mathrm{ev}};\chi]
-+
-\mathcal{T}_\Gamma[h^{\mathrm{odd}};\chi],
+\mathcal T_\Gamma[h;\chi]=\mathcal T_\Gamma[h^{\mathrm{ev}};\chi]+\mathcal T_\Gamma[h^{\mathrm{odd}};\chi],
+\qquad
+\mathcal T_\Gamma[h^{\mathrm{odd}};\chi]\ \text{has no identity contribution}.
 \]
-and the contribution of $\mathcal{T}_\Gamma[h^{\mathrm{odd}};\chi]$ is purely non-identity and hence belongs
-to the remainder ledger.
 \end{lemma}
 
 \begin{proof}
-The decomposition is tautological by linearity. The parity claim follows from the fact that the identity
-term in the localized trace formula is an even functional of the test variable, as in the standard
-parametrix computation for the wave kernel and the Selberg trace formula; the odd part therefore has
-no identity contribution and must be accounted for entirely by non-identity and remainder terms.
+Linearity is immediate. The identity term in the local trace expansion (equivalently the local parametrix)
+is an even functional of the test variable; hence it vanishes on $h^{\mathrm{odd}}$.
 \end{proof}
 
-\section{Spectral counting functions and smoothed Weyl laws}
+% ======================================================================
+\section{Smoothed spectral counting and local Weyl statements}
 \label{sec:09.smoothed-weyl}
+% ======================================================================
 
-\subsection{Smoothed counting function}
-\label{subsec:09.smoothed-count}
+\subsection{Mollifiers and smoothed counts}\label{subsec:09.smoothed-count}
 
-Let $w\in \mathcal{S}(\R)$ be a fixed nonnegative Schwartz function with $\int_{\R} w(t)\,dt=1$.
-For $\delta>0$ we set
+Fix $w\in\mathcal S(\R)$, $w\ge0$, with $\int_\R w(t)\,dt=1$. For $\delta\in(0,1]$ set
 \[
 w_\delta(t):=\delta^{-1}w(t/\delta).
 \]
-We define the smoothed counting function
-\[
-N_\Gamma(r;\delta)
-:=
-(\mu_{\Gamma,\chi}*w_\delta)(r)
-=
-\sum_{j} w_\delta(r-r_j),
-\]
-and, more generally, for a bounded operator $A$ of order $0$,
-\[
-N_{\Gamma,A}(r;\delta)
-:=
-(\mu_{\Gamma,\chi}^A*w_\delta)(r)
-=
-\sum_{j}\ip{A\varphi_j}{\varphi_j}\,w_\delta(r-r_j).
-\]
+Define the smoothed counting functions
+\begin{equation}\label{eq:09.N.smooth}
+N_\Gamma(r;\delta):=(\mu_\Gamma*w_\delta)(r)=\sum_j w_\delta(r-r_j),
+\end{equation}
+and for $B\in\Psi^0(X)$,
+\begin{equation}\label{eq:09.N.weighted}
+N_{\Gamma,B}(r;\delta):=(\mu_\Gamma^{B}*w_\delta)(r)
+=\sum_j \langle B\varphi_j,\varphi_j\rangle\,w_\delta(r-r_j).
+\end{equation}
 
-The principal asymptotic of $N_\Gamma(r;\delta)$ as $r\to\infty$ is independent of $\delta$ as long as
-$\delta$ remains in an admissible regime (e.g.\ $\delta\ge r^{-\theta}$ for some fixed $\theta>0$),
-and the dependence on $\delta$ is fully absorbed into the Tauberian remainder.
+\subsection{Phase-volume constant (principal term)}\label{subsec:09.phase-volume}
 
-\subsection{The local Weyl law: statement}
-\label{subsec:09.statement}
+Let $n=\dim X$ and let $d\omega$ denote Liouville measure on $S^*X$.
+The universal phase-volume constant is
+\begin{equation}\label{eq:09.CX.general}
+C_X:=\frac{1}{(2\pi)^n}\,\vol(S^*X).
+\end{equation}
+In the surface case $n=2$ this simplifies to
+\begin{equation}\label{eq:09.CX.surface}
+C_X=\frac{\vol(X)}{2\pi}.
+\end{equation}
 
-We denote by $\vol(X)$ the Riemannian volume of the underlying manifold/orbifold $X$ and by $n=\dim X$.
-In the classical compact surface case one has $n=2$ and the principal term is linear in $r$.
-To keep the statement uniform across admissible geometries, we write the principal term in the standard
-phase-volume form.
+\subsection{Smoothed local Weyl law (unweighted)}\label{subsec:09.statement}
 
-\begin{theorem}[Smoothed local Weyl law]
-\label{thm:09.smoothed-weyl}
+\begin{theorem}[Smoothed local Weyl law with quantified remainders]\label{thm:09.smoothed-weyl}
 Assume the standing hypotheses of Chapters~\ref{chap:01-introduction}--\ref{chap:08-normalization}.
-Let $w$ be as above and let $\delta\in(0,1]$ be fixed. Then there exists an explicit constant $C_X>0$,
-depending only on the geometric data of $X$, such that
-\[
-N_\Gamma(r;\delta)
-=
-C_X\,r^{n-1}
-+
-\mathcal{R}_\Gamma(r;\delta),
-\qquad r\to+\infty,
-\]
-where the remainder satisfies the quantified bound
-\[
-\abs{\mathcal{R}_\Gamma(r;\delta)}
+Fix $w$ as above and $\delta\in(0,1]$.
+Then as $r\to+\infty$,
+\begin{equation}\label{eq:09.smoothed.weyl}
+N_\Gamma(r;\delta)=C_X\,r^{n-1}+\mathcal R_\Gamma(r;\delta),
+\end{equation}
+where $C_X$ is given by \eqref{eq:09.CX.general} and the remainder admits the canonical two-part bound
+\begin{equation}\label{eq:09.remainder.bound}
+|\mathcal R_\Gamma(r;\delta)|
 \le
-\mathcal{E}_{\Gamma}^{\mathrm{TF}}(r;\delta)
+\mathcal E^{\mathrm{TF}}_\Gamma(r;\delta)
 +
-\mathcal{E}_{\Gamma}^{\mathrm{Tab}}(r;\delta).
-\]
+\mathcal E^{\mathrm{Tab}}_\Gamma(r;\delta).
+\end{equation}
 Here:
 \begin{enumerate}
-  \item $\mathcal{E}_{\Gamma}^{\mathrm{TF}}(r;\delta)$ is the trace-formula remainder (geometric and spectral),
-  controlled by the error ledger of Chapter~\ref{chap:08-normalization};
-  \item $\mathcal{E}_{\Gamma}^{\mathrm{Tab}}(r;\delta)$ is the Tauberian smoothing remainder, depending only on
-  $\delta$ and on the decay properties of $w$.
+\item $\mathcal E^{\mathrm{TF}}_\Gamma(r;\delta)$ is the trace-formula/normalization remainder controlled by the consolidated ledger
+$\mathcal E_\Gamma[\cdot]$ of Chapter~8 (and by the Chapter-7 cusp ledger in the noncompact case);
+\item $\mathcal E^{\mathrm{Tab}}_\Gamma(r;\delta)$ is the purely Tauberian smoothing error depending only on $w$ and $\delta$.
 \end{enumerate}
-In particular, the principal term is canonical and depends only on the phase-volume invariant of $X$.
+In particular, the principal coefficient $C_X$ is canonical and independent of admissible auxiliary architecture.
 \end{theorem}
 
-\begin{remark}
-\label{rem:09.principal-term}
-In dimension $n=2$ (hyperbolic surfaces), the principal coefficient is explicitly
-\[
-C_X=\frac{\vol(X)}{2\pi}.
-\]
-More generally, $C_X$ is the universal phase-volume constant
-\[
-C_X=\frac{1}{(2\pi)^n}\vol\bigl(S^*X\bigr),
-\]
-as in the standard local Weyl law.
+\begin{remark}[Principal term as a locked invariant]\label{rem:09.principal-term}
+The constant $C_X$ depends only on the principal symbol of $\Delta$ and the Riemannian volume measure; hence it is invariant under
+admissible changes of quantization, partitions, and cutoffs. All such changes affect only $\mathcal E^{\mathrm{TF}}_\Gamma$.
 \end{remark}
 
+% ======================================================================
 \section{Derivation from the normalized trace formula}
 \label{sec:09.derivation}
+% ======================================================================
 
-\subsection{Spectral side and normalization}
-\label{subsec:09.spectral-side}
+\subsection{Spectral side under OBJ-LOCK}\label{subsec:09.spectral-side}
 
-Let $h$ be an admissible test function. The raw localized trace functional has the spectral expansion
-\[
-\mathcal{L}_\Gamma[h]
+By Chapter~7 (spectral expansion with the fixed regularization),
+\begin{equation}\label{eq:09.L.spectral}
+\mathcal L_\Gamma[h]
 =
-\sum_{j} h(r_j)\;+\;\mathcal{C}_\Gamma[h],
+\sum_j h(r_j)
++\mathcal C_\Gamma[h],
+\end{equation}
+where $\mathcal C_\Gamma[h]$ denotes the continuous-spectrum (and residual) contribution in the noncompact case
+and is identically $0$ in the compact case.
+Normalization yields
+\[
+\mathcal T_\Gamma[h;\chi]=\mathcal L_\Gamma[h-h(0)\chi],
 \]
-where $\mathcal{C}_\Gamma[h]$ denotes the continuous-spectrum contribution when present (and is identically
-zero in the compact case). The normalized trace functional of Chapter~\ref{chap:08-normalization} is
-\[
-\mathcal{T}_\Gamma[h;\chi]
-=
-\mathcal{L}_\Gamma[h-h(0)\chi].
-\]
-The subtraction removes the spurious zero-mode dependence and isolates the part of the trace that is stable
-under admissible cutoffs.
+which removes the sole identity-sector ambiguity.
 
-\subsection{Identity term and phase volume}
-\label{subsec:09.identity-term}
+\subsection{Identity term and Plancherel density}\label{subsec:09.identity-term}
 
-The identity term of the trace formula has the universal form
-\[
-\mathcal{I}_\Gamma[h]
-=
-\int_{\R} h(r)\,\rho_X(r)\,dr,
-\]
-where $\rho_X(r)$ is the Plancherel density determined by the geometry (for hyperbolic surfaces,
-$\rho_X(r)=\frac{\vol(X)}{2\pi}r\tanh(\pi r)$ up to conventional normalization).
-In particular, the leading Weyl term arises from the asymptotic expansion of $\rho_X(r)$ as $r\to\infty$.
+Let $\rho_X(r)$ denote the geometric Plancherel density (locked by convention). Then the identity contribution has the form
+\begin{equation}\label{eq:09.identity.term}
+\mathcal I_\Gamma[h]=\int_\R h(r)\,\rho_X(r)\,dr.
+\end{equation}
+For hyperbolic surfaces one may take $\rho_X(r)=\frac{\vol(X)}{2\pi}r\tanh(\pi r)$ (up to the Chapter-7 convention lock),
+and the Weyl term is obtained from the large-$r$ expansion of $\rho_X(r)$.
 
-\begin{lemma}[Asymptotic expansion of the identity contribution]
-\label{lem:09.identity-asymptotic}
-Let $h_T(t)=h(t/T)$ be an admissible rescaled family. Then the identity contribution satisfies
-\[
-\mathcal{I}_\Gamma[h_T]
+\begin{lemma}[Identity contribution asymptotic for rescaled tests]\label{lem:09.identity-asymptotic}
+Let $h_T$ be as in \eqref{eq:09.rescale}. Then, as $T\to+\infty$,
+\begin{equation}\label{eq:09.identity.asymp}
+\mathcal I_\Gamma[h_T]
 =
-C_X\,T^{n-1}\int_{\R} h(u)\,du
+C_X\,T^{n-1}\int_\R h(u)\,du
 +
 O\!\left(T^{n-2}\right),
-\qquad T\to+\infty,
-\]
-where $C_X$ is the phase-volume constant of Remark~\ref{rem:09.principal-term}.
+\end{equation}
+where $C_X$ is given by \eqref{eq:09.CX.general}.
 \end{lemma}
 
 \begin{proof}
-This is the standard stationary phase expansion for the local spectral density, equivalently the leading
-term in the Fourier inversion of the wave kernel parametrix. The constant $C_X$ is determined by the
-principal symbol of the Laplacian and is therefore canonical. The lower-order term is controlled by the
-standard remainder estimates in the parametrix construction.
+This is the standard local Weyl expansion obtained from the wave kernel parametrix by Fourier inversion (stationary phase);
+$C_X$ is determined by phase volume and is therefore canonical.
 \end{proof}
 
-\subsection{Non-identity contributions and the trace-formula remainder}
-\label{subsec:09.nonidentity}
+\subsection{Non-identity terms and the trace-formula remainder ledger}\label{subsec:09.nonidentity}
 
-The remaining geometric contributions (hyperbolic, elliptic, parabolic/cusp terms, and the scattering
-determinant where applicable) define the trace-formula remainder. The normalization theorem of
-Chapter~\ref{chap:08-normalization} implies that these contributions are stable under admissible changes
-of cutoff profiles, quantization conventions, and microlocal partitions, up to the explicit identity-term
-correction and a quantified ledger.
+Let $\mathcal G_\Gamma[h]$ denote the sum of non-identity geometric contributions (hyperbolic/orbit terms, elliptic terms, and
+parabolic/scattering terms in the noncompact case) in the fixed Chapter-7 convention. Then
+\begin{equation}\label{eq:09.T.decomp}
+\mathcal T_\Gamma[h;\chi]=\mathcal I_\Gamma[h]+\mathcal G_\Gamma[h]+\mathcal R^{\mathrm{TF}}_\Gamma[h;\chi],
+\end{equation}
+where $\mathcal R^{\mathrm{TF}}_\Gamma[h;\chi]$ is the trace-formula remainder.
 
-\begin{proposition}[Trace-formula remainder bound]
-\label{prop:09.trace-formula-remainder}
-Let $h$ be admissible. Then
-\[
-\mathcal{T}_\Gamma[h;\chi]
-=
-\mathcal{I}_\Gamma[h]
-+
-\mathcal{G}_\Gamma[h]
-+
-\mathcal{R}_\Gamma^{\mathrm{TF}}[h;\chi],
-\]
-where $\mathcal{G}_\Gamma[h]$ denotes the non-identity geometric contributions, and the remainder satisfies
-\[
-\abs{\mathcal{R}_\Gamma^{\mathrm{TF}}[h;\chi]}
+\begin{proposition}[Trace-formula remainder bound]\label{prop:09.trace-formula-remainder}
+For admissible $h$,
+\begin{equation}\label{eq:09.RTF.bound}
+\big|\mathcal R^{\mathrm{TF}}_\Gamma[h;\chi]\big|
 \le
-\mathcal{E}_\Gamma[h;\chi],
-\]
-with $\mathcal{E}_\Gamma[h;\chi]$ the consolidated normalization ledger of
-Definition~\ref{def:08.total-ledger}.
+\mathcal E_\Gamma[h],
+\end{equation}
+where $\mathcal E_\Gamma[h]$ is the consolidated normalization ledger of Definition~\ref{def:08.total-ledger}.
 \end{proposition}
 
 \begin{proof}
-This is a direct restatement of the normalization stability theorem
-(Theorem~\ref{thm:08.normalization-stability}), together with the decomposition of the raw trace formula
-established in Chapter~\ref{chap:07-main-results}.
+This is a direct application of Theorem~\ref{thm:08.normalization-stability} together with the fixed decomposition of
+Chapter~7.
 \end{proof}
 
-\section{A two-component remainder decomposition}
+% ======================================================================
+\section{Two-component remainder decomposition: trace dust vs.\ Tauberian dust}
 \label{sec:09.two-dust}
+% ======================================================================
 
-\subsection{Trace remainder versus Tauberian remainder}
-\label{subsec:09.dust-split}
+\subsection{Canonical dust split}\label{subsec:09.dust-split}
 
-The passage from smoothed traces to smoothed counting functions introduces an additional analytic error
-which is conceptually distinct from the geometric remainder. It is convenient to separate these two
-sources of error.
-
-\begin{definition}[Two-component remainder decomposition]
-\label{def:09.two-component}
-For $r>0$ and $\delta\in(0,1]$ define the decomposition
+\begin{definition}[Two-component remainder decomposition]\label{def:09.two-component}
+For $r>0$ and $\delta\in(0,1]$ define
 \[
-\mathcal{R}_\Gamma(r;\delta)
-=
-\mathcal{R}_\Gamma^{\mathrm{TF}}(r;\delta)
-+
-\mathcal{R}_\Gamma^{\mathrm{Tab}}(r;\delta),
+\mathcal R_\Gamma(r;\delta)=\mathcal R^{\mathrm{TF}}_\Gamma(r;\delta)+\mathcal R^{\mathrm{Tab}}_\Gamma(r;\delta),
 \]
-where:
-\begin{enumerate}
-  \item $\mathcal{R}_\Gamma^{\mathrm{TF}}(r;\delta)$ denotes the trace-formula remainder arising from the
-  non-identity contributions and from normalization errors;
-  \item $\mathcal{R}_\Gamma^{\mathrm{Tab}}(r;\delta)$ denotes the Tauberian remainder arising from smoothing,
-  i.e.\ from the replacement of a sharp cutoff by convolution with $w_\delta$.
-\end{enumerate}
+where $\mathcal R^{\mathrm{TF}}_\Gamma$ is the trace-formula/normalization remainder (geometry-dependent) and
+$\mathcal R^{\mathrm{Tab}}_\Gamma$ is the Tauberian smoothing remainder (kernel-dependent).
 \end{definition}
 
-This separation is canonical: $\mathcal{R}_\Gamma^{\mathrm{TF}}$ depends on the geometry and on the trace formula,
-whereas $\mathcal{R}_\Gamma^{\mathrm{Tab}}$ depends only on the smoothing kernel $w$ and on the scale $\delta$.
+\subsection{Quantified Tauberian control}\label{subsec:09.tauberian}
 
-\subsection{Quantified Tauberian control}
-\label{subsec:09.tauberian}
-
-We recall the elementary smoothing inequality: for any nondecreasing function $F$ and any mollifier $w_\delta$,
-one has
-\[
-F(r-\delta)
-\;\le\;
-(F*w_\delta)(r)
-\;\le\;
-F(r+\delta),
-\]
-whence the deviation between $F$ and its smoothing is controlled by the increment of $F$ on a boundary layer
-of size $\delta$.
-
-In our setting $F(r)$ is the sharp counting function
-\[
-N_\Gamma(r):=\#\{j:\ r_j\le r\}.
-\]
-Thus the Tauberian error is bounded by the number of spectral points in a window of size $\delta$ around $r$.
-
-\begin{lemma}[Tauberian remainder bound]
-\label{lem:09.tauberian-bound}
-Let $w$ be a nonnegative mollifier with $\int w=1$. Then for all $r>0$ and $\delta\in(0,1]$,
-\[
-\abs{N_\Gamma(r;\delta)-N_\Gamma(r)}
+\begin{lemma}[Tauberian remainder bound]\label{lem:09.tauberian-bound}
+Let $w\ge0$ with $\int w=1$. Then for all $r>0$ and $\delta\in(0,1]$,
+\begin{equation}\label{eq:09.tauberian.bound}
+\big|N_\Gamma(r;\delta)-N_\Gamma(r)\big|
 \le
 N_\Gamma(r+\delta)-N_\Gamma(r-\delta).
-\]
-In particular,
+\end{equation}
+Consequently,
 \[
-\abs{\mathcal{R}_\Gamma^{\mathrm{Tab}}(r;\delta)}
+\big|\mathcal R^{\mathrm{Tab}}_\Gamma(r;\delta)\big|
 \le
 N_\Gamma(r+\delta)-N_\Gamma(r-\delta).
 \]
 \end{lemma}
 
 \begin{proof}
-This is the standard monotonicity estimate for convolution with a nonnegative kernel of mass one.
+This is the standard monotonicity estimate for convolution with a nonnegative unit-mass kernel.
 \end{proof}
 
-\section{Weighted local Weyl laws}
+% ======================================================================
+\section{Weighted local Weyl laws (microlocal observables)}
 \label{sec:09.weighted}
+% ======================================================================
 
-\subsection{Microlocal weights and pseudodifferential observables}
-\label{subsec:09.observable}
+\subsection{Weighted counts}\label{subsec:09.observable}
 
-Let $A\in\Psi^0(X)$ be a zeroth-order pseudodifferential operator with principal symbol $\sigma_0(A)$.
-The weighted counting function is
-\[
-N_{\Gamma,A}(r;\delta)=\sum_j \ip{A\varphi_j}{\varphi_j}\,w_\delta(r-r_j).
-\]
+Fix $B\in\Psi^0(X)$ with principal symbol $\sigma_0(B)$. Recall \eqref{eq:09.N.weighted}.
 
-\begin{theorem}[Weighted smoothed local Weyl law]
-\label{thm:09.weighted-weyl}
-Let $A\in\Psi^0(X)$ be fixed. Then there exists an explicit constant $C_{X,A}$ such that
-\[
-N_{\Gamma,A}(r;\delta)
-=
-C_{X,A}\,r^{n-1}
-+
-\mathcal{R}_{\Gamma,A}(r;\delta),
+\begin{theorem}[Weighted smoothed local Weyl law]\label{thm:09.weighted-weyl}
+Let $B\in\Psi^0(X)$ be fixed. Then
+\begin{equation}\label{eq:09.weighted.weyl}
+N_{\Gamma,B}(r;\delta)=C_{X,B}\,r^{n-1}+\mathcal R_{\Gamma,B}(r;\delta),
 \qquad r\to+\infty,
-\]
+\end{equation}
 where
-\[
-C_{X,A}
-=
-\frac{1}{(2\pi)^n}\int_{S^*X} \sigma_0(A)\,d\omega,
-\]
-and the remainder satisfies
-\[
-\abs{\mathcal{R}_{\Gamma,A}(r;\delta)}
+\begin{equation}\label{eq:09.CXB}
+C_{X,B}:=\frac{1}{(2\pi)^n}\int_{S^*X}\sigma_0(B)\,d\omega,
+\end{equation}
+and
+\begin{equation}\label{eq:09.weighted.remainder}
+|\mathcal R_{\Gamma,B}(r;\delta)|
 \le
-\mathcal{E}_{\Gamma,A}^{\mathrm{TF}}(r;\delta)
-+
-\mathcal{E}_{\Gamma,A}^{\mathrm{Tab}}(r;\delta),
-\]
-with $\mathcal{E}_{\Gamma,A}^{\mathrm{TF}}$ controlled by the normalization ledger of Chapter~\ref{chap:08-normalization}.
+\mathcal E^{\mathrm{TF}}_{\Gamma,B}(r;\delta)+\mathcal E^{\mathrm{Tab}}_{\Gamma,B}(r;\delta),
+\end{equation}
+with $\mathcal E^{\mathrm{TF}}_{\Gamma,B}$ controlled by the Chapter-8 normalization ledger (and $\mathcal E^{\mathrm{Tab}}_{\Gamma,B}$
+by the Tauberian bound as in Lemma~\ref{lem:09.tauberian-bound}).
 \end{theorem}
 
 \begin{proof}
-This is the standard local Weyl law for pseudodifferential observables, derived by inserting $A$ into the
-trace formula and applying the symbolic calculus of Chapter~\ref{chap:05-microlocal}. The principal term
-is the phase-space average of the principal symbol, and the remainder follows from the same error ledger
-as in the unweighted case, together with the Tauberian bound of Lemma~\ref{lem:09.tauberian-bound}.
+Insert $B$ into the microlocal trace expansion (Chapter~5) and apply the local trace/Weyl expansion to obtain the principal term
+as the phase-space average of $\sigma_0(B)$. All quantization/partition dependence is lower order and is absorbed into the ledger;
+the smoothing error is Tauberian.
 \end{proof}
 
-\begin{remark}
-\label{rem:09.quantization-independence}
-The coefficient $C_{X,A}$ depends only on the principal symbol of $A$ and is therefore invariant under
-admissible changes of quantization conventions. All quantization-dependent contributions are of lower
-order and are absorbed into the trace-formula remainder ledger.
+\begin{remark}[Quantization independence of $C_{X,B}$]\label{rem:09.quantization-independence}
+The coefficient $C_{X,B}$ depends only on the principal symbol $\sigma_0(B)$; admissible changes of quantization alter only
+subprincipal/lower-order contributions and thus affect only the remainder ledger.
 \end{remark}
 
-\section{Odd-channel defect estimate}
+% ======================================================================
+\section{Odd-channel defect estimate (intrinsic diagnostic)}
 \label{sec:09.odd-defect}
+% ======================================================================
 
-The even--odd splitting of Section~\ref{subsec:09.parity} provides an intrinsic diagnostic for the principal term.
-
-\begin{proposition}[Odd-channel bound]
-\label{prop:09.odd-channel}
+\begin{proposition}[Odd-channel bound]\label{prop:09.odd-channel}
 Let $h$ be admissible. Then
-\[
-\mathcal{T}_\Gamma[h^{\mathrm{odd}};\chi]
+\begin{equation}\label{eq:09.odd.channel}
+\mathcal T_\Gamma[h^{\mathrm{odd}};\chi]
 =
-\mathcal{G}_\Gamma[h^{\mathrm{odd}}]
+\mathcal G_\Gamma[h^{\mathrm{odd}}]
 +
-\mathcal{R}_\Gamma^{\mathrm{TF}}[h^{\mathrm{odd}};\chi],
-\]
-where $\mathcal{G}_\Gamma$ denotes the non-identity geometric contributions, and
+\mathcal R^{\mathrm{TF}}_\Gamma[h^{\mathrm{odd}};\chi],
+\end{equation}
+and
 \[
-\abs{\mathcal{R}_\Gamma^{\mathrm{TF}}[h^{\mathrm{odd}};\chi]}
+\big|\mathcal R^{\mathrm{TF}}_\Gamma[h^{\mathrm{odd}};\chi]\big|
 \le
-\mathcal{E}_\Gamma[h^{\mathrm{odd}};\chi].
+\mathcal E_\Gamma[h^{\mathrm{odd}}],
 \]
-In particular, no identity-type Weyl main term occurs in the odd channel.
+so no identity-type Weyl main term occurs in the odd channel.
 \end{proposition}
 
 \begin{proof}
-The identity contribution is even in the test variable, hence vanishes on $h^{\mathrm{odd}}$.
-The remainder estimate is the normalization stability theorem of Chapter~\ref{chap:08-normalization}.
+By Lemma~\ref{lem:09.parity-reduction}, the identity contribution vanishes on $h^{\mathrm{odd}}$.
+The remainder estimate is Proposition~\ref{prop:09.trace-formula-remainder}.
 \end{proof}
 
-\section{From smoothed laws to sharp counting}
+% ======================================================================
+\section{From smoothed laws to sharp counting (Tauberian upgrade)}
 \label{sec:09.sharp}
+% ======================================================================
 
-\subsection{A Tauberian upgrade}
-\label{subsec:09.tauberian-upgrade}
-
-The sharp Weyl law follows by choosing an admissible family of mollifiers $w_\delta$ with $\delta=\delta(r)$
-tending to zero slowly enough that the Tauberian boundary layer remains negligible compared to the principal term.
-
-\begin{theorem}[Sharp Weyl law from smoothed estimates]
-\label{thm:09.sharp-weyl}
-Assume the smoothed Weyl law of Theorem~\ref{thm:09.smoothed-weyl} holds uniformly for
-$\delta\in[r^{-\theta},1]$ for some fixed $\theta\in(0,1)$. Then the sharp counting function satisfies
-\[
-N_\Gamma(r)
-=
-C_X\,r^{n-1}
-+
-o(r^{n-1}),
+\begin{theorem}[Sharp Weyl law from uniform smoothed control]\label{thm:09.sharp-weyl}
+Assume Theorem~\ref{thm:09.smoothed-weyl} holds uniformly for $\delta\in[r^{-\theta},1]$ for some fixed $\theta\in(0,1)$.
+Then
+\begin{equation}\label{eq:09.sharp.weyl}
+N_\Gamma(r)=C_X\,r^{n-1}+o(r^{n-1}),
 \qquad r\to+\infty.
-\]
-More precisely, one has the bound
-\[
+\end{equation}
+More precisely, for any admissible choice $\delta(r)\ge r^{-\theta}$,
+\begin{equation}\label{eq:09.sharp.bound}
 N_\Gamma(r)
 =
 C_X\,r^{n-1}
 +
-O\!\bigl(\mathcal{E}_\Gamma^{\mathrm{TF}}(r;\delta(r))\bigr)
+O\!\big(\mathcal E^{\mathrm{TF}}_\Gamma(r;\delta(r))\big)
 +
-O\!\bigl(N_\Gamma(r+\delta(r))-N_\Gamma(r-\delta(r))\bigr),
-\]
-where $\delta(r)\ge r^{-\theta}$ is any admissible smoothing scale.
+O\!\big(N_\Gamma(r+\delta(r))-N_\Gamma(r-\delta(r))\big).
+\end{equation}
 \end{theorem}
 
 \begin{proof}
-Combine Theorem~\ref{thm:09.smoothed-weyl} with Lemma~\ref{lem:09.tauberian-bound} and choose $\delta(r)$
-so that the Tauberian increment term is negligible compared to $r^{n-1}$. The trace-formula remainder is
-controlled uniformly by the normalization ledger, hence yields the stated bound.
+Combine Theorem~\ref{thm:09.smoothed-weyl} with Lemma~\ref{lem:09.tauberian-bound}.
+Choose $\delta(r)$ so that the boundary-layer increment is negligible compared with $r^{n-1}$; the trace remainder is uniformly
+controlled by the normalization ledger.
 \end{proof}
 
-\section{Uniformity in auxiliary data}
+% ======================================================================
+\section{Uniformity in auxiliary data (portability clause)}
 \label{sec:09.uniformity}
+% ======================================================================
 
-A central feature of the Weyl law established above is that it is stable under admissible changes of
-localization profiles, quantization conventions, and microlocal refinements. This is an immediate
-consequence of the normalization theory of Chapter~\ref{chap:08-normalization}.
-
-\begin{corollary}[Stability under admissible auxiliary changes]
-\label{cor:09.stability}
-Let $\mathcal{T}_\Gamma[h;\chi]$ and $\mathcal{T}'_\Gamma[h;\chi']$ be normalized trace functionals constructed
-from two admissible sets of auxiliary choices. Then the Weyl coefficients $C_X$ and $C_{X,A}$ in
-Theorems~\ref{thm:09.smoothed-weyl} and \ref{thm:09.weighted-weyl} coincide, and the difference between the
-corresponding remainders is bounded by the sum of the associated normalization ledgers.
+\begin{corollary}[Stability under admissible auxiliary changes]\label{cor:09.stability}
+Let $\mathcal T_\Gamma[h;\chi]$ and $\mathcal T'_\Gamma[h;\chi']$ be normalized trace functionals built from two admissible
+auxiliary architectures. Then the Weyl coefficients $C_X$ and $C_{X,B}$ in
+Theorems~\ref{thm:09.smoothed-weyl} and~\ref{thm:09.weighted-weyl} coincide, and the difference between the corresponding remainders
+is bounded by the sum of the associated consolidated ledgers (Chapter~8), modulo the explicit identity-sector correction.
 \end{corollary}
 
 \begin{proof}
-The principal term arises from the identity contribution and is therefore canonical.
-The remainder stability is Theorem~\ref{thm:08.normalization-stability}.
+The principal coefficients arise from the identity term (phase volume) and are therefore canonical. Remainder stability follows
+from Theorem~\ref{thm:08.normalization-stability}.
 \end{proof}
 
-\section{Bibliographic notes}
-\label{sec:09.bib-notes}
+% ======================================================================
+\section{Bibliographic notes}\label{sec:09.bib-notes}
+% ======================================================================
 
-The local Weyl law in its classical and microlocal forms is standard; see \cite{HormanderI,Sogge2014,Zworski2012}.
-In the automorphic and hyperbolic settings, the principal term and the spectral parameterization
-are consistent with the Selberg trace formula tradition; see \cite{Hejhal1983,Buser1992,Iwaniec2002,Borthwick2016}.
-Weighted versions for pseudodifferential observables follow from the symbolic calculus and the local trace expansion,
-cf.\ \cite{DuistermaatGuillemin1975,Ivrii1998,DyatlovZworski2019}.
+Classical and microlocal Weyl laws are standard; see \cite{HormanderI,Sogge2014,Zworski2012}.
+In automorphic/hyperbolic settings, the spectral parameterization and principal term are consistent with the Selberg trace formula;
+see \cite{Hejhal1983,Buser1992,Iwaniec2002,Borthwick2016}.
+Weighted Weyl laws for pseudodifferential observables follow from symbolic calculus and local trace expansions; see
+\cite{DuistermaatGuillemin1975,Ivrii1998,DyatlovZworski2019}.
+
+% ======================================================================
+% Audit (Chapter 9, Weyl layer)
+% ======================================================================
+
+\section*{Audit (Local Weyl layer)}\label{sec:09.audit}
+
+\noindent\textbf{Locks.}
+\begin{itemize}
+\item[(L9.1)] OBJ-LOCK: $A=\sqrt{\Delta-\tfrac14}$ and $\Tr^{\mathrm{reg}}$ fixed by Chapter~7.
+\item[(L9.2)] Normalization lock: $\mathcal T_\Gamma[h;\chi]=\mathcal L_\Gamma[h-h(0)\chi]$ (Chapter~8).
+\item[(L9.3)] Principal invariant: $C_X=(2\pi)^{-n}\vol(S^*X)$, hence $C_X=\vol(X)/(2\pi)$ for $n=2$.
+\item[(L9.4)] Remainder split: $\mathcal R=\mathcal R^{\mathrm{TF}}+\mathcal R^{\mathrm{Tab}}$ (geometry vs smoothing).
+\item[(L9.5)] Odd-channel diagnostic: no identity/Weyl term on $h^{\mathrm{odd}}$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Failure modes.}
+\begin{itemize}
+\item[(F9.1)] Treating $\mathcal E_\Gamma$ as optional $\Rightarrow$ false portability (auxiliary dependence leaks).
+\item[(F9.2)] Mixing Fourier/sign conventions between Chapters~7 and~9 $\Rightarrow$ wrong $C_X$ and wrong scaling.
+\item[(F9.3)] Confusing Tauberian dust with trace dust $\Rightarrow$ incorrect remainder claims.
+\end{itemize}
+
+\medskip
+\noindent\textbf{STATUS\_CERT.}
+CLOSED (structural): canonical principal term and quantified remainder structure fixed; uniformity under auxiliary changes reduced to
+Chapter-8 ledger plus explicit identity correction.
+NEXT(1): specialize $\mathcal E^{\mathrm{TF}}_\Gamma(r;\delta)$ to the window family $h_{\lambda,\eta}$ (with $\delta\sim\eta$)
+and record the explicit $(\lambda,\eta)$-scaling needed for the application chapters.
 
 % ======================================================================
 % End of 09-local-weyl.tex
