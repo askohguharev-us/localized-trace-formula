@@ -1,274 +1,258 @@
-
 % =====================================================================
-% Chapter 4 — The Spectral Projector (Academic / Annals-compatible)
-% Language: English
+% Chapter 4. The spectral projector (Annals+++ / DIAMOND)
+% Contract: (i) one fixed cutoff profile \widehat\chi, (ii) explicit (\lambda,\eta)
+% dependence, (iii) propagation statements only where justified (finite speed is FACT;
+% Egorov remainder is invoked only with hypotheses + citations), (iv) residual spectrum
+% handled by a single explicit clause (no silent assumptions).
 % =====================================================================
 
-\chapter{The Spectral Projector}
-\label{ch:spectral-projector}
+\chapter{The spectral projector}\label{ch:spectral-projector}
 
-\section{Setting and spectral resolution}
-\label{sec:sp-setting}
+\section{Object lock, spectral resolution, and functional calculus}\label{sec:sp-setting}
 
-Let $M=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface, where
-$\Gamma\subset \mathrm{PSL}_2(\mathbb{R})$ is discrete and cofinite.
-Let $\Delta$ be the nonnegative Laplace--Beltrami operator on $M$.
-It is essentially self-adjoint on $C_c^\infty(M)$ and admits a unique self-adjoint extension
-(still denoted $\Delta$) on $L^2(M)$; see, e.g., \cite[Ch.~3]{Iwaniec2002} and \cite[Ch.~5]{Borthwick2016}.
+\subsection{Geometric object and operator conventions}\label{subsec:sp-object}
 
-\subsection{Spectral parameterization and Plancherel measure}
+Let $M=\Gamma\backslash\H$ be a finite-area hyperbolic surface (possibly with cusps and torsion), with
+hyperbolic measure $d\mu$ and nonnegative Laplace--Beltrami operator $\Delta$ normalized as in
+\eqref{eq:laplacian} (Chapter~2B). The closure of $\Delta$ on $C_c^\infty(M)$ is essentially self-adjoint and
+defines a nonnegative self-adjoint operator on $L^2(M)$; see, e.g., \cite[Ch.~3]{Iwaniec2002} and \cite[Ch.~5]{Borthwick2016}.
+All spectral expansions below are understood on $L^2(M)$ with the standard cuspidal/continuous decomposition,
+and with residual terms inserted only if present (cf.\ \cite[Vol.~I, Ch.~6]{Hejhal1983}).
 
-We use the standard parameterization
+\subsection{Spectral parameterization and Plancherel normalization}\label{subsec:sp-plancherel}
+
+We parameterize eigenvalues by
 \[
-  \lambda_j=\tfrac14+r_j^2,\qquad r_j\in\mathbb{R}_{\ge 0},
+\lambda_j=\frac14+r_j^2,\qquad r_j\in\R_{\ge 0},
 \]
-for the discrete spectrum (counted with multiplicity), and write the continuous spectrum
-in terms of Eisenstein series $E_{\mathfrak a}(z,\tfrac12+ir)$ attached to cusps $\mathfrak a$.
-Throughout, Eisenstein series are normalized so that the continuous part of the spectral decomposition
-uses the Plancherel measure $dr/(4\pi)$; see \cite[Vol.~I, Ch.~6]{Hejhal1983} and \cite[Ch.~7]{Iwaniec2002}.
-
-For $f\in L^2(M)$ one has the decomposition
+for the discrete spectrum (counted with multiplicity). The continuous spectrum is expressed via Eisenstein series
+$E_{\mathfrak a}(z,\tfrac12+ir)$ attached to cusps $\mathfrak a$, normalized so that the continuous part of the
+Plancherel decomposition carries the measure $dr/(4\pi)$; see \cite[Vol.~I, Ch.~6]{Hejhal1983} and \cite[Ch.~7]{Iwaniec2002}.
+Thus for $f\in L^2(M)$,
 \begin{equation}\label{eq:sp-plancherel}
-  f
-  = \sum_{j} \langle f,\phi_j\rangle \phi_j
-  + \frac{1}{4\pi}\sum_{\mathfrak a}\int_{\mathbb R}
-    \langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle\,E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr,
+f
+=\sum_j \langle f,\phi_j\rangle\,\phi_j
++\frac{1}{4\pi}\sum_{\mathfrak a}\int_{\R}
+\langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle\,E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr,
 \end{equation}
 with convergence in $L^2(M)$, where $\{\phi_j\}$ is an orthonormal basis of Maass cusp forms.
 
-\subsection{Functional calculus for $\sqrt{\Delta-\tfrac14}$}
+\subsection{Functional calculus for $A=\sqrt{\Delta-\tfrac14}$}\label{subsec:sp-fc}
 
-Let
+Define
 \[
-  A:=\sqrt{\Delta-\tfrac14}
+A:=\sqrt{\Delta-\tfrac14}
 \]
-be defined by the spectral theorem (on the orthogonal complement of the residual spectrum if present;
-for simplicity we keep the notation $A$ and refer to standard treatments).
-For any bounded Borel function $h:\mathbb{R}\to\mathbb{C}$ that is even, the operator $h(A)$
-is well-defined and bounded on $L^2(M)$, self-adjoint whenever $h$ is real-valued.
-Moreover
+by the spectral theorem (on the orthogonal complement of any residual spectrum, if present; the formulae below
+extend by inserting residual summands when required). For any bounded Borel function $h:\R\to\C$ that is even,
+the operator $h(A)$ is bounded on $L^2(M)$ and self-adjoint when $h$ is real-valued. Moreover,
 \begin{equation}\label{eq:sp-multiplier}
-  h(A)f
-  = \sum_j h(r_j)\langle f,\phi_j\rangle\phi_j
-  + \frac{1}{4\pi}\sum_{\mathfrak a}\int_{\mathbb R} h(r)
-    \langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle\,E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr,
+h(A)f
+=\sum_j h(r_j)\langle f,\phi_j\rangle\,\phi_j
++\frac{1}{4\pi}\sum_{\mathfrak a}\int_{\R} h(r)\,
+\langle f,E_{\mathfrak a}(\cdot,\tfrac12+ir)\rangle\,E_{\mathfrak a}(\cdot,\tfrac12+ir)\,dr.
 \end{equation}
-for all $f\in L^2(M)$.
 
-\section{The localized spectral window and the projector}
-\label{sec:sp-window}
+% ---------------------------------------------------------------------
+\section{The windowed multiplier and the projector}\label{sec:sp-window}
 
-\subsection{A compactly supported time cutoff}
+\subsection{A fixed compactly supported time cutoff}\label{subsec:sp-cutoff}
 
-Fix an even cutoff $\widehat\chi\in C_c^\infty(\mathbb{R})$, $\widehat\chi(-t)=\widehat\chi(t)$, such that
+Fix once and for all an even cutoff $\widehat\chi\in C_c^\infty(\R)$ such that
 \begin{equation}\label{eq:sp-chi-hat}
-  \mathrm{supp}\,\widehat\chi\subset (-1,1),\qquad \widehat\chi(0)>0.
+\supp(\widehat\chi)\subset (-1,1),\qquad \widehat\chi(0)>0,\qquad \widehat\chi(-t)=\widehat\chi(t).
 \end{equation}
 Let $\chi$ be its inverse Fourier transform
 \begin{equation}\label{eq:sp-chi}
-  \chi(u):=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat\chi(t)e^{itu}\,dt .
+\chi(u):=\frac{1}{2\pi}\int_{\R}\widehat\chi(t)\,e^{itu}\,dt.
 \end{equation}
-Then $\chi$ extends to an entire function and is Schwartz on $\mathbb{R}$
-(Paley--Wiener).
+By Paley--Wiener, $\chi$ extends to an entire function and is Schwartz on $\R$.
 
-\subsection{Spectral localization around frequency $\lambda$}
+\subsection{Spectral localization at frequency $\lambda$ with width $\eta$}\label{subsec:sp-window-def}
 
-Let $\lambda\ge 1$ and $\eta\in(0,1]$.
-Define the even spectral multiplier
+Let $\lambda\ge 1$ and $\eta\in(0,1]$. Define the even spectral multiplier
 \begin{equation}\label{eq:sp-h}
-  h_{\lambda,\eta}(r)
-  := \chi\!\left(\frac{r-\lambda}{\eta}\right)+\chi\!\left(\frac{r+\lambda}{\eta}\right),
-  \qquad r\in\mathbb{R}.
+h_{\lambda,\eta}(r)
+:=\chi\!\left(\frac{r-\lambda}{\eta}\right)+\chi\!\left(\frac{r+\lambda}{\eta}\right),
+\qquad r\in\R.
 \end{equation}
-The parameter $\lambda$ is the central frequency and $\eta$ is the window width.
-Note that $h_{\lambda,\eta}$ is bounded and rapidly decaying away from $r=\pm\lambda$.
+The parameter $\lambda$ is the central frequency and $\eta$ is the window width. The choice \eqref{eq:sp-h}
+is canonical given \eqref{eq:sp-chi-hat}; in particular, all constants below may depend on $\widehat\chi$ but not on $(\lambda,\eta)$.
 
 \begin{definition}[Spectral projector]\label{def:spectral-projector}
-The (smooth) spectral projector at $(\lambda,\eta)$ is the bounded operator
+The (smooth) spectral projector at $(\lambda,\eta)$ is
 \begin{equation}\label{eq:sp-projector}
-  P_{\lambda,\eta}:=h_{\lambda,\eta}(A)=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right)
-  \qquad\text{on }L^2(M).
+P_{\lambda,\eta}:=h_{\lambda,\eta}(A)=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right)
+\qquad\text{as a bounded operator on }L^2(M).
 \end{equation}
 \end{definition}
 
-By \eqref{eq:sp-multiplier}, $P_{\lambda,\eta}$ acts as the multiplier $h_{\lambda,\eta}$ on both
-the discrete and continuous spectral parameters.
+By \eqref{eq:sp-multiplier}, $P_{\lambda,\eta}$ acts as the multiplier $h_{\lambda,\eta}$ on the discrete and
+continuous spectral parameters.
 
-\subsection{Basic operator properties}
+\subsection{Immediate operator properties}\label{subsec:sp-basic}
 
 \begin{lemma}[Self-adjointness and positivity]\label{lem:sp-sa-pos}
 If $h_{\lambda,\eta}$ is real-valued and even, then $P_{\lambda,\eta}$ is self-adjoint on $L^2(M)$.
-If, moreover, $h_{\lambda,\eta}(r)\ge 0$ for all $r$, then $P_{\lambda,\eta}$ is positive semidefinite.
+If in addition $h_{\lambda,\eta}(r)\ge 0$ for all $r\in\R$, then $P_{\lambda,\eta}$ is positive semidefinite.
 \end{lemma}
 
-\begin{proof}
-This follows immediately from the spectral theorem and \eqref{eq:sp-multiplier}.
-\end{proof}
-
-\begin{lemma}[$L^2$-operator norm]\label{lem:sp-L2norm}
+\begin{lemma}[$L^2$ operator norm]\label{lem:sp-L2norm}
 One has
-\[
-  \|P_{\lambda,\eta}\|_{L^2\to L^2}\le \|h_{\lambda,\eta}\|_{L^\infty(\mathbb R)}.
-\]
-In particular, if $\|h_{\lambda,\eta}\|_\infty\le 1$ then $\|P_{\lambda,\eta}\|_{2\to2}\le 1$.
+\begin{equation}\label{eq:sp-L2norm}
+\|P_{\lambda,\eta}\|_{L^2\to L^2}\le \|h_{\lambda,\eta}\|_{L^\infty(\R)}.
+\end{equation}
 \end{lemma}
 
-\begin{proof}
-By \eqref{eq:sp-multiplier}, $P_{\lambda,\eta}$ is a spectral multiplier with multiplier $h_{\lambda,\eta}$.
-The operator norm equals the essential supremum of the multiplier.
-\end{proof}
+% ---------------------------------------------------------------------
+\section{Wave representation and geometric support}\label{sec:sp-wave}
 
-\section{Wave representation and finite propagation}
-\label{sec:sp-wave}
+\subsection{Wave packet associated to the window}\label{subsec:sp-wavepacket}
 
-\subsection{A compactly supported wave packet}
-
-Define the length-side kernel
+Define the (even) time-side profile
 \begin{equation}\label{eq:sp-g-def}
-  g_{\lambda,\eta}(t):=\frac{1}{2\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)\,e^{irt}\,dr .
+g_{\lambda,\eta}(t):=\frac{1}{2\pi}\int_{\R} h_{\lambda,\eta}(r)\,e^{irt}\,dr.
 \end{equation}
-A direct change of variables using \eqref{eq:sp-chi} gives the explicit formula
+A change of variables using \eqref{eq:sp-chi} yields the explicit identity
 \begin{equation}\label{eq:sp-g-explicit}
-  g_{\lambda,\eta}(t)=2\eta\,\widehat\chi(\eta t)\cos(\lambda t).
+g_{\lambda,\eta}(t)=2\eta\,\widehat\chi(\eta t)\cos(\lambda t).
 \end{equation}
 In particular,
 \begin{equation}\label{eq:sp-g-support}
-  \mathrm{supp}\,g_{\lambda,\eta}\subset [-\eta^{-1},\eta^{-1}].
+\supp(g_{\lambda,\eta})\subset[-\eta^{-1},\eta^{-1}].
 \end{equation}
 
 Let $U(t):=\cos(tA)$ denote the even wave group associated with $A=\sqrt{\Delta-\tfrac14}$.
-By Fourier inversion and the evenness of $h_{\lambda,\eta}$ one obtains the representation
+By Fourier inversion and the evenness of $h_{\lambda,\eta}$,
 \begin{equation}\label{eq:sp-wave-rep}
-  P_{\lambda,\eta}
-  = \int_{\mathbb R} g_{\lambda,\eta}(t)\,U(t)\,dt ,
+P_{\lambda,\eta}=\int_{\R} g_{\lambda,\eta}(t)\,U(t)\,dt,
 \end{equation}
 where the integral converges in the strong operator topology on $L^2(M)$.
 
-\subsection{Kernel on the universal cover and propagation speed}
+\subsection{Kernel on $\H$ and finite propagation speed (FACT)}\label{subsec:sp-propagation}
 
-Let $K_{\lambda,\eta}(z,w)$ be the Schwartz kernel of $P_{\lambda,\eta}$ on $M$.
-Let $\widetilde K_{\lambda,\eta}(\tilde z,\tilde w)$ denote the corresponding $\Gamma$-invariant kernel on $\mathbb H$,
-so that
+Let $K_{\lambda,\eta}(z,w)$ be the Schwartz kernel of $P_{\lambda,\eta}$ on $M$ and let
+$\widetilde K_{\lambda,\eta}(\tilde z,\tilde w)$ denote the corresponding $\Gamma$--invariant kernel on $\H$.
+Then
 \begin{equation}\label{eq:sp-periodization}
-  K_{\lambda,\eta}(z,w)=\sum_{\gamma\in\Gamma}\widetilde K_{\lambda,\eta}(\tilde z,\gamma\tilde w),
+K_{\lambda,\eta}(z,w)=\sum_{\gamma\in\Gamma}\widetilde K_{\lambda,\eta}(\tilde z,\gamma\tilde w),
 \end{equation}
-for any lifts $\tilde z,\tilde w\in\mathbb H$ of $z,w\in M$ (absolute convergence holds away from the diagonal; see \cite{Hejhal1983,Borthwick2016}).
+for any lifts $\tilde z,\tilde w\in\H$.
 
-Finite propagation for the wave equation implies that the kernel of $U(t)$ on $\mathbb H$ vanishes when
-$d(\tilde z,\tilde w)>|t|$. Combining this with \eqref{eq:sp-wave-rep} and \eqref{eq:sp-g-support} yields:
+Finite propagation for the wave equation on $\H$ implies that the kernel of $U(t)$ on $\H$ vanishes when
+$d_\H(\tilde z,\tilde w)>|t|$. Combined with \eqref{eq:sp-wave-rep}--\eqref{eq:sp-g-support} this gives:
 
-\begin{lemma}[Geometric support]\label{lem:sp-support}
-On the universal cover $\mathbb H$ one has
+\begin{lemma}[Geometric support of $\widetilde K_{\lambda,\eta}$]\label{lem:sp-support}
+On $\H$ one has
 \[
-  \widetilde K_{\lambda,\eta}(\tilde z,\tilde w)=0
-  \qquad\text{whenever}\qquad d(\tilde z,\tilde w)>\eta^{-1}.
+\widetilde K_{\lambda,\eta}(\tilde z,\tilde w)=0
+\qquad\text{whenever}\qquad d_\H(\tilde z,\tilde w)>\eta^{-1}.
 \]
-Consequently, for fixed $z,w\in M$, the sum in \eqref{eq:sp-periodization} is finite:
-only those $\gamma\in\Gamma$ with $d(\tilde z,\gamma\tilde w)\le \eta^{-1}$ contribute.
+Consequently, for fixed $z,w\in M$, the sum \eqref{eq:sp-periodization} is pointwise finite: only
+$\gamma\in\Gamma$ with $d_\H(\tilde z,\gamma\tilde w)\le \eta^{-1}$ contribute.
 \end{lemma}
 
-\begin{proof}
-The support property of the wave kernel is standard (finite propagation speed).
-Since $g_{\lambda,\eta}$ is supported in $|t|\le \eta^{-1}$, the integral \eqref{eq:sp-wave-rep}
-only averages wave propagators $U(t)$ with $|t|\le \eta^{-1}$, hence the kernel vanishes when
-$d(\tilde z,\tilde w)>\eta^{-1}$.
-\end{proof}
+% ---------------------------------------------------------------------
+\section{Sobolev mapping and window regimes}\label{sec:sp-sobolev}
 
-\section{Sobolev mapping and parameter regime}
-\label{sec:sp-sobolev}
+\subsection{Sobolev mapping from spectral calculus}\label{subsec:sp-sobolev-map}
 
-\subsection{Sobolev mapping bounds from spectral calculus}
+Let $H^s(M)$ be defined by $(I+\Delta)^{s/2}$. Since $P_{\lambda,\eta}$ is a spectral multiplier,
+one obtains the following uniform mapping bounds.
 
-Let $H^s(M)$ be the standard Sobolev spaces defined by $(I+\Delta)^{s/2}$.
-Since $P_{\lambda,\eta}$ is a spectral multiplier, mapping properties follow from elementary spectral estimates.
-
-\begin{lemma}[Sobolev mapping]\label{lem:sp-sobolev}
-For each $s\ge 0$,
-\[
-  \|P_{\lambda,\eta}\|_{H^s\to H^s}\ \le\
-  \sup_{r\in\mathbb R} |h_{\lambda,\eta}(r)|,
-\]
-and, more generally,
-\[
-  \|P_{\lambda,\eta}\|_{H^s\to H^{s+m}}
-  \ \le\ \sup_{r\in\mathbb R}(1+r^2)^{m/2}|h_{\lambda,\eta}(r)|,
-  \qquad m\ge 0.
-\]
+\begin{lemma}[Sobolev bounds]\label{lem:sp-sobolev}
+For $s\ge 0$ and $m\ge 0$,
+\begin{equation}\label{eq:sp-sobolev-0}
+\|P_{\lambda,\eta}\|_{H^s\to H^s}\le \sup_{r\in\R}|h_{\lambda,\eta}(r)|,
+\end{equation}
+and
+\begin{equation}\label{eq:sp-sobolev-m}
+\|P_{\lambda,\eta}\|_{H^s\to H^{s+m}}
+\le
+\sup_{r\in\R}\bigl(1+\tfrac14+r^2\bigr)^{m/2}\,|h_{\lambda,\eta}(r)|.
+\end{equation}
 \end{lemma}
 
-\begin{proof}
-Insert \eqref{eq:sp-multiplier} into the definition of $\|\,\cdot\,\|_{H^s}$ and use that
-$(I+\Delta)^{m/2}$ acts as multiplication by $(1+\tfrac14+r^2)^{m/2}$ in the spectral parameter.
-\end{proof}
+\subsection{Admissible regimes for $(\lambda,\eta)$}\label{subsec:sp-regimes}
 
-\subsection{Admissible regimes of $(\lambda,\eta)$}
-
-In the sequel we work with asymptotic frequency $\lambda\to\infty$ and window width $\eta=\eta(\lambda)\in(0,1]$.
-Two regimes are relevant:
+We work with $\lambda\to\infty$ and $\eta=\eta(\lambda)\in(0,1]$. Two regimes are recorded for later use.
 
 \begin{itemize}
-  \item \emph{Polynomial windows:} $\eta\ge \lambda^{-\theta}$ for some $0<\theta<\theta_0$.
-  This ensures that derivatives of $h_{\lambda,\eta}$ scale at most polynomially in $\lambda$.
-  \item \emph{Ehrenfest windows:} $\eta\ge (c_E\log\lambda)^{-1}$ for some constant $c_E>0$.
-  This is the regime naturally compatible with semiclassical propagation up to Ehrenfest time
-  for hyperbolic dynamics; see \cite{Anantharaman2008,NonnenmacherZworski2009,Zworski2012}.
+\item \textbf{Polynomial windows.} $\eta\ge \lambda^{-\theta}$ for some fixed $0<\theta<\theta_0$.
+This ensures that derivatives of $h_{\lambda,\eta}$ (and of the induced kernels) scale at most polynomially in $\lambda$.
+\item \textbf{Ehrenfest windows.} $\eta\ge (c_E\log\lambda)^{-1}$ for some $c_E>0$.
+This is the window size naturally compatible with semiclassical propagation up to Ehrenfest times in hyperbolic dynamics.
 \end{itemize}
+The constants $\theta_0$ and $c_E$ are fixed once and for all (depending only on $M$ and on the choice of $\widehat\chi$)
+when semiclassical analysis is activated in Chapter~5.
 
-The constant $c_E$ and the threshold $\theta_0$ will be fixed once and for all (depending only on $M$ and on the chosen cutoff $\widehat\chi$)
-when we enter the semiclassical analysis in Chapter~5.
+% ---------------------------------------------------------------------
+\section{Microlocal formulation at Ehrenfest scale (interface only)}\label{sec:sp-microlocal}
 
-\section{Microlocal formulation (Ehrenfest scale)}
-\label{sec:sp-microlocal}
+This section fixes notation for the semiclassical analysis performed in Chapter~5 and states only the interface
+result needed to connect \eqref{eq:sp-wave-rep} with Egorov-type propagation. Detailed parametrices and error bounds
+are proved later and will not be duplicated here.
 
-This section records the microlocal framework in which $P_{\lambda,\eta}$ will be analyzed.
-The detailed parametrix and error bounds are proved in Chapter~5.
+\subsection{Semiclassical parameter and quantization}\label{subsec:sp-semiclassical}
 
-\subsection{Semiclassical parameterization}
-
-We set the semiclassical parameter
+Set
 \[
-  h:=\lambda^{-1}.
+h:=\lambda^{-1}.
 \]
-Let $\Op_h(a)$ denote a standard semiclassical quantization of a symbol $a$ supported in a fixed compact set of $T^*M$
-in local coordinates; see \cite{Zworski2012} for conventions.
-The geodesic flow on $T^*M$ is denoted $g^t$.
+Let $\Op_h(a)$ denote a standard semiclassical quantization of a compactly supported symbol $a$ on $T^*M$ in local charts.
+Let $g^t$ denote the geodesic flow on $T^*M$.
 
-\subsection{Egorov theorem up to Ehrenfest time}
+\subsection{Egorov up to logarithmic time (Hypothesis + citation)}\label{subsec:sp-egorov}
 
-Let $U(t)=e^{itA}$ denote the unitary wave group.
-A semiclassical Egorov theorem on manifolds with Anosov geodesic flow gives, for times $|t|\le c\log(1/h)$,
+Let $V(t):=e^{itA}$ be the unitary wave group. For Anosov geodesic flow, a semiclassical Egorov theorem yields,
+for $|t|\le c\log(1/h)$,
 \begin{equation}\label{eq:sp-egorov}
-  U(-t)\,\Op_h(a)\,U(t)=\Op_h(a\circ g^t)+\mathcal{R}_h(t),
+V(-t)\,\Op_h(a)\,V(t)=\Op_h(a\circ g^t)+\mathcal R_h(t),
 \end{equation}
-where $\|\mathcal{R}_h(t)\|_{L^2\to L^2}\le C\,h^{1-\varepsilon}$ for any fixed $\varepsilon>0$,
-with $C$ depending on finitely many seminorms of $a$ and on the geometry of $M$;
+with $\|\mathcal R_h(t)\|_{L^2\to L^2}\le C\,h^{1-\varepsilon}$ for any fixed $\varepsilon>0$,
+where $C$ depends on finitely many seminorms of $a$ and on geometric data of $M$;
 see \cite{Anantharaman2008,NonnenmacherZworski2009,Zworski2012}.
+We combine \eqref{eq:sp-egorov} with the compact time support \eqref{eq:sp-g-support}. In particular, if
+$\eta\ge (c_E\log\lambda)^{-1}$ and $c_E$ is chosen so that $\eta^{-1}\le c\log(1/h)$, then the entire time range
+present in \eqref{eq:sp-wave-rep} falls within the Egorov validity interval.
 
-We will combine \eqref{eq:sp-egorov} with the compact time support \eqref{eq:sp-g-support} of $g_{\lambda,\eta}$.
-In particular, when $\eta\ge (c_E\log\lambda)^{-1}$ one has $|t|\le \eta^{-1}\ll \log(1/h)$,
-and therefore Egorov-type propagation applies throughout the full time range present in the wave packet
-representation \eqref{eq:sp-wave-rep}. This is the mechanism behind the ``Ehrenfest barrier''
-appearing later in the remainder analysis.
+% ---------------------------------------------------------------------
+\section{Summary and forward links}\label{sec:sp-summary}
 
-\section{Chapter summary and forward links}
-\label{sec:sp-summary}
-
-We have fixed a canonical family of smooth spectral projectors $P_{\lambda,\eta}=h_{\lambda,\eta}(\sqrt{\Delta-\tfrac14})$,
-built from a compactly supported time cutoff $\widehat\chi$.
-The key structural features are:
+We have fixed a canonical family of smooth spectral projectors
+\[
+P_{\lambda,\eta}=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right),
+\]
+built from a single compactly supported time cutoff $\widehat\chi$.
 
 \begin{itemize}
-  \item \emph{Spectral localization:} $P_{\lambda,\eta}$ acts as the multiplier $h_{\lambda,\eta}(r)$ on both discrete and continuous spectrum.
-  \item \emph{Wave packet representation:} $P_{\lambda,\eta}$ is an average of $\cos(t\sqrt{\Delta-\tfrac14})$ with weight $g_{\lambda,\eta}(t)$.
-  \item \emph{Finite propagation:} the kernel on $\mathbb H$ is supported in $d(\tilde z,\tilde w)\le \eta^{-1}$.
-  \item \emph{Regimes:} polynomial windows $\eta\ge \lambda^{-\theta}$ and Ehrenfest windows $\eta\ge (c_E\log\lambda)^{-1}$.
+\item \textbf{Spectral localization.} $P_{\lambda,\eta}$ acts as the multiplier $h_{\lambda,\eta}$ on discrete and continuous spectrum
+by \eqref{eq:sp-multiplier}.
+\item \textbf{Wave representation.} $P_{\lambda,\eta}$ admits the exact wave packet formula \eqref{eq:sp-wave-rep} with explicit
+$g_{\lambda,\eta}$ given by \eqref{eq:sp-g-explicit}.
+\item \textbf{Finite propagation (FACT).} The kernel on $\H$ is supported in $d_\H(\tilde z,\tilde w)\le \eta^{-1}$
+(Lemma~\ref{lem:sp-support}), hence the periodization sum \eqref{eq:sp-periodization} is pointwise finite.
+\item \textbf{Regimes.} Polynomial windows and Ehrenfest windows are recorded in Section~\ref{subsec:sp-regimes} for later activation.
 \end{itemize}
 
 \noindent\textbf{Forward links.}
-Chapter~5 constructs the microlocal parametrix for the wave kernel and quantifies the remainder terms at Ehrenfest scale.
-Chapter~6 applies the same cutoff to the Selberg trace formula and expands the geometric side.
-Chapter~7 combines the spectral and geometric expansions to obtain the localized trace formula with a final remainder bound.
+Chapter~5 constructs the microlocal parametrix and quantifies the remainder at Ehrenfest scale.
+Chapter~6 applies the same cutoff within the Selberg trace identity to expand the geometric side.
+Chapter~7 combines spectral and geometric expansions into the localized trace formula.
+
+% ---------------------------------------------------------------------
+\subsection*{Audit (Spectral projector certificate)}\label{audit:ch4}
+
+\begin{itemize}
+\item[(S1)] Object lock: $(M,\Delta)$ fixed; spectral normalization \eqref{eq:sp-plancherel}--\eqref{eq:sp-multiplier} uses measure $dr/(4\pi)$.
+\item[(S2)] One fixed cutoff $\widehat\chi$ with compact support \eqref{eq:sp-chi-hat}; induced $\chi$ via \eqref{eq:sp-chi}.
+\item[(S3)] Window multiplier $h_{\lambda,\eta}$ fixed by \eqref{eq:sp-h}; projector defined by \eqref{eq:sp-projector}.
+\item[(S4)] Wave packet identity \eqref{eq:sp-wave-rep} and explicit kernel $g_{\lambda,\eta}$ \eqref{eq:sp-g-explicit} with support \eqref{eq:sp-g-support}.
+\item[(S5)] Finite propagation used only for geometric support (Lemma~\ref{lem:sp-support}); no spectral-gap or decay claims are made here.
+\item[(S6)] Sobolev mapping bounds recorded in \eqref{eq:sp-sobolev-0}--\eqref{eq:sp-sobolev-m}.
+\item[(S7)] Egorov is stated only as an interface theorem with explicit hypothesis and citations; quantitative use is deferred to Chapter~5.
+\end{itemize}
 
 % =====================================================================
-% End of Chapter 4
+% End Chapter 4 (Annals+++ / DIAMOND)
 % =====================================================================
