@@ -2,147 +2,159 @@
 % File: src/frontmatter/00-readers-roadmap.tex
 % ======================================================================
 
-\section{Reader’s Roadmap}
-\label{sec:readers-roadmap}
+\chapter*{Reader's roadmap}
+\addcontentsline{toc}{chapter}{Reader's roadmap}
+\markboth{Reader's roadmap}{Reader's roadmap}
 
-This section provides a structured roadmap for navigating the monograph.
-The aim is to clarify the logical progression, to highlight the dependencies
-between chapters, and to ensure that both expert readers and graduate-level
-students can orient themselves efficiently.
-We emphasize three layers: (i) orientation (high-level goals), 
-(ii) audit trail (explicit dependencies), and 
-(iii) navigation (forward/backward links).
+\noindent
+This monograph is written for readers with different backgrounds and different objectives.
+The purpose of this roadmap is to provide several coherent reading paths through the text, depending on whether the reader is primarily interested in the classical Selberg trace formula, in microlocal localization methods, in quantitative remainder estimates, or in the construction of a modular trace framework suitable for later analytic applications.
 
 \medskip
-\noindent\textbf{Orientation.}
-The monograph develops a localized Selberg trace formalism with microlocal
-windows, yielding sharp local Weyl laws and effective error budgets.
-The technical core is the construction of band-limited parametrices for the
-wave group and the quantification of error propagation through spectral and
-geometric expansions.
-The roadmap makes explicit how each component (notation, kernels,
-parametrices, constants) supports the final theorems on eigenvalue
-counting and uniform asymptotics.
 
-% ----------------------------------------------------------------------
-\subsection*{Layer I: Chapter Overview}
+\noindent
+Throughout, we assume familiarity with the basic theory of hyperbolic surfaces, Fuchsian groups, and the spectral decomposition of the Laplace--Beltrami operator.
+For analytic details concerning the classical trace formula we refer to standard sources, notably the monographs of Hejhal and Buser, and for semiclassical and microlocal tools to standard references in pseudodifferential analysis.
 
-\begin{description}
-  \item[Chapter 1: Introduction.]
-  States the main theorems, their context in spectral geometry, and the scope
-  of the results. Outlines prior work and emphasizes novelty (cf.\ Executive Summary).
-  
-  \item[Chapter 2: Preliminaries.]
-  Establishes background on hyperbolic geometry, Fuchsian groups,
-  Laplacians, and Eisenstein series. Sets analytic and geometric conventions.
-  
-  \item[Chapter 3: Spectral and Geometric Tools.]
-  Reviews the Selberg trace formula, spherical transforms,
-  and functional calculus, with proofs deferred to appendices.
-  
-  \item[Chapter 4: Complexity Framework.]
-  Introduces quantitative geometry (injectivity radius, systole, thick–thin decomposition)
-  and prepares microlocal tools for parametrix estimates.
-  
-  \item[Chapter 5: Microlocal Analysis.]
-  Develops semiclassical calculus, band-limited parametrices, and analytic windows $h_\eta$.
-  This chapter forms the analytic core: Egorov transport, stationary phase, and error bounds.
-  
-  \item[Chapter 6: Trace Expansion.]
-  Assembles contributions of discrete spectrum, Eisenstein series, hyperbolic geodesics,
-  and parabolic terms. Establishes localized trace identities.
-  
-  \item[Chapter 7: Local Weyl Law.]
-  Derives uniform asymptotics for localized eigenvalue counts $N(\lambda,\eta)$.
-  Power-saving error terms are proved using the parametrix bounds from Chapter~5
-  and error budgets from Chapter~6.
-  
-  \item[Chapter 8: Error Budgets and Constants.]
-  Collects constants, dependency ledgers, and quantitative bounds.
-  Ensures all hidden constants are auditable and cross-referenced to Appendix~J.
-  
-  \item[Chapter 9: Applications and Extensions.]
-  Illustrates applications: numerical verification strategies,
-  extensions to congruence subgroups, and open problems.
-  
-  \item[Appendices A–J.]
-  Provide proofs of parametrix constructions, stationary phase lemmas,
-  spherical transform identities, and complete audit trails of constants.
-\end{description}
+\section*{1. The conceptual objective of the book}
 
-% ----------------------------------------------------------------------
-\subsection*{Layer II: Audit Trail and Dependencies}
+\noindent
+The Selberg trace formula is often presented as a global identity equating spectral and geometric data.
+In many analytic problems, however, one does not require the full global statement; instead, one needs a controlled trace identity restricted to a prescribed spectral window, possibly refined by additional localization in phase space.
+The principal objective of this book is to develop a systematic and reusable \emph{localized trace formalism} in which the classical Selberg identity becomes a flexible tool rather than a rigid global formula.
 
+\medskip
+
+\noindent
+The central theme is that localization introduces unavoidable analytic costs:
+smoothing, truncation, and microlocal cutoffs generate remainder terms which must be tracked explicitly.
+A key contribution of the present work is to formalize these costs in a stable bookkeeping system, allowing the localized trace formula to be iterated and refined without loss of quantitative control.
+
+\section*{2. Recommended reading paths}
+
+\subsection*{Path A: the classical trace formula and its analytic skeleton}
+
+\noindent
+Readers who wish to focus on the classical Selberg trace formula, its derivation, and its core analytic structure should proceed as follows:
 \begin{itemize}
-  \item \textbf{Notation and Glossary (\S\ref{sec:notation-glossary}).}
-  Fixed once for all; every subsequent theorem relies on these conventions.
-  
-  \item \textbf{Parametrix constants (Ch.~5, App.~A).}
-  Feed into error estimates in Chapters~6--7.
-  
-  \item \textbf{Scattering data.}
-  Enter through $(\sigma'/\sigma)(s)$ in trace expansions (Ch.~6).
-  
-  \item \textbf{Spectral gap $\beta_\Gamma$.}
-  Determines whether a power-saving $\delta>0$ is achieved (Ch.~7, \S G).
-  
-  \item \textbf{Constants $c_{\mathrm{geom}},c_{\mathrm{moll}},C_{\mathrm{Eg}},C_{\mathrm{stat}},C_{\mathrm{MS}}$.}
-  All dependencies explicitly traced in Appendix~J; referenced in Ch.~8.
-  
-  \item \textbf{Forward/backward links.}
-  Each chapter states the inputs it requires (backward) and the outputs
-  it delivers (forward), summarized in the navigation map below.
+  \item Begin with the introduction and preliminaries, where geometric and spectral normalizations are fixed.
+  \item Read the chapter devoted to the classical Selberg trace formula, including the construction of admissible test functions and the standard decomposition into identity and hyperbolic terms.
+  \item In the finite-area case, continue with the discussion of Eisenstein series and scattering contributions.
 \end{itemize}
+This path is appropriate for readers whose primary interest is the classical global identity and its standard analytic implementation.
 
-% ----------------------------------------------------------------------
-\subsection*{Layer III: Navigation Map}
+\subsection*{Path B: localization in frequency and controlled remainder terms}
 
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Chapter} & \textbf{Inputs} & \textbf{Outputs} \\
-\hline
-1. Introduction & --- & Main theorems, novelty \\
-\hline
-2. Preliminaries & Notation (A--C) & Geometric background, operators \\
-\hline
-3. Tools & (2), Notation (E--J) & Trace identities, transforms \\
-\hline
-4. Complexity & (2--3) & Quantitative geometry, setup for microlocal \\
-\hline
-5. Microlocal & (4), App.~A & Band-limited parametrix, $O_M$ estimates \\
-\hline
-6. Trace Expansions & (3,5), Scattering & Localized trace identities \\
-\hline
-7. Local Weyl Law & (5,6), $\beta_\Gamma$ & Power-saving asymptotics \\
-\hline
-8. Error Budgets & (5--7), App.~J & Consolidated constants, dependency ledger \\
-\hline
-9. Applications & (7--8) & Extensions, numerics, open problems \\
-\hline
-Appendices & (all) & Proofs, audit trail, technical lemmas \\
-\hline
-\end{tabular}
-\end{center}
-
-% ----------------------------------------------------------------------
-\subsection*{Audit Checklist for \texttt{00-readers-roadmap}}
-
+\noindent
+Readers interested in localization as a functional-analytic procedure---namely truncating the trace identity to prescribed spectral windows---may focus on the chapters developing localized test functions and cutoff schemes.
+The essential reading sequence is:
 \begin{itemize}
-  \item \textbf{Completeness.} All chapters listed with explicit scope and dependencies. \emph{Status: sealed}.
-  \item \textbf{Consistency.} Inputs and outputs match cross-references in main text. \emph{Status: sealed}.
-  \item \textbf{Audit Trail.} Constants and error budgets traced to Appendix~J. \emph{Status: sealed}.
-  \item \textbf{Navigation.} Forward/backward links explicitly stated. \emph{Status: sealed}.
+  \item the chapter introducing admissible spectral profiles and localized trace functionals;
+  \item the chapter establishing uniform estimates for the identity and hyperbolic contributions under truncation;
+  \item the chapter developing the remainder calculus and establishing stability under refinement.
+\end{itemize}
+This path is suitable for applications where the trace formula is used as a quantitative identity on restricted frequency bands.
+
+\subsection*{Path C: microlocal and semiclassical localization}
+
+\noindent
+Readers whose primary objective is microlocalization and semiclassical refinement should proceed directly to the chapters where pseudodifferential partitions are introduced.
+The recommended order is:
+\begin{itemize}
+  \item the chapter introducing semiclassical scaling and microlocal partitions of unity;
+  \item the chapter establishing trace identities for microlocal projectors inserted into the wave group;
+  \item the chapter proving refinement stability and the corresponding quantitative ledger bounds.
+\end{itemize}
+This route is designed for readers interested in connecting the Selberg trace formula with semiclassical spectral geometry and modern microlocal analysis.
+
+\subsection*{Path D: modular framework and later applications}
+
+\noindent
+Some readers may be interested primarily in the final modular formulation of the localized trace formula and its role as a reusable analytic interface.
+For this purpose one may read selectively:
+\begin{itemize}
+  \item the executive summary and introduction for the conceptual framing;
+  \item the chapter stating the final localized trace identity in its stable modular form;
+  \item the chapters establishing the error ledger and refinement stability;
+  \item the concluding discussion on portability to other trace-type identities.
+\end{itemize}
+This path is intended for readers who want a functional analytic ``black box'' usable in future work.
+
+\section*{3. How to use the text as a reference}
+
+\noindent
+The structure of the book is intentionally layered.
+Each chapter introduces a well-defined set of objects (test profiles, kernels, projectors, remainder terms) and proves a collection of estimates that are stable under the natural operations of localization and refinement.
+As a consequence, the later chapters can be used independently once the reader accepts the basic definitions and normalizations.
+
+\medskip
+
+\noindent
+In particular, the reader who wishes to reuse the framework in a different analytic setting may proceed as follows:
+\begin{itemize}
+  \item adopt the normalization conventions for the Laplacian and the spectral parameter;
+  \item choose an admissible test function class and cutoff regime;
+  \item insert the desired localization operators (frequency or microlocal);
+  \item track the resulting remainder terms through the ledger bounds.
+\end{itemize}
+The key stability lemmas ensure that this procedure does not depend on the particular cutoff scheme beyond explicitly quantified constants.
+
+\section*{4. Prerequisites and background material}
+
+\noindent
+The monograph presupposes familiarity with the following topics:
+\begin{itemize}
+  \item hyperbolic geometry and the theory of Fuchsian groups;
+  \item the Laplace--Beltrami operator and spectral decomposition on hyperbolic surfaces;
+  \item basic harmonic analysis on $\PSL(2,\mathbb{R})$ and on the upper half-plane;
+  \item distributional Fourier transforms and contour-shifting techniques.
+\end{itemize}
+For the semiclassical and microlocal chapters, the reader should be comfortable with:
+\begin{itemize}
+  \item pseudodifferential operators on manifolds;
+  \item semiclassical quantization and symbolic calculus;
+  \item wave propagation and trace identities.
 \end{itemize}
 
 \medskip
-\noindent\textbf{Conclusion.}
-This roadmap ensures that readers—from specialists to advanced students—
-can follow the logical progression of the monograph. 
-It provides a transparent audit trail, structural dependencies,
-and explicit navigation, guaranteeing clarity, reproducibility, 
-and efficient access to results.
+
+\noindent
+The text attempts to keep microlocal machinery as self-contained as possible, but it is not written as an introductory reference on pseudodifferential analysis.
+Instead, microlocal tools are introduced only to the extent necessary to build a stable localized trace identity.
+
+\section*{5. Notational conventions}
+
+\noindent
+A glossary of notation is provided separately.
+In particular, we use the standard convention that the Laplacian on a hyperbolic surface is normalized so that the continuous spectrum begins at $1/4$.
+The spectral parameter $t$ is therefore related to the eigenvalue $\lambda$ by $\lambda = 1/4 + t^2$.
+Closed geodesics correspond to primitive hyperbolic conjugacy classes, and their lengths are denoted by $\ell(\gamma)$.
+
+\medskip
+
+\noindent
+Whenever localization parameters are introduced, we emphasize their scaling dependence and record explicitly which constants are uniform in the relevant regime.
+
+\section*{6. What is new in this work}
+
+\noindent
+The novelty of the present monograph is not the classical Selberg trace formula itself, but the systematic organization of localization into a stable analytic framework.
+The main new elements are:
+\begin{itemize}
+  \item the construction of a localized trace functional stable under refinement;
+  \item an explicit remainder calculus allowing localization errors to be composed additively;
+  \item a microlocal insertion formalism compatible with semiclassical scaling;
+  \item a unified treatment of compact and finite-area settings under a single localization philosophy.
+\end{itemize}
+These features are designed to make the trace formula portable and reusable in analytic contexts where one must iterate localization across multiple scales.
+
+\medskip
+
+\noindent
+Finally, we stress that the text is written with an emphasis on \emph{quantitative stability}.
+In all constructions we isolate the dependence of constants on geometric parameters, spectral cutoffs, and smoothing profiles.
+This is essential for applications where the localized trace identity must be used as a modular component inside a longer analytic argument.
 
 % ======================================================================
-% End of 00-readers-roadmap.tex
+% End of src/frontmatter/00-readers-roadmap.tex
 % ======================================================================
