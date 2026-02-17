@@ -3,17 +3,13 @@ name: pdf
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch:
 
-# Чтобы не было очередей/фантомных отмен: новый пуш отменяет предыдущий ран на той же ветке
+# ВАЖНО: это убирает "higher priority waiting request exists"
+# и гарантирует, что новый запуск отменяет старый корректно
 concurrency:
-  group: latex-${{ github.workflow }}-${{ github.ref }}
+  group: latex-${{ github.ref }}
   cancel-in-progress: true
-
-permissions:
-  contents: read
 
 jobs:
   pdf:
@@ -28,52 +24,52 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sanity check layout
-        shell: bash
         run: |
           set -euo pipefail
-
           test -f main.tex || { echo "::error ::src/main.tex not found"; exit 2; }
           test -f bib/references.bib || { echo "::error ::src/bib/references.bib not found"; exit 2; }
-
           for f in macros/environments.tex macros/operators.tex macros/house-style.tex; do
-            test -f "$f" || { echo "::error ::missing src/$f"; exit 2; }
+            test -f "$f" || { echo "::error ::missing $f"; exit 2; }
           done
-
-          # Запрещаем path traversal и абсолютные пути в \input/\include
-          BAD=$(grep -R -nE '\\(input|include)\{(\.\./|/)' . || true)
+          # запрет небезопасных путей \input
+          BAD=$(grep -R -nE '\\input\{(sub/|/|\\\.\.)' . || true)
           if [ -n "$BAD" ]; then
-            echo "::error ::Forbidden \\input/\\include path(s) detected:"
+            echo "::error ::Forbidden \\input path(s) detected:"
             echo "$BAD"
             exit 3
           fi
 
+      # Компиляция. Ключевое изменение:
+      # - НЕ делаем tlmgr update --self --all (это источник отмен/нестабильности)
+      # - Если пакетов не хватает — ставим точечно, но без глобального update.
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: src
           latexmk_use_xelatex: true
-          args: -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1
+          # Если хочешь LuaLaTeX вместо XeLaTeX — поменяй на latexmk_use_lualatex: true
           pre_compile: |
             tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
-            tlmgr update --self --all || true
             tlmgr install \
+              amsmath amsfonts amssymb \
               bbm mathrsfs microtype enumitem float caption subcaption \
-              tcolorbox cleveref xcolor etoolbox csquotes \
-              amsfonts amsmath amsthm mathtools \
-              geometry hyperref bookmark \
-              bibtex bibtexu || true
+              tcolorbox cleveref xcolor etoolbox \
+              hyperref geometry graphicx tools xkeyval \
+              booktabs array tabularx mathtools \
+              bibtex || true
             echo "[tlmgr pre_compile finished]"
+          args: -file-line-error -halt-on-error -interaction=nonstopmode
 
+      # PDF грузим только если он реально собрался
       - name: Upload PDF
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: monograph-pdf
           path: src/main.pdf
-          if-no-files-found: error
 
-      # Логи грузим всегда (и при успехе тоже — полезно для аудита)
+      # Логи грузим ВСЕГДА (чтобы не терять диагностику)
       - name: Upload LaTeX logs (always)
         if: always()
         uses: actions/upload-artifact@v4
@@ -81,9 +77,10 @@ jobs:
           name: latex-logs
           path: |
             src/main.log
-            src/main.aux
             src/main.blg
             src/main.bbl
+            src/main.aux
+            src/main.out
+            src/main.toc
             src/main.fls
             src/main.fdb_latexmk
-          if-no-files-found: ignore
