@@ -1,228 +1,253 @@
 % ======================================================================
 % File: src/sections/01-introduction.tex
-% Clean Annals++ Introduction (final style, no internal kitchen)
+% Introduction (ULTRA Annals+++ style, clean, final, no internal kitchen)
 % ======================================================================
 
-\section{Introduction}
-\label{sec:introduction}
+\chapter{Introduction}
+\label{chap:01-introduction}
 
-\subsection{Background and motivation}
-\label{subsec:intro.background}
+\section{Background and motivation}
+\label{sec:01.background}
 
-Trace formulae occupy a central position in spectral geometry, analytic number theory, and microlocal analysis.
-In their classical incarnations---such as the Selberg trace formula for compact hyperbolic surfaces or the Arthur trace
-formula for arithmetic quotients---they provide a precise identity relating spectral data of a natural operator
-(Laplace--Beltrami, Casimir, or a representation-theoretic analogue) to geometric and dynamical invariants
-encoded by closed geodesics and conjugacy classes.
+Trace formulae form a foundational tool in spectral geometry, analytic number theory, and microlocal analysis.
+In their classical realizations---most notably the Selberg trace formula for hyperbolic surfaces and the Arthur trace
+formula for arithmetic quotients---they provide an exact identity relating the spectrum of a natural self-adjoint
+operator to geometric and dynamical invariants of the underlying space.
 
-From the analytic viewpoint, trace identities constitute a mechanism for translating spectral questions into
-oscillatory integrals and exponential sums.  From the geometric viewpoint, they encode a deep correspondence between
-the distribution of eigenvalues and the periodic orbit structure of the underlying geodesic flow.
-From the arithmetic viewpoint, they serve as a bridge between automorphic representations and zeta-type objects.
+From a geometric perspective, trace identities encode a correspondence between eigenvalue distributions and the
+periodic orbit structure of the geodesic flow.  From an analytic perspective, they serve as a mechanism for
+converting spectral information into oscillatory integrals and exponential sums.  From an arithmetic perspective,
+they connect automorphic representations with zeta-type objects and explicit formulae.
 
-In many applications, however, one does not use the trace formula in its global form.
-Instead, one introduces cutoffs and partitions of unity, localizes the kernel in phase space, and extracts
-asymptotics from a \emph{microlocal trace} at a prescribed scale.
-Such localization procedures are ubiquitous: they appear in semiclassical spectral asymptotics, in scattering theory
-for noncompact quotients, and in the analysis of dynamical zeta functions.
+In a substantial range of applications, however, one does not employ the trace formula in a purely global form.
+Instead, one introduces cutoffs, partitions of unity, and phase-space localization in order to isolate spectral
+information at a prescribed scale.  Such microlocal regimes occur naturally in semiclassical spectral asymptotics,
+in scattering theory for noncompact quotients, and in determinant-level applications where one needs to control
+regularizations with quantitative precision.
 
-The price of localization is that one must choose auxiliary objects: cutoff profiles, quantization conventions,
-and microlocal covers.  While the final spectral statements should not depend on these choices, the intermediate
-trace identities typically do.  This dependence is often suppressed in the literature, as it is harmless for
-coarse asymptotics; yet it becomes critical in any regime where one aims for stability at the level of
-determinant identities, positivity criteria, or fine remainder bounds.
+The analytic cost of localization is the introduction of auxiliary choices: cutoff profiles, quantization schemes,
+and microlocal decompositions.  While the final spectral statements should be invariant under these choices,
+intermediate localized trace identities typically are not.  This dependence is often harmless for coarse asymptotics,
+but it becomes decisive in regimes where stability is required at the level of refined remainders, positivity
+criteria, or determinant identities.
 
-The purpose of this work is to develop a \emph{canonical localized trace formalism} in which the trace identity is
-promoted from a formula to a stable analytic object.  The central goal is to construct a normalized trace functional
-together with an explicit remainder ledger, in such a way that all subsequent applications depend only on
-invariants that are stable under admissible changes of auxiliary data.
+The purpose of this monograph is to develop a \emph{canonical localized trace formalism} in which the trace identity
+is treated not merely as an equality of distributions, but as a stable analytic object equipped with a quantitative
+error budget.
 
-\subsection{The main problem: stability of localized trace objects}
-\label{subsec:intro.problem}
+\section{The stability problem for localized traces}
+\label{sec:01.problem}
 
-Let $X$ be a geometric space equipped with a natural Laplace-type operator $\Delta$ (or a closely related
-self-adjoint operator), and let $\Gamma$ denote the underlying geometric or arithmetic input.
-In a typical trace formula setting, one has a distributional trace functional
+Let $M$ be a finite-area hyperbolic surface (possibly with cusps) and let $\Delta$ denote the Laplace--Beltrami
+operator on $M$ acting on $L^2(M)$.  Denote by $\Gamma$ the geometric input, so that $M=\Gamma\backslash\mathbb{H}$.
+A trace formula is naturally encoded by a distributional functional
 \[
-\mathcal{L}_\Gamma[h]
+\mathcal{L}_\Gamma[h],
 \]
-defined on an admissible class of test functions $h:\R\to\C$.
-In the Selberg framework, $\mathcal{L}_\Gamma$ decomposes into an identity term, a sum over conjugacy classes
-(hyperbolic and elliptic contributions), and in the noncompact case an additional continuous-spectrum term.
+defined on a suitable class of test functions $h:\mathbb{R}\to\mathbb{C}$.
+In the Selberg framework, $\mathcal{L}_\Gamma$ decomposes into an identity contribution, a sum over nontrivial
+conjugacy classes, and in the noncompact case additional continuous-spectrum terms expressed through the scattering
+matrix.
 
-In localized microlocal regimes, $\mathcal{L}_\Gamma[h]$ is realized as the trace of a localized operator,
-constructed using microlocal projectors and quantization of symbols.
-The resulting expression depends on choices: a cutoff profile, a partition of unity in phase space, and a
-quantization convention.  It is a fundamental analytic requirement that any meaningful invariant extracted from the
-trace formula must be stable under these modifications.
+In microlocal settings, $\mathcal{L}_\Gamma[h]$ is realized as the trace of a localized operator obtained from a
+functional calculus of $\Delta$, combined with phase-space projectors and quantization of symbols.
+Such a representation is not unique.  Different admissible cutoff profiles and different quantization conventions
+produce formally distinct kernel expansions, even when they encode the same underlying spectral information.
 
-The principal difficulty is that the identity sector introduces a zero-mode instability.
-Even when $h$ is fixed, changing the cutoff profile alters the contribution of $h(0)$.
-Similarly, changing quantization modifies lower-order terms in the kernel expansion.
-While these discrepancies are expected to be controlled, a systematic canonicalization mechanism is rarely made
-explicit.
+A principal source of instability is the identity sector.  Changing the cutoff profile modifies the contribution of
+$h(0)$ and hence produces deterministic but nontrivial perturbations of the localized trace.  Further discrepancies
+arise from the lower-order sensitivity of pseudodifferential quantization and from refinements of microlocal covers.
+If these effects are not explicitly isolated, one risks confusing artifacts of auxiliary choices with genuine
+spectral information.
 
-The present work addresses this problem by introducing a normalization layer which separates the invariant content of
-the trace from the auxiliary contributions and packages all remaining ambiguity into a single quantified remainder.
+The fundamental question addressed in this work is therefore the following:
 
-\subsection{Overview of the approach}
-\label{subsec:intro.approach}
+\begin{quote}
+\emph{Can one construct a canonical localized trace functional whose dependence on auxiliary microlocal data is
+explicitly quantified and confined to a controlled remainder?}
+\end{quote}
 
-The analysis is based on three complementary components.
+The main results provide an affirmative answer by introducing a normalization mechanism that removes the identity
+instability and by assembling all remaining non-canonicity into an explicit error ledger.
 
-\medskip
-\noindent\textbf{(i) Microlocal localization.}
-We work with a microlocal decomposition of the trace, implemented through a family of projectors
-$\{\Pi_j\}$ forming a partition of unity in phase space, and with a semiclassical quantization map $\Op$.
+\section{Outline of the approach}
+\label{sec:01.approach}
+
+The construction developed in this monograph is based on three structural components.
+
+\subsection{Microlocal localization}
+\label{subsec:01.approach.localization}
+
+We work with a microlocal partition of unity in phase space, implemented by a family of operators
+$\{\Pi_j\}_{j\in J}$ that localize to a controlled cover of the cotangent bundle.
+Given an admissible test function $h$, we consider the corresponding functional calculus operator $K_h=h(\sqrt{\Delta})$
+(or an equivalent spectral kernel).
 This yields a localized trace representation of the form
-\[
+\begin{equation}
+\label{eq:01.microlocal-trace}
 \mathcal{L}_\Gamma[h]
 =
-\sum_j \Tr\bigl(\Pi_j \, K_h \, \Pi_j\bigr) \;+\; \Err(h),
-\]
-where $K_h$ denotes the operator kernel associated with the test function $h$ and the error term is controlled by
-the microlocal calculus.
+\sum_{j\in J}\Tr\bigl(\Pi_j\,K_h\,\Pi_j\bigr)
++
+\Err(h),
+\end{equation}
+where the remainder $\Err(h)$ is controlled by standard microlocal calculus and depends on the localization scale.
 
-\medskip
-\noindent\textbf{(ii) Canonical normalization.}
-To remove the instability at the identity sector, we fix a cutoff profile $\chi\in C_c^\infty(\R)$ with
-$\chi\equiv 1$ near $0$ and define the normalization map
-\[
-\mathsf{N}_\chi(h) := h - h(0)\chi.
-\]
-The normalized trace functional is then defined by
-\[
-\mathcal{T}_\Gamma[h;\chi] := \mathcal{L}_\Gamma[\mathsf{N}_\chi(h)].
-\]
-This subtraction isolates the geometric and dynamical content of the trace from the purely local contribution
-encoded by $h(0)$.
+\subsection{Canonical normalization of the identity sector}
+\label{subsec:01.approach.normalization}
 
-\medskip
-\noindent\textbf{(iii) Error accounting and stability.}
-The remaining dependence on auxiliary choices is quantified by an explicit error ledger.  The ledger consists of
-separate components controlling changes of quantization, refinement of the microlocal partition, truncation tails,
-and continuous-spectrum contributions.  The final output is a stability theorem showing that the normalized trace is
-canonical modulo an explicit identity correction and a controlled remainder.
+To remove the zero-mode instability, we fix a cutoff profile $\chi\in C_c^\infty(\mathbb{R})$ satisfying
+$\chi\equiv 1$ in a neighborhood of $0$ and define the normalization operator
+\begin{equation}
+\label{eq:01.normalization-map}
+\mathsf{N}_\chi(h)
+:=
+h-h(0)\chi.
+\end{equation}
+The associated normalized trace functional is defined by
+\begin{equation}
+\label{eq:01.normalized-trace}
+\mathcal{T}_\Gamma[h;\chi]
+:=
+\mathcal{L}_\Gamma[\mathsf{N}_\chi(h)].
+\end{equation}
+The subtraction in \eqref{eq:01.normalization-map} removes the identity ambiguity and isolates the nontrivial
+geometric and dynamical content of the trace.
 
-This approach is designed to be portable across several trace-formula contexts: compact and noncompact hyperbolic
-surfaces, scattering settings, and more general semiclassical trace problems.
+\subsection{Quantitative stability and error accounting}
+\label{subsec:01.approach.ledger}
 
-\subsection{Main results}
-\label{subsec:intro.main-results}
+The remaining dependence on microlocal data is captured by an explicit error ledger.
+The ledger is constructed as a sum of terms controlling changes of quantization, refinement of the microlocal cover,
+truncation tails, and in the noncompact case contributions of the continuous spectrum.
+The central stability theorem shows that all admissible constructions lead to the same normalized trace functional,
+up to an explicit deterministic identity correction and a quantitatively controlled remainder.
 
-The main results of this work can be summarized as follows.
+This organization has two advantages.
+First, it yields a canonical trace object that may be used reliably across different microlocal implementations.
+Second, it provides a direct analytic interface for applications where the effectiveness of trace methods depends on
+sharp remainder control.
+
+\section{Statement of the main results}
+\label{sec:01.main-results}
+
+We now summarize the principal conclusions of this work in a simplified form.
+Precise hypotheses and quantitative versions are given in the corresponding chapters.
 
 \begin{theorem}[Canonical normalized trace functional]
-\label{thm:intro.canonical-trace}
-Let $\mathcal{L}_\Gamma[h]$ denote the raw trace functional associated with the geometric input $\Gamma$.
-Fix $\chi\in C_c^\infty(\R)$ with $\chi\equiv 1$ in a neighborhood of $0$.
-Define
+\label{thm:01.canonical-trace}
+Let $\mathcal{L}_\Gamma[h]$ denote the trace functional associated with the geometric input $\Gamma$.
+Fix $\chi\in C_c^\infty(\mathbb{R})$ with $\chi\equiv 1$ near $0$, and define
 \[
-\mathcal{T}_\Gamma[h;\chi] := \mathcal{L}_\Gamma[h-h(0)\chi].
+\mathcal{T}_\Gamma[h;\chi]
+=
+\mathcal{L}_\Gamma[h-h(0)\chi].
 \]
-Then $\mathcal{T}_\Gamma[h;\chi]$ is independent of the cutoff profile $\chi$ modulo an explicit identity-sector
-correction depending only on $h(0)$.
+Then the functional $\mathcal{T}_\Gamma[h;\chi]$ is canonical modulo an explicit identity-sector correction depending
+only on $h(0)$.
 \end{theorem}
 
 \begin{theorem}[Cutoff change identity]
-\label{thm:intro.cutoff-change}
-Let $\chi_1,\chi_2\in C_c^\infty(\R)$ satisfy $\chi_j\equiv 1$ near $0$.
+\label{thm:01.cutoff-change}
+Let $\chi_1,\chi_2\in C_c^\infty(\mathbb{R})$ satisfy $\chi_j\equiv 1$ in a neighborhood of $0$.
 Then for any admissible test function $h$ one has the exact relation
 \[
 \mathcal{T}_\Gamma[h;\chi_1]-\mathcal{T}_\Gamma[h;\chi_2]
 =
 -h(0)\,\mathcal{L}_\Gamma[\chi_1-\chi_2].
 \]
-In particular, the cutoff dependence is confined to a deterministic term supported in the identity sector.
+In particular, the cutoff dependence of the normalized trace is confined to a deterministic correction supported in
+the identity sector.
 \end{theorem}
 
-\begin{theorem}[Normalization stability theorem]
-\label{thm:intro.stability}
+\begin{theorem}[Stability under admissible microlocal modifications]
+\label{thm:01.stability}
 Let $\Op$ and $\Op'$ be two admissible quantization schemes and let $\{\Pi_j\}$ and $\{\widetilde{\Pi}_k\}$ be two
 admissible microlocal covers.
-Then for each admissible $h$ there exists a remainder term $\Err_{\mathrm{norm}}(h)$ such that
+Then for each admissible test function $h$ there exists a remainder term $\Err_{\mathrm{norm}}(h)$ such that
 \[
-\mathcal{T}_\Gamma[h;\chi] - \mathcal{T}'_\Gamma[h;\chi']
+\mathcal{T}_\Gamma[h;\chi]-\mathcal{T}'_\Gamma[h;\chi']
 =
-\Delta_{\mathrm{id}}(h;\chi,\chi') + \Err_{\mathrm{norm}}(h),
+\Delta_{\mathrm{id}}(h;\chi,\chi')+\Err_{\mathrm{norm}}(h),
 \]
-where $\Delta_{\mathrm{id}}(h;\chi,\chi')$ is an explicit identity correction and the remainder satisfies
+where $\Delta_{\mathrm{id}}(h;\chi,\chi')$ is an explicit identity correction and
 \[
 |\Err_{\mathrm{norm}}(h)|
 \le
 \mathcal{E}_\Gamma[h;\chi]+\mathcal{E}'_\Gamma[h;\chi'].
 \]
-Here $\mathcal{E}_\Gamma$ and $\mathcal{E}'_\Gamma$ are explicit error ledgers assembled from the microlocal calculus.
+Here $\mathcal{E}_\Gamma$ and $\mathcal{E}'_\Gamma$ are explicit error ledgers arising from the microlocal calculus.
 \end{theorem}
 
-The above theorems provide a structural upgrade of localized trace methods: rather than working with a family of trace
-identities depending on auxiliary choices, one obtains a canonical trace functional equipped with a quantitative
-stability guarantee.
+Theorems~\ref{thm:01.canonical-trace}--\ref{thm:01.stability} provide a structural upgrade of localized trace methods:
+instead of working with a family of trace identities depending on auxiliary choices, one obtains a canonical trace
+functional equipped with a quantitative stability guarantee.
 
-\subsection{Consequences and applications}
-\label{subsec:intro.applications}
+\section{Consequences and applications}
+\label{sec:01.applications}
 
-The normalization framework has two immediate analytic consequences.
+The canonicalization mechanism has two immediate consequences.
 
-\medskip
-\noindent\textbf{(1) Local spectral asymptotics.}
-The normalized trace functional may be used to derive local Weyl laws and microlocal spectral asymptotics in a form
-stable under refinements of the localization scale.  In particular, one can isolate the main Weyl term and
-control the remainder uniformly under admissible auxiliary changes.
+\subsection{Local spectral asymptotics}
+\label{subsec:01.applications.weyl}
 
-\medskip
-\noindent\textbf{(2) Determinant-level trace-to-zeta bridges.}
-Trace identities are naturally linked to zeta-regularized determinants and to explicit formulae in analytic number
-theory.  The normalized trace functional provides a stable interface for passing from localized trace expansions to
-determinant identities and positivity criteria, since all noncanonical contributions are isolated into explicit
-identity corrections and a quantified error ledger.
+The normalized trace functional provides a robust framework for deriving local Weyl laws and microlocal spectral
+asymptotics.  In particular, one can isolate the principal Weyl term and control the remainder uniformly under
+refinements of the localization scale and admissible changes of auxiliary microlocal data.
 
-This provides a conceptual path from microlocal trace formulae to zeta-type objects and to spectral constraints of the
-Li--Weil type.
+\subsection{Determinant-level trace-to-zeta interfaces}
+\label{subsec:01.applications.zeta}
 
-\subsection{Structure of the paper}
-\label{subsec:intro.structure}
+Trace formulae are naturally connected to zeta-regularized determinants and explicit formulae.
+The normalized trace functional yields a stable interface for passing from localized trace expansions to
+determinant identities and positivity mechanisms, since all noncanonical dependence is isolated into explicit
+identity corrections and a quantified remainder ledger.
 
-The paper is organized as follows.
+This provides a canonical route from microlocal trace analysis to zeta-type constraints, including Li--Weil type
+positivity criteria in settings where such criteria are available.
+
+\section{Organization of the monograph}
+\label{sec:01.organization}
+
+The monograph is organized as follows.
 
 \medskip
 \noindent\textbf{Chapter~\ref{chap:02-preliminaries}.}
-We introduce the geometric and analytic framework, the relevant operator calculus, and the admissible test class.
+We introduce the geometric framework, the relevant operator calculus, and the admissible test classes.
 
 \medskip
-\noindent\textbf{Chapters~\ref{chap:03-kernels}--\ref{chap:05-microlocal}.}
-We construct the localized kernels and microlocal projectors and develop the remainder estimates needed for trace
+\noindent\textbf{Chapters~\ref{chap:03-kernel}--\ref{chap:05-microlocal}.}
+We construct the localized kernels and microlocal projectors and develop the quantitative estimates required for trace
 localization.
 
 \medskip
-\noindent\textbf{Chapter~\ref{chap:06-trace-formula}.}
+\noindent\textbf{Chapter~\ref{chap:06-geometric}.}
 We establish the localized trace formula and identify the decomposition into identity and nontrivial geometric terms.
 
 \medskip
 \noindent\textbf{Chapter~\ref{chap:08-normalization}.}
-We introduce the normalization layer and prove the stability theorem under admissible changes of auxiliary data.
+We introduce the normalization layer and prove stability under admissible microlocal modifications.
 
 \medskip
 \noindent\textbf{Chapter~\ref{chap:09-local-weyl}.}
-We derive local Weyl asymptotics and formulate the results directly in terms of the canonical normalized trace and its
-error ledger.
+We derive local Weyl asymptotics in terms of the canonical normalized trace functional and its error ledger.
 
 \medskip
 \noindent\textbf{Chapter~\ref{chap:10-trace-to-zeta}.}
-We develop the trace-to-zeta interface and discuss determinant-level consequences and positivity mechanisms.
+We develop trace-to-zeta interfaces and discuss determinant-level consequences and positivity mechanisms.
 
 \medskip
 \noindent\textbf{Chapter~\ref{chap:11-conclusion}.}
 We summarize the results and indicate directions for further development.
 
-\subsection{Bibliographic notes}
-\label{subsec:intro.bib}
+\section{Bibliographic notes}
+\label{sec:01.bib}
 
-The general philosophy of trace formulae in spectral geometry is classical; see
+The general theory of trace formulae in spectral geometry and automorphic analysis is classical; see
 \cite{Hejhal1983,Buser1992,Iwaniec2002}.
-For semiclassical and microlocal trace methods, see \cite{HormanderI,Sogge2014,Zworski2012}.
-For scattering-theoretic frameworks and resonances, see \cite{LaxPhillips1976,DyatlovZworski2019}.
-For zeta-related determinant identities and trace formula connections, see \cite{Connes1999,Titchmarsh1986}.
+For microlocal and semiclassical trace methods, see \cite{Zworski2012,DyatlovZworski2019}.
+For determinant identities and zeta-regularized traces, see \cite{Seeley1967,RaySinger1971,Connes1999}.
+For analytic background on the Riemann zeta function and explicit formulae, see \cite{Titchmarsh1986}.
 
 % ======================================================================
 % End of 01-introduction.tex
