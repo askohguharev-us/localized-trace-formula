@@ -1,826 +1,400 @@
-% =====================================================
-% Appendix B. Auxiliary Estimates for the Localized Trace Formula
-% =====================================================
+% ======================================================================
+% Appendix B. Auxiliary estimates
+% PATH: src/appendices/B-auxiliary-estimates.tex
+% ======================================================================
 
-\section*{Appendix B. Auxiliary Estimates for the Localized Trace Formula}
-\addcontentsline{toc}{section}{Appendix B. Auxiliary Estimates for the Localized Trace Formula}
+\appendix
+\chapter{Auxiliary analytic estimates}
+\label{app:B-auxiliary-estimates}
 
-\subsection*{B.0. Standing conventions and scope}
+\section{Purpose and interface with the main text}
+\label{sec:B.scope}
 
-Throughout, $M=\Gamma\backslash\mathbb H$ is a finite–area hyperbolic surface with cusps. For $Y\ge Y_0(\Gamma)$, let $M(Y)$ be the truncation defined in Appendix~A. All constants in this appendix depend only on the tuple of cusp widths $\{w_{\mathfrak a}\}$ and on bounded–geometry data of the thick part; they are independent of $Y\ge Y_0(\Gamma)$ and of spectral parameters.
+This appendix records the analytic bounds that are invoked repeatedly in Chapters~\ref{chap:06-geometric-terms}
+through~\ref{chap:08-normalization} and in the applications chapter(s).  The role of these estimates is twofold:
 
-We fix a finite $C^\infty$ atlas $\{(U_\alpha, \kappa_\alpha)\}_{\alpha \in \mathcal A}$ on $M(Y)$ with:
+\begin{enumerate}
+\item They provide uniform control of the continuous spectrum and the scattering data in the localized window regime
+\[
+\lambda^{-\theta}\le \eta\le 1,\qquad \lambda\to\infty,
+\]
+ensuring that continuous and parabolic contributions remain subordinate to the identity main term.
+
+\item They supply a catalogue of ``plug-in'' bounds for oscillatory integral transforms (Bessel/Kuznetsov kernels),
+length-spectrum tails, and elementary arithmetic weights that enter the off-diagonal analysis.
+\end{enumerate}
+
+All implied constants depend at most on the geometric input $(\Gamma,\text{cusp data})$ and on finitely many seminorms
+of fixed cutoffs.  No dependence on $(\lambda,\eta)$ is permitted unless explicitly stated.
+
+\section{Notation and standing assumptions}
+\label{sec:B.notation}
+
+Let $M=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with cusps.  We write the discrete spectrum of
+$\Delta$ as $\{1/4+r_j^2\}_{j\ge 0}$ and parameterize the continuous spectrum by $r\in\mathbb{R}$ via Eisenstein series.
+The cusp set is denoted by $\{\mathfrak{a}\}$.
+
+We fix:
 \begin{itemize}
-    \item uniformly bounded overlap multiplicity $M_{\mathrm{ov}}$,
-    \item $C^N$–bounds (all $N$) on metric coefficients in local coordinates,
-    \item uniformly comparable Jacobians.
+\item an even Schwartz cutoff $\chi\in\mathcal{S}(\mathbb{R})$ with $\chi(0)=1$ and its rescaling
+$\chi_\eta(u)=\chi(u/\eta)$,
+\item a spectral localization scale $\eta$ satisfying $\lambda^{-\theta}\le \eta\le 1$ for some fixed
+$0<\theta<\theta_0(\Gamma)$,
+\item the Fourier transform conventions of Appendix~\ref{app:G-normalizations}.
 \end{itemize}
-All “uniform” operator bounds below refer to these atlas constants.
 
-We work semiclassically with parameter $h \in (0, 1]$; when localization to frequency $\lambda \gg 1$ is intended, one may take $h \sim \lambda^{-1}$. Phase–space norms and trace identities are written at the $h$–scale; no substitution $h=1$ is performed implicitly.
+We write $A\ll B$ and $A=O(B)$ interchangeably, with subscripts indicating parameter dependence.
 
-\subsection*{B.1. Symbol classes and quantization}
-\label{subsec:B1-symbols}
+\section{Scattering determinants and logarithmic derivatives}
+\label{sec:B.scattering}
 
-Let $\langle\xi\rangle=(1+|\xi|^2)^{1/2}$ in local coordinates. For $m\in\mathbb R$ and $0\le\delta<\rho\le1$, define
+\subsection{Scattering matrices and the determinant}
+\label{subsec:B.scattering-matrix}
+
+Let $\Phi(s)=(\varphi_{\mathfrak{a}\mathfrak{b}}(s))$ denote the scattering matrix associated with $\Gamma$ and the
+chosen cusp normalization.  It is meromorphic in $s$ and unitary on $\Re(s)=1/2$ away from poles.  We denote the
+scattering determinant by
 \[
-S^m_{\rho,\delta}(T^*M)=\Big\{a\in C^\infty(T^*M):\ 
-|\partial_x^\alpha\partial_\xi^\beta a(x,\xi)|\le C_{\alpha,\beta}\,\langle\xi\rangle^{\,m-\rho|\beta|+\delta|\alpha|}\ \text{in every chart}\Big\}.
+\varphi(s):=\det \Phi(s).
 \]
-Set $\|a\|_{S^m_{\rho,\delta};N}=\max_{|\alpha|+|\beta|\le N}C_{\alpha,\beta}$.
-We use the semiclassical Kohn–Nirenberg quantization chartwise and patch with a fixed partition of unity:
-\[
-\Op_h(a)u(x)=\frac{1}{(2\pi h)^2}\int_{\mathbb R^2}\!\!\int_{\mathbb R^2}
-e^{\frac{i}{h}\langle x-y,\xi\rangle}\,a(x,\xi;h)\,u(y)\,d\xi\,dy.
-\]
-Unless stated otherwise, symbols are $h$–classical: $a\sim\sum_{j\ge0}h^j a_j$ with $a_j\in S^{m-j}_{\rho,\delta}$ uniformly on charts.
+We require bounds for $\frac{\varphi'}{\varphi}(s)$ on the critical line and in short vertical windows.
 
-\subsection*{B.2. Uniform partition of unity and overlap}
-\label{subsec:B2-partition}
-
-There exists a finite family $\{\psi_\alpha\}_{\alpha\in\mathcal A}\subset C_c^\infty(U_\alpha)$ such that
-\[
-\sum_{\alpha}\psi_\alpha\equiv1\quad\text{on }M(Y),\qquad
-\sup_\alpha \|\psi_\alpha\|_{C^{N}}\le C_{\mathrm{part}}(N),\qquad
-\#\{\alpha:\ x\in\supp\psi_\alpha\}\le M_{\mathrm{ov}},
-\]
-with $C_{\mathrm{part}}(N),M_{\mathrm{ov}}$ independent of $Y\ge Y_0(\Gamma)$. All operator estimates below are taken after inserting this partition; constants absorb $C_{\mathrm{part}}(N)$ and $M_{\mathrm{ov}}$.
-
-\subsection*{B.3. Calderón–Vaillancourt, adjoint, and composition (uniform in $Y$)}
-\label{subsec:B3-CV}
-
-\begin{theorem}[Calderón–Vaillancourt, uniform]
-\label{thm:B-CV}
-Let $a\in S^0_{\rho,\delta}(T^*M)$ with $\rho>\delta$. Then there exists $N_*=N_*(\rho,\delta)$ such that for all $N\ge N_*$ and all $h\in(0,1]$,
-\[
-\|\Op_h(a)\|_{L^2(M(Y))\to L^2(M(Y))}\ \le\ C_{\mathrm{CV}}\,\|a\|_{S^0_{\rho,\delta};N},
-\]
-where $C_{\mathrm{CV}}$ depends only on $(\rho,\delta,N)$ and the fixed atlas/partition, hence is independent of $Y$.
-\end{theorem}
-
-\begin{lemma}[Adjoint and composition]
-\label{lem:B-adj-comp}
-Let $a\in S^{m_1}_{\rho,\delta}$, $b\in S^{m_2}_{\rho,\delta}$ with $\rho>\delta$. Then
-\[
-\Op_h(a)^*=\Op_h(\overline a)+h\,\Op_h(r_1),\qquad
-\Op_h(a)\Op_h(b)=\Op_h(a\# b),
-\]
-where $a\# b\sim \sum_{|\alpha|\ge0}\frac{h^{|\alpha|}}{i^{|\alpha|}\alpha!}\,\partial_\xi^\alpha a\,\partial_x^\alpha b$,
-and the remainders are bounded by seminorms $\|a\|_{S^{m_1}_{\rho,\delta};N}\|b\|_{S^{m_2}_{\rho,\delta};N}$ with constants independent of $Y$.
-\end{lemma}
-
-\subsection*{B.4. Egorov up to Ehrenfest time (uniform)}
-\label{subsec:B4-egorov}
-
-Let $U_t=e^{it\sqrt\Delta}$ and $\varphi_t$ the geodesic flow on $T^*M$. Fix $a\in S^0_{1,0}$ supported in $\{(x,\xi):\tfrac12\le|\xi|_g\le2\}$.
-
-\begin{theorem}[Egorov]
-\label{thm:B-egorov}
-There exist $c>0$ and $N\in\mathbb N$ such that for $|t|\le c\log(1/h)$,
-\[
-U_{-t}\,\Op_h(a)\,U_t=\Op_h(a\circ\varphi_t)+h\,\Op_h(r_t),\qquad
-\|r_t\|_{S^0_{1,0};N}\ \le\ C\,e^{C|t|},
-\]
-with constants depending only on the atlas bounds and independent of $Y$.
-\end{theorem}
-
-\subsection*{B.5. Oscillatory integrals: non–stationary and stationary phase}
-\label{subsec:B5-oscillatory}
-
-We recall quantitative versions of oscillatory integral bounds with explicit constants.
-All estimates are stated so that dependence on amplitude and phase derivatives is explicit
-and uniform with respect to $Y\ge Y_0(\Gamma)$.
-
-\begin{lemma}[Non–stationary phase with explicit constants]
-\label{lem:B-nonstat}
-Let $\phi\in C^\infty(\mathbb R^n)$, $a\in C_c^\infty(\mathbb R^n)$ supported in compact
-$K\subset\mathbb R^n$. Suppose $|\nabla\phi(x)|\ge \kappa>0$ on $K$ and that
-$\|a\|_{C^{n+1}}\le A$, $\|\phi\|_{C^{n+1}}\le B$. Then for $\lambda\ge1$,
-\[
-\Big|\int_{\mathbb R^n} e^{i\lambda\phi(x)} a(x)\,dx\Big|
-\ \le\ C(n)\,\kappa^{-n}\,\lambda^{-n}\,A\,(1+B)^n,
-\]
-where $C(n)$ depends only on $n$.
-\end{lemma}
-
-\begin{proof}
-Integrate by parts with vector field
-$L=(i\lambda)^{-1}\frac{\nabla\phi\cdot\nabla_x}{|\nabla\phi|^2}$.
-Each application of $L$ contributes $\lambda^{-1}$ and $\kappa^{-1}$,
-together with one derivative on $a$ or $\phi$.
-After $n$ steps, the stated bound follows with $C(n)$ absorbing combinatorial factors.
-\end{proof}
-
-\begin{lemma}[Van der Corput estimate, order $k\ge2$]
-\label{lem:B-VdC}
-Let $\phi\in C^k([a,b])$ with $|\phi^{(k)}(x)|\ge\kappa>0$ on $[a,b]$, $k\ge2$,
-and $A\in C^1([a,b])$. Then for $\lambda\ge1$,
-\[
-\Big|\int_a^b e^{i\lambda\phi(x)}A(x)\,dx\Big|
-\ \le\ C_k\,\kappa^{-1/k}\,\lambda^{-1/k}\Big(\|A\|_{L^1}+\|A'\|_{L^1}\Big),
-\]
-with $C_k$ depending only on $k$.
-\end{lemma}
-
-\begin{proof}
-Partition $[a,b]$ into subintervals where $\phi^{(k-1)}$ is monotone.
-Integrate by parts $k-1$ times, then apply monotonicity.
-Track $L^1$–norms of $A,A'$ for explicit constants.
-Cf.\ \cite[Ch.~VIII, Thm.~1]{Stein93}.
-\end{proof}
-
-\begin{theorem}[Stationary phase in $\mathbb R^n$, explicit remainder]
-\label{thm:B-stphase}
-Let $\phi\in C^\infty(\mathbb R^n)$ have a unique non–degenerate critical point
-$x_0$ in $\supp a\subset K$. Assume $\det\nabla^2\phi(x_0)\ne0$,
-$\|a\|_{C^{2N+n+1}(K)}\le A_N$, $\|\phi\|_{C^{2N+n+2}(K)}\le B_N$.
-Then for $\lambda\ge1$,
-\[
-\int_{\mathbb R^n} e^{i\lambda\phi(x)}a(x)\,dx
-=\Big(\frac{2\pi}{\lambda}\Big)^{n/2}
- e^{i\frac{\pi}{4}\sgn(\nabla^2\phi(x_0))}
- \sum_{j=0}^{N-1}\lambda^{-j}L_j(a,\phi;x_0)
-+O_{n,N}\big(\lambda^{-n/2-N}\,\mathcal C_{n,N}(A_N,B_N)\big),
-\]
-where $L_j$ are universal bidifferential operators in derivatives of $a,\phi$ at $x_0$,
-and $\mathcal C_{n,N}$ is a polynomial in $A_N,B_N$ with coefficients depending only on $n,N$.
-\end{theorem}
-
-\begin{proof}
-Expand $a$ in Taylor series near $x_0$, diagonalize the Hessian of $\phi$.
-Apply Gaussian integral evaluation. Control remainder by $C^{2N+n+1}$–bounds on $a$
-and $C^{2N+n+2}$–bounds on $\phi$. See \cite[Thm.~7.7.5]{HormanderI}, \cite[§3]{Zworski}.
-\end{proof}
-
-\begin{corollary}[Stationary phase on charts of $M(Y)$]
-\label{cor:B-stphase-charts}
-Suppose $a,\phi$ are supported in one chart $U_\alpha$ of the fixed atlas,
-satisfying hypotheses of Theorem~\ref{thm:B-stphase} in local coordinates,
-with bounds independent of $Y$. Then the same expansion holds, uniformly in $Y$.
-\end{corollary}
-
-\begin{proof}
-Pull back to $\mathbb R^2$ by $\kappa_\alpha$. The Jacobian of $\kappa_\alpha$ and metric
-coefficients admit uniform $C^N$ bounds by Appendix~A, hence constants are uniform in $Y$.
-\end{proof}
-
-\subsection*{B.6. Paley–Wiener windows and finite propagation}
-\label{subsec:B6-PW}
-
-Fix $g\in\mathcal S(\mathbb R)$ even, with $\widehat g\in C_c^\infty(\mathbb R)$ supported
-in $[-\tau,\tau]$. By functional calculus,
-\[
-g(\sqrt\Delta)=\frac1{2\pi}\int_{\mathbb R}\widehat g(t)\cos(t\sqrt\Delta)\,dt.
-\]
-By finite propagation, the Schwartz kernel $K_g(z,z')$ is supported in $\{d(z,z')\le\tau\}$.
-
-\begin{lemma}[Local finite propagation]
-\label{lem:B-localcut}
-Let $\chi\in C_c^\infty(U_\alpha)$ with $\dist(\supp\chi,\partial U_\alpha)\ge\tau$.
-Then $\chi g(\sqrt\Delta)\chi$ has kernel supported in $U_\alpha\times U_\alpha$,
-coinciding with the operator obtained by computing on $(U_\alpha,\kappa_\alpha^*g_{\rm std})$
-with Dirichlet extension outside $U_\alpha$.
-\end{lemma}
-
-\begin{proof}
-Finite propagation: $\supp K_{\cos(t\sqrt\Delta)}\subset\{d(z,z')\le|t|\}$.
-If $(z,z')$ lies in $\supp(\chi\otimes\chi)K_{\cos(t\sqrt\Delta)}$ with $|t|\le\tau$,
-then geodesics of length $\le\tau$ remain in $U_\alpha$, hence the evolution reduces
-to the local operator.
-\end{proof}
-
-\begin{proposition}[Uniform $L^2$ bound]
-\label{prop:B-L2bound}
-For $\chi\in C_c^\infty(U_\alpha)$ and $g$ as above,
-\[
-\|\chi g(\sqrt\Delta)\chi\|_{L^2\to L^2}\ \le\ C\|\widehat g\|_{L^1},
-\]
-with $C$ depending only on atlas constants and $\tau$, independent of $Y$.
-\end{proposition}
-
-\begin{proof}
-From representation $g(\sqrt\Delta)=\frac1{2\pi}\int\widehat g(t)\cos(t\sqrt\Delta)\,dt$.
-Since $\|\cos(t\sqrt\Delta)\|_{L^2\to L^2}\le1$, the bound follows directly.
-\end{proof}
-
-\begin{lemma}[Hilbert–Schmidt bound with cutoff]
-\label{lem:B-HS}
-Let $\chi_1,\chi_2\in C_c^\infty(M(Y))$ supported in one chart. Then
-\[
-\|\chi_1 g(\sqrt\Delta)\chi_2\|_{\mathrm{HS}}^2
-\ \le\ C\int_{d(z,z')\le\tau}|\chi_1(z)\chi_2(z')|^2\,dz\,dz'
-\ \le\ C'\|\chi_1\|_{L^2}^2\|\chi_2\|_{L^2}^2,
-\]
-with constants depending only on the atlas and $\tau$.
-\end{lemma}
-
-\subsection*{B.7. Short–time Hadamard parametrix and remainders}
-\label{subsec:B7-hadamard}
-
-Fix $\tau_0\in(0,1]$ small, depending only on the atlas, so that geodesic normal
-coordinates are valid on balls of radius $\tau_0$ inside each chart $U_\alpha$.
-In such balls the exponential map has Jacobian bounded above and below by positive constants,
-independent of $Y$. Consider $\cos(t\sqrt\Delta)$ for $|t|\le\tau_0$.
-
-\begin{theorem}[Hadamard parametrix in local charts]
-\label{thm:B-hadamard}
-Let $\chi\in C_c^\infty(U_\alpha)$ with $\dist(\supp\chi,\partial U_\alpha)\ge\tau_0$.
-Then for $|t|\le\tau_0$,
-\[
-\chi(z)\cos(t\sqrt\Delta)(z,z')\chi(z')
-=\chi(z)\chi(z')\,(2\pi)^{-2}\!\!\int_{\mathbb R^2}
-e^{i\Phi(z,z',\xi)}\,A(t;z,z',\xi)\,d\xi + R_t(z,z'),
-\]
-where:
-\begin{itemize}
-  \item $\Phi$ is a smooth non–degenerate phase, equivalent in normal coordinates to
-  $\langle\exp^{-1}_{z'}(z),\xi\rangle$;
-  \item $A(t;z,z',\xi)$ admits a classical expansion
-  $A\sim\sum_{j\ge0} a_j(t;z,z')\,|\xi|^{-1-j}$,
-  with $a_0$ encoding the $\partial_t(\delta(t-d(z,z')))$–type singularity;
-  \item the remainder satisfies for any $N\ge0$,
-  \[
-  \sup_{|t|\le\tau_0}\|R_t\|_{C^N(U_\alpha\times U_\alpha)}\le C_N,
-  \]
-  with $C_N$ depending only on $N$ and finitely many $C^N$ bounds of the metric in $U_\alpha$,
-  independent of $Y$.
-\end{itemize}
-\end{theorem}
-
-\begin{proof}
-Classical construction of the Hadamard parametrix for the wave equation on manifolds
-with bounded geometry, valid at short times without conjugate points.
-Cf.\ \cite[Ch.~7]{HormanderI}, \cite[§5]{Sogge}, \cite[§11]{Zworski}.
-Uniformity follows from atlas bounds in Appendix~A.
-\end{proof}
-
-\begin{corollary}[Localized multiplier parametrix]
-\label{cor:B-window}
-Let $g\in\mathcal S(\mathbb R)$ even with $\supp\widehat g\subset[-\tau,\tau]\subset(-\tau_0,\tau_0)$,
-and $\chi\in C_c^\infty(U_\alpha)$ supported away from $\partial U_\alpha$. Then
-\[
-\chi g(\sqrt\Delta)\chi = \Op_h(a_{g,\chi}) + \mathcal R_{g,\chi},
-\]
-where $a_{g,\chi}\in S^0_{1,0}$ depends linearly on $\widehat g$, and
-$\|\mathcal R_{g,\chi}\|_{L^2\to L^2}\le C_N \sup_{|t|\le\tau}\|\widehat g^{(N)}(t)\|$
-for each $N$, with constants independent of $Y$.
-\end{corollary}
-
-\begin{proof}
-Insert the Hadamard parametrix for $\cos(t\sqrt\Delta)$ into the Fourier representation
-of $g(\sqrt\Delta)$. Integrate by parts in $t$ repeatedly to transfer derivatives to $\widehat g$,
-gaining smoothing remainders. The main term yields a classical $\Psi$DO with symbol $a_{g,\chi}$.
-\end{proof}
-
-\begin{proposition}[Symbol bounds and operator norms]
-\label{prop:B-symbolnorms}
-For each $N\ge0$,
-\[
-\|a_{g,\chi}\|_{S^0_{1,0};N}\le C_N\sum_{j\le N'}\|\widehat g^{(j)}\|_{L^1}\|\chi\|_{C^{N''}},
-\qquad
-\|\chi g(\sqrt\Delta)\chi\|_{L^2\to L^2}\le C\|\widehat g\|_{L^1},
-\]
-with constants independent of $Y$.
-\end{proposition}
-
-\begin{proof}
-Transport equations for $a_j$ involve finitely many derivatives of the metric coefficients
-on the normal neighborhood, hence bounds are uniform. Operator norm bound follows from
-Proposition~\ref{prop:B-L2bound}.
-\end{proof}
-
-\subsection*{B.8. Local trace identity at symbol level}
-\label{subsec:B8-trace}
-
-We now derive a symbol–level trace identity for $\chi g(\sqrt\Delta)\chi$.
-
-\begin{theorem}[Local trace formula for short windows]
-\label{thm:B-trace}
-Let $\chi\in C_c^\infty(U_\alpha)$ with $\dist(\supp\chi,\partial U_\alpha)\ge\tau_0/2$.
-Then
-\[
-\Tr(\chi g(\sqrt\Delta)\chi)
-=(2\pi)^{-2}\int_{T^*U_\alpha}\chi(x)^2 g(|\xi|_g)\,dx\,d\xi + R_{\mathrm{tr}}(g,\chi),
-\]
-with remainder
-\[
-|R_{\mathrm{tr}}(g,\chi)|\le C_N \|\widehat g\|_{W^{N,1}}\|\chi\|_{C^{2N}},
-\]
-for any $N\ge1$, constants independent of $Y$.
-\end{theorem}
-
-\begin{proof}
-By Corollary~\ref{cor:B-window}, $\chi g(\sqrt\Delta)\chi=\Op_h(a_{g,\chi})+\mathcal R_{g,\chi}$.
-Trace of $\mathcal R_{g,\chi}$ is bounded by trace–class norm, controlled by operator bounds
-and derivatives of $\chi$. For $\Op_h(a_{g,\chi})$, apply the $\Psi$DO trace formula
-\cite[Thm.~9.6]{Zworski}. Uniformity in $Y$ from atlas constants.
-\end{proof}
-
-\begin{corollary}[Uniform trace bound]
-\label{cor:B-tracebound}
-\[
-|\Tr(\chi g(\sqrt\Delta)\chi)|
-\le C\big(\|\widehat g\|_{L^1}\|\chi\|_{L^2}^2
-+ \|\widehat g\|_{W^{2,1}}\|\chi\|_{C^4}\big),
-\]
-with constants independent of $Y$.
-\end{corollary}
-
-\begin{proof}
-Principal term estimated by $\int g(|\xi|_g)\,d\xi \ll \|\widehat g\|_{L^1}$,
-together with $\|\chi\|_{L^2}^2$. Remainder handled by Theorem~\ref{thm:B-trace}.
-\end{proof}
-
-\begin{remark}[Gluing to global cutoff]
-\label{rmk:B-glue}
-For a finite partition $\sum_\alpha \chi_\alpha^2=1$, the global operator
-$g(\sqrt\Delta)$ decomposes into $\sum_\alpha \chi_\alpha g(\sqrt\Delta)\chi_\alpha$
-plus off–diagonal terms. The latter are Hilbert–Schmidt and absorbed into remainders.
-\end{remark}
-
-\subsection*{B.9. Bessel--Fourier bounds in cusp charts}
-\label{subsec:B9-bessel}
-
-Let $u$ be an $L^2$–normalized Laplace eigenfunction on $M$, with
-$\Delta u = (\tfrac14 + r^2) u$, $r\ge0$.
-In a cusp chart $\sigma_{\mathfrak a}:\mathcal C(w_{\mathfrak a})\to\mathbb H$ (see Appendix~A),
-the Fourier expansion at $\mathfrak a$ is
-\[
-u\!\big(\sigma_{\mathfrak a}(x+iy)\big)
-= \sum_{n\in\mathbb Z\setminus\{0\}} \rho_{\mathfrak a}(n)\,
-\sqrt{y}\,K_{ir}\!\left(\tfrac{2\pi|n|y}{w_{\mathfrak a}}\right)
-e^{2\pi i n x / w_{\mathfrak a}}.
-\]
-
-We collect uniform estimates for $K_{ir}$.
-
-\begin{lemma}[Bounds for $K_{ir}$]
-\label{lem:B-bessel}
-For $\nu=ir$ with $r\ge0$ and $t>0$:
-\begin{align}
-K_{ir}(t) &\ll (1+r^2+t^2)^{-1/4}\,e^{-t}, \label{eq:B-bessel-large}\\
-K_{ir}(t) &\ll_\varepsilon
-\begin{cases}
-t^{-1/2-\varepsilon}, & 0<t\le1,\\[2pt]
-t^{-1/2}, & 1\le t\le r,\\[2pt]
-(1+r)^{-1/2}, & t\asymp r,
-\end{cases}\label{eq:B-bessel-small}
-\end{align}
-and for derivatives,
-\begin{equation}\label{eq:B-bessel-deriv}
-|\partial_t^m K_{ir}(t)| \ll_m (1+t)^{-m}\,K_{ir}(t) + (1+t)^{-m-1/2}\,e^{-t}.
+\begin{proposition}[Polynomial growth of scattering derivatives]
+\label{prop:B.scattering-poly}
+For $\sigma\in[1/2,1]$ fixed and $|t|\ge 2$, one has
+\begin{equation}
+\label{eq:B.scattering-poly}
+\frac{\varphi'}{\varphi}(\sigma+it)
+\ll_{\Gamma,\sigma}
+\log(2+|t|)\,(2+|t|)^{A_\Gamma},
 \end{equation}
-Implied constants are absolute.
+for some exponent $A_\Gamma\ge 0$ depending only on $\Gamma$ and the cusp normalization.
+In particular, on the line $\sigma=1/2$ one has
+\[
+\left|\frac{\varphi'}{\varphi}\!\left(\frac12+it\right)\right|
+\ll_{\Gamma}
+\log(2+|t|)\,(2+|t|)^{A_\Gamma}.
+\]
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+This is standard: $\varphi(s)$ is expressible as a product of gamma factors and Dirichlet series-type Euler factors
+associated with $\Gamma$ (or with its congruence data in arithmetic cases).  Stirling bounds for gamma factors and
+Phragm\'en--Lindel\"of control in vertical strips yield polynomial growth for $\log \varphi(s)$ and hence for
+$\varphi'/\varphi(s)$.
+Precise exponents are irrelevant for the localized remainder hierarchy; only polynomial control is used.
+\end{proof}
+
+\subsection{Localized integral bounds}
+\label{subsec:B.scattering-local}
+
+The continuous spectrum enters the localized trace formula through expressions of the form
+\[
+\frac{1}{4\pi}\sum_{\mathfrak{a}}\int_{\mathbb{R}}
+\chi_\eta(r-\lambda)\,\frac{\varphi'_{\mathfrak{a}}}{\varphi_{\mathfrak{a}}}\!\left(\frac12+ir\right)\,dr
+\quad\text{or}\quad
+\int_{\mathbb{R}}\chi_\eta(r-\lambda)\,\frac{\varphi'}{\varphi}\!\left(\frac12+ir\right)\,dr.
+\]
+The next lemma packages the window-level bound.
+
+\begin{lemma}[Window bound for scattering logarithmic derivatives]
+\label{lem:B.scattering-window}
+Let $\chi\in\mathcal{S}(\mathbb{R})$ be fixed and even.  Then uniformly for $\lambda\ge 2$ and
+$\lambda^{-\theta}\le \eta\le 1$,
+\begin{equation}
+\label{eq:B.scattering-window}
+\int_{\mathbb{R}}
+\left|\chi_\eta(r-\lambda)\right|
+\left|\frac{\varphi'}{\varphi}\!\left(\frac12+ir\right)\right|\,dr
+\ll_{\Gamma,\chi}
+\eta\,(\log \lambda)\,\lambda^{A_\Gamma}.
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-Standard asymptotics for $K_\nu$ of imaginary order, cf.\ \cite[§10.25]{DLMF},
-\cite[§6.20]{Watson}, uniform Debye expansions. Derivative bounds by differentiating
-the integral representation and applying same envelopes.
+By the change of variables $r=\lambda+\eta u$,
+\[
+\int |\chi_\eta(r-\lambda)|\,\left|\frac{\varphi'}{\varphi}(1/2+ir)\right|\,dr
+=
+\eta\int |\chi(u)|\,\left|\frac{\varphi'}{\varphi}\!\left(\frac12+i(\lambda+\eta u)\right)\right|\,du.
+\]
+Apply Proposition~\ref{prop:B.scattering-poly} with $t=\lambda+\eta u$ and use the rapid decay of $\chi$ to bound the
+$u$-integral by a constant multiple of $(\log\lambda)\lambda^{A_\Gamma}$.
 \end{proof}
 
-\begin{proposition}[Cuspidal tails]
-\label{prop:B-cusptail}
-Fix cusp $\mathfrak a$, $Y\ge Y_0(\Gamma)$. For any $\beta>0$,
-\[
-\int_{y\ge Y}|u(z)|^2\,y^\beta\,\frac{dx\,dy}{y^2}
-\ \ll_{\beta,\Gamma}\ \sum_{n\ne0}|\rho_{\mathfrak a}(n)|^2
-\int_Y^\infty y^{\beta-1}\,K_{ir}\!\left(\tfrac{2\pi|n|y}{w_{\mathfrak a}}\right)^{\!2}\,dy.
-\]
-Moreover, for every $A>0$,
-\[
-\int_Y^\infty y^{\beta-1}\,K_{ir}\!\left(\tfrac{2\pi|n|y}{w_{\mathfrak a}}\right)^{\!2}\,dy
-\ \le C_A(1+r)^A\Big(\tfrac{w_{\mathfrak a}}{|n|}\Big)^{\beta}\,
-Y^{\beta-1}\,e^{-\tfrac{4\pi |n|Y}{w_{\mathfrak a}}}.
-\]
+\subsection{Maass--Selberg type control}
+\label{subsec:B.maass-selberg}
+
+For cusp truncations and the control of Eisenstein contributions, one needs a uniform Maass--Selberg relation.
+We record the form used in Chapter~\ref{chap:06-geometric-terms}.
+
+\begin{proposition}[Maass--Selberg relation (uniform form)]
+\label{prop:B.maass-selberg}
+Let $E_{\mathfrak{a}}(z,1/2+ir)$ denote the Eisenstein series at cusp $\mathfrak{a}$ and spectral parameter $r$.
+Let $M^Y$ denote truncation at height $Y$ in all cusps.  Then for $r\in\mathbb{R}$,
+\begin{equation}
+\label{eq:B.maass-selberg}
+\int_{M} \left|M^Y E_{\mathfrak{a}}(z,1/2+ir)\right|^2\,d\vol(z)
+=
+2\log Y
++
+\Re\left(\frac{\varphi'_{\mathfrak{a}}}{\varphi_{\mathfrak{a}}}\!\left(\frac12+ir\right)\right)
++
+O_\Gamma(1),
+\end{equation}
+with an implied constant uniform in $r$ and $Y\ge 2$.
 \end{proposition}
 
-\begin{proof}
-Insert Fourier expansion, integrate $x$ over one period $[0,w_{\mathfrak a}]$,
-diagonalizing modes. Apply bound \eqref{eq:B-bessel-large}. Polynomial $(1+r)^A$
-accounts for possible growth near $t\asymp r$; exponential factor dominates as $y\to\infty$.
+\begin{proof}[Bibliographic proof sketch]
+This is a classical identity: expand the truncated Eisenstein series in the cusp and integrate termwise; the boundary
+contribution yields $2\log Y$ and the scattering term yields the logarithmic derivative.
+Uniformity follows from the standard cusp normalization and unitarity of the scattering matrix on $\Re(s)=1/2$.
 \end{proof}
 
-\begin{corollary}[Exponential decay in cusps]
-\label{cor:B-cuspL2}
-For $Y\ge Y_0(\Gamma)$,
-\[
-\int_{M\setminus M(Y)}|u(z)|^2\,dA \ll_\Gamma e^{-cY},
-\]
-with $c>0$ depending only on cusp widths $\{w_{\mathfrak a}\}$.
-\end{corollary}
+\section{Length-spectrum tails and orbital sum bounds}
+\label{sec:B.length-spectrum}
 
-\begin{proof}
-Take $\beta=0$, sum over cusps, apply Proposition~\ref{prop:B-cusptail}.
-Fourier coefficients are square–summable for $L^2$–normalized $u$.
-\end{proof}
+Hyperbolic conjugacy classes contribute through sums indexed by primitive closed geodesics $\gamma$ and their
+iterations.  In localized regimes, these contributions are controlled by two mechanisms: decay of the Fourier
+transform of the cutoff and coarse growth bounds for the length spectrum.
 
-\begin{lemma}[Horocycle averages]
-\label{lem:B-horo}
-For $\mathfrak a$ cusp, $s>-1$,
-\[
-\int_{0}^{w_{\mathfrak a}} |u(x+iY)|^2\,Y^{-s}\,\frac{dx}{Y}
-\ \ll_{s,\Gamma}\ Y^{-s-1} e^{-cY},
-\]
-uniformly in $Y\ge Y_0(\Gamma)$ and $r\ge0$.
+\subsection{A coarse geodesic counting bound}
+\label{subsec:B.geodesic-count}
+
+Let $\pi_\Gamma(L)$ denote the number of primitive closed geodesics of length at most $L$ (counted with multiplicity).
+We use only the crude exponential upper bound.
+
+\begin{lemma}[Crude length-spectrum growth]
+\label{lem:B.geodesic-growth}
+There exists $C_\Gamma>0$ such that for all $L\ge 1$,
+\begin{equation}
+\label{eq:B.geodesic-growth}
+\pi_\Gamma(L)\ll_\Gamma e^{C_\Gamma L}.
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-Use Fourier expansion at height $Y$, integrate over $x$, apply Bessel bounds
-as in Proposition~\ref{prop:B-cusptail}.
+This follows from standard coding of the geodesic flow on $M$ and the fact that the number of conjugacy classes with
+translation length $\le L$ grows at most exponentially.  No optimal exponent is needed.
 \end{proof}
 
-\subsection*{B.10. Local pre-trace with Paley–Wiener window}
-\label{subsec:B10-pretrace}
+\subsection{Fourier decay of localized cutoffs}
+\label{subsec:B.fourier-decay}
 
-Let $g\in\mathcal S(\mathbb R)$ be even with $\supp\widehat g\subset[-\tau,\tau]\subset(-\tau_0,\tau_0)$.
-Let $\chi\in C_c^\infty(M(Y))$ be supported in thick part, inside finitely many charts,
-with $\dist(\supp\chi,\partial M(Y))\ge\tau$. Define
-\[
-K_g(z,z') := \sum_j g(r_j)u_j(z)\overline{u_j(z')}
-+ \frac{1}{4\pi}\int_{\mathbb R} g(r)\,E(z,\tfrac12+ir)\,\overline{E(z',\tfrac12+ir)}\,dr.
-\]
+Let $\widehat{\chi}$ denote the Fourier transform of $\chi$ under our convention, and note that
+\begin{equation}
+\label{eq:B.fourier-rescale}
+\widehat{\chi_\eta}(t) = \eta\,\widehat{\chi}(\eta t).
+\end{equation}
 
-\begin{lemma}[Local pre-trace identity]
-\label{lem:B-pretrace}
-\[
-K_g(z,z') = \frac{1}{2\pi}\int_{-\tau}^{\tau}\widehat g(t)\cos(t\sqrt\Delta)(z,z')\,dt.
-\]
-Hence $K_g(z,z')=0$ whenever $d(z,z')>\tau$.
+\begin{lemma}[Rapid decay]
+\label{lem:B.rapid-decay}
+For every $N\ge 0$ there exists $C_N(\chi)$ such that for all $t\in\mathbb{R}$ and $\eta\in(0,1]$,
+\begin{equation}
+\label{eq:B.rapid-decay}
+|\widehat{\chi_\eta}(t)|
+\le
+C_N(\chi)\,\eta\,(1+|\eta t|)^{-N}.
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-Functional calculus with Paley–Wiener representation of $g(\sqrt\Delta)$,
-and finite propagation speed of the wave equation.
+This is immediate from \eqref{eq:B.fourier-rescale} and the Schwartz decay of $\widehat{\chi}$.
 \end{proof}
 
-\begin{proposition}[Localized $L^2$ pre-trace bound]
-\label{prop:B-pretrace}
-With $\chi$ as above,
+\subsection{Tail control for hyperbolic contributions}
+\label{subsec:B.hyperbolic-tail}
+
+We record a model bound sufficient for truncating the hyperbolic sum at length $L\asymp \eta^{-1}\log\lambda$.
+
+\begin{proposition}[Hyperbolic tail bound (model form)]
+\label{prop:B.hyperbolic-tail}
+Let $\chi$ be fixed and even.  Consider a hyperbolic trace contribution of the schematic form
 \[
-\int_{M(Y)}|\chi(z)K_g(z,z')|^2\,dz
-\ \ll\ \|\widehat g\|_{L^1}^2 \mathbf 1_{\{d(\supp\chi,z')\le\tau\}},
+\mathcal{H}(\lambda,\eta)
+=
+\sum_{[\gamma]}\sum_{k\ge 1} w(\gamma,k)\,\widehat{\chi_\eta}(kL(\gamma))\,e^{-i\lambda kL(\gamma)},
 \]
-with constant depending only on atlas and $\tau$.
+where $|w(\gamma,k)|\ll_\Gamma e^{-\alpha kL(\gamma)}$ for some $\alpha>0$.
+Then for any $N\ge 0$,
+\[
+\mathcal{H}(\lambda,\eta)
+\ll_{\Gamma,\chi,N}
+\eta\sum_{[\gamma]}\sum_{k\ge 1} e^{-\alpha kL(\gamma)}(1+\eta kL(\gamma))^{-N}.
+\]
+In particular, the contribution of lengths $kL(\gamma)\ge \eta^{-1}(\log\lambda)$ is $O_{\Gamma,\chi,N}(\lambda^{-100})$
+upon choosing $N$ large enough.
 \end{proposition}
 
 \begin{proof}
-From Lemma~\ref{lem:B-pretrace}, apply Minkowski and
-$\|\chi\cos(t\sqrt\Delta)\|_{L^2\to L^2}\le1$.
-Support restriction yields indicator.
+Use Lemma~\ref{lem:B.rapid-decay} and sum over $(\gamma,k)$ using Lemma~\ref{lem:B.geodesic-growth} to control the
+number of terms at a given length scale.  The exponential damping from $w(\gamma,k)$ guarantees convergence; the
+polynomial factor $(1+\eta kL)^{-N}$ provides arbitrarily strong savings beyond the cutoff scale $\eta^{-1}\log\lambda$.
 \end{proof}
 
-\begin{theorem}[Pre-trace with cusp cutoff]
-\label{thm:B-pretraceY}
-Let $\Lambda^Y_{\mathrm{sm}}$ be the smoothed truncation from Appendix~A. Then
+\section{Bessel/Kuznetsov transforms}
+\label{sec:B.bessel}
+
+Localized Kuznetsov formulas introduce integral transforms of the form
 \[
-\int_M \Lambda^Y_{\mathrm{sm}}(z)\,K_g(z,z)\,dz
-= \sum_j g(r_j)\int_M \Lambda^Y_{\mathrm{sm}}(z)|u_j(z)|^2\,dz
-+ \frac{1}{4\pi}\int_{\mathbb R} g(r)\int_M \Lambda^Y_{\mathrm{sm}}(z)|E(z,\tfrac12+ir)|^2\,dz\,dr,
+\mathcal{B}_{\lambda,\eta}(n,c)
+=
+\int_0^\infty \chi_\eta(r-\lambda)\,\mathcal{K}(r; n,c)\,dr,
 \]
-with both terms absolutely convergent, bounds uniform in $Y$.
-\end{theorem}
+where $\mathcal{K}(r;n,c)$ is a Bessel kernel (typically involving $J_{2ir}(\cdot)$ or $K_{ir}(\cdot)$ depending on
+normalization).  The main text requires only generic properties: smoothness in the parameters, rapid decay away from
+the resonance region, and power bounds in the transition range.
+
+We state these in an abstract form, suitable for plugging into the off-diagonal analysis.
+
+\subsection{A generic oscillatory transform lemma}
+\label{subsec:B.oscillatory-lemma}
+
+\begin{lemma}[Localized oscillatory transform: nonstationary regime]
+\label{lem:B.oscillatory-nonstat}
+Let $a(r)$ be a smooth amplitude with polynomial growth and let $\phi(r)$ be a smooth phase such that
+$|\phi'(r)|\ge \kappa>0$ on $\supp \chi_\eta(\cdot-\lambda)$.
+Then for any $N\ge 0$,
+\begin{equation}
+\label{eq:B.oscillatory-nonstat}
+\left|
+\int_{\mathbb{R}} \chi_\eta(r-\lambda)\,a(r)\,e^{i\phi(r)}\,dr
+\right|
+\ll_{N,\chi}
+\eta\,\kappa^{-N}\,\sup_{0\le j\le N}\sup_{|r-\lambda|\le 2\eta}\left|a^{(j)}(r)\right|.
+\end{equation}
+\end{lemma}
 
 \begin{proof}
-Insert spectral decomposition, use Fubini. Convergence in cusps follows from
-bounds in \S\ref{subsec:B9-bessel} together with decay of $K_{ir}$.
-Cf.\ \cite[Ch.~3]{Iwaniec2002}, \cite[§7.3]{Borthwick}.
+Integrate by parts $N$ times using the operator $(i\phi'(r))^{-1}\partial_r$ and bound derivatives of $\chi_\eta$ by
+$\eta^{-j}$ times Schwartz seminorms of $\chi$.
 \end{proof}
 
-\subsection*{B.11. Sharp vs.\ smoothed truncation in the trace}
-\label{subsec:B11-trunc}
+\subsection{A stationary phase template}
+\label{subsec:B.stationary-template}
 
-We compare the sharp cutoff at height $Y$ with the smoothed truncation operator
-$\Lambda^Y_{\mathrm{sm}}$ introduced in Appendix~A.
+\begin{lemma}[Localized stationary phase template]
+\label{lem:B.stationary-template}
+Let $\phi$ have a unique nondegenerate stationary point $r_0$ in $|r-\lambda|\le 2\eta$ with
+$|\phi''(r_0)|\asymp \Phi>0$, and assume $\phi'$ has no other zeros on the window.
+Then
+\begin{equation}
+\label{eq:B.stationary-template}
+\int_{\mathbb{R}} \chi_\eta(r-\lambda)\,a(r)\,e^{i\phi(r)}\,dr
+=
+e^{i\phi(r_0)}\,a(r_0)\,\chi_\eta(r_0-\lambda)\,\Phi^{-1/2}
++
+O\!\left(\eta\,\Phi^{-3/2}\,\mathcal{A}_2\right),
+\end{equation}
+where $\mathcal{A}_2$ depends on finitely many derivatives of $a$ and $\phi$ on the window and on Schwartz seminorms
+of $\chi$.
+\end{lemma}
 
-\begin{proposition}[Difference of truncations at trace level]
-\label{prop:B-truncdiff}
-Let $g$ and $\chi$ be as in \S\ref{subsec:B10-pretrace}. Then
-\[
-\Tr\!\big(\chi g(\sqrt\Delta)\chi\big)_{M(Y)}
-= \int_M \Lambda^Y_{\mathrm{sm}}(z)\,\chi(z)^2\,K_g(z,z)\,dz
-+ \mathcal E_{\mathrm{edge}}(Y;g,\chi),
-\]
-with
-\[
-|\mathcal E_{\mathrm{edge}}(Y;g,\chi)|
-\ \le\ C_N\,
-\|\widehat g\|_{W^{N,1}}\,
-\|\chi\|_{C^{2N}}\,Y^{-1},\qquad N\ge1.
-\]
-Constants $C_N$ depend only on $N$ and atlas constants, independent of $Y$.
+\begin{proof}
+This is a standard one-dimensional stationary phase expansion localized to a window of size $\eta$.  The error term is
+uniform once $\phi''$ is bounded above and below on the window and higher derivatives of $a,\phi$ are controlled.
+\end{proof}
+
+\subsection{Application: resonance localization for Kuznetsov kernels}
+\label{subsec:B.kuznetsov-resonance}
+
+In the Kuznetsov setting, the phase has the schematic form $\phi(r)\sim r\log(\tfrac{4\pi n}{c})$ and thus the
+stationary region corresponds to $c\asymp \tfrac{4\pi n}{\lambda}$.  The preceding templates yield:
+
+\begin{proposition}[Resonance window bound (schematic)]
+\label{prop:B.resonance-bound}
+Let $\mathcal{B}_{\lambda,\eta}(n,c)$ denote the Bessel transform arising in the localized Kuznetsov formula.
+Then for every $N\ge 0$,
+\begin{equation}
+\label{eq:B.resonance-bound}
+\mathcal{B}_{\lambda,\eta}(n,c)
+\ll_{\Gamma,\chi,N}
+\eta\,(1+\lambda)^{A}\,
+\left(1+\left|\log\frac{c\lambda}{n}\right|\right)^{-N},
+\end{equation}
+for some exponent $A\ge 0$ depending only on the chosen normalization of the kernel.
+In particular, $\mathcal{B}_{\lambda,\eta}(n,c)$ is negligible unless $c\lambda/n$ lies in a fixed compact subset of
+$\mathbb{R}_{>0}$.
 \end{proposition}
 
-\begin{proof}
-Decompose $\mathbf 1_{M(Y)}=\Lambda^Y_{\mathrm{sm}}+(\mathbf 1_{M(Y)}-\Lambda^Y_{\mathrm{sm}})$.
-The difference is supported in a collar of size $O(1)$ at height $Y$; its measure
-is $\asymp W/Y$ by Lemma~A.\ref{lem:smooth-vol}. Combine Theorem~B.\ref{thm:B.8-trace}
-with Hilbert–Schmidt estimates from Lemma~B.\ref{lem:B-HS}. Bound by Sobolev
-seminorms of $\chi$ and $\|\widehat g\|_{W^{N,1}}$, multiplied by volume $O(Y^{-1})$.
+\begin{proof}[Proof sketch]
+Apply Lemma~\ref{lem:B.oscillatory-nonstat} away from the resonance region, where the phase derivative is bounded from
+below.  Near resonance, apply Lemma~\ref{lem:B.stationary-template}.  The polynomial factor $(1+\lambda)^A$ collects
+amplitude growth bounds for the Bessel kernel.
 \end{proof}
 
-\begin{theorem}[Uniform smoothed trace identity]
-\label{thm:B-smoothtrace}
-With $g,\chi$ as above,
+\section{Elementary divisor bounds and smoothing estimates}
+\label{sec:B.arithmetic}
+
+The off-diagonal analysis uses only standard arithmetic bounds, recorded here for completeness.
+
+\begin{lemma}[Divisor bounds]
+\label{lem:B.divisor}
+For every $\varepsilon>0$ one has $\tau(n)\ll_\varepsilon n^\varepsilon$ and
 \[
-\sum_j g(r_j)\int_M \Lambda^Y_{\mathrm{sm}}(z)\chi(z)^2|u_j(z)|^2\,dz
-+ \frac{1}{4\pi}\int_{\mathbb R} g(r)\int_M \Lambda^Y_{\mathrm{sm}}(z)\chi(z)^2|E(z,\tfrac12+ir)|^2\,dz\,dr
-\]
-\[
-=(2\pi)^{-2}\int_{T^*M}\Lambda^Y_{\mathrm{sm}}(x)\chi(x)^2\,g(|\xi|_g)\,dx\,d\xi
-+ R_{\mathrm{sm}}(Y;g,\chi),
-\]
-with
-\[
-|R_{\mathrm{sm}}(Y;g,\chi)| \ \le\ C_N \,\|\widehat g\|_{W^{N,1}}\,\|\chi\|_{C^{2N}}.
-\]
-All constants are uniform in $Y\ge Y_0(\Gamma)$.
-\end{theorem}
-
-\begin{proof}
-Apply Theorem~B.\ref{thm:B.8-trace}, integrate against $\Lambda^Y_{\mathrm{sm}}$.
-Geometric constants are uniform in $Y$ by Appendix~A. The spectral side follows
-from Theorem~B.\ref{thm:B-pretraceY}.
-\end{proof}
-
-\begin{corollary}[Sharp trace via smoothed]
-\label{cor:B-sharptrace}
-For $Y\ge Y_0(\Gamma)$,
-\[
-\Tr\!\big(\chi g(\sqrt\Delta)\chi\big)_{M(Y)}
-=(2\pi)^{-2}\int_{T^*M(Y)}\chi(x)^2\,g(|\xi|_g)\,dx\,d\xi
-+R_{\mathrm{sm}}(Y;g,\chi)+\mathcal E_{\mathrm{edge}}(Y;g,\chi).
-\]
-Here $R_{\mathrm{sm}}$ is uniform in $Y$, and
-$|\mathcal E_{\mathrm{edge}}|\ll Y^{-1}\,\|\widehat g\|_{W^{N,1}}\|\chi\|_{C^{2N}}$.
-\end{corollary}
-
-\begin{remark}[Dependence on the window width]
-\label{rmk:B-width}
-All constants depend on $\tau=\diam(\supp\widehat g)$ only through seminorms
-$\|\widehat g\|_{W^{N,1}}$. For compact families of windows, dependence is uniform.
-\end{remark}
-
-\subsection*{B.12. Partition of unity and global assembly}
-\label{subsec:B12-partition}
-
-Let $\{\chi_\alpha\}_{\alpha=1}^A$ be a finite partition of unity on $M$, subordinate to
-a fixed atlas, satisfying:
-\begin{itemize}
-  \item $\chi_\alpha\in C_c^\infty(M)$,
-  \item $\sum_\alpha \chi_\alpha^2\equiv 1$,
-  \item each $\chi_\alpha$ supported either in thick part or in a cusp chart,
-  \item $\|\chi_\alpha\|_{C^k}$ bounded uniformly in $\alpha$.
-\end{itemize}
-
-\begin{lemma}[Hilbert--Schmidt localization]
-\label{lem:B-HSloc}
-For $g$ as in \S\ref{subsec:B10-pretrace},
-$\chi_\alpha g(\sqrt\Delta)\chi_\alpha$ is Hilbert–Schmidt, with
-\[
-\|\chi_\alpha g(\sqrt\Delta)\chi_\alpha\|_{\mathrm{HS}}
-\ll \|\widehat g\|_{L^1}\,\|\chi_\alpha\|_{C^2}.
+\sum_{d\mid n} d^{-1/2} \ll_\varepsilon n^\varepsilon.
 \]
 \end{lemma}
 
 \begin{proof}
-Finite propagation ensures kernel support in $\{d(z,z')\le\tau\}$.
-Smooth cutoff $\chi_\alpha$ bounds derivatives. Apply Lemma~B.\ref{lem:B-HS}.
+Standard.
 \end{proof}
 
-\begin{proposition}[Global gluing]
-\label{prop:B-glue}
+\begin{lemma}[Smooth partition stability]
+\label{lem:B.partition-stability}
+Let $\{\psi_\alpha\}$ be a smooth partition of unity subordinate to a uniformly bounded overlap cover of a manifold.
+Then for each $k\ge 0$,
 \[
-\sum_\alpha \Tr(\chi_\alpha g(\sqrt\Delta)\chi_\alpha)
-=\Tr(g(\sqrt\Delta)).
+\sum_\alpha \|\psi_\alpha\|_{C^k}\ll_k 1,
 \]
-Each local trace admits a geometric expansion with constants uniform in $\alpha$,
-hence the global trace is a finite sum with controlled constants.
-\end{proposition}
+with implied constant depending only on the cover geometry.  In particular, refining the partition at scale
+$\rho^{-1}$ introduces at most polynomial losses in $\rho$ in symbol seminorms.
+\end{lemma}
 
 \begin{proof}
-Write
-\[
-g(\sqrt\Delta)=\sum_\alpha \chi_\alpha g(\sqrt\Delta)\chi_\alpha
-+\sum_{\alpha\ne\beta}\chi_\alpha g(\sqrt\Delta)\chi_\beta.
-\]
-Off-diagonal terms vanish by finite propagation if supports are separated $>\tau$.
-Thus only diagonal sum remains.
+This is standard in microlocal analysis: bounded overlap implies uniform control of the local finite sums.
 \end{proof}
 
-\subsection*{B.13. Global smoothed trace formula}
-\label{subsec:B13-global}
+\section{Consolidated form for the error ledger interface}
+\label{sec:B.ledger-interface}
 
-Combining the local identities from \S\ref{subsec:B11-trunc} and the gluing
-construction of \S\ref{subsec:B12-partition}, we obtain a global smoothed
-trace formula.
+For use in Chapter~\ref{chap:08-normalization}, it is convenient to summarize how the auxiliary bounds enter the
+ledger terms.
 
-\begin{theorem}[Smoothed global trace identity]
-\label{thm:B-globaltrace}
-Let $g\in \mathcal S(\mathbb R)$ be even with $\supp\widehat g\subset[-\tau,\tau]$.
-For $Y\ge Y_0(\Gamma)$,
-\[
-\sum_j g(r_j)\int_M \Lambda^Y_{\mathrm{sm}}(z)\,|u_j(z)|^2\,dz
-+ \frac{1}{4\pi}\int_{\mathbb R} g(r)\int_M \Lambda^Y_{\mathrm{sm}}(z)\,|E(z,\tfrac12+ir)|^2\,dz\,dr
-\]
-\[
-=(2\pi)^{-2}\int_{T^*M} \Lambda^Y_{\mathrm{sm}}(x)\,g(|\xi|_g)\,dx\,d\xi
-+R_{\mathrm{glob}}(Y;g),
-\]
-with remainder satisfying
-\[
-|R_{\mathrm{glob}}(Y;g)| \ \le\ C_N\,\|\widehat g\|_{W^{N,1}},\qquad N\ge1,
-\]
-where $C_N$ depends only on $N$ and $\Gamma$ (through cusp widths and injectivity data).
-\end{theorem}
+\subsection{Continuous-spectrum ledger term}
+\label{subsec:B.ledger-cont}
 
-\begin{proof}
-Apply Theorem~\ref{thm:B-smoothtrace} to each $\chi_\alpha$, sum over $\alpha$.
-Off-diagonal terms vanish by Proposition~\ref{prop:B-glue}. Constants are uniform,
-since number of charts is finite and each cutoff $\chi_\alpha$ has bounded $C^k$ norms.
-\end{proof}
+Lemma~\ref{lem:B.scattering-window} and Proposition~\ref{prop:B.maass-selberg} imply that the continuous contribution
+to localized traces satisfies a bound of the form
+\begin{equation}
+\label{eq:B.cont-ledger}
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi]
+\ll_{\Gamma,\chi,h}
+\eta\,(\log\lambda)\,\lambda^{A_\Gamma},
+\end{equation}
+which is subordinate to the identity main term $\asymp \lambda\eta$ in the regimes used in the main text, and is
+absorbed into the global remainder hierarchy.
 
-\begin{corollary}[Sharp truncation via smoothed]
-\label{cor:B-sharpglobal}
-For the sharp truncation at height $Y$,
-\[
-\Tr\big(g(\sqrt\Delta)\big)_{M(Y)}
-=(2\pi)^{-2}\int_{T^*M(Y)} g(|\xi|_g)\,dx\,d\xi
-+R_{\mathrm{glob}}(Y;g)+\mathcal E_{\mathrm{edge}}(Y;g),
-\]
-with $|\mathcal E_{\mathrm{edge}}(Y;g)|\ll Y^{-1}\,\|\widehat g\|_{W^{N,1}}$.
-\end{corollary}
+\subsection{Hyperbolic tail ledger term}
+\label{subsec:B.ledger-tail}
 
-\begin{remark}[Uniformity in $Y$ and $\tau$]
-The constants in $R_{\mathrm{glob}}$ and $\mathcal E_{\mathrm{edge}}$ are uniform
-in $Y\ge Y_0(\Gamma)$. Their dependence on $\tau$ is polynomial, controlled
-by seminorms $\|\widehat g\|_{W^{N,1}}$.
-\end{remark}
+Proposition~\ref{prop:B.hyperbolic-tail} yields effective truncation of the hyperbolic orbital sum, with tail bound
+faster than any power of $\lambda$ beyond the natural cutoff scale $\eta^{-1}\log\lambda$.  This is the mechanism
+behind the tail ledger component $\mathcal{E}^{\mathrm{tail}}_\Gamma[h;\chi]$.
 
-\subsection*{B.14. Explicit dependence of remainders}
-\label{subsec:B14-remainders}
+\subsection{Kuznetsov/off-diagonal ledger term}
+\label{subsec:B.ledger-kuz}
 
-We now summarize remainder bounds and make explicit their dependence
-on truncation height $Y$ and Fourier support $\tau$.
+Proposition~\ref{prop:B.resonance-bound} provides the resonance localization needed for off-diagonal control in the
+Kuznetsov applications, and serves as the analytic input behind the off-diagonal ledger contributions in
+Blocks~8.2--8.4.
 
-\begin{proposition}[Quantitative remainder bounds]
-\label{prop:B-remainderbounds}
-For $g$ even, $\widehat g\in C_c^\infty(\mathbb R)$ supported in $[-\tau,\tau]$,
-and $Y\ge Y_0(\Gamma)$,
-\[
-\Tr\big(g(\sqrt\Delta)\big)_{M(Y)}
-=(2\pi)^{-2}\int_{T^*M(Y)} g(|\xi|_g)\,dx\,d\xi
-+O\!\left(\|\widehat g\|_{W^{N,1}}+\frac{\|\widehat g\|_{W^{N,1}}}{Y}\right),
-\]
-valid for any $N\ge1$, with implied constants depending on $N$ and $\Gamma$
-only through cusp widths and injectivity data.
-\end{proposition}
+\section*{Bibliographic notes}
 
-\begin{remark}[Scaling in $\tau$]
-\label{rmk:B-tauscaling}
-If $\supp\widehat g\subset[-\tau,\tau]$, then
-\[
-\|\widehat g\|_{W^{N,1}}
-\ \ll_N\ (1+\tau)^N \int_{\mathbb R} (1+|t|)^N |g(t)|\,dt.
-\]
-Thus all remainders are polynomially bounded in $\tau$.
-\end{remark}
+The scattering framework and Maass--Selberg relations are standard; see \cite{Hejhal1983,Iwaniec2002,Buser1992}.
+For Kuznetsov/Bessel transform technology and localized oscillatory integral estimates, see classical treatments in
+spectral theory of automorphic forms and semiclassical analysis.
 
-\begin{corollary}[Asymptotics as $Y\to\infty$]
-\label{cor:B-asympt}
-As $Y\to\infty$,
-\[
-\Tr\big(g(\sqrt\Delta)\big)
-=(2\pi)^{-2}\int_{T^*M} g(|\xi|_g)\,dx\,d\xi
-+O\!\left(\|\widehat g\|_{W^{N,1}}\right).
-\]
-\end{corollary}
-
-\subsection*{B.15. Comparison with Selberg’s trace formula}
-\label{subsec:B15-selberg}
-
-To confirm normalization, we compare the smoothed global trace formula
-with the classical Selberg trace formula on $M$.
-
-\begin{theorem}[Consistency with Selberg]
-\label{thm:B-selberg-compare}
-Let $g\in \mathcal S(\mathbb R)$ be even with $\widehat g$ compactly supported.
-Then the global trace identity of Theorem~\ref{thm:B-globaltrace} agrees with
-the Selberg trace formula:
-\[
-\sum_j g(r_j) + \frac{1}{4\pi}\int_{\mathbb R} g(r)\,\varphi(r)\,dr
-= \vol(M)\,\widehat g(0) + \sum_{\gamma\in\mathcal P} \frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)} \,\widehat g(\ell(\gamma)),
-\]
-where $\mathcal P$ denotes primitive closed geodesics of $M$,
-$\ell(\gamma)$ their lengths, $\ell(\gamma_0)$ the primitive length,
-and $\varphi(r)$ the scattering term associated with cusps.
-\end{theorem}
-
-\begin{proof}
-Theorem~\ref{thm:B-globaltrace} produces the identity and parabolic terms
-exactly as in Selberg’s formula. The geometric
-side, constructed in Chapters~6–7, matches the contributions from closed geodesics.
-Consistency follows by uniqueness of the Fourier inversion on $\PSL_2(\mathbb R)$.
-\end{proof}
-
-\begin{remark}[Normalization cross-check]
-The volume coefficient $\vol(M)\,\widehat g(0)$ matches exactly the main term of
-Selberg’s trace formula. The cusp contribution $\varphi(r)$ is identical under our
-Eisenstein normalization. This serves as a final verification that all constants
-are consistent across the monograph.
-\end{remark}
-
-\subsection*{B.16. Consolidated global trace identity}
-\label{subsec:B16-consolidated}
-
-We consolidate the results of \S\ref{subsec:B13-global}–\ref{subsec:B15-selberg}
-into a single theorem, which will be the reference form used in Chapters~6–8.
-
-\begin{theorem}[Consolidated global trace formula]
-\label{thm:B-consolidated}
-Let $g\in \mathcal S(\mathbb R)$ be even with $\supp \widehat g \subset [-\tau,\tau]$.
-Then for $Y\ge Y_0(\Gamma)$,
-\[
-\Tr\big(g(\sqrt\Delta)\big)_{M(Y)}
-=\vol(M)\,\widehat g(0)
-+\sum_{\gamma\in\mathcal P} \frac{\ell(\gamma_0)}{2\sinh(\ell(\gamma)/2)}\,\widehat g(\ell(\gamma))
-+\mathcal P_{\Gamma}(g) + R(Y;g),
-\]
-where
-\begin{itemize}
-  \item $\mathcal P_{\Gamma}(g)$ is the explicit parabolic (cusp) contribution,
-        matching the Selberg trace formula,
-  \item $R(Y;g)$ is the remainder, bounded by
-  \[
-  |R(Y;g)| \ \ll_{N,\Gamma}\ \|\widehat g\|_{W^{N,1}} + \frac{\|\widehat g\|_{W^{N,1}}}{Y},\qquad N\ge1,
-  \]
-  with constants depending only on $N$ and $\Gamma$ through cusp widths and injectivity data.
-\end{itemize}
-\end{theorem}
-
-\begin{remark}[Forward link]
-Theorem~\ref{thm:B-consolidated} provides the precise form of the localized trace
-formula used in Chapter~7 to prove the main theorems
-(\cref{thm:localized-trace,thm:local-weyl}).
-All constants are explicit and recorded in Appendix~A.
-\end{remark}
-
-\subsection*{B.17. Extended Audit of Appendix B}
-
-\noindent\textbf{Goals.}
-\begin{itemize}
-  \item \emph{Goal B1:} Establish local smoothing and propagation estimates for the hyperbolic wave kernel.  
-  \textbf{Verified} in Lemmas.
-  \item \emph{Goal B2:} Provide explicit stationary phase expansions with controlled remainders.  
-  \textbf{Verified} in Propositions.
-  \item \emph{Goal B3:} Classify geometric contributions (identity, elliptic, hyperbolic, parabolic) with explicit constants.  
-  \textbf{Verified} in Propositions.
-  \item \emph{Goal B4:} Interface geometric expansions with spectral projectors under localization windows.  
-  \textbf{Verified} in Theorems.
-  \item \emph{Goal B5:} Demonstrate consistency with the classical Selberg trace formula.  
-  \textbf{Verified} in Theorem~\ref{thm:B-selberg-compare}.
-  \item \emph{Goal B6:} Consolidate into a uniform global trace identity usable in Chapters~6–8.  
-  \textbf{Verified} in Theorem~\ref{thm:B-consolidated}.
-\end{itemize}
-
-\medskip
-\noindent\textbf{Invariants.}
-\begin{itemize}
-  \item \emph{Invariant B1:} All constants are explicit functions of cusp widths, injectivity radius, and fixed smoothing profiles.  
-  \textbf{Verified}.
-  \item \emph{Invariant B2:} No hidden dependence on spectral window parameters $(\lambda,\eta)$.  
-  \textbf{Checked}.
-  \item \emph{Invariant B3:} Error terms admit power savings in $\lambda$ uniformly across localization scales.  
-  \textbf{Verified}.
-  \item \emph{Invariant B4:} All formulas are stable under coverings and degenerations of $\Gamma$.  
-  \textbf{Verified} via Appendix~A.
-\end{itemize}
-
-\medskip
-\noindent\textbf{Forward Links.}
-\begin{itemize}
-  \item To Chapter~6: Geometric classification (identity, hyperbolic, parabolic) directly informs the expansion of the localized trace.  
-  \item To Chapter~7: The consolidated trace formula (Theorem~\ref{thm:B-consolidated}) is the backbone of the proofs of the main theorems.  
-  \item To Chapter~8: Variance bounds and quantum chaos estimates depend on the error controls established here.  
-  \item To Appendices~A and C: Volume constants, cusp integrals, and additional analytic kernels are imported from these appendices into the microlocal arguments.  
-\end{itemize}
-
-\medskip
-\noindent\textbf{Cross-Verification.}
-\begin{itemize}
-  \item All constants and formulas match standard references:  
-    \cite{Hejhal1983}, \cite{Buser1992}, \cite{Iwaniec2002}, and \cite{Selberg1956}.  
-  \item Microlocal propagation bounds agree with semiclassical analysis frameworks.
-  \item Stationary phase expansions are cross-checked against classical treatments.  
-\end{itemize}
-
-\medskip
-\noindent\textbf{Conclusion.}
-Appendix B completes the analytic infrastructure required for the localized trace formula.  
-Every step has been cross-verified: constants are explicit, dependencies transparent, and connections to classical trace formula theory established.  
-This appendix, together with Appendix~A, guarantees that the transition from microlocal analysis to global spectral statements is rigorous, reproducible, and fully normalized.  
-It serves as the definitive analytic foundation for Chapters~6–8 and ensures the monograph’s results are both robust and generalizable.
-
-% =====================================================
+% ======================================================================
 % End of Appendix B
-% =====================================================
+% ======================================================================
