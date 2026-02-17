@@ -1,368 +1,504 @@
-% ==================================================================
-% C-microlocal-toolkit.tex — Appendix C (FULL ORIGINAL MONOLITH)
-% ==================================================================
+% ======================================================================
+% Appendix C. Microlocal toolkit
+% PATH: src/appendices/C-microlocal-toolkit.tex
+% ======================================================================
 
-\section*{Appendix C. Microlocal Toolkit}
-\addcontentsline{toc}{section}{Appendix C. Microlocal Toolkit}
-\label{appC:root}
+\appendix
+\chapter{A microlocal toolkit for localized trace constructions}
+\label{app:C-microlocal-toolkit}
 
-\subsection*{C1. Hadamard Parametrix for the Wave Kernel}
+\section{Purpose and usage conventions}
+\label{sec:C.purpose}
 
-\noindent
-This block records the explicit construction of the Hadamard parametrix
-for the wave propagator on hyperbolic surfaces and provides quantitative
-error bounds tailored to the analysis of the localized spectral projector
-$P_{\lambda,\eta}$. The presentation is classical but reformulated to
-ensure that:
-\begin{itemize}
-  \item All constants are explicit and dependencies are tracked.
-  \item Normalization of the spectrum is consistent across the monograph.
-  \item Error terms are controlled hierarchically in terms of $(\lambda,\eta)$.
-\end{itemize}
+This appendix collects the microlocal tools used implicitly throughout the construction of localized trace
+functionals in Chapters~\ref{chap:05-localization}--\ref{chap:08-normalization}.
+The emphasis is not on maximal generality but on a stable and reproducible set of estimates sufficient for:
 
-\paragraph{Geometric setup.}
-Let $M = \Gamma \backslash \mathbb{H}$ be a finite-area hyperbolic surface,
-where $\Gamma \subset \mathrm{PSL}_2(\mathbb{R})$ is a cofinite Fuchsian group
-with cusp(s). Denote by $\Delta$ the Laplace--Beltrami operator on $M$,
-nonnegative and self-adjoint on $L^2(M)$. Its spectrum is parameterized as
-\[
-\Spec(\Delta) = \left\{ \tfrac14 + r_j^2 : r_j \ge 0 \right\}
-\ \cup\ [1/4,\infty),
-\]
-so that eigenvalues $\lambda_j = 1/4 + r_j^2$ correspond to spectral parameters $r_j$.
-
-Define the wave group
-\[
-U(t) = e^{it\sqrt{\Delta - 1/4}}, \qquad t \in \mathbb{R}.
-\]
-
-\paragraph{Exact kernel on the universal cover.}
-On the universal cover $\mathbb{H}$, the wave kernel admits the Plancherel
-representation
-\[
-U_{\mathbb{H}}(t; z, w) = \frac{1}{2\pi} \int_{\mathbb{R}}
-e^{i t r}\, \varphi_r(z, w)\, r \tanh(\pi r)\, dr,
-\]
-where $\varphi_r(z,w)$ is the spherical function, explicitly
-\[
-\varphi_r(z,w) = P_{-1/2+ir}\big(\cosh d(z,w)\big).
-\]
-This formula reflects the Fourier--Helgason transform and provides
-the exact structure of the wave propagator.
-
-\paragraph{Hadamard parametrix: local construction.}
-For small times $|t|\le c\log \lambda$ with fixed $c>0$ and large $\lambda$,
-the Hadamard parametrix gives a local oscillatory expansion of the kernel:
-\[
-U_{\mathbb{H}}(t; z,w) \sim (2\pi)^{-1}\int_{\mathbb{R}^2}
-e^{i \varphi(z,w,\xi,t)}\, a(z,w,\xi,t)\, d\xi,
-\]
-with the phase $\varphi$ solving the Hamilton--Jacobi equation
-\[
-\partial_t \varphi(z,w,\xi,t) + H(\nabla_z\varphi) = 0,\qquad
-\varphi(z,w,\xi,0) = \langle z-w,\xi\rangle,
-\]
-and the amplitude $a$ determined by transport equations
-\[
-\partial_t a + \tfrac12 \Delta_\xi \varphi \cdot a = 0,\qquad a(\cdot,0)=1.
-\]
-
-\paragraph{Explicit parametrix form.}
-In practice, the parametrix takes the form
-\[
-U_{\mathbb{H}}(t; z,w) = \frac{1}{\sqrt{t^2-d(z,w)^2}}\,
-\chi\!\Big(\frac{d(z,w)}{|t|}\Big)\,+\,R(t;z,w),
-\]
-where:
-\begin{itemize}
-  \item $\chi$ is a smooth cutoff supported where $d(z,w)<|t|$,
-  \item $R(t;z,w)$ is a smooth error kernel, quantitatively controlled below.
-\end{itemize}
-
-
-
-\paragraph{Error bounds.}
-For $|t|\le c\log \lambda$, the remainder satisfies
-\[
-\| U_{\mathbb{H}}(t) - U^{\mathrm{Had}}(t)\|_{L^2\to L^2}
-\ \ll_A\ \lambda^{-A},
-\]
-for every $A>0$, provided the parametrix is expanded to sufficiently high order.
-Equivalently, in semiclassical notation $h=\lambda^{-1}$, the error is
-$O(h^A)$ for arbitrary $A$, with constants depending only on $(A,c)$ and $M$.
-
-\paragraph{Descent to the quotient.}
-The kernel on $M$ is obtained by periodization:
-\[
-U_M(t; z,w) = \sum_{\gamma \in \Gamma} U_{\mathbb{H}}(t; z,\gamma w).
-\]
-Finite propagation speed implies $U_{\mathbb{H}}(t; z,w)$ is supported where
-$d(z,w)\le |t|$, hence the periodization sum is finite for fixed $t$.
-
-\paragraph{Quantitative lemma.}
-\begin{lemma}[Hadamard parametrix, quantitative form]\label{lem:C1-hadamard}
-Fix $c>0$. For every $N\ge 1$,
-\[
-U(t;z,w) = \sum_{k=0}^N a_k(z,w)\,(t^2-d(z,w)^2)_+^{k-1/2}
-\ +\ R_N(t;z,w),
-\]
-valid for $|t|\le c\log \lambda$, where:
-\begin{itemize}
-  \item $a_k(z,w)$ are smooth coefficients depending only on the geometry of $M$,
-  \item for hyperbolic metrics, $a_0(z,w)=(4\pi)^{-1}$ universally,
-  \item the remainder satisfies
-  \[
-  \|R_N(t)\|_{L^2\to L^2} \ll \lambda^{-N},
-  \]
-  uniformly for $|t|\le c\log \lambda$.
-\end{itemize}
-\end{lemma}
-
-\paragraph{Propagation of singularities.}
-\begin{corollary}[Wavefront relation]\label{cor:C1-wavefront}
-The wavefront set $\mathrm{WF}(U(t))$ lies in the canonical relation
-\[
-C = \{(z,\xi;w,\eta)\in T^*M\times T^*M:\ (z,\xi)=g^t(w,\eta)\},
-\]
-where $g^t$ is the geodesic flow on $T^*M$. Thus $U(t)$ transports singularities
-along geodesics, in agreement with Egorov’s theorem.
-\end{corollary}
-
-\paragraph{Link to spectral projectors.}
-The localized spectral projector admits the representation
-\[
-P_{\lambda,\eta} = \int_{\mathbb{R}} \widehat{\chi}_\eta(t)\, e^{it\lambda}\, U(t)\,dt,
-\]
-with $\chi_\eta$ a smooth cutoff of width $\eta$.
-Inserting the Hadamard parametrix into this formula and applying stationary phase
-yields precise kernel estimates for $P_{\lambda,\eta}$.
-
-\paragraph{Error hierarchy.}
-For $|t|\le c\log \lambda$, the contribution of the remainder $R_N(t)$ satisfies
-\[
-\Big\|\int \widehat{\chi}_\eta(t)\, e^{it\lambda}\, R_N(t)\,dt\Big\|_{L^2\to L^2}
-\ \ll\ \lambda^{-N}.
-\]
-Thus, by taking $N$ large, the error becomes negligible compared to the principal terms.
-
-\begin{auditblock}[C1]
-\textbf{Goals achieved:}
-\begin{itemize}
-  \item Constructed a Hadamard parametrix valid for logarithmic times $|t|\le c\log \lambda$.
-  \item Established quantitative operator bounds with error $O(\lambda^{-N})$.
-  \item Verified wavefront propagation along geodesics (Cor.~\ref{cor:C1-wavefront}).
-  \item Linked parametrix to spectral projectors $P_{\lambda,\eta}$.
-\end{itemize}
-\textbf{Invariants:}
-\begin{itemize}
-  \item Constants depend only on $(c,N)$ and the geometry of $M$.
-  \item No hidden dependence on spectral parameters.
-  \item Remainders are hierarchically controlled.
-\end{itemize}
-\textbf{Forward links:} stationary phase analysis (Appendix E).  
-\textbf{Backward links:} wave kernel constructions in Chapter~5.
-\end{auditblock}
-
-\subsection*{C3. Uniform Sobolev Bounds and Microlocal Cutoffs}
-
-\noindent
-This block establishes uniform Sobolev estimates and the microlocal cutoff
-machinery required for the localized trace formula.  
-The goal is twofold:
 \begin{enumerate}
-  \item Control spectrally localized eigenfunctions in $L^p$ norms with constants
-  explicit in $(\lambda,\eta)$.
-  \item Provide cutoff operators that isolate regions of phase space while
-  preserving boundedness and negligible commutators with the spectral projector.
+\item the construction of microlocal projectors adapted to a prescribed phase-space localization;
+\item uniform trace class and Hilbert--Schmidt bounds for cutoff resolvents and propagators;
+\item symbolic control of quantization changes and refinement errors;
+\item local Weyl-type expansions with explicit remainder structure.
 \end{enumerate}
 
-\paragraph{Sobolev framework.}
-For $s\in\mathbb R$, define the Sobolev norm
-\[
-\|f\|_{H^s(M)} = \|(1+\Delta)^{s/2} f\|_{L^2(M)}.
-\]
-Eigenfunctions $\phi_j$ with $\Delta \phi_j = (1/4+r_j^2)\phi_j$ satisfy
-\[
-\|\phi_j\|_{H^s} \asymp (1+r_j)^s \|\phi_j\|_{L^2},
-\]
-with constants depending only on $s$ and the geometry of $M$.
+We adopt a fixed semiclassical parameter $h\in(0,h_0]$ with $h\to 0$.
+The correspondence with the large spectral parameter regime is via $h\asymp \lambda^{-1}$.
+All symbol classes and operator bounds are formulated in a way that makes this scaling explicit.
 
-\begin{theorem}[Uniform Sobolev estimate]\label{thm:C3-sobolev}
-Let $f$ be spectrally localized to $[\lambda-\eta,\lambda+\eta]$, with
-$\lambda^{-\theta}\le \eta\le 1$. Then for any $2\le p\le\infty$,
+\section{Symbol classes and quantization}
+\label{sec:C.symbols}
+
+\subsection{Standard semiclassical symbols}
+\label{subsec:C.symbols.standard}
+
+Let $X$ be a smooth manifold of dimension $d$ and let $T^\ast X$ be its cotangent bundle.
+For $m\in\mathbb{R}$, we denote by $S^m(T^\ast X)$ the standard semiclassical symbol class:
+a family $a(x,\xi;h)$ belongs to $S^m$ if for all multiindices $\alpha,\beta$ there exists $C_{\alpha,\beta}$ such that
+\begin{equation}
+\label{eq:C.symbol-est}
+\left|\partial_x^\alpha\partial_\xi^\beta a(x,\xi;h)\right|
+\le
+C_{\alpha,\beta}\,\langle\xi\rangle^{m-|\beta|},
+\qquad
+0<h\le h_0.
+\end{equation}
+We write $S^{-\infty}=\bigcap_{m\in\mathbb{R}}S^m$.
+
+When a scale parameter $\rho=\rho(h)$ is present, we use the rescaled class $S^m_\rho$ defined by
+\begin{equation}
+\label{eq:C.symbol-est-rho}
+\left|\partial_x^\alpha\partial_\xi^\beta a(x,\xi;h)\right|
+\le
+C_{\alpha,\beta}\,\rho(h)^{-|\alpha|-|\beta|}\langle\xi\rangle^{m-|\beta|}.
+\end{equation}
+This is the natural class for microlocal refinement at scale $\rho^{-1}$.
+
+\subsection{Quantization schemes}
+\label{subsec:C.quantization}
+
+Let $\Op_h$ denote a fixed quantization scheme, e.g.\ Weyl quantization $\Op_h^w$.
+For $a\in S^m$ we write $A=\Op_h(a)$.
+We use only the following structural facts.
+
+\begin{proposition}[Quantization stability]
+\label{prop:C.quant-stability}
+Let $\Op_h$ and $\Op'_h$ be two admissible quantizations on $X$.
+Then for $a\in S^m$ one has
 \[
-\|f\|_{L^p(M)} \ \ll_{p,M}\ \lambda^{\sigma(p)}\,\eta^{-\rho(p)}\,\|f\|_{L^2(M)},
+\Op_h(a)-\Op'_h(a)=h\,\Op_h(r_a),
+\qquad
+r_a\in S^{m-1},
 \]
-where $\sigma(p),\rho(p)\ge 0$ are explicit exponents arising from Sobolev
-embedding and Bernstein-type inequalities. The implicit constant depends only
-on $p$ and $M$, not on $\lambda,\eta$.
-\end{theorem}
+with seminorm bounds for $r_a$ controlled by finitely many seminorms of $a$.
+\end{proposition}
 
-\paragraph{Microlocal cutoffs.}
-Let $\chi\in C_c^\infty(T^*M)$ be a compactly supported symbol. Define
+\begin{proof}
+This is standard: any two admissible quantizations differ by an $h$-expansion whose first nontrivial term is of order
+$h$ and involves derivatives of $a$.
+\end{proof}
+
+\subsection{Composition and commutators}
+\label{subsec:C.composition}
+
+We recall the standard symbolic calculus in a form suitable for trace applications.
+
+\begin{proposition}[Composition formula]
+\label{prop:C.composition}
+Let $a\in S^{m_1}$ and $b\in S^{m_2}$.
+Then
 \[
-A=\Op_h(\chi), \qquad h=\lambda^{-1}.
+\Op_h(a)\Op_h(b)=\Op_h(a\# b),
 \]
-Such $A$ projects onto a localized region of phase space.
-
-\begin{lemma}[Cutoff properties]\label{lem:C3-cutoff}
-For $A=\Op_h(\chi)$ as above:
-\begin{enumerate}
-  \item $\|A\|_{L^2\to L^2}\ll 1$, uniformly in $h$.
-  \item If $\chi$ vanishes outside $K\subset T^*M$, then $Af$ is microlocally
-  supported in $K$.
-  \item If $\chi_1,\chi_2$ have disjoint supports, then
-  \[
-  \Op_h(\chi_1)\Op_h(\chi_2) = O(h^\infty)\quad\text{in }L^2\to L^2.
-  \]
-\end{enumerate}
-\end{lemma}
-
-\paragraph{Resolvent bounds.}
-Resolvent estimates provide global spectral control:
-
-\begin{proposition}[Resolvent estimate]\label{prop:C3-resolvent}
-For $s=1/2+i\lambda$ with $\lambda\ge 1$,
+where $a\# b\in S^{m_1+m_2}$ admits an asymptotic expansion
 \[
-\big\|(\Delta - (1/4+\lambda^2))^{-1}\big\|_{L^2\to L^2} \ll 1,
+a\# b \sim \sum_{j\ge 0} h^j c_j(a,b),
 \]
-with constant depending only on $M$. More generally, for $\Im s\neq 0$,
+with $c_0(a,b)=ab$ and $c_1(a,b)=\frac{1}{i}\{a,b\}/2$ in Weyl quantization.
+Moreover, for every $N\ge 1$,
 \[
-\|(\Delta-s(1-s))^{-1}\|\ll |\Im s|^{-1}.
+a\# b - \sum_{j=0}^{N-1} h^j c_j(a,b) \in h^N S^{m_1+m_2-N}.
 \]
 \end{proposition}
 
-\paragraph{Stability under projectors.}
-Combining Egorov’s theorem (Block C2) with the cutoff calculus yields:
-
-\begin{lemma}[Cutoff stability]\label{lem:C3-stability}
-Let $A=\Op_h(\chi)$ with $\chi$ supported away from cusp regions. Then
+\begin{proposition}[Commutator estimate]
+\label{prop:C.commutator}
+Let $a\in S^{m_1}$ and $b\in S^{m_2}$.
+Then
 \[
-\|[P_{\lambda,\eta},A]\|_{L^2\to L^2} \ll h^{1-\delta},
+[\Op_h(a),\Op_h(b)]
+=
+\frac{h}{i}\Op_h(\{a,b\}) + h^2 \Op_h(r_{a,b}),
+\qquad
+r_{a,b}\in S^{m_1+m_2-2}.
 \]
-for some $\delta>0$ depending only on $M$. The same estimate holds with $U(t)$
-in place of $P_{\lambda,\eta}$, uniformly for $|t|\le c\log \lambda$.
+\end{proposition}
+
+\section{Microlocal cutoffs and projectors}
+\label{sec:C.cutoffs}
+
+\subsection{Phase-space localization}
+\label{subsec:C.phase-local}
+
+Let $\Omega\subset T^\ast X$ be a compact subset.
+A microlocal cutoff adapted to $\Omega$ is an operator of the form $\Pi=\Op_h(\pi)$ with $\pi\in S^0$ satisfying
+$\pi\equiv 1$ on $\Omega$ and $\supp \pi$ contained in a fixed neighborhood of $\Omega$.
+
+We record the two basic properties used in the main text.
+
+\begin{lemma}[Microlocal idempotence]
+\label{lem:C.idempotence}
+Let $\Pi=\Op_h(\pi)$ with $\pi\in S^0$ and $\pi^2=\pi$ on a neighborhood of $\Omega$.
+Then
+\[
+\Pi^2-\Pi \in h\,\Psi_h^{-1}(X),
+\]
+and in particular $\Pi^2=\Pi+O_{L^2\to L^2}(h)$.
 \end{lemma}
 
-\paragraph{Consequences.}
-\begin{itemize}
-  \item Sobolev estimates control $L^p$ growth of spectrally localized functions.
-  \item Cutoffs isolate microlocal regions with negligible interaction.
-  \item Resolvent bounds guarantee no uncontrolled growth in spectral expansions.
-  \item Cutoff stability ensures commutators with $P_{\lambda,\eta}$ remain negligible.
-\end{itemize}
+\begin{proof}
+Apply Proposition~\ref{prop:C.composition} with $a=b=\pi$.
+\end{proof}
 
-\begin{auditblock}[C3]
-\textbf{Goals achieved:}
-\begin{itemize}
-  \item Uniform Sobolev estimates for spectrally localized functions (Thm.~\ref{thm:C3-sobolev}).
-  \item Microlocal cutoff operators with stability and disjointness properties (Lemma~\ref{lem:C3-cutoff}).
-  \item Global resolvent estimates (Prop.~\ref{prop:C3-resolvent}).
-  \item Stability of cutoffs with respect to $P_{\lambda,\eta}$ and $U(t)$ (Lemma~\ref{lem:C3-stability}).
-\end{itemize}
-\textbf{Invariants:}
-\begin{itemize}
-  \item Constants explicit in $(\lambda,\eta)$ and geometric invariants of $M$.
-  \item Uniformity across cusp truncations.
-\end{itemize}
-\textbf{Forward links:} used in geodesic expansions (Chapter 6).  
-\textbf{Backward links:} Egorov refinements (Block C2).
-\end{auditblock}
+\begin{lemma}[Microlocal support control]
+\label{lem:C.support}
+If $\Pi_1=\Op_h(\pi_1)$ and $\Pi_2=\Op_h(\pi_2)$ with $\supp \pi_1$ disjoint from $\supp \pi_2$, then
+\[
+\Pi_1\Pi_2 \in h^\infty \Psi_h^{-\infty}(X).
+\]
+\end{lemma}
 
-\subsection*{C4. Consolidated Microlocal Toolkit and Forward Links}
+\begin{proof}
+Repeated integration by parts in the oscillatory integral representation yields rapid decay in $h$ when the symbols
+have disjoint microlocal support.
+\end{proof}
 
-\noindent
-This final block consolidates the microlocal tools developed in C1–C3 into a
-coherent package, explicitly stating their interrelations and preparing them
-for use in the localized trace formula (Chapters 5–7) and in the appendices
-on spectral counting and applications.
+\subsection{Refinement partitions and bounded overlap}
+\label{subsec:C.partition}
 
-\paragraph{Hierarchy of tools.}
-\begin{enumerate}
-  \item \textbf{Hadamard Parametrix (C1):} Provides explicit local expansions of the
-  wave kernel up to logarithmic time, with quantitative error bounds $O(\lambda^{-N})$.
-  \item \textbf{Quantitative Egorov (C2):} Describes symbolic evolution under the
-  geodesic flow up to times $|t|\le c\log \lambda$, with controlled error $O(h^{1-\delta})$.
-  \item \textbf{Sobolev and Cutoff Estimates (C3):} Supply $L^p$ bounds for
-  spectrally localized functions, resolvent control, and stability of microlocal cutoffs.
-\end{enumerate}
+Let $\{\Omega_\alpha\}$ be a finite microlocal cover of a compact region $\Omega\subset T^\ast X$ with bounded overlap.
+Let $\{\pi_\alpha\}$ be a subordinate partition of unity, $\sum_\alpha \pi_\alpha=1$ on $\Omega$.
 
-\paragraph{Unified statement.}
-The toolkit can be summarized in the following theorem:
+We define microlocal projectors $\Pi_\alpha=\Op_h(\pi_\alpha)$ and the refined decomposition
+\[
+\Pi_\Omega:=\sum_\alpha \Pi_\alpha.
+\]
 
-\begin{theorem}[Microlocal toolkit, consolidated]\label{thm:C4-toolkit}
-Let $M=\Gamma\backslash\mathbb H$ be a finite-area hyperbolic surface with cusps,
-let $h=\lambda^{-1}$, and let $0<\theta<\theta_0$.
-For each $\lambda\ge 1$ and $\lambda^{-\theta}\le \eta\le 1$:
+\begin{proposition}[Refinement stability]
+\label{prop:C.refinement-stability}
+Assume the overlap multiplicity of the cover $\{\Omega_\alpha\}$ is uniformly bounded by $N_0$.
+Then for any $u\in L^2(X)$,
+\[
+\sum_\alpha \|\Pi_\alpha u\|_{L^2}^2
+\ll
+\|u\|_{L^2}^2,
+\]
+with an implied constant depending only on $N_0$ and finitely many symbol seminorms.
+\end{proposition}
 
-\begin{enumerate}
-  \item The wave group $U(t)=e^{it\sqrt{\Delta-1/4}}$ admits a Hadamard parametrix
-  valid for $|t|\le c\log \lambda$, with remainder $\|R_N(t)\|_{L^2\to L^2}\ll h^N$.
-  \item For any pseudodifferential operator $A=\Op_h(a)$ compactly supported in phase
-  space, one has
-  \[
-  U(-t)AU(t)=\Op_h(a\circ g^t)+O(h^{1-\delta})
-  \]
-  uniformly for $|t|\le c\log \lambda$.
-  \item For spectrally localized $f$ in $[\lambda-\eta,\lambda+\eta]$, Sobolev bounds
-  and microlocal cutoffs yield
-  \[
-  \|f\|_{L^p}\ll \lambda^{\sigma(p)}\eta^{-\rho(p)}\|f\|_{L^2},\qquad
-  \|[P_{\lambda,\eta},A]\|_{L^2\to L^2}\ll h^{1-\delta}.
-  \]
-  \item The resolvent satisfies $\|(\Delta-(1/4+\lambda^2))^{-1}\|\ll 1$ uniformly in $\lambda$.
-\end{enumerate}
-All constants are explicit, depending only on $c$, $\delta$, finitely many derivatives
-of symbols, and the geometry of $M$ (cusp widths, injectivity radius).
+\begin{proof}
+This is a microlocal version of Bessel's inequality, obtained from almost orthogonality using
+Lemma~\ref{lem:C.support} and bounded overlap.
+\end{proof}
+
+\section{Trace class and Hilbert--Schmidt bounds}
+\label{sec:C.trace-class}
+
+Trace bounds are used to justify the localized trace expansions and to quantify the error ledger contributions.
+
+\subsection{Kernel bounds and Schatten norms}
+\label{subsec:C.schatten}
+
+Let $A$ be an integral operator with kernel $K_A(x,y)$ on $X$.
+Recall the Hilbert--Schmidt bound
+\[
+\|A\|_{\mathrm{HS}}^2
+=
+\int_{X\times X} |K_A(x,y)|^2\,dx\,dy.
+\]
+
+\begin{lemma}[Semiclassical Hilbert--Schmidt bound]
+\label{lem:C.hs}
+Let $A=\Op_h(a)$ with $a\in S^m$ compactly supported in $x$.
+Then
+\[
+\|A\|_{\mathrm{HS}}
+\ll
+h^{-d/2}\,\|a\|_{L^2(T^\ast X)} + O(h^\infty).
+\]
+\end{lemma}
+
+\begin{proof}
+The kernel of $\Op_h(a)$ is given by an oscillatory integral with amplitude $a$.
+Squaring and integrating yields the standard $h^{-d}$ scaling and identifies the leading contribution with the
+$L^2$-mass of $a$.
+\end{proof}
+
+\begin{lemma}[Trace class bound for smoothing operators]
+\label{lem:C.trace-class}
+If $A\in \Psi_h^{-N}(X)$ with $N>d$, then $A$ is trace class and
+\[
+\|A\|_{\mathrm{tr}}
+\ll
+h^{-d}\,\sup_{|\alpha|+|\beta|\le M}\|\partial_x^\alpha\partial_\xi^\beta a\|_{L^\infty},
+\]
+for some $M=M(d,N)$.
+\end{lemma}
+
+\begin{proof}
+Standard: trace class follows from integrability of the kernel, and the $h^{-d}$ factor is the phase-space volume
+scaling.
+\end{proof}
+
+\subsection{Localized resolvents and functional calculus}
+\label{subsec:C.resolvent}
+
+Let $P$ be a self-adjoint semiclassical pseudodifferential operator of order $2$.
+We use the Helffer--Sj\"ostrand functional calculus to represent $f(P)$.
+
+\begin{proposition}[Helffer--Sj\"ostrand representation]
+\label{prop:C.helffer-sjostrand}
+Let $f\in C_c^\infty(\mathbb{R})$ and let $\widetilde{f}$ be an almost-analytic extension.
+Then
+\[
+f(P)
+=
+\frac{1}{\pi}\int_{\mathbb{C}} \bar{\partial}\widetilde{f}(z)\,(z-P)^{-1}\,dL(z),
+\]
+where $dL$ denotes Lebesgue measure on $\mathbb{C}$.
+\end{proposition}
+
+\begin{lemma}[Microlocal resolvent bounds]
+\label{lem:C.resolvent-bound}
+Let $\Pi=\Op_h(\pi)$ be a microlocal cutoff supported away from the characteristic set of $P-z$ for $z$ in a fixed
+compact subset of $\mathbb{C}$.
+Then uniformly in $z$ in that set,
+\[
+\Pi(z-P)^{-1}\Pi \in \Psi_h^{-2}(X),
+\qquad
+\|\Pi(z-P)^{-1}\Pi\|_{L^2\to L^2}\ll 1.
+\]
+\end{lemma}
+
+\begin{proof}
+Elliptic parametrix construction.
+\end{proof}
+
+\section{Egorov theorem and propagation}
+\label{sec:C.egorov}
+
+The localized trace construction relies on the stability of microlocal cutoffs under propagation.
+
+\subsection{Semiclassical propagation}
+\label{subsec:C.propagation}
+
+Let $U(t)=e^{-itP/h}$ be the unitary propagator generated by $P$.
+Let $\Phi^t$ denote the Hamiltonian flow of the principal symbol $p$ of $P$.
+
+\begin{theorem}[Egorov theorem]
+\label{thm:C.egorov}
+Let $A=\Op_h(a)$ with $a\in S^0$ compactly supported.
+Then for $|t|\le t_0$ fixed,
+\[
+U(-t)\,A\,U(t)
+=
+\Op_h(a\circ\Phi^t) + h\,\Op_h(r_t),
+\qquad
+r_t\in S^{-1},
+\]
+with symbol seminorm bounds uniform in $|t|\le t_0$.
 \end{theorem}
 
-\paragraph{Consequences for projectors.}
-Combining (1)–(4), the kernel of the localized spectral projector
+\begin{proof}
+Standard semiclassical Egorov theorem.
+\end{proof}
+
+\subsection{Propagation of microlocal projectors}
+\label{subsec:C.projector-propagation}
+
+A key use is to control refinement errors in microlocal decompositions.
+
+\begin{corollary}[Propagation of microlocal cutoffs]
+\label{cor:C.propagation-cutoff}
+Let $\Pi=\Op_h(\pi)$ with $\pi\in S^0$.
+Then for $|t|\le t_0$,
 \[
-P_{\lambda,\eta} = \int_{\mathbb R}\widehat\chi_\eta(t)\,e^{it\lambda}U(t)\,dt
+U(-t)\,\Pi\,U(t)
+=
+\Op_h(\pi\circ\Phi^t) + O_{L^2\to L^2}(h).
 \]
-inherits the following properties:
-\begin{itemize}
-  \item \emph{Oscillatory structure:} controlled by Hadamard phase functions.
-  \item \emph{Microlocal invariance:} stable under pseudodifferential conjugation.
-  \item \emph{Spectral localization:} obeys quantitative Sobolev bounds.
-  \item \emph{Error hierarchy:} negligible remainders $O(h^N)$ and $O(h^{1-\delta})$.
-\end{itemize}
+\end{corollary}
 
-\paragraph{Error bookkeeping.}
-Throughout Appendices B–E and Chapters 5–7, all remainders fall into three classes:
+\section{Local Weyl laws and trace expansions}
+\label{sec:C.local-weyl}
+
+\subsection{A standard local Weyl expansion}
+\label{subsec:C.local-weyl-expansion}
+
+Let $f\in C_c^\infty(\mathbb{R})$ and let $A=\Op_h(a)$ with $a\in S^0$ compactly supported.
+We require the asymptotic expansion for $\Tr(A f(P))$.
+
+\begin{theorem}[Local Weyl law (microlocal form)]
+\label{thm:C.local-weyl}
+Let $P$ be a self-adjoint semiclassical operator with principal symbol $p$.
+Then
+\begin{equation}
+\label{eq:C.local-weyl}
+\Tr\bigl(\Op_h(a)\,f(P)\bigr)
+=
+(2\pi h)^{-d}
+\int_{T^\ast X} a(x,\xi)\,f(p(x,\xi))\,dx\,d\xi
++
+O\!\left(h^{1-d}\right),
+\end{equation}
+where the implied constant depends on finitely many symbol seminorms of $a$ and on finitely many derivatives of $f$.
+\end{theorem}
+
+\begin{proof}
+Combine the Helffer--Sj\"ostrand formula with a semiclassical parametrix for the resolvent and take traces.
+\end{proof}
+
+\subsection{Trace of cutoff propagators}
+\label{subsec:C.trace-propagator}
+
+A complementary trace object is the cutoff propagator $\Pi U(t)\Pi$.
+
+\begin{proposition}[Cutoff propagator trace class bound]
+\label{prop:C.cutoff-propagator-trace}
+Let $\Pi=\Op_h(\pi)$ with $\pi\in C_c^\infty(T^\ast X)$.
+Then for each fixed $t$,
+\[
+\Pi U(t)\Pi
+\quad\text{is trace class and}\quad
+\|\Pi U(t)\Pi\|_{\mathrm{tr}}
+\ll
+h^{-d}.
+\]
+\end{proposition}
+
+\begin{proof}
+Microlocal cutoff ensures compact phase-space support.  The kernel of $\Pi U(t)\Pi$ is an oscillatory integral with
+compact microlocal support, yielding the $h^{-d}$ scaling.
+\end{proof}
+
+\section{Almost orthogonality and refinement error bounds}
+\label{sec:C.almost-orthogonality}
+
+Refinement errors arise when a microlocal projector is replaced by a finer partition.
+
+\subsection{A standard almost orthogonality lemma}
+\label{subsec:C.almost-orth}
+
+\begin{lemma}[Almost orthogonality]
+\label{lem:C.almost-orth}
+Let $\{A_\alpha\}$ be a family of operators with symbols supported in a bounded overlap cover of phase space.
+Assume that for $\alpha\neq\beta$ the product $A_\alpha^\ast A_\beta$ is $O(h^\infty)$ in operator norm unless
+$\Omega_\alpha$ intersects $\Omega_\beta$.
+Then
+\[
+\left\|\sum_\alpha A_\alpha u\right\|_{L^2}^2
+\ll
+\sum_\alpha \|A_\alpha u\|_{L^2}^2
++
+O(h^\infty)\|u\|_{L^2}^2.
+\]
+\end{lemma}
+
+\begin{proof}
+Expand the square and use bounded overlap plus rapid off-diagonal decay.
+\end{proof}
+
+\subsection{Refinement error in trace functionals}
+\label{subsec:C.refinement-trace}
+
+Let $\Pi=\sum_\alpha \Pi_\alpha$ be a refined partition as in Section~\ref{subsec:C.partition}.
+A typical refinement error is the difference between $\Tr(\Pi A)$ and $\sum_\alpha \Tr(\Pi_\alpha A)$.
+
+\begin{proposition}[Trace refinement bound]
+\label{prop:C.trace-refinement}
+Let $A$ be trace class and let $\Pi=\sum_\alpha \Pi_\alpha$ be a microlocal decomposition with bounded overlap.
+Then
+\[
+\Tr(\Pi A) - \sum_\alpha \Tr(\Pi_\alpha A)
+=
+O\!\left(\sum_{\alpha\neq\beta}\|\Pi_\alpha A \Pi_\beta\|_{\mathrm{tr}}\right).
+\]
+Moreover, if $\Pi_\alpha A \Pi_\beta$ is $O(h^\infty)$ in trace norm for $\alpha\neq\beta$, then the refinement error
+is $O(h^\infty)$.
+\end{proposition}
+
+\begin{proof}
+Insert $\Pi=\sum_\alpha \Pi_\alpha$ on both sides of $A$ and expand.  The diagonal terms coincide; the remainder is the
+sum of off-diagonal contributions.
+\end{proof}
+
+\section{Quantization changes and symbolic remainders}
+\label{sec:C.quantization-changes}
+
+Quantization changes are treated as perturbations absorbed into the ledger.
+
+\begin{proposition}[Quantization change error bound]
+\label{prop:C.quantization-change}
+Let $\Op_h$ and $\Op'_h$ be admissible quantizations and let $a\in S^0$.
+Then for any trace class operator $B$ with $\|B\|_{\mathrm{tr}}\ll h^{-d}$,
+\[
+\Tr\bigl((\Op_h(a)-\Op'_h(a))B\bigr)
+=
+O(h)\,\|B\|_{\mathrm{tr}}.
+\]
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:C.quant-stability},
+\[
+\Op_h(a)-\Op'_h(a)=h\,\Op_h(r_a),
+\]
+with $\Op_h(r_a)$ bounded on $L^2$.  Then
+\[
+\left|\Tr((\Op_h(a)-\Op'_h(a))B)\right|
+\le
+\|\Op_h(a)-\Op'_h(a)\|_{L^2\to L^2}\,\|B\|_{\mathrm{tr}}
+\ll
+h\,\|B\|_{\mathrm{tr}}.
+\]
+\end{proof}
+
+\section{Microlocal smoothing and trace regularization}
+\label{sec:C.smoothing}
+
+In localized trace constructions one often inserts smoothing operators to justify trace class manipulations.
+We record a canonical smoothing device.
+
+\subsection{A trace regularizer}
+\label{subsec:C.regularizer}
+
+Let $\langle P\rangle=(I+P^2)^{1/2}$ and define the regularizer
+\[
+R_N := \langle P\rangle^{-N},
+\qquad N>d.
+\]
+Then $R_N$ is trace class and improves symbolic orders.
+
+\begin{lemma}[Regularizer bounds]
+\label{lem:C.regularizer}
+For $N>d$, the operator $R_N$ is trace class and satisfies
+\[
+\|R_N\|_{\mathrm{tr}}\ll h^{-d}.
+\]
+Moreover, if $A\in \Psi_h^m$ then $AR_N\in \Psi_h^{m-N}$ and is trace class whenever $m-N<-d$.
+\end{lemma}
+
+\begin{proof}
+Standard from the functional calculus and semiclassical Weyl asymptotics.
+\end{proof}
+
+\section{A canonical microlocal error hierarchy}
+\label{sec:C.error-hierarchy}
+
+For the normalization framework, it is convenient to isolate three microlocal error sources:
+
 \begin{enumerate}
-  \item \emph{Parametrix errors:} $O(h^N)$ for arbitrary $N$ (tunable).
-  \item \emph{Egorov errors:} $O(h^{1-\delta})$ depending on geometry.
-  \item \emph{Sobolev/resolvent losses:} polynomial in $\lambda,\eta^{-1}$,
-  always dominated by main terms of order $\lambda\eta$.
+\item \emph{Quantization errors}, arising from replacing $\Op_h$ by $\Op'_h$.
+\item \emph{Refinement errors}, arising from replacing a projector $\Pi$ by a finer decomposition.
+\item \emph{Tail errors}, arising from truncating propagation times or length sums beyond the natural localization scale.
 \end{enumerate}
-No hidden spectral dependence occurs.
 
-\paragraph{Forward links.}
-\begin{itemize}
-  \item To Appendix~E: stationary phase expansions of oscillatory integrals
-  rely on the parametrix and Egorov’s theorem.
-  \item To Chapter~6: geometric expansions of the trace use cutoff stability
-  and Sobolev bounds.
-  \item To Appendix~B: trace identities and cusp analysis exploit the uniform
-  resolvent and cutoff machinery.
-\end{itemize}
+Each of these errors is controlled by an estimate of the form
+\[
+|\Tr(A)-\Tr(A')|
+\le
+C\,h^\alpha\,\mathcal{S}(a),
+\]
+where $\mathcal{S}(a)$ is a finite symbol seminorm and $\alpha>0$ is a structural exponent.
 
-\paragraph{Audit of Block C4.}
-\begin{auditblock}[C4]
-\textbf{Goals achieved:}
-\begin{itemize}
-  \item Consolidated C1–C3 into a unified theorem (\ref{thm:C4-toolkit}).
-  \item Recorded explicit error hierarchy (parametrix, Egorov, Sobolev).
-  \item Clarified consequences for localized projector $P_{\lambda,\eta}$.
-  \item Linked forward to Appendices B, E and Chapters 5–7.
-\end{itemize}
-\textbf{Invariants:}
-\begin{itemize}
-  \item All constants explicit in geometry, $\lambda,\eta$.
-  \item No conjectural inputs, only classical microlocal tools.
-\end{itemize}
-\textbf{Forward links:} to geodesic sums, stationary phase, and global trace formula.  
-\textbf{Backward links:} Hadamard (C1), Egorov (C2), Sobolev + cutoffs (C3).
-\end{auditblock}
+The essential methodological point is that all such errors are \emph{explicitly ledgered} and do not contaminate the
+canonical trace object.
+
+\section*{Bibliographic notes}
+
+The symbolic calculus and Egorov theorem used here are standard; see classical semiclassical references in microlocal
+analysis.  The trace expansions and local Weyl laws are foundational results in semiclassical spectral theory and form
+the analytic backbone of the localized trace method.
+
+% ======================================================================
+% End of Appendix C
+% ======================================================================
