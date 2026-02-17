@@ -1,319 +1,179 @@
 % =====================================================================
-% 02b-cusps.tex — Cusps, truncation, smoothed cutoff, and Maass–Selberg
-% (Diamond block: canonical conventions + explicit dependencies)
+% PATH: src/sections/02-preliminaries/blocks/02b-cusps.tex
+% Cusps, truncation, Eisenstein series, Maass--Selberg (Annals+++)
 % =====================================================================
 
-\subsection{Cuspidal geometry, truncations, and Eisenstein calculus}
-\label{subsec:cusps-diamond}
+\subsection{Cusps, truncation, and Eisenstein series}\label{subsec:cusps}
 
-\noindent
-Throughout this monograph we work with a cofinite Fuchsian group
-\(
-\Gamma \subset \mathrm{PSL}_{2}(\mathbb{R})
-\)
-and the finite--area hyperbolic orbifold/surface
-\(
-M=\Gamma\backslash\mathbb{H}
-\)
-equipped with the standard metric \(ds^{2}=(dx^{2}+dy^{2})/y^{2}\) and area measure
-\(d\mu(z)=dx\,dy/y^{2}\).
-This subsection fixes \emph{once and for all} the cusp models, scaling matrices,
-height functions, truncation operators (sharp and smooth), and the Eisenstein
-normalizations used later in the localized trace formula.  Every implied constant
-below is required to be a function only of the \emph{cusp data} and (when invoked)
-a spectral--gap parameter; in particular, \emph{no dependence on later localization
-parameters \((\lambda,\eta)\)} is permitted at this stage.
+Let $\Gamma\subset\PSL_2(\R)$ be cofinite and $M=\Gamma\backslash\H$.
+We use $ds^2=(dx^2+dy^2)/y^2$ and $d\mu(z)=dx\,dy/y^2$.
+All implied constants in this subsection depend only on $\Gamma$ and the fixed cusp data
+$\{\sigma_{\mathfrak a},w_{\mathfrak a}\}$, unless explicitly stated otherwise.
 
-\medskip
-\noindent\textbf{Persistent cusp invariants and allowed dependencies.}
-Let \(\mathfrak{a}_{1},\dots,\mathfrak{a}_{h}\) be the cusps of \(M\), i.e. \(\Gamma\)-equivalence classes of
-parabolic fixed points in \(\mathbb{P}^{1}(\mathbb{R})\).  For each cusp \(\mathfrak{a}\) we fix:
-\[
-\Gamma_{\mathfrak{a}}:=\{\gamma\in\Gamma:\gamma\mathfrak{a}=\mathfrak{a}\},\qquad
-\sigma_{\mathfrak{a}}\in \mathrm{PSL}_{2}(\mathbb{R}),\qquad
-w_{\mathfrak{a}}>0,
-\]
-where \(\sigma_{\mathfrak{a}}(\infty)=\mathfrak{a}\) and
-\begin{equation}
-\label{eq:scaling-conj}
-\sigma_{\mathfrak{a}}^{-1}\Gamma_{\mathfrak{a}}\sigma_{\mathfrak{a}}
+% ---------------------------------------------------------------------
+% Cusp data and scaling
+% ---------------------------------------------------------------------
+Let $\mathfrak a_1,\dots,\mathfrak a_h$ be the cusps of $M$.
+For each cusp $\mathfrak a$ let $\Gamma_{\mathfrak a}$ be its stabilizer in $\Gamma$.
+Fix $\sigma_{\mathfrak a}\in\PSL_2(\R)$ with $\sigma_{\mathfrak a}(\infty)=\mathfrak a$
+and a width $w_{\mathfrak a}>0$ such that
+\begin{equation}\label{eq:scaling-conj}
+\sigma_{\mathfrak a}^{-1}\Gamma_{\mathfrak a}\sigma_{\mathfrak a}
 =
 \left\{
-\pm\begin{pmatrix}1& n w_{\mathfrak{a}}\\ 0&1\end{pmatrix} : n\in\mathbb{Z}
+\pm\begin{pmatrix}1& n w_{\mathfrak a}\\ 0&1\end{pmatrix} : n\in\Z
 \right\}.
 \end{equation}
-The \emph{cusp ledger} is the finite tuple
-\[
-\mathscr{C}_{\Gamma}:=\bigl(h;\{w_{\mathfrak{a}}\}_{\mathfrak{a}};\{\sigma_{\mathfrak{a}}\}_{\mathfrak{a}}\bigr),
+Such $\sigma_{\mathfrak a}$ is unique up to right-multiplication by
+$\bigl(\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr)$, $t\in\R$.
+
+Set $w_{\min}:=\min_{\mathfrak a} w_{\mathfrak a}$ and $W_{\Gamma}:=\sum_{\mathfrak a} w_{\mathfrak a}$.
+
+% ---------------------------------------------------------------------
+% Height and truncation
+% ---------------------------------------------------------------------
+For $z\in M$ lying in the cusp chart of $\mathfrak a$, define the height
+\begin{equation}\label{eq:height-function}
+y_{\mathfrak a}(z):=\Im(\sigma_{\mathfrak a}^{-1}\tilde z),
+\end{equation}
+where $\tilde z\in\H$ is any lift of $z$.
+
+For $Y>1$ define the truncated cusp tail and the truncated surface
+\begin{equation}\label{eq:trunc-def}
+C_{\mathfrak a}(Y):=\sigma_{\mathfrak a}\{x+iy:0\le x<w_{\mathfrak a},\ y\ge Y\},
 \qquad
-w_{\min}:=\min_{\mathfrak{a}} w_{\mathfrak{a}},\qquad
-W_{\Gamma}:=\sum_{\mathfrak{a}} w_{\mathfrak{a}}.
-\]
-All constants below are annotated as \(O_{\mathscr{C}_{\Gamma}}(\cdot)\) or
-\(O_{\mathscr{C}_{\Gamma},\beta}(\cdot)\) (if a spectral gap lower bound \(\beta\in(0,\tfrac14]\)
-is invoked).  No hidden dependence outside \(\mathscr{C}_{\Gamma}\) and \(\beta\) is allowed.
+M(Y):=M\setminus\bigcup_{\mathfrak a}\pi\bigl(C_{\mathfrak a}(Y)\bigr).
+\end{equation}
+There exists $Y_0=Y_0(\Gamma)$ such that for all $Y\ge Y_0$ the sets $\pi(C_{\mathfrak a}(Y))$
+are pairwise disjoint and $M(Y)$ is compact with horocyclic boundary.
 
-\medskip
-\noindent\textbf{Scaling matrices and uniqueness of cusp coordinates.}
-Define the standard strip
-\[
-\mathcal{S}(w):=\{x+iy\in\mathbb{H}: 0\le x<w,\ y>0\}.
-\]
-The \emph{canonical cusp neighborhood} attached to \(\mathfrak{a}\) is
-\(
-C_{\mathfrak{a}}:=\sigma_{\mathfrak{a}}(\mathcal{S}(w_{\mathfrak{a}})).
-\)
-In these coordinates, the stabilizer \(\Gamma_{\mathfrak{a}}\) acts by horizontal translations
-\(x\mapsto x+n w_{\mathfrak{a}}\).
-The choice of \(\sigma_{\mathfrak{a}}\) is unique up to left multiplication by the unipotent group
-\(N=\{\bigl(\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr):t\in\mathbb{R}\}\) and right multiplication by \(\{\pm I\}\).
-
-\begin{lemma}[Uniqueness of cusp coordinates]\label{lem:cusp-coords-unique}
-If \(\sigma_{\mathfrak{a}}\) and \(\sigma'_{\mathfrak{a}}\) both satisfy \eqref{eq:scaling-conj} for the same cusp \(\mathfrak{a}\),
-then there exists \(t\in\mathbb{R}\) such that
-\[
-\sigma'_{\mathfrak{a}}=\sigma_{\mathfrak{a}}
-\begin{pmatrix}1&t\\0&1\end{pmatrix}.
-\]
-In particular, cusp coordinates differ only by horizontal translation, and all constructions below
-are invariant under this freedom.
+% ---------------------------------------------------------------------
+% Exact tail volume and boundary length
+% ---------------------------------------------------------------------
+\begin{lemma}[Cusp tail identities]\label{lem:cusp-tail-identities}
+For each cusp $\mathfrak a$ and $Y\ge Y_0$,
+\begin{equation}\label{eq:cusp-vol-length}
+\vol\Bigl(\pi(C_{\mathfrak a})\setminus \pi(C_{\mathfrak a}(Y))\Bigr)=\frac{w_{\mathfrak a}}{Y},
+\qquad
+\length\bigl(\partial \pi(C_{\mathfrak a}(Y))\bigr)=\frac{w_{\mathfrak a}}{Y}.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:global-vol-length}
+\vol(M\setminus M(Y))=\frac{W_{\Gamma}}{Y},
+\qquad
+\length(\partial M(Y))=\frac{W_{\Gamma}}{Y}.
+\end{equation}
 \end{lemma}
 
-\medskip
-\noindent\textbf{Cusp height functions and truncation domains.}
-For \(z\in M\) lying in the cusp chart \(C_{\mathfrak{a}}\), define the \(\mathfrak{a}\)-height by
-\begin{equation}
-\label{eq:height-function}
-y_{\mathfrak{a}}(z):=\Im(\sigma_{\mathfrak{a}}^{-1}\tilde z),
+% ---------------------------------------------------------------------
+% Truncation operators
+% ---------------------------------------------------------------------
+Define the sharp truncation $\Lambda^{Y}:L^{2}(M)\to L^{2}(M)$ by
+\begin{equation}\label{eq:sharp-trunc}
+(\Lambda^{Y}f)(z)=\mathbf 1_{M(Y)}(z)\,f(z).
 \end{equation}
-where \(\tilde z\in\mathbb{H}\) is any lift of \(z\) (well-defined because \(\Gamma_{\mathfrak{a}}\) acts by translations).
-For \(Y>1\) define the truncated cusp tail and the compact core:
-\begin{equation}
-\label{eq:trunc-def}
-C_{\mathfrak{a}}(Y):=\sigma_{\mathfrak{a}}\{x+iy:0\le x<w_{\mathfrak{a}},\ y\ge Y\},\qquad
-M(Y):=M\setminus\bigcup_{\mathfrak{a}}\pi\bigl(C_{\mathfrak{a}}(Y)\bigr).
-\end{equation}
-For \(Y\ge Y_{0}(\mathscr{C}_{\Gamma})\) the sets \(\pi(C_{\mathfrak{a}}(Y))\) are pairwise disjoint and \(M(Y)\) is compact with
-geodesic boundary consisting of horocycles.
 
-\medskip
-\noindent\textbf{Exact cusp volume and boundary length (linear \(Y^{-1}\) law).}
-With \(d\mu=dx\,dy/y^{2}\), for each cusp \(\mathfrak{a}\) one has the \emph{exact identities}
-\begin{equation}
-\label{eq:cusp-vol-length}
-\mathrm{vol}\Bigl(\pi(C_{\mathfrak{a}})\setminus \pi(C_{\mathfrak{a}}(Y))\Bigr)=\frac{w_{\mathfrak{a}}}{Y},
-\qquad
-\mathrm{length}\bigl(\partial \pi(C_{\mathfrak{a}}(Y))\bigr)=\frac{w_{\mathfrak{a}}}{Y}.
-\end{equation}
-Summing over cusps gives
-\begin{equation}
-\label{eq:global-vol-length}
-\mathrm{vol}(M\setminus M(Y))=\frac{W_{\Gamma}}{Y},\qquad
-\mathrm{length}(\partial M(Y))=\frac{W_{\Gamma}}{Y}.
-\end{equation}
-These formulas are the quantitative backbone for all parabolic error terms later: cusp tails and cusp boundaries
-carry the same linear weight \(w_{\mathfrak{a}}/Y\).
-
-\medskip
-\noindent\textbf{Injectivity radius in cusp regions.}
-In cusp coordinates, the shortest nontrivial displacement is \(x\mapsto x+w_{\mathfrak{a}}\), whose hyperbolic length at height \(y\) equals \(w_{\mathfrak{a}}/y\).
-Consequently, for \(z=\sigma_{\mathfrak{a}}(x+iy)\) with \(y\ge Y\),
-\[
-\inj(z)\asymp \min\{1,w_{\mathfrak{a}}/y\},
-\]
-and in particular:
-
-\begin{lemma}[Uniform lower bound in cusps]\label{lem:inj-cusp-diamond}
-There exists \(c=c(\mathscr{C}_{\Gamma})>0\) such that for all \(Y\ge 1\) and all \(z\in \pi(C_{\mathfrak{a}}(Y))\),
-\[
-\inj(z)\ge c\cdot \min\{1,Y^{-1}\}.
-\]
-One may take \(c=\tfrac12\,w_{\min}\).
-\end{lemma}
-
-\medskip
-\noindent\textbf{Sharp truncation and smooth truncation (canonical cutoff).}
-Define the sharp truncation \(\Lambda^{Y}:L^{2}(M)\to L^{2}(M)\) by
-\begin{equation}
-\label{eq:sharp-trunc}
-(\Lambda^{Y}f)(z):=\mathbf{1}_{M(Y)}(z)\,f(z).
-\end{equation}
-For analytic and microlocal arguments we also fix a \emph{canonical smooth cutoff profile}:
-choose \(\eta\in C^{\infty}([0,\infty))\) such that
-\[
-0\le \eta\le 1,\qquad \eta(u)=1\ (u\le 1),\qquad \eta(u)=0\ (u\ge 2),
-\]
-and set \(\eta_{Y}(u):=\eta(u/Y)\).
-Define the smoothed truncation \(\Lambda^{Y}_{\mathrm{sm}}\) by
-\begin{equation}
-\label{eq:smooth-trunc}
-(\Lambda^{Y}_{\mathrm{sm}}f)(z):=
+Fix $\eta\in C^{\infty}([0,\infty))$ with $0\le\eta\le 1$, $\eta(u)=1$ for $u\le 1$,
+$\eta(u)=0$ for $u\ge 2$, and set $\eta_Y(u)=\eta(u/Y)$.
+Define the smoothed truncation $\Lambda^{Y}_{\mathrm{sm}}$ by
+\begin{equation}\label{eq:smooth-trunc}
+(\Lambda^{Y}_{\mathrm{sm}}f)(z)=
 \begin{cases}
-\eta_{Y}\bigl(y_{\mathfrak{a}}(z)\bigr)\,f(z), & z\in \pi(C_{\mathfrak{a}}),\\
-f(z), & z\in M\setminus \bigcup_{\mathfrak{a}}\pi(C_{\mathfrak{a}}),
+\eta_Y\!\bigl(y_{\mathfrak a}(z)\bigr)\,f(z), & z\in \pi(C_{\mathfrak a}),\\
+f(z), & z\in M\setminus\bigcup_{\mathfrak a}\pi(C_{\mathfrak a}).
 \end{cases}
 \end{equation}
-where \(y_{\mathfrak{a}}(z)\) is the height \eqref{eq:height-function}.
-Then \(\Lambda^{Y}_{\mathrm{sm}}\) equals the identity on \(M(Y)\), vanishes on the deeper tail \(y_{\mathfrak{a}}\ge 2Y\),
-and differs from \(\Lambda^{Y}\) only on the transition strip \(Y\le y_{\mathfrak{a}}\le 2Y\).
 
-\begin{lemma}[Norm and Sobolev stability of \(\Lambda^{Y}_{\mathrm{sm}}\)]\label{lem:smooth-trunc-sobolev}
-For every \(s\ge 0\), the operator \(\Lambda^{Y}_{\mathrm{sm}}\) is bounded on \(H^{s}(M)\), with
+\begin{lemma}[Sobolev stability]\label{lem:smooth-trunc-sobolev}
+For each $s\ge 0$,
 \[
-\|\Lambda^{Y}_{\mathrm{sm}}\|_{H^{s}\to H^{s}}\le C_{s,\mathscr{C}_{\Gamma},\eta},
+\|\Lambda^{Y}_{\mathrm{sm}}\|_{H^{s}(M)\to H^{s}(M)}\le C_{s,\Gamma,\eta}
+\quad\text{uniformly for }Y\ge 1,
+\qquad
+\|\Lambda^{Y}_{\mathrm{sm}}\|_{L^{2}\to L^{2}}\le 1.
 \]
-uniformly in \(Y\ge 1\).  Moreover \(\|\Lambda^{Y}_{\mathrm{sm}}\|_{L^{2}\to L^{2}}\le 1\).
 \end{lemma}
 
-\noindent
-\emph{Dependencies:} \(C_{s,\mathscr{C}_{\Gamma},\eta}\) depends only on \(\mathscr{C}_{\Gamma}\), \(s\), and finitely many seminorms of \(\eta\).
-
-\medskip
-\noindent\textbf{Tail calculus (boundary extraction with quantitative remainder).}
-The cusp tail integrals that appear in Eisenstein inner products and in parabolic orbital terms are governed by the following
-boundary extraction principle.
-
-\begin{lemma}[Tail extraction lemma]\label{lem:tail-extraction}
-Let \(F\in C^{2}([Y,\infty))\) satisfy the scale-invariant bounds
-\(
-\sup_{y\ge Y} \bigl(|F(y)| + y|F'(y)| + y^{2}|F''(y)|\bigr)\le A
-\)
-for some \(A\ge 1\). Then
+\begin{remark}[Tail extraction principle]\label{rem:tail-extraction}
+If $F\in C^{2}([Y,\infty))$ satisfies
+$\sup_{y\ge Y}\bigl(|F(y)|+y|F'(y)|+y^{2}|F''(y)|\bigr)\le A$,
+then
 \[
-\int_{Y}^{\infty}F(y)\,\frac{dy}{y^{2}}
+\int_{Y}^{\infty} F(y)\,\frac{dy}{y^{2}}
 =
 \frac{F(Y)}{Y}
 +
 O\!\left(\frac{A}{Y^{2}}\right),
 \qquad (Y\ge 1).
 \]
-\end{lemma}
+\end{remark}
 
-\noindent
-\emph{Proof.} Integrate by parts:
-\(
-\int_{Y}^{\infty}F(y)\,y^{-2}dy
-=
-\bigl[-F(y)/y\bigr]_{Y}^{\infty}+\int_{Y}^{\infty}F'(y)\,y^{-1}dy
-\),
-and integrate by parts once more on the remaining integral; the stated scale bounds yield the \(O(A/Y^{2})\) remainder. \qed
-
-\medskip
-\noindent
-A consequence used repeatedly is that cusp tail integrals can be replaced by boundary evaluations at height \(Y\), with an
-error uniformly \(O_{\mathscr{C}_{\Gamma}}(Y^{-2})\) provided the relevant model functions satisfy the natural scale bounds.
-
-\medskip
-\noindent\textbf{Eisenstein series: normalization and constant term.}
-For each cusp \(\mathfrak{a}\) define the Eisenstein series for \(\Re(s)>1\) by
-\begin{equation}
-\label{eq:eisenstein-def}
-E_{\mathfrak{a}}(z,s):=
-\sum_{\gamma\in \Gamma_{\mathfrak{a}}\backslash \Gamma}
-\Im\!\bigl(\sigma_{\mathfrak{a}}^{-1}\gamma z\bigr)^{s},
+% ---------------------------------------------------------------------
+% Eisenstein series and scattering matrix
+% ---------------------------------------------------------------------
+For $\Re(s)>1$ define the Eisenstein series
+\begin{equation}\label{eq:eisenstein-def}
+E_{\mathfrak a}(z,s):=
+\sum_{\gamma\in \Gamma_{\mathfrak a}\backslash \Gamma}
+\Im\!\bigl(\sigma_{\mathfrak a}^{-1}\gamma z\bigr)^{s}.
 \end{equation}
-which extends meromorphically to \(s\in\mathbb{C}\) and satisfies the functional equation \(s\mapsto 1-s\).
-At a cusp \(\mathfrak{b}\), the Fourier expansion in \(\mathfrak{b}\)-coordinates is
-\begin{equation}
-\label{eq:eis-fourier}
-E_{\mathfrak{a}}(\sigma_{\mathfrak{b}}(x+iy),s)
-=
-\delta_{\mathfrak{a}\mathfrak{b}}\,y^{s}
-+
-\varphi_{\mathfrak{a}\mathfrak{b}}(s)\,y^{1-s}
-+
-\sum_{n\neq 0}\rho_{\mathfrak{a}\mathfrak{b}}(n,s)\,
-\sqrt{y}\,K_{s-\frac12}(2\pi|n|y)\,e^{2\pi i n x},
-\end{equation}
-where \(\Phi(s)=(\varphi_{\mathfrak{a}\mathfrak{b}}(s))_{\mathfrak{a},\mathfrak{b}}\) is the scattering matrix.
-With this normalization one has
-\[
-\Phi(s)\Phi(1-s)=I,\qquad
-\Phi\!\left(\tfrac12+ir\right)\ \text{unitary for }r\in\mathbb{R},
-\qquad
-\det\Phi(s)\det\Phi(1-s)=1.
-\]
-The continuous spectral measure in the Plancherel decomposition is fixed as \(dr/(4\pi)\).
+It continues meromorphically to $s\in\C$ and satisfies the functional equation $s\mapsto 1-s$.
 
-\medskip
-\noindent\textbf{Maass--Selberg relations (renormalized inner products).}
-The truncated inner products of Eisenstein series extract precisely the logarithmic divergence and identify
-the finite part with the logarithmic derivative of the scattering matrix.
-
-\begin{theorem}[Maass--Selberg relations; canonical form]\label{thm:maass-selberg}
-Let \(s=\tfrac12+ir\) with \(r\in\mathbb{R}\), and let \(Y\ge Y_{0}(\mathscr{C}_{\Gamma})\).
-Then for any cusps \(\mathfrak{a},\mathfrak{b}\) one has
-\begin{equation}
-\label{eq:maass-selberg}
-\Big\langle \Lambda^{Y}E_{\mathfrak{a}}(\cdot,s),\,\Lambda^{Y}E_{\mathfrak{b}}(\cdot,\overline{s})\Big\rangle
+At a cusp $\mathfrak b$ one has the Fourier expansion
+\begin{equation}\label{eq:eis-fourier}
+E_{\mathfrak a}(\sigma_{\mathfrak b}(x+iy),s)
 =
-\delta_{\mathfrak{a}\mathfrak{b}}\,\log Y
+\delta_{\mathfrak a\mathfrak b}\,y^{s}
 +
-\Re\!\left(\frac{\varphi'_{\mathfrak{a}\mathfrak{b}}}{\varphi_{\mathfrak{a}\mathfrak{b}}}(s)\right)
+\varphi_{\mathfrak a\mathfrak b}(s)\,y^{1-s}
 +
-O_{\mathscr{C}_{\Gamma}}\!\left(\frac{1}{Y}\right),
+\sum_{n\neq 0}\rho_{\mathfrak a\mathfrak b}(n,s)\,
+\sqrt{y}\,K_{s-\frac12}(2\pi|n|y)\,e^{2\pi i n x}.
 \end{equation}
-where the implied constant depends only on \(\mathscr{C}_{\Gamma}\).
-Moreover the same relation holds with \(\Lambda^{Y}\) replaced by \(\Lambda^{Y}_{\mathrm{sm}}\), with the same main terms and an
-error \(O_{\mathscr{C}_{\Gamma},\eta}(Y^{-1})\).
+Let $\Phi(s)=(\varphi_{\mathfrak a\mathfrak b}(s))_{\mathfrak a,\mathfrak b}$ be the scattering matrix.
+Then $\Phi(s)\Phi(1-s)=I$ and $\Phi(\tfrac12+ir)$ is unitary for $r\in\R$.
+The continuous Plancherel measure is fixed as $dr/(4\pi)$.
+
+% ---------------------------------------------------------------------
+% Maass--Selberg relations
+% ---------------------------------------------------------------------
+\begin{theorem}[Maass--Selberg relations]\label{thm:maass-selberg}
+Let $s=\tfrac12+ir$ with $r\in\R$ and $Y\ge Y_0(\Gamma)$.
+Then for any cusps $\mathfrak a,\mathfrak b$,
+\begin{equation}\label{eq:maass-selberg}
+\Big\langle \Lambda^{Y}E_{\mathfrak a}(\cdot,s),\,\Lambda^{Y}E_{\mathfrak b}(\cdot,\overline{s})\Big\rangle
+=
+\delta_{\mathfrak a\mathfrak b}\,\log Y
++
+\Re\!\left(\frac{\varphi'_{\mathfrak a\mathfrak b}}{\varphi_{\mathfrak a\mathfrak b}}(s)\right)
++
+O_{\Gamma}\!\left(\frac{1}{Y}\right).
+\end{equation}
+The same holds with $\Lambda^{Y}$ replaced by $\Lambda^{Y}_{\mathrm{sm}}$, with error $O_{\Gamma,\eta}(Y^{-1})$.
 \end{theorem}
 
-\noindent
-\emph{Dependencies:} all constants in \eqref{eq:maass-selberg} depend only on \(\mathscr{C}_{\Gamma}\) (and on \(\eta\) for the smoothed version).
-
-\medskip
-\noindent\textbf{Parabolic spectral term (trace-formula-ready form).}
-For any admissible even spectral test function \(h(r)\) (as specified in the Selberg/Harish--Chandra transform block),
-the parabolic contribution arising from the continuous spectrum takes the canonical form
-\begin{equation}
-\label{eq:para-term}
+% ---------------------------------------------------------------------
+% Parabolic spectral term
+% ---------------------------------------------------------------------
+For any admissible even test function $h(r)$,
+\begin{equation}\label{eq:para-term}
 G_{\mathrm{para}}[h]
 =
-\sum_{\mathfrak{a},\mathfrak{b}}
+\sum_{\mathfrak a,\mathfrak b}
 \int_{-\infty}^{\infty}
 h(r)\,
 \Re\!\left(
-\frac{\varphi'_{\mathfrak{a}\mathfrak{b}}}{\varphi_{\mathfrak{a}\mathfrak{b}}}\!\left(\tfrac12+ir\right)
+\frac{\varphi'_{\mathfrak a\mathfrak b}}{\varphi_{\mathfrak a\mathfrak b}}
+\!\left(\tfrac12+ir\right)
 \right)\,
-\frac{dr}{4\pi},
+\frac{dr}{4\pi}.
 \end{equation}
-with the \(\log Y\) divergence isolated by Theorem~\ref{thm:maass-selberg} and absorbed into the standard
-renormalization of the trace identity.  In later chapters \(h=h_{\lambda,\eta}\) will be chosen to localize spectrally;
-at that point the only additional dependencies enter through the explicit bounds on \(h_{\lambda,\eta}\) and through the
-commutator control for \([\Lambda^{Y}_{\mathrm{sm}},P_{\lambda,\eta}]\), \emph{not} through any hidden cusp constants.
 
-\medskip
-\noindent\textbf{Reader map and forward use.}
-The cusp system fixed here is used as follows:
-\begin{itemize}
-\item \emph{Truncated kernels (Chapter~3).} The domains \(M(Y)\), the exact laws \eqref{eq:cusp-vol-length}--\eqref{eq:global-vol-length},
-and the injectivity bound \ref{lem:inj-cusp-diamond} control the geometry near infinity and guarantee uniform estimates of orbital sums.
-\item \emph{Localized projectors (Chapter~4).} The smoothed truncation \(\Lambda^{Y}_{\mathrm{sm}}\) and its Sobolev stability
-(Lemma~\ref{lem:smooth-trunc-sobolev}) are the canonical interface between cusp geometry and spectral localization.
-\item \emph{Microlocal analysis (Chapter~5).} Tail extraction (Lemma~\ref{lem:tail-extraction}) is used to replace cusp integrals by boundary data,
-with quantitative \(Y^{-2}\)-type remainders under scale bounds.
-\item \emph{Geometric expansion (Chapter~6).} The scattering matrix \(\Phi(s)\) and \eqref{eq:para-term} provide the exact analytic encoding of
-parabolic contributions and their dependence on cusp data.
-\end{itemize}
-
-\medskip
-\noindent\textbf{Audit (cusp block certificate).}
-\begin{itemize}
-\item[(C1)] Cusps \(\mathfrak{a}\) fixed as parabolic \(\Gamma\)-orbits; stabilizers \(\Gamma_{\mathfrak{a}}\) encoded by \eqref{eq:scaling-conj}.
-\item[(C2)] Scaling matrices \(\sigma_{\mathfrak{a}}\) and widths \(w_{\mathfrak{a}}\) fixed once and for all; coordinate freedom quantified by
-Lemma~\ref{lem:cusp-coords-unique}.
-\item[(C3)] Height functions \(y_{\mathfrak{a}}(z)\), truncation tails \(C_{\mathfrak{a}}(Y)\), and cores \(M(Y)\) fixed by \eqref{eq:height-function}--\eqref{eq:trunc-def}.
-\item[(C4)] Exact cusp volume and boundary length identities \eqref{eq:cusp-vol-length} and global sums \eqref{eq:global-vol-length} recorded.
-\item[(C5)] Injectivity radius control in cusps pinned down quantitatively (Lemma~\ref{lem:inj-cusp-diamond}).
-\item[(C6)] Sharp and smoothed truncations \(\Lambda^{Y}\), \(\Lambda^{Y}_{\mathrm{sm}}\) defined canonically \eqref{eq:sharp-trunc}--\eqref{eq:smooth-trunc};
-Sobolev stability stated with explicit dependencies (Lemma~\ref{lem:smooth-trunc-sobolev}).
-\item[(C7)] Tail extraction lemma (Lemma~\ref{lem:tail-extraction}) provides boundary reduction with quantitative remainder.
-\item[(C8)] Eisenstein normalization fixed by \eqref{eq:eisenstein-def} and constant term \eqref{eq:eis-fourier}; scattering identities recorded.
-\item[(C9)] Maass--Selberg relations stated in canonical form with explicit error \(O_{\mathscr{C}_{\Gamma}}(Y^{-1})\) (Theorem~\ref{thm:maass-selberg}).
-\item[(C10)] Parabolic spectral contribution expressed in trace-formula-ready form \eqref{eq:para-term} with no hidden dependencies.
-\end{itemize}
-
-\medskip
-\noindent\textbf{Conclusion.}
-This subsection seals the cusp model, truncation calculus, and Eisenstein normalizations as a permanent foundation for the monograph.
-All later parabolic estimates, commutator bounds, and continuous-spectrum trace terms reduce to the explicit identities and dependencies fixed here.
+% ---------------------------------------------------------------------
+% Block audit (reference certificate)
+% ---------------------------------------------------------------------
+\begin{remark}[Audit]\label{rem:cusps-audit}
+Equations \eqref{eq:scaling-conj}--\eqref{eq:para-term} fix the cusp coordinate system,
+truncation operators, Eisenstein normalization, and the Maass--Selberg renormalization.
+All later parabolic and continuous-spectrum contributions are expressed in these conventions.
+\end{remark}
