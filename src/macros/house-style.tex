@@ -3,7 +3,7 @@
 % house-style.tex — Diamond Safe Notation & Helpers
 % ==================================================================
 
-\ProvidesFile{house-style.tex}[2026/02/17 Diamond safe helpers]
+\ProvidesFile{house-style.tex}[2026/02/16 Diamond safe helpers]
 
 \makeatletter
 
@@ -19,17 +19,16 @@
 \providecommand{\OO}{\mathcal{O}}
 \providecommand{\oo}{o}
 
+% ----- Canonical error symbols (SAFE) -----
+% Used like: \Err_{\mathrm{quant}}(...)
+\providecommand{\Err}{\mathrm{Err}}
+
 % ----- Number sets -----
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\Hh}{\mathbb{H}}
-
-% ----- Error / remainder markers (must be defined: used in normalization) -----
-\providecommand{\Err}{\mathsf{Err}}
-\providecommand{\Rem}{\mathsf{Rem}}
-\providecommand{\Rema}{\mathsf{Rema}}
 
 % --------------------------------------------------------------
 % Safe operator declaration helper:
