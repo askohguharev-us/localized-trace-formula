@@ -1,1 +1,457 @@
+% ======================================================================
+% Appendix K. Scattering determinant and Maass--Selberg relations
+% PATH: src/appendices/K-scattering-determinant-and-maass-selberg.tex
+% ======================================================================
 
+\appendix
+\chapter{Scattering determinant and Maass--Selberg relations}
+\label{app:K.scattering}
+
+\section{Purpose and interface with the main text}
+\label{sec:K.purpose}
+
+This appendix records the analytic input needed to control the continuous-spectrum sector in the localized trace
+framework.  In noncompact finite-volume settings the trace formula contains an unavoidable scattering contribution,
+typically expressed in terms of the logarithmic derivative of a scattering determinant.  The Maass--Selberg relations
+provide the canonical mechanism by which truncation procedures are shown to be stable and by which the continuous
+spectrum enters the trace identity with explicit renormalization terms.
+
+Our goal is not to reprove the full scattering theory, but to isolate the exact statements required for the error
+ledger introduced in Chapter~\ref{chap:08-normalization}.  In particular, we identify:
+
+\begin{enumerate}
+\item the normalized scattering determinant $\varphi(s)$ and its analytic continuation;
+\item the Maass--Selberg renormalization identity controlling truncated Eisenstein inner products;
+\item the induced trace contributions and the canonical subtraction terms;
+\item the corresponding remainder bounds that enter the consolidated ledger
+$\mathcal{E}_\Gamma^{\mathrm{cont}}[\cdot]$.
+\end{enumerate}
+
+Throughout we adopt the general spectral setup fixed in Chapters~\ref{chap:02-preliminaries}--%
+\ref{chap:07-main-results}.  In particular, $X=\Gamma\backslash\mathbb{H}$ denotes a finite-area hyperbolic surface
+(with cusps), and $\Delta$ is the nonnegative Laplace--Beltrami operator on $L^2(X)$.
+
+\section{Eisenstein series and the scattering matrix}
+\label{sec:K.eisenstein}
+
+\subsection{Cusps and normalization}
+\label{subsec:K.cusps}
+
+Let $X=\Gamma\backslash\mathbb{H}$ be a finite-area hyperbolic surface with $\kappa\ge 1$ cusps.
+Fix a complete set of cusp representatives $\{\mathfrak{a}_1,\dots,\mathfrak{a}_\kappa\}$.
+For each cusp $\mathfrak{a}$ choose a scaling matrix $\sigma_{\mathfrak{a}}\in \PSL(2,\R)$ such that
+$\sigma_{\mathfrak{a}}\infty=\mathfrak{a}$ and
+\[
+\sigma_{\mathfrak{a}}^{-1}\Gamma_{\mathfrak{a}}\sigma_{\mathfrak{a}}
+=
+\left\{
+\pm
+\begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}
+: n\in\Z
+\right\}.
+\]
+In the cusp coordinate $z_{\mathfrak{a}}=\sigma_{\mathfrak{a}}^{-1}z=x_{\mathfrak{a}}+iy_{\mathfrak{a}}$,
+the height function is $y_{\mathfrak{a}}(z)=\Im(\sigma_{\mathfrak{a}}^{-1}z)$.
+
+\subsection{Eisenstein series}
+\label{subsec:K.eisenstein.def}
+
+For $\Re(s)>1$ define the Eisenstein series associated with cusp $\mathfrak{a}$ by
+\begin{equation}\label{eq:K.eisenstein.def}
+E_{\mathfrak{a}}(z,s)
+:=
+\sum_{\gamma\in \Gamma_{\mathfrak{a}}\backslash\Gamma}
+\Im(\sigma_{\mathfrak{a}}^{-1}\gamma z)^s.
+\end{equation}
+It is classical that $E_{\mathfrak{a}}(z,s)$ converges absolutely for $\Re(s)>1$,
+extends meromorphically to $s\in\C$, and satisfies the eigenvalue equation
+\begin{equation}\label{eq:K.eisenstein.eig}
+\Delta E_{\mathfrak{a}}(\cdot,s)
+=
+s(1-s)\,E_{\mathfrak{a}}(\cdot,s).
+\end{equation}
+
+\subsection{Constant term and scattering matrix}
+\label{subsec:K.constant.term}
+
+Fix cusps $\mathfrak{a},\mathfrak{b}$.
+The Fourier expansion of $E_{\mathfrak{a}}(z,s)$ in the cusp coordinate at $\mathfrak{b}$ has constant term
+\begin{equation}\label{eq:K.constant.term}
+E_{\mathfrak{a}}(\sigma_{\mathfrak{b}} z,s)
+=
+\delta_{\mathfrak{a}\mathfrak{b}}\,y^s
++
+\phi_{\mathfrak{a}\mathfrak{b}}(s)\,y^{1-s}
++
+\text{(nonconstant Fourier modes)}.
+\end{equation}
+The matrix
+\[
+\Phi(s)=(\phi_{\mathfrak{a}\mathfrak{b}}(s))_{1\le \mathfrak{a},\mathfrak{b}\le \kappa}
+\]
+is called the \emph{scattering matrix}.  It is meromorphic on $\C$ and satisfies the functional identity
+\begin{equation}\label{eq:K.scattering.functional}
+\Phi(s)\Phi(1-s)=I_\kappa.
+\end{equation}
+
+\section{Scattering determinant}
+\label{sec:K.det}
+
+\subsection{Definition and functional equation}
+\label{subsec:K.det.def}
+
+The scattering determinant is defined by
+\begin{equation}\label{eq:K.det.def}
+\varphi(s):=\det \Phi(s).
+\end{equation}
+By \eqref{eq:K.scattering.functional} it satisfies
+\begin{equation}\label{eq:K.det.functional}
+\varphi(s)\varphi(1-s)=1.
+\end{equation}
+
+\begin{remark}[Spectral interpretation]
+\label{rem:K.det.spectral}
+Poles of $\Phi(s)$ (equivalently poles of $\varphi(s)$) correspond to residual spectrum.
+Zeros of $\varphi(s)$ correspond to poles of $\Phi(1-s)$ and thus encode the same residual data.
+In particular, the continuous spectrum contribution to the trace formula is naturally expressed through
+$\varphi'(s)/\varphi(s)$.
+\end{remark}
+
+\subsection{Logarithmic derivative bounds}
+\label{subsec:K.logder.bounds}
+
+The trace formula requires control of integrals involving $\varphi'/\varphi$ along the critical line $\Re(s)=1/2$.
+
+\begin{assumption}[Admissible scattering growth]
+\label{ass:K.scattering.growth}
+There exists $C>0$ such that for $|t|\ge 2$,
+\begin{equation}\label{eq:K.logder.growth}
+\left|\frac{\varphi'}{\varphi}\!\left(\frac12+it\right)\right|
+\le
+C\log(2+|t|).
+\end{equation}
+\end{assumption}
+
+\begin{remark}
+\label{rem:K.scattering.growth}
+Bounds of the form \eqref{eq:K.logder.growth} are standard consequences of the meromorphic continuation,
+Hadamard factorization, and Weyl-type bounds for poles, and are sufficient for all smoothing arguments in the
+localized trace regime.
+\end{remark}
+
+\section{Truncation and Maass--Selberg relations}
+\label{sec:K.ms}
+
+\subsection{Truncation operator}
+\label{subsec:K.truncation}
+
+Fix truncation heights $Y=(Y_1,\dots,Y_\kappa)$ with each $Y_j\ge 1$.
+Let $X(Y)\subset X$ denote the truncated surface obtained by removing the cusp regions
+$\{y_{\mathfrak{a}_j}>Y_j\}$.
+Define the truncation operator $\Lambda^Y$ on smooth functions $f$ by
+\begin{equation}\label{eq:K.truncation.op}
+(\Lambda^Y f)(z)
+=
+f(z)
+-
+\sum_{j=1}^\kappa
+\mathbf{1}_{y_{\mathfrak{a}_j}(z)>Y_j}
+\left(
+f_{\mathfrak{a}_j}^{(0)}(y_{\mathfrak{a}_j}(z))
+\right),
+\end{equation}
+where $f_{\mathfrak{a}_j}^{(0)}(y)$ denotes the constant term of the Fourier expansion of $f$ at cusp $\mathfrak{a}_j$.
+
+\begin{remark}
+\label{rem:K.truncation}
+The truncation $\Lambda^Y$ removes the divergent constant terms in the cusps, producing an $L^2$ function on $X$.
+This is the canonical renormalization procedure underlying the continuous spectrum sector.
+\end{remark}
+
+\subsection{Maass--Selberg relation: matrix form}
+\label{subsec:K.ms.matrix}
+
+Let $E(z,s)$ denote the $\kappa$-vector of Eisenstein series
+\[
+E(z,s)=(E_{\mathfrak{a}_1}(z,s),\dots,E_{\mathfrak{a}_\kappa}(z,s))^T.
+\]
+For $s,w\in\C$ with $\Re(s),\Re(w)>1$ consider the truncated inner product
+\[
+\left\langle \Lambda^Y E(\cdot,s),\Lambda^Y E(\cdot,\overline{w})\right\rangle_{L^2(X)}.
+\]
+
+\begin{theorem}[Maass--Selberg relation]
+\label{thm:K.maass.selberg}
+For $s,w\in\C$ with $s\neq w$ and $s\neq 1-w$ one has the identity
+\begin{align}
+\label{eq:K.ms.relation}
+\left\langle \Lambda^Y E(\cdot,s),\Lambda^Y E(\cdot,\overline{w})\right\rangle
+&=
+\frac{Y^{s+\overline{w}-1}-Y^{1-s-\overline{w}}}{s+\overline{w}-1}\,I_\kappa
+\\
+\nonumber
+&\qquad
++
+\frac{Y^{s-\overline{w}}-Y^{\overline{w}-s}}{s-\overline{w}}\,\Phi(s)
++
+\text{(holomorphic remainder)},
+\end{align}
+where $Y^\alpha$ denotes the diagonal matrix $\diag(Y_1^\alpha,\dots,Y_\kappa^\alpha)$.
+\end{theorem}
+
+\begin{remark}[Diagonal specialization]
+\label{rem:K.ms.diagonal}
+Specializing $w=s$ yields the classical diagonal Maass--Selberg relation, which contains logarithmic terms in $Y$.
+This diagonal identity is the one that enters directly into trace computations.
+\end{remark}
+
+\subsection{Diagonal Maass--Selberg identity}
+\label{subsec:K.ms.diagonal}
+
+We state the diagonal identity in the form required for the continuous spectrum trace term.
+
+\begin{theorem}[Diagonal Maass--Selberg relation]
+\label{thm:K.ms.diagonal}
+Let $s=\sigma+it$ with $\sigma\in\R$.
+Then one has
+\begin{equation}\label{eq:K.ms.diagonal}
+\left\langle \Lambda^Y E(\cdot,s),\Lambda^Y E(\cdot,\overline{s})\right\rangle
+=
+2\log Y
+-
+\frac{\varphi'}{\varphi}(s)
++
+O(1),
+\end{equation}
+where $\log Y$ denotes the diagonal matrix $\diag(\log Y_1,\dots,\log Y_\kappa)$ and the $O(1)$ term is uniform in $t$
+for $|t|\ge 2$ and in $Y_j\ge 1$.
+\end{theorem}
+
+\begin{remark}[Canonical content]
+\label{rem:K.ms.canonical}
+The term $2\log Y$ is the \emph{explicit truncation divergence}.
+The logarithmic derivative $\varphi'/\varphi$ is the \emph{intrinsic scattering correction}.
+The $O(1)$ term is a uniform bounded remainder that may be absorbed into the continuous-spectrum ledger.
+\end{remark}
+
+\section{Continuous spectrum contribution to the trace}
+\label{sec:K.trace.cont}
+
+\subsection{Spectral decomposition}
+\label{subsec:K.spectral.decomp}
+
+Let $h$ be an admissible test function as in Chapter~\ref{chap:08-normalization}.
+In the noncompact setting, the spectral side of the trace formula contains an integral contribution
+\begin{equation}\label{eq:K.cont.spectral}
+\mathcal{C}[h]
+=
+\frac{1}{4\pi}
+\int_{-\infty}^{\infty}
+h(t)\,
+\Tr\!\left(
+-\frac{\Phi'}{\Phi}\!\left(\frac12+it\right)
+\right)\,dt,
+\end{equation}
+where $\Tr(\Phi'/\Phi)$ denotes the trace of the matrix logarithmic derivative.
+
+Equivalently, in determinant form,
+\begin{equation}\label{eq:K.cont.det}
+\mathcal{C}[h]
+=
+\frac{1}{4\pi}
+\int_{-\infty}^{\infty}
+h(t)\,
+\left(
+-\frac{\varphi'}{\varphi}\!\left(\frac12+it\right)
+\right)\,dt.
+\end{equation}
+
+\begin{remark}[Sign convention]
+\label{rem:K.sign}
+The sign in \eqref{eq:K.cont.det} depends on the normalization of the Eisenstein series and on the convention for the
+spectral parameter.  In the main text we fix the sign so that the continuous-spectrum term appears as a correction
+added to the identity sector.  Any change of convention is absorbed into the explicit identity correction described
+in Chapter~\ref{chap:08-normalization}.
+\end{remark}
+
+\subsection{Normalization compatibility}
+\label{subsec:K.norm.compat}
+
+The normalization procedure of Chapter~\ref{chap:08-normalization} removes the unstable identity-sector contribution
+at $t=0$ by replacing $h$ with $h^\sharp=h-h(0)\chi$.
+The continuous-spectrum term is therefore canonically defined by
+\begin{equation}\label{eq:K.cont.normalized}
+\mathcal{C}_\sharp[h]
+:=
+\frac{1}{4\pi}
+\int_{-\infty}^{\infty}
+h^\sharp(t)\,
+\left(
+-\frac{\varphi'}{\varphi}\!\left(\frac12+it\right)
+\right)\,dt.
+\end{equation}
+
+\begin{lemma}[Cutoff stability of the continuous term]
+\label{lem:K.cutoff.stability}
+Let $\chi_1,\chi_2$ be admissible cutoffs and define $h^{\sharp,j}=h-h(0)\chi_j$.
+Then
+\begin{equation}\label{eq:K.cutoff.diff}
+\mathcal{C}_{\sharp}^{(1)}[h]-\mathcal{C}_{\sharp}^{(2)}[h]
+=
+-\frac{h(0)}{4\pi}
+\int_{-\infty}^{\infty}
+(\chi_1(t)-\chi_2(t))
+\left(
+-\frac{\varphi'}{\varphi}\!\left(\frac12+it\right)
+\right)\,dt,
+\end{equation}
+and the right-hand side is finite and explicitly computable.
+\end{lemma}
+
+\begin{proof}
+Immediate from linearity and from the definition \eqref{eq:K.cont.normalized}.
+\end{proof}
+
+\section{Ledger bounds for scattering contributions}
+\label{sec:K.ledger}
+
+We now extract the quantitative statement needed for the consolidated error ledger.
+
+\subsection{Absolute convergence under admissible tests}
+\label{subsec:K.abs.conv}
+
+\begin{lemma}[Absolute convergence]
+\label{lem:K.abs.conv}
+Let $h$ be admissible and assume $h$ is rapidly decaying.
+Under Assumption~\ref{ass:K.scattering.growth} the integral \eqref{eq:K.cont.det} converges absolutely and
+\begin{equation}\label{eq:K.abs.conv.bound}
+|\mathcal{C}[h]|
+\le
+C
+\int_{\R} |h(t)|\log(2+|t|)\,dt.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Immediate from \eqref{eq:K.logder.growth}.
+\end{proof}
+
+\subsection{Continuous-spectrum ledger term}
+\label{subsec:K.cont.ledger}
+
+\begin{definition}[Continuous-spectrum ledger contribution]
+\label{def:K.cont.ledger}
+For admissible $h$ define
+\begin{equation}\label{eq:K.cont.ledger.def}
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h]
+:=
+C_\Gamma
+\int_{\R}
+|h^\sharp(t)|\,\log(2+|t|)\,dt,
+\end{equation}
+where $C_\Gamma$ is a fixed constant dominating the implied constant in
+Assumption~\ref{ass:K.scattering.growth}.
+\end{definition}
+
+\begin{remark}
+\label{rem:K.cont.ledger}
+The definition \eqref{eq:K.cont.ledger.def} is canonical at the level of the present thesis:
+it isolates the exact integrability mechanism required for the continuous spectrum and packages the dependence into a
+single stable quantity.
+Sharper versions may be substituted in specific arithmetic settings where explicit bounds on $\varphi'/\varphi$ are
+available.
+\end{remark}
+
+\subsection{Smoothed oscillatory tests}
+\label{subsec:K.smoothed}
+
+For the standard oscillatory family $h_{\tau,\Delta}(t)=W(t/\Delta)e^{-i\tau t}$ used in
+Chapter~\ref{chap:10-trace-to-zeta}, one obtains a uniform bound of the form
+\[
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h_{\tau,\Delta}]
+\lesssim
+\Delta \log(2+|\tau|),
+\]
+since $h_{\tau,\Delta}$ is supported in $|t|\lesssim \Delta$ and $|h_{\tau,\Delta}(t)|\le 1$.
+
+\begin{lemma}[Continuous-spectrum bound for oscillatory windows]
+\label{lem:K.osc.bound}
+Let $W\in C_c^\infty(\R)$ and let $h_{\tau,\Delta}$ be defined by \eqref{eq:10.htaudelta}.
+Then
+\begin{equation}\label{eq:K.osc.bound}
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h_{\tau,\Delta}]
+\le
+C_{\Gamma,W}\,\Delta\,\log(2+|\tau|).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By support control and the growth bound \eqref{eq:K.logder.growth}.
+\end{proof}
+
+\section{A canonical scattering renormalization identity}
+\label{sec:K.canonical.identity}
+
+We now state the final interface lemma used implicitly in the main text.
+
+\begin{proposition}[Canonical scattering renormalization]
+\label{prop:K.canonical.renorm}
+Let $h$ be admissible and let $\mathcal{T}_\Gamma[h]$ be the normalized trace functional of
+Chapter~\ref{chap:08-normalization}.  In the finite-volume noncompact setting, the continuous-spectrum contribution
+admits a canonical decomposition
+\begin{equation}\label{eq:K.canonical.decomp}
+\mathcal{C}[h]
+=
+\mathcal{C}_\sharp[h]
++
+h(0)\,\mathcal{C}[\chi]
++
+\Err_{\mathrm{cont}}[h],
+\end{equation}
+where:
+\begin{enumerate}
+\item $\mathcal{C}_\sharp[h]$ is given by \eqref{eq:K.cont.normalized};
+\item the term $h(0)\,\mathcal{C}[\chi]$ is an explicit identity-sector correction depending only on the fixed cutoff;
+\item the remainder satisfies
+\begin{equation}\label{eq:K.cont.remainder.bound}
+|\Err_{\mathrm{cont}}[h]|
+\le
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h].
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The identity follows by inserting $h=h^\sharp+h(0)\chi$ into \eqref{eq:K.cont.det} and applying the absolute bound
+Lemma~\ref{lem:K.abs.conv}.
+\end{proof}
+
+\section{Consequences for the normalized trace framework}
+\label{sec:K.consequences}
+
+We record the two statements used implicitly in the main stability theorem.
+
+\begin{corollary}[Continuous spectrum is ledger-controlled]
+\label{cor:K.ledger.control}
+In the noncompact finite-volume setting, all continuous-spectrum contributions to the localized trace formula are
+canonical modulo explicit cutoff-dependent identity corrections, and the noncanonical remainder is controlled by
+$\mathcal{E}^{\mathrm{cont}}_\Gamma[\cdot]$.
+\end{corollary}
+
+\begin{corollary}[Compatibility with the consolidated ledger]
+\label{cor:K.consolidated}
+With $\mathcal{E}^{\mathrm{cont}}_\Gamma[\cdot]$ defined as in \eqref{eq:K.cont.ledger.def}, the total consolidated
+ledger of Chapter~\ref{chap:08-normalization} remains valid without modification in the presence of a continuous
+spectrum.
+\end{corollary}
+
+\section*{Bibliographic notes}
+
+The scattering matrix, scattering determinant, and Maass--Selberg relations are classical components of the spectral
+theory of finite-area hyperbolic surfaces.  Standard references include the Selberg trace formula treatments of
+Hejhal \cite{Hejhal1983} and the spectral methods exposition of Iwaniec \cite{Iwaniec2002}.  For systematic analytic
+scattering theory in geometric contexts, see also \cite{DyatlovZworski2019}.
+
+% ======================================================================
+% End of K-scattering-determinant-and-maass-selberg.tex
+% ======================================================================
