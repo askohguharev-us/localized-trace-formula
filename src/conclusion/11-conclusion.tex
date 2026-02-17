@@ -1,268 +1,270 @@
-% =========================================================
-% 09-conclusion.tex — Chapter 9: Conclusion and Perspectives
-% Complete Unabridged Text — Parts 1-4
-% =========================================================
+% ======================================================================
+% Chapter 11. Conclusion and outlook
+% PATH: src/conclusion/11-conclusion.tex
+% ======================================================================
 
-\section*{Chapter 9: Conclusion and Perspectives}
-\addcontentsline{toc}{section}{Conclusion and Perspectives}
+\chapter{Conclusion and outlook}
+\label{chap:11-conclusion}
 
-\subsection{9.1 Summary of Achievements}
+\section{Summary of the main contributions}
+\label{sec:11.summary}
 
-The present monograph has developed a fully explicit and quantitative localized trace formula for finite-area hyperbolic surfaces with cusps. Our construction introduced the microlocal spectral projector
+The aim of this work has been to construct a localized trace framework in which the trace formula is treated not as a
+single global identity but as a \emph{stable object} admitting canonicalization under the admissible modifications that
+inevitably arise in microlocal analysis: changes of cutoffs, quantization schemes, and partitions of unity.
+
+The main achievement is the introduction of a normalization layer that converts the raw localized trace into a
+canonical functional together with a quantitative error ledger.  This yields a robust trace formalism in which
+subsequent spectral consequences become invariant statements rather than artifacts of auxiliary choices.
+
+More precisely, the central outputs of the thesis may be summarized as follows.
+
+\begin{enumerate}
+\item A systematic construction of localized trace functionals associated with a fixed geometric input and a fixed
+operator-theoretic setup, incorporating microlocal projectors and admissible test families.
+
+\item A normalization procedure removing the zero-mode ambiguity (identity-sector instability) by subtraction of a
+compactly supported reference profile.
+
+\item A stability theorem asserting that the normalized trace is canonical modulo an explicitly computable identity
+correction and a controlled error term.
+
+\item A consolidated error ledger that packages all secondary sources of non-canonicity
+(quantization remainders, refinement errors, truncation tails, and continuous-spectrum contributions)
+into a single quantified object.
+
+\item A trace-to-zeta bridge: a stable analytic interface connecting the normalized trace formalism to determinant-level
+quantities, explicit formulae, and positivity criteria.
+\end{enumerate}
+
+Taken together, these results provide a structural framework in which localized trace identities can be used as
+reliable analytic tools in spectral geometry and automorphic analysis.
+
+\section{Normalization as canonicalization of trace objects}
+\label{sec:11.normalization}
+
+The normalization mechanism introduced in Chapter~\ref{chap:08-normalization} is conceptually simple but technically
+decisive.  The raw trace functional $\mathcal{L}_\Gamma[h]$ contains a built-in instability at the identity sector:
+changing the cutoff profile modifies the contribution of the ``zero mode'' $h(0)$, and this modification propagates
+into later statements unless explicitly removed.
+
+To eliminate this ambiguity, one fixes a reference profile $\chi\in C_c^\infty(\R)$ with $\chi\equiv 1$ near $0$ and
+introduces the normalization map
 \[
-  P_{\lambda,\eta},
+\mathsf{N}_\chi(h)=h-h(0)\chi.
 \]
-adapted to spectral windows of size $\eta \geq \lambda^{-\theta}$, and established a trace identity equating its spectral side with a geometric expansion. The formula decomposes naturally into identity, geodesic, and parabolic contributions, each handled with rigorous asymptotic analysis and explicit error bounds.
+The normalized trace is then defined by
+\[
+\mathcal{T}_\Gamma[h;\chi]
+:=
+\mathcal{L}_\Gamma[\mathsf{N}_\chi(h)].
+\]
+
+The fundamental point is that $\mathcal{T}_\Gamma[h;\chi]$ depends on $\chi$ only through an explicitly computable
+identity-term correction.  In particular, for any two admissible cutoffs $\chi_1,\chi_2$ one has the exact identity
+\[
+\mathcal{T}_\Gamma[h;\chi_1]-\mathcal{T}_\Gamma[h;\chi_2]
+=
+-h(0)\,\mathcal{L}_\Gamma[\chi_1-\chi_2],
+\]
+and the right-hand side can be evaluated explicitly once the identity contribution is known.
+
+This establishes the principle that the normalized trace functional is canonical modulo a deterministic correction and
+thus can be treated as an invariant object rather than a formal expression.
+
+\section{Stability under quantization and microlocal refinement}
+\label{sec:11.quantization}
+
+A second structural obstruction to canonicity arises from the microlocal implementation itself.
+Different quantization schemes (e.g.\ Weyl versus Kohn--Nirenberg) and different microlocal partitions lead to
+formally different kernel representations and hence to formally different trace expansions.
+However, such differences are expected to affect only lower-order terms and must therefore be absorbed into the
+remainder calculus.
+
+The framework developed in Chapter~\ref{chap:08-normalization} isolates this issue by introducing error ledgers
+\[
+\mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi],
+\qquad
+\mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi],
+\]
+measuring the discrepancy induced by changing quantization or refining the microlocal cover.
+The key output is that these discrepancies are \emph{quantified} and are of lower order in the relevant asymptotic
+regime.
+
+This leads to the normalization stability theorem:
+for any two admissible choices $(\chi,\Op,\Pi)$ and $(\chi',\Op',\Pi')$ one has
+\[
+\mathcal{T}_\Gamma[h;\chi]-\mathcal{T}'_\Gamma[h;\chi']
+=
+\Delta_{\mathrm{id}}(h;\chi,\chi')
++
+\Err_{\mathrm{norm}}(h),
+\]
+where $\Delta_{\mathrm{id}}$ is explicit and
+\[
+|\Err_{\mathrm{norm}}(h)|
+\le
+\mathcal{E}_\Gamma[h;\chi]+\mathcal{E}'_\Gamma[h;\chi'].
+\]
+
+This result converts the microlocal trace formula from a family of formally distinct expansions into a single
+canonical object equipped with a quantitative stability guarantee.
+
+\section{The consolidated error ledger as a structural invariant}
+\label{sec:11.ledger}
+
+A notable conceptual output of this work is the systematic use of an explicit error ledger.
+Rather than treating remainders as an informal part of the argument, the ledger is constructed as a single
+quantitative object
+\[
+\mathcal{E}_\Gamma[h;\chi]
+=
+\mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{tail}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi].
+\]
+
+The importance of this consolidation is twofold.
 
 \medskip
-
-\noindent\textbf{Central Innovations.}
-\begin{enumerate}
-  \item The introduction of a localized spectral projector with controllable window size, enabling analysis of eigenvalue distribution in short intervals.
-  \item A precise microlocal parametrix for the wave kernel, constructed with full tracking of constants and dependencies.
-  \item A geometric expansion that mirrors Selberg’s classical decomposition but with explicit power-saving error bounds, uniform across cuspidal and geometric parameters.
-  \item A methodological framework in which each chapter concludes with an audit, ensuring verification of goals, invariants, and dependencies.
-\end{enumerate}
+\noindent\textbf{First}, it isolates the noncanonical content of the trace formula into a single controlled term.
+This allows one to formulate later results in an invariant way without repeatedly revisiting the auxiliary
+choices of the microlocal setup.
 
 \medskip
+\noindent\textbf{Second}, it provides a natural interface with applications.
+In semiclassical or large-parameter regimes, the effectiveness of trace methods depends on the scale separation
+between the main term and the remainder.
+The ledger provides the exact object that must be minimized or optimized in order to obtain meaningful spectral
+consequences.
 
-\noindent\textbf{Main Theorems Recap.}
-Two theorems form the structural core of this work:
+In this sense, the ledger should be viewed not merely as a technical tool but as an analytic invariant associated
+with the localization mechanism itself.
 
-\begin{itemize}
-  \item \textbf{Theorem A (Localized Trace Formula).}  
-  For $\lambda \geq 1$ and $\lambda^{-\theta} \leq \eta \leq 1$,  
-  \[
-    \mathrm{Tr}\, P_{\lambda,\eta}
-      = \mathcal{I}_{\lambda,\eta}
-      + \mathcal{G}_{\lambda,\eta}
-      + \mathcal{P}_{\lambda,\eta},
-  \]
-  where $\mathcal{I}$, $\mathcal{G}$, $\mathcal{P}$ denote identity, geodesic, and parabolic contributions. The identity term produces the principal Weyl asymptotic, while geodesic and parabolic terms are bounded by oscillatory and scattering estimates. The remainder admits a power-saving bound
-  \[
-    O_{\Gamma,\beta}(\lambda^{1-\delta}),
-  \]
-  where $\delta>0$ depends explicitly on the spectral gap $\beta$ and cusp geometry.
+\section{From normalized traces to zeta-type objects}
+\label{sec:11.zeta}
 
-  \item \textbf{Theorem B (Quantitative Local Weyl Law).}  
-  For every spectral window $[\lambda-\eta,\lambda+\eta]$ with $\lambda^{-\theta}\leq \eta \leq 1$,  
-  \[
-    N(\lambda,\eta)
-      = \frac{\mathrm{vol}(M)}{2\pi}\,\lambda \eta
-      + O_{\Gamma,\beta}(\lambda^{1-\delta}),
-  \]
-  providing a power-saving refinement over the classical Weyl error term.
-\end{itemize}
+Chapter~\ref{chap:10-trace-to-zeta} records the standard analytic interfaces connecting trace formulae to zeta-type
+functions, in a form compatible with the normalized trace framework.
 
-\medskip
+The key point is that the normalized trace functional $\mathcal{T}_\Gamma$ may be used as a stable encoder of spectral
+information through smoothed oscillatory test families.  A typical family is
+\[
+h_{\tau,\Delta}(t)=W(t/\Delta)e^{-i\tau t},
+\]
+where $W\in C_c^\infty(\R)$ is even.
+The resulting observable
+\[
+\mathfrak{D}(\tau;\Delta):=\mathcal{T}_\Gamma[h_{\tau,\Delta}]
+\]
+is stable under admissible modifications and admits an explicit decomposition into geometric and spectral terms with a
+controlled error.
 
-\noindent\textbf{Explicit Dependencies.}
-Throughout the analysis, constants were tracked without omission:
-\begin{itemize}
-  \item All geometric constants depend polynomially on cusp widths, number of cusps, and the injectivity radius of truncated regions.
-  \item Analytic constants depend only on $\Gamma$ and the spectral gap parameter $\beta$.
-  \item No constant depends implicitly on $\lambda$ or $\eta$; every appearance of $\lambda,\eta$ is explicit in formulas.
-\end{itemize}
-This guarantees full reproducibility and positions the results for direct application in analytic number theory and mathematical physics.
+In determinant-level language, trace identities allow the reconstruction of zeta-regularized determinants, and in
+settings admitting an Euler product one obtains logarithmic derivatives of zeta-type functions from geometric trace
+data.
 
-\medskip
+Finally, the positivity mechanism is encoded by convolution squares:
+if $h^\ast(t)=\overline{h(-t)}$ and $h\star h^\ast$ is defined by convolution, then
+\[
+\widehat{h\star h^\ast}(\xi)=|\widehat{h}(\xi)|^2\ge 0,
+\]
+and thus
+\[
+\mathcal{Q}[h]:=\mathcal{T}_\Gamma[h\star h^\ast]
+\]
+naturally yields a quadratic form whose sign constraints spectral parameter distributions.
+This is the canonical analytic route underlying Li--Weil type positivity criteria.
 
-\noindent\textbf{Audit of Part 1.}
-\begin{itemize}
-  \item[(G9.1)] Main achievements summarized with explicit innovation points. \textbf{Verified.}
-  \item[(G9.2)] Theorems A and B clearly stated with explicit constants and conditions. \textbf{Verified.}
-  \item[(I9.1)] Dependencies of constants declared with no omissions. \textbf{Verified.}
-  \item[(L9.1)] Backward links to Chapters 6–7 (geometric and spectral expansions). \textbf{Verified.}
-  \item[(L9.2)] Forward links to applications and perspectives (Sections 9.2–9.4). \textbf{Verified.}
-\end{itemize}
+The conceptual outcome is that the normalized trace formalism provides a robust bridge from microlocal trace analysis
+to determinant identities and zeta-type analytic constraints, with all noncanonical dependence confined to explicit
+corrections and a controlled remainder.
 
-\newpage
+\section{Interpretation and methodological significance}
+\label{sec:11.methodology}
 
-\subsection{9.2 Applications and Analytical Framework}
+Beyond its technical statements, the present work proposes a methodological viewpoint:
+\emph{trace formulae should be treated as canonical objects, not as formal expansions.}
 
-\noindent\textbf{Applications of the Localized Trace Formula.}
-The methods developed in this monograph have direct applications to several areas of analytic number theory and mathematical physics. Three principal directions illustrate the scope of the localized framework:
+In classical treatments, one often writes a trace formula as an equality between a spectral side and a geometric side,
+with auxiliary choices hidden in the construction.
+The resulting formula is correct, but its use in later arguments may become fragile unless invariance under these
+choices is explicitly tracked.
 
-\begin{enumerate}
-  \item \textbf{Variance of Fourier coefficients.}  
-  The parabolic contribution, governed by scattering determinants, provides new variance bounds for Fourier coefficients of cusp forms. These results sharpen classical estimates and emphasize the role of cusp geometry in spectral fluctuations.
+The normalization layer introduced here provides a systematic remedy.
+It is not merely a cosmetic modification: it is a structural upgrade that transforms the trace formula into a stable
+analytic object with a well-defined error budget.
+This stability is precisely what is required if trace methods are to be used as foundational tools in problems where
+the margin between the main term and the error term is critical.
 
-  \item \textbf{Quantum ergodicity and delocalization.}  
-  The microlocal projector kernel allows the extraction of quantitative estimates on eigenfunction distribution. This framework strengthens quantum ergodicity results by providing explicit power-saving error terms, ensuring uniformity across families of hyperbolic surfaces.
+\section{Limitations and open analytic seams}
+\label{sec:11.open}
 
-  \item \textbf{Quantum chaos and equidistribution.}  
-  The oscillatory structure of geodesic contributions enables new bounds for equidistribution of closed geodesics, connecting the length spectrum to eigenvalue statistics. This interplay strengthens the analytic foundations of quantum chaos.
-\end{enumerate}
+The framework developed in this thesis is designed to be portable across a range of trace-formula settings.
+However, several analytic seams remain that require further work in specific applications.
 
-\medskip
+\subsection{Sharp remainder bounds}
+\label{subsec:11.open.remainder}
 
-\noindent\textbf{Error-Budget Map.}
-A hallmark of this monograph is the transparency of error tracking. Each analytic step was accompanied by explicit bounds, yielding a structured error-budget map:
+The consolidated ledger $\mathcal{E}_\Gamma[h;\chi]$ provides a canonical packaging of errors, but its effectiveness
+depends on sharp estimates.
+In particular, in regimes where one aims to extract fine spectral statistics or to establish positivity inequalities
+with small margins, one requires remainder bounds beyond the level needed for qualitative trace identities.
 
-\begin{itemize}
-  \item \textbf{Spectral leakage:} Errors from smoothing sharp windows are controlled by rapid decay of Fourier transforms, yielding bounds $O(\lambda^{-N})$ for arbitrary $N$.
-  \item \textbf{Cuspidal truncation:} Errors from truncating Eisenstein series are bounded by $O_\Gamma(Y^{-1})$, with $Y$ chosen in balance with $\lambda$ and $\eta$.
-  \item \textbf{Geodesic sums:} Long geodesics are exponentially suppressed, while short geodesics are controlled by the prime geodesic theorem and stationary phase.
-  \item \textbf{Oscillatory integrals:} Stationary phase estimates provide polynomial decay, explicit in both $\lambda$ and $\eta$.
-  \item \textbf{Scattering determinants:} Analytic bounds on $\varphi_\mathfrak{a}(s)$ and its logarithmic derivative ensure polynomial control, uniform in cusp parameters.
-\end{itemize}
+A principal direction for future work is the systematic optimization of the ledger in scale-dependent regimes, with
+special attention to the interaction between cutoff width, microlocal resolution, and semiclassical scaling.
 
-This separation of contributions transforms error analysis into a reproducible protocol: each source of error is visible, isolated, and bounded.
+\subsection{Continuous spectrum and scattering determinants}
+\label{subsec:11.open.cont}
 
-\medskip
+In noncompact settings, the continuous spectrum contributes scattering terms that must be incorporated into the
+normalization procedure.
+While the present framework includes a continuous-spectrum ledger term $\mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi]$,
+the explicit computation and minimization of this term depends on detailed information about the scattering matrix
+and its analytic continuation.
 
-\noindent\textbf{Frontier of Parameters.}
-The localized trace formula establishes a clear frontier in parameter space:
-\begin{itemize}
-  \item For spectral windows of length $\eta = \lambda^{-\theta}$, with $0 < \theta < \theta_0(\Gamma)$, the formula holds with remainder $O(\lambda^{1-\delta})$.
-  \item For mesoscopic windows ($\eta \asymp \lambda^{-\theta}$ with moderate $\theta$), the results bridge microscopic and macroscopic scales.
-  \item For macroscopic windows ($\eta \asymp 1$), the smoothing effect yields sharper remainders, improving beyond the global Weyl law.
-\end{itemize}
-The constants $\delta$ and $\theta_0$ are explicit in terms of the spectral gap parameter $\beta$ and cusp geometry, ensuring full quantitative reproducibility.
+A refined analysis of these terms, in particular their behavior under microlocal refinement and under changes of test
+profiles, is essential for determinant-level applications.
 
-\medskip
+\subsection{Determinant-level completion}
+\label{subsec:11.open.det}
 
-\noindent\textbf{Audit of Part 2.}
-\begin{itemize}
-  \item[(G9.3)] Applications to number theory and quantum chaos presented. \textbf{Verified.}
-  \item[(G9.4)] Error-budget map formulated with explicit structure. \textbf{Verified.}
-  \item[(G9.5)] Parameter frontier diagram clarified and linked to constants. \textbf{Verified.}
-  \item[(I9.2)] Uniformity of bounds across spectral and geometric parameters ensured. \textbf{Verified.}
-  \item[(L9.3)] Forward links to conceptual contributions (Part 3) and perspectives (Part 4). \textbf{Verified.}
-\end{itemize}
+Although Chapter~\ref{chap:10-trace-to-zeta} provides the abstract determinant interface, a full implementation in a
+given geometric setting requires the construction of the appropriate operator family $K(s)$ whose determinant yields
+the zeta function.
+In Selberg-type settings this is classical, but in more general microlocal contexts the operator-theoretic input may
+be subtle.
 
-\newpage
+A natural goal is to develop a systematic dictionary between localized trace functionals and Fredholm determinants in
+settings beyond constant curvature, including variable curvature or dynamical zeta frameworks.
 
-\subsection{9.3 Conceptual Contributions and Position in the Literature}
+\section{Final conclusion}
+\label{sec:11.final}
 
-\noindent\textbf{Conceptual Contributions.}
-Beyond the explicit theorems, this monograph contributes a methodological and philosophical refinement of the trace formula framework:
+The principal outcome of this work is the construction of a normalization framework that upgrades localized trace
+formulae into stable analytic objects.
+The normalized trace functional $\mathcal{T}_\Gamma[h;\chi]$ is canonical modulo an explicit identity correction, and
+its dependence on auxiliary microlocal choices is quantitatively controlled by a consolidated error ledger.
 
-\begin{enumerate}
-  \item \textbf{The Diamond Standard.}  
-  A structural protocol for exposition, consisting of explicit goals, invariants, forward/backward links, and systematic audits. This framework ensures transparency, reproducibility, and cumulative progress in mathematical research.
+This yields a robust trace calculus in which subsequent spectral consequences---local Weyl laws, oscillatory trace
+observables, determinant identities, explicit formulae, and positivity criteria---may be formulated invariantly and
+applied without ambiguity.
 
-  \item \textbf{Error-budget paradigm.}  
-  Instead of hiding constants in implicit $O(1)$ terms, every error was separated, tracked, and bounded individually. This methodology aligns spectral geometry with the verification practices of computational sciences.
+The framework therefore provides a foundation for further investigations in spectral geometry and automorphic analysis,
+particularly in regimes where stability and sharp error control are decisive.
 
-  \item \textbf{Microlocal localization.}  
-  By constructing a projector $P_{\lambda,\eta}$ localized in windows of size $\eta \ge \lambda^{-\theta}$, we extended Selberg’s trace formula into a refined, quantitative instrument, opening the way to microscopic spectral analysis.
+\section*{Bibliographic notes}
 
-  \item \textbf{Bridges for extension.}  
-  Each chapter identified precise bridges (e.g.\ to variable curvature, higher rank, or scattering theory), establishing a roadmap for safe transfer of methods.
-\end{enumerate}
+The normalization philosophy is consistent with the classical microlocal trace framework and the Selberg trace formula
+tradition; see \cite{Hejhal1983,Buser1992,Iwaniec2002}.
+For semiclassical analysis and trace methods, see \cite{Zworski2012,DyatlovZworski2019}.
+For spectral zeta functions and regularized determinants, see \cite{Seeley1967,RaySinger1971}.
+For explicit formulae and zeta-related positivity criteria, see \cite{Titchmarsh1986,Connes1999,Li1997}.
 
-\medskip
-
-\noindent\textbf{Position in the Literature.}
-The results situate themselves within a distinguished continuum:
-
-\begin{itemize}
-  \item \textbf{Selberg (1956).}  
-  Introduced the trace formula as a bridge between spectrum and geometry. Our work refines his framework through localization and error control.
-
-  \item \textbf{Duistermaat–Guillemin (1975), Colin de Verdière (1980).}  
-  Developed the wave trace and microlocal tools for spectral geometry. Our method incorporates stationary phase and semiclassical parametrices within the trace formula context.
-
-  \item \textbf{Iwaniec–Sarnak (1990s).}  
-  Advanced spectral theory of automorphic forms with arithmetic applications. Our quantitative bounds extend their scope by introducing localized windows and explicit dependence on cusp geometry.
-
-  \item \textbf{Modern developments.}  
-  The current results sharpen remainders, ensure uniformity across geometric parameters, and provide a verifiable protocol for future use.
-\end{itemize}
-
-\medskip
-
-\noindent\textbf{Philosophical Perspective.}
-Mathematics evolves through cycles of generalization and precision:
-\begin{itemize}
-  \item Generalization extends scope, introducing new frameworks.
-  \item Precision refines known structures, tracking constants and errors.
-\end{itemize}
-The localized trace formula belongs to the cycle of precision. It demonstrates that classical structures, once considered complete, still hold untapped potential for refinement. Explicit constants and explicit error hierarchies are not luxuries; they are structural necessities for reproducibility.
-
-\medskip
-
-\noindent\textbf{Audit of Part 3.}
-\begin{itemize}
-  \item[(G9.6)] Conceptual contributions beyond technical theorems articulated. \textbf{Verified.}
-  \item[(G9.7)] Position in the literature clarified, with explicit references. \textbf{Verified.}
-  \item[(I9.3)] Philosophical invariants (transparency, reproducibility) established. \textbf{Verified.}
-  \item[(L9.4)] Forward links to perspectives and bridges (Part 4) declared. \textbf{Verified.}
-\end{itemize}
-
-\newpage
-
-\subsection{9.4 Perspectives, Global Audit, and Final Reflections}
-
-\noindent\textbf{Perspectives.}
-Several forward-looking directions arise naturally from the methods and results of this monograph:
-
-\begin{enumerate}
-  \item \textbf{Higher rank and Langlands program.}  
-  Extending the localized trace formula to $GL(n)$ or general reductive groups would connect directly with the Langlands program, potentially refining spectral statistics in higher rank.
-
-  \item \textbf{Variable negative curvature.}  
-  Adapting the methodology to surfaces of variable curvature would test the universality of microlocal projectors, linking spectral geometry with ergodic theory in non-arithmetic settings.
-
-  \item \textbf{Resonance theory.}  
-  The framework suggests natural pseudo-projectors adapted to resonance bands, with applications to scattering poles and wave decay in non-compact geometries.
-
-  \item \textbf{Quantum chaos and equidistribution.}  
-  Our variance bounds open the way to refined quantitative versions of Quantum Unique Ergodicity (QUE) at microscopic scales, including suppression of scarring phenomena.
-
-  \item \textbf{Analytic number theory.}  
-  Localized Kuznetsov formulas provide new leverage for moment problems of $L$-functions, subconvexity on average, and depth aspect families.
-
-  \item \textbf{Computability and verification.}  
-  The modular repository structure and explicit error-budget paradigm set the stage for certified computational pipelines, enabling reproducibility and long-term reliability.
-\end{enumerate}
-
-\medskip
-
-\noindent\textbf{Global Audit of the Monograph.}
-This meta-audit consolidates all chapter audits into a unified verification:
-
-\begin{itemize}
-  \item[\textbf{G1}] Motivation and definition of localization. \\ \textit{Status:} Achieved in Chapter~1.
-  \item[\textbf{G2}] Fixing precise conventions and notations. \\ \textit{Status:} Achieved in Chapter~2.
-  \item[\textbf{G3}] Construction of kernels and projectors. \\ \textit{Status:} Achieved in Chapters~3–4.
-  \item[\textbf{G4}] Development of microlocal analysis. \\ \textit{Status:} Achieved in Chapter~5.
-  \item[\textbf{G5}] Assembly of geometric contributions. \\ \textit{Status:} Achieved in Chapter~6.
-  \item[\textbf{G6}] Main results with power-saving remainders. \\ \textit{Status:} Achieved in Chapter~7.
-  \item[\textbf{G7}] Applications to number theory and quantum chaos. \\ \textit{Status:} Achieved in Chapter~8.
-  \item[\textbf{G8}] Conclusions, standards, and perspectives. \\ \textit{Status:} Achieved in Chapter~9.
-\end{itemize}
-
-\medskip
-
-\noindent\textit{Invariants Maintained.}
-\begin{itemize}
-  \item[\textbf{I1}] Consistent notation across all chapters. \textbf{Verified.}
-  \item[\textbf{I2}] Explicit declaration of constants and dependencies. \textbf{Verified.}
-  \item[\textbf{I3}] Uniform microlocal framework. \textbf{Verified.}
-  \item[\textbf{I4}] Separation of contributions (identity, hyperbolic, parabolic). \textbf{Verified.}
-  \item[\textbf{I5}] Audit practice at the end of each chapter. \textbf{Verified.}
-\end{itemize}
-
-\medskip
-
-\noindent\textit{Forward Links Established.}
-\begin{itemize}
-  \item[\textbf{F1}] Applications to analytic number theory.  
-  \item[\textbf{F2}] Quantum chaos and equidistribution.  
-  \item[\textbf{F3}] Higher rank extensions and Langlands program.  
-  \item[\textbf{F4}] Bridges to computational verification and reproducibility.  
-\end{itemize}
-
-\medskip
-
-\noindent\textbf{Final Reflections.}
-This monograph has traced a path from the classical Selberg formula to a refined, localized, and quantitative framework. The combination of microlocal analysis, explicit error tracking, and systematic audits establishes not only new theorems, but also a reproducible methodology.  
-
-Mathematics flourishes when results are rigorous, constants explicit, and expositions transparent. The localized trace formula, in this sense, is both a technical advance and a methodological statement. It demonstrates that precision and reproducibility are not optional, but structural necessities.  
-
-We close with a conviction: future research in spectral geometry, analytic number theory, and quantum chaos will benefit not only from new theorems, but also from new standards of exposition. The protocol established here --- explicit goals, invariants, error-budget maps, and chapter audits --- offers a replicable model for the responsible communication of mathematics.
-
-\bigskip
-\noindent\textbf{End of Monograph.}
+% ======================================================================
+% End of 11-conclusion.tex
+% ======================================================================
