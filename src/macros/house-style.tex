@@ -1,15 +1,11 @@
 % ==================================================================
 % PATH: src/macros/house-style.tex
-% house-style.tex — Diamond Safe Notation & Helpers (SDL-safe)
+% house-style.tex — Diamond Safe Notation & Helpers
 % ==================================================================
 
 \ProvidesFile{house-style.tex}[2026/02/17 Diamond safe helpers]
 
 \makeatletter
-
-% --------------------------------------------------------------
-% Safe helpers: define only if undefined.
-% --------------------------------------------------------------
 
 % ----- Delimiters / inner products -----
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
@@ -29,6 +25,11 @@
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\Hh}{\mathbb{H}}
+
+% ----- Error / remainder markers (must be defined: used in normalization) -----
+\providecommand{\Err}{\mathsf{Err}}
+\providecommand{\Rem}{\mathsf{Rem}}
+\providecommand{\Rema}{\mathsf{Rema}}
 
 % --------------------------------------------------------------
 % Safe operator declaration helper:
@@ -51,31 +52,12 @@
 \providecommand{\Opl}{\Op_{h}^{\mathrm{left}}}
 \providecommand{\Opr}{\Op_{h}^{\mathrm{right}}}
 
-% --------------------------------------------------------------
-% Epigraph support (fallback).
-% If the 'epigraph' package is loaded, it defines \epigraph itself.
-% If not loaded, we provide a minimal, robust definition here.
-%
-% Usage: \epigraph{<text>}{<author/source>}
-% --------------------------------------------------------------
-\@ifundefined{epigraph}{%
-  \newcommand{\epigraph}[2]{%
-    \begin{flushright}
-      \itshape #1\par
-      \vspace{0.4em}%
-      \normalfont\small --- #2\par
-    \end{flushright}
-    \vspace{0.8em}%
-  }%
-}{}%
-
 % ----- TODO helper -----
 \@ifundefined{TODO}{%
   \newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}%
 }{}%
 
 \makeatother
-
 % ==================================================================
 % End of house-style.tex
 % ==================================================================
