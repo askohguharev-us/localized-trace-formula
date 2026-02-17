@@ -1,321 +1,356 @@
-% ==========================================================
-% Chapter 6 (DIAMOND / ACADEMIC EDITION)
-% Geometric Expansion of the Localized Selberg Trace Formula
-% ==========================================================
+% =====================================================================
+% Chapter 6. Geometric expansion of the localized Selberg trace formula
+% Annals+++ / DIAMOND contract:
+%   (i) Fourier conventions and window normalizations are locked once.
+%   (ii) Every geometric contribution is stated in the standard cofinite Selberg form,
+%        with explicit dependence on (λ,η) and with no silent choices in truncation.
+%   (iii) The Weyl main term is extracted with the unique constant \widehat\chi(0),
+%        declared as the normalization lock against the microlocal/spectral side.
+%   (iv) Noncompactness is handled by an explicit parabolic functional P_\Gamma[h],
+%        with its convention fixed and referenced for Chapter 7.
+% =====================================================================
 
-\chapter{Geometric Expansion of the Localized Selberg Trace Formula}
+\chapter{Geometric expansion of the localized Selberg trace formula}
+\label{ch:selberg-geometric-localized}
 
-\noindent\textbf{Scope of the chapter.}
-Let \(M=\Gamma\backslash\mathbb{H}\) be a finite-area hyperbolic surface, where
-\(\Gamma\subset \mathrm{PSL}_2(\mathbb{R})\) is discrete and cofinite, and let \(\Delta\) be the positive Laplace--Beltrami operator on \(M\).
-This chapter constructs the \emph{geometric side} of the Selberg trace formula for a \emph{localized} spectral test function.
-The outcome is an explicit decomposition into identity, hyperbolic, parabolic (cuspidal), and elliptic (torsion) contributions,
-together with a clean extraction of the localized Weyl main term and a sharp bookkeeping of the constants that must match the spectral side in Chapter~7.
+\section*{Orientation, object lock, and conventions}\label{sec:ch6-orientation}
+
+\noindent\textbf{Scope.}
+Let $M=\Gamma\backslash\H$ be a finite-area hyperbolic surface with $\Gamma\subset\PSL_2(\R)$ discrete and cofinite,
+and let $\Delta\ge 0$ be the nonnegative Laplace--Beltrami operator on $M$.
+This chapter constructs the \emph{geometric side} of the Selberg trace formula for a \emph{localized} spectral test
+function. The output is an explicit decomposition into identity, hyperbolic (closed geodesic), parabolic
+(cusp/scattering), and elliptic (torsion) contributions, together with a clean extraction of the localized Weyl
+main term and a strict bookkeeping of the constants to be matched with the spectral side in Chapter~7.
 
 \medskip
-\noindent\textbf{References and conventions.}
-We follow the standard cofinite Selberg trace formula as presented for example in
-Selberg~\cite{Selberg1956}, Hejhal~\cite{Hejhal1983}, and Iwaniec~\cite{Iwaniec2002}.
-All Fourier-transform normalizations are fixed below and used consistently throughout.
+\noindent\textbf{Reference model.}
+We use the cofinite Selberg trace formula in the normalization of
+Selberg~\cite{Selberg1956}, Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}, and Iwaniec~\cite{Iwaniec2002}.
+All Fourier-transform conventions are fixed below and remain unchanged for the rest of the monograph.
 
-% ----------------------------------------------------------
+% ---------------------------------------------------------------------
 \section{Localized test functions and the Selberg transform}
+\label{sec:ch6-test-selberg}
 
-\noindent\textbf{Fourier normalization.}
-Fix an even cutoff \(\widehat{\chi}\in C_c^\infty(\mathbb{R})\) with
-\[
-  \widehat{\chi}(-t)=\widehat{\chi}(t),\qquad
-  \supp \widehat{\chi}\subset (-1,1),\qquad
-  \widehat{\chi}(0)>0.
-\]
-Define its inverse Fourier transform by
-\begin{equation}\label{eq:6.chi.def.D}
-  \chi(u):=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{\chi}(t)e^{itu}\,dt.
+\subsection{Fourier normalization and Paley--Wiener cutoff}\label{subsec:ch6-fourier}
+
+Fix an even cutoff $\widehat\chi\in C_c^\infty(\R)$ with
+\begin{equation}\label{eq:6.chi.hat.lock}
+\widehat\chi(-t)=\widehat\chi(t),\qquad
+\supp(\widehat\chi)\subset(-1,1),\qquad
+\widehat\chi(0)>0.
 \end{equation}
-Then \(\chi\) is even, entire, and rapidly decaying on \(\mathbb{R}\) (Paley--Wiener).
+Define the inverse Fourier transform by
+\begin{equation}\label{eq:6.chi.def}
+\chi(u):=\frac{1}{2\pi}\int_{\R}\widehat\chi(t)e^{itu}\,dt.
+\end{equation}
+Then $\chi$ is even, entire, and Schwartz on $\R$ (Paley--Wiener).
 
-\medskip
-\noindent\textbf{Localized spectral window.}
-Let \(\lambda\to\infty\) and \(\eta=\eta(\lambda)\in(0,1)\).
-Define the even test function
-\begin{equation}\label{eq:6.h.window.D}
-  h_{\lambda,\eta}(r):=
-  \chi\!\left(\frac{r-\lambda}{\eta}\right)+
-  \chi\!\left(\frac{r+\lambda}{\eta}\right),
-  \qquad r\in\mathbb{R}.
+\subsection{Localized spectral window}\label{subsec:ch6-window}
+
+Let $\lambda\to\infty$ and $\eta=\eta(\lambda)\in(0,1]$. Define the even test function
+\begin{equation}\label{eq:6.h.window}
+h_{\lambda,\eta}(r):=
+\chi\!\left(\frac{r-\lambda}{\eta}\right)+
+\chi\!\left(\frac{r+\lambda}{\eta}\right),
+\qquad r\in\R.
 \end{equation}
 We impose the localization regime
-\begin{equation}\label{eq:6.eta.regime.D}
-  \eta\ge \lambda^{-\theta},\qquad 0<\theta<\theta_0,
+\begin{equation}\label{eq:6.eta.regime}
+\eta\ge \lambda^{-\theta},\qquad 0<\theta<\theta_0,
 \end{equation}
-where \(\theta_0>0\) will be fixed later so that the comparison with the spectral side yields a power-saving remainder.
+where $\theta_0>0$ will be fixed once and for all at the point where a power-saving remainder is extracted.
 
-\medskip
-\noindent\textbf{Selberg transform.}
-For an even \(h\), the Selberg trace formula uses the associated kernel \(g\) defined by the Fourier pair
-\begin{equation}\label{eq:6.g.def.D}
-  g_{\lambda,\eta}(u):=\frac{1}{2\pi}\int_{\mathbb{R}} h_{\lambda,\eta}(r)e^{-iru}\,dr,
-  \qquad u\in\mathbb{R}.
+\subsection{Selberg transform and explicit $g$--kernel}\label{subsec:ch6-selberg-transform}
+
+For even $h$, the Selberg trace formula uses the associated kernel $g$ defined by the Fourier pair
+\begin{equation}\label{eq:6.g.def}
+g_{\lambda,\eta}(u):=\frac{1}{2\pi}\int_{\R} h_{\lambda,\eta}(r)\,e^{-iru}\,dr,
+\qquad u\in\R.
 \end{equation}
-With the normalization \eqref{eq:6.chi.def.D}, a direct change of variables gives the explicit formula below.
 
-\begin{lemma}[Explicit localized \(g\)-kernel]\label{lem:6.g.explicit.D}
-With \(h_{\lambda,\eta}\) as in \eqref{eq:6.h.window.D} and \(g_{\lambda,\eta}\) as in \eqref{eq:6.g.def.D}, one has
-\begin{equation}\label{eq:6.g.explicit.D}
-  g_{\lambda,\eta}(u)=\frac{\eta}{\pi}\,\widehat{\chi}(\eta u)\,\cos(\lambda u).
+\begin{lemma}[Explicit localized $g$--kernel]\label{lem:6.g.explicit}
+With $h_{\lambda,\eta}$ as in \eqref{eq:6.h.window} and $g_{\lambda,\eta}$ as in \eqref{eq:6.g.def}, one has
+\begin{equation}\label{eq:6.g.explicit}
+g_{\lambda,\eta}(u)=\frac{\eta}{\pi}\,\widehat\chi(\eta u)\,\cos(\lambda u).
 \end{equation}
 In particular,
-\begin{equation}\label{eq:6.g.support.D}
-  \supp g_{\lambda,\eta}\subset \big[-\eta^{-1},\,\eta^{-1}\big].
+\begin{equation}\label{eq:6.g.support}
+\supp(g_{\lambda,\eta})\subset[-\eta^{-1},\,\eta^{-1}].
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-Write \(h_{\lambda,\eta}=h_++h_-\) with
-\(h_+(r)=\chi\big(\frac{r-\lambda}{\eta}\big)\) and \(h_-(r)=\chi\big(\frac{r+\lambda}{\eta}\big)\).
-For \(h_+\), set \(r=\lambda+\eta v\) and use that \(\int \chi(v)e^{-i(\eta u)v}\,dv=\widehat{\chi}(\eta u)\) under \eqref{eq:6.chi.def.D}.
-The term \(h_-\) yields the complex conjugate contribution. Evenness of \(\widehat{\chi}\) gives \eqref{eq:6.g.explicit.D}.
-The support statement follows from \(\supp\widehat{\chi}\subset(-1,1)\).
+Write $h_{\lambda,\eta}=h_++h_-$ with
+$h_+(r)=\chi\!\big(\frac{r-\lambda}{\eta}\big)$ and $h_-(r)=\chi\!\big(\frac{r+\lambda}{\eta}\big)$.
+For $h_+$ set $r=\lambda+\eta v$ and use \eqref{eq:6.chi.def}; the $h_-$ term produces the conjugate contribution.
+Evenness of $\widehat\chi$ yields \eqref{eq:6.g.explicit}. The support statement follows from
+$\supp(\widehat\chi)\subset(-1,1)$.
 \end{proof}
 
-\medskip
-\noindent\textbf{Spectral multiplier associated to \(h_{\lambda,\eta}\).}
-Let \(\lambda_j=\tfrac14+r_j^2\) denote the discrete spectrum, and let the continuous spectrum be parametrized by \(r\in\mathbb{R}\).
-We define the localized functional-calculus operator
-\begin{equation}\label{eq:6.projector.fc.D}
-  P_{\lambda,\eta}:=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right).
-\end{equation}
-Equivalently, by Fourier inversion, \(P_{\lambda,\eta}\) admits the wave representation
-\begin{equation}\label{eq:6.projector.wave.D}
-  P_{\lambda,\eta}
-  =\frac{1}{2\pi}\int_{\mathbb{R}} e^{-it\lambda}\,\widehat{\chi}(\eta t)\,
-  \cos\!\big(t\sqrt{\Delta-\tfrac14}\big)\,dt,
-\end{equation}
-which matches the microlocal representation established in Chapter~5.
+\subsection{The associated functional-calculus operator}\label{subsec:ch6-projector}
 
-% ----------------------------------------------------------
-\section{Identity contribution}
+Let $A=\sqrt{\Delta-\tfrac14}$ and define
+\begin{equation}\label{eq:6.projector.fc}
+P_{\lambda,\eta}:=h_{\lambda,\eta}(A)=h_{\lambda,\eta}\!\left(\sqrt{\Delta-\tfrac14}\right).
+\end{equation}
+Equivalently, by Fourier inversion and the even wave group $U(t)=\cos(tA)$,
+\begin{equation}\label{eq:6.projector.wave}
+P_{\lambda,\eta}
+=\frac{1}{2\pi}\int_{\R} e^{-it\lambda}\,\widehat\chi(\eta t)\,
+\cos\!\big(t\sqrt{\Delta-\tfrac14}\big)\,dt,
+\end{equation}
+which is the geometric counterpart of the microlocal wave representation used in Chapter~5.
 
-\begin{lemma}[Identity term: exact form]\label{lem:6.identity.exact.D}
+% ---------------------------------------------------------------------
+\section{Identity contribution and Weyl extraction}
+\label{sec:ch6-identity}
+
+\begin{lemma}[Identity term (exact form)]\label{lem:6.identity.exact}
 The identity contribution on the geometric side equals
-\begin{equation}\label{eq:6.identity.exact.D}
-  I_{\lambda,\eta}
-  = \frac{\vol(M)}{4\pi}\int_{\mathbb{R}} r\,\tanh(\pi r)\,h_{\lambda,\eta}(r)\,dr.
+\begin{equation}\label{eq:6.identity.exact}
+I_{\lambda,\eta}
+=\frac{\vol(M)}{4\pi}\int_{\R} r\,\tanh(\pi r)\,h_{\lambda,\eta}(r)\,dr.
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-This is the standard identity orbital integral in the cofinite Selberg trace formula for the pair \((h_{\lambda,\eta},g_{\lambda,\eta})\);
-see Selberg~\cite{Selberg1956} and Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}.
+This is the standard identity orbital integral in the cofinite Selberg trace formula for the pair $(h_{\lambda,\eta},g_{\lambda,\eta})$;
+see \cite{Selberg1956,Hejhal1983}.
 \end{proof}
 
-\begin{lemma}[Localized Weyl main term]\label{lem:6.identity.asymp.D}
-As \(\lambda\to\infty\), uniformly for \(\eta\) satisfying \eqref{eq:6.eta.regime.D}, one has
-\begin{equation}\label{eq:6.identity.asymp.D}
-  I_{\lambda,\eta}
-  = \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
-    \;+\; O_{\widehat{\chi}}\!\big(\eta^{2}\big)
-    \;+\; O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
+\begin{lemma}[Localized Weyl main term]\label{lem:6.identity.asymp}
+As $\lambda\to\infty$, uniformly for $\eta$ satisfying \eqref{eq:6.eta.regime}, one has
+\begin{equation}\label{eq:6.identity.asymp}
+I_{\lambda,\eta}
+=\frac{\vol(M)}{2\pi}\,\widehat\chi(0)\,\lambda\eta
+\;+\;O_{\widehat\chi}(\eta^2)
+\;+\;O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-Insert \eqref{eq:6.h.window.D} into \eqref{eq:6.identity.exact.D}.
-On the support of \(h_{\lambda,\eta}\) one has \(\tanh(\pi r)=\sgn(r)+O(e^{-2\pi\lambda})\), hence
-\(r\tanh(\pi r)=|r|+O(e^{-2\pi\lambda}|r|)\) and
+Insert \eqref{eq:6.h.window} into \eqref{eq:6.identity.exact}.
+On the support of $h_{\lambda,\eta}$ one has $\tanh(\pi r)=\sgn(r)+O(e^{-2\pi\lambda})$, hence
+$r\tanh(\pi r)=|r|+O(e^{-2\pi\lambda}|r|)$ and
 \[
-  I_{\lambda,\eta}
-  = \frac{\vol(M)}{4\pi}\int_{\mathbb{R}} |r|\,h_{\lambda,\eta}(r)\,dr
-    + O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
+I_{\lambda,\eta}
+=\frac{\vol(M)}{4\pi}\int_\R |r|\,h_{\lambda,\eta}(r)\,dr
++O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
 \]
-Split \(h_{\lambda,\eta}=h_++h_-\) as above, set \(r=\lambda+\eta u\) in the \(h_+\)-integral and \(r=-\lambda+\eta u\) in the \(h_-\)-integral.
-Because \(\chi\) is Schwartz, the region where \(|\lambda+\eta u|\) changes sign contributes \(O_{\widehat{\chi},N}(\eta^N\lambda^{1-N})\) for any \(N\).
-On the complementary region the linear \(\eta u\)-terms cancel between \(h_+\) and \(h_-\), so the first correction is \(O_{\widehat{\chi}}(\eta^2)\).
-Finally, \(\int_{\mathbb{R}}\chi(u)\,du=\widehat{\chi}(0)\) by \eqref{eq:6.chi.def.D}, yielding \eqref{eq:6.identity.asymp.D}.
+Split $h_{\lambda,\eta}=h_++h_-$ as in Lemma~\ref{lem:6.g.explicit}.
+In the $h_+$ integral set $r=\lambda+\eta u$ and in the $h_-$ integral set $r=-\lambda+\eta u$.
+Since $\chi$ is Schwartz, the region where $|\lambda+\eta u|$ changes sign contributes
+$O_{\widehat\chi,N}(\eta^N\lambda^{1-N})$ for any $N$, hence negligible.
+On the remaining region the linear $\eta u$ corrections cancel between the $h_+$ and $h_-$ contributions,
+and the first surviving correction is $O_{\widehat\chi}(\eta^2)$.
+Finally, $\int_\R \chi(u)\,du=\widehat\chi(0)$ by \eqref{eq:6.chi.def}, yielding \eqref{eq:6.identity.asymp}.
 \end{proof}
 
-\begin{remark}[Normalization lock]\label{rem:6.norm.lock.D}
-The coefficient \(\widehat{\chi}(0)\) is the unique normalization parameter that must match the spectral side in Chapter~7.
-Any discrepancy in this constant signals an inconsistency in Fourier conventions or in the definition of the localized window.
+\begin{remark}[Normalization lock]\label{rem:6.norm.lock}
+The coefficient $\widehat\chi(0)$ is the unique normalization parameter that must match the leading term on the
+spectral/microlocal side in Chapter~7. Any discrepancy indicates an inconsistency in Fourier conventions or in the
+definition of the localized window.
 \end{remark}
 
-% ----------------------------------------------------------
-\section{Hyperbolic (closed geodesic) contribution}
+% ---------------------------------------------------------------------
+\section{Hyperbolic contribution (closed geodesics)}
+\label{sec:ch6-hyperbolic}
 
-\noindent
-Let \(\mathcal{P}\) denote the set of primitive hyperbolic conjugacy classes in \(\Gamma\).
-For \(\gamma_0\in\mathcal{P}\), let \(L(\gamma_0)>0\) be the primitive length, and write \(\gamma=\gamma_0^k\), \(k\ge 1\).
+Let $\mathcal P$ denote the set of primitive hyperbolic conjugacy classes in $\Gamma$.
+For $[\gamma_0]\in\mathcal P$ let $L(\gamma_0)>0$ denote the primitive length, and write $\gamma=\gamma_0^k$, $k\ge 1$.
 
-\begin{lemma}[Hyperbolic term: exact Selberg form]\label{lem:6.hyperbolic.exact.D}
+\begin{lemma}[Hyperbolic term (exact Selberg form)]\label{lem:6.hyperbolic.exact}
 The hyperbolic contribution equals
-\begin{equation}\label{eq:6.hyperbolic.exact.D}
-  H_{\lambda,\eta}
-  = \sum_{[\gamma_0]\in\mathcal{P}}\;\sum_{k=1}^{\infty}
-    \frac{L(\gamma_0)}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)}\;
-    g_{\lambda,\eta}\!\big(kL(\gamma_0)\big).
+\begin{equation}\label{eq:6.hyperbolic.exact}
+H_{\lambda,\eta}
+=\sum_{[\gamma_0]\in\mathcal P}\ \sum_{k=1}^{\infty}
+\frac{L(\gamma_0)}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)}\;
+g_{\lambda,\eta}\!\big(kL(\gamma_0)\big),
 \end{equation}
+where $g_{\lambda,\eta}$ is given by \eqref{eq:6.g.explicit}.
 \end{lemma}
 
 \begin{proof}
-This is the standard evaluation of hyperbolic orbital integrals in the cofinite Selberg trace formula for the pair \((h,g)\);
-see Selberg~\cite{Selberg1956} and Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}.
+This is the standard evaluation of hyperbolic orbital integrals in the cofinite Selberg trace formula; see
+\cite{Selberg1956,Hejhal1983}.
 \end{proof}
 
-\begin{corollary}[Exact length cutoff]\label{cor:6.length.cutoff.D}
-By \eqref{eq:6.g.support.D}, only lengths \(kL(\gamma_0)\le \eta^{-1}\) contribute, i.e.
+\begin{corollary}[Exact length cutoff]\label{cor:6.length.cutoff}
+By \eqref{eq:6.g.support}, one has $g_{\lambda,\eta}(u)=0$ for $|u|>\eta^{-1}$. Hence only those pairs
+$([\gamma_0],k)$ with
 \[
-  g_{\lambda,\eta}(kL(\gamma_0))=0
-  \quad\text{whenever}\quad kL(\gamma_0)>\eta^{-1}.
+kL(\gamma_0)\le \eta^{-1}
 \]
-Hence the double sum \eqref{eq:6.hyperbolic.exact.D} is finite for each \((\lambda,\eta)\).
+contribute to \eqref{eq:6.hyperbolic.exact}. In particular, for each fixed $(\lambda,\eta)$ the double sum is finite.
 \end{corollary}
 
-\begin{lemma}[Crude uniform bound]\label{lem:6.hyperbolic.bound.D}
-For fixed \(\widehat{\chi}\), one has
-\begin{equation}\label{eq:6.hyperbolic.bound.D}
-  |H_{\lambda,\eta}|
-  \ \le\ C_{\widehat{\chi}}\;\eta
-  \sum_{[\gamma_0]\in\mathcal{P}}\;\sum_{\substack{k\ge1\\ kL(\gamma_0)\le \eta^{-1}}}
-  \frac{L(\gamma_0)}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)}.
+\begin{lemma}[Crude uniform bound]\label{lem:6.hyperbolic.bound}
+For fixed $\widehat\chi$ one has
+\begin{equation}\label{eq:6.hyperbolic.bound}
+|H_{\lambda,\eta}|
+\le C_{\widehat\chi}\,\eta
+\sum_{[\gamma_0]\in\mathcal P}\ \sum_{\substack{k\ge1\\ kL(\gamma_0)\le \eta^{-1}}}
+\frac{L(\gamma_0)}{2\sinh\!\big(\tfrac{kL(\gamma_0)}{2}\big)}.
 \end{equation}
-In particular, all \(\lambda\)-dependence is oscillatory through \(\cos(\lambda\cdot)\) in \eqref{eq:6.g.explicit.D}.
+In particular, all dependence on $\lambda$ is oscillatory through the factor $\cos(\lambda\cdot)$ in \eqref{eq:6.g.explicit}.
 \end{lemma}
 
 \begin{proof}
-Combine \eqref{eq:6.hyperbolic.exact.D} with \eqref{eq:6.g.explicit.D} and \(|\widehat{\chi}|\le \|\widehat{\chi}\|_\infty\).
+Combine \eqref{eq:6.hyperbolic.exact} with \eqref{eq:6.g.explicit} and the bound
+$|\widehat\chi(\eta u)|\le \|\widehat\chi\|_\infty$.
 \end{proof}
 
-% ----------------------------------------------------------
-\section{Parabolic contribution (cusps): regularized form}
+% ---------------------------------------------------------------------
+\section{Parabolic contribution (cusps) and regularized functional}
+\label{sec:ch6-parabolic}
 
-\noindent
-Assume \(M\) has \(\kappa\ge 1\) cusps.
-Let \(\Phi(s)\) be the \(\kappa\times\kappa\) scattering matrix (Eisenstein series normalization fixed once and for all),
-and let \(\varphi(s):=\det\Phi(s)\) be the scattering determinant.
-We recall that the parabolic contribution is defined via truncation and Maass--Selberg relations and
-can be written as an explicit linear functional of \(h\); see Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
+Assume $M$ has $\kappa\ge 1$ cusps. Let $\Phi(s)$ denote the $\kappa\times\kappa$ scattering matrix in the fixed
+Eisenstein normalization, and let $\varphi(s):=\det\Phi(s)$ be the scattering determinant.
+The parabolic contribution is defined via truncation and the Maass--Selberg relations and can be written as an explicit
+linear functional of $h$; see \cite{Hejhal1983,Iwaniec2002}.
 
-\begin{definition}[Parabolic functional]\label{def:6.parabolic.functional.D}
-We denote by \(P_\Gamma[h]\) the (standard) parabolic contribution in the cofinite Selberg trace formula for \(\Gamma\),
-defined by truncation at height \(Y\), subtraction of the logarithmic divergence, and passage to the limit \(Y\to\infty\).
-For our localized test function we set
-\begin{equation}\label{eq:6.parabolic.def.D}
-  P_{\lambda,\eta}^{\mathrm{para}}:=P_\Gamma[h_{\lambda,\eta}].
+\begin{definition}[Parabolic functional]\label{def:6.parabolic.functional}
+Let $P_\Gamma[h]$ denote the (standard) parabolic contribution in the cofinite Selberg trace formula for $\Gamma$,
+defined by truncation at height $Y$, subtraction of the logarithmic divergence, and passage to the limit $Y\to\infty$.
+For the localized window we set
+\begin{equation}\label{eq:6.parabolic.def}
+P_{\lambda,\eta}^{\mathrm{para}}:=P_\Gamma[h_{\lambda,\eta}].
 \end{equation}
 \end{definition}
 
-\begin{remark}[Structure and normalization dependence]\label{rem:6.parabolic.structure.D}
-The functional \(P_\Gamma[h]\) is explicit and consists of:
-(i) a term involving \(\varphi'/\varphi\) on the line \(\Re s=\tfrac12\),
-(ii) a finite collection of universal terms coming from the chosen cusp normalization (digamma/Gamma-factors and logarithmic constants),
-and (iii) a term proportional to \(g(0)\) (equivalently \(\int h\)) reflecting the subtraction convention.
-Since these constants depend on the truncation normalization, we keep them bundled into \(P_\Gamma[h]\) and fix the convention once and for all,
-so that Chapter~7 uses the identical convention on the spectral side.
+\begin{remark}[Structure and normalization dependence]\label{rem:6.parabolic.structure}
+The functional $P_\Gamma[h]$ is explicit and consists of:
+\begin{itemize}
+\item[(i)] a term involving $\varphi'/\varphi$ on $\Re s=\tfrac12$,
+\item[(ii)] a finite set of universal terms determined by the cusp normalization (Gamma/digamma factors and logarithmic constants),
+\item[(iii)] a term proportional to $g(0)$ (equivalently, $\int h$) reflecting the subtraction convention.
+\end{itemize}
+Since the constants in (ii)--(iii) depend on the truncation convention, we keep them bundled into $P_\Gamma[h]$ and
+fix the convention once and for all; Chapter~7 uses the identical convention on the spectral side.
 \end{remark}
 
-\begin{lemma}[Polynomial growth of the scattering logarithmic derivative]\label{lem:6.scattering.growth.D}
-There exists \(C_\Gamma>0\) such that
+\begin{lemma}[Polynomial growth of the scattering logarithmic derivative]\label{lem:6.scattering.growth}
+There exists $C_\Gamma>0$ such that
 \[
-  \frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)} \ll_\Gamma (1+|r|)^{C_\Gamma},
-  \qquad r\in\mathbb{R}.
+\frac{\varphi'(\tfrac12+ir)}{\varphi(\tfrac12+ir)}\ll_\Gamma (1+|r|)^{C_\Gamma},
+\qquad r\in\R.
 \]
 \end{lemma}
 
 \begin{proof}
-Standard analytic bounds for the cofinite scattering determinant; see Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
+This is standard for cofinite scattering determinants; see \cite{Hejhal1983,Iwaniec2002}.
 \end{proof}
 
-\begin{proposition}[Size bound under localization]\label{prop:6.parabolic.bound.D}
-Uniformly for \(\eta\) satisfying \eqref{eq:6.eta.regime.D}, one has
-\begin{equation}\label{eq:6.parabolic.bound.D}
-  P_{\lambda,\eta}^{\mathrm{para}}
-  \ll_{\Gamma,\widehat{\chi}}
-  \eta\,(1+\lambda)^{C_\Gamma}
-  \;+\; \big|P_\Gamma^{\mathrm{norm}}[h_{\lambda,\eta}]\big|,
+\begin{proposition}[Size bound under localization]\label{prop:6.parabolic.bound}
+Uniformly for $\eta$ satisfying \eqref{eq:6.eta.regime}, one has
+\begin{equation}\label{eq:6.parabolic.bound}
+P_{\lambda,\eta}^{\mathrm{para}}
+\ll_{\Gamma,\widehat\chi}
+\eta\,(1+\lambda)^{C_\Gamma}
+\;+\;\big|P_\Gamma^{\mathrm{norm}}[h_{\lambda,\eta}]\big|,
 \end{equation}
-where \(P_\Gamma^{\mathrm{norm}}[h]\) denotes the explicit cusp-normalization constant terms (fixed once and for all).
-In particular, if \(\theta<1/C_\Gamma\), then \(P_{\lambda,\eta}^{\mathrm{para}}=o(\lambda\eta)\) as \(\lambda\to\infty\).
+where $P_\Gamma^{\mathrm{norm}}[h]$ denotes the explicit cusp-normalization constant terms (fixed once and for all).
+In particular, if $\theta<1/C_\Gamma$, then $P_{\lambda,\eta}^{\mathrm{para}}=o(\lambda\eta)$ as $\lambda\to\infty$.
 \end{proposition}
 
 \begin{proof}
-The window \(h_{\lambda,\eta}\) is supported on \(r=\pm\lambda+O(\eta)\) and satisfies \(\int |h_{\lambda,\eta}(r)|dr\asymp \eta\).
-Combine this with Lemma~\ref{lem:6.scattering.growth.D} and the fact that the remaining normalization terms are explicit linear functionals of \(h\)
-with coefficients independent of \(\lambda\) and at most polynomial in \(\lambda\).
+The window $h_{\lambda,\eta}$ is supported on $r=\pm\lambda+O(\eta)$ and satisfies
+$\int_\R |h_{\lambda,\eta}(r)|\,dr\asymp_{\widehat\chi}\eta$.
+Combine this with Lemma~\ref{lem:6.scattering.growth} and the fact that the remaining normalization terms in
+$P_\Gamma[h]$ are explicit linear functionals of $h$ whose coefficients are independent of $\lambda$ and at most
+polynomial in $\lambda$.
 \end{proof}
 
-% ----------------------------------------------------------
+% ---------------------------------------------------------------------
 \section{Elliptic contribution (torsion)}
+\label{sec:ch6-elliptic}
 
-\noindent
-If \(\Gamma\) is torsion-free, then there are no elliptic conjugacy classes and the elliptic contribution vanishes identically.
-Otherwise, let \(\{R\}\) denote elliptic conjugacy classes and \(m_R\ge 2\) their orders.
+If $\Gamma$ is torsion-free, there are no elliptic conjugacy classes and the elliptic contribution vanishes.
+Otherwise, let $\{R\}$ denote elliptic conjugacy classes and let $m_R\ge 2$ denote their orders.
 
-\begin{lemma}[Elliptic term: standard Selberg form]\label{lem:6.elliptic.form.D}
-The elliptic contribution equals a finite explicit linear functional of \(h_{\lambda,\eta}\):
-\begin{equation}\label{eq:6.elliptic.form.D}
-  E_{\lambda,\eta}^{\mathrm{ell}}
-  = \sum_{\{R\}} \mathcal{E}_R[h_{\lambda,\eta}],
+\begin{lemma}[Elliptic term (standard Selberg form)]\label{lem:6.elliptic.form}
+The elliptic contribution equals a finite explicit linear functional of $h_{\lambda,\eta}$:
+\begin{equation}\label{eq:6.elliptic.form}
+E_{\lambda,\eta}^{\mathrm{ell}}
+=\sum_{\{R\}} \mathcal E_R[h_{\lambda,\eta}],
 \end{equation}
-where each \(\mathcal{E}_R\) depends only on \(m_R\) and the fixed normalization of the trace formula.
+where each $\mathcal E_R$ depends only on $m_R$ and the fixed normalization of the trace formula.
 \end{lemma}
 
 \begin{proof}
-This is standard in the Selberg trace formula with torsion; see Hejhal~\cite[Vol.~I, Ch.~2]{Hejhal1983}.
+Standard in the Selberg trace formula with torsion; see \cite[Vol.~I, Ch.~2]{Hejhal1983}.
 \end{proof}
 
-\begin{remark}\label{rem:6.elliptic.lower.order.D}
-Elliptic terms are compactly supported (no long-length growth) and do not affect the Weyl main term.
-They may be absorbed into the global remainder once the convention for \(\mathcal{E}_R\) is fixed.
+\begin{remark}[Lower-order nature]\label{rem:6.elliptic.lower.order}
+Elliptic terms are compactly supported (no long-length growth) and do not contribute to the Weyl main term.
+Once the convention for $\mathcal E_R$ is fixed, they may be absorbed into the global remainder bookkeeping.
 \end{remark}
 
-% ----------------------------------------------------------
-\section{Assembly of the geometric side and Weyl extraction}
+% ---------------------------------------------------------------------
+\section{Assembly of the geometric side and forward link}
+\label{sec:ch6-assembly}
 
-\begin{definition}[Full geometric side]\label{def:6.G.full.D}
-With the conventions above, define
-\begin{equation}\label{eq:6.G.full.D}
-  \mathcal{G}_{\lambda,\eta}
-  := I_{\lambda,\eta} + H_{\lambda,\eta} + P_{\lambda,\eta}^{\mathrm{para}} + E_{\lambda,\eta}^{\mathrm{ell}}.
+\begin{definition}[Full geometric side]\label{def:6.G.full}
+Define
+\begin{equation}\label{eq:6.G.full}
+\mathcal G_{\lambda,\eta}
+:=I_{\lambda,\eta}+H_{\lambda,\eta}+P_{\lambda,\eta}^{\mathrm{para}}+E_{\lambda,\eta}^{\mathrm{ell}}.
 \end{equation}
 \end{definition}
 
-\begin{theorem}[Geometric side: Selberg decomposition]\label{thm:6.selberg.geometric.D}
-For any cofinite \(\Gamma\) and any \((\lambda,\eta)\), the quantity \(\mathcal{G}_{\lambda,\eta}\) satisfies the exact Selberg identity
-corresponding to the test function \(h_{\lambda,\eta}\), namely the sum of:
+\begin{theorem}[Geometric side (Selberg decomposition)]\label{thm:6.selberg.geometric}
+For any cofinite $\Gamma$ and any $(\lambda,\eta)$, the quantity $\mathcal G_{\lambda,\eta}$ equals the geometric side
+of the Selberg trace formula associated with the test function $h_{\lambda,\eta}$, i.e.\ the sum of:
 \begin{itemize}
-\item the identity term \eqref{eq:6.identity.exact.D},
-\item the hyperbolic term \eqref{eq:6.hyperbolic.exact.D} with \(g_{\lambda,\eta}\) given by \eqref{eq:6.g.explicit.D},
-\item the parabolic term \(P_\Gamma[h_{\lambda,\eta}]\) as in Definition~\ref{def:6.parabolic.functional.D},
-\item and, if present, the elliptic term \eqref{eq:6.elliptic.form.D}.
+\item the identity term \eqref{eq:6.identity.exact},
+\item the hyperbolic term \eqref{eq:6.hyperbolic.exact} with $g_{\lambda,\eta}$ given by \eqref{eq:6.g.explicit},
+\item the parabolic term $P_\Gamma[h_{\lambda,\eta}]$ as in Definition~\ref{def:6.parabolic.functional},
+\item and, if present, the elliptic term \eqref{eq:6.elliptic.form}.
 \end{itemize}
 \end{theorem}
 
 \begin{proof}
-This is precisely the Selberg trace formula for cofinite \(\Gamma\) applied to \(h_{\lambda,\eta}\)
-with the Fourier convention \eqref{eq:6.g.def.D}; see Selberg~\cite{Selberg1956} and Hejhal~\cite{Hejhal1983}.
+This is precisely the cofinite Selberg trace formula with the Fourier convention \eqref{eq:6.g.def}; see
+\cite{Selberg1956,Hejhal1983,Iwaniec2002}.
 \end{proof}
 
-\begin{proposition}[Weyl main term on the geometric side]\label{prop:6.main.term.D}
-Assume \eqref{eq:6.eta.regime.D}. Then, as \(\lambda\to\infty\),
-\begin{equation}\label{eq:6.main.term.D}
-  \mathcal{G}_{\lambda,\eta}
-  = \frac{\vol(M)}{2\pi}\,\widehat{\chi}(0)\,\lambda\eta
-    \;+\; H_{\lambda,\eta}
-    \;+\; P_{\lambda,\eta}^{\mathrm{para}}
-    \;+\; E_{\lambda,\eta}^{\mathrm{ell}}
-    \;+\; O_{\widehat{\chi}}\!\big(\eta^2\big)
-    \;+\; O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
+\begin{proposition}[Weyl main term on the geometric side]\label{prop:6.main.term}
+Assume \eqref{eq:6.eta.regime}. Then, as $\lambda\to\infty$,
+\begin{equation}\label{eq:6.main.term}
+\mathcal G_{\lambda,\eta}
+=\frac{\vol(M)}{2\pi}\,\widehat\chi(0)\,\lambda\eta
+\;+\;H_{\lambda,\eta}
+\;+\;P_{\lambda,\eta}^{\mathrm{para}}
+\;+\;E_{\lambda,\eta}^{\mathrm{ell}}
+\;+\;O_{\widehat\chi}(\eta^2)
+\;+\;O\!\big(e^{-2\pi\lambda}\,\lambda\eta\big).
 \end{equation}
 \end{proposition}
 
 \begin{proof}
-Insert Lemma~\ref{lem:6.identity.asymp.D} into the definition \eqref{eq:6.G.full.D}.
+Insert Lemma~\ref{lem:6.identity.asymp} into \eqref{eq:6.G.full} and collect the remaining contributions.
 \end{proof}
 
 \medskip
 \noindent\textbf{Forward link to Chapter 7.}
-Chapter~7 will express the \emph{spectral side} of \(\Tr(P_{\lambda,\eta})\) (discrete spectrum plus continuous contribution from Eisenstein series)
-and will match its main term and normalization constant \(\widehat{\chi}(0)\) with \eqref{eq:6.main.term.D}.
-The hyperbolic sum \eqref{eq:6.hyperbolic.exact.D} becomes the geometric oscillatory component to be compared with the localized spectral remainder.
+Chapter~7 writes the spectral side of $\Tr(P_{\lambda,\eta})$ (discrete plus continuous spectrum) in the same Fourier
+convention and matches its leading constant $\widehat\chi(0)$ with \eqref{eq:6.main.term}. The hyperbolic sum
+\eqref{eq:6.hyperbolic.exact} becomes the oscillatory geometric component against which the localized spectral
+remainder will be compared.
 
-% --- End Chapter 6 (DIAMOND / ACADEMIC EDITION) ---
+\subsection*{Audit (Geometric certificate)}\label{audit:ch6}
+\begin{itemize}
+\item[(G1)] Fourier lock: \eqref{eq:6.chi.def} and \eqref{eq:6.g.def} are the only transforms used.
+\item[(G2)] Window lock: $h_{\lambda,\eta}$ fixed by \eqref{eq:6.h.window}, regime by \eqref{eq:6.eta.regime}.
+\item[(G3)] Weyl constant lock: $\widehat\chi(0)$ extracted in Lemma~\ref{lem:6.identity.asymp} and declared decisive in
+Remark~\ref{rem:6.norm.lock}.
+\item[(G4)] Hyperbolic cutoff: finiteness is a \emph{support} consequence of \eqref{eq:6.g.support}.
+\item[(G5)] Parabolic convention: bundled into $P_\Gamma[h]$ with fixed truncation normalization (Definition~\ref{def:6.parabolic.functional}).
+\item[(G6)] Torsion safety: elliptic contribution is explicit finite functional and lower order.
+\end{itemize}
+
+% =====================================================================
+% End Chapter 6 (Annals+++ / DIAMOND)
+% =====================================================================
