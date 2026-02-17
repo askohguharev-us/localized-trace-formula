@@ -1,1 +1,445 @@
+% ======================================================================
+% Chapter 10. Trace-to-zeta bridges: determinants, explicit formulae,
+%            and positivity gates
+% ======================================================================
 
+\chapter{Trace-to-zeta bridges: determinants, explicit formulae, and positivity criteria}
+\label{chap:10-trace-to-zeta}
+
+\section{Overview}
+\label{sec:10.overview}
+
+The purpose of this chapter is to record, in a form compatible with the normalized trace framework developed in
+Chapter~\ref{chap:08-normalization}, the standard analytic bridges between trace formulae and zeta-type objects.
+These bridges are of three complementary types:
+(i) passage from trace identities to regularized determinants,
+(ii) derivation of explicit formulae relating spectral parameters to geometric/arithmetic data,
+and (iii) construction of positivity criteria (quadratic forms) whose nonnegativity constrains the location of
+spectral parameters.
+
+The emphasis throughout is on formulations that are stable under admissible auxiliary choices and that isolate the
+identity and continuous-spectrum contributions explicitly.
+
+\section{Regularized determinants from trace data}
+\label{sec:10.det}
+
+\subsection{Spectral zeta functions and zeta-regularized determinants}
+\label{subsec:10.det.zeta}
+
+Let $A$ be a self-adjoint operator acting on a separable Hilbert space $H$, with spectrum $\Spec(A)$.
+Assume that $A$ is bounded below and that its resolvent is compact, so that the spectrum is discrete with finite
+multiplicity and accumulates only at $+\infty$.
+Let $\{\lambda_j\}_{j\ge 1}$ denote the nonzero eigenvalues of $A$, repeated with multiplicity.
+
+For $\Re(s)$ sufficiently large one defines the spectral zeta function
+\begin{equation}
+\label{eq:10.zetaA.def}
+\zeta_A(s)
+:=\sum_{j\ge 1}\lambda_j^{-s}.
+\end{equation}
+If $\zeta_A(s)$ admits a meromorphic continuation to a neighborhood of $s=0$ which is holomorphic at $s=0$, one
+defines the zeta-regularized determinant by
+\begin{equation}
+\label{eq:10.detA.def}
+\det\nolimits_{\zeta}(A)
+:=\exp\!\bigl(-\zeta_A'(0)\bigr).
+\end{equation}
+
+A standard route to \eqref{eq:10.zetaA.def} is through heat traces.
+If $e^{-tA}$ is trace class for all $t>0$ and if $\Tr(e^{-tA})$ admits an asymptotic expansion as $t\downarrow 0$,
+then for $\Re(s)$ sufficiently large one has the Mellin representation
+\begin{equation}
+\label{eq:10.mellin}
+\zeta_A(s)
+=
+\frac{1}{\Gamma(s)}
+\int_0^{\infty} t^{s-1}\bigl(\Tr(e^{-tA})-\Pi_0\bigr)\,dt,
+\end{equation}
+where $\Pi_0$ denotes the contribution of the nullspace of $A$.
+Analytic continuation of \eqref{eq:10.mellin} yields the meromorphic continuation of $\zeta_A$.
+
+\subsection{Trace formula input}
+\label{subsec:10.det.trace-input}
+
+In the geometric settings of interest, the trace formula yields distributional identities of the form
+\begin{equation}
+\label{eq:10.trace.distributional}
+\Tr\bigl(\varphi(A)\bigr)
+=
+\mathcal{I}[\varphi]
++\mathcal{G}[\varphi]
++\mathcal{C}[\varphi],
+\end{equation}
+where $\mathcal{I}$ is the identity contribution, $\mathcal{G}$ is the geometric contribution
+(hyperbolic/elliptic/orbital integrals, depending on the setting), and $\mathcal{C}$ is the continuous-spectrum
+contribution (scattering terms).  The precise form of \eqref{eq:10.trace.distributional} depends on the underlying
+space and on the operator $A$.
+
+The normalization procedure of Chapter~\ref{chap:08-normalization} produces a canonical trace functional
+$\mathcal{T}$ which removes the identity component in a controlled manner.  In particular, for admissible test
+functions $h$ the functional $\mathcal{T}[h]$ is stable under auxiliary choices and isolates the remaining terms
+of the trace formula.
+
+For the purposes of this chapter, we treat $\mathcal{T}$ as the canonical trace input for the construction of
+determinant-level quantities.
+
+\section{Smoothed oscillatory traces}
+\label{sec:10.osc}
+
+\subsection{A standard test family}
+\label{subsec:10.osc.family}
+
+Let $W\in C_c^\infty(\R)$ be an even function.
+For parameters $(\tau,\Delta)\in\R\times (0,\infty)$ define
+\begin{equation}
+\label{eq:10.htaudelta}
+h_{\tau,\Delta}(t)
+:=
+W(t/\Delta)e^{-i\tau t}.
+\end{equation}
+The Fourier transform satisfies
+\begin{equation}
+\label{eq:10.hhat}
+\widehat{h_{\tau,\Delta}}(\xi)
+=
+\Delta\,\widehat{W}\bigl(\Delta(\xi-\tau)\bigr),
+\end{equation}
+so that $h_{\tau,\Delta}$ localizes the spectral side near frequency $\xi=\tau$ with resolution $\asymp \Delta^{-1}$.
+
+Define the smoothed oscillatory trace functional
+\begin{equation}
+\label{eq:10.Ddef}
+\mathfrak{D}(\tau;\Delta)
+:=
+\mathcal{T}\!\left[h_{\tau,\Delta}\right].
+\end{equation}
+
+In the classical trace formula regime, $\mathfrak{D}(\tau;\Delta)$ can be interpreted as a regularized version of a
+spectral density observable.  Its main virtue is that it admits a stable decomposition into geometric and spectral
+contributions, with the identity term removed.
+
+\subsection{Stability under admissible modifications}
+\label{subsec:10.osc.stability}
+
+The following statement is an immediate consequence of the stability results proved in
+Chapter~\ref{chap:08-normalization}.
+
+\begin{proposition}[Stability of $\mathfrak{D}(\tau;\Delta)$]
+\label{prop:10.D.stability}
+Let $\mathfrak{D}(\tau;\Delta)$ be defined by \eqref{eq:10.Ddef} using admissible auxiliary choices.
+If $\mathfrak{D}'(\tau;\Delta)$ is defined using any other admissible choices, then for all $(\tau,\Delta)$ in the
+validity regime one has
+\[
+\mathfrak{D}(\tau;\Delta)-\mathfrak{D}'(\tau;\Delta)
+=
+\Delta_{\mathrm{id}}(\tau,\Delta)
++
+\Err(\tau,\Delta),
+\]
+where $\Delta_{\mathrm{id}}(\tau,\Delta)$ is an explicitly computable identity-term correction and
+\[
+|\Err(\tau,\Delta)|
+\le
+\mathcal{E}\!\left[h_{\tau,\Delta}\right]
++
+\mathcal{E}'\!\left[h_{\tau,\Delta}\right],
+\]
+with $\mathcal{E}$ and $\mathcal{E}'$ denoting the corresponding error ledgers.
+\end{proposition}
+
+\section{Zeta-type functions as trace encoders}
+\label{sec:10.zeta-encoders}
+
+\subsection{Logarithmic derivatives and Euler products}
+\label{subsec:10.euler}
+
+In many trace formula settings, the geometric side is naturally encoded by an Euler product.
+The archetypal example is the Selberg zeta function on compact hyperbolic surfaces, where the primitive closed
+geodesics encode the hyperbolic conjugacy classes.
+
+Let $\{\gamma\}$ range over primitive hyperbolic conjugacy classes and let $\ell(\gamma)$ denote their lengths.
+Assume that there exists a zeta-type function $Z(s)$, holomorphic in a right half-plane, such that
+\begin{equation}
+\label{eq:10.logder}
+-\frac{Z'(s)}{Z(s)}
+=
+\sum_{\{\gamma\}}
+\sum_{m\ge 1}
+a(\gamma^m)\,e^{-sm\ell(\gamma)},
+\qquad
+\Re(s)\gg 1,
+\end{equation}
+where $a(\gamma^m)$ are the standard amplitude factors arising in the geometric side of the trace formula.
+
+Equation \eqref{eq:10.logder} expresses the geometric side as a Laplace transform of the length spectrum.
+The analytic continuation of $Z(s)$ is then intimately linked to the analytic continuation of the trace formula.
+
+\subsection{Spectral interpretation}
+\label{subsec:10.spectral-interp}
+
+In rank-one compact cases, the zeros of $Z(s)$ are known to encode the Laplace eigenvalues.
+More generally, in noncompact settings, zeros and poles of scattering determinants contribute additional spectral
+parameters.  In all such cases, the trace formula provides a distributional identity relating sums over spectral
+parameters to sums over lengths.
+
+In particular, after normalization, one obtains a canonical equality of the form
+\begin{equation}
+\label{eq:10.explicit.schematic}
+\mathcal{T}[h]
+=
+\mathcal{G}[h]
++
+\mathcal{S}[h]
++
+\Err[h],
+\end{equation}
+where $\mathcal{G}[h]$ is a geometric sum involving $\widehat{h}(\ell(\gamma))$, $\mathcal{S}[h]$ is a spectral sum
+(or spectral integral) involving $\widehat{h}$ evaluated at the spectral parameters, and $\Err[h]$ is controlled by
+the consolidated ledger.
+
+\section{Explicit formulae in normalized form}
+\label{sec:10.explicit}
+
+\subsection{A general template}
+\label{subsec:10.explicit.template}
+
+Let $h$ be an admissible test function.  The trace formula in its normalized form yields an explicit formula
+relating spectral and geometric data.  We record this in a stable formulation.
+
+\begin{theorem}[Normalized explicit formula]
+\label{thm:10.normalized-explicit}
+Let $h$ be admissible.  Then
+\begin{equation}
+\label{eq:10.explicit}
+\mathcal{T}[h]
+=
+\mathcal{G}[h]
++
+\mathcal{S}[h]
++
+\Err[h],
+\end{equation}
+where:
+\begin{enumerate}
+\item $\mathcal{G}[h]$ is the geometric contribution, expressible as a sum of the form
+\[
+\mathcal{G}[h]
+=
+\sum_{\{\gamma\}}
+\sum_{m\ge 1}
+a(\gamma^m)\,\widehat{h}(m\ell(\gamma))
+\]
+whenever the setting admits the decomposition \eqref{eq:10.logder};
+\item $\mathcal{S}[h]$ is the spectral contribution, expressible as a sum (or integral) over spectral parameters
+$\{\rho\}$ of the form
+\[
+\mathcal{S}[h]
+=
+\sum_{\rho}
+b(\rho)\,\widehat{h}(\rho),
+\]
+with coefficients $b(\rho)$ determined by multiplicities or scattering weights;
+\item the error term satisfies
+\[
+|\Err[h]|
+\le
+\mathcal{E}[h],
+\]
+where $\mathcal{E}[h]$ is the consolidated ledger.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+This is a direct consequence of the trace formula decomposition combined with the normalization procedure of
+Chapter~\ref{chap:08-normalization}.  The bound on $\Err[h]$ follows from the definition of the consolidated ledger.
+\end{proof}
+
+\subsection{Smoothed explicit formula near a frequency}
+\label{subsec:10.explicit.smoothed}
+
+Applying Theorem~\ref{thm:10.normalized-explicit} to $h_{\tau,\Delta}$ from \eqref{eq:10.htaudelta}, one obtains
+\begin{equation}
+\label{eq:10.explicit.smoothed.eq}
+\mathfrak{D}(\tau;\Delta)
+=
+\mathcal{G}[h_{\tau,\Delta}]
++
+\mathcal{S}[h_{\tau,\Delta}]
++
+\Err(\tau,\Delta),
+\end{equation}
+with $|\Err(\tau,\Delta)|\le \mathcal{E}[h_{\tau,\Delta}]$.
+
+In many situations, $\mathcal{S}[h_{\tau,\Delta}]$ may be interpreted as a smoothed spectral density near $\tau$,
+while $\mathcal{G}[h_{\tau,\Delta}]$ is a smoothed geometric observable involving $\widehat{W}$ evaluated at
+$\Delta(\cdot-\tau)$.
+
+\section{Quadratic forms and positivity criteria}
+\label{sec:10.positivity}
+
+\subsection{A canonical nonnegative test construction}
+\label{subsec:10.pos.conv}
+
+Let $h$ be an admissible test function.  Define the involution
+\[
+h^\ast(t):=\overline{h(-t)},
+\]
+and the convolution
+\begin{equation}
+\label{eq:10.convolution}
+(h\star h^\ast)(t)
+:=
+\int_{\R} h(t-u)\,h^\ast(u)\,du.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:10.convolution.fourier}
+\widehat{h\star h^\ast}(\xi)=|\widehat{h}(\xi)|^2\ge 0.
+\end{equation}
+
+The construction \eqref{eq:10.convolution} is canonical and yields a nonnegative spectral weight.
+Accordingly, applying the trace functional to $h\star h^\ast$ produces a quadratic form.
+
+\begin{definition}[Positivity quadratic form]
+\label{def:10.Qdef}
+Define
+\begin{equation}
+\label{eq:10.Q}
+\mathcal{Q}[h]
+:=
+\mathcal{T}[h\star h^\ast].
+\end{equation}
+\end{definition}
+
+\subsection{Positivity modulo explicit correction}
+\label{subsec:10.pos.gate}
+
+The following theorem is the analytic core of the positivity bridge.
+
+\begin{theorem}[Positivity gate]
+\label{thm:10.pos-gate}
+Let $h$ be admissible.  Then there exists a spectral quantity $\mathcal{P}[h]\ge 0$ such that
+\begin{equation}
+\label{eq:10.posgate}
+\mathcal{Q}[h]
+=
+\mathcal{P}[h]
++
+\mathcal{G}[h\star h^\ast]
++
+\Err^{\mathrm{pos}}[h],
+\end{equation}
+where $\mathcal{G}[h\star h^\ast]$ is the geometric contribution evaluated at $h\star h^\ast$ and
+\[
+|\Err^{\mathrm{pos}}[h]|
+\le
+\mathcal{E}[h\star h^\ast].
+\]
+In particular, whenever the geometric term is explicitly controlled and the ledger is negligible in the relevant
+regime, the functional $\mathcal{Q}[h]$ is nonnegative up to an explicit, computable correction.
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:10.convolution.fourier}, the spectral side of the trace formula evaluated at $h\star h^\ast$ integrates
+the spectral measure against the nonnegative weight $|\widehat{h}|^2$, and hence produces a nonnegative quantity
+$\mathcal{P}[h]$.  The remaining contributions are the geometric term and the controlled error term.
+\end{proof}
+
+\subsection{Consequences for spectral parameter localization}
+\label{subsec:10.pos.localization}
+
+In settings where the spectral parameters correspond to zeros of a zeta-type function, positivity criteria of the
+form \eqref{eq:10.posgate} are the natural analytic mechanism underlying Li--Weil type conditions.
+Indeed, if a family of admissible test functions $\{h\}$ can be chosen so that the geometric contribution is
+explicitly bounded and the ledger is negligible, then the inequality
+\[
+\mathcal{Q}[h]\ge -\bigl|\mathcal{G}[h\star h^\ast]\bigr| - \mathcal{E}[h\star h^\ast]
+\]
+forces constraints on the spectral side, and hence on the admissible location of the spectral parameters.
+
+This provides the canonical route by which trace formulae may be used to constrain zeta-type spectra.
+
+\section{Determinant identities and trace expansions}
+\label{sec:10.det-trace}
+
+\subsection{Formal determinant expansion}
+\label{subsec:10.det.formal}
+
+Let $K$ be a trace class operator on $H$.
+Then one has the classical identity
+\begin{equation}
+\label{eq:10.det.id}
+\log\det(I-K)
+=
+-\sum_{n\ge 1}\frac{1}{n}\Tr(K^n),
+\end{equation}
+where the series converges absolutely for $\|K\|<1$ and extends by analytic continuation in many contexts.
+
+In trace formula applications, one often constructs a family $K(s)$ such that $\Tr(K(s)^n)$ can be expressed
+geometrically (for instance, as an orbital integral sum), and the resulting determinant is identified with a zeta
+function.
+
+\subsection{Trace-to-zeta mechanism}
+\label{subsec:10.det.mechanism}
+
+A typical trace-to-zeta mechanism proceeds as follows.
+Assume that there exists an operator family $K(s)$ such that:
+\begin{enumerate}
+\item for $\Re(s)\gg 1$, $K(s)$ is trace class and $\|K(s)\|<1$;
+\item for each $n\ge 1$, the trace $\Tr(K(s)^n)$ admits a geometric expansion of the form
+\[
+\Tr(K(s)^n)
+=
+\sum_{\{\gamma\}}
+c_n(\gamma)\,e^{-s\ell(\gamma)};
+\]
+\item the geometric coefficients satisfy the multiplicative compatibility that allows reorganization of the
+right-hand side into a logarithmic derivative.
+\end{enumerate}
+Then \eqref{eq:10.det.id} yields an Euler product representation
+\[
+\det(I-K(s))
+=
+\prod_{\{\gamma\}}
+\exp\!\left(
+-\sum_{n\ge 1}\frac{1}{n}c_n(\gamma)e^{-s\ell(\gamma)}
+\right),
+\]
+and in favorable cases the right-hand side coincides with a zeta-type function.
+
+The relevance to the present work is that the normalized trace framework provides a stable method for producing the
+input traces $\Tr(K(s)^n)$ in a way that is insensitive to auxiliary modifications, up to explicit identity
+corrections and a quantitative error ledger.
+
+\section{Concluding remarks}
+\label{sec:10.conclusion}
+
+The results of this chapter provide the analytic interfaces needed to transport the normalized trace formalism into
+zeta-type objects.  The key structural points are:
+\begin{enumerate}
+\item determinant-level objects can be reconstructed from trace information provided the trace input is stabilized
+by normalization;
+\item explicit formulae are naturally expressed in terms of normalized trace functionals, with the remaining
+noncanonical contributions confined to explicitly controlled terms;
+\item positivity criteria arise canonically from convolution squares and yield the natural analytic mechanism for
+Li--Weil type constraints on spectral parameters.
+\end{enumerate}
+
+In the subsequent concluding chapter, we summarize the normalization mechanism, the stability theorems, and the
+resulting canonical trace-to-zeta bridge, and we record the remaining analytic tasks required for full
+implementation in specific geometric settings.
+
+\section*{Bibliographic notes}
+
+For the Selberg trace formula and its connection to the Selberg zeta function, see
+\cite{Hejhal1983,Buser1992}.
+General background on spectral zeta functions and zeta-regularized determinants may be found in
+\cite{Seeley1967,RaySinger1971}.
+For semiclassical trace methods and microlocal approaches to resonances and scattering determinants, see
+\cite{Zworski2012,DyatlovZworski2019}.
+For positivity criteria related to zeta zeros, including Li-type criteria, see
+\cite{Li1997,Connes1999,Titchmarsh1986}.
+
+% ======================================================================
+% End of Chapter 10
+% ======================================================================
