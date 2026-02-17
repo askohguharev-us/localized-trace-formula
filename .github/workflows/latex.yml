@@ -3,11 +3,17 @@ name: pdf
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
+# Чтобы не было очередей/фантомных отмен: новый пуш отменяет предыдущий ран на той же ветке
 concurrency:
-  group: latex-${{ github.ref }}
+  group: latex-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   pdf:
@@ -15,7 +21,6 @@ jobs:
 
     defaults:
       run:
-        shell: bash
         working-directory: src
 
     steps:
@@ -23,6 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sanity check layout
+        shell: bash
         run: |
           set -euo pipefail
 
@@ -33,38 +39,30 @@ jobs:
             test -f "$f" || { echo "::error ::missing src/$f"; exit 2; }
           done
 
-          # Forbid dangerous \input/\include paths (absolute, parent, hidden-dot)
-          BAD=$(
-            grep -R -nE '\\(input|include)\s*\{(\.\./|/|\\\.\.|\.{2}/)' . || true
-          )
+          # Запрещаем path traversal и абсолютные пути в \input/\include
+          BAD=$(grep -R -nE '\\(input|include)\{(\.\./|/)' . || true)
           if [ -n "$BAD" ]; then
             echo "::error ::Forbidden \\input/\\include path(s) detected:"
             echo "$BAD"
             exit 3
           fi
 
-          echo "[layout OK]"
-
       - name: Compile with TeX Live (latexmk + BibTeX)
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: src
           root_file: main.tex
+          working_directory: src
           latexmk_use_xelatex: true
-          args: -file-line-error -halt-on-error -interaction=nonstopmode
-
-          # IMPORTANT:
-          #  - do NOT tlmgr update --self --all (unstable & slow on Actions runners)
-          #  - only install missing packages if needed
+          args: -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1
           pre_compile: |
-            set -euo pipefail
             tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet || true
+            tlmgr update --self --all || true
             tlmgr install \
               bbm mathrsfs microtype enumitem float caption subcaption \
-              tcolorbox cleveref xcolor etoolbox \
-              amsfonts amsmath amssymb mathtools \
-              hyperref geometry fancyhdr setspace booktabs \
-              bibtex || true
+              tcolorbox cleveref xcolor etoolbox csquotes \
+              amsfonts amsmath amsthm mathtools \
+              geometry hyperref bookmark \
+              bibtex bibtexu || true
             echo "[tlmgr pre_compile finished]"
 
       - name: Upload PDF
@@ -75,14 +73,17 @@ jobs:
           path: src/main.pdf
           if-no-files-found: error
 
-      - name: Upload logs (always)
+      # Логи грузим всегда (и при успехе тоже — полезно для аудита)
+      - name: Upload LaTeX logs (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: latex-logs
           path: |
             src/main.log
+            src/main.aux
             src/main.blg
             src/main.bbl
-            src/main.aux
-          if-no-files-found: warn
+            src/main.fls
+            src/main.fdb_latexmk
+          if-no-files-found: ignore
