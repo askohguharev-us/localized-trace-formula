@@ -1,413 +1,446 @@
-% ==================================================================
-% D-tauberian-estimates.tex — Appendix D (FULL MONOLITHIC VERSION)
-% ==================================================================
+% ======================================================================
+% Appendix D. Tauberian smoothing removal
+% PATH: src/appendices/D-tauberian-smoothing-removal.tex
+% ======================================================================
 
-\section*{Appendix D. Extended Tauberian Estimates}
-\addcontentsline{toc}{section}{Appendix D. Extended Tauberian Estimates}
-\label{appD:root}
+\appendix
+\chapter{Tauberian smoothing removal and sharp counting recovery}
+\label{app:D-tauberian}
 
-\subsection*{D.1. Quantitative Tauberian Theorems}
+\section{Purpose and scope}
+\label{sec:D.purpose}
 
-\noindent \textbf{Motivation.}  
-In Chapters~6--8 of this monograph, the analysis of spectral counting functions and localized averages requires refined Tauberian theorems.  
-While the classical Ikehara theorem guarantees asymptotics under weak analytic continuation assumptions, our applications demand explicit quantitative remainder terms of the form
+In several places of the main text, notably in Chapter~\ref{chap:09-local-weyl}, the primary spectral information is
+extracted from \emph{smoothed} counting functionals rather than from sharp cutoffs.
+This is natural from the perspective of trace formulae: admissible test functions and microlocal partitions yield
+stable trace identities for mollified spectral measures, whereas sharp spectral projectors are discontinuous objects
+whose analysis typically requires additional Tauberian input.
+
+The purpose of this appendix is to record a self-contained Tauberian mechanism that upgrades smoothed trace
+information to sharp counting statements, with explicit and stable remainder bookkeeping.
+We isolate the analytic contribution of smoothing removal from the geometric contribution encoded in the trace
+formula remainder ledger.
+
+Throughout, we work at the level of general monotone measures and functions; the spectral applications follow by
+specialization.
+
+\section{Smoothing kernels and basic conventions}
+\label{sec:D.kernels}
+
+Let $w\in L^1(\R)$ satisfy the standard mollifier hypotheses:
+\begin{equation}
+\label{eq:D.mollifier.assumptions}
+w\ge 0,
+\qquad
+\int_{\R} w(t)\,dt = 1,
+\qquad
+w(t)=w(-t).
+\end{equation}
+For $\delta>0$ define the rescaled kernel
+\begin{equation}
+\label{eq:D.wdelta}
+w_\delta(t):=\delta^{-1}w(t/\delta).
+\end{equation}
+
+We write convolution as
 \[
-N(x) = A x + O(x^{1-\delta}),
+(f*w_\delta)(x)=\int_{\R} f(x-t)\,w_\delta(t)\,dt,
 \]
-with $\delta>0$ explicit and all constants depending only on geometric invariants of the surface $M=\Gamma \backslash \mathbb H$.  
-This appendix develops a quantitative Tauberian framework aligned with the analytic needs of the localized Selberg trace formula.
+whenever the integral is well-defined.
 
-\medskip
+In trace formula applications $w$ is typically Schwartz or compactly supported smooth; however, for the basic
+Tauberian inequalities only \eqref{eq:D.mollifier.assumptions} is needed.
 
-\noindent \textbf{Historical background.}  
-Classical Tauberian theorems (Ikehara~\cite{Ikehara1931}, Wiener–Ikehara, Delange~\cite{Delange1954}, Tenenbaum~\cite{Tenenbaum1995}, Korevaar~\cite{Korevaar2004}) establish equivalences between asymptotics of counting functions and meromorphic continuation of generating transforms.  
-However, most of these results are qualitative.  
-To control spectral windows of length $\eta = \lambda^{-\theta}$ and to connect to spectral gaps $\beta>0$, we require effective Tauberian theorems with explicit constants and power-saving remainders.  
-This section consolidates and extends these tools.
+\section{Monotone smoothing inequalities}
+\label{sec:D.monotone}
 
-\medskip
+\subsection{The elementary bracketing lemma}
+\label{subsec:D.bracketing}
 
-\begin{lemma}[Classical Ikehara]\label{lem:ikehara-classical}
-Let $F(s)=\int_0^\infty x^{-s}\, dN(x)$ converge for $\Re(s)>1$ and extend meromorphically to $\Re(s)\ge 1$ with a simple pole at $s=1$ of residue $A$. Then
-\[
-N(x) \sim A x, \qquad x\to \infty.
-\]
+Let $F:\R\to\R$ be nondecreasing and locally bounded.
+The fundamental observation is that convolution with a nonnegative probability kernel cannot increase the function
+beyond its boundary layer.
+
+\begin{lemma}[Monotone bracketing]
+\label{lem:D.monotone-bracketing}
+Let $F$ be nondecreasing and let $w_\delta$ satisfy \eqref{eq:D.mollifier.assumptions}.
+Then for all $x\in\R$,
+\begin{equation}
+\label{eq:D.bracket}
+F(x-\delta)
+\le
+(F*w_\delta)(x)
+\le
+F(x+\delta).
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-This is the standard Ikehara theorem; see \cite[Chap.~III.5]{Tenenbaum1995}.
+Since $w_\delta$ is supported in $\R$ and integrates to $1$, one has
+\[
+(F*w_\delta)(x)
+=
+\int_{\R} F(x-t)\,w_\delta(t)\,dt.
+\]
+If $|t|\le \delta$ then $x-\delta\le x-t\le x+\delta$, and monotonicity implies
+$F(x-\delta)\le F(x-t)\le F(x+\delta)$.
+Integrating against the probability measure $w_\delta(t)\,dt$ yields \eqref{eq:D.bracket}.
 \end{proof}
 
-\medskip
+\subsection{A quantitative smoothing deviation bound}
+\label{subsec:D.deviation}
 
-\begin{lemma}[Effective Ikehara with explicit remainder]\label{lem:ikehara-effective}
-Suppose $F(s)$ extends analytically to $\Re(s)\ge 1-\delta$ except for a simple pole at $s=1$ with residue $A$.  
-Assume also that there exists $M>0$ such that
+The bracketing immediately implies a stable estimate for the difference between $F$ and its smoothing.
+
+\begin{corollary}[Deviation controlled by boundary increment]
+\label{cor:D.boundary-increment}
+Under the hypotheses of Lemma~\ref{lem:D.monotone-bracketing},
+\begin{equation}
+\label{eq:D.deviation}
+\bigl|(F*w_\delta)(x)-F(x)\bigr|
+\le
+F(x+\delta)-F(x-\delta).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+From \eqref{eq:D.bracket} we have
 \[
-F(s) \ll (1+|s|)^M
+(F*w_\delta)(x)-F(x)
+\le
+F(x+\delta)-F(x),
+\qquad
+F(x)-(F*w_\delta)(x)
+\le
+F(x)-F(x-\delta).
 \]
-uniformly in $\Re(s)\ge 1-\delta$. Then for every $\epsilon>0$,
+Summing the two inequalities yields \eqref{eq:D.deviation}.
+\end{proof}
+
+\section{Spectral measures and smoothed counting functions}
+\label{sec:D.spectral}
+
+Let $\mu$ be a positive Radon measure on $[0,\infty)$.
+Define the sharp counting function
+\begin{equation}
+\label{eq:D.sharp-count}
+N(r):=\mu([0,r]),
+\qquad r\ge 0.
+\end{equation}
+Assume $N$ is finite for each $r$.
+
+Define the smoothed counting function
+\begin{equation}
+\label{eq:D.smoothed-count}
+N_\delta(r)
+:=
+(N*w_\delta)(r)
+=
+\int_{\R} N(r-t)\,w_\delta(t)\,dt,
+\qquad r\ge 0,
+\end{equation}
+where $N(r)=0$ for $r<0$.
+
+In the spectral setting of Chapter~\ref{chap:09-local-weyl}, one has
 \[
-N(x) = A x + O(x^{1-\delta+\epsilon}),
+\mu=\sum_j \delta_{r_j},
+\qquad
+N(r)=\#\{j:\ r_j\le r\},
+\qquad
+N_\delta(r)=\sum_j w_\delta(r-r_j).
 \]
-with implied constant depending only on $\delta, M, \epsilon$.  
+
+The Tauberian mechanism consists of proving asymptotics for $N_\delta(r)$ and then controlling the difference
+$N_\delta(r)-N(r)$ by boundary increments.
+
+\section{Tauberian upgrade principle: a stable formulation}
+\label{sec:D.tauberian-upgrade}
+
+\subsection{A general upgrade lemma}
+\label{subsec:D.upgrade-lemma}
+
+The following statement is the central abstract tool.
+
+\begin{lemma}[Tauberian upgrade: smoothed to sharp]
+\label{lem:D.upgrade}
+Let $N$ be a nondecreasing function on $[0,\infty)$.
+Assume that for some $\alpha>0$ and some constant $C>0$ one has a smoothed asymptotic
+\begin{equation}
+\label{eq:D.smoothed-asymptotic}
+N_\delta(r)
+=
+C r^\alpha
++
+R_\delta(r),
+\qquad r\ge 1,
+\end{equation}
+where $R_\delta(r)$ is an error term.
+
+Then for all $r\ge 1$,
+\begin{equation}
+\label{eq:D.sharp-recovery}
+N(r)
+=
+C r^\alpha
++
+R_\delta(r)
++
+O\!\bigl(N(r+\delta)-N(r-\delta)\bigr).
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-This follows from the Wiener–Ikehara method with contour shifting, making the dependence on $\delta$ explicit. See \cite[Thm.~II.7.11]{Delange1954}.
+By Corollary~\ref{cor:D.boundary-increment},
+\[
+|N_\delta(r)-N(r)|
+\le
+N(r+\delta)-N(r-\delta).
+\]
+Inserting \eqref{eq:D.smoothed-asymptotic} yields \eqref{eq:D.sharp-recovery}.
 \end{proof}
 
-\medskip
+Lemma~\ref{lem:D.upgrade} is completely robust: it requires no smoothness, only monotonicity.
+All problem-specific information is concentrated in the boundary increment term.
 
-\begin{proposition}[Quantitative Tauberian for Laplace transforms]\label{prop:laplace-tauber}
-Let $f:[0,\infty)\to [0,\infty)$ be monotone. Suppose its Laplace transform
-\[
-F(s) = \int_0^\infty f(x) e^{-s x}\, dx
-\]
-converges for $\Re(s) > \sigma_0$ and extends meromorphically to $\Re(s)\ge \sigma_0-\delta$ with a simple pole at $s=\sigma_0$ of residue $A$. Then
-\[
-f(x) = A e^{\sigma_0 x} + O(e^{(\sigma_0-\delta) x}),
-\]
-as $x\to \infty$, with all constants depending explicitly on $(\delta, \sigma_0)$.
-\end{proposition}
+\subsection{A scale selection criterion}
+\label{subsec:D.scale-selection}
+
+To extract an asymptotic from \eqref{eq:D.sharp-recovery}, one must select $\delta=\delta(r)$ such that
+the increment term is of lower order than $r^\alpha$.
+
+A canonical sufficient condition is:
+\begin{equation}
+\label{eq:D.increment-negligible}
+N(r+\delta(r))-N(r-\delta(r))=o(r^\alpha),
+\qquad r\to\infty.
+\end{equation}
+
+In spectral Weyl regimes, such control follows from a crude upper bound on $N$ itself.
+
+\section{Increment control under polynomial growth}
+\label{sec:D.polynomial-growth}
+
+\subsection{A deterministic increment bound}
+\label{subsec:D.increment-bound}
+
+Assume a global polynomial bound on $N$:
+\begin{equation}
+\label{eq:D.polynomial-bound}
+N(r)\le C_0(1+r)^\alpha,
+\qquad r\ge 0.
+\end{equation}
+
+Then for small $\delta$ one obtains a deterministic increment estimate.
+
+\begin{lemma}[Polynomial growth increment bound]
+\label{lem:D.poly-increment}
+Assume \eqref{eq:D.polynomial-bound} holds for some $\alpha>0$.
+Then for all $r\ge 1$ and all $\delta\in(0,1]$,
+\begin{equation}
+\label{eq:D.increment-poly}
+N(r+\delta)-N(r-\delta)
+\le
+C_1\,\delta\,r^{\alpha-1},
+\end{equation}
+where $C_1$ depends only on $C_0$ and $\alpha$.
+\end{lemma}
 
 \begin{proof}
-The statement is obtained by Mellin inversion followed by shifting the contour to $\Re(s)=\sigma_0-\delta$, using polynomial growth on vertical lines.  
-See \cite{Ingham1935, Korevaar2004}.
+By monotonicity and \eqref{eq:D.polynomial-bound},
+\[
+N(r+\delta)-N(r-\delta)
+\le
+C_0\bigl((1+r+\delta)^\alpha-(1+r-\delta)^\alpha\bigr).
+\]
+The function $x\mapsto (1+x)^\alpha$ is $C^1$ on $[0,\infty)$ and satisfies
+\[
+(1+r+\delta)^\alpha-(1+r-\delta)^\alpha
+\le
+2\delta \sup_{|t|\le \delta} \alpha(1+r+t)^{\alpha-1}
+\ll
+\delta\,r^{\alpha-1}.
+\]
+This yields \eqref{eq:D.increment-poly}.
 \end{proof}
 
-\medskip
+\subsection{A canonical smoothing removal regime}
+\label{subsec:D.canonical-regime}
 
-\noindent \textbf{Remarks.}  
+If the smoothed law \eqref{eq:D.smoothed-asymptotic} holds uniformly for $\delta\in(0,1]$ and if
+\eqref{eq:D.polynomial-bound} holds, then choosing $\delta(r)=r^{-\theta}$ with $\theta\in(0,1)$ yields
+\[
+N(r+\delta(r))-N(r-\delta(r))
+\ll
+r^{\alpha-1-\theta}
+=
+o(r^\alpha).
+\]
+Thus smoothing removal is valid with a power-saving margin.
+
+\section{A two-component remainder decomposition}
+\label{sec:D.two-component}
+
+\subsection{Geometric remainder versus Tauberian remainder}
+\label{subsec:D.geometric-vs-tauberian}
+
+In the main text the smoothed asymptotic \eqref{eq:D.smoothed-asymptotic} arises from a trace formula identity.
+It is conceptually essential to separate the error sources:
+
 \begin{enumerate}
-  \item These statements bridge the gap between purely qualitative Tauberian theorems and the quantitative needs of spectral theory.  
-  \item In later blocks (D.1.1–D.1.3), we refine these results to incorporate explicit dependence on the spectral gap $\beta$ of $\Gamma \backslash \mathbb H$.  
-  \item Constants are tracked in terms of $\Gamma$, cusp geometry, and resolvent bounds, ensuring reproducibility for applications.  
+\item the \emph{trace remainder} (geometric, normalization, continuous-spectrum terms), controlled by the ledger;
+\item the \emph{Tauberian remainder} (smoothing removal), controlled by the increment term.
 \end{enumerate}
 
-\medskip
+We formalize this separation as follows.
 
-\begin{auditblock}{Audit of Appendix D, Block 1}
-Goals achieved in Part 1:
-\begin{itemize}
-  \item Recalled classical Ikehara theorem (Lemma~\ref{lem:ikehara-classical}).  
-  \item Established an effective version with explicit remainder (Lemma~\ref{lem:ikehara-effective}).  
-  \item Extended to Laplace transforms with exponential error control (Proposition~\ref{prop:laplace-tauber}).  
-\end{itemize}
-Invariants: constants explicit, dependencies on $(\delta, M, \sigma_0)$ tracked.  
-Forward link: spectral applications (Laplacian eigenvalue counts, local Weyl law).  
-Backward link: analytic continuation via resolvent bounds (Chapter~2).
-\end{auditblock}
+\begin{definition}[Tauberian remainder]
+\label{def:D.tauberian-remainder}
+Let $N$ be a counting function and $N_\delta=N*w_\delta$ its smoothing.
+Define the Tauberian remainder at scale $\delta$ by
+\begin{equation}
+\label{eq:D.tauberian-remainder}
+\mathcal{R}^{\mathrm{Tab}}(r;\delta)
+:=
+N_\delta(r)-N(r).
+\end{equation}
+\end{definition}
 
-\subsection*{D.1.1. Error terms and spectral gap refinements}
+By Corollary~\ref{cor:D.boundary-increment} one has the deterministic bound
+\begin{equation}
+\label{eq:D.tab-bound}
+\bigl|\mathcal{R}^{\mathrm{Tab}}(r;\delta)\bigr|
+\le
+N(r+\delta)-N(r-\delta).
+\end{equation}
 
-\noindent \textbf{Motivation.}  
-The qualitative and effective Tauberian theorems presented above must be refined to incorporate the spectral geometry of $M = \Gamma \backslash \mathbb H$.  
-In particular, the spectral gap $\beta>0$ plays a decisive role in determining the quantitative remainder $\delta$ in Tauberian asymptotics.  
-We therefore develop error bounds explicitly linked to $\beta$.
+In particular, the Tauberian remainder is a purely analytic boundary-layer quantity and does not depend on the
+geometric structure of the trace formula.
 
-\medskip
+\subsection{A stable sharp Weyl recovery statement}
+\label{subsec:D.sharp-weyl-recovery}
 
-\begin{lemma}[Power-saving remainder under spectral gap]\label{lem:tauber-gap}
-Let $M=\Gamma\backslash \mathbb H$ be a finite-area hyperbolic surface with spectral gap $\beta>0$.  
-Suppose $N(\lambda)$ counts Laplace eigenvalues $\le \lambda$.  
-Then there exists $\delta=\delta(\beta)>0$ such that
+We now record a standard sharp recovery theorem in the form used in Chapter~\ref{chap:09-local-weyl}.
+
+\begin{theorem}[Sharp recovery from smoothed Weyl asymptotics]
+\label{thm:D.sharp-from-smoothed}
+Let $N$ be a nondecreasing counting function.
+Assume that for each $\delta\in(0,1]$ one has
+\begin{equation}
+\label{eq:D.assume-smoothed}
+N_\delta(r)
+=
+C r^\alpha
++
+R^{\mathrm{TF}}(r;\delta),
+\qquad r\ge 1,
+\end{equation}
+with a trace-formula remainder bound
+\begin{equation}
+\label{eq:D.assume-TF-bound}
+|R^{\mathrm{TF}}(r;\delta)|
+\le
+\mathcal{E}^{\mathrm{TF}}(r;\delta).
+\end{equation}
+Then for all $r\ge 1$,
+\begin{equation}
+\label{eq:D.sharp-final}
+N(r)
+=
+C r^\alpha
++
+O\!\bigl(\mathcal{E}^{\mathrm{TF}}(r;\delta)\bigr)
++
+O\!\bigl(N(r+\delta)-N(r-\delta)\bigr).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Combine Lemma~\ref{lem:D.upgrade} with the assumed bound \eqref{eq:D.assume-TF-bound}.
+\end{proof}
+
+\section{Weighted Tauberian smoothing removal}
+\label{sec:D.weighted}
+
+\subsection{Weighted counting functions}
+\label{subsec:D.weighted-count}
+
+In the microlocal Weyl laws one encounters weighted counting measures of the form
 \[
-N(\lambda) = \frac{\vol(M)}{4\pi}\lambda^2 + O(\lambda^{2-\delta}),
+\mu^A := \sum_j \langle A\varphi_j,\varphi_j\rangle\,\delta_{r_j},
 \]
-with $\delta$ explicitly computable in terms of $\beta$.  
+where $A\in\Psi^0$.
+The corresponding counting function is
+\[
+N_A(r):=\mu^A([0,r])
+=
+\sum_{r_j\le r} \langle A\varphi_j,\varphi_j\rangle.
+\]
+
+If $A$ is bounded on $L^2$, then $N_A$ is of bounded variation but is not necessarily monotone.
+Nevertheless, Tauberian removal remains possible under a uniform boundedness hypothesis.
+
+\subsection{A bounded-variation upgrade lemma}
+\label{subsec:D.bv}
+
+We record the simplest form needed for the main text.
+
+\begin{lemma}[Smoothing removal under bounded variation]
+\label{lem:D.bv-upgrade}
+Let $F$ be a function of bounded variation on $\R$.
+Assume $w_\delta$ satisfies \eqref{eq:D.mollifier.assumptions}.
+Then for all $x$,
+\[
+|(F*w_\delta)(x)-F(x)|
+\le
+\Var(F;[x-\delta,x+\delta]),
+\]
+where $\Var(F;I)$ denotes the total variation of $F$ on $I$.
 \end{lemma}
 
 \begin{proof}
-Combine the Selberg trace formula with the effective Ikehara lemma (Lemma~\ref{lem:ikehara-effective}).  
-The resolvent bounds for $\Delta$ provide analytic continuation of spectral zeta functions to $\Re(s)\ge 1-\beta$, and the spectral gap ensures a pole of order one at $s=1$.  
-Shifting the contour yields a power-saving error term depending only on $\beta$.  
-See \cite{Iwaniec2002, JakobsonNaud2007}.
+Write $F$ as the difference of two monotone functions (Jordan decomposition) and apply
+Corollary~\ref{cor:D.boundary-increment} to each component.
 \end{proof}
 
-\medskip
+In applications, $F=N_A$ and $\Var(F;I)$ is bounded by $\|A\|_{L^2\to L^2}$ times the number of eigenvalues in the
+interval $I$.
 
-\begin{corollary}[Quantitative local Weyl law via Tauberian method]\label{cor:localweyl-tauber}
-Let $P_{\lambda,\eta}$ denote the spectral projector onto eigenvalues in $[\lambda-\eta,\lambda+\eta]$, with $\eta=\lambda^{-\theta}$ for some $\theta < \theta_0$.  
+\section{A minimal Tauberian template for the main text}
+\label{sec:D.template}
+
+For convenience, we summarize the Tauberian upgrade mechanism in a compact reusable template.
+
+\begin{proposition}[Tauberian template]
+\label{prop:D.template}
+Let $N$ be a sharp counting function and let $N_\delta=N*w_\delta$ be its smoothing.
+Assume the smoothed asymptotic
+\[
+N_\delta(r)=M(r)+R(r;\delta),
+\]
+where $M(r)$ is an explicit main term.
 Then
 \[
-\operatorname{tr} P_{\lambda,\eta} = \frac{\vol(M)}{2\pi}\lambda \eta + O(\lambda^{1-\delta}),
+N(r)=M(r)+R(r;\delta)+O\!\bigl(N(r+\delta)-N(r-\delta)\bigr).
 \]
-where $\delta>0$ depends only on $\beta$, and the implied constant depends on $(M,\beta,\theta)$.  
-\end{corollary}
-
-\begin{proof}
-Apply Lemma~\ref{lem:ikehara-effective} to the Laplace transform of the heat kernel combined with the spectral expansion.  
-The spectral gap $\beta$ controls the analytic continuation and hence determines $\delta$.  
-\end{proof}
-
-\medskip
-
-\begin{lemma}[Explicit Tauberian bound]\label{lem:explicit-tauber}
-Under the hypotheses of Lemma~\ref{lem:ikehara-effective}, for $x \geq 1$ we have
+If in addition $N(r)\ll r^\alpha$ and $\delta=r^{-\theta}$ with $\theta\in(0,1)$, then
 \[
-|N(x) - A x| \leq C(\Gamma,\beta,M)\, x^{1-\delta},
+N(r+\delta)-N(r-\delta)=o(r^\alpha),
 \]
-with $C$ an explicit constant depending only on resolvent norms of $\Delta$ and geometric invariants of $M$.  
-\end{lemma}
-
-\begin{proof}
-Combine resolvent estimates for $\Delta$ (cf.~\cite{Buser1992}) with the contour-shifting argument in the effective Ikehara method.  
-All constants can be traced explicitly through the integrals, and their dependencies on $\Gamma$, cusp geometry, and $\beta$ are recorded.
-\end{proof}
-
-\medskip
-
-\begin{auditblock}{Audit of Appendix D, Block 2}
-Goals achieved in Part 2:
-\begin{itemize}
-  \item Connected spectral gap $\beta$ to Tauberian exponent $\delta$ (Lemma~\ref{lem:tauber-gap}).  
-  \item Derived a quantitative local Weyl law via Tauberian input (Corollary~\ref{cor:localweyl-tauber}).  
-  \item Established explicit error bounds with computable constants (Lemma~\ref{lem:explicit-tauber}).  
-\end{itemize}
-Invariants: constants are explicit in $(\Gamma,\beta, \text{geometry})$, independent of $\lambda,\eta$.  
-Forward link: applications to variance bounds in Chapter~8.  
-Backward link: analytic continuation and resolvent estimates in Chapter~2.  
-\end{auditblock}
-
-\subsection*{D.2. Laplace--Tauberian Refinements}
-
-\noindent \textbf{Motivation.}  
-The global Tauberian framework suffices for asymptotic results, but the applications in Chapters~7 and 8 demand sharper control for localized spectral windows of size $\eta = \lambda^{-\theta}$.  
-This requires Laplace–Tauberian theorems adapted to smooth cutoffs and error terms explicitly tuned to $(\beta,\theta)$.
-
-\medskip
-
-\begin{lemma}[Laplace inversion with cutoff]\label{lem:laplace-cutoff}
-Let $f:[0,\infty)\to \mathbb R$ be of bounded variation and $\chi$ a smooth compactly supported cutoff. Then
-\[
-\int_0^\infty f(x)\chi(x/T)\,dx
-= \frac{1}{2\pi i} \int_{(\sigma)} F(s) T^s \widehat{\chi}(s)\,ds,
-\]
-where $F(s)$ is the Laplace transform of $f$ and $\widehat{\chi}(s)$ the Mellin transform of $\chi$.  
-\end{lemma}
-
-\begin{proof}
-Direct Mellin inversion, see \cite[Chap.~II]{Korevaar2004}.  
-\end{proof}
-
-\medskip
-
-\begin{lemma}[Quantitative Laplace--Tauberian]\label{lem:laplace-quant}
-Suppose $F(s)$ extends meromorphically to $\Re(s)\ge \sigma_0-\delta$ with polynomial growth in $|\Im(s)|$.  
-Then for smooth cutoff $\chi$,
-\[
-\int_0^X f(x)\chi(x/X)\,dx = A X + O(X^{1-\delta}),
-\]
-with constants depending explicitly on $F$ and $\chi$.  
-\end{lemma}
-
-\begin{proof}
-Shift contour in Lemma~\ref{lem:laplace-cutoff} to $\Re(s)=\sigma_0-\delta$ and bound the integral using polynomial growth.  
-\end{proof}
-
-\medskip
-
-\begin{proposition}[Localized Tauberian principle]\label{prop:localized-tauber}
-Let $M=\Gamma\backslash \mathbb H$, $\beta>0$ the spectral gap, and $\chi_\eta$ a cutoff at scale $\eta=\lambda^{-\theta}$.  
-Then
-\[
-\sum_{\lambda_j} \chi_\eta(\lambda-\lambda_j) = \frac{\vol(M)}{2\pi}\lambda \eta + O(\lambda^{1-\delta}),
-\]
-with $\delta=\delta(\beta,\theta)>0$.
+and hence the sharp asymptotic $N(r)\sim M(r)$ follows provided $R(r;\delta)=o(r^\alpha)$.
 \end{proposition}
 
 \begin{proof}
-Apply Lemma~\ref{lem:laplace-quant} to the Laplace transform of the heat kernel.  
-The analytic continuation is ensured by $\beta$, and the cutoff $\chi_\eta$ controls the localization window.  
+Immediate from Lemma~\ref{lem:D.upgrade} and Lemma~\ref{lem:D.poly-increment}.
 \end{proof}
 
-\medskip
+\section*{Bibliographic notes}
 
-\begin{lemma}[Uniform cutoff bounds]\label{lem:cutoff-bounds}
-Let $\chi_\eta(t)=\chi(t/\eta)$ with $\chi$ Schwartz. Then
-\[
-|\widehat{\chi}_\eta(\xi)| \ll_A \eta (1+\eta|\xi|)^{-A}, \quad \forall A>0.
-\]
-\end{lemma}
+The bracketing inequality of Lemma~\ref{lem:D.monotone-bracketing} is classical and appears in essentially all
+Tauberian arguments for Weyl laws.
+The upgrade mechanism stated in Theorem~\ref{thm:D.sharp-from-smoothed} is the standard route from smoothed trace
+formula asymptotics to sharp counting statements, and may be viewed as a minimal analytic interface between
+microlocal trace identities and sharp spectral distribution results.
 
-\begin{proof}
-Rescale $\chi_\eta$ and use rapid decay of $\widehat{\chi}$.  
-\end{proof}
-
-\medskip
-
-\subsection*{D.2.1. Explicit Gap--Exponent Relation}
-
-\begin{proposition}[Gap--exponent relation]\label{prop:gap-exponent}
-If $F(s)$ admits analytic continuation to $\Re(s)\ge 1-\beta$, then the Tauberian exponent may be taken as $\delta=\beta/2$.  
-\end{proposition}
-
-\begin{proof}
-Contour shifting: the horizontal integrals are bounded by $X^{1-\beta/2}$ under polynomial growth of $F(s)$.  
-See \cite{JakobsonNaud2007}.  
-\end{proof}
-
-\begin{corollary}[Local Weyl with explicit exponent]\label{cor:weyl-explicit}
-Under the assumptions of Proposition~\ref{prop:gap-exponent},
-\[
-\operatorname{tr} P_{\lambda,\eta} = \frac{\vol(M)}{2\pi}\lambda \eta + O(\lambda^{1-\beta/2}),
-\]
-uniformly for $\eta=\lambda^{-\theta}$ with $\theta<\theta_0$.  
-\end{corollary}
-
-\medskip
-
-\begin{auditblock}{Audit of Appendix D, Block 3}
-Goals achieved in Part 3:
-\begin{itemize}
-  \item Adapted Tauberian theorems to localized spectral windows (Proposition~\ref{prop:localized-tauber}).  
-  \item Explicitly related spectral gap $\beta$ to Tauberian exponent $\delta=\beta/2$ (Proposition~\ref{prop:gap-exponent}).  
-  \item Derived local Weyl law with power-saving remainder (Corollary~\ref{cor:weyl-explicit}).  
-  \item Established uniform cutoff bounds essential for oscillatory integrals (Lemma~\ref{lem:cutoff-bounds}).  
-\end{itemize}
-Invariants: all constants explicit, dependencies tracked in $(\Gamma,\beta,\chi)$.  
-Forward links: Chapter~7 (local Weyl), Chapter~8 (variance bounds).  
-Backward links: Appendix B (Paley–Wiener bounds), Chapter~2 (heat kernel resolvent).  
-\end{auditblock}
-
-\subsection*{D.3. Applications and Extended Examples}
-
-\noindent \textbf{Motivation.}  
-The abstract Tauberian and Laplace--Mellin principles developed in Blocks D.1--D.2 must be concretely instantiated.
-
-\medskip
-
-\subsection*{D.3.1. Local Weyl law at scale $\eta=\lambda^{-\theta}$}
-
-Consider the localized counting function
-\[
-N(\lambda,\eta) = \#\{\lambda_j : \lambda-\eta \le \lambda_j \le \lambda+\eta\}.
-\]
-By Corollary~\ref{cor:weyl-explicit},
-\[
-N(\lambda,\eta) = \frac{\vol(M)}{2\pi}\lambda \eta + O(\lambda^{1-\delta}),
-\qquad \delta = \beta/2,
-\]
-where $\beta>0$ is the spectral gap.  
-
-\begin{example}[Short spectral windows]
-Let $\eta=\lambda^{-1/3}$ and $\beta=1/4$.  
-Then $\delta=1/8$ and
-\[
-N(\lambda,\lambda^{-1/3}) = \frac{\vol(M)}{2\pi}\lambda^{2/3} + O(\lambda^{7/8}).
-\]
-This improves upon the trivial estimate $N(\lambda,\eta)\ll \lambda\eta+\lambda^{1/2}$.
-\end{example}
-
-\medskip
-
-\subsection*{D.3.2. Weighted spectral sums with test functions}
-
-For applications in variance bounds and Fourier coefficients we need
-\[
-S(\lambda,\eta;f) = \sum_j f(\lambda_j) \chi_\eta(\lambda-\lambda_j),
-\]
-where $f$ is smooth with bounded derivatives.  
-
-\begin{proposition}[Weighted localized sum]\label{prop:weighted-sum}
-For such $f$,
-\[
-S(\lambda,\eta;f) = f(\lambda)\,\frac{\vol(M)}{2\pi}\lambda\eta + O_f(\lambda^{1-\delta}),
-\qquad \delta = \delta(\beta,\theta).
-\]
-\end{proposition}
-
-\medskip
-
-\subsection*{D.3.3. Short geodesic arcs}
-
-On the geometric side, short arcs of closed geodesics yield oscillatory sums.  
-Localized Tauberian arguments provide uniform control:
-
-\begin{lemma}[Geodesic arc average]\label{lem:arc}
-Let $\mathcal G(T,\Delta)$ be primitive geodesics with length in $[T,T+\Delta]$. Then
-\[
-\sum_{\gamma\in \mathcal G(T,\Delta)} e^{i\lambda \ell(\gamma)}
-\ll \frac{\Delta}{T}e^T + O(\lambda^{1-\delta}),
-\]
-uniformly for $\Delta\le T^{1-\epsilon}$.  
-\end{lemma}
-
-\medskip
-
-\subsection*{D.3.4. Applications to quantum chaos}
-
-Variance bounds for Fourier coefficients of Hecke–Maass forms require sums
-\[
-V(\lambda,\eta) = \sum_j |a_j(n)|^2 \chi_\eta(\lambda-\lambda_j).
-\]
-By Proposition~\ref{prop:weighted-sum},
-\[
-V(\lambda,\eta) = \frac{\vol(M)}{2\pi}\lambda\eta + O(\lambda^{1-\delta}),
-\]
-with $\delta$ tied explicitly to $\beta$.  
-
-\medskip
-
-\subsection*{D.3.5. Mellin transforms with explicit error}
-
-For a smooth $g$ supported in $[0,1]$,
-\[
-I(\lambda) = \int_0^\infty g(x)e^{i\lambda x}\,dx
-= \sum_{k=0}^{N-1} \frac{g^{(k)}(0)}{(i\lambda)^{k+1}} + O(\lambda^{-N}).
-\]
-
-\medskip
-
-\begin{auditblock}{Audit of Appendix D, Block 4}
-Goals achieved in Part 4:
-\begin{itemize}
-  \item Demonstrated concrete applications of localized Tauberian results.  
-  \item Linked Tauberian remainder terms directly to spectral gap $\beta$.  
-  \item Provided geometric application: geodesic arc averages with oscillatory weights.  
-  \item Showed direct relevance to quantum chaos via Fourier coefficient variance.  
-\end{itemize}
-Invariants: constants explicit, $\delta=\beta/2$ where applicable.  
-Forward links: Chapter~8 (variance bounds, quantum chaos).  
-Backward links: Appendix B (stationary phase), Appendix C (microlocal tools).  
-\end{auditblock}
-
-\subsection*{D.4. Final Audit of Appendix D}
-
-\noindent \textbf{Chapter Goals Recap.}  
-Appendix D was designed to consolidate and extend Tauberian machinery.
-
-\medskip
-
-\begin{auditblock}{Verification of Goals}
-\begin{itemize}
-  \item \textbf{V(D1):} Achieved in Lemma~\ref{lem:ikehara-effective} and Proposition~\ref{prop:localized-tauber}.  
-  \item \textbf{V(D2):} Achieved in Lemma~\ref{lem:laplace-cutoff} and Corollary~\ref{cor:weyl-explicit}.  
-  \item \textbf{V(D3):} Achieved in Proposition~\ref{prop:weighted-sum} and Lemma~\ref{lem:arc}.  
-  \item \textbf{V(D4):} Achieved by systematic linking of Appendices B--C and Chapters~6--8.  
-\end{itemize}
-\end{auditblock}
-
-\medskip
-
-\noindent \textbf{Concluding Remarks.}  
-Appendix D equips the monograph with a rigorous, transparent, and reproducible Tauberian toolkit.  
-By making explicit the dependence on spectral gap $\beta$ and cusp geometry, it ensures that all constants and error terms are effective.  
-This appendix therefore provides the analytic closure for the localized trace formula.
-
-\begin{auditblock}{Audit Summary}
-\begin{itemize}
-  \item Quantitative Tauberian theorems $\rightarrow$ effective bounds with explicit $\delta(\beta)$.  
-  \item Laplace--Mellin refinements $\rightarrow$ localized spectral windows.  
-  \item Applications $\rightarrow$ Weyl law, geodesic arcs, variance bounds.  
-  \item Reproducibility $\rightarrow$ every constant tracked, all results linked.  
-\end{itemize}
-\end{auditblock}
-
-\bigskip
-\hrule
-\bigskip
-
-\noindent \textbf{Final Statement.}
-Appendix D stands as the analytic backbone: precise, transparent, and fully auditable.
+% ======================================================================
+% End of Appendix D
+% ======================================================================
