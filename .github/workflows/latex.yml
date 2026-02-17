@@ -1,45 +1,73 @@
-name: pdf
+name: Build PDF (latexmk + BibTeX)
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
-concurrency:
-  group: latex-${{ github.ref }}
-  cancel-in-progress: true
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build PDF (latexmk + BibTeX)
+      # Safety: покажем структуру, чтобы в логах было видно,
+      # что src/main.tex реально на месте.
+      - name: Show repository tree (top + src)
+        run: |
+          set -e
+          echo "=== TOP ==="
+          ls -la
+          echo "=== SRC ==="
+          ls -la src
+          echo "=== SRC/BIB ==="
+          ls -la src/bib || true
+
+      # Компиляция из src/, потому что главный файл там.
+      # BibTeX/latexmk сделают нужные прогоны автоматически.
+      - name: Compile src/main.tex
         uses: xu-cheng/latex-action@v3
         with:
+          working_directory: src
           root_file: main.tex
-          latexmk_use_xelatex: true
-          args: -interaction=nonstopmode -file-line-error -synctex=1
+          args: >-
+            -pdf
+            -interaction=nonstopmode
+            -halt-on-error
+            -file-line-error
+            -synctex=1
 
+      # Загружаем PDF как artifact
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
           name: pdf
-          path: main.pdf
+          path: |
+            src/*.pdf
 
+      # Загружаем логи/промежуточные файлы, чтобы ловить
+      # "не все главы/приложения", BibTeX проблемы и т.п.
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: latex-logs
+          name: logs
           path: |
-            *.log
-            *.aux
-            *.bbl
-            *.blg
-            *.out
-            *.toc
-            *.lof
-            *.lot
+            src/*.log
+            src/*.aux
+            src/*.bbl
+            src/*.blg
+            src/*.out
+            src/*.toc
+            src/*.lof
+            src/*.lot
+            src/*.synctex.gz
+            src/*.fls
+            src/*.fdb_latexmk
