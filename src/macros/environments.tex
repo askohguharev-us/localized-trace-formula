@@ -3,26 +3,40 @@
 % environments.tex — Diamond-Guarded Theorem Environments (CHAPTER SAFE)
 %
 % Diamond law:
-%   - Theorem counter is reset by chapter (never by section), to avoid ".59"
-%     in \section* blocks.
-%   - Lemma/Proposition/Corollary/etc share the theorem counter.
-%   - File is the single authority for theorem-like environments.
+%   - Single authority for theorem-like environments.
+%   - Theorem counter resets by chapter (never by section) to avoid ".59"
+%     inside \section* / appendix-style blocks.
+%   - Lemma/Proposition/Corollary/Definition/Remark/etc share theorem counter.
+%   - Safe under multiple inputs; safe under missing packages; safe under
+%     cleveref load-order; no hard dependency on main.tex.
 % ==================================================================
 
-\ProvidesFile{environments.tex}[2026/02/16 Diamond theorem envs (chapter-safe)]
+\ProvidesFile{environments.tex}[2026/02/18 Diamond theorem envs (chapter-safe)]
 
 \makeatletter
 
 % --------------------------------------------------------------
-% Equation numbering (safe; if already set elsewhere, no harm)
+% Hard dependency we actually need
+%   - \theoremstyle, \newtheorem are defined by amsthm
+%   - RequirePackage is safe here even if loaded earlier.
 % --------------------------------------------------------------
-\@ifundefined{c@equation}{}{\numberwithin{equation}{section}}
+\RequirePackage{amsthm}
 
 % --------------------------------------------------------------
-% Guarded theorem constructors
-%   We guard on the *environment macro* (e.g. \theorem).
+% Equation numbering (optional; harmless if already configured)
 % --------------------------------------------------------------
-\providecommand{\SafeNewTheorem}[3][]{%
+\@ifundefined{c@equation}{}{%
+  \@ifundefined{numberwithin}{}{%
+    \numberwithin{equation}{section}%
+  }%
+}
+
+% --------------------------------------------------------------
+% Diamond-safe constructors
+%   - Guard on the environment name macro (e.g. \theorem)
+%   - Never redefines if already present.
+% --------------------------------------------------------------
+\providecommand{\DiamondNewTheorem}[3][]{%
   \@ifundefined{#2}{%
     \ifx\\#1\\%
       \newtheorem{#2}{#3}%
@@ -32,49 +46,50 @@
   }{}%
 }
 
-% Define an env sharing an existing counter (e.g. [theorem])
-\providecommand{\SafeNewTheoremSibling}[3]{%
-  \@ifundefined{#1}{\newtheorem{#1}[#2]{#3}}{}%
+\providecommand{\DiamondNewTheoremSibling}[3]{%
+  \@ifundefined{#1}{%
+    \newtheorem{#1}[#2]{#3}%
+  }{}%
 }
 
 % --------------------------------------------------------------
-% Core theorem family (CHAPTER-BASED) — this kills ".59"
+% Core family (CHAPTER-BASED counter) — kills ".59"
 % --------------------------------------------------------------
 \theoremstyle{plain}
 
-% Primary counter reset by chapter
-\SafeNewTheorem[chapter]{theorem}{Theorem}
+% Primary counter: reset by chapter
+\DiamondNewTheorem[chapter]{theorem}{Theorem}
 
 % Siblings share theorem counter
-\SafeNewTheoremSibling{lemma}{theorem}{Lemma}
-\SafeNewTheoremSibling{proposition}{theorem}{Proposition}
-\SafeNewTheoremSibling{corollary}{theorem}{Corollary}
-\SafeNewTheoremSibling{hypothesis}{theorem}{Hypothesis}
+\DiamondNewTheoremSibling{lemma}{theorem}{Lemma}
+\DiamondNewTheoremSibling{proposition}{theorem}{Proposition}
+\DiamondNewTheoremSibling{corollary}{theorem}{Corollary}
+\DiamondNewTheoremSibling{hypothesis}{theorem}{Hypothesis}
 
 % --------------------------------------------------------------
-% Definition / remark families (also share theorem counter)
+% Definition / remark families (share theorem counter)
 % --------------------------------------------------------------
 \theoremstyle{definition}
-\SafeNewTheoremSibling{definition}{theorem}{Definition}
-\SafeNewTheoremSibling{assumption}{theorem}{Assumption}
+\DiamondNewTheoremSibling{definition}{theorem}{Definition}
+\DiamondNewTheoremSibling{assumption}{theorem}{Assumption}
 
 \theoremstyle{remark}
-\SafeNewTheoremSibling{remark}{theorem}{Remark}
-\SafeNewTheoremSibling{example}{theorem}{Example}
+\DiamondNewTheoremSibling{remark}{theorem}{Remark}
+\DiamondNewTheoremSibling{example}{theorem}{Example}
 
 % --------------------------------------------------------------
-% Audit block: stays a remark wrapper (stable + simple)
+% Audit block (remark wrapper, stable + simple)
 % --------------------------------------------------------------
-\@ifundefined{auditblock}{
+\@ifundefined{auditblock}{%
   \newenvironment{auditblock}[1]{%
     \begin{remark}[#1]%
   }{%
     \end{remark}%
-  }
+  }%
 }{}
 
 % --------------------------------------------------------------
-% cleveref integration (late binding to avoid load-order crashes)
+% cleveref integration (late binding; load-order safe)
 % --------------------------------------------------------------
 \AtBeginDocument{%
   \@ifpackageloaded{cleveref}{%
@@ -91,7 +106,7 @@
     \crefname{auditblock}{audit block}{audit blocks}%
     \Crefname{auditblock}{Audit block}{Audit blocks}%
   }{%
-    % Minimal fallback if cleveref absent
+    % Minimal fallback if cleveref is absent
     \providecommand{\cref}[1]{\ref{#1}}%
     \providecommand{\Cref}[1]{\ref{#1}}%
   }%
