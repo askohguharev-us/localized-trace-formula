@@ -1,310 +1,194 @@
 % =====================================================================
-% File: 02b-selberg-transform.tex
-% DIAMOND BLOCK (4-in-1) — Selberg/Harish--Chandra transform on H,
-% admissible classes, Paley--Wiener, examples, and trace-formula interface
+% PATH: src/sections/02-preliminaries/blocks/02b-selberg-transform.tex
+% Selberg/Harish--Chandra transform on H (Annals+++)
+% Conventions: spherical parameter r, Plancherel density (1/4pi) r tanh(pi r) dr
 % =====================================================================
 
-\section{The Selberg Transform}
-\label{sec:selberg-transform}
+\subsection{The Selberg/Harish--Chandra transform}\label{subsec:selberg-transform}
 
-\noindent
-This section fixes the \emph{single} analytic dictionary used throughout the monograph:
-radial kernels on $\mathbb{H}$ $\leftrightarrow$ spectral multipliers of $\Delta$
-(via the spherical/Harish--Chandra transform), together with the admissible test classes,
-Paley--Wiener support duality, and the precise interface with the (pre-)trace formula on
-$M=\Gamma\backslash\mathbb{H}$.
+This block fixes, once and for all, the transform conventions relating radial kernels on $\H$
+to spectral multipliers of $\Delta$. No statement below depends on later localization
+parameters.
 
-\subsection{Geometry, Laplacian, spectral parameter, and spherical functions}
-\label{subsec:spherical-functions}
+% ---------------------------------------------------------------------
+\subsubsection{Spherical functions and Plancherel density}\label{subsec:spherical-functions}
 
-\noindent
-Let $\mathbb{H}=\{z=x+iy\in\mathbb{C}:y>0\}$ with metric $ds^{2}=y^{-2}(dx^{2}+dy^{2})$,
-volume element $d\mu(z)=dx\,dy/y^{2}$, and the nonnegative Laplace--Beltrami operator
-\begin{equation}
-\label{eq:laplace-H}
-\Delta=-y^{2}\Bigl(\frac{\partial^{2}}{\partial x^{2}}+\frac{\partial^{2}}{\partial y^{2}}\Bigr).
+Let $\H=\{x+iy\in\C:\ y>0\}$ with metric $ds^{2}=y^{-2}(dx^{2}+dy^{2})$ and measure
+$d\mu(z)=dx\,dy/y^{2}$. We use the nonnegative Laplacian
+\begin{equation}\label{eq:laplace-H}
+\Delta=-y^{2}\bigl(\partial_{x}^{2}+\partial_{y}^{2}\bigr).
 \end{equation}
-We use the standard spectral parametrization
+The spectral parameter is
 \[
-\lambda=\frac14+r^{2},\qquad r\in\mathbb{R},
+\lambda=\frac14+r^{2},\qquad r\in\C,
 \]
-so that the continuous spectrum of $\Delta$ on $\mathbb{H}$ corresponds to $r\in\mathbb{R}$.
+so that the continuous spectrum on $\H$ corresponds to $r\in\R$.
 
-\medskip
-\noindent\textbf{Spherical functions.}
-Let $u=d(z,i)\ge 0$. The spherical function $\varphi_{r}$ is the unique $K$--biinvariant eigenfunction
-(normalized at the base point) satisfying
-\begin{equation}
-\label{eq:spherical-eig}
-\Delta\,\varphi_{r}=\Bigl(\frac14+r^{2}\Bigr)\varphi_{r},\qquad \varphi_{r}(i)=1,
-\qquad \varphi_{r}(z)=\varphi_{r}\bigl(d(z,i)\bigr).
+For $r\in\C$ let $\varphi_{r}$ denote the (zonal) spherical function, i.e.\ the unique $K$--biinvariant
+smooth function satisfying
+\begin{equation}\label{eq:spherical-eig}
+\Delta\,\varphi_{r}=\Bigl(\frac14+r^{2}\Bigr)\varphi_{r},
+\qquad
+\varphi_{r}(i)=1.
 \end{equation}
-Equivalently,
-\begin{equation}
-\label{eq:spherical-legendre}
-\varphi_{r}(u)=P_{-\frac12+ir}(\cosh u),
+Equivalently, writing $u=d_{\H}(z,i)$, one has $\varphi_{r}(z)=\varphi_{r}(u)$ and
+\begin{equation}\label{eq:spherical-legendre}
+\varphi_{r}(u)=P_{-\frac12+ir}(\cosh u).
 \end{equation}
-and one may use the Mehler--Dirichlet integral representation
-\begin{equation}
-\label{eq:mehler-dirichlet}
-\varphi_{r}(u)=\frac{1}{2\pi}\int_{0}^{2\pi}\bigl(\cosh u+\sinh u\cos\theta\bigr)^{-\frac12+ir}\,d\theta,
-\qquad (u\ge 0).
+The Harish--Chandra $c$--function is
+\begin{equation}\label{eq:c-function}
+c(r)=\frac{\Gamma(ir)}{\Gamma(\frac12+ir)}.
 \end{equation}
-The Harish--Chandra $c$--function in our normalization is
-\begin{equation}
-\label{eq:c-function}
-c(r)=\frac{\Gamma(ir)}{\Gamma(\frac12+ir)},
+For $r$ in compact subsets of $\R$ one has the standard large--$u$ asymptotic
+\begin{equation}\label{eq:spherical-asymp}
+\varphi_{r}(u)=c(r)e^{(ir-\frac12)u}+c(-r)e^{(-ir-\frac12)u}+O(e^{-3u/2}),
+\qquad u\to\infty.
 \end{equation}
-and the standard large--$u$ asymptotic is
-\begin{equation}
-\label{eq:spherical-asymp}
-\varphi_{r}(u)=c(r)\,e^{(ir-\frac12)u}+c(-r)\,e^{(-ir-\frac12)u}+O\!\left(e^{-\frac{3}{2}u}\right),
-\qquad u\to\infty,
-\end{equation}
-uniformly for $r$ in compact subsets of $\mathbb{R}$.
-In particular, $|\varphi_{r}(u)|\ll (1+u)e^{-u/2}$ uniformly for real $r$.
-
-\subsection{Radial kernels and the Selberg/Harish--Chandra transform}
-\label{subsec:selberg-def}
-
-\noindent
-A \emph{radial kernel} is a function $K(z,w)=k(d(z,w))$ with profile $k:[0,\infty)\to\mathbb{C}$.
-The associated convolution operator on $\mathbb{H}$ is
-\begin{equation}
-\label{eq:radial-operator}
-(T_{k}f)(z)=\int_{\mathbb{H}}k\!\bigl(d(z,w)\bigr)f(w)\,d\mu(w).
+The Plancherel density for radial analysis on $\H$ is
+\begin{equation}\label{eq:plancherel-density}
+d\mu_{\mathrm{Pl}}(r)=\frac{1}{4\pi}\,r\,\tanh(\pi r)\,dr
+\qquad (r\in\R).
 \end{equation}
 
-\medskip
-\noindent\textbf{Definition (spherical transform).}
-For a sufficiently decaying $k$ (e.g. $k\in C_{c}^{\infty}([0,\infty))$), define its Selberg transform $h:\mathbb{C}\to\mathbb{C}$ by
-\begin{equation}
-\label{eq:selberg-transform}
-h(r)=\int_{\mathbb{H}}k\!\bigl(d(z,i)\bigr)\,\varphi_{r}(z)\,d\mu(z)
-=2\pi\int_{0}^{\infty}k(u)\,\varphi_{r}(u)\,\sinh u\,du.
-\end{equation}
-Then $h$ is even in $r$ and, for $k\in C_{c}^{\infty}$, $h$ is an entire function.
+% ---------------------------------------------------------------------
+\subsubsection{Radial kernels and the spherical transform}\label{subsec:radial-kernels}
 
-\medskip
-\noindent\textbf{Diagonalization principle.}
-For every joint eigenfunction $\psi$ of $\Delta$ on $\mathbb{H}$ with spectral parameter $r$
-(i.e. $\Delta\psi=(\frac14+r^{2})\psi$), one has
-\begin{equation}
-\label{eq:multiplier}
-T_{k}\psi=h(r)\,\psi.
+A \emph{radial kernel} on $\H$ is of the form $K(z,w)=k(d_{\H}(z,w))$ for a profile
+$k:[0,\infty)\to\C$. The associated convolution operator is
+\begin{equation}\label{eq:radial-operator}
+(T_{k}f)(z)=\int_{\H}k(d_{\H}(z,w))\,f(w)\,d\mu(w).
 \end{equation}
-This is the exact hyperbolic analogue of Fourier multiplier diagonalization in $\mathbb{R}^{n}$.
 
-\subsection{Abel transform, Fourier reduction, and inversion}
-\label{subsec:abel-inversion}
-
-\noindent
-For trace formula applications it is convenient to pass from $k$ to an Abel-type transform supported on the geodesic axis variable.
-Define the \emph{Abel transform} (one standard choice) by
-\begin{equation}
-\label{eq:abel-transform}
-g(t):=\sqrt{2}\int_{|t|}^{\infty}k(u)\,\frac{\sinh u}{\sqrt{\cosh u-\cosh t}}\,du,
-\qquad t\in\mathbb{R}.
+\begin{definition}[Spherical transform]\label{def:spherical-transform}
+Assume $k$ is measurable and that $u\mapsto k(u)\sinh u$ is integrable on $(0,\infty)$.
+The (Selberg/Harish--Chandra) spherical transform of $k$ is the even function $h$ on $\R$ defined by
+\begin{equation}\label{eq:selberg-transform}
+h(r)=\int_{\H}k(d_{\H}(z,i))\,\varphi_{r}(z)\,d\mu(z)
+=
+2\pi\int_{0}^{\infty}k(u)\,\varphi_{r}(u)\,\sinh u\,du,
+\qquad r\in\R.
 \end{equation}
-Then $g$ is even and, for $k\in C_{c}^{\infty}$, one has $g\in C_{c}^{\infty}(\mathbb{R})$.
+If $k\in C_c^\infty([0,\infty))$, then $h$ extends to an even entire function.
+\end{definition}
 
-\begin{proposition}[Fourier reduction of the spherical transform]
-\label{prop:fourier-reduction}
-Let $k\in C_{c}^{\infty}([0,\infty))$ and define $g$ by \eqref{eq:abel-transform}. Then the Selberg transform \eqref{eq:selberg-transform} satisfies
-\begin{equation}
-\label{eq:h-is-fourier}
-h(r)=\int_{-\infty}^{\infty} g(t)\,e^{irt}\,dt \qquad (r\in\mathbb{C}).
+\begin{proposition}[Multiplier property]\label{prop:multiplier-property}
+Let $\psi$ be a smooth joint eigenfunction of $\Delta$ on $\H$ with
+$\Delta\psi=(\frac14+r^{2})\psi$ for some $r\in\R$. If $k\in C_c^\infty([0,\infty))$, then
+\begin{equation}\label{eq:multiplier}
+T_k\psi=h(r)\,\psi,
 \end{equation}
-Conversely, given an even $g\in C_{c}^{\infty}(\mathbb{R})$, defining $h$ by \eqref{eq:h-is-fourier} and $k$ by Abel inversion yields a radial kernel $k\in C_{c}^{\infty}([0,\infty))$ with Selberg transform $h$.
+where $h$ is defined by \eqref{eq:selberg-transform}.
 \end{proposition}
 
-\medskip
-\noindent\textbf{Inversion formula (spherical inversion).}
-With our normalization, the inversion reads
-\begin{equation}
-\label{eq:spherical-inversion}
-k(u)=\frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,r\tanh(\pi r)\,dr,
-\qquad u\ge 0,
-\end{equation}
-whenever $h$ satisfies the admissibility conditions below (ensuring absolute convergence).
-Equivalently, $g$ is recovered as the Euclidean inverse Fourier transform of $h$,
-and $k$ is recovered from $g$ by Abel inversion.
+% ---------------------------------------------------------------------
+\subsubsection{Inversion and Plancherel}\label{subsec:inversion-plancherel}
 
-\subsection{Plancherel and convolution}
-\label{subsec:plancherel-convolution}
-
-\begin{lemma}[Plancherel identity]
-\label{lem:selberg-plancherel-diamond}
-For radial profiles $k_{1},k_{2}$ with Selberg transforms $h_{1},h_{2}$, one has
-\begin{equation}
-\label{eq:plancherel}
-2\pi\int_{0}^{\infty}k_{1}(u)\,\overline{k_{2}(u)}\,\sinh u\,du
+For even $h$ satisfying the admissibility conditions in Definition~\ref{def:admissible-H}
+below, the inverse transform is
+\begin{equation}\label{eq:spherical-inversion}
+k(u)=\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,d\mu_{\mathrm{Pl}}(r)
 =
-\frac{1}{4\pi}\int_{-\infty}^{\infty}h_{1}(r)\,\overline{h_{2}(r)}\,r\tanh(\pi r)\,dr.
+\frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,r\tanh(\pi r)\,dr,
+\qquad u\ge 0.
+\end{equation}
+
+\begin{lemma}[Plancherel identity]\label{lem:selberg-plancherel}
+If $k_1,k_2\in C_c^\infty([0,\infty))$ have transforms $h_1,h_2$, then
+\begin{equation}\label{eq:plancherel}
+2\pi\int_{0}^{\infty} k_1(u)\,\overline{k_2(u)}\,\sinh u\,du
+=
+\int_{-\infty}^{\infty} h_1(r)\,\overline{h_2(r)}\,d\mu_{\mathrm{Pl}}(r).
 \end{equation}
 \end{lemma}
 
-\begin{lemma}[Convolution property]
-\label{lem:selberg-convolution-diamond}
-Let $k_{1},k_{2}$ be radial kernels on $\mathbb{H}$ with transforms $h_{1},h_{2}$.
-Then $T_{k_{1}}\circ T_{k_{2}}=T_{k_{1}*k_{2}}$ is radial and its transform satisfies
-\begin{equation}
-\label{eq:conv-mult}
-h_{1*2}(r)=h_{1}(r)\,h_{2}(r).
+\begin{lemma}[Convolution]\label{lem:selberg-convolution}
+Let $k_1,k_2\in C_c^\infty([0,\infty))$ with transforms $h_1,h_2$. Then the radial kernel
+$k_1*k_2$ (hyperbolic convolution) satisfies
+\begin{equation}\label{eq:conv-mult}
+h_{1*2}(r)=h_1(r)\,h_2(r)\qquad (r\in\R).
 \end{equation}
-Equivalently, at the Abel level, convolution corresponds to pointwise multiplication of the Euclidean Fourier transforms.
+Equivalently, $T_{k_1}\circ T_{k_2}=T_{k_1*k_2}$.
 \end{lemma}
 
-\subsection{Admissible test functions and Paley--Wiener support duality}
-\label{subsec:admissible-paley-wiener}
+% ---------------------------------------------------------------------
+\subsubsection{Admissible test class and Paley--Wiener}\label{subsec:admissible-paley-wiener}
 
-\noindent
-We isolate a single admissibility class stable under all operations used later (kernel summation, contour shifts, orbital integrals).
-
-\begin{definition}[Admissible spectral test class $\mathcal{H}$]
-\label{def:admissible-H}
-A function $h:\mathbb{C}\to\mathbb{C}$ is \emph{admissible} if:
+\begin{definition}[Admissible spectral class]\label{def:admissible-H}
+An even function $h:\C\to\C$ is \emph{admissible} if there exists $\varepsilon>0$ such that:
 \begin{itemize}
-\item[(H1)] $h$ is even and holomorphic in the strip $|\Im r|<\frac12+\varepsilon$ for some $\varepsilon>0$;
-\item[(H2)] for some $\delta>0$ one has the uniform decay
+\item[(H1)] $h$ is holomorphic in the strip $|\Im r|<\frac12+\varepsilon$;
+\item[(H2)] there exists $\delta>0$ with
 \[
-h(r)\ll (1+|r|)^{-2-\delta}\quad\text{as }|r|\to\infty\text{ within }|\Im r|<\frac12+\varepsilon;
+h(r)\ll (1+|r|)^{-2-\delta}
+\quad\text{uniformly for }|\Im r|<\frac12+\varepsilon;
 \]
-\item[(H3)] the boundary values along $\Im r=\pm(\frac12+\varepsilon')$ (any $\varepsilon'<\varepsilon$) obey the same bound,
-so that contour shifts in $r$ are permitted.
+\item[(H3)] the same bound holds uniformly on the lines $\Im r=\pm(\frac12+\varepsilon')$ for each $\varepsilon'<\varepsilon$
+(so contour shifts in $r$ are permitted).
 \end{itemize}
 \end{definition}
 
-\noindent
-If $h\in\mathcal{H}$, the inversion \eqref{eq:spherical-inversion} defines a continuous profile $k$ with exponential decay $k(u)\ll e^{-(\frac12+\varepsilon')u}$ for any $\varepsilon'<\varepsilon$.
+If $h$ is admissible, the inversion \eqref{eq:spherical-inversion} defines a continuous radial profile $k$ with exponential decay
+$k(u)\ll_{\varepsilon'} e^{-(\frac12+\varepsilon')u}$ for each $\varepsilon'<\varepsilon$.
 
-\medskip
-\noindent\textbf{Paley--Wiener theorem (support $\leftrightarrow$ exponential type).}
-Support is most naturally expressed at the Abel level:
-
-\begin{theorem}[Paley--Wiener for the spherical transform]
-\label{thm:paley-wiener-diamond}
+\begin{theorem}[Paley--Wiener]\label{thm:paley-wiener}
 Let $R>0$.
 \begin{itemize}
-\item[(PW$\Rightarrow$)] If $k\in C_{c}^{\infty}([0,\infty))$ is supported in $[0,R]$, then $h$ extends to an even entire function
-satisfying the exponential type bound
+\item[(PW$\Rightarrow$)] If $k\in C_c^\infty([0,\infty))$ is supported in $[0,R]$, then $h$ extends to an even entire function satisfying,
+for each $N>0$,
 \[
-|h(r)|\ll_{N}(1+|r|)^{-N}e^{R|\Im r|}\qquad(\forall N>0).
+|h(r)|\ll_{N}(1+|r|)^{-N}e^{R|\Im r|}\qquad (r\in\C).
 \]
-Equivalently, the Abel transform $g$ is supported in $[-R,R]$ and $h$ is its Euclidean Fourier transform \eqref{eq:h-is-fourier}.
-\item[(PW$\Leftarrow$)] Conversely, if $h$ is even entire of exponential type $R$ and rapidly decaying on $\mathbb{R}$, then the inverse transform
-$k$ is supported in $[0,R]$ (equivalently, $g$ is supported in $[-R,R]$).
+\item[(PW$\Leftarrow$)] Conversely, if $h$ is even entire of exponential type $R$ and rapidly decaying on $\R$, then the inverse transform $k$
+is supported in $[0,R]$.
 \end{itemize}
 \end{theorem}
 
-\noindent
-This theorem is the precise dictionary used to build compactly supported kernels (geometric localization) and to quantify spectral windowing via exponential type.
+% ---------------------------------------------------------------------
+\subsubsection{Examples}\label{subsec:selberg-examples}
 
-\subsection{Canonical examples}
-\label{subsec:examples}
-
-\paragraph{(i) Heat kernel.}
-For the hyperbolic heat semigroup $e^{-t\Delta}$ one has the spectral multiplier
+\paragraph{Heat kernel multiplier.}
+For $t>0$, the heat semigroup $e^{-t\Delta}$ corresponds to
 \[
-h_{t}(r)=e^{-(\frac14+r^{2})t},\qquad t>0,
+h_t(r)=e^{-(\frac14+r^2)t}.
 \]
-and \eqref{eq:spherical-inversion} produces the radial heat kernel $k_{t}(u)$.
 
-\paragraph{(ii) Wave kernel.}
-For the even wave group $\cos\!\bigl(t\sqrt{\Delta-\frac14}\bigr)$ one has
+\paragraph{Even wave multiplier.}
+For $\tau\in\R$, the even wave group $\cos(\tau\sqrt{\Delta-\frac14})$ corresponds to
 \[
-h_{t}(r)=\cos(tr).
+h_\tau(r)=\cos(\tau r).
 \]
-For the sine propagator $\frac{\sin\!\bigl(t\sqrt{\Delta-\frac14}\bigr)}{\sqrt{\Delta-\frac14}}$ one has
-$h_{t}(r)=\sin(tr)/r$.
 
-\paragraph{(iii) Localized spectral projectors (two--bump even window).}
-Let $\chi\in C_{c}^{\infty}(\mathbb{R})$ be even, with $\chi(0)=1$.
-Given center $R>0$ and window $\eta>0$, define
-\begin{equation}
-\label{eq:windowed-h}
-h_{R,\eta}(r)=\chi\!\left(\frac{r-R}{\eta}\right)+\chi\!\left(\frac{r+R}{\eta}\right).
+\paragraph{Localized windows.}
+Let $\chi\in C_c^\infty(\R)$ be even. For $R>0$ and $\eta>0$ define
+\begin{equation}\label{eq:windowed-h}
+h_{R,\eta}(r)=\chi\Big(\frac{r-R}{\eta}\Big)+\chi\Big(\frac{r+R}{\eta}\Big),
 \end{equation}
-Then $h_{R,\eta}$ is admissible (indeed entire), and the associated kernel $k_{R,\eta}(u)$ oscillates at frequency $\sim R$
-with amplitude controlled by the Abel transform support/size (Chapter~\ref{sec:projector}).
+an even entire function; the associated $k_{R,\eta}$ is defined by \eqref{eq:spherical-inversion}.
 
-\subsection{From $\mathbb{H}$ to $M=\Gamma\backslash\mathbb{H}$: kernel summation and the pre-trace formula}
-\label{subsec:pretrace-interface}
+% ---------------------------------------------------------------------
+\subsubsection{Interface with $\Gamma\backslash\H$ and the pre-trace identity}\label{subsec:pretrace-interface}
 
-\noindent
-Let $\Gamma$ be cofinite and set $M=\Gamma\backslash\mathbb{H}$.
-Given a radial profile $k$ (or admissible $h$), define the automorphic kernel (whenever absolutely convergent, otherwise by standard continuation/regularization):
-\begin{equation}
-\label{eq:automorphic-kernel}
-K^{\Gamma}(z,w):=\sum_{\gamma\in\Gamma}k\!\bigl(d(z,\gamma w)\bigr).
+Let $M=\Gamma\backslash\H$ with $\Gamma$ cofinite. Given a radial profile $k$ on $\H$, define the automorphic kernel
+\begin{equation}\label{eq:automorphic-kernel}
+K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} k\bigl(d_{\H}(z,\gamma w)\bigr),
 \end{equation}
-On $M$, the corresponding operator
-\[
-(T_{k}^{\Gamma}f)(z):=\int_{M}K^{\Gamma}(z,w)f(w)\,d\mu(w)
-\]
-acts diagonally on Laplace eigenfunctions.  If $\phi_{j}$ is an $L^{2}$-eigenfunction with
-$\Delta\phi_{j}=(\frac14+r_{j}^{2})\phi_{j}$, then
-\begin{equation}
-\label{eq:multiplier-quotient}
-T_{k}^{\Gamma}\phi_{j}=h(r_{j})\,\phi_{j}.
+whenever the sum converges absolutely; otherwise $K^\Gamma$ is understood via the standard regularization procedure
+at the point of use (with truncation as fixed in Section~\ref{subsec:cusps}).
+
+If $\phi$ is an $L^2$--eigenfunction on $M$ with $\Delta\phi=(\frac14+r^2)\phi$, then formally (and rigorously under admissibility and truncation)
+\begin{equation}\label{eq:multiplier-quotient}
+T_k^\Gamma\phi=h(r)\,\phi,
 \end{equation}
+where $T_k^\Gamma$ denotes the integral operator on $M$ with kernel $K^\Gamma$ and $h$ is the transform of $k$.
 
-\medskip
-\noindent\textbf{Pre-trace formula (schematic).}
-Let $\{\phi_{j}\}$ be an orthonormal basis of discrete spectrum and let $E_{\mathfrak{a}}(z,\frac12+ir)$ be Eisenstein series for each cusp $\mathfrak{a}$
-(normalized as in the cusp block). Then formally, and rigorously under admissibility and truncation,
-\begin{equation}
-\label{eq:pretrace}
-K^{\Gamma}(z,z)
-=
-\sum_{j}h(r_{j})|\phi_{j}(z)|^{2}
-+\frac{1}{4\pi}\sum_{\mathfrak{a}}\int_{-\infty}^{\infty}h(r)\,|E_{\mathfrak{a}}(z,\tfrac12+ir)|^{2}\,dr
-\ +\ (\text{residual terms if present}).
-\end{equation}
-Integrating \eqref{eq:pretrace} over $M$ (with the truncation/renormalization fixed in the cusp chapter) yields the Selberg trace identity.
+The resulting pre-trace identity for $K^\Gamma(z,z)$ decomposes into a discrete part and a continuous part
+parameterized by Eisenstein series; its precise renormalized form (including the parabolic term expressed by the scattering matrix)
+is fixed in the cusp block and invoked later.
 
-\subsection{Trace identity and orbital integrals: canonical geometric dictionary}
-\label{subsec:trace-orbitals}
-
-\noindent
-The Selberg trace formula organizes the geometric side by conjugacy classes in $\Gamma$:
-elliptic (cone points), parabolic (cusps), and hyperbolic (closed geodesics).
-For admissible $h$ with kernel $k$ (or Abel transform $g$), the hyperbolic orbital integral contribution takes the standard length form:
-\begin{equation}
-\label{eq:hyperbolic-term}
-\sum_{\{\gamma\}_{\mathrm{hyp}}}
-\frac{\ell(\gamma_{0})}{2\sinh(\ell(\gamma)/2)}\,g\!\bigl(\ell(\gamma)\bigr),
-\end{equation}
-where $\gamma=\gamma_{0}^{m}$ with $\gamma_{0}$ primitive and $\ell(\gamma)=m\ell(\gamma_{0})$ is the translation length.
-The parabolic contribution is expressed through the logarithmic derivative of the scattering determinant (and the $h(0)$-term),
-with the normalization pinned down by the Maass--Selberg relations fixed in the cusp block.
-
-\medskip
-\noindent
-We do \emph{not} re-prove the full trace formula here; instead, we freeze the transform conventions so that Chapters~3--7 can invoke the standard formula
-without normalization ambiguity. Full details may be found in \cite{Helgason1984,Hejhal1983,Iwaniec2002}.
-
-\subsection{Forward links (where this block is used)}
-\label{subsec:selberg-forward-links}
-
-\begin{itemize}
-\item \emph{Chapter~3 (Truncated kernels).} Admissibility Definition~\ref{def:admissible-H} and inversion \eqref{eq:spherical-inversion} control absolute convergence of kernel summations and allow contour shifts.
-\item \emph{Chapter~4 (Localized projectors).} Windowed multipliers \eqref{eq:windowed-h} produce approximate projectors; Paley--Wiener Theorem~\ref{thm:paley-wiener-diamond} controls geometric support vs spectral type.
-\item \emph{Chapter~5 (Microlocal / stationary phase).} The asymptotic \eqref{eq:spherical-asymp} and the Abel/Fourier reduction Proposition~\ref{prop:fourier-reduction} are the workhorse for oscillatory kernel bounds.
-\item \emph{Chapter~6 (Geometric expansion).} Hyperbolic length dictionary \eqref{eq:hyperbolic-term} and the parabolic scattering term (via cusp Maass--Selberg) are inserted verbatim.
-\end{itemize}
-
-\subsection*{Audit (Selberg transform certificate)}
-\begin{itemize}
-\item[(S1)] Geometry, Laplacian \eqref{eq:laplace-H}, and spectral parameter $\lambda=\frac14+r^{2}$ fixed.
-\item[(S2)] Spherical functions $\varphi_{r}$ normalized by \eqref{eq:spherical-eig}; explicit models \eqref{eq:spherical-legendre}--\eqref{eq:mehler-dirichlet}; asymptotic \eqref{eq:spherical-asymp} and $c$-function \eqref{eq:c-function} recorded.
-\item[(S3)] Selberg transform $h$ defined by \eqref{eq:selberg-transform}; multiplier property \eqref{eq:multiplier} fixed.
-\item[(S4)] Abel transform $g$ \eqref{eq:abel-transform} and Fourier reduction \eqref{eq:h-is-fourier} established (transform $\leftrightarrow$ Euclidean Fourier).
-\item[(S5)] Inversion \eqref{eq:spherical-inversion}, Plancherel \eqref{eq:plancherel}, and convolution law \eqref{eq:conv-mult} fixed with the same Plancherel measure $\frac{1}{4\pi}r\tanh(\pi r)\,dr$ used later.
-\item[(S6)] Admissible test class $\mathcal{H}$ fixed (Definition~\ref{def:admissible-H}); Paley--Wiener support duality fixed (Theorem~\ref{thm:paley-wiener-diamond}).
-\item[(S7)] Quotient interface: automorphic kernel summation \eqref{eq:automorphic-kernel}, spectral diagonalization \eqref{eq:multiplier-quotient}, pre-trace schematic \eqref{eq:pretrace}, and length-orbital dictionary \eqref{eq:hyperbolic-term} recorded with references.
-\end{itemize}
-
-% =====================================================================
-% End of DIAMOND Selberg Transform block
-% =====================================================================
+% ---------------------------------------------------------------------
+\subsubsection*{Audit}\label{rem:selberg-audit}
+Equations \eqref{eq:selberg-transform}--\eqref{eq:windowed-h} fix the transform normalization,
+Plancherel density \eqref{eq:plancherel-density}, inversion \eqref{eq:spherical-inversion},
+and the admissible class Definition~\ref{def:admissible-H}. The quotient interface
+\eqref{eq:automorphic-kernel}--\eqref{eq:multiplier-quotient} records the operator normalization used
+throughout the monograph.
