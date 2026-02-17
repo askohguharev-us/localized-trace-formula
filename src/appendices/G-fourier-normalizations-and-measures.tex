@@ -1,395 +1,321 @@
-% ==================================================================
-% G-normalizations-and-conventions.tex — Appendix G (Diamond Standard)
-% ==================================================================
+% ======================================================================
+% Appendix G. Fourier normalizations and spectral measures
+% PATH: src/appendices/G-fourier-normalizations-and-measures.tex
+% ======================================================================
 
-\section{Normalizations and Conventions}\label{appG:root}
+\appendix
+\chapter{Fourier normalizations, spectral measures, and compatibility conventions}
+\label{app:G.fourier}
 
-\noindent\textbf{Purpose of Appendix G.}  
-This appendix establishes the complete set of normalizations used throughout the monograph.  
-It serves as the single source of truth for:
-\begin{itemize}
-    \item Measures on $\mathbb{H}$ and $\mathrm{PSL}_2(\mathbb{R})$.
-    \item Haar measure conventions and Iwasawa decomposition.
-    \item Fourier and spherical transforms.
-    \item Pseudodifferential operator quantization.
-    \item Kernel and trace-class sign conventions.
-    \item Reference identities (Plancherel, stationary phase, Bessel asymptotics).
-\end{itemize}
-Every constant, sign, and scaling factor appearing in Appendices~A--F and H is consistent with this registry.  
-No local redefinitions are permitted; deviations must reference \cref{appG:root} explicitly.  
+\section{Scope and guiding principle}
+\label{sec:G.scope}
 
-\bigskip
-\subsection*{G.1. Measures and Haar normalizations}
-\label{appG:measures}
+The purpose of this appendix is to fix, once and for all, the Fourier transform conventions and the associated
+spectral measures used throughout the monograph.  Since localized trace identities are highly sensitive to
+normalization choices, even a minor mismatch in factors of $2\pi$ or in the parametrization of the spectrum can
+propagate into erroneous leading terms.  The role of the present appendix is therefore structural: it provides a
+single authoritative reference against which all Fourier-analytic expressions in the main text are synchronized.
 
-\paragraph{Hyperbolic plane.}  
-We write $\mathbb{H}=\{z=x+iy:y>0\}$ with Riemannian metric
-\[
-ds^2 = y^{-2}(dx^2+dy^2).
-\]
-The associated hyperbolic area measure is
-\[
-dA(z) = y^{-2}\, dx\, dy,
-\]
-and the geodesic distance is denoted $\dist(z,w)$.  
-On the horizontal boundary $y=Y$, the induced line measure is
-\[
-ds = Y^{-1}\, dx.
-\]
+The conventions recorded below are standard, but we insist on explicitly stating them, because the main results are
+formulated at a quantitative level where the leading constants and power-saving remainders must remain invariant under
+admissible modifications.
 
-\paragraph{Haar measure on $\mathrm{PSL}_2(\mathbb{R})$.}  
-We fix the left Haar measure $dg$ consistent with Helgason~\cite[Ch.~I]{Helgason} and Iwaniec--Sarnak~\cite[§7.2]{Iwaniec2002}.  
-In Iwasawa coordinates $g=kan$ with
-\[
-k=\begin{pmatrix}
-\cos\theta & \sin\theta \\
--\sin\theta & \cos\theta
-\end{pmatrix},\quad
-a=\begin{pmatrix}
-y^{1/2} & 0 \\
-0 & y^{-1/2}
-\end{pmatrix},\quad
-n=\begin{pmatrix}
-1 & x \\
-0 & 1
-\end{pmatrix},
-\]
-the Haar density is
-\[
-dg = \frac{1}{2\pi}\, d\theta \,\frac{dy}{y^2}\, dx.
-\]
+\section{Fourier transform on $\R$}
+\label{sec:G.fourier.R}
 
-\paragraph{Quotient surfaces.}  
-On $M=\Gamma\backslash\mathbb{H}$, integrals are always taken with respect to $dA$.  
-If $M(Y)$ denotes the truncated surface (cutting at $y=Y$ in each cusp), then the volume satisfies
-\[
-\vol(M(Y)) = \vol(M) - O(Y^{-1}).
-\]
+\subsection{Definition}
+\label{subsec:G.fourier.def}
 
-\paragraph{Consistency check.}  
-This normalization guarantees that the Selberg transform and Plancherel formula align with the classical convention:
-\[
-\int_{\PSL_2(\mathbb R)} f(g)\, dg
-= \int_0^\infty\int_\mathbb R\int_0^{2\pi} f\!\left(kan\right)\,\frac{1}{2\pi}\,d\theta \,\frac{dy}{y^2}\, dx.
-\]
-
-\begin{auditblock}{Audit of Block G.1}
-\begin{itemize}
-    \item \emph{Goal G1:} Fix the hyperbolic area measure and geodesic conventions. \textbf{Verified}.
-    \item \emph{Goal G2:} Specify Haar measure in full detail, including Iwasawa densities. \textbf{Verified}.
-    \item \emph{Invariant G1:} All group integrals use $dg$ as defined above. No alternative normalization allowed.
-    \item \emph{Forward links:} Used in Appendix~A (volume estimates), Appendix~C (Sobolev norms), and Chapter~6 (geometric expansion).
-    \item \emph{Backward links:} Derived from standard sources \cite{Helgason,Iwaniec2002}.
-\end{itemize}
-\end{auditblock}
-
-\bigskip
-\noindent\textbf{Conclusion.}  
-Block G.1 eliminates all ambiguity about measure conventions, securing consistency between analytic, geometric, and spectral formulas throughout the monograph.
-
-\subsection*{G.2. Fourier and Spectral Transforms}
-\label{appG:fourier}
-
-\paragraph{Euclidean Fourier transform.}  
-On $\mathbb{R}$ we adopt the convention
-\[
-\widehat{f}(\xi) = \int_{\mathbb{R}} f(t)\, e^{-2\pi i t \xi}\, dt,
+For $f\in \mathcal{S}(\R)$ we define the Fourier transform by
+\begin{equation}\label{eq:G.fourier.def}
+\widehat{f}(\xi)
+\;:=\;
+\int_{\R} f(t)\,e^{-i\xi t}\,dt,
 \qquad
-f(t) = \int_{\mathbb{R}} \widehat{f}(\xi)\, e^{2\pi i t \xi}\, d\xi.
-\]
-This choice ensures Plancherel’s identity
+\xi\in\R.
+\end{equation}
+The inverse transform is
+\begin{equation}\label{eq:G.fourier.inv}
+f(t)
+\;=\;
+\frac{1}{2\pi}\int_{\R}\widehat{f}(\xi)\,e^{i\xi t}\,d\xi.
+\end{equation}
+
+This convention is used uniformly for all Fourier-analytic manipulations in the wave kernel representation,
+stationary phase arguments, and Tauberian smoothing removal.
+
+\subsection{Plancherel and convolution}
+\label{subsec:G.fourier.plancherel}
+
+With the convention \eqref{eq:G.fourier.def}--\eqref{eq:G.fourier.inv}, the Plancherel identity takes the form
+\begin{equation}\label{eq:G.plancherel}
+\int_{\R}|f(t)|^2\,dt
+\;=\;
+\frac{1}{2\pi}\int_{\R}|\widehat{f}(\xi)|^2\,d\xi.
+\end{equation}
+
+The convolution of two functions $f,g\in L^1(\R)$ is defined by
+\begin{equation}\label{eq:G.convolution.def}
+(f\ast g)(t)
+\;:=\;
+\int_{\R} f(t-s)\,g(s)\,ds,
+\end{equation}
+and satisfies the standard product rule
+\begin{equation}\label{eq:G.convolution.rule}
+\widehat{f\ast g}(\xi)=\widehat{f}(\xi)\,\widehat{g}(\xi).
+\end{equation}
+
+For $f^\ast(t):=\overline{f(-t)}$ we have
+\begin{equation}\label{eq:G.convolution.square}
+\widehat{f\ast f^\ast}(\xi)=|\widehat{f}(\xi)|^2\ge 0,
+\end{equation}
+a fact which underlies the quadratic-form positivity mechanisms used in Chapter~\ref{chap:10-trace-to-zeta}.
+
+\subsection{Evenness and real-valuedness}
+\label{subsec:G.fourier.even}
+
+If $f$ is even, $f(t)=f(-t)$, then $\widehat{f}$ is even.  If, in addition, $f$ is real-valued, then $\widehat{f}$ is
+real-valued and even.
+
+These parity properties are invoked repeatedly in the construction of even test families $h(t)$ in the trace formula.
+
+\section{Spectral parametrization for hyperbolic surfaces}
+\label{sec:G.spectral.param}
+
+Let $M=\Gamma\backslash\H$ be a finite-area hyperbolic surface with cusps, and let $\Delta$ denote the positive
+Laplace--Beltrami operator.  The spectrum decomposes as
 \[
-\|f\|_{L^2(\mathbb{R})} = \|\widehat{f}\|_{L^2(\mathbb{R})},
+\Spec(\Delta)
+=
+\Spec_{\mathrm{disc}}(\Delta)\;\cup\;[1/4,\infty),
 \]
-with no additional normalization constants.
+where the discrete eigenvalues are written in the form
+\begin{equation}\label{eq:G.eigs}
+\lambda_j=\frac14+r_j^2,
+\qquad
+r_j\in[0,\infty)\cup i(0,1/2].
+\end{equation}
 
-\paragraph{Hyperbolic spherical transform.}  
-For radial kernels $k(\dist(z,w))$ on $\mathbb{H}$, we employ the Selberg/Harish–Chandra transform:
+We use $r$ as the spectral parameter on the continuous spectrum, so that $\lambda=1/4+r^2$.
+In particular, the spectral localization regimes in the main theorems are formulated in terms of large $|r|$.
+
+\subsection{Spectral projector conventions}
+\label{subsec:G.projector}
+
+Let $h\in \mathcal{S}(\R)$ be even.  The functional calculus defines
 \[
-h(r) = \int_{-\infty}^\infty k(\cosh^{-1}(1+u^2/2))\, \cos(r u)\, du,
+h(\sqrt{\Delta-1/4}),
 \]
-consistent with \cite[Ch.~IV]{Helgason}.  
-The inversion formula reads
+which acts diagonally on eigenfunctions and via Eisenstein series on the continuous spectrum.
+The normalization adopted in the main text is consistent with the spectral decomposition
+\begin{equation}\label{eq:G.spectral.decomp}
+\Tr\big(h(\sqrt{\Delta-1/4})\big)
+=
+\sum_{j} h(r_j)
++
+\frac{1}{4\pi}\sum_{\mathfrak{a}}
+\int_{\R} h(r)\,\varphi_{\mathfrak{a}}(1/2+ir)\,dr,
+\end{equation}
+where $\varphi_{\mathfrak{a}}(s)$ denotes the logarithmic derivative of the scattering determinant at cusp
+$\mathfrak{a}$ in the normalization fixed below.
+
+The factor $1/(4\pi)$ is the standard Plancherel weight for Eisenstein series on $\Gamma\backslash\H$ and must be
+regarded as part of the definition of the continuous spectral measure.
+
+\section{Eisenstein series normalization and scattering data}
+\label{sec:G.scattering}
+
+\subsection{Eisenstein series and constant term}
+\label{subsec:G.eisenstein}
+
+Let $\mathfrak{a}$ be a cusp of $\Gamma$.  We denote by $E_{\mathfrak{a}}(z,s)$ the Eisenstein series normalized so that
+its constant term at cusp $\mathfrak{b}$ takes the form
+\begin{equation}\label{eq:G.constant.term}
+E_{\mathfrak{a}}(z,s)\big|_{\mathfrak{b}}
+=
+\delta_{\mathfrak{a}\mathfrak{b}}\,y^s
++
+\phi_{\mathfrak{a}\mathfrak{b}}(s)\,y^{1-s},
+\end{equation}
+where $y$ is the height function in the standard cusp coordinate.
+
+The matrix $\Phi(s)=(\phi_{\mathfrak{a}\mathfrak{b}}(s))$ is the scattering matrix.
+Its determinant is denoted by $\varphi(s)=\det\Phi(s)$.
+
+\subsection{Logarithmic derivative convention}
+\label{subsec:G.logder}
+
+The function $\varphi_{\mathfrak{a}}(s)$ appearing in \eqref{eq:G.spectral.decomp} is defined by
+\begin{equation}\label{eq:G.varphi.a}
+\varphi_{\mathfrak{a}}(s)
+\;:=\;
+\frac{d}{ds}\log \varphi_{\mathfrak{a}}(s),
+\end{equation}
+where $\varphi_{\mathfrak{a}}(s)$ denotes the diagonal scattering coefficient (or, equivalently, the cuspwise
+contribution to $\det\Phi(s)$) in the standard factorization.
+In particular, for the total scattering determinant one has
 \[
-k(\cosh d) = \frac{1}{2\pi} \int_{-\infty}^\infty h(r)\, \varphi_r(d)\, r \tanh(\pi r)\, dr,
+\frac{d}{ds}\log\varphi(s)
+=
+\sum_{\mathfrak{a}}\varphi_{\mathfrak{a}}(s).
 \]
-where $\varphi_r$ denotes the zonal spherical function.  
 
-\paragraph{Fourier–Helgason transform.}  
-For $f\in C_c^\infty(\mathbb{H})$, the Fourier–Helgason transform is
+This is the convention used in Chapters~\ref{chap:06-parabolic} and~\ref{chap:07-main-results}.
+
+\subsection{Functional equation}
+\label{subsec:G.func.eq}
+
+The scattering matrix satisfies the functional equation
 \[
-\mathcal{F}(f)(r,\theta) = \int_{\mathbb{H}} f(z)\, E(z,\tfrac{1}{2}+ir,\theta)\, dA(z),
+\Phi(s)\Phi(1-s)=I,
 \]
-where $E(z,s,\theta)$ is the Eisenstein plane wave.  
-Plancherel measure is normalized as
+and hence $\varphi(s)\varphi(1-s)=1$.
+Differentiating yields
+\begin{equation}\label{eq:G.logder.func.eq}
+\frac{\varphi'}{\varphi}(s)
+=
+-\frac{\varphi'}{\varphi}(1-s).
+\end{equation}
+This symmetry is used repeatedly to reduce continuous-spectrum integrals to the critical line $\Re(s)=1/2$.
+
+\section{The Selberg--Harish-Chandra transform}
+\label{sec:G.selberg.transform}
+
+\subsection{Radial kernels and their spectral transform}
+\label{subsec:G.shc}
+
+Let $k(z,w)=K(d(z,w))$ be a radial kernel on $\H$ depending only on hyperbolic distance.
+Its Selberg--Harish-Chandra transform is the function $h(r)$ defined by
+\begin{equation}\label{eq:G.shc.def}
+h(r)
+=
+\int_0^\infty K(u)\,\varphi_r(u)\,(\sinh u)\,du,
+\end{equation}
+where $\varphi_r$ is the spherical function at spectral parameter $r$.
+
+We do not fix a separate normalization for $\varphi_r$ here, since all spherical transforms in the main text are
+expressed in terms of the standard Selberg transform conventions in \cite{Hejhal1983,Iwaniec2002}.
+The present appendix serves to synchronize the $2\pi$-factors and Plancherel measures once the transform is chosen.
+
+\subsection{Compatibility with the Euclidean Fourier transform}
+\label{subsec:G.compatibility}
+
+The Euclidean Fourier transform convention \eqref{eq:G.fourier.def} is compatible with the spherical transform in the
+sense that the wave kernel representation (Chapter~\ref{chap:03-kernel}) may be written as
+\begin{equation}\label{eq:G.wave.repr}
+h(r)
+=
+\int_{\R}\widehat{h}(t)\,e^{itr}\,dt,
+\end{equation}
+with the same $\widehat{h}$ as in \eqref{eq:G.fourier.def}, provided $h$ is even.
+This identity is interpreted distributionally for general $h$ and is made precise via cutoff approximations.
+
+\section{Plancherel measure on $\Gamma\backslash\H$}
+\label{sec:G.plancherel.hyperbolic}
+
+\subsection{Local model: $\H$}
+\label{subsec:G.plancherel.H}
+
+On the hyperbolic plane $\H$, the spectral measure for the Laplacian corresponds to the density
 \[
-d\mu(r) = \frac{1}{4\pi}\, r \tanh(\pi r)\, dr.
+\frac{1}{4\pi}\,r\tanh(\pi r)\,dr,
 \]
+which is the standard Plancherel density for spherical analysis.
 
-\paragraph{Bessel kernels.}  
-All Bessel functions are normalized as
+In localized trace identities, the factor $r\tanh(\pi r)$ is responsible for the leading Weyl term
+$\asymp \vol(M)\,r$.
+
+\subsection{Global quotient}
+\label{subsec:G.plancherel.M}
+
+On $M=\Gamma\backslash\H$, the discrete spectrum is counted with multiplicity, while the continuous spectrum carries
+the measure appearing in \eqref{eq:G.spectral.decomp}.
+In particular, for any even Schwartz function $h$ one has
 \[
-K_{ir}(y) = K_{-ir}(y),
+\Tr(h(\sqrt{\Delta-1/4}))
+=
+\sum_{j} h(r_j)
++
+\frac{1}{4\pi}\sum_{\mathfrak{a}}
+\int_{\R} h(r)\,\varphi_{\mathfrak{a}}(1/2+ir)\,dr,
 \]
-ensuring parity symmetry. Their asymptotics are recorded in \cref{appG:identities}.
+and this identity should be viewed as the definition of the global spectral measure compatible with our Fourier
+conventions.
 
-\paragraph{Spectral decomposition on $M=\Gamma\backslash \mathbb H$.}  
-Every $f\in L^2(M)$ decomposes as
-\[
-f = \sum_j \langle f, \varphi_j\rangle \varphi_j
-+ \sum_{\mathfrak{a}} \frac{1}{4\pi} \int_{-\infty}^\infty 
-   \langle f, E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\rangle
-   E_{\mathfrak{a}}(\cdot,\tfrac{1}{2}+ir)\, dr,
-\]
-where $\{\varphi_j\}$ are $L^2$-normalized eigenfunctions and $E_{\mathfrak{a}}$ are Eisenstein series normalized with spectral measure $dr/(4\pi)$.  
+\section{Scaling conventions for localized windows}
+\label{sec:G.scaling}
 
-\paragraph{Spectral parameterization.}  
-We write
-\[
-\lambda_j = \tfrac{1}{4} + r_j^2, \quad r_j\ge 0,
-\]
-so that the continuous spectrum starts at $1/4$, aligning with Selberg’s convention.  
+\subsection{Short-window cutoff families}
+\label{subsec:G.window}
 
-\begin{auditblock}{Audit of Block G.2}
-\begin{itemize}
-    \item \emph{Goal G3:} Fix Fourier conventions (Euclidean and hyperbolic). \textbf{Verified}.
-    \item \emph{Goal G4:} Normalize spherical and Fourier–Helgason transforms with precise Plancherel factors. \textbf{Verified}.
-    \item \emph{Goal G5:} Ensure compatibility of spectral decomposition on $M$ with Chapters~2–7. \textbf{Verified}.
-    \item \emph{Invariant G2:} All Fourier transforms use $2\pi$ in the exponential; all spectral decompositions use measure $dr/(4\pi)$.  
-    \item \emph{Forward links:} Applied in Chapter~5 (microlocal analysis), Chapter~6 (geometric expansion), Appendix~D (Tauberian estimates).  
-    \item \emph{Backward links:} Derived from Helgason~\cite{Helgason}, Iwaniec~\cite{Iwaniec2002}, and consistent with Appendix~B (stationary phase).  
-\end{itemize}
-\end{auditblock}
+Let $\chi\in \mathcal{S}(\R)$ be even with $\chi(0)=1$.  For $\eta>0$ define the rescaled cutoff
+\begin{equation}\label{eq:G.rescaled.cutoff}
+\chi_\eta(u)=\chi(u/\eta).
+\end{equation}
+Its Fourier transform is
+\begin{equation}\label{eq:G.rescaled.fourier}
+\widehat{\chi_\eta}(t)
+=
+\eta\,\widehat{\chi}(\eta t).
+\end{equation}
+This scaling identity is used throughout the microlocal parametrix arguments and in the length-spectrum truncations,
+where the effective time support is of size $|t|\ll \eta^{-1}$.
 
-\bigskip
-\noindent\textbf{Conclusion.}  
-Block G.2 secures the Fourier and spectral conventions. All later analytic and microlocal computations rely on these normalizations, ensuring that constants, transforms, and Plancherel measures remain transparent and reproducible.
+\subsection{Oscillatory test families}
+\label{subsec:G.osc}
 
-\subsection*{G.3. Operator Classes and Quantization}
-\label{appG:pdo}
+For $\tau\in\R$ and $\Delta>0$ define
+\begin{equation}\label{eq:G.osc.family}
+h_{\tau,\Delta}(t)=W(t/\Delta)\,e^{-i\tau t},
+\end{equation}
+where $W\in C_c^\infty(\R)$ is even.
+Then
+\begin{equation}\label{eq:G.osc.transform}
+\widehat{h_{\tau,\Delta}}(\xi)
+=
+\Delta\,\widehat{W}\big(\Delta(\xi+\tau)\big),
+\end{equation}
+which localizes the spectral side to a window of width $\Delta^{-1}$ centered at $-\tau$.
+This is the basic Fourier-analytic mechanism behind the trace-to-determinant interface.
 
-\paragraph{Quantization scheme.}  
-We adopt \emph{Weyl quantization} for pseudodifferential operators.  
-Given a symbol $a(x,\xi;h)$, the operator $\Op_h^w(a)$ acts as
-\[
-(\Op_h^w(a)u)(x) = \frac{1}{(2\pi h)^n} \int_{\mathbb{R}^n}\int_{\mathbb{R}^n}
-   e^{i(x-y)\cdot \xi /h} \, a\!\left(\frac{x+y}{2}, \xi;h\right) u(y)\, dy\, d\xi.
-\]
+\section{A consistency table of factors}
+\label{sec:G.table}
 
-\paragraph{Symbol classes.}  
-We work with H\"ormander classes $S^m_{\rho,\delta}(\mathbb{R}^n)$ with parameters $(\rho,\delta)=(1,0)$:
-\[
-a \in S^m_{1,0} \iff
-\forall \alpha,\beta \; \sup_{x,\xi}
-(1+|\xi|)^{-m+|\beta|} |\partial_x^\alpha \partial_\xi^\beta a(x,\xi)| < \infty.
-\]
-This choice provides stability under composition and aligns with the semiclassical scaling adopted throughout the monograph.
+For ease of reference we list the key factor conventions that must be synchronized across the monograph.
 
-\paragraph{Boundedness.}  
-By the Calderón–Vaillancourt theorem, for $a\in S^0_{1,0}$, 
-\[
-\|\Op_h^w(a)\|_{L^2 \to L^2} \le C \sup_{|\alpha|+|\beta|\le N}
-\|\partial_x^\alpha \partial_\xi^\beta a\|_\infty,
-\]
-with $C,N$ independent of $h$. This guarantees $L^2$-boundedness of zero-order pseudodifferential operators.
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\textbf{Object} & \textbf{Normalization} \\
+\hline
+Fourier transform on $\R$ & $\widehat{f}(\xi)=\int_{\R} f(t)e^{-i\xi t}\,dt$ \\
+Inverse transform & $f(t)=\frac{1}{2\pi}\int_{\R}\widehat{f}(\xi)e^{i\xi t}\,d\xi$ \\
+Plancherel & $\|f\|_2^2=\frac{1}{2\pi}\|\widehat{f}\|_2^2$ \\
+Convolution square & $\widehat{f*f^\ast}=|\widehat{f}|^2$ \\
+Eigenvalue parameter & $\lambda_j=\frac14+r_j^2$ \\
+Continuous spectrum measure & $\frac{1}{4\pi}\sum_{\mathfrak{a}}\int_{\R}(\cdot)\,dr$ \\
+Scattering input & $\varphi_{\mathfrak{a}}(1/2+ir)=\frac{d}{ds}\log\varphi_{\mathfrak{a}}(s)$ \\
+Window scaling & $\chi_\eta(u)=\chi(u/\eta)$,\quad $\widehat{\chi_\eta}(t)=\eta\widehat{\chi}(\eta t)$ \\
+\hline
+\end{tabular}
+\end{center}
 
-\paragraph{Composition formula.}  
-For $a\in S^{m_1}_{1,0}$ and $b\in S^{m_2}_{1,0}$, one has
-\[
-\Op_h^w(a)\Op_h^w(b) = \Op_h^w(a\# b),
-\]
-where
-\[
-a\# b \sim \sum_{k=0}^\infty \frac{1}{k!}\left(\frac{ih}{2}\sigma(D_x,D_\xi;D_y,D_\eta)\right)^k
-a(x,\xi)b(y,\eta)\Big|_{x=y,\;\xi=\eta}.
-\]
-Here $\sigma(D_x,D_\xi;D_y,D_\eta)$ denotes the standard symplectic form of differential operators.
+\section{Final remarks}
+\label{sec:G.final}
 
-\paragraph{Microlocal windows and partitions.}  
-Cutoffs $\chi \in C_c^\infty(T^*M)$ are introduced to localize operators in phase space.  
-Partitions of unity subordinate to a fixed atlas (see Appendix~A) guarantee that local quantizations patch consistently to a global operator on $M=\Gamma\backslash \mathbb{H}$.
+All later identities in this monograph are to be interpreted relative to the conventions fixed in this appendix.
+Whenever a formula is imported from the literature, it is implicitly converted to the present normalization by
+adjusting Fourier factors and spectral measures.
+This ensures that the constants appearing in the main theorems (local Weyl laws, variance bounds, and determinant
+interfaces) are stable and reproducible.
 
-\paragraph{Wave propagators.}  
-The semiclassical propagator $e^{it\sqrt{\Delta-1/4}/h}$ is approximated by a Fourier integral operator with phase given by the geodesic flow and amplitude belonging to symbol class $S^0_{1,0}$.  
-This convention ensures consistency with Egorov’s theorem and stationary phase expansions.
+\section*{Bibliographic notes}
 
-\begin{auditblock}{Audit of Block G.3}
-\begin{itemize}
-    \item \emph{Goal G6:} Establish pseudodifferential quantization framework. \textbf{Verified}.
-    \item \emph{Goal G7:} Guarantee boundedness and symbolic calculus properties. \textbf{Verified}.
-    \item \emph{Invariant G3:} All operators are quantized in Weyl form with $(\rho,\delta)=(1,0)$.  
-    \item \emph{Forward links:} Chapter~5 (microlocal analysis), Appendix~B (stationary phase expansions), Chapter~7 (main theorems).  
-    \item \emph{Backward links:} Appendix~A (atlas and partitions of unity), standard references \cite{Zworski, Hormander}.  
-\end{itemize}
-\end{auditblock}
+The Fourier convention adopted here is standard in microlocal analysis.
+For the hyperbolic spectral parametrization and scattering normalization, we follow the conventions of
+Hejhal~\cite{Hejhal1983} and Iwaniec~\cite{Iwaniec2002}.
+For the Selberg--Harish-Chandra transform and the Plancherel measure, see also Buser~\cite{Buser1992}.
 
-\bigskip
-\noindent\textbf{Conclusion.}  
-Block G.3 fixes the quantization scheme, symbol classes, and microlocal conventions. These form the analytic machinery for semiclassical propagation, stationary phase, and microlocalization used throughout the monograph.
-
-\subsection*{G.4. Kernels, Traces, and Test Functions}
-\label{appG:kernels}
-
-\paragraph{Test functions.}  
-All test functions $k\in C_c^\infty(\mathbb{R})$ used in spectral and trace formulae are normalized to be \emph{even}, i.e.
-\[
-k(t) = k(-t), \qquad \forall t \in \mathbb{R}.
-\]
-This symmetry ensures compatibility with spectral decompositions of the Laplace operator, whose eigenvalues appear symmetrically as $r_j$ and $-r_j$ in the spectral parameterization $\lambda_j = 1/4 + r_j^2$.
-
-\paragraph{Wave kernel conventions.}  
-We adopt the convention
-\[
-U(t) = \cos\!\big(t\sqrt{\Delta - 1/4}\big),
-\]
-so that
-\[
-U(t) = \frac{1}{2}\big( e^{i t \sqrt{\Delta - 1/4}} + e^{-i t \sqrt{\Delta - 1/4}} \big).
-\]
-This definition guarantees self-adjointness on $L^2(M)$ and consistency with the unitary normalization chosen in Appendix~G.2.  
-
-\paragraph{Distributional pairings.}  
-For Schwartz functions $f,g \in \mathcal{S}(\mathbb{R})$, the distributional pairing is defined as
-\[
-\langle f, g \rangle = \int_{\mathbb{R}} f(t)\, g(t)\, dt,
-\]
-extended by duality to tempered distributions. In particular, the pairing conventions fix the sign rules in trace identities, preventing ambiguity in oscillatory integrals.
-
-\paragraph{Traces of operators.}  
-For a trace-class operator $A$ on $L^2(M)$ with integral kernel $K_A(z,w)$, we define
-\[
-\operatorname{tr}(A) = \int_M K_A(z,z)\, dA(z),
-\]
-where $dA(z)$ is the hyperbolic area measure (Appendix~G.1).  
-If $A$ is not trace-class but admits a regularized kernel (e.g. wave group $U(t)$ with compact support in $t$), the trace is interpreted distributionally in accordance with \cite{Sogge}.
-
-\paragraph{Parametrix kernels.}  
-The Hadamard parametrix and microlocal kernels appearing in Appendices~B--C are normalized so that their leading coefficients agree with the universal Euclidean or hyperbolic model:
-\[
-K_{\text{Had}}(t;z,w) \sim \frac{1}{\sqrt{t^2 - d(z,w)^2}} \, \chi\!\left(\tfrac{d(z,w)}{t}\right),
-\]
-where $\chi$ is the cutoff introduced in Appendix~C. This normalization ensures that error terms are properly scaled by powers of the semiclassical parameter $h=\lambda^{-1}$.
-
-\paragraph{Stationary phase factors.}  
-Oscillatory integrals arising from Fourier inversion are normalized so that the stationary phase expansion takes the standard form
-\[
-\int_{\mathbb{R}^n} e^{i \varphi(x)/h} a(x)\, dx
-   \sim \sum_{k=0}^\infty h^k L_k(a,\varphi),
-\]
-with phase factor $e^{i\pi \operatorname{sgn}(\varphi'')/4}$ included.  
-These conventions eliminate sign discrepancies across different chapters.
-
-\begin{auditblock}{Audit of Block G.4}
-\begin{itemize}
-  \item \emph{Goal G8:} Fix normalization of test functions, kernels, and traces. \textbf{Verified}.
-  \item \emph{Goal G9:} Guarantee compatibility of distributional pairings and wave kernels. \textbf{Verified}.
-  \item \emph{Invariant G4:} All test functions are even; wave kernel defined as $\cos(t\sqrt{\Delta-1/4})$.  
-  \item \emph{Forward links:} Appendix~B (stationary phase expansions), Appendix~C (Hadamard parametrix), Chapter~7 (trace formula).  
-  \item \emph{Backward links:} Appendix~G.1 (measures), Appendix~G.2 (spectral transforms).  
-\end{itemize}
-\end{auditblock}
-
-\bigskip
-\noindent\textbf{Conclusion.}  
-Block G.4 establishes the conventions for kernels, traces, and test functions. These choices enforce absolute consistency across all analytic manipulations and prevent sign or normalization ambiguities in trace formula derivations.
-
-\subsection*{G.5. Reference Identities}
-\label{appG:identities}
-
-\paragraph{Purpose.}  
-This block collects a catalogue of standard analytic identities that are repeatedly invoked throughout the monograph.  
-By recording them here once and for all, we eliminate duplication, guarantee uniform sign conventions, and provide a transparent audit trail for all constants.  
-
-\medskip
-
-\paragraph{Plancherel identity (Euclidean).}  
-For $f \in L^2(\mathbb{R})$ with Fourier transform as defined in Appendix~G.2:
-\[
-\int_{\mathbb{R}} |f(t)|^2\, dt
-  = \int_{\mathbb{R}} |\widehat{f}(\xi)|^2\, d\xi.
-\]
-
-\paragraph{Spherical Fourier transform on $\mathbb{H}$.}  
-For $f \in C_c^\infty(\mathbb{H})$, the Helgason–Fourier transform is
-\[
-\widetilde{f}(r,\theta)
-   = \int_{\mathbb{H}} f(z)\, e^{(1/2+ir)\langle z,\theta\rangle}\, dA(z),
-\]
-with inversion formula and Plancherel measure
-\[
-\|f\|_{L^2(\mathbb{H})}^2
-   = \frac{1}{4\pi} \int_{-\infty}^\infty \int_{0}^{2\pi}
-     |\widetilde{f}(r,\theta)|^2 \, r \tanh(\pi r)\, d\theta\, dr.
-\]
-
-\paragraph{Bessel asymptotics.}  
-For fixed $\nu$ and large argument $x$:
-\[
-K_{i r}(x) \sim \sqrt{\frac{\pi}{2x}} e^{-x}, \qquad
-J_\nu(x) \sim \sqrt{\frac{2}{\pi x}} \cos\!\left(x - \tfrac{\pi \nu}{2} - \tfrac{\pi}{4}\right).
-\]
-These asymptotics are used in Appendix~B (stationary phase) and Appendix~C (Hadamard parametrix).
-
-\paragraph{Stationary phase signature factor.}  
-If $\varphi''(x_0)\neq 0$ and $a\in C_c^\infty$,
-\[
-\int_{\mathbb{R}} e^{i\varphi(x)/h} a(x)\, dx
-  \sim e^{i \varphi(x_0)/h}
-       e^{i\pi \,\sgn(\varphi''(x_0))/4}
-       \sum_{k=0}^\infty h^k L_k(a,\varphi),
-\]
-as $h\to 0^+$, where $L_k$ are explicit differential operators.  
-The signature factor $e^{i\pi \sgn(\varphi'')/4}$ is fixed globally in this appendix.
-
-\paragraph{Trace formula constants.}  
-In the Selberg trace formula, the contribution of the identity conjugacy class is normalized as
-\[
-\frac{\vol(M)}{4\pi} \int_{-\infty}^\infty h(r)\, r \tanh(\pi r)\, dr,
-\]
-where $h$ is the even test function from Appendix~G.4.  
-
-\begin{auditblock}{Audit of Block G.5}
-\begin{itemize}
-  \item \emph{Goal G10:} Consolidate reference identities to prevent duplication. \textbf{Verified}.
-  \item \emph{Goal G11:} Fix global conventions for Fourier, Bessel, and stationary phase identities. \textbf{Verified}.
-  \item \emph{Invariant G5:} Every analytic identity appears in exactly one location (Appendix~G.5).  
-  \item \emph{Forward links:} Appendix~B (stationary phase), Appendix~C (microlocal analysis), Chapter~6 (geometric side), Chapter~7 (trace formula).  
-  \item \emph{Backward links:} Appendix~G.2 (Fourier transforms), Appendix~G.4 (test functions and kernels).  
-\end{itemize}
-\end{auditblock}
-
-\bigskip
-\noindent\textbf{Global Audit of Appendix G.}
-
-\paragraph{Goals recap.}
-\begin{itemize}
-  \item \emph{Goal G1:} Fix Haar and hyperbolic measures.  
-  \item \emph{Goal G2:} Standardize Fourier and spectral transforms.  
-  \item \emph{Goal G3:} Define pseudodifferential quantization and operator classes.  
-  \item \emph{Goal G4:} Normalize kernels, traces, and test functions.  
-  \item \emph{Goal G5:} Record reference identities.  
-\end{itemize}
-
-\paragraph{Verification.}
-\begin{itemize}
-  \item \textbf{V(G1):} Verified in Block G.1 via explicit Haar measures.  
-  \item \textbf{V(G2):} Verified in Block G.2 with Plancherel measure and Fourier conventions.  
-  \item \textbf{V(G3):} Verified in Block G.3 with Weyl quantization.  
-  \item \textbf{V(G4):} Verified in Block G.4 with test function symmetries and trace definitions.  
-  \item \textbf{V(G5):} Verified in Block G.5 by consolidation of analytic identities.  
-\end{itemize}
-
-\paragraph{Invariants.}
-\begin{itemize}
-  \item \emph{Invariant G1:} All integrals use $dA = y^{-2} dx dy$.  
-  \item \emph{Invariant G2:} Fourier transform fixed with $2\pi$ normalization.  
-  \item \emph{Invariant G3:} Operator quantization $\Op_h^w$ with $(\rho,\delta)=(1,0)$.  
-  \item \emph{Invariant G4:} Wave kernel $U(t)=\cos(t\sqrt{\Delta-1/4})$.  
-  \item \emph{Invariant G5:} Reference identities centralized here.  
-\end{itemize}
-
-\paragraph{Conclusion.}  
-Appendix~G provides the global \emph{normalization contract} of the monograph.  
-Every measure, transform, operator, and kernel is fixed once and for all.  
-Forward and backward audits confirm that all analytic constants across Appendices A–F and H are traceable to this appendix.  
-This guarantees absolute consistency and eliminates ambiguity in the entire work.
+% ======================================================================
+% End of G-fourier-normalizations-and-measures.tex
+% ======================================================================
