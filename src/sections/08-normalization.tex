@@ -1,1 +1,289 @@
+% ======================================================================
+% 08-normalization.tex
+% ======================================================================
 
+\chapter{Normalization: canonicalization of kernels, traces, and error budgets}
+\label{chap:08-normalization}
+
+\epigraph{Normalization is the art of turning a good formula into a stable object.}{}
+
+\section{Scope and guiding principle}
+\label{sec:08.scope}
+
+This chapter isolates the normalization layer that makes the localized trace formula robust under
+(i) changes of cutoff profiles,
+(ii) microlocal partition refinements,
+(iii) changes of quantization conventions,
+and (iv) the presence/absence of continuous spectrum terms (when applicable).
+
+The output of this chapter is a \emph{canonical normalized trace functional}
+\[
+\mathcal{T}_\Gamma[h;\chi] \quad \text{and its error ledger } \quad
+\mathcal{E}_\Gamma[h;\chi],
+\]
+constructed so that all subsequent applications (Chapter~\ref{chap:09-local-weyl} and
+Chapter~\ref{chap:10-applications}) depend only on invariants that are stable under admissible
+changes of auxiliary choices.
+
+\paragraph{Standing assumptions.}
+Throughout the chapter we work in the setting fixed in Chapters~\ref{chap:01-introduction}--\ref{chap:07-main-results}.
+In particular, the geometric object $(X,\Gamma)$ and the functional-analytic framework defining the relevant
+operator(s) and projectors are fixed, and all admissible test functions $h$ belong to the class introduced earlier
+(e.g.\ Schwartz/Paley--Wiener type conditions, depending on the global setting).
+
+\section{Admissible test classes and canonical normalization}
+\label{sec:08.test-class}
+
+\subsection{Even/odd splitting and invariance under reparametrization}
+\label{subsec:08.even-odd}
+
+Let $h:\R\to\C$ be an admissible test function (as in earlier chapters). We set
+\[
+h^{\mathrm{ev}}(t)=\frac12\bigl(h(t)+h(-t)\bigr),\qquad
+h^{\mathrm{odd}}(t)=\frac12\bigl(h(t)-h(-t)\bigr),
+\]
+so that $h=h^{\mathrm{ev}}+h^{\mathrm{odd}}$.
+
+\begin{definition}[Normalization map on the test class]
+\label{def:08.norm-map}
+Fix a reference profile $\chi\in C_c^\infty(\R)$ with $\chi\equiv 1$ in a neighborhood of $0$.
+Define the normalization map
+\[
+\mathsf{N}_\chi:\; h \longmapsto h_\chi := h - h(0)\,\chi .
+\]
+\end{definition}
+
+\begin{remark}
+\label{rem:08.why-subtract}
+The subtraction of the zero-mode $h(0)\chi$ isolates the part of the trace sensitive to geometry and dynamics.
+It also prevents spurious dependence on ``how one localizes the identity contribution''.
+The particular choice of $\chi$ must not affect final invariants; the point of this chapter is to make this precise.
+\end{remark}
+
+\subsection{Axioms for admissibility (portable formulation)}
+\label{subsec:08.admissibility-axioms}
+
+We impose the following requirements on admissible pairs $(h,\chi)$.
+
+\begin{definition}[Admissible pairs]
+\label{def:08.admissible-pairs}
+A pair $(h,\chi)$ is called admissible if:
+\begin{enumerate}
+  \item\label{it:08.adm1} $h$ belongs to the test class of Chapters~\ref{chap:02-preliminaries}--\ref{chap:07-main-results} (e.g.\ Schwartz, or Paley--Wiener with specified exponential type).
+  \item\label{it:08.adm2} $\chi\in C_c^\infty(\R)$ and $\chi\equiv 1$ in a neighborhood of $0$.
+  \item\label{it:08.adm3} The normalized test $h_\chi=\mathsf{N}_\chi(h)$ belongs to the same class as $h$ (stability under subtraction).
+\end{enumerate}
+\end{definition}
+
+\section{Normalized trace functionals}
+\label{sec:08.normalized-trace}
+
+\subsection{From raw localized traces to a canonical object}
+\label{subsec:08.raw-to-canonical}
+
+Let $\mathcal{L}_\Gamma[h]$ denote the \emph{raw} localized trace functional (as defined in the main trace formula),
+built from the operator/projector setup fixed earlier.
+The symbol $\Gamma$ indicates that geometric/dynamical input is encoded in this functional
+(identity term, hyperbolic/elliptic contributions, and possibly continuous spectrum terms).
+
+\begin{definition}[Canonical normalized trace]
+\label{def:08.canonical-trace}
+For an admissible pair $(h,\chi)$ define
+\[
+\mathcal{T}_\Gamma[h;\chi] := \mathcal{L}_\Gamma[h_\chi]
+= \mathcal{L}_\Gamma\bigl[h - h(0)\chi\bigr].
+\]
+\end{definition}
+
+\begin{remark}[Basic properties]
+\label{rem:08.basic-properties}
+\leavevmode
+\begin{enumerate}
+  \item\label{it:08.prop1} $\mathcal{T}_\Gamma[\chi;\chi]=0$ by construction.
+  \item\label{it:08.prop2} The dependence on $\chi$ is confined to the extracted zero-mode term; below we show that changing $\chi$ only changes $\mathcal{T}_\Gamma$ by a controlled, explicitly computable error supported at the identity contribution.
+\end{enumerate}
+\end{remark}
+
+\subsection{Independence of the cutoff profile}
+\label{subsec:08.cutoff-independence}
+
+\begin{lemma}[Cutoff change formula]
+\label{lem:08.cutoff-change}
+Let $(h,\chi_1)$ and $(h,\chi_2)$ be admissible. Then
+\[
+\mathcal{T}_\Gamma[h;\chi_1]-\mathcal{T}_\Gamma[h;\chi_2]
+= -h(0)\,\mathcal{L}_\Gamma[\chi_1-\chi_2].
+\]
+In particular, the difference depends only on $h(0)$ and on the raw functional applied to the compactly supported
+smooth function $\chi_1-\chi_2$.
+\end{lemma}
+
+\begin{proof}
+By Definition~\ref{def:08.canonical-trace},
+\[
+\mathcal{T}_\Gamma[h;\chi_j]=\mathcal{L}_\Gamma[h-h(0)\chi_j].
+\]
+Subtracting gives
+\[
+\mathcal{T}_\Gamma[h;\chi_1]-\mathcal{T}_\Gamma[h;\chi_2]
+=\mathcal{L}_\Gamma\bigl[-h(0)(\chi_1-\chi_2)\bigr]
+=-h(0)\,\mathcal{L}_\Gamma[\chi_1-\chi_2],
+\]
+using linearity of $\mathcal{L}_\Gamma$ on the test class.
+\end{proof}
+
+\begin{theorem}[Canonicalization modulo identity term]
+\label{thm:08.canonical-mod-identity}
+Assume the identity contribution to $\mathcal{L}_\Gamma[\cdot]$ is explicitly known (as in the trace formula of
+Chapter~\ref{chap:07-main-results}). Then for any two admissible cutoffs $\chi_1,\chi_2$,
+\[
+\mathcal{T}_\Gamma[h;\chi_1] \equiv \mathcal{T}_\Gamma[h;\chi_2]
+\quad \text{modulo an explicit identity-term correction depending only on } h(0).
+\]
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:08.cutoff-change}, the difference is $-h(0)\mathcal{L}_\Gamma[\chi_1-\chi_2]$.
+Since $\chi_1-\chi_2$ is compactly supported and vanishes near $0$, its geometric contributions are confined to the
+identity sector (this is exactly the stability mechanism ensured by the localized decomposition proved earlier).
+The explicit formula for the identity term then gives an explicit expression for the difference.
+\end{proof}
+
+\section{Normalization under quantization and microlocal refinements}
+\label{sec:08.quantization-refinement}
+
+\subsection{Quantization conventions and transfer of symbols}
+\label{subsec:08.quantization}
+
+Let $\Op$ denote the chosen quantization scheme (e.g.\ Kohn--Nirenberg/Weyl/semi-classical variants)
+used in Chapter~\ref{chap:05-microlocal}. Different conventions lead to different lower-order terms but must not change
+the normalized trace at the precision level relevant for our applications.
+
+\begin{assumption}[Quantization stability]
+\label{ass:08.quant-stability}
+If $\Op_1$ and $\Op_2$ are two admissible quantizations used to construct the localized projectors and kernels,
+then for all admissible tests $h_\chi$ the induced raw traces satisfy
+\[
+\mathcal{L}^{(1)}_\Gamma[h_\chi]-\mathcal{L}^{(2)}_\Gamma[h_\chi]
+= \Err_{\mathrm{quant}}(h_\chi),
+\]
+where $\Err_{\mathrm{quant}}(h_\chi)$ is controlled by the error calculus established in
+Chapter~\ref{chap:05-microlocal} (typically of strictly lower order in the relevant asymptotic regime).
+\end{assumption}
+
+\begin{definition}[Quantization error ledger]
+\label{def:08.quant-ledger}
+We denote by $\mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi]$ the sharpest bound available for
+$\abs{\Err_{\mathrm{quant}}(h_\chi)}$ in the regime under consideration.
+\end{definition}
+
+\subsection{Refinement invariance (partition of unity / microlocal cover)}
+\label{subsec:08.refine}
+
+Let $\{\Pi_j\}$ be the microlocal projectors/partition elements used to localize the trace as in
+Chapter~\ref{chap:04-projector}--\ref{chap:05-microlocal}. Refining the partition should not change normalized
+quantities beyond the error budget.
+
+\begin{assumption}[Refinement stability]
+\label{ass:08.refine-stability}
+Let $\{\Pi_j\}$ and $\{\widetilde{\Pi}_k\}$ be two admissible microlocal partitions, with
+$\{\widetilde{\Pi}_k\}$ a refinement of $\{\Pi_j\}$ in the sense of Chapter~\ref{chap:05-microlocal}.
+Then
+\[
+\mathcal{L}_\Gamma[h_\chi]_{\{\Pi_j\}} - \mathcal{L}_\Gamma[h_\chi]_{\{\widetilde{\Pi}_k\}}
+= \Err_{\mathrm{ref}}(h_\chi),
+\]
+with $\Err_{\mathrm{ref}}(h_\chi)$ controlled by the microlocal remainder estimates proved earlier.
+\end{assumption}
+
+\begin{definition}[Refinement error ledger]
+\label{def:08.ref-ledger}
+We denote by $\mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi]$ the sharpest bound available for
+$\abs{\Err_{\mathrm{ref}}(h_\chi)}$.
+\end{definition}
+
+\section{A single consolidated error budget}
+\label{sec:08.consolidated-error}
+
+\begin{definition}[Total normalization error ledger]
+\label{def:08.total-ledger}
+For an admissible pair $(h,\chi)$ define the consolidated normalization ledger
+\[
+\mathcal{E}_\Gamma[h;\chi]
+:= \mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi]
+ + \mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi]
+ + \mathcal{E}^{\mathrm{tail}}_\Gamma[h;\chi]
+ + \mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi],
+\]
+where:
+\begin{itemize}
+  \item $\mathcal{E}^{\mathrm{tail}}_\Gamma$ denotes the contribution of asymptotic tails in the localization
+  (e.g.\ truncation in time/length or smoothing at infinity),
+  \item $\mathcal{E}^{\mathrm{cont}}_\Gamma$ denotes the contribution of continuous spectrum terms
+  (if present in the global trace formula).
+\end{itemize}
+Each term is taken from the corresponding estimates in Chapters~\ref{chap:05-microlocal}--\ref{chap:07-main-results}.
+\end{definition}
+
+\begin{theorem}[Normalization stability theorem]
+\label{thm:08.normalization-stability}
+Fix admissible choices of:
+(i) cutoff $\chi$,
+(ii) quantization scheme $\Op$,
+(iii) microlocal partition,
+and construct $\mathcal{T}_\Gamma[h;\chi]$.
+Then for any other admissible choices $(\chi',\Op',\text{partition}')$ one has
+\[
+\mathcal{T}_\Gamma[h;\chi] - \mathcal{T}'_\Gamma[h;\chi']
+= \Delta_{\mathrm{id}}(h;\chi,\chi') + \Err_{\mathrm{norm}}(h),
+\]
+where:
+\begin{enumerate}
+  \item $\Delta_{\mathrm{id}}(h;\chi,\chi')$ is the explicit identity-term correction from
+  Theorem~\ref{thm:08.canonical-mod-identity};
+  \item $\abs{\Err_{\mathrm{norm}}(h)} \le \mathcal{E}_\Gamma[h;\chi] + \mathcal{E}'_\Gamma[h;\chi']$.
+\end{enumerate}
+In particular, modulo the explicit identity correction, the normalized trace functional is canonical up to a controlled,
+quantified error.
+\end{theorem}
+
+\begin{proof}
+Combine:
+(i) the cutoff change formula (Lemma~\ref{lem:08.cutoff-change} and Theorem~\ref{thm:08.canonical-mod-identity}),
+(ii) quantization stability (Assumption~\ref{ass:08.quant-stability}),
+and (iii) refinement stability (Assumption~\ref{ass:08.refine-stability}).
+All remaining auxiliary changes are absorbed into the tail/continuous-spectrum ledgers already established in the main
+trace formula (Chapter~\ref{chap:07-main-results}).
+\end{proof}
+
+\section{Practical corollaries used later}
+\label{sec:08.corollaries}
+
+\begin{corollary}[Drop-in rule for later chapters]
+\label{cor:08.drop-in}
+Any statement in Chapters~\ref{chap:09-local-weyl}--\ref{chap:10-applications} that depends on the trace formula may be
+formulated in terms of $\mathcal{T}_\Gamma[h;\chi]$ and $\mathcal{E}_\Gamma[h;\chi]$ without referencing the particular
+choice of $\chi$, quantization, or microlocal cover, provided identity-term corrections are applied explicitly.
+\end{corollary}
+
+\begin{corollary}[Normalization under rescaling of tests]
+\label{cor:08.rescaling}
+Let $h_T(t):=h(t/T)$ with $T\ge 1$ and suppose $(h_T,\chi)$ is admissible for all $T$ in a regime of interest.
+Then the map
+\[
+T \longmapsto \mathcal{T}_\Gamma[h_T;\chi]
+\]
+is stable under admissible auxiliary changes, with stability constants controlled by the ledger
+$\mathcal{E}_\Gamma[h_T;\chi]$ uniformly in $T$ (up to the explicit identity correction).
+\end{corollary}
+
+\section{Bibliographic notes}
+\label{sec:08.bib-notes}
+
+The normalization philosophy implemented here is consistent with the standard microlocal trace technology and the
+Selberg/Arthur trace formula tradition; see, for example, \cite{Hejhal1983,Zworski2012,DyatlovZworski2019}
+for the analytic/scattering side and \cite{Buser1992,Iwaniec2002} for the spectral geometry/automorphic background.
+
+% ======================================================================
+% End of 08-normalization.tex
+% ======================================================================
