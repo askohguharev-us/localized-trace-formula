@@ -1,486 +1,401 @@
-% ==================================================================
-% E-numerical-verification.tex — FULL MONOLITHIC VERSION
-% ==================================================================
+% ======================================================================
+% Appendix E. Consistency checks and verification protocol
+% PATH: src/appendices/E-consistency-checks.tex
+% ======================================================================
 
-\section*{Appendix E. Numerical Verification and Tables of Constants}
-\addcontentsline{toc}{section}{Appendix E. Numerical Verification and Tables of Constants}
-\label{appE:root}
+\appendix
+\chapter{Consistency checks, invariance audits, and verification protocols}
+\label{app:E.consistency}
 
-\subsection*{E.1. Numerical Framework and Explicit Constants}
+\section{Purpose and philosophy}
+\label{sec:E.purpose}
 
-\noindent \textbf{Motivation.}
-The purpose of Appendix~E is to demonstrate that the analytic results of 
-Chapters~3--8 (localized trace formula, quantitative Weyl laws, and error estimates) 
-are numerically consistent on explicit, finite-area hyperbolic surfaces. 
-Rather than attempting large-scale computation, we focus on simple and well-studied 
-examples such as the modular surface $\PSL_2(\mathbb Z)\backslash\mathbb H$ and 
-small congruence subgroups $\Gamma_0(q)$. 
-These models provide transparent test cases for comparing asymptotics with 
-low-lying eigenvalue data and for recording all relevant geometric constants.  
+The localized trace formalism developed in this monograph is designed to be \emph{stable under admissible
+modifications} (cutoff changes, quantization choices, microlocal refinements, and normalization conventions) and to
+encode all noncanonical dependence in explicit correction terms and a consolidated error ledger.
 
-\medskip
-\noindent \textbf{Outline of Appendix~E.}
+This appendix records a verification layer: a family of \emph{consistency checks} that can be applied to any concrete
+implementation of the localized trace identity.  The goal is not to re-prove the main theorems, but to provide a
+portable protocol ensuring that (i) the stated identities are internally consistent, (ii) invariance claims are
+properly tracked, and (iii) numerics or symbolic checks are synchronized with the analytic ledger.
+
+The checks are organized as \emph{audits}.  Each audit isolates a structural invariant, states a verifiable criterion,
+and lists failure modes.  The protocols are stated in a model-independent way and can be instantiated both in purely
+analytic proofs and in computational verification.
+
+\section{Objects and invariants under audit}
+\label{sec:E.objects}
+
+We recall the principal objects that enter the trace formalism.
+
+\begin{itemize}
+\item The raw localized trace functional $\mathcal{L}_\Gamma[h]$ and its normalized version
+\[
+\mathcal{T}_\Gamma[h;\chi]=\mathcal{L}_\Gamma[h-h(0)\chi],
+\]
+with $\chi\equiv 1$ near $0$.
+
+\item The admissible data triple $(\chi,\Op,\Pi)$: cutoff profile $\chi$, quantization scheme $\Op$, and microlocal
+partition/projector system $\Pi$.
+
+\item The consolidated ledger
+\[
+\mathcal{E}_\Gamma[h;\chi]
+=
+\mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{tail}}_\Gamma[h;\chi]
++
+\mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi],
+\]
+as introduced in Chapter~\ref{chap:08-normalization}.
+
+\item The trace-to-determinant interface, encoded by oscillatory test families
+$h_{\tau,\Delta}(t)=W(t/\Delta)e^{-i\tau t}$ and observables
+$\mathfrak{D}(\tau;\Delta)=\mathcal{T}_\Gamma[h_{\tau,\Delta}]$ (Chapter~\ref{chap:10-trace-to-zeta}).
+
+\end{itemize}
+
+The audits below verify invariance properties relative to these objects.
+
+\section{Audit A: transform and normalization conventions}
+\label{sec:E.audit.transform}
+
+\subsection{Fourier normalization check}
+\label{subsec:E.fourier}
+
+The trace identity depends on the Fourier normalization chosen in Chapters~\ref{chap:02-preliminaries}--\ref{chap:04-wave}.
+To avoid hidden sign or factor errors, one must verify the following.
+
+\begin{audit}[A1: Fourier normalization]
+\label{audit:E.A1}
+\textbf{Invariant.} The pairing between a time test function $h(t)$ and its spectral transform
+$\widehat{h}(\xi)$ used in the wave kernel representation is consistent across the entire document.
+
+\textbf{Check.} Verify that:
 \begin{enumerate}
-  \item Fix explicit models $M=\Gamma\backslash \mathbb H$, beginning with $\Gamma=\PSL_2(\mathbb Z)$ and extending to $\Gamma_0(q)$ for small $q$.
-  \item Tabulate key geometric invariants: area, cusp widths, lengths of shortest closed geodesics, and injectivity radius.
-  \item Record spectral information available in the literature: low eigenvalues, approximate spectral gap $\beta$, and sample Fourier coefficients.
-  \item Compare theoretical asymptotics (localized trace formula and quantitative Weyl law) with tabulated spectral data.
-  \item Present tables summarizing constants and sample computations for reproducibility.
+\item Plancherel holds in the stated normalization:
+\[
+\|h\|_{L^2(\R)}^2 = c_\F \|\widehat{h}\|_{L^2(\R)}^2,
+\]
+with the same constant $c_\F$ as in Chapter~\ref{chap:02-preliminaries}.
+\item Evenness is preserved:
+if $h(t)=h(-t)$ then $\widehat{h}(\xi)$ is real and even.
+\item Convolution squares are nonnegative on the spectral side:
+\[
+\widehat{h*h^\ast}(\xi)=|\widehat{h}(\xi)|^2\ge 0.
+\]
 \end{enumerate}
 
-\medskip
-\subsection*{E.1.1. Explicit Surfaces}
+\textbf{Failure modes.} Incorrect $2\pi$ factors; sign mismatch in the phase $e^{-i\xi t}$ versus $e^{+i\xi t}$; loss of
+evenness; violation of the quadratic positivity identity.
+\end{audit}
 
-We begin with the simplest models.
+\subsection{Reference profile normalization check}
+\label{subsec:E.reference}
 
-\begin{itemize}
-  \item \textbf{The modular surface:} 
-  \[
-    M = \PSL_2(\mathbb Z)\backslash \mathbb H.
-  \]
-  It has a single cusp, hyperbolic area $\vol(M) = \pi/3$, and cusp width $w=1$. 
-  Its fundamental domain and spectrum have been studied extensively, making it an ideal 
-  baseline for numerical verification.
+\begin{audit}[A2: reference profile normalization]
+\label{audit:E.A2}
+\textbf{Invariant.} The normalization map $\mathsf{N}_\chi(h)=h-h(0)\chi$ removes identity-sector instability and
+introduces only deterministic, explicitly computable correction terms.
 
-  \item \textbf{Congruence surfaces:} 
-  For $\Gamma_0(q)\subset \PSL_2(\mathbb Z)$, the index is
-  \[
-    [\PSL_2(\mathbb Z):\Gamma_0(q)] = q \prod_{p\mid q}\left(1+\frac{1}{p}\right),
-  \]
-  and the area is $\vol(M) = \tfrac{\pi}{3}\,[\PSL_2(\mathbb Z):\Gamma_0(q)]$.
-  The number and widths of cusps are determined by the prime factorization of $q$.
-  These surfaces possess explicit fundamental domains and well-documented spectra, 
-  making them excellent secondary test cases.
-\end{itemize}
+\textbf{Check.} For two admissible profiles $\chi_1,\chi_2$ with $\chi_i\equiv 1$ near $0$, verify the exact identity
+\[
+\mathcal{T}_\Gamma[h;\chi_1]-\mathcal{T}_\Gamma[h;\chi_2]
+=
+-h(0)\,\mathcal{L}_\Gamma[\chi_1-\chi_2].
+\]
+Confirm that $\mathcal{L}_\Gamma[\chi_1-\chi_2]$ can be evaluated from the identity contribution alone (no hidden
+hyperbolic or parabolic dependence).
 
-\medskip
-\subsection*{E.1.2. Geometric Constants}
+\textbf{Failure modes.} Dependence on $\chi$ beyond $h(0)$; $\chi$ leaking into hyperbolic classes; nonlocal dependence
+on $\chi$ due to an incorrect cutoff hypothesis.
+\end{audit}
 
-For $\PSL_2(\mathbb Z)\backslash \mathbb H$, the key constants are:
-\begin{align*}
-  \vol(M) &= \pi/3, \\
-  \text{cusp width} &= 1, \\
-  \text{shortest closed geodesic length} &\approx 1.3169, \\
-  \inj(M) &= 0 \quad (\text{since a cusp is present}), \\
-  \inj(M(Y)) &\asymp Y^{-1} \quad (\text{for truncated cusp neighborhoods}).
-\end{align*}
+\section{Audit B: microlocal invariance and quantization stability}
+\label{sec:E.audit.microlocal}
 
-For congruence groups $\Gamma_0(q)$:
-\begin{itemize}
-  \item $\vol(M) = \tfrac{\pi}{3}\,[\PSL_2(\mathbb Z):\Gamma_0(q)]$,
-  \item cusp widths are given by divisor data of $q$, 
-  \item lengths of short closed geodesics are computable numerically from the trace set of $\Gamma_0(q)$.
-\end{itemize}
-References for these constants include \cite{Iwaniec2002, Buser1992}.
+\subsection{Quantization change audit}
+\label{subsec:E.quantization}
 
-\medskip
-\subsection*{E.1.3. Spectral Data}
+\begin{audit}[B1: change of quantization scheme]
+\label{audit:E.B1}
+\textbf{Invariant.} Switching between admissible quantizations $\Op$ and $\Op'$ affects the trace functional only
+through a controlled ledger term $\mathcal{E}^{\mathrm{quant}}$.
 
-\begin{itemize}
-  \item On $\PSL_2(\mathbb Z)\backslash\mathbb H$, the discrete spectrum begins with a Laplace eigenvalue $\lambda_1\approx 91.14$ corresponding to $t\approx 13.779$.
-  \item There are no exceptional small eigenvalues, hence the effective spectral gap is $\beta \approx 0.25$, given by the bottom of the continuous spectrum at $1/4$.
-  \item Fourier coefficients of Maass cusp forms have been computed and tabulated in databases such as the LMFDB and in works by Hejhal, Then, and Booker–Strömbergsson–Venkatesh.
-\end{itemize}
+\textbf{Check.} For fixed $(h,\chi,\Pi)$ verify that
+\[
+\mathcal{T}_\Gamma[h;\chi]_{\Op}
+-
+\mathcal{T}_\Gamma[h;\chi]_{\Op'}
+=
+\Err^{\mathrm{quant}}_\Gamma(h;\chi),
+\qquad
+|\Err^{\mathrm{quant}}_\Gamma(h;\chi)|
+\le
+\mathcal{E}^{\mathrm{quant}}_\Gamma[h;\chi].
+\]
+Confirm that the bound depends only on finitely many symbol seminorms and on the localization scale.
 
-These values anchor the effective constants appearing in the localized trace formula.
+\textbf{Failure modes.} Appearance of new leading terms; loss of power-saving; dependence on nonlocal symbol features;
+failure of symbolic calculus assumptions (e.g.\ nonuniformity in the semiclassical parameter).
+\end{audit}
 
-\medskip
-\begin{auditblock}{Audit of Appendix E, Block 1}
-\noindent \textbf{Goals.}
-\begin{itemize}
-  \item \emph{Goal E1:} Provide explicit models and constants for $\Gamma=\PSL_2(\mathbb Z)$ and $\Gamma_0(q)$. \textbf{Verified}.
-  \item \emph{Goal E2:} Document baseline spectral data to support later comparisons. \textbf{Verified}.
-\end{itemize}
+\subsection{Refinement audit}
+\label{subsec:E.refinement}
 
-\noindent \textbf{Forward links.}
-\begin{itemize}
-  \item To \S E.2: numerical comparisons with localized trace formula.
-  \item To Chapter~7: explicit constants used in quantitative Weyl laws.
-\end{itemize}
+\begin{audit}[B2: microlocal refinement invariance]
+\label{audit:E.B2}
+\textbf{Invariant.} Refining the microlocal cover or partition changes the trace only by a controlled refinement
+ledger term.
 
-\noindent \textbf{Backward links.}
-\begin{itemize}
-  \item From Chapter~2: normalizations of Laplacian and cusp truncations.
-  \item From Appendix~A: explicit volume and cusp data formulas.
-\end{itemize}
+\textbf{Check.} For two admissible microlocal systems $\Pi,\Pi'$ verify
+\[
+\mathcal{T}_\Gamma[h;\chi]_{\Pi}
+-
+\mathcal{T}_\Gamma[h;\chi]_{\Pi'}
+=
+\Err^{\mathrm{ref}}_\Gamma(h;\chi),
+\qquad
+|\Err^{\mathrm{ref}}_\Gamma(h;\chi)|
+\le
+\mathcal{E}^{\mathrm{ref}}_\Gamma[h;\chi].
+\]
+Verify that refinement errors decrease with increased resolution (in the regime where the parametrix is valid).
 
-\medskip
-\noindent \textbf{Conclusion.}
-Block~E.1 establishes the numerical framework by fixing explicit hyperbolic surfaces, 
-recording their geometric constants, and summarizing known spectral data. 
-This provides the foundation for the verification experiments carried out in later blocks.
-\end{auditblock}
+\textbf{Failure modes.} Nonlocal leakage between microlocal charts; loss of cancellation due to incompatible cutoffs;
+accidental duplication/omission of phase space regions.
+\end{audit}
 
-\subsection*{E.2. Numerical Experiments and Error Hierarchy}
+\section{Audit C: spectral side integrity (discrete/continuous separation)}
+\label{sec:E.audit.spectral}
 
-\noindent \textbf{Motivation.}
-Having fixed explicit models and constants in Block~E.1, we now test the 
-theoretical predictions numerically. These experiments are not proofs; 
-their purpose is to provide consistency checks, confirm that the main term 
-in the localized trace formula dominates as predicted, and illustrate the 
-hierarchy of error sources.  
+\subsection{Discrete/continuous decomposition check}
+\label{subsec:E.disccont}
 
-\medskip
-\noindent \textbf{Experiment Setup.}
+In noncompact settings, failure to correctly separate discrete and continuous spectrum is a primary source of hidden
+errors.
+
+\begin{audit}[C1: discrete/continuous split]
+\label{audit:E.C1}
+\textbf{Invariant.} The spectral side decomposes as
+\[
+\Tr P = \Tr_{\mathrm{disc}} P + \Tr_{\mathrm{cont}} P,
+\]
+with $\Tr_{\mathrm{cont}} P$ expressed in terms of scattering data, and all dependence on cusp geometry isolated into
+explicit terms or the continuous ledger $\mathcal{E}^{\mathrm{cont}}$.
+
+\textbf{Check.} Verify that:
 \begin{enumerate}
-  \item Select model surfaces $M=\Gamma\backslash\mathbb H$ with small index:
-  $\Gamma=\PSL_2(\mathbb Z)$, $\Gamma_0(2)$, and $\Gamma_0(3)$.  
-  \item Choose central frequencies $\lambda$ in the range $50 \leq \lambda \leq 200$,
-  for which eigenvalue tables are available.  
-  \item Select localization widths $\eta=\lambda^{-\theta}$ with $\theta=1/3,1/2$, 
-  representing the transition from coarse to fine spectral localization.  
-  \item Compare the spectral counts
-  \[
-    N_{\text{spec}}(\lambda,\eta)
-    = \#\{\lambda_j \in [\lambda-\eta,\,\lambda+\eta]\}
-  \]
-  against the main term 
-  \[
-    N_{\text{main}}(\lambda,\eta) 
-    = \frac{\vol(M)}{2\pi}\lambda\eta,
-  \]
-  and record discrepancies relative to the predicted error $O(\lambda^{-\delta})$.  
+\item The continuous contribution is computed using the same Plancherel measure and scattering normalization as in
+Chapter~\ref{chap:06-parabolic}.
+\item The subtraction/normalization scheme does not introduce spurious poles in the continuous integral.
+\item The resulting remainder bound satisfies
+\[
+|\Tr_{\mathrm{cont}} P|\le C\,\mathcal{E}^{\mathrm{cont}}_\Gamma[h;\chi]
+\]
+in the intended scaling regime.
 \end{enumerate}
 
-\medskip
-\noindent \textbf{Sample Results for $\PSL_2(\mathbb Z)\backslash\mathbb H$.}
-\begin{itemize}
-  \item At $\lambda=50$, with $\eta=50^{-1/3}\approx 0.27$:  
-  \[
-    N_{\text{spec}}=2, \qquad N_{\text{main}}\approx 0.71, \qquad \Delta \approx 1.29.
-  \]
-  This discrepancy is consistent with the presence of strong low-level fluctuations.
+\textbf{Failure modes.} Missing Maass--Selberg correction; incorrect measure factors; failure of analytic continuation;
+continuous terms contaminating the identity main term.
+\end{audit}
 
-  \item At $\lambda=200$, with $\eta=200^{-1/3}\approx 0.17$:  
-  \[
-    N_{\text{spec}}=5, \qquad N_{\text{main}}\approx 1.81, \qquad \Delta \approx 3.19.
-  \]
-  The deviation remains visible but decreases relative to $\lambda$ as expected.
-\end{itemize}
+\section{Audit D: identity term and effective volume synchronization}
+\label{sec:E.audit.identity}
 
-\medskip
-\noindent \textbf{Interpretation.}
-Although raw discrepancies are large at small $\lambda$, they are consistent with 
-the predicted error terms, which vanish asymptotically as $\lambda\to\infty$. 
-These small-scale checks serve as sanity tests: they confirm that the localized 
-Weyl law is numerically credible when constants are taken into account.
+The identity sector is the anchor for all later asymptotics.  In localized settings, the identity term is not merely
+$\vol(M)$ times a global density; it is an \emph{effective volume} determined by the localization scale and the chosen
+normalizations.
 
-\medskip
-\subsection*{E.2.1. Error Hierarchy}
+\begin{audit}[D1: identity term coherence]
+\label{audit:E.D1}
+\textbf{Invariant.} The identity contribution computed in Appendix~\ref{app:A.identity} matches the main term used in
+all applications (local Weyl laws, variance identities, QUE bounds) under the same normalization conventions.
 
-To clarify the sources of remainder terms in the localized trace formula, 
-we record an explicit hierarchy:
-
-\begin{itemize}
-  \item \emph{Spectral leakage:} from smooth cutoff $\chi_\eta$, bounded by 
-  $\ll \eta^{-1}\lambda^{-N}$ for arbitrary $N$.  
-  \item \emph{Cusp truncation error:} due to height cutoff $M(Y)$ with 
-  $Y\asymp \log \lambda$, size $\ll Y^{-1}$.  
-  \item \emph{Geodesic truncation error:} from discarding geodesics of length 
-  $\gg T\asymp \log\lambda$, bounded by $\ll e^{-cT}$.  
-  \item \emph{Stationary phase remainder:} from oscillatory integrals, 
-  $\ll \lambda^{-n/2-N}$ for chosen expansion order $N$.  
-\end{itemize}
-
-\medskip
-\noindent These error sources are individually negligible at scale 
-$\eta\gg \lambda^{-1}$, and collectively produce the theoretical 
-power-saving $O(\lambda^{-\delta})$ remainder in the localized trace formula.
-
-\medskip
-\subsection*{E.2.2. Error Budget Table}
-
-For transparency, we summarize the hierarchy in a compact table:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-Error Source & Theoretical Bound & Numerical Manifestation \\
-\hline
-Spectral leakage & $\ll \eta^{-1}\lambda^{-N}$ & negligible for $\eta \gg \lambda^{-1}$ \\
-Cusp truncation & $\ll (\log \lambda)^{-1}$ & mild fluctuations near cusp regions \\
-Geodesic cutoff & $\ll e^{-c\log\lambda}$ & invisible at small $\lambda$ \\
-Stationary phase & $\ll \lambda^{-n/2-N}$ & visible as $\sim\lambda^{-1}$ error \\
-\hline
-\end{tabular}
-\caption{Error budget for the localized trace formula.}
-\label{tab:error-budget}
-\end{table}
-
-\medskip
-\begin{auditblock}{Audit of Appendix E, Block 2}
-\noindent \textbf{Goals.}
-\begin{itemize}
-  \item \emph{Goal E4:} Test theoretical predictions against small-scale numerical data. \textbf{Verified}.  
-  \item \emph{Goal E5:} Document explicit error hierarchy. \textbf{Verified}.  
-  \item \emph{Goal E6:} Provide reproducible error budget. \textbf{Verified}.  
-\end{itemize}
-
-\noindent \textbf{Forward links.}
-\begin{itemize}
-  \item To Chapter~7: validates synthesis of spectral and geometric expansions.  
-  \item To Chapter~9: reproducibility emphasized in conclusions.  
-\end{itemize}
-
-\noindent \textbf{Backward links.}
-\begin{itemize}
-  \item From Appendix~B: stationary phase and Fourier integral bounds.  
-  \item From Appendix~C: volume and cusp truncation formulas.  
-\end{itemize}
-
-\medskip
-\noindent \textbf{Conclusion.}
-Block~E.2 demonstrates that the error structure of the localized trace formula 
-is consistent with low-level spectral data, and that each error source is 
-analytically controlled. This ensures the theoretical results are both rigorous 
-and numerically credible.
-\end{auditblock}
-
-\subsection*{E.3. Extended Tables and Reproducibility Protocol}
-
-\noindent \textbf{Motivation.}
-The theoretical framework of the localized trace formula gains credibility only if
-its predictions can be reproduced independently. This block consolidates extended
-numerical tables and establishes a reproducibility protocol, ensuring that all data
-and computations are transparent, verifiable, and aligned with the analytic estimates
-from earlier chapters.
-
-\medskip
-\subsection*{E.3.1. Extended Numerical Tables}
-
-We present representative numerical values comparing the spectral counts
-$N_{\text{spec}}(\lambda,\eta)$ with the main term
-$N_{\text{main}}(\lambda,\eta) = (\vol M)/(2\pi)\cdot \lambda \eta$.
-All values are rounded to two decimals for clarity.  
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Group $\Gamma$ & $\lambda$ & $\eta$ & $N_{\text{spec}}$ & Main Term \\
-\hline
-$\PSL_2(\mathbb Z)$ & $50$  & $0.27$ & $2$ & $0.71$ \\
-$\PSL_2(\mathbb Z)$ & $100$ & $0.21$ & $3$ & $1.68$ \\
-$\PSL_2(\mathbb Z)$ & $200$ & $0.17$ & $5$ & $1.81$ \\
-$\Gamma_0(2)$       & $100$ & $0.21$ & $4$ & $1.40$ \\
-$\Gamma_0(3)$       & $100$ & $0.21$ & $3$ & $1.52$ \\
-\hline
-\end{tabular}
-\caption{Sample spectral counts versus main terms for localized Weyl law.}
-\label{tab:spectral-tables}
-\end{table}
-
-\noindent The discrepancies fall within the expected theoretical error bounds
-$O(\lambda^{-\delta})$, acknowledging stronger fluctuations at low values of $\lambda$.
-
-\medskip
-\subsection*{E.3.2. Reproducibility Protocol}
-
-To guarantee transparency, we codify the computational pipeline as follows:
-
+\textbf{Check.} Verify that:
 \begin{enumerate}
-  \item \emph{Data Sources.} Use publicly available eigenvalue datasets:
-  Hejhal--Then tables, Booker--Strömbergsson--Venkatesh computations,
-  and LMFDB repositories.  
-  \item \emph{Normalization.} Adopt the conventions of Chapter~2 for
-  eigenvalue parameterization $\lambda_j = 1/4 + t_j^2$ and
-  Fourier coefficients at cusps.  
-  \item \emph{Parameter Selection.} Choose $\lambda \leq 200$
-  for initial checks. Higher $\lambda$ values require computational
-  eigenvalue solvers (Hejhal’s algorithm, finite element methods).  
-  \item \emph{Localization.} Implement smooth cutoffs $\chi_\eta(t)$
-  with compact support and verify Fourier decay properties
-  (cf.~Appendix~B).  
-  \item \emph{Computation.} Count eigenvalues in $[\lambda-\eta,\lambda+\eta]$
-  and compute the main term $(\vol M)/(2\pi)\lambda\eta$.  
-  \item \emph{Error Budget.} Record discrepancies, compare with
-  $O(\lambda^{-\delta})$, and classify contributions by error source
-  (cf.~Table~\ref{tab:error-budget}).  
-  \item \emph{Documentation.} Store results in CSV or LaTeX tables,
-  with metadata: $(\Gamma,\lambda,\eta,N_{\text{spec}},N_{\text{main}},\Delta,\text{date})$.
+\item The leading identity term for the basic projector $P_{\lambda,\eta}$ equals
+\[
+\frac{\vol(M)}{2\pi}\,\lambda\,\eta
+\quad
+\text{(in the $\lambda$-parameterization used in Chapter~\ref{ch:applications}).}
+\]
+\item The same coefficient appears after any admissible cutoff change, with only deterministic correction terms.
+\item Any effective-volume modification due to cusp truncation or microlocal exclusion is either explicit or charged
+to the ledger.
 \end{enumerate}
 
-\medskip
-\subsection*{E.3.3. Verification Standard}
+\textbf{Failure modes.} Inconsistent parameterization ($r$ vs.\ $\lambda$); missing Jacobian factors; hidden cutoff
+dependence; mismatch between local and global density constants.
+\end{audit}
 
-We emphasize three reproducibility principles:
+\section{Audit E: remainder hierarchy and ledger closure}
+\label{sec:E.audit.ledger}
 
-\begin{itemize}
-  \item \emph{Transparency:} all datasets and computational codes
-  should be open-source and permanently archived.  
-  \item \emph{Consistency:} all normalizations fixed in Chapter~2
-  must be used in every computation.  
-  \item \emph{Traceability:} every numerical claim in Chapters~7--8
-  can be traced back to a specific table entry or protocol step.  
-\end{itemize}
+\subsection{Ledger decomposition audit}
+\label{subsec:E.ledger-decomp}
 
-\medskip
-\begin{auditblock}{Audit of Appendix E, Block 3}
-\noindent \textbf{Goals.}
-\begin{itemize}
-  \item \emph{Goal E7:} Provide extended numerical tables.
-  \textbf{Verified} in Table~\ref{tab:spectral-tables}.  
-  \item \emph{Goal E8:} Establish a reproducibility protocol.
-  \textbf{Verified} in Section~E.3.2.  
-  \item \emph{Goal E9:} State a verification standard for the community.
-  \textbf{Verified} in Section~E.3.3.  
-\end{itemize}
+\begin{audit}[E1: ledger completeness]
+\label{audit:E.E1}
+\textbf{Invariant.} All noncanonical dependences and secondary analytic terms are absorbed into the consolidated ledger
+$\mathcal{E}_\Gamma[h;\chi]$.
 
-\noindent \textbf{Forward Links.}
-\begin{itemize}
-  \item To Appendix~F: implementation notes and algorithmic details.  
-  \item To Chapter~9: reproducibility emphasized as a pillar of the
-  methodological standard.  
-\end{itemize}
+\textbf{Check.} For each application (local Weyl, Kuznetsov variance, QE, $L$-moments), enumerate all error sources and
+verify that each is assigned to exactly one component:
+\[
+\mathcal{E}^{\mathrm{quant}},
+\quad
+\mathcal{E}^{\mathrm{ref}},
+\quad
+\mathcal{E}^{\mathrm{tail}},
+\quad
+\mathcal{E}^{\mathrm{cont}}.
+\]
+Confirm that no term is counted twice and no term remains uncharged.
 
-\noindent \textbf{Backward Links.}
-\begin{itemize}
-  \item From Chapter~2: eigenvalue normalization conventions.  
-  \item From Appendix~B: cutoff Fourier decay bounds.  
-\end{itemize}
+\textbf{Failure modes.} Double counting between tail and refinement; continuous contributions hidden in ``tail''; loss
+of power-saving due to an untracked logarithmic term.
+\end{audit}
 
-\medskip
-\noindent \textbf{Conclusion.}
-Block~E.3 extends the numerical analysis with concrete tables, codifies a
-reproducibility protocol, and establishes a community verification standard.
-This ensures that the analytic results of the monograph are not only rigorous,
-but also practically checkable and transparent.
-\end{auditblock}
+\subsection{Power-saving closure audit}
+\label{subsec:E.powersaving}
 
-\subsection*{E.4. Global Audit of Appendix E}
+\begin{audit}[E2: power-saving closure]
+\label{audit:E.E2}
+\textbf{Invariant.} The application-scale remainders preserve a strict hierarchy: main term $\gg$ remainder in the
+intended regime (e.g.\ $\eta\ge \lambda^{-\theta}$).
 
-\noindent \textbf{Purpose.}
-This final block of Appendix~E consolidates the contributions of the preceding
-sections (E.1--E.3) into a unified audit. Its goal is to verify that all objectives
-were met, that constants and error terms are transparent, and that the
-reproducibility standard is fully embedded into the methodological framework
-of the monograph.
+\textbf{Check.} Verify that each theorem is stated with a remainder bound of the form
+\[
+O(\lambda^{1-\delta})
+\quad\text{or}\quad
+O(\lambda^{-\delta})
+\]
+consistent with the scaling of the main term.
+When an application introduces additional averaging (e.g.\ second moments), verify that the normalization by the local
+Weyl count does not lose the power-saving.
 
-\medskip
-\noindent \textbf{Chapter Goals Recap.}
-Appendix~E was designed to serve three interlocking purposes:
-\begin{itemize}
-  \item \emph{Goal E1:} Fix explicit constants (volumes, cusp widths, spectral gaps)
-  for concrete surfaces $\Gamma\backslash \mathbb H$.  
-  \item \emph{Goal E2:} Provide initial numerical comparisons of spectral counts
-  with the localized Weyl law and the localized trace formula.  
-  \item \emph{Goal E3:} Present extended tables and define a reproducibility
-  protocol to guide future verification efforts.  
-\end{itemize}
+\textbf{Failure modes.} Remainder comparable to the main term in short windows; hidden dependence on $\eta$ that breaks
+uniformity; loss of $\delta$ in arithmetic weights.
+\end{audit}
 
-\medskip
-\begin{auditblock}{Verification of Goals}
-\begin{itemize}
-  \item \textbf{V(E1):} Verified in Block~E.1, which tabulated constants for
-  $\PSL_2(\mathbb Z)$ and small congruence groups.  
-  \item \textbf{V(E2):} Verified in Block~E.2, where spectral counts were compared
-  against main terms and placed within an explicit error budget.  
-  \item \textbf{V(E3):} Verified in Block~E.3, which presented extended tables
-  and codified a reproducibility pipeline.  
-\end{itemize}
-\end{auditblock}
+\section{Audit F: Tauberian interface integrity}
+\label{sec:E.audit.tauberian}
 
-\medskip
-\noindent \textbf{Invariants.}
-\begin{itemize}
-  \item \emph{Invariant E1:} All constants (volumes, cusp widths, spectral gaps)
-  are tied to explicit, standard normalizations set in Chapter~2.  
-  \item \emph{Invariant E2:} No heuristic constants or informal estimates were used;
-  every numerical value is traceable to either tabulated data or standard references.  
-  \item \emph{Invariant E3:} Numerical checks are illustrative only and do not replace
-  analytic proofs. Their role is to reinforce credibility and transparency.  
-  \item \emph{Invariant E4:} Every block closes with an explicit audit, forward/backward
-  links, and documented dependencies.  
-\end{itemize}
+The local Weyl and moment statements often require removing smoothing (Appendix~\ref{app:D.tauberian}).
+This step must be audited independently.
 
-\medskip
-\noindent \textbf{Forward Links.}
-\begin{itemize}
-  \item To Appendix~F: implementation notes and computational environments extend
-  the reproducibility pipeline of Block~E.3.  
-  \item To Chapter~9: conclusions emphasize reproducibility as a pillar of the
-  Diamond Standard, with Appendix~E providing the operational blueprint.  
-\end{itemize}
+\begin{audit}[F1: smoothing removal]
+\label{audit:E.F1}
+\textbf{Invariant.} The Tauberian removal step introduces only a boundary-layer error controlled by monotonicity and
+does not affect the trace formula ledger.
 
-\noindent \textbf{Backward Links.}
-\begin{itemize}
-  \item From Chapter~2: eigenvalue normalization conventions ensure consistency.  
-  \item From Appendices~A--B: effective Sobolev and cutoff estimates provide
-  analytic support for the error hierarchy in Block~E.2.  
-  \item From Appendix~C: microlocal tools ensure that the projector computations
-  align with the numerical experiments.  
-\end{itemize}
+\textbf{Check.} Verify that the sharp recovery uses a bracketing inequality of the form
+\[
+N(r-\delta)\le (N*w_\delta)(r)\le N(r+\delta),
+\]
+and that the increment term $N(r+\delta)-N(r-\delta)$ is of lower order under the chosen scale $\delta=\delta(r)$.
 
-\medskip
-\noindent \textbf{Consistency Check.}
-Every claim in Appendix~E is:
+\textbf{Failure modes.} Use of nonpositive kernels; hidden dependence of $\delta$ on spectral data; circularity (using
+the sharp Weyl law to prove itself).
+\end{audit}
+
+\section{Audit G: positivity and quadratic-form checks}
+\label{sec:E.audit.positivity}
+
+Positivity mechanisms (Li--Weil type criteria) are structurally sensitive to normalization and to the use of
+convolution squares.
+
+\begin{audit}[G1: quadratic-form positivity]
+\label{audit:E.G1}
+\textbf{Invariant.} For $h^\ast(t)=\overline{h(-t)}$, the quadratic form
+\[
+\mathcal{Q}[h]:=\mathcal{T}_\Gamma[h*h^\ast]
+\]
+is nonnegative on the spectral side and has its geometric side controlled by the ledger and explicit corrections.
+
+\textbf{Check.} Verify that:
 \begin{enumerate}
-  \item grounded in explicit constants (volume, cusp width, shortest geodesic),  
-  \item cross-referenced with tabulated eigenvalue data,  
-  \item matched against theoretical asymptotics with recorded discrepancies,  
-  \item embedded in a transparent reproducibility framework.  
+\item $\widehat{h*h^\ast}(\xi)=|\widehat{h}(\xi)|^2\ge 0$ under the fixed Fourier convention.
+\item The normalization subtraction does not break positivity (identity correction is deterministic and accounted).
+\item Any truncation/tail in the convolution is charged to $\mathcal{E}^{\mathrm{tail}}$.
 \end{enumerate}
 
-\medskip
-\noindent \textbf{Concluding Remarks.}
-Appendix~E accomplishes its mission: it connects analytic predictions with
-explicit numerical data, clarifies the hierarchy of errors, and codifies a
-reproducibility standard. In doing so, it ensures that the results of the
-monograph can be independently verified, not only in theory but also in
-practice. This transparency strengthens the methodological integrity of the
-entire project.
+\textbf{Failure modes.} Sign errors in Fourier transform; non-even kernels; normalization applied inconsistently inside
+the convolution square.
+\end{audit}
 
-\subsection*{E.5. Summary and Closure of Appendix E}
+\section{Audit H: implementation checklist for computational verification}
+\label{sec:E.implementation}
 
-\noindent \textbf{Summary.}
-Appendix~E has served as the numerical and computational complement to the
-analytic arguments developed in the main chapters. Its structure was organized
-into three main operational blocks and one global audit:
+When numerical experiments are used (e.g.\ to validate remainder sizes or to sanity-check oscillatory transforms),
+one must enforce a strict synchronization between implementation parameters and analytic assumptions.
+
+\subsection{Parameter ledger}
+\label{subsec:E.param-ledger}
+
+\begin{audit}[H1: parameter ledger]
+\label{audit:E.H1}
+\textbf{Invariant.} Every numerical run is fully determined by a finite parameter set that can be recorded and
+reproduced.
+
+\textbf{Checklist.} Record:
 \begin{itemize}
-  \item \textbf{Block E.1:} Explicit constants (volumes, cusp widths, geodesic
-  lengths, spectral gaps) for model hyperbolic surfaces.
-  \item \textbf{Block E.2:} Small-scale numerical experiments testing the
-  localized Weyl law and localized trace formula.
-  \item \textbf{Block E.3:} Extended tables of data and a reproducibility
-  protocol.
-  \item \textbf{Block E.4:} A global audit confirming that all objectives were
-  met.
+\item geometry input (group $\Gamma$, cusp widths, truncation height if any);
+\item spectral window parameters $(\lambda,\eta)$ and the admissible range checks;
+\item cutoff profile $\chi$ and the list of seminorms used in error bounds;
+\item Fourier convention and discretization grid (time/spectral);
+\item microlocal partition and quantization scheme (if implemented numerically);
+\item tail truncation thresholds (geodesic length cut, time cut, frequency cut).
 \end{itemize}
 
-\medskip
-\noindent \textbf{Key Achievements.}
+\textbf{Failure modes.} Unrecorded implicit parameters; mixed Fourier conventions across modules; tail truncation not
+charged to the ledger.
+\end{audit}
+
+\subsection{Invariance stress tests}
+\label{subsec:E.stress}
+
+\begin{audit}[H2: invariance stress tests]
+\label{audit:E.H2}
+\textbf{Invariant.} Admissible modifications produce outputs consistent with the deterministic corrections and with
+the ledger bounds.
+
+\textbf{Tests.} Perform the following perturbations and verify stability:
 \begin{enumerate}
-  \item Demonstrated that the localized trace formula is numerically consistent
-  with tabulated eigenvalues.
-  \item Fixed all constants explicitly.
-  \item Recorded an explicit error budget.
-  \item Codified a reproducibility pipeline.
-  \item Established a verification standard.
+\item Replace $\chi$ by $\chi'$ with the same normalization near $0$ and check that the difference is exactly
+$-h(0)\mathcal{L}_\Gamma[\chi-\chi']$ plus a small numerical residual consistent with discretization.
+\item Switch quantization (Weyl $\leftrightarrow$ Kohn--Nirenberg) in a controlled symbolic model and verify the
+difference is within the predicted $\mathcal{E}^{\mathrm{quant}}$.
+\item Refine the microlocal cover and verify convergence within $\mathcal{E}^{\mathrm{ref}}$.
+\item Increase tail cutoffs and confirm monotone stabilization within $\mathcal{E}^{\mathrm{tail}}$.
 \end{enumerate}
 
-\medskip
-\noindent \textbf{Integration with the Monograph.}
-\begin{itemize}
-  \item \emph{Forward integration:} Appendix~E feeds directly into Appendix~F.
-  \item \emph{Backward integration:} It depends on analytic tools from Appendices~A--C.
-\end{itemize}
+\textbf{Failure modes.} Drift larger than ledger prediction; sign flips; lack of convergence under refinement.
+\end{audit}
 
-\medskip
-\noindent \textbf{Methodological Significance.}
-By linking rigorous theory with explicit computation, Appendix~E embodies the
-core principle of the Diamond Standard: \emph{clarity, reproducibility, and
-auditability at every stage.}  
+\section{Summary: the verification layer as a portability guarantee}
+\label{sec:E.summary}
 
-\medskip
-\noindent \textbf{Closure.}
-Appendix~E thus completes its role as the \emph{numerical verification anchor}
-of the monograph. This closure guarantees that the bridge between analysis and computation is both complete and reliable.
+The localized trace formalism is intended to be a \emph{portable analytic instrument}.  Portability requires a
+verification layer that can detect inconsistencies before they propagate into applications.
+The audits in this appendix provide such a layer: each invariance claim is paired with a concrete criterion, and each
+criterion can be checked either analytically or computationally.
 
-\bigskip
-\hrule
-\bigskip
+When these audits pass, the localized trace functional $\mathcal{T}_\Gamma[h;\chi]$ can be treated as a stable object,
+and the error ledger $\mathcal{E}_\Gamma[h;\chi]$ becomes a reliable quantitative interface between microlocal trace
+analysis and applications in spectral geometry, quantum chaos, and automorphic $L$-function theory.
 
-\noindent \textbf{Final Statement.}
-Appendix~E stands as a model of how deep analytic theorems can be paired with
-explicit numerical verification. The Diamond Standard of reproducibility is thus fully realized in this appendix.
+\section*{Bibliographic notes}
+
+Consistency and invariance checks of the above type are implicit in classical presentations of trace formulae and
+microlocal analysis, but they are rarely isolated as explicit audits.
+The present appendix adopts an ``audit'' format to make the dependence on conventions and auxiliary choices fully
+transparent and to facilitate reproducible implementations.
+
+% ======================================================================
+% End of E-consistency-checks.tex
+% ======================================================================
