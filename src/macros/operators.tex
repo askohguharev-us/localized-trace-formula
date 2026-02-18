@@ -1,12 +1,6 @@
 % ==================================================================
 % PATH: src/macros/operators.tex
 % operators.tex — Diamond Safe Operator & Macro Definitions (build-stable)
-%
-% Diamond law:
-%   - No redefinition of core TeX accent macros (e.g. \H).
-%   - Provide canonical math symbols via dedicated names (\HH for \mathbb{H}).
-%   - All operators are defined only if missing.
-%   - All macros use \providecommand (or guarded \@ifundefined).
 % ==================================================================
 
 \ProvidesFile{operators.tex}[2026/02/18 Diamond safe operators]
@@ -14,7 +8,7 @@
 \makeatletter
 
 % --------------------------------------------------------------
-% Minimal fallbacks (only if upstream packages are absent)
+% Minimal fallbacks (only if upstream not loaded)
 % --------------------------------------------------------------
 \@ifundefined{operatorname}{%
   \newcommand{\operatorname}[1]{\mathop{\mathrm{#1}}\nolimits}%
@@ -33,8 +27,7 @@
 }{}%
 
 % --------------------------------------------------------------
-% Safe operator declaration helper:
-%   \SafeDeclareMathOperator{Tr}{Tr} creates \Tr iff undefined
+% Safe operator helper
 % --------------------------------------------------------------
 \providecommand{\SafeDeclareMathOperator}[2]{%
   \@ifundefined{#1}{%
@@ -43,7 +36,7 @@
 }
 
 % --------------------------------------------------------------
-% Core operators (share style across the monograph)
+% Core operators
 % --------------------------------------------------------------
 \SafeDeclareMathOperator{sgn}{sgn}
 \SafeDeclareMathOperator{Tr}{Tr}
@@ -61,14 +54,17 @@
 \SafeDeclareMathOperator{Spec}{Spec}
 \SafeDeclareMathOperator{diam}{diam}
 
-% Quantization operators
+% Hyperbolic trig operator that is NOT predefined
+\SafeDeclareMathOperator{arsinh}{arsinh}
+
+% Quantization base operator
 \SafeDeclareMathOperator{Op}{Op}
 \providecommand{\Opw}{\Op_{h}^{\mathrm{w}}}
 \providecommand{\Opl}{\Op_{h}^{\mathrm{left}}}
 \providecommand{\Opr}{\Op_{h}^{\mathrm{right}}}
 
 % --------------------------------------------------------------
-% Standard groups (avoid undefined \SL etc.)
+% Standard groups
 % --------------------------------------------------------------
 \SafeDeclareMathOperator{GL}{GL}
 \SafeDeclareMathOperator{SL}{SL}
@@ -79,7 +75,7 @@
 \SafeDeclareMathOperator{Sp}{Sp}
 
 % --------------------------------------------------------------
-% Delimiters / sets (safe duplicates; \providecommand only)
+% Delimiters / sets
 % --------------------------------------------------------------
 \providecommand{\abs}[1]{\left\lvert #1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert #1\right\rVert}
@@ -89,23 +85,23 @@
 \providecommand{\eps}{\varepsilon}
 
 % --------------------------------------------------------------
-% Standard number sets / basic fields
+% Number sets
 % --------------------------------------------------------------
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
+\providecommand{\Hh}{\mathbb{H}}
 
 % --------------------------------------------------------------
-% Hyperbolic plane:
-%   IMPORTANT: do NOT redefine \H (TeX accent).
-%   Use \HH (canonical) and keep \Hh as a backwards-compatible alias.
+% CRITICAL: \H is an accent in LaTeX; it crashes in math mode.
+% We preserve the accent as \Haccent and repurpose \H for hyperbolic plane.
 % --------------------------------------------------------------
-\providecommand{\HH}{\mathbb{H}}
-\providecommand{\Hh}{\HH}
+\let\Haccent\H
+\DeclareRobustCommand{\H}{\mathbb{H}}
 
 % --------------------------------------------------------------
-% TODO marker (safe)
+% TODO marker
 % --------------------------------------------------------------
 \@ifundefined{TODO}{%
   \newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{TODO:}~#1}}%
