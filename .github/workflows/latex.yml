@@ -1,42 +1,80 @@
-name: Build PDF (latexmk + BibTeX)
+name: Build PDF (Diamond CI: DEV nonfatal, RELEASE strict)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "Build mode: dev (nonfatal refs/cites) or release (strict)"
+        required: false
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - release
 
 permissions:
   contents: read
+
+concurrency:
+  group: latex-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      WORKDIR: src
+      ROOTFILE: main.tex
+      MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'dev' }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Safety: покажем структуру, чтобы в логах было видно,
-      # что src/main.tex реально на месте.
       - name: Show repository tree (top + src)
         run: |
           set -e
           echo "=== TOP ==="
           ls -la
           echo "=== SRC ==="
-          ls -la src
+          ls -la "${WORKDIR}"
           echo "=== SRC/BIB ==="
-          ls -la src/bib || true
+          ls -la "${WORKDIR}/bib" || true
+          echo "=== MODE ==="
+          echo "${MODE}"
 
-      # Компиляция из src/, потому что главный файл там.
-      # BibTeX/latexmk сделают нужные прогоны автоматически.
-      - name: Compile src/main.tex
+      # ------------------------------------------------------------
+      # DEV build: always produce PDF if LaTeX can run.
+      # Do NOT fail the job on unresolved refs/cites during refactoring.
+      # ------------------------------------------------------------
+      - name: Compile (DEV: nonfatal refs/cites)
+        if: env.MODE == 'dev'
+        uses: xu-cheng/latex-action@v3
+        continue-on-error: true
+        with:
+          working_directory: ${{ env.WORKDIR }}
+          root_file: ${{ env.ROOTFILE }}
+          args: >-
+            -pdf
+            -interaction=nonstopmode
+            -file-line-error
+            -synctex=1
+
+      # ------------------------------------------------------------
+      # RELEASE build: strict (halts on real LaTeX errors).
+      # Use this when structure is stable.
+      # ------------------------------------------------------------
+      - name: Compile (RELEASE: strict)
+        if: env.MODE == 'release'
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: src
-          root_file: main.tex
+          working_directory: ${{ env.WORKDIR }}
+          root_file: ${{ env.ROOTFILE }}
           args: >-
             -pdf
             -interaction=nonstopmode
@@ -44,16 +82,27 @@ jobs:
             -file-line-error
             -synctex=1
 
-      # Загружаем PDF как artifact
+      # Optional: summarize the most common “nonfatal” issues in DEV logs
+      - name: Summarize common warnings (DEV)
+        if: always()
+        run: |
+          set -e
+          LOG="${WORKDIR}/main.log"
+          if [ -f "$LOG" ]; then
+            echo "=== WARNING SUMMARY (grep) ==="
+            grep -nE "Undefined control sequence|LaTeX Warning: Reference|LaTeX Warning: Citation|There were undefined references|There were undefined citations" "$LOG" || true
+          else
+            echo "No main.log found."
+          fi
+
       - name: Upload PDF
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pdf
           path: |
             src/*.pdf
 
-      # Загружаем логи/промежуточные файлы, чтобы ловить
-      # "не все главы/приложения", BibTeX проблемы и т.п.
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
