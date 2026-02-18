@@ -1,4 +1,4 @@
-name: Build PDF (Diamond CI: DEV nonfatal, RELEASE strict)
+name: "Build PDF (Diamond CI: DEV nonfatal, RELEASE strict)"
 
 on:
   push:
@@ -11,16 +11,12 @@ on:
         description: "Build mode: dev (nonfatal refs/cites) or release (strict)"
         required: false
         default: "dev"
-        type: choice
-        options:
-          - dev
-          - release
 
 permissions:
   contents: read
 
 concurrency:
-  group: latex-${{ github.ref }}
+  group: "latex-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -28,15 +24,15 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      WORKDIR: src
-      ROOTFILE: main.tex
-      MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'dev' }}
+      WORKDIR: "src"
+      ROOTFILE: "main.tex"
+      MODE: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode || 'dev' }}"
 
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: Show repository tree (top + src)
+      - name: "Show repository tree (top + src)"
         run: |
           set -e
           echo "=== TOP ==="
@@ -48,11 +44,7 @@ jobs:
           echo "=== MODE ==="
           echo "${MODE}"
 
-      # ------------------------------------------------------------
-      # DEV build: always produce PDF if LaTeX can run.
-      # Do NOT fail the job on unresolved refs/cites during refactoring.
-      # ------------------------------------------------------------
-      - name: Compile (DEV: nonfatal refs/cites)
+      - name: "Compile (DEV: nonfatal refs/cites)"
         if: env.MODE == 'dev'
         uses: xu-cheng/latex-action@v3
         continue-on-error: true
@@ -65,11 +57,7 @@ jobs:
             -file-line-error
             -synctex=1
 
-      # ------------------------------------------------------------
-      # RELEASE build: strict (halts on real LaTeX errors).
-      # Use this when structure is stable.
-      # ------------------------------------------------------------
-      - name: Compile (RELEASE: strict)
+      - name: "Compile (RELEASE: strict)"
         if: env.MODE == 'release'
         uses: xu-cheng/latex-action@v3
         with:
@@ -82,32 +70,31 @@ jobs:
             -file-line-error
             -synctex=1
 
-      # Optional: summarize the most common “nonfatal” issues in DEV logs
-      - name: Summarize common warnings (DEV)
+      - name: "Summarize common warnings"
         if: always()
         run: |
           set -e
           LOG="${WORKDIR}/main.log"
           if [ -f "$LOG" ]; then
-            echo "=== WARNING SUMMARY (grep) ==="
+            echo "=== WARNING SUMMARY ==="
             grep -nE "Undefined control sequence|LaTeX Warning: Reference|LaTeX Warning: Citation|There were undefined references|There were undefined citations" "$LOG" || true
           else
             echo "No main.log found."
           fi
 
-      - name: Upload PDF
+      - name: "Upload PDF"
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pdf
+          name: "pdf"
           path: |
             src/*.pdf
 
-      - name: Upload logs
+      - name: "Upload logs"
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: logs
+          name: "logs"
           path: |
             src/*.log
             src/*.aux
