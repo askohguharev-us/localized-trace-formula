@@ -1,211 +1,266 @@
 % =====================================================================
 % PATH: src/sections/02-preliminaries/blocks/02b-geometry.tex
-% Hyperbolic geometry, spherical analysis, kernel models (Annals+++)
+% Hyperbolic geometry and spherical analysis (Annals+++ / build-stable)
 % =====================================================================
 
 \subsection{Hyperbolic geometry and spherical analysis}\label{subsec:geometry}
 
-Throughout this monograph the underlying geometric object is the finite--area quotient
-\[
-M=\Gamma\backslash\Hh,\qquad \Gamma\subset\PSL_2(\R)\ \text{discrete and cofinite}.
-\]
-All geometric constants are allowed to depend only on $\Gamma$ and the fixed cusp data
-introduced in Section~\ref{subsec:cusps}. In particular, no dependence on later
-localization parameters occurs in this block.
+Throughout this monograph the geometric background is a finite--area hyperbolic orbifold
+\begin{equation}\label{eq:quotient-surface}
+M=\Gamma\backslash\Hh,
+\qquad
+\Gamma\subset\PSL_2(\R)\ \text{discrete and cofinite}.
+\end{equation}
+All implied constants are permitted to depend only on the group $\Gamma$ and on the fixed cusp data
+introduced in Section~\ref{subsec:cusps}. No dependence on later microlocal localization parameters
+is allowed at this stage.
 
 % ---------------------------------------------------------------------
 \subsubsection{The hyperbolic plane: metric, measure, and distance}
 
-We work on
-\[
-\H=\{z=x+iy\in\C:\ y>0\},
+We realize the hyperbolic plane as the upper half--plane
+\begin{equation}\label{eq:upper-half-plane}
+\Hh=\{z=x+iy\in\C:\ y>0\},
+\end{equation}
+equipped with the standard metric and volume form
+\begin{equation}\label{eq:hyp-metric-measure}
+ds^{2}=\frac{dx^{2}+dy^{2}}{y^{2}},
 \qquad
-ds^2=\frac{dx^2+dy^2}{y^2},
-\qquad
-d\mu(z)=\frac{dx\,dy}{y^2}.
-\]
-The hyperbolic distance $d_{\H}(z,w)$ is characterized by the identity
+d\mu(z)=\frac{dx\,dy}{y^{2}}.
+\end{equation}
+The hyperbolic distance $d_{\Hh}(z,w)$ is characterized by
 \begin{equation}\label{eq:cosh-distance}
-\cosh d_{\H}(z,w)=1+\frac{|z-w|^2}{2\,\Im z\,\Im w}.
-\end{equation}
-In particular, for a horizontal shift $u>0$ one has
-\begin{equation}\label{eq:horizontal-distance}
-d_{\H}(x+iy,(x+u)+iy)
+\cosh d_{\Hh}(z,w)
 =
-2\,\arsinh\!\Big(\frac{u}{2y}\Big)
-\asymp
-\min\Big\{1,\frac{u}{y}\Big\},
+1+\frac{|z-w|^{2}}{2\,\Im z\,\Im w}.
 \end{equation}
-with absolute implied constants.
-
-Geodesics in $\H$ are vertical lines and semicircles orthogonal to $\R$.
+In particular, for a horizontal displacement $u>0$ one has
+\begin{equation}\label{eq:horizontal-distance}
+d_{\Hh}(x+iy,(x+u)+iy)
+=
+2\,\operatorname{arsinh}\!\Big(\frac{u}{2y}\Big),
+\end{equation}
+and hence
+\begin{equation}\label{eq:horizontal-asymp}
+d_{\Hh}(x+iy,(x+u)+iy)
+\asymp
+\min\Bigl\{1,\frac{u}{y}\Bigr\},
+\end{equation}
+with absolute implied constants. Geodesics in $\Hh$ are vertical lines and Euclidean semicircles
+orthogonal to $\R$.
 
 % ---------------------------------------------------------------------
 \subsubsection{Isometries and translation length}
 
-The group $\PSL_2(\R)$ acts by fractional linear transformations
-\[
-\gamma z=\frac{az+b}{cz+d},\qquad
-\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\PSL_2(\R),
-\]
-preserving $ds^2$ and $d\mu$. Elements are classified by their trace:
-elliptic ($|\tr\gamma|<2$), parabolic ($|\tr\gamma|=2$), hyperbolic ($|\tr\gamma|>2$).
-
-If $\gamma$ is hyperbolic, it stabilizes a unique geodesic axis and acts as a translation by
-a length $\ell(\gamma)>0$. One has the exact identity
-\begin{equation}\label{eq:length-trace}
-|\tr(\gamma)|=2\cosh\!\Big(\frac{\ell(\gamma)}{2}\Big).
+The group $\PSL_2(\R)$ acts on $\Hh$ by fractional linear transformations
+\begin{equation}\label{eq:mobius-action}
+\gamma z=\frac{az+b}{cz+d},
+\qquad
+\gamma=
+\begin{pmatrix}a&b\\c&d\end{pmatrix}
+\in\PSL_2(\R),
 \end{equation}
-If $\gamma=\gamma_0^k$ with $\gamma_0$ primitive hyperbolic and $k\in\N$, then
-$\ell(\gamma)=k\,\ell(\gamma_0)$.
+preserving both $ds^{2}$ and $d\mu$. Elements are classified by the absolute trace:
+elliptic ($|\tr(\gamma)|<2$), parabolic ($|\tr(\gamma)|=2$), and hyperbolic ($|\tr(\gamma)|>2$).
 
-Primitive closed geodesics on $M$ are in bijection with primitive hyperbolic conjugacy
-classes in $\Gamma$, with matching length $\ell(\mathcal C_{\gamma_0})=\ell(\gamma_0)$.
+If $\gamma$ is hyperbolic, it stabilizes a unique geodesic axis and acts by translation along this axis.
+The corresponding translation length $\ell(\gamma)>0$ satisfies the exact relation
+\begin{equation}\label{eq:length-trace}
+|\tr(\gamma)|
+=
+2\cosh\!\Big(\frac{\ell(\gamma)}{2}\Big).
+\end{equation}
+If $\gamma=\gamma_{0}^{k}$ with $\gamma_{0}$ primitive hyperbolic and $k\in\N$, then
+\begin{equation}\label{eq:length-power}
+\ell(\gamma)=k\,\ell(\gamma_{0}).
+\end{equation}
+Primitive closed geodesics on $M$ are in bijection with primitive hyperbolic conjugacy classes in $\Gamma$,
+and the associated length agrees with $\ell(\gamma_{0})$.
 
 % ---------------------------------------------------------------------
 \subsubsection{Ball volume growth}
 
-Let $B_{\H}(z,R)$ denote the hyperbolic ball of radius $R$. Its area is independent of $z$ and equals
+Let $B_{\Hh}(z,R)$ denote the hyperbolic ball of radius $R$ centered at $z\in\Hh$.
+Its area is independent of $z$ and satisfies
 \begin{equation}\label{eq:ball-area}
-\vol\big(B_{\H}(R)\big)=2\pi(\cosh R-1)
-=\pi e^{R}\bigl(1+O(e^{-2R})\bigr),
-\qquad (R\to\infty).
+\vol\bigl(B_{\Hh}(R)\bigr)
+=
+2\pi(\cosh R-1)
+=
+\pi e^{R}\bigl(1+O(e^{-2R})\bigr),
+\qquad
+(R\to\infty).
 \end{equation}
 
 % ---------------------------------------------------------------------
 \subsubsection{Fundamental domains and local finiteness}
 
-A measurable fundamental domain $\mathcal F$ for $\Gamma$ satisfies
-\[
-\H=\bigsqcup_{\gamma\in\Gamma}\gamma\mathcal F
-\quad\text{(disjoint up to measure zero)},
+A measurable fundamental domain $\mathcal F\subset\Hh$ for $\Gamma$ satisfies
+\begin{equation}\label{eq:fundamental-domain}
+\Hh
+=
+\bigsqcup_{\gamma\in\Gamma}\gamma\mathcal F
+\quad
+\text{(disjoint up to measure zero)},
 \qquad
 \vol(M)=\int_{\mathcal F}d\mu<\infty.
-\]
-For $z_0\in\H$, the Dirichlet domain
-\[
-\mathcal D(z_0):=\{z\in\H:\ d_{\H}(z,z_0)\le d_{\H}(z,\gamma z_0)\ \forall \gamma\in\Gamma\}
-\]
+\end{equation}
+For $z_{0}\in\Hh$, the Dirichlet domain
+\begin{equation}\label{eq:dirichlet-domain}
+\mathcal D(z_{0})
+:=
+\bigl\{z\in\Hh:\ d_{\Hh}(z,z_{0})\le d_{\Hh}(z,\gamma z_{0})\ \forall \gamma\in\Gamma\bigr\}
+\end{equation}
 is convex and locally finite.
 
 \begin{lemma}[Proper discontinuity]\label{lem:local-finiteness}
-For any compact set $K\subset\H$ and any $R>0$, the set
+For any compact set $K\subset\Hh$ and any $R>0$, the set
 \[
-\{\gamma\in\Gamma:\ d_{\H}(K,\gamma K)\le R\}
+\{\gamma\in\Gamma:\ d_{\Hh}(K,\gamma K)\le R\}
 \]
-is finite. In particular, for fixed $z,w\in\H$ and $R>0$,
+is finite. In particular, for fixed $z,w\in\Hh$ and $R>0$ one has
 \[
-\#\{\gamma\in\Gamma:\ d_{\H}(z,\gamma w)\le R\}<\infty.
+\#\{\gamma\in\Gamma:\ d_{\Hh}(z,\gamma w)\le R\}<\infty.
 \]
-Consequently, if a kernel $k(d_{\H}(z,w))$ is compactly supported in the distance variable,
-then the Poincar\'e sum $\sum_{\gamma\in\Gamma}k(d_{\H}(z,\gamma w))$ is termwise finite for each $(z,w)$.
+Consequently, if a kernel $k(d_{\Hh}(z,w))$ is compactly supported in the distance variable,
+then the Poincar\'e sum $\sum_{\gamma\in\Gamma}k(d_{\Hh}(z,\gamma w))$ is termwise finite for each $(z,w)$.
 \end{lemma}
 
 % ---------------------------------------------------------------------
 \subsubsection{Injectivity radius and thick--thin decomposition}
 
-For $p\in M$ define the injectivity radius by
+For $p\in M$ define the injectivity radius
 \begin{equation}\label{eq:inj-def}
-\inj(p):=\frac12\inf_{\gamma\in\Gamma\setminus\{1\}} d_{\H}(\tilde p,\gamma\tilde p),
+\inj(p)
+:=
+\frac12\inf_{\gamma\in\Gamma\setminus\{1\}}
+d_{\Hh}(\tilde p,\gamma\tilde p),
 \end{equation}
-where $\tilde p\in\H$ is any lift.
+where $\tilde p\in\Hh$ is any lift of $p$.
 
-There exists a universal $\epsilon_*>0$ (Margulis constant) such that for each $\epsilon\in(0,\epsilon_*)$
-the thin part
-\[
-M_{<\epsilon}:=\{p\in M:\ \inj(p)<\epsilon\}
-\]
+There exists a universal constant $\epsilon_{*}>0$ (Margulis constant) such that for each
+$\epsilon\in(0,\epsilon_{*})$ the thin part
+\begin{equation}\label{eq:thin-part}
+M_{<\epsilon}
+:=
+\{p\in M:\ \inj(p)<\epsilon\}
+\end{equation}
 is a disjoint union of cusp neighborhoods and collars about short closed geodesics.
 The thick part $M_{\ge\epsilon}:=M\setminus M_{<\epsilon}$ is compact.
 
 If $\gamma$ is a simple closed geodesic of length $\ell(\gamma)$, then it admits an embedded collar
-of half-width
+of half--width
 \begin{equation}\label{eq:collar-width}
-w(\ell)=\arsinh\!\Big(\frac{1}{\sinh(\ell/2)}\Big),
+w(\ell)
+=
+\operatorname{arsinh}\!\Big(\frac{1}{\sinh(\ell/2)}\Big),
 \end{equation}
-and collars of distinct simple closed geodesics are disjoint.
+and collars corresponding to distinct simple closed geodesics are disjoint.
 
 % ---------------------------------------------------------------------
 \subsubsection{Laplacian convention and spectral parameter}
 
-On $\H$ we take the nonnegative Laplace--Beltrami operator
+On $\Hh$ we take the nonnegative Laplace--Beltrami operator
 \begin{equation}\label{eq:laplacian}
-\Delta=-y^{2}\bigl(\partial_x^{2}+\partial_y^{2}\bigr).
+\Delta=-y^{2}\bigl(\partial_{x}^{2}+\partial_{y}^{2}\bigr).
 \end{equation}
-The standard spectral parameterization is
-\[
-\lambda=\frac14+t^2,\qquad t\in\R_{\ge 0}.
-\]
+The standard spectral parametrization is
+\begin{equation}\label{eq:spectral-param}
+\lambda=\frac14+t^{2},
+\qquad
+t\in\R_{\ge 0}.
+\end{equation}
 
 % ---------------------------------------------------------------------
-\subsubsection{Spherical functions and Plancherel measure on $\H$}
+\subsubsection{Spherical functions and Plancherel measure}
 
-Let $\varphi_t(r)$ be the $K$--biinvariant spherical function on $\H$ normalized by $\varphi_t(0)=1$.
-It may be expressed as
-\[
-\varphi_t(r)=P_{-1/2+it}(\cosh r).
-\]
-The Plancherel density for radial analysis on $\H$ is
+Let $\varphi_{t}(r)$ be the $K$--biinvariant spherical function on $\Hh$ normalized by $\varphi_{t}(0)=1$.
+It admits the representation
+\begin{equation}\label{eq:spherical-function}
+\varphi_{t}(r)=P_{-1/2+it}(\cosh r),
+\end{equation}
+where $P_{\nu}$ denotes the Legendre function.
+The Plancherel density for radial analysis on $\Hh$ is
 \begin{equation}\label{eq:plancherel-density}
-d\mu_{\mathrm{Pl}}(t)=\frac{1}{2\pi}\,t\,\tanh(\pi t)\,dt.
+d\mu_{\mathrm{Pl}}(t)
+=
+\frac{1}{2\pi}\,t\,\tanh(\pi t)\,dt.
 \end{equation}
 
 % ---------------------------------------------------------------------
-\subsubsection{Model kernels on $\H$}
+\subsubsection{Model kernels on $\Hh$}
 
 \paragraph{Heat kernel.}
-The heat kernel $K_\tau(z,w)$ on $\H$ admits the spectral representation
+The heat kernel $K_{\tau}(z,w)$ on $\Hh$ has the spectral expansion
 \begin{equation}\label{eq:heat-kernel}
-K_\tau(z,w)=\int_0^\infty e^{-(\frac14+t^2)\tau}\,
-\varphi_t\!\bigl(d_{\H}(z,w)\bigr)\,d\mu_{\mathrm{Pl}}(t),
-\qquad \tau>0.
+K_{\tau}(z,w)
+=
+\int_{0}^{\infty}
+e^{-(\frac14+t^{2})\tau}\,
+\varphi_{t}\!\bigl(d_{\Hh}(z,w)\bigr)\,
+d\mu_{\mathrm{Pl}}(t),
+\qquad
+\tau>0.
 \end{equation}
 
 \paragraph{Wave kernel.}
-The even wave kernel is given by
+The even wave kernel admits the representation
 \begin{equation}\label{eq:wave-kernel}
-W_\tau(z,w)=\int_0^\infty \cos(\tau t)\,
-\varphi_t\!\bigl(d_{\H}(z,w)\bigr)\,d\mu_{\mathrm{Pl}}(t).
+W_{\tau}(z,w)
+=
+\int_{0}^{\infty}
+\cos(\tau t)\,
+\varphi_{t}\!\bigl(d_{\Hh}(z,w)\bigr)\,
+d\mu_{\mathrm{Pl}}(t).
 \end{equation}
 
 \paragraph{Resolvent kernel.}
 For $\Re(s)>\frac12$ the resolvent $R(s)=(\Delta-s(1-s))^{-1}$ has kernel
 \begin{equation}\label{eq:resolvent-kernel}
-R(s;z,w)=\int_0^\infty
-\frac{\varphi_t\!\bigl(d_{\H}(z,w)\bigr)}{t^2+(s-\frac12)^2}\,
+R(s;z,w)
+=
+\int_{0}^{\infty}
+\frac{\varphi_{t}\!\bigl(d_{\Hh}(z,w)\bigr)}{t^{2}+(s-\frac12)^{2}}\,
 d\mu_{\mathrm{Pl}}(t),
 \end{equation}
-which extends meromorphically in $s$.
+which extends meromorphically to $s\in\C$.
 
 % ---------------------------------------------------------------------
 \subsubsection{Poincar\'e summation and quotient kernels}
 
-Given a kernel $K(z,w)$ on $\H$, define its $\Gamma$--periodization
+Given a kernel $K(z,w)$ on $\Hh$, define its $\Gamma$--periodization by
 \begin{equation}\label{eq:poincare-kernel}
-K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} K(z,\gamma w),
+K^{\Gamma}(z,w)
+:=
+\sum_{\gamma\in\Gamma}K(z,\gamma w),
 \end{equation}
-whenever the series converges.
-By Lemma~\ref{lem:local-finiteness}, if $K(z,w)$ is compactly supported in the distance variable,
-then \eqref{eq:poincare-kernel} is locally finite and defines a smooth kernel on $M$.
-For kernels with sufficient decay in $d_{\H}(z,w)$ (e.g.\ heat kernels for $\tau>0$),
-the sum converges absolutely.
+whenever the series converges. By Lemma~\ref{lem:local-finiteness}, if $K(z,w)$ is compactly supported
+in the distance variable, then \eqref{eq:poincare-kernel} is locally finite and defines a smooth kernel on $M$.
+If $K$ has sufficient decay in $d_{\Hh}(z,w)$ (for instance the heat kernel for $\tau>0$),
+then the sum converges absolutely.
 
 % ---------------------------------------------------------------------
 \subsubsection{Gauss--Bonnet and torsion bookkeeping}
 
-If $\Gamma$ is torsion-free, $M$ has genus $g$ and $n$ cusps, and
-\[
+If $\Gamma$ is torsion--free, $M$ has genus $g$ and $n$ cusps, and one has
+\begin{equation}\label{eq:gauss-bonnet}
 \vol(M)=2\pi(2g-2+n).
-\]
-If $\Gamma$ has elliptic elements with cone point orders $e_j\ge 2$, then
+\end{equation}
+If $\Gamma$ has elliptic elements with cone point orders $e_{j}\ge 2$, then
 \begin{equation}\label{eq:gauss-bonnet-orb}
-\vol(M)=2\pi\Big(2g-2+n+\sum_j (1-1/e_j)\Big).
+\vol(M)
+=
+2\pi\Bigl(2g-2+n+\sum_{j}(1-1/e_{j})\Bigr).
 \end{equation}
 
 % ---------------------------------------------------------------------
 \subsubsection*{Audit}\label{rem:geometry-audit}
-Equations \eqref{eq:cosh-distance}--\eqref{eq:gauss-bonnet-orb} fix the hyperbolic
-normalizations, Laplacian sign convention, spherical Plancherel measure, and the
-canonical model kernels used later. The geometric inputs are restricted to robust
-structural statements; any refined counting asymptotics requiring spectral
-information will be invoked only with explicit hypotheses at the point of use.
+
+Equations \eqref{eq:quotient-surface}--\eqref{eq:gauss-bonnet-orb} fix the basic hyperbolic normalizations,
+the Laplacian sign convention, the spherical Plancherel measure, and the canonical model kernels on $\Hh$.
+All further analytic refinements invoked later (local Weyl laws, remainder bounds, or scattering expansions)
+will be stated only together with explicit hypotheses at the point of use.
+
+% =====================================================================
+% End of 02b-geometry.tex
+% =====================================================================
