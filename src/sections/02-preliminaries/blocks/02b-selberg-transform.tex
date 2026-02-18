@@ -1,37 +1,46 @@
 % =====================================================================
 % PATH: src/sections/02-preliminaries/blocks/02b-selberg-transform.tex
-% Selberg/Harish--Chandra transform on H (Annals+++)
-% Conventions: spherical parameter r, Plancherel density (1/4pi) r tanh(pi r) dr
+% Selberg/Harish--Chandra transform on \Hh (Diamond-safe Annals+++)
+%
+% HARD RULE: never use \H (accent). Hyperbolic plane is \Hh=\mathbb{H}.
+% Plancherel density: (1/4\pi) r\tanh(\pi r)\,dr for r\in\R.
 % =====================================================================
 
 \subsection{The Selberg/Harish--Chandra transform}\label{subsec:selberg-transform}
 
-This block fixes, once and for all, the transform conventions relating radial kernels on $\H$
-to spectral multipliers of $\Delta$. No statement below depends on later localization
-parameters.
+This block fixes the transform conventions relating radial kernels on $\Hh$
+to spectral multipliers of $\Delta$. All constants depend only on the
+ambient hyperbolic normalization; no statement below involves later
+localization parameters.
 
 % ---------------------------------------------------------------------
 \subsubsection{Spherical functions and Plancherel density}\label{subsec:spherical-functions}
 
-Let $\H=\{x+iy\in\C:\ y>0\}$ with metric $ds^{2}=y^{-2}(dx^{2}+dy^{2})$ and measure
-$d\mu(z)=dx\,dy/y^{2}$. We use the nonnegative Laplacian
-\begin{equation}\label{eq:laplace-H}
+We realize the hyperbolic plane as
+\[
+\Hh=\{z=x+iy\in\C:\ y>0\},
+\qquad
+ds^{2}=y^{-2}(dx^{2}+dy^{2}),
+\qquad
+d\mu(z)=\frac{dx\,dy}{y^{2}}.
+\]
+We use the nonnegative Laplace--Beltrami operator
+\begin{equation}\label{eq:laplace-Hh}
 \Delta=-y^{2}\bigl(\partial_{x}^{2}+\partial_{y}^{2}\bigr).
 \end{equation}
-The spectral parameter is
+The spectral parameter is written as
 \[
 \lambda=\frac14+r^{2},\qquad r\in\C,
 \]
-so that the continuous spectrum on $\H$ corresponds to $r\in\R$.
+so that the continuous spectrum on $\Hh$ corresponds to $r\in\R$.
 
-For $r\in\C$ let $\varphi_{r}$ denote the (zonal) spherical function, i.e.\ the unique $K$--biinvariant
-smooth function satisfying
+For $r\in\C$ let $\varphi_{r}$ be the $K$--biinvariant spherical function normalized by
 \begin{equation}\label{eq:spherical-eig}
 \Delta\,\varphi_{r}=\Bigl(\frac14+r^{2}\Bigr)\varphi_{r},
 \qquad
 \varphi_{r}(i)=1.
 \end{equation}
-Equivalently, writing $u=d_{\H}(z,i)$, one has $\varphi_{r}(z)=\varphi_{r}(u)$ and
+Writing $u=d_{\H}(z,i)$, one has $\varphi_{r}(z)=\varphi_{r}(u)$ and
 \begin{equation}\label{eq:spherical-legendre}
 \varphi_{r}(u)=P_{-\frac12+ir}(\cosh u).
 \end{equation}
@@ -39,31 +48,46 @@ The Harish--Chandra $c$--function is
 \begin{equation}\label{eq:c-function}
 c(r)=\frac{\Gamma(ir)}{\Gamma(\frac12+ir)}.
 \end{equation}
-For $r$ in compact subsets of $\R$ one has the standard large--$u$ asymptotic
+For $r$ in compact subsets of $\R$, the standard large--$u$ expansion reads
 \begin{equation}\label{eq:spherical-asymp}
-\varphi_{r}(u)=c(r)e^{(ir-\frac12)u}+c(-r)e^{(-ir-\frac12)u}+O(e^{-3u/2}),
+\varphi_{r}(u)
+=
+c(r)e^{(ir-\frac12)u}
++
+c(-r)e^{(-ir-\frac12)u}
++
+O\!\bigl(e^{-3u/2}\bigr),
 \qquad u\to\infty.
 \end{equation}
-The Plancherel density for radial analysis on $\H$ is
+
+The Plancherel measure for radial analysis on $\Hh$ is
 \begin{equation}\label{eq:plancherel-density}
-d\mu_{\mathrm{Pl}}(r)=\frac{1}{4\pi}\,r\,\tanh(\pi r)\,dr
-\qquad (r\in\R).
+d\mu_{\mathrm{Pl}}(r)=\frac{1}{4\pi}\,r\,\tanh(\pi r)\,dr,
+\qquad r\in\R .
 \end{equation}
 
 % ---------------------------------------------------------------------
 \subsubsection{Radial kernels and the spherical transform}\label{subsec:radial-kernels}
 
-A \emph{radial kernel} on $\H$ is of the form $K(z,w)=k(d_{\H}(z,w))$ for a profile
-$k:[0,\infty)\to\C$. The associated convolution operator is
+A \emph{radial kernel} on $\Hh$ is a function of the distance:
+\[
+K(z,w)=k\!\bigl(d_{\H}(z,w)\bigr),
+\qquad
+k:[0,\infty)\to\C.
+\]
+It defines the convolution operator
 \begin{equation}\label{eq:radial-operator}
-(T_{k}f)(z)=\int_{\H}k(d_{\H}(z,w))\,f(w)\,d\mu(w).
+(T_{k}f)(z)=\int_{\Hh}k\!\bigl(d_{\H}(z,w)\bigr)\,f(w)\,d\mu(w),
 \end{equation}
+whenever the integral converges.
 
 \begin{definition}[Spherical transform]\label{def:spherical-transform}
-Assume $k$ is measurable and that $u\mapsto k(u)\sinh u$ is integrable on $(0,\infty)$.
-The (Selberg/Harish--Chandra) spherical transform of $k$ is the even function $h$ on $\R$ defined by
+Assume that $k$ is measurable and that $u\mapsto k(u)\sinh u$ is integrable on $(0,\infty)$.
+The spherical (Selberg/Harish--Chandra) transform of $k$ is the even function $h$ on $\R$ defined by
 \begin{equation}\label{eq:selberg-transform}
-h(r)=\int_{\H}k(d_{\H}(z,i))\,\varphi_{r}(z)\,d\mu(z)
+h(r)
+=
+\int_{\Hh}k\!\bigl(d_{\H}(z,i)\bigr)\,\varphi_{r}(z)\,d\mu(z)
 =
 2\pi\int_{0}^{\infty}k(u)\,\varphi_{r}(u)\,\sinh u\,du,
 \qquad r\in\R.
@@ -72,21 +96,22 @@ If $k\in C_c^\infty([0,\infty))$, then $h$ extends to an even entire function.
 \end{definition}
 
 \begin{proposition}[Multiplier property]\label{prop:multiplier-property}
-Let $\psi$ be a smooth joint eigenfunction of $\Delta$ on $\H$ with
-$\Delta\psi=(\frac14+r^{2})\psi$ for some $r\in\R$. If $k\in C_c^\infty([0,\infty))$, then
+Let $\psi$ be a smooth eigenfunction of $\Delta$ on $\Hh$ with
+$\Delta\psi=(\frac14+r^{2})\psi$ for some $r\in\R$.
+If $k\in C_c^\infty([0,\infty))$ and $h$ is given by \eqref{eq:selberg-transform}, then
 \begin{equation}\label{eq:multiplier}
-T_k\psi=h(r)\,\psi,
+T_k\psi=h(r)\,\psi.
 \end{equation}
-where $h$ is defined by \eqref{eq:selberg-transform}.
 \end{proposition}
 
 % ---------------------------------------------------------------------
-\subsubsection{Inversion and Plancherel}\label{subsec:inversion-plancherel}
+\subsubsection{Inversion, Plancherel, and convolution}\label{subsec:inversion-plancherel}
 
-For even $h$ satisfying the admissibility conditions in Definition~\ref{def:admissible-H}
-below, the inverse transform is
+For admissible even $h$, the inverse transform is
 \begin{equation}\label{eq:spherical-inversion}
-k(u)=\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,d\mu_{\mathrm{Pl}}(r)
+k(u)
+=
+\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,d\mu_{\mathrm{Pl}}(r)
 =
 \frac{1}{4\pi}\int_{-\infty}^{\infty} h(r)\,\varphi_{r}(u)\,r\tanh(\pi r)\,dr,
 \qquad u\ge 0.
@@ -102,18 +127,19 @@ If $k_1,k_2\in C_c^\infty([0,\infty))$ have transforms $h_1,h_2$, then
 \end{lemma}
 
 \begin{lemma}[Convolution]\label{lem:selberg-convolution}
-Let $k_1,k_2\in C_c^\infty([0,\infty))$ with transforms $h_1,h_2$. Then the radial kernel
-$k_1*k_2$ (hyperbolic convolution) satisfies
+Let $k_1,k_2\in C_c^\infty([0,\infty))$ have transforms $h_1,h_2$.
+Then the hyperbolic radial convolution satisfies
 \begin{equation}\label{eq:conv-mult}
-h_{1*2}(r)=h_1(r)\,h_2(r)\qquad (r\in\R).
+h_{1*2}(r)=h_1(r)\,h_2(r),
+\qquad r\in\R,
 \end{equation}
-Equivalently, $T_{k_1}\circ T_{k_2}=T_{k_1*k_2}$.
+equivalently $T_{k_1}\circ T_{k_2}=T_{k_1*k_2}$.
 \end{lemma}
 
 % ---------------------------------------------------------------------
-\subsubsection{Admissible test class and Paley--Wiener}\label{subsec:admissible-paley-wiener}
+\subsubsection{Admissible spectral class and Paley--Wiener}\label{subsec:admissible-paley-wiener}
 
-\begin{definition}[Admissible spectral class]\label{def:admissible-H}
+\begin{definition}[Admissible spectral class]\label{def:admissible-Hh}
 An even function $h:\C\to\C$ is \emph{admissible} if there exists $\varepsilon>0$ such that:
 \begin{itemize}
 \item[(H1)] $h$ is holomorphic in the strip $|\Im r|<\frac12+\varepsilon$;
@@ -122,21 +148,26 @@ An even function $h:\C\to\C$ is \emph{admissible} if there exists $\varepsilon>0
 h(r)\ll (1+|r|)^{-2-\delta}
 \quad\text{uniformly for }|\Im r|<\frac12+\varepsilon;
 \]
-\item[(H3)] the same bound holds uniformly on the lines $\Im r=\pm(\frac12+\varepsilon')$ for each $\varepsilon'<\varepsilon$
-(so contour shifts in $r$ are permitted).
+\item[(H3)] the same bound holds uniformly on the lines $\Im r=\pm(\frac12+\varepsilon')$
+for each $\varepsilon'<\varepsilon$.
 \end{itemize}
 \end{definition}
 
-If $h$ is admissible, the inversion \eqref{eq:spherical-inversion} defines a continuous radial profile $k$ with exponential decay
-$k(u)\ll_{\varepsilon'} e^{-(\frac12+\varepsilon')u}$ for each $\varepsilon'<\varepsilon$.
+If $h$ is admissible, then \eqref{eq:spherical-inversion} defines a continuous radial profile $k$
+with exponential decay
+\[
+k(u)\ll_{\varepsilon'} e^{-(\frac12+\varepsilon')u}
+\qquad\text{for each }\varepsilon'<\varepsilon.
+\]
 
 \begin{theorem}[Paley--Wiener]\label{thm:paley-wiener}
 Let $R>0$.
 \begin{itemize}
-\item[(PW$\Rightarrow$)] If $k\in C_c^\infty([0,\infty))$ is supported in $[0,R]$, then $h$ extends to an even entire function satisfying,
+\item[(PW$\Rightarrow$)] If $k\in C_c^\infty([0,\infty))$ is supported in $[0,R]$, then $h$ extends to an even entire function and,
 for each $N>0$,
 \[
-|h(r)|\ll_{N}(1+|r|)^{-N}e^{R|\Im r|}\qquad (r\in\C).
+|h(r)|\ll_{N}(1+|r|)^{-N}e^{R|\Im r|}
+\qquad (r\in\C).
 \]
 \item[(PW$\Leftarrow$)] Conversely, if $h$ is even entire of exponential type $R$ and rapidly decaying on $\R$, then the inverse transform $k$
 is supported in $[0,R]$.
@@ -158,37 +189,37 @@ For $\tau\in\R$, the even wave group $\cos(\tau\sqrt{\Delta-\frac14})$ correspon
 h_\tau(r)=\cos(\tau r).
 \]
 
-\paragraph{Localized windows.}
+\paragraph{Windowed multipliers.}
 Let $\chi\in C_c^\infty(\R)$ be even. For $R>0$ and $\eta>0$ define
 \begin{equation}\label{eq:windowed-h}
-h_{R,\eta}(r)=\chi\Big(\frac{r-R}{\eta}\Big)+\chi\Big(\frac{r+R}{\eta}\Big),
+h_{R,\eta}(r)
+=
+\chi\Bigl(\frac{r-R}{\eta}\Bigr)
++
+\chi\Bigl(\frac{r+R}{\eta}\Bigr),
 \end{equation}
-an even entire function; the associated $k_{R,\eta}$ is defined by \eqref{eq:spherical-inversion}.
+an even entire function; the associated profile $k_{R,\eta}$ is defined by \eqref{eq:spherical-inversion}.
 
 % ---------------------------------------------------------------------
-\subsubsection{Interface with $\Gamma\backslash\H$ and the pre-trace identity}\label{subsec:pretrace-interface}
+\subsubsection{Interface with $\Gamma\backslash\Hh$}\label{subsec:pretrace-interface}
 
-Let $M=\Gamma\backslash\H$ with $\Gamma$ cofinite. Given a radial profile $k$ on $\H$, define the automorphic kernel
+Let $M=\Gamma\backslash\Hh$ with $\Gamma$ cofinite.
+Given a radial profile $k$ on $\Hh$, define the automorphic kernel
 \begin{equation}\label{eq:automorphic-kernel}
-K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} k\bigl(d_{\H}(z,\gamma w)\bigr),
+K^\Gamma(z,w):=\sum_{\gamma\in\Gamma} k\!\bigl(d_{\H}(z,\gamma w)\bigr),
 \end{equation}
-whenever the sum converges absolutely; otherwise $K^\Gamma$ is understood via the standard regularization procedure
-at the point of use (with truncation as fixed in Section~\ref{subsec:cusps}).
+whenever the sum converges absolutely. (In the presence of cusps, a renormalized
+interpretation is used together with truncation; this is fixed in the cusp block.)
 
-If $\phi$ is an $L^2$--eigenfunction on $M$ with $\Delta\phi=(\frac14+r^2)\phi$, then formally (and rigorously under admissibility and truncation)
+If $\phi$ is an $L^2$--eigenfunction on $M$ with $\Delta\phi=(\frac14+r^2)\phi$, then under admissibility and truncation
 \begin{equation}\label{eq:multiplier-quotient}
 T_k^\Gamma\phi=h(r)\,\phi,
 \end{equation}
-where $T_k^\Gamma$ denotes the integral operator on $M$ with kernel $K^\Gamma$ and $h$ is the transform of $k$.
-
-The resulting pre-trace identity for $K^\Gamma(z,z)$ decomposes into a discrete part and a continuous part
-parameterized by Eisenstein series; its precise renormalized form (including the parabolic term expressed by the scattering matrix)
-is fixed in the cusp block and invoked later.
+where $T_k^\Gamma$ is the integral operator with kernel $K^\Gamma$ and $h$ is the transform of $k$.
 
 % ---------------------------------------------------------------------
 \subsubsection*{Audit}\label{rem:selberg-audit}
-Equations \eqref{eq:selberg-transform}--\eqref{eq:windowed-h} fix the transform normalization,
-Plancherel density \eqref{eq:plancherel-density}, inversion \eqref{eq:spherical-inversion},
-and the admissible class Definition~\ref{def:admissible-H}. The quotient interface
-\eqref{eq:automorphic-kernel}--\eqref{eq:multiplier-quotient} records the operator normalization used
-throughout the monograph.
+Equations \eqref{eq:selberg-transform}--\eqref{eq:windowed-h} fix the Selberg/Harish--Chandra normalization,
+the Plancherel density \eqref{eq:plancherel-density}, and inversion \eqref{eq:spherical-inversion}.
+Definition~\ref{def:admissible-Hh} records the admissible spectral strip used throughout.
+The quotient interface \eqref{eq:automorphic-kernel}--\eqref{eq:multiplier-quotient} fixes the operator normalization.
