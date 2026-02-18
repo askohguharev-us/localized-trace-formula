@@ -1,68 +1,38 @@
-name: "Build PDF (Diamond CI: DEV nonfatal, RELEASE strict)"
+name: Build PDF (latexmk + BibTeX)
 
-on:
+"on":
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:
-    inputs:
-      mode:
-        description: "Build mode: dev (nonfatal refs/cites) or release (strict)"
-        required: false
-        default: "dev"
 
 permissions:
   contents: read
-
-concurrency:
-  group: "latex-${{ github.ref }}"
-  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      WORKDIR: "src"
-      ROOTFILE: "main.tex"
-      MODE: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode || 'dev' }}"
-
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Show repository tree (top + src)"
+      - name: Show repository tree (top + src)
         run: |
           set -e
           echo "=== TOP ==="
           ls -la
           echo "=== SRC ==="
-          ls -la "${WORKDIR}"
+          ls -la src
           echo "=== SRC/BIB ==="
-          ls -la "${WORKDIR}/bib" || true
-          echo "=== MODE ==="
-          echo "${MODE}"
+          ls -la src/bib || true
 
-      - name: "Compile (DEV: nonfatal refs/cites)"
-        if: env.MODE == 'dev'
-        uses: xu-cheng/latex-action@v3
-        continue-on-error: true
-        with:
-          working_directory: ${{ env.WORKDIR }}
-          root_file: ${{ env.ROOTFILE }}
-          args: >-
-            -pdf
-            -interaction=nonstopmode
-            -file-line-error
-            -synctex=1
-
-      - name: "Compile (RELEASE: strict)"
-        if: env.MODE == 'release'
+      - name: Compile src/main.tex
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: ${{ env.WORKDIR }}
-          root_file: ${{ env.ROOTFILE }}
+          working_directory: src
+          root_file: main.tex
           args: >-
             -pdf
             -interaction=nonstopmode
@@ -70,31 +40,17 @@ jobs:
             -file-line-error
             -synctex=1
 
-      - name: "Summarize common warnings"
-        if: always()
-        run: |
-          set -e
-          LOG="${WORKDIR}/main.log"
-          if [ -f "$LOG" ]; then
-            echo "=== WARNING SUMMARY ==="
-            grep -nE "Undefined control sequence|LaTeX Warning: Reference|LaTeX Warning: Citation|There were undefined references|There were undefined citations" "$LOG" || true
-          else
-            echo "No main.log found."
-          fi
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf
+          path: src/*.pdf
 
-      - name: "Upload PDF"
+      - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "pdf"
-          path: |
-            src/*.pdf
-
-      - name: "Upload logs"
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: "logs"
+          name: logs
           path: |
             src/*.log
             src/*.aux
