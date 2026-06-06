@@ -1,0 +1,145 @@
+% =====================================================================
+% Reader roadmap
+% File: paper/frontmatter/03-reader-roadmap.tex
+% =====================================================================
+
+\chapter*{Reader's Roadmap}
+\addcontentsline{toc}{chapter}{Reader's Roadmap}
+
+This text is written as a single analytic construction, but different readers may enter it through different doors.  The purpose of this roadmap is to make the structure of the work transparent before the technical development begins.
+
+The central object of the paper is the normalized local trace functional
+\[
+  T_\Gamma[h;\chi]
+  =
+  L_\Gamma\big[h-h(0)\chi\big],
+\]
+together with its error ledger
+\[
+  E_\Gamma[h;\chi].
+\]
+Everything else in the paper is organized around these two objects: the trace functional records the local spectral signal, while the ledger records the analytic cost of making that signal local.
+
+\section*{Path A: the complete proof spine}
+
+A reader who wants the whole construction should read the chapters in order.
+
+\begin{itemize}
+  \item Chapter~1 explains the problem and states the main theorems.
+  \item Chapter~2 fixes the spectral, geometric, and transform normalizations.
+  \item Chapter~3 constructs the kernels and spectral projectors used later.
+  \item Chapter~4 introduces the canonical normalized local trace object.
+  \item Chapter~5 develops the ledger calculus.
+  \item Chapter~6 proves stability under refinement.
+  \item Chapter~7 establishes the power-saving local trace regime.
+  \item Chapter~8 derives local Weyl-type and spectral consequences.
+  \item Chapter~9 records trace-to-zeta interfaces, with all transfer assumptions stated explicitly.
+  \item Chapter~10 lists limitations and open interfaces.
+  \item Chapter~11 gives the final audit of the construction.
+\end{itemize}
+
+This path is recommended for readers who want to check the logical dependence of the entire framework.
+
+\section*{Path B: classical trace formula and normalization}
+
+Readers primarily interested in the trace formula itself may focus on Chapters~2--4.
+
+Chapter~2 fixes the hyperbolic surface, the Laplacian convention, the spectral parameter, the cusp data, the Eisenstein normalization, and the Selberg/Harish--Chandra transform.  Chapter~3 constructs the kernels and smooth spectral projectors.  Chapter~4 is the key normalization chapter: it explains why the raw trace functional is not the final object and why the identity sector must be separated canonically.
+
+The essential formula in this path is
+\[
+  T_\Gamma[h;\chi]
+  =
+  L_\Gamma[h-h(0)\chi].
+\]
+The purpose of the subtraction is not cosmetic.  It prevents identity-sector dependence from being mistaken for local spectral information.
+
+\section*{Path C: microlocal localization and refinement}
+
+Readers interested in microlocal analysis should read Chapters~3, 5, and 6 together with Appendix~C.
+
+The main issue is that microlocal projectors and their refinements are not unique.  If a localized trace identity changes unpredictably when the phase-space partition is refined, it cannot serve as a stable analytic object.  The refinement theorem shows that admissible changes of localization affect the normalized trace only by a ledger-bounded term.
+
+The guiding relation is
+\[
+  T_{\Gamma,\widetilde{\Pi}}[h;\chi]
+  -
+  T_{\Gamma,\Pi}[h;\chi]
+  =
+  \operatorname{Err}_{\Pi\to\widetilde{\Pi}}(h),
+\]
+with
+\[
+  \left|
+  \operatorname{Err}_{\Pi\to\widetilde{\Pi}}(h)
+  \right|
+  \le
+  E_{\Gamma}^{\mathrm{ref}}[h;\chi].
+\]
+
+\section*{Path D: ledger calculus and quantitative estimates}
+
+Readers whose main interest is the quantitative remainder structure should focus on Chapters~5--7 and Appendix~F.
+
+The ledger is the bookkeeping mechanism that prevents localization errors from being hidden inside vague remainder notation.  Each term has a source and a bound:
+\[
+  E_\Gamma[h;\chi]
+  =
+  E_\Gamma^{\mathrm{quant}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{ref}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{tail}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{cont}}[h;\chi].
+\]
+The goal is not merely to prove that the total error is finite.  The goal is to identify regimes in which the total ledger is smaller than the spectral margin being tested.
+
+Chapter~7 records the power-saving regime for short spectral windows
+\[
+  \eta=\lambda^{-\theta}.
+\]
+This is the quantitative core of the paper.
+
+\section*{Path E: finite-area surfaces and continuous spectrum}
+
+Readers working with noncompact finite-area surfaces should pay particular attention to Chapters~2, 3, 5, and Appendix~I.
+
+The presence of cusps changes the trace problem.  The continuous spectrum and scattering terms cannot be treated as harmless background.  They must be normalized, truncated, and ledgered.  The framework keeps compact and cofinite cases in the same formal language, but the continuous-spectrum contribution remains visible in the ledger.
+
+\section*{Path F: determinant and zeta-type interfaces}
+
+Readers interested in determinant, zeta, or positivity problems should read Chapter~9 only after Chapters~4--7.
+
+Chapter~9 does not claim that the zeros of the Riemann zeta function are realized as the spectrum of a hyperbolic surface.  It also does not assert a critical-line theorem.  Its role is narrower and more precise: it records how a ledger-stable local trace object may enter determinant or explicit-formula constructions once the corresponding external spectral object has been fixed independently.
+
+The point is to keep transfer assumptions visible.  A trace-to-zeta interface is admissible only when the determinant encoder, zero set, test function class, and error transfer are all specified.
+
+\section*{How to use the appendices}
+
+The appendices are not independent essays.  Each appendix supports a specific part of the proof spine.
+
+\begin{itemize}
+  \item Appendix~A supports the identity-term normalization.
+  \item Appendix~B collects auxiliary analytic estimates.
+  \item Appendix~C records microlocal tools.
+  \item Appendix~D treats Tauberian smoothing removal.
+  \item Appendix~E contains consistency checks.
+  \item Appendix~F tabulates ledger bounds.
+  \item Appendix~G fixes Fourier normalizations.
+  \item Appendix~H compares the construction with the classical Selberg formula.
+  \item Appendix~I treats continuous spectrum and scattering.
+  \item Appendix~J records stationary phase estimates.
+  \item Appendix~K treats scattering determinants.
+  \item Appendix~L records trace-class criteria.
+\end{itemize}
+
+\section*{Reading principle}
+
+The paper should be read with one rule in mind:
+
+\begin{quote}
+A localized spectral statement is accepted only after the cost of localization has been named, bounded, and shown not to dominate the signal.
+\end{quote}
+
+This is the role of the ledger throughout the work.
