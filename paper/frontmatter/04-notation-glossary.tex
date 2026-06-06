@@ -1,0 +1,320 @@
+% =====================================================================
+% Notation and glossary
+% File: paper/frontmatter/04-notation-glossary.tex
+% =====================================================================
+
+\chapter*{Notation and Glossary}
+\addcontentsline{toc}{chapter}{Notation and Glossary}
+
+This section records the notation used throughout the paper.  All conventions are fixed here in order to avoid changing objects later in the argument.
+
+\section*{General notation}
+
+We write
+\[
+  \mathbb N=\{1,2,3,\ldots\},\qquad
+  \mathbb R,\qquad
+  \mathbb C
+\]
+for the natural numbers, the real line, and the complex plane.
+
+If \(A,B\ge0\), then
+\[
+  A\ll B
+\]
+means that \(A\le CB\) for a constant \(C>0\).  The constant may depend on the fixed geometric and analytic data specified at the beginning of the relevant chapter, but it may not depend on the asymptotic localization parameters unless this dependence is explicitly indicated.
+
+We write
+\[
+  A\asymp B
+\]
+when both \(A\ll B\) and \(B\ll A\).
+
+If a constant is allowed to depend on parameters \(\alpha,\beta\), we write
+\[
+  A\ll_{\alpha,\beta}B.
+\]
+
+\section*{Hyperbolic surface}
+
+The basic geometric object is a finite-area hyperbolic surface
+\[
+  X=\Gamma\backslash\mathbb H,
+\]
+where \(\Gamma\subset \mathrm{PSL}_2(\mathbb R)\) is a cofinite Fuchsian group and
+\[
+  \mathbb H=\{z=x+iy\in\mathbb C:y>0\}
+\]
+is the upper half-plane.
+
+The hyperbolic metric and measure are
+\[
+  ds^2=\frac{dx^2+dy^2}{y^2},
+  \qquad
+  d\mu(z)=\frac{dx\,dy}{y^2}.
+\]
+
+The hyperbolic distance is denoted by
+\[
+  d_{\mathbb H}(z,w).
+\]
+
+The hyperbolic area of \(X\) is denoted by
+\[
+  \operatorname{vol}(X).
+\]
+
+\section*{Laplacian and spectral parameter}
+
+The Laplace--Beltrami operator is taken to be nonnegative:
+\[
+  \Delta=-y^2(\partial_x^2+\partial_y^2).
+\]
+
+The spectral parameter \(r\) is related to the eigenvalue \(\lambda\) by
+\[
+  \lambda=\frac14+r^2.
+\]
+
+We write
+\[
+  A=\sqrt{\Delta-\frac14}
+\]
+whenever the functional calculus is expressed in the spectral parameter \(r\).
+
+For a bounded or admissible test function \(h\), the operator
+\[
+  h(A)
+\]
+is defined by the spectral theorem, with continuous-spectrum terms included in the cofinite case.
+
+\section*{Discrete and continuous spectrum}
+
+Discrete eigenfunctions are denoted by
+\[
+  \phi_j,
+\]
+with
+\[
+  \Delta\phi_j=
+  \left(\frac14+r_j^2\right)\phi_j.
+\]
+
+When \(X\) has cusps, the continuous spectrum is described using Eisenstein series
+\[
+  E_{\mathfrak a}(z,1/2+ir),
+\]
+where \(\mathfrak a\) ranges over the cusps.
+
+The scattering matrix is denoted by
+\[
+  \Phi(s),
+\]
+and its entries by
+\[
+  \phi_{\mathfrak a\mathfrak b}(s).
+\]
+
+Continuous-spectrum contributions are always treated as part of the trace structure and are never suppressed into an unspecified error term.
+
+\section*{Test functions}
+
+A spectral test function is denoted by
+\[
+  h:\mathbb R\to\mathbb C.
+\]
+
+Unless otherwise stated, \(h\) is even:
+\[
+  h(r)=h(-r).
+\]
+
+The admissible class of test functions is fixed in Chapter~2.  It is chosen so that the relevant functional calculus, trace expressions, Fourier transforms, and contour shifts are justified.
+
+A cutoff profile is denoted by
+\[
+  \chi.
+\]
+The standing normalization condition is
+\[
+  \chi\equiv1
+  \quad\text{near }0.
+\]
+
+The normalized test function is
+\[
+  N_\chi(h)=h-h(0)\chi.
+\]
+
+\section*{Raw and normalized trace functionals}
+
+The raw trace functional is denoted by
+\[
+  L_\Gamma[h].
+\]
+
+The canonical normalized trace functional is
+\[
+  T_\Gamma[h;\chi]
+  =
+  L_\Gamma[N_\chi(h)]
+  =
+  L_\Gamma[h-h(0)\chi].
+\]
+
+When a microlocal localization operator \(\Pi\) is inserted, we write
+\[
+  T_{\Gamma,\Pi}[h;\chi].
+\]
+
+For a partition of unity or microlocal cover \(\{\Pi_j\}_{j\in J}\), the corresponding localized traces are written as
+\[
+  T_{\Gamma,\Pi_j}[h;\chi].
+\]
+
+A refinement of a microlocal partition is denoted by
+\[
+  \{\widetilde\Pi_k\}_{k\in\widetilde J}.
+\]
+
+\section*{Trace decomposition}
+
+The normalized localized trace is decomposed schematically as
+\[
+  T_{\Gamma,\Pi}[h;\chi]
+  =
+  I_{\Gamma,\Pi}[h;\chi]
+  +
+  H_{\Gamma,\Pi}[h;\chi]
+  +
+  C_{\Gamma,\Pi}[h;\chi]
+  +
+  R_{\Gamma,\Pi}[h;\chi].
+\]
+
+Here:
+
+\begin{itemize}
+  \item \(I_{\Gamma,\Pi}\) denotes the explicit identity-sector contribution;
+  \item \(H_{\Gamma,\Pi}\) denotes the hyperbolic contribution;
+  \item \(C_{\Gamma,\Pi}\) denotes the continuous-spectrum or scattering contribution;
+  \item \(R_{\Gamma,\Pi}\) denotes the remainder controlled by the ledger.
+\end{itemize}
+
+The exact meaning of these terms is fixed in the chapters where the localized trace formula is proved.
+
+\section*{Error ledger}
+
+The consolidated ledger is denoted by
+\[
+  E_\Gamma[h;\chi].
+\]
+
+Its main components are
+\[
+  E_\Gamma[h;\chi]
+  =
+  E_\Gamma^{\mathrm{quant}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{ref}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{tail}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{cont}}[h;\chi].
+\]
+
+The terms have the following meanings:
+
+\begin{itemize}
+  \item \(E_\Gamma^{\mathrm{quant}}\): dependence on quantization conventions;
+  \item \(E_\Gamma^{\mathrm{ref}}\): dependence on refinement of microlocal covers;
+  \item \(E_\Gamma^{\mathrm{tail}}\): truncation, smoothing, and tail errors;
+  \item \(E_\Gamma^{\mathrm{cont}}\): continuous-spectrum and scattering errors.
+\end{itemize}
+
+Additional ledger terms may be introduced later only if their source and bound are stated explicitly.
+
+\section*{Spectral windows}
+
+A short spectral window centered at \(\lambda\) with width \(\eta\) is represented by a test function
+\[
+  h_{\lambda,\eta}.
+\]
+
+The main asymptotic regime is
+\[
+  \eta=\lambda^{-\theta},
+\]
+where \(\theta>0\) is fixed within an admissible range.
+
+A power-saving bound has the form
+\[
+  E_\Gamma[h_{\lambda,\eta};\chi]
+  \ll
+  \lambda^{-\delta(\theta)}
+\]
+for some explicit \(\delta(\theta)>0\).
+
+\section*{Closed geodesics and hyperbolic classes}
+
+Hyperbolic conjugacy classes in \(\Gamma\) are denoted by
+\[
+  [\gamma].
+\]
+
+The corresponding closed geodesic length is
+\[
+  \ell(\gamma)>0.
+\]
+
+If \(\gamma=\gamma_0^k\) with \(\gamma_0\) primitive, then
+\[
+  \ell(\gamma)=k\ell(\gamma_0).
+\]
+
+The hyperbolic part of the trace formula is expressed as a sum over such conjugacy classes, with weights fixed in the Selberg convention used in Chapter~2.
+
+\section*{Cusp truncation}
+
+For \(Y\ge1\), the truncated surface is denoted by
+\[
+  X(Y).
+\]
+
+The corresponding smooth truncation operator is denoted by
+\[
+  \Lambda^Y.
+\]
+
+All dependence on \(Y\) must be displayed explicitly.  No estimate is allowed to hide truncation-height dependence inside an unspecified constant.
+
+\section*{Determinant and zeta-type interfaces}
+
+A determinant-type object, when introduced, is denoted by
+\[
+  D(s)
+\]
+or
+\[
+  \det K(s).
+\]
+
+Chapter~9 uses such notation only for interfaces whose assumptions are stated explicitly.  No identification between a determinant and a zeta function is assumed without an independent construction.
+
+A completed zeta-type function is denoted by
+\[
+  \Xi(s)
+\]
+only in interface statements where the underlying object has already been fixed.
+
+\section*{Audit terminology}
+
+A statement is called \emph{ledger-stable} if every auxiliary dependence entering its proof is bounded by an explicitly named ledger term.
+
+A statement is called \emph{canonical modulo identity correction} if all cutoff dependence is confined to an explicitly computable identity-sector term.
+
+A \emph{trace-to-zeta interface} is a conditional bridge from the normalized trace formalism to a determinant or explicit formula.  Such an interface is not a proof of any critical-line statement unless the determinant encoder, zero set, positivity form, and error transfer are constructed separately.
+
+\section*{Standing rule}
+
+No local spectral conclusion is accepted unless the corresponding localization cost has been named, bounded, and shown not to dominate the signal being used.
