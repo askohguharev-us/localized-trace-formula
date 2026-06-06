@@ -1,0 +1,266 @@
+% =====================================================================
+% Chapter 1
+% File: paper/chapters/01-introduction.tex
+% =====================================================================
+
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Purpose of the paper}
+\label{sec:intro-purpose}
+
+Trace formulae are among the central instruments of spectral geometry, harmonic analysis, and arithmetic analysis.  In their classical form, they relate spectral data of an operator to geometric or arithmetic data attached to the underlying space.  The Selberg trace formula, in particular, identifies spectral information of the Laplace operator on a hyperbolic surface with orbital data attached to conjugacy classes of the corresponding Fuchsian group; see Selberg's original work and the standard treatments of Hejhal, Buser, and Iwaniec \cite{Selberg1956,Hejhal1976,Hejhal1983,Buser1992,Iwaniec2002}.
+
+The present paper is not a new derivation of the global Selberg trace formula.  Its purpose is more specific.  We construct a canonical local trace formalism in which spectral localization, microlocal insertion, cutoff choice, truncation, and refinement are treated as controlled analytic operations.  The main object is a normalized local trace functional equipped with an explicit error ledger.  The ledger records the cost of every auxiliary operation used to localize the trace formula.
+
+The guiding principle is the following.
+
+\begin{principle}[Ledger principle]
+\label{prin:ledger-principle}
+A localized spectral statement is admissible only if the analytic cost of localization is explicitly named, bounded, and shown not to dominate the spectral signal being extracted.
+\end{principle}
+
+This principle is deliberately restrictive.  It prevents cutoff artifacts, quantization choices, microlocal refinements, cusp truncations, and continuous-spectrum regularizations from being mistaken for genuine spectral information.
+
+\section{The basic object}
+\label{sec:intro-basic-object}
+
+Let
+\begin{equation}
+  X=\Gamma\backslash\mathbb H
+  \label{eq:intro-surface}
+\end{equation}
+be a finite-area hyperbolic surface, compact or cofinite, and let \(\Delta\) be the nonnegative Laplace--Beltrami operator on \(X\).  We use the spectral parameter \(r\) defined by
+\begin{equation}
+  \lambda=\frac14+r^2.
+  \label{eq:intro-spectral-parameter}
+\end{equation}
+Thus the corresponding functional calculus is written in terms of
+\begin{equation}
+  A=\sqrt{\Delta-\frac14}.
+  \label{eq:intro-operator-A}
+\end{equation}
+
+Let \(L_\Gamma[h]\) denote the trace functional attached to an admissible spectral test function \(h\).  In the compact case this may be read as an ordinary spectral trace.  In the cofinite case it is understood through the regularized trace structure including Eisenstein and scattering terms, with the precise normalization fixed in Chapter~\ref{ch:object-normalizations}.
+
+The instability of a raw localized trace begins at the identity sector.  To remove this instability, we fix a cutoff profile \(\chi\in C_c^\infty(\mathbb R)\) satisfying
+\begin{equation}
+  \chi\equiv1
+  \quad\text{in a neighborhood of }0,
+  \label{eq:intro-cutoff-normalization}
+\end{equation}
+and define
+\begin{equation}
+  N_\chi(h)=h-h(0)\chi.
+  \label{eq:intro-normalized-test}
+\end{equation}
+The canonical normalized trace functional is then
+\begin{equation}
+  T_\Gamma[h;\chi]
+  =
+  L_\Gamma[N_\chi(h)]
+  =
+  L_\Gamma[h-h(0)\chi].
+  \label{eq:intro-normalized-trace}
+\end{equation}
+
+The subtraction in \eqref{eq:intro-normalized-trace} is not a cosmetic regularization.  It isolates the identity contribution and makes the remaining dependence on auxiliary choices explicit.
+
+\section{The error ledger}
+\label{sec:intro-ledger}
+
+Localization produces errors.  These errors have different sources and must not be compressed into a single unnamed \(O\)-term.  We write the consolidated ledger as
+\begin{equation}
+  E_\Gamma[h;\chi]
+  =
+  E_\Gamma^{\mathrm{quant}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{ref}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{tail}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{cont}}[h;\chi].
+  \label{eq:intro-ledger}
+\end{equation}
+The four terms record, respectively, quantization dependence, refinement dependence, truncation or tail errors, and continuous-spectrum or scattering contributions.
+
+Additional terms may be added to the ledger only when their source and bound are stated explicitly.  This convention is used throughout the paper.
+
+\begin{definition}[Ledger-stable statement]
+\label{def:intro-ledger-stable}
+A statement depending on auxiliary localization data is called \emph{ledger-stable} if every change of auxiliary data changes the statement only by an explicitly identified correction and a remainder bounded by a specified ledger term.
+\end{definition}
+
+The ledger is therefore not merely a bookkeeping device.  It is part of the mathematical object.  A localized trace formula without a ledger is not invariant enough for the applications considered here.
+
+\section{Main results}
+\label{sec:intro-main-results}
+
+We now state the main results in the form in which they are used later.  Precise hypotheses, admissible classes, and proof details are given in the corresponding chapters.
+
+\begin{theorem}[Canonical normalization]
+\label{thm:intro-canonical-normalization}
+Let \(\chi_1,\chi_2\in C_c^\infty(\mathbb R)\) satisfy \(\chi_j\equiv1\) near \(0\).  For every admissible test function \(h\),
+\begin{equation}
+  T_\Gamma[h;\chi_1]
+  -
+  T_\Gamma[h;\chi_2]
+  =
+  -h(0)L_\Gamma[\chi_1-\chi_2].
+  \label{eq:intro-cutoff-change}
+\end{equation}
+Thus the dependence of the normalized trace on the cutoff profile is confined to an explicit identity-sector correction.
+\end{theorem}
+
+Theorem~\ref{thm:intro-canonical-normalization} is proved in Chapter~\ref{ch:canonical-local-trace}.  It is the first structural reason to work with \(T_\Gamma[h;\chi]\) rather than the raw trace functional.
+
+The second result concerns microlocal insertion.  Let \(\Pi\) be an admissible microlocal localization operator.  We consider
+\begin{equation}
+  T_{\Gamma,\Pi}[h;\chi]
+  =
+  \operatorname{Tr}_{\mathrm{reg}}
+  \left(
+    \Pi\,N_\chi(h)(A)\,\Pi
+  \right),
+  \label{eq:intro-localized-trace}
+\end{equation}
+where \(\operatorname{Tr}_{\mathrm{reg}}\) denotes the regularized trace in the cofinite case and the ordinary trace in the compact case.
+
+\begin{theorem}[Localized trace decomposition]
+\label{thm:intro-local-trace}
+For every admissible localization operator \(\Pi\) and every admissible test function \(h\), the normalized localized trace admits a decomposition
+\begin{equation}
+  T_{\Gamma,\Pi}[h;\chi]
+  =
+  I_{\Gamma,\Pi}[h;\chi]
+  +
+  H_{\Gamma,\Pi}[h;\chi]
+  +
+  C_{\Gamma,\Pi}[h;\chi]
+  +
+  R_{\Gamma,\Pi}[h;\chi],
+  \label{eq:intro-local-trace-decomposition}
+\end{equation}
+where \(I_{\Gamma,\Pi}\) is the explicit identity-sector term, \(H_{\Gamma,\Pi}\) is the hyperbolic contribution, \(C_{\Gamma,\Pi}\) is the continuous-spectrum or scattering contribution, and \(R_{\Gamma,\Pi}\) is bounded by the ledger:
+\begin{equation}
+  |R_{\Gamma,\Pi}[h;\chi]|
+  \le
+  E_\Gamma[h;\chi].
+  \label{eq:intro-local-trace-ledger-bound}
+\end{equation}
+\end{theorem}
+
+Theorem~\ref{thm:intro-local-trace} is the local trace formula in the form used in this paper.  Its construction begins in Chapter~\ref{ch:kernels-projectors} and is completed in Chapter~\ref{ch:canonical-local-trace}.
+
+The next theorem records stability under refinement.  If \(\Pi\) is replaced by a finer admissible localization \(\widetilde\Pi\), the trace should not acquire a new spectral meaning merely because the phase-space resolution has changed.
+
+\begin{theorem}[Refinement stability]
+\label{thm:intro-refinement-stability}
+Let \(\Pi\) and \(\widetilde\Pi\) be admissible localization operators, with \(\widetilde\Pi\) refining \(\Pi\) in the sense of Chapter~\ref{ch:refinement-stability}.  Then
+\begin{equation}
+  T_{\Gamma,\widetilde\Pi}[h;\chi]
+  -
+  T_{\Gamma,\Pi}[h;\chi]
+  =
+  \operatorname{Err}_{\Pi\to\widetilde\Pi}(h;\chi),
+  \label{eq:intro-refinement-difference}
+\end{equation}
+with
+\begin{equation}
+  \big|
+  \operatorname{Err}_{\Pi\to\widetilde\Pi}(h;\chi)
+  \big|
+  \le
+  E_\Gamma^{\mathrm{ref}}[h;\chi].
+  \label{eq:intro-refinement-bound}
+\end{equation}
+\end{theorem}
+
+This theorem is proved in Chapter~\ref{ch:refinement-stability}.  It is the mechanism that prevents refinement from generating spurious local spectral content.
+
+The power of the method depends on obtaining quantitative savings in short spectral windows.  Let
+\begin{equation}
+  h_{\lambda,\eta}(r)
+  =
+  \chi_0\left(\frac{r-\lambda}{\eta}\right)
+  +
+  \chi_0\left(\frac{r+\lambda}{\eta}\right),
+  \label{eq:intro-window-multiplier}
+\end{equation}
+where \(\chi_0\) is a fixed even Schwartz cutoff and
+\begin{equation}
+  \eta=\lambda^{-\theta}.
+  \label{eq:intro-window-width}
+\end{equation}
+
+\begin{theorem}[Power-saving local trace bound]
+\label{thm:intro-power-saving}
+There exists an admissible range of \(\theta>0\) and an explicit exponent \(\delta(\theta)>0\) such that
+\begin{equation}
+  E_\Gamma[h_{\lambda,\eta};\chi]
+  \ll_{\Gamma,\chi,\chi_0}
+  \lambda^{-\delta(\theta)}
+  \label{eq:intro-power-saving-ledger}
+\end{equation}
+as \(\lambda\to\infty\), uniformly for \(\eta=\lambda^{-\theta}\) in the admissible range.
+\end{theorem}
+
+The precise admissible range and the individual bounds for the ledger components are stated in Chapter~\ref{ch:power-saving-local-trace} and tabulated in Appendix~\ref{app:ledger-bound-tables}.  The exponent \(\delta(\theta)\) is not a formal symbol; it is the minimum of explicitly proved component exponents.
+
+Finally, we isolate the trace-to-zeta interface.  This paper does not assert that the zeros of the Riemann zeta function are realized as the spectrum of a hyperbolic surface.  Any such identification would require an independent determinant or spectral encoder.  The present result is conditional and structural.
+
+\begin{theorem}[Trace-to-determinant interface]
+\label{thm:intro-trace-to-determinant}
+Suppose that a determinant-type object \(D(s)\) is constructed from an external spectral problem and that its logarithmic derivative is represented by an admissible family of trace tests \(h_s\).  If the transfer map satisfies the hypotheses of Chapter~\ref{ch:trace-to-zeta-interfaces}, then
+\begin{equation}
+  \frac{D'(s)}{D(s)}
+  =
+  \mathcal M_s\!\left(T_\Gamma[h_s;\chi]\right)
+  +
+  \mathcal R_{\mathrm{det}}(s),
+  \label{eq:intro-determinant-transfer}
+\end{equation}
+with
+\begin{equation}
+  |\mathcal R_{\mathrm{det}}(s)|
+  \le
+  E_\Gamma[h_s;\chi].
+  \label{eq:intro-determinant-transfer-bound}
+\end{equation}
+\end{theorem}
+
+Theorem~\ref{thm:intro-trace-to-determinant} is an interface theorem, not a critical-line theorem.  Its purpose is to prevent determinant or zeta-type applications from hiding localization errors.
+
+\section{What is new}
+\label{sec:intro-novelty}
+
+The novelty of the paper is not the classical trace formula itself.  The new contribution is the organization of localized trace analysis into a canonical object with a controlled ledger.
+
+More precisely, the paper contributes:
+
+\begin{enumerate}
+  \item a canonical normalization of localized trace functionals by identity-sector subtraction;
+  \item an additive error ledger separating quantization, refinement, tail, and continuous-spectrum errors;
+  \item a refinement-stability theorem for microlocal localization;
+  \item a power-saving framework for short spectral windows;
+  \item local Weyl-type consequences derived from the ledger-stable trace object;
+  \item a conditional trace-to-determinant interface with explicit transfer errors.
+\end{enumerate}
+
+The work is intended to serve as a stable analytic layer that may be inserted into later determinant, zeta, or positivity problems only after the corresponding external spectral object has been constructed independently.
+
+\section{What is not claimed}
+\label{sec:intro-not-claimed}
+
+It is important to state the limitations explicitly.
+
+This paper does not claim that the nontrivial zeros of the Riemann zeta function are eigenvalues of the Laplacian on a finite-area hyperbolic surface.  It does not construct a Hilbert--Pólya operator for \(\zeta(s)\).  It does not prove the Riemann hypothesis.  It does not use a trace-to-zeta interface unless the relevant determinant or spectral encoder is supplied as a separate object.
+
+The purpose of these restrictions is not modesty of language, but mathematical hygiene.  A local trace formalism is useful only when its domain of validity is sharply delimited.
+
+\section{Organization of the paper}
+\label{sec:intro-organization}
+
+Chapter~\ref{ch:object-normalizations} fixes the geometric, spectral, cusp, scattering, and transform normalizations.  Chapter~\ref{ch:kernels-projectors} constructs the kernels and spectral projectors used in the localized trace.  Chapter~\ref{ch:canonical-local-trace} defines the canonical normalized trace and proves the cutoff-change identity.  Chapter~\ref{ch:ledger-calculus} develops the ledger calculus.  Chapter~\ref{ch:refinement-stability} proves stability under microlocal refinement.  Chapter~\ref{ch:power-saving-local-trace} establishes the power-saving local trace regime.  Chapter~\ref{ch:local-weyl-consequences} derives local Weyl-type consequences.  Chapter~\ref{ch:trace-to-zeta-interfaces} records conditional trace-to-zeta interfaces.  Chapter~\ref{ch:limitations-open-interfaces} states limitations and open interfaces.  Chapter~\ref{ch:conclusion-audit} gives the final audit.
+
+The appendices provide the technical estimates and consistency checks supporting the main chapters.
