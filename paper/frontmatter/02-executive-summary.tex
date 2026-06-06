@@ -1,0 +1,68 @@
+% =====================================================================
+% Executive summary
+% File: paper/frontmatter/02-executive-summary.tex
+% =====================================================================
+
+\chapter*{Executive Summary}
+\addcontentsline{toc}{chapter}{Executive Summary}
+
+The classical Selberg trace formula is a global identity.  It relates spectral data of the Laplace operator on a hyperbolic surface to geometric data carried by conjugacy classes and closed geodesics.  In many analytic problems, however, the global formula is not the final object one needs.  One needs a trace identity restricted to a spectral window, modified by cutoffs, compatible with microlocal partitions, stable under refinement, and usable without confusing genuine spectral information with artifacts created by localization.
+
+This work develops such a local trace formalism.
+
+The central object is a normalized trace functional
+\[
+  T_\Gamma[h;\chi]
+  =
+  L_\Gamma\big[h-h(0)\chi\big],
+\]
+where \(L_\Gamma[h]\) denotes the trace functional associated with the geometric input \(\Gamma\), \(h\) is an admissible spectral test function, and \(\chi\) is a fixed cutoff equal to \(1\) near the origin.  The subtraction removes the unstable identity-sector contribution and produces a trace object whose dependence on auxiliary choices can be measured explicitly.
+
+The main point is not merely to localize the trace formula, but to make localization auditable.  Every auxiliary operation has a cost.  Cutoff insertion, smoothing, microlocal partitioning, quantization choices, truncation at cusps, and continuous-spectrum regularization all produce errors.  Instead of hiding these errors inside a generic remainder, we record them in an additive ledger
+\[
+  E_\Gamma[h;\chi]
+  =
+  E_\Gamma^{\mathrm{quant}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{ref}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{tail}}[h;\chi]
+  +
+  E_\Gamma^{\mathrm{cont}}[h;\chi].
+\]
+The ledger is part of the structure, not an afterthought.
+
+The work is built around four claims.
+
+First, the normalized trace functional is canonical up to an explicit identity-sector correction.  If two admissible cutoffs \(\chi_1,\chi_2\) are used, their normalized traces differ by a deterministic correction:
+\[
+  T_\Gamma[h;\chi_1]-T_\Gamma[h;\chi_2]
+  =
+  -h(0)L_\Gamma[\chi_1-\chi_2].
+\]
+Thus cutoff dependence is not ignored; it is isolated.
+
+Second, microlocal localization can be inserted into the trace identity without destroying control.  For admissible localization operators \(\Pi_j\), the local traces
+\[
+  \operatorname{Tr}\!\left(
+    \Pi_j\,h\!\left(\sqrt{\Delta-\frac14}\right)\Pi_j
+  \right)
+\]
+admit trace decompositions whose non-canonical terms are bounded by the ledger.
+
+Third, refinement of a microlocal partition changes the local trace only by a controlled amount.  This is essential: a local trace method is useful only if increasing resolution does not create artificial spectral content.  The refinement calculus developed here records the exact analytic cost of passing from a coarse partition to a finer one.
+
+Fourth, the formalism is designed to interact with later determinant, zeta, and positivity problems without overstating what has been proved.  The present work constructs the local trace side and the ledger calculus.  Trace-to-zeta interfaces are treated as conditional interfaces: they are valid only after an external determinant or zeta-type spectral object has been fixed independently.
+
+The main contributions are therefore:
+
+\begin{enumerate}
+  \item a canonical normalized local trace functional;
+  \item an additive ledger calculus for localization errors;
+  \item stability under admissible cutoff changes, quantization changes, truncation schemes, and microlocal refinements;
+  \item a unified treatment of compact and finite-area hyperbolic surfaces, including continuous-spectrum terms;
+  \item a framework for power-saving local trace estimates in short spectral windows;
+  \item a controlled interface to determinant and zeta-type constructions, with all unresolved transfer assumptions kept explicit.
+\end{enumerate}
+
+The philosophy of the paper is simple: a localized trace formula is meaningful only when the cost of localization is visible.  The purpose of the ledger is to prevent auxiliary analytic choices from being mistaken for spectral truth.
